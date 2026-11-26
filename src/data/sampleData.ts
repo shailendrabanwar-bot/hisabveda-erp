@@ -662,7 +662,7 @@ export const initialSampleData: AppData = {
       department: 'Sales & Marketing',
       joiningDate: '2025-01-15',
       phone: '9811223344',
-      email: 'pooja.v@sna.in',
+      email: 'pooja.v@hisabveda.com',
       pan: 'XYZPV9876K',
       bankAccountNo: '001102030405',
       bankName: 'ICICI Bank',

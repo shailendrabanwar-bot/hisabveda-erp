@@ -32,13 +32,13 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
   onClose
 }) => {
   const company: CompanyDetails = propCompany || data?.company || {
-    name: 'Hisabveda ERP Solutions',
+    name: 'HisabVeda-ERP Accounting Solution',
     tagline: 'Smart GST & Financial Accounting Software',
-    address: 'Commercial Enclave, India',
-    gstin: '07AAAAA0000A1Z5',
-    stateCode: '07',
-    email: 'contact@hisabveda.com',
-    phone: '+91 98765 43210',
+    address: 'A3 401, Fortune Somya Heritage, 4th Floor, Behind IPS School, Huzur, Bhopal, Madhya Pradesh - 462047, India',
+    gstin: '23AAAAA0000A1Z5',
+    stateCode: '23',
+    email: 'support@hisabveda.com',
+    phone: '+91-7489655303',
     bankName: 'HDFC Bank Ltd',
     accountNumber: '50200012345678',
     ifscCode: 'HDFC0000123',

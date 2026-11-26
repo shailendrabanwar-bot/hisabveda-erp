@@ -180,8 +180,9 @@ function buildCustomerEmailHtml({ fullName, email, mobile, machineId, planLabel,
           <li>Click <strong>Activate Commercial License</strong> — your software unlocks permanently for this PC.</li>
         </ol>
       </div>
-      <p style="margin:16px 0 0;font-size:12px;color:#94a3b8;text-align:center;">
-        Need help? Email <a href="mailto:support@hisabveda.com" style="color:#38bdf8;">support@hisabveda.com</a> · Visit <a href="https://hisabveda.com" style="color:#38bdf8;">hisabveda.com</a>
+      <p style="margin:16px 0 0;font-size:12px;color:#94a3b8;text-align:center;line-height:1.6;">
+        <strong style="color:#e2e8f0;">HisabVeda-ERP Accounting Solution</strong> · A3 401, Fortune Somya Heritage, 4th Floor, Behind IPS School, Huzur, Bhopal, MP - 462047, India<br/>
+        Need help? Email <a href="mailto:support@hisabveda.com" style="color:#38bdf8;">support@hisabveda.com</a> · Phone/WhatsApp: +91-7489655303 · Visit <a href="https://hisabveda.com" style="color:#38bdf8;">hisabveda.com</a>
       </p>
     </div>
   `;
