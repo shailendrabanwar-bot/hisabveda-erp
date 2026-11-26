@@ -267,7 +267,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 text-slate-100 font-sans relative overflow-y-auto">
+    <div className="min-h-[100dvh] w-full bg-slate-950 flex flex-col items-center justify-center p-4 text-slate-100 font-sans relative overflow-x-hidden overflow-y-auto">
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-amber-600/20 rounded-full blur-3xl pointer-events-none"></div>
 

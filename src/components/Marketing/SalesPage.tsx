@@ -57,7 +57,37 @@ interface SalesPageProps {
 
 type PlanKey = 'STARTER' | 'BUSINESS' | 'ENTERPRISE';
 type VideoTab = 'BILLING' | 'AI_SCAN' | 'INVENTORY' | 'BANK' | 'GSTR' | 'PAYROLL';
-type LegalDocType = 'TERMS' | 'PRIVACY' | 'REFUND' | 'DISCLAIMER' | null;
+type LegalDocType = 'TERMS' | 'PRIVACY' | 'REFUND' | 'DISCLAIMER' | 'CONTACT' | 'ABOUT' | null;
+
+const LEGAL_PATH_MAP: Record<string, Exclude<LegalDocType, null>> = {
+  '/terms': 'TERMS',
+  '/terms-and-conditions': 'TERMS',
+  '/privacy': 'PRIVACY',
+  '/privacy-policy': 'PRIVACY',
+  '/refund': 'REFUND',
+  '/refund-policy': 'REFUND',
+  '/cancellation-refund': 'REFUND',
+  '/disclaimer': 'DISCLAIMER',
+  '/contact': 'CONTACT',
+  '/contact-us': 'CONTACT',
+  '/about': 'ABOUT',
+  '/about-us': 'ABOUT',
+};
+
+const LEGAL_DOC_PATHS: Record<Exclude<LegalDocType, null>, string> = {
+  TERMS: '/terms',
+  PRIVACY: '/privacy-policy',
+  REFUND: '/refund-policy',
+  DISCLAIMER: '/disclaimer',
+  CONTACT: '/contact',
+  ABOUT: '/about',
+};
+
+function resolveLegalDocFromLocation(): LegalDocType {
+  if (typeof window === 'undefined') return null;
+  const normalizedPath = window.location.pathname.replace(/\/+$/, '').toLowerCase() || '/';
+  return LEGAL_PATH_MAP[normalizedPath] || null;
+}
 
 export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onOpenInstallerSettings, onToggleLanguage }) => {
   const [selectedPlan, setSelectedPlan] = useState<PlanKey>('BUSINESS');
@@ -66,7 +96,31 @@ export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onO
   const [inquirySuccess, setInquirySuccess] = useState(false);
   const [upiCopied, setUpiCopied] = useState(false);
   const [orderRefCode, setOrderRefCode] = useState('');
-  const [activeLegalDoc, setActiveLegalDoc] = useState<LegalDocType>(null);
+  const [activeLegalDoc, setActiveLegalDoc] = useState<LegalDocType>(() => resolveLegalDocFromLocation());
+
+  const openLegalDoc = (docType: LegalDocType) => {
+    setActiveLegalDoc(docType);
+    if (typeof window !== 'undefined' && window.history?.pushState) {
+      const targetUrl = docType ? LEGAL_DOC_PATHS[docType] : '/';
+      if (window.location.pathname !== targetUrl) {
+        window.history.pushState({ legalDoc: docType }, '', targetUrl);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const normalizedPath = window.location.pathname.replace(/\/+$/, '').toLowerCase() || '/';
+    if (normalizedPath === '/pricing') {
+      setTimeout(() => {
+        document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' });
+      }, 150);
+    }
+    const onPopState = () => {
+      setActiveLegalDoc(resolveLegalDocFromLocation());
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, []);
 
   // Configurable Windows Desktop (.exe) installer state
   const [appConfig, setAppConfig] = useState(() => loadAppConfig());
@@ -397,7 +451,7 @@ export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onO
   const upiPayUri = `upi://pay?pa=7489655303@hdfcbank&pn=${encodeURIComponent('Shailendra Banwar')}&am=${finalPrice}&cu=INR&tn=${encodeURIComponent(`Hisabveda ${currentPlanObj.name}`)}`;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white pb-16">
+    <div className="min-h-[100dvh] w-full overflow-x-clip bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500 selection:text-white pb-16">
       {/* Top Announcement Strip */}
       <div className="bg-gradient-to-r from-indigo-800 via-indigo-700 to-slate-900 text-white text-xs py-2 px-4 text-center font-semibold flex flex-wrap items-center justify-center gap-3 border-b border-indigo-500/30">
         <span>
@@ -449,8 +503,8 @@ export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onO
       </header>
 
       {/* HERO SECTION */}
-      <section id="top" className="relative overflow-hidden pt-10 sm:pt-14 pb-14 px-4 sm:px-8 max-w-7xl mx-auto">
-        <div className="text-center max-w-4xl mx-auto space-y-5 relative z-10">
+      <section id="top" className="relative overflow-hidden pt-6 sm:pt-10 pb-12 px-4 sm:px-8 max-w-7xl mx-auto">
+        <div className="text-center max-w-4xl mx-auto space-y-4 sm:space-y-5 relative z-10">
           <div className="flex justify-center pb-1">
             <SnaLogo size="xl" variant="full" showText={false} />
           </div>
@@ -460,7 +514,7 @@ export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onO
               : 'GST Compliant · AI Bill & Bank Automation · Offline Local & Cloud Sync'}
           </div>
 
-          <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-tight [text-wrap:balance]">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight [text-wrap:balance]">
             {isHindi ? (
               <>
                 भारतीय व्यापार हेतु संपूर्ण{' '}
@@ -480,7 +534,7 @@ export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onO
             )}
           </h1>
 
-          <p className="text-slate-300 text-base sm:text-lg font-normal leading-relaxed max-w-3xl mx-auto">
+          <p className="text-slate-300 text-sm sm:text-base lg:text-lg font-normal leading-relaxed max-w-3xl mx-auto">
             {isHindi
               ? 'सेकंडों में GST इनवॉइस बनाएँ, AI से परचेज बिल व बैंक स्टेटमेंट स्कैन करें, स्टॉक इन्वेंटरी ट्रैक करें, GSTR रिपोर्ट एक्सपोर्ट करें और क्लाउड या लोकल डिवाइस पर सुरक्षित व्यापार संभालें।'
               : 'Create GST invoices with UPI QR in seconds, auto-scan supplier bills & bank statements with AI, manage inventory & payroll, export GSTR JSON, and switch between Cloud Sync or Private Local Mode.'}
@@ -1813,19 +1867,67 @@ export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onO
           <div>
             © {new Date().getFullYear()} Hisabveda ERP Solution (Prop. Shailendra Banwar, Bhopal, MP). All Rights Reserved.
           </div>
-          <div className="flex flex-wrap items-center gap-4">
-            <button type="button" onClick={() => setActiveLegalDoc('TERMS')} className="hover:text-indigo-300 transition underline cursor-pointer">
-              {isHindi ? 'नियम व शर्तें' : 'Terms'}
-            </button>
-            <button type="button" onClick={() => setActiveLegalDoc('PRIVACY')} className="hover:text-indigo-300 transition underline cursor-pointer">
-              {isHindi ? 'गोपनीयता नीति' : 'Privacy'}
-            </button>
-            <button type="button" onClick={() => setActiveLegalDoc('REFUND')} className="hover:text-indigo-300 transition underline cursor-pointer">
-              {isHindi ? 'रिफंड नीति' : 'Refund'}
-            </button>
-            <button type="button" onClick={() => setActiveLegalDoc('DISCLAIMER')} className="hover:text-amber-300 transition underline cursor-pointer">
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <a
+              href="/about"
+              onClick={(e) => {
+                e.preventDefault();
+                openLegalDoc('ABOUT');
+              }}
+              className="hover:text-indigo-300 transition underline cursor-pointer"
+            >
+              {isHindi ? 'हमारे बारे में' : 'About Us'}
+            </a>
+            <a
+              href="/contact"
+              onClick={(e) => {
+                e.preventDefault();
+                openLegalDoc('CONTACT');
+              }}
+              className="hover:text-indigo-300 transition underline cursor-pointer"
+            >
+              {isHindi ? 'संपर्क करें' : 'Contact Us'}
+            </a>
+            <a
+              href="/terms"
+              onClick={(e) => {
+                e.preventDefault();
+                openLegalDoc('TERMS');
+              }}
+              className="hover:text-indigo-300 transition underline cursor-pointer"
+            >
+              {isHindi ? 'नियम व शर्तें' : 'Terms & Conditions'}
+            </a>
+            <a
+              href="/privacy-policy"
+              onClick={(e) => {
+                e.preventDefault();
+                openLegalDoc('PRIVACY');
+              }}
+              className="hover:text-indigo-300 transition underline cursor-pointer"
+            >
+              {isHindi ? 'गोपनीयता नीति' : 'Privacy Policy'}
+            </a>
+            <a
+              href="/refund-policy"
+              onClick={(e) => {
+                e.preventDefault();
+                openLegalDoc('REFUND');
+              }}
+              className="hover:text-indigo-300 transition underline cursor-pointer"
+            >
+              {isHindi ? 'रिफंड एवं डिलीवरी नीति' : 'Refund & Cancellation'}
+            </a>
+            <a
+              href="/disclaimer"
+              onClick={(e) => {
+                e.preventDefault();
+                openLegalDoc('DISCLAIMER');
+              }}
+              className="hover:text-amber-300 transition underline cursor-pointer"
+            >
               {isHindi ? 'डिस्क्लेमर' : 'Disclaimer'}
-            </button>
+            </a>
           </div>
         </div>
       </footer>
@@ -2156,17 +2258,44 @@ export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onO
         </div>
       )}
 
-      {/* LEGAL & DISCLAIMER MODAL */}
+      {/* LEGAL, CONTACT & POLICY MODAL (URL-Addressable for Payment Gateway KYC) */}
       {activeLegalDoc && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-lg w-full p-6 space-y-4 shadow-2xl relative text-xs text-slate-300">
+        <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 space-y-4 shadow-2xl relative text-xs text-slate-300">
             <button
-              onClick={() => setActiveLegalDoc(null)}
+              onClick={() => openLegalDoc(null)}
               className="absolute top-4 right-4 text-slate-400 hover:text-white p-2 rounded-xl bg-slate-800 cursor-pointer"
               aria-label="Close legal notice"
             >
               <X className="w-4 h-4" />
             </button>
+
+            <div className="flex flex-wrap gap-1.5 pr-10">
+              {(['ABOUT', 'CONTACT', 'TERMS', 'PRIVACY', 'REFUND', 'DISCLAIMER'] as const).map((docKey) => (
+                <button
+                  key={docKey}
+                  type="button"
+                  onClick={() => openLegalDoc(docKey)}
+                  className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition cursor-pointer ${
+                    activeLegalDoc === docKey
+                      ? 'bg-indigo-600 text-white'
+                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  }`}
+                >
+                  {docKey === 'ABOUT'
+                    ? 'About Us'
+                    : docKey === 'CONTACT'
+                    ? 'Contact Us'
+                    : docKey === 'TERMS'
+                    ? 'Terms'
+                    : docKey === 'PRIVACY'
+                    ? 'Privacy'
+                    : docKey === 'REFUND'
+                    ? 'Refund & Delivery'
+                    : 'Disclaimer'}
+                </button>
+              ))}
+            </div>
 
             <h3 className="text-base font-extrabold text-white">
               {activeLegalDoc === 'TERMS'
@@ -2174,35 +2303,63 @@ export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onO
                 : activeLegalDoc === 'PRIVACY'
                 ? 'Privacy Policy & Data Security'
                 : activeLegalDoc === 'REFUND'
-                ? 'Refund & Cancellation Policy'
+                ? 'Cancellation, Refund & Digital Delivery Policy'
+                : activeLegalDoc === 'CONTACT'
+                ? 'Contact Us & Business Details'
+                : activeLegalDoc === 'ABOUT'
+                ? 'About Hisabveda ERP Solution'
                 : 'Software & Statutory Disclaimer'}
             </h3>
 
             <div className="space-y-2.5 leading-relaxed max-h-[60vh] overflow-y-auto pr-1">
               <p className="text-[11px] text-indigo-300 font-semibold">
-                Proprietor: Shailendra Banwar · Bhopal, Madhya Pradesh · +91 7489655303 · support@hisabveda.com
+                Legal Entity: Hisabveda ERP Solution · Proprietor: Shailendra Banwar · Bhopal, Madhya Pradesh, India · +91 7489655303 · support@hisabveda.com
               </p>
+
+              {activeLegalDoc === 'ABOUT' && (
+                <>
+                  <p>1. <strong>Hisabveda ERP Solution</strong> (https://hisabveda.com) is an Indian GST Billing, Inventory, Accounting, Payroll, and AI Document Automation software platform operated by <strong>Shailendra Banwar</strong> (Individual Proprietor, Bhopal, Madhya Pradesh, India).</p>
+                  <p>2. We serve retail shops, wholesalers, distributors, service providers, and Chartered Accountants with Hindi & English bilingual ERP accessible on Windows Desktop (.exe), Web Browser, and Mobile PWA.</p>
+                  <p>3. Transparent Software Pricing (INR): Starter Edition (₹1,999 Yearly / ₹2,999 Lifetime), Business Pro Edition (₹2,999 Yearly / ₹4,999 Lifetime), and CA & Enterprise Suite (₹4,999 Yearly / ₹8,999 Lifetime).</p>
+                </>
+              )}
+
+              {activeLegalDoc === 'CONTACT' && (
+                <>
+                  <p><strong>Trade / Business Name:</strong> Hisabveda ERP Solution</p>
+                  <p><strong>Proprietor / Authorized Contact:</strong> Shailendra Banwar</p>
+                  <p><strong>Operating Location:</strong> Bhopal, Madhya Pradesh, India</p>
+                  <p><strong>Customer Support Email:</strong> support@hisabveda.com</p>
+                  <p><strong>Phone & WhatsApp Support:</strong> +91 7489655303 (Monday – Saturday, 10:00 AM – 7:00 PM IST)</p>
+                  <p><strong>Official Websites:</strong> https://hisabveda.com · https://hisabveda.in</p>
+                  <p>For billing inquiries, license activation assistance, technical support, or refund requests, write to support@hisabveda.com or call +91 7489655303. Support tickets are responded to within 24 business hours.</p>
+                </>
+              )}
 
               {activeLegalDoc === 'TERMS' && (
                 <>
-                  <p>1. Hisabveda ERP Solution (hisabveda.com) is licensed by Shailendra Banwar (Proprietor, Bhopal, MP) for business billing, inventory, and accounting management.</p>
-                  <p>2. Pricing listed is final and non-GST as an unregistered individual provider below GST registration threshold limits.</p>
-                  <p>3. License keys are issued per subscribed plan (Starter, Business Pro, or CA & Enterprise Suite) and may not be resold or redistributed without written consent.</p>
+                  <p>1. Hisabveda ERP Solution (hisabveda.com) is licensed by Shailendra Banwar (Proprietor, Bhopal, MP, India) for business billing, inventory, and accounting management.</p>
+                  <p>2. All plan prices listed in Indian Rupees (INR) are final and inclusive (non-GST, as an unregistered individual provider below statutory GST registration threshold limits).</p>
+                  <p>3. Commercial software license keys (HV-LIC-V3) are delivered digitally via registered email and inside the user dashboard immediately upon payment verification (or within 24 hours max). No physical goods are shipped.</p>
+                  <p>4. License keys are issued per subscribed plan (Starter, Business Pro, or CA & Enterprise Suite) and may not be resold, reverse-engineered, or redistributed without written consent.</p>
                 </>
               )}
 
               {activeLegalDoc === 'PRIVACY' && (
                 <>
-                  <p>1. In Personal Device Mode, accounting records stay in local browser storage on your device. In Cloud Sync Mode, books are isolated strictly per authenticated tenant ID (cmp_&lt;uid&gt;) in Firebase Firestore.</p>
-                  <p>2. We never sell, rent, or expose customer invoices, ledgers, GSTINs, or bank records to third parties.</p>
-                  <p>3. Optional AI document parsing transmits uploaded bill/statement content strictly for structured data extraction and does not retain financial documents on AI inference servers.</p>
+                  <p>1. Hisabveda ERP Solution respects customer privacy. In Personal Device Mode, accounting records stay inside local storage on your device. In Cloud Sync Mode, company books are isolated strictly per authenticated tenant ID in encrypted Google Firebase Firestore.</p>
+                  <p>2. During license checkout or support inquiries, we collect only essential contact details (Name, Business Name, Email, Mobile Number, optional GSTIN) solely for license issuance, tax invoice/receipt records, and customer support.</p>
+                  <p>3. Online payments processed through authorized RBI-compliant payment gateways (UPI / Cards / NetBanking) are handled directly on encrypted gateway infrastructure; we never store card numbers, CVVs, or UPI PINs.</p>
+                  <p>4. We never sell, rent, or share customer invoices, ledgers, GSTINs, or bank records with third parties. For data deletion or privacy requests, email support@hisabveda.com.</p>
                 </>
               )}
 
               {activeLegalDoc === 'REFUND' && (
                 <>
-                  <p>1. Customers are encouraged to evaluate all modules using the free Live Demo before purchasing a commercial license.</p>
-                  <p>2. Once a commercial license key is generated and activated, fees are generally non-refundable; however, duplicate payments or unresolved activation issues reported within 7 days at support@hisabveda.com or +91 7489655303 are resolved or refunded promptly after verification.</p>
+                  <p><strong>1. Digital Product Delivery Policy:</strong> Hisabveda ERP is a digital software service. Upon successful payment, software access and your digital license certificate are delivered via email (from support@hisabveda.com) and desktop/web activation instantly or within a maximum of 24 hours. Zero physical shipping applies.</p>
+                  <p><strong>2. Free Evaluation Before Purchase:</strong> Customers are encouraged to evaluate features via the Live Demo or Trial mode before purchasing a paid subscription or lifetime license.</p>
+                  <p><strong>3. Cancellation & Refund Eligibility:</strong> Once a commercial license certificate is generated and activated on a device, orders cannot normally be cancelled. However, a <strong>100% refund or instant resolution</strong> applies within <strong>7 days of purchase</strong> in cases of: (a) duplicate/accidental double payment, (b) non-delivery of license key within 24 hours, or (c) unresolved technical compatibility issues verified by our support team.</p>
+                  <p><strong>4. Refund Processing Timeline:</strong> Approved refunds are processed within <strong>5–7 working days</strong> and credited automatically back to the original payment method (UPI / Bank Account / Card). To request a refund or cancellation, email your order reference to <strong>support@hisabveda.com</strong> or call <strong>+91 7489655303</strong>.</p>
                 </>
               )}
 
@@ -2216,10 +2373,10 @@ export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onO
             </div>
 
             <button
-              onClick={() => setActiveLegalDoc(null)}
+              onClick={() => openLegalDoc(null)}
               className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl transition cursor-pointer"
             >
-              {isHindi ? 'बंद करें' : 'Close'}
+              {isHindi ? 'बंद करें / वेबसाइट पर वापस जाएँ' : 'Close & Return to Website'}
             </button>
           </div>
         </div>

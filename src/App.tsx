@@ -285,6 +285,26 @@ export default function App() {
   const [showWebAuthScreen, setShowWebAuthScreen] = useState<boolean>(() => {
     if (isDesktopRuntime) return true;
     try {
+      const normalizedPath = window.location.pathname.replace(/\/+$/, '').toLowerCase() || '/';
+      if (
+        [
+          '/terms',
+          '/terms-and-conditions',
+          '/privacy',
+          '/privacy-policy',
+          '/refund',
+          '/refund-policy',
+          '/cancellation-refund',
+          '/disclaimer',
+          '/contact',
+          '/contact-us',
+          '/about',
+          '/about-us',
+          '/pricing',
+        ].includes(normalizedPath)
+      ) {
+        return false;
+      }
       const params = new URLSearchParams(window.location.search);
       if (
         params.get('app') === '1' ||
@@ -4097,7 +4117,7 @@ export default function App() {
 
   return (
     <div 
-      className={`h-screen max-h-screen overflow-hidden ${getThemeClass(theme)} flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-300 w-full max-w-full`}
+      className={`h-screen h-[100dvh] max-h-[100dvh] overflow-hidden ${getThemeClass(theme)} flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-300 w-full max-w-full`}
     >
       {/* Top Header */}
       <Header
