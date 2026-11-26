@@ -1,0 +1,40 @@
+services:
+  - type: web
+    name: hisabveda-api
+    runtime: node
+    plan: free
+    region: singapore
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: GST_API_KEY
+        sync: false
+      - key: OWNER_ADMIN_EMAIL
+        value: shailendrabanwar@gmail.com
+      - key: SUPPORT_EMAIL
+        value: support@hisabveda.com
+      - key: LICENSE_PRIVATE_KEY
+        sync: false
+      - key: PRIVATE_KEY
+        sync: false
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_PORT
+        value: "465"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: SMTP_FROM
+        value: "HisabVeda Support <support@hisabveda.com>"
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ALLOWED_ORIGIN
+        value: "https://hisabveda.com,https://www.hisabveda.com,https://hisabveda.in,https://www.hisabveda.in,app://hisabveda"

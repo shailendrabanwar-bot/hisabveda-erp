@@ -1,0 +1,14 @@
+{
+  "name": "hisabveda-auto-license-mailer",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "auto-license-mailer.js",
+  "scripts": {
+    "start": "node auto-license-mailer.js"
+  },
+  "dependencies": {
+    "nodemailer": "^6.10.0",
+    "tweetnacl": "^1.0.3"
+  }
+}

@@ -1,0 +1,446 @@
+{
+  "entities": {
+    "CompanyData": {
+      "title": "Company Accounting Header Dataset",
+      "description": "Tenant-isolated company metadata, GST configuration, shard manifest, and legacy v1 fallback fields. Commercial license state is strictly server-managed and blocked from client writes.",
+      "type": "object",
+      "properties": {
+        "companyId": {
+          "type": "string",
+          "maxLength": 140,
+          "pattern": "^cmp_[a-zA-Z0-9_\\-]+$",
+          "description": "Unique tenant identifier (cmp_<uid>)"
+        },
+        "ownerUid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Auth UID of the tenant owner"
+        },
+        "syncSchemaVersion": {
+          "type": "number",
+          "description": "Sync storage schema version (2 = sharded sub-collections, 1 = legacy inline arrays)"
+        },
+        "shardManifest": {
+          "type": "object",
+          "description": "Map of sharded collectionKey names to shard counts"
+        },
+        "company": {
+          "type": "object",
+          "description": "Company details and GST configuration"
+        },
+        "accountGroups": {
+          "type": "array",
+          "description": "Chart of Accounts custom sub-groups"
+        },
+        "license": {
+          "type": "object",
+          "description": "Server-managed read-only license metadata (client writes strictly forbidden in firestore.rules)"
+        },
+        "userProfiles": {
+          "type": "array",
+          "description": "Configured local operator profiles"
+        },
+        "gstPortalData": {
+          "type": "object",
+          "description": "Imported GST Portal GSTR-2A/2B entries, filed GSTR-1/3B return snapshots, and GSTR-9 annual adjustments"
+        },
+        "pinRequired": {
+          "type": "boolean",
+          "description": "Whether PIN lock screen is active"
+        },
+        "securityPin": {
+          "type": "string",
+          "maxLength": 20,
+          "description": "Security lock PIN"
+        },
+        "softwareVersion": {
+          "type": "string",
+          "maxLength": 30,
+          "description": "Client application version marker"
+        },
+        "standardLedgersSeeded": {
+          "type": "boolean",
+          "description": "Whether standard chart of accounts ledgers were seeded"
+        },
+        "invoices": {
+          "type": "array",
+          "description": "Legacy v1 optional inline sales invoices"
+        },
+        "vouchers": {
+          "type": "array",
+          "description": "Legacy v1 optional inline vouchers"
+        },
+        "parties": {
+          "type": "array",
+          "description": "Legacy v1 optional inline parties"
+        },
+        "items": {
+          "type": "array",
+          "description": "Legacy v1 optional inline stock items"
+        },
+        "accounts": {
+          "type": "array",
+          "description": "Legacy v1 optional inline accounts"
+        },
+        "purchaseInvoices": {
+          "type": "array",
+          "description": "Legacy v1 optional inline purchase invoices"
+        },
+        "purchaseOrders": {
+          "type": "array",
+          "description": "Legacy v1 optional inline purchase orders"
+        },
+        "debitCreditNotes": {
+          "type": "array",
+          "description": "Legacy v1 optional inline debit/credit notes"
+        },
+        "bankStatements": {
+          "type": "array",
+          "description": "Legacy v1 optional inline bank statements"
+        },
+        "employees": {
+          "type": "array",
+          "description": "Legacy v1 optional inline employees"
+        },
+        "payrolls": {
+          "type": "array",
+          "description": "Legacy v1 optional inline payrolls"
+        },
+        "budgets": {
+          "type": "array",
+          "description": "Legacy v1 optional inline budgets"
+        },
+        "stockAdjustments": {
+          "type": "array",
+          "description": "Legacy v1 optional inline stock adjustments"
+        },
+        "godowns": {
+          "type": "array",
+          "description": "Legacy v1 optional inline godown/warehouse/POS counter masters"
+        },
+        "itemBatches": {
+          "type": "array",
+          "description": "Legacy v1 optional inline item batch & expiry records"
+        },
+        "stockTransfers": {
+          "type": "array",
+          "description": "Legacy v1 optional inline inter-godown stock transfers"
+        },
+        "auditLogs": {
+          "type": "array",
+          "description": "Legacy v1 optional inline audit logs"
+        },
+        "companiesList": {
+          "type": "array",
+          "description": "Multi-company summary header list"
+        },
+        "companiesStores": {
+          "type": "object",
+          "description": "Legacy optional inline multi-company store map"
+        },
+        "updatedAtMs": {
+          "type": "number",
+          "description": "Epoch milliseconds timestamp of last update"
+        },
+        "updatedAtIso": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "ISO-8601 timestamp of last update"
+        },
+        "updatedByDevice": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Session device ID that pushed the update"
+        },
+        "serverTime": {
+          "type": "object",
+          "description": "Firestore serverTimestamp marker"
+        },
+        "updatedAt": {
+          "type": "object",
+          "description": "Optional server update timestamp"
+        },
+        "updatedBy": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Optional updater UID"
+        }
+      },
+      "required": ["companyId", "ownerUid", "company", "updatedAtMs", "updatedAtIso", "updatedByDevice"]
+    },
+    "CompanyDataShard": {
+      "title": "Company Sharded Entity Chunk",
+      "description": "Bounded slice (<= 150 items / <= 480 KB) of a single accounting collection stored under /companies/{companyId}/dataShards/{shardId}.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Shard document ID (e.g. invoices_0000)"
+        },
+        "companyId": {
+          "type": "string",
+          "maxLength": 140,
+          "pattern": "^cmp_[a-zA-Z0-9_\\-]+$",
+          "description": "Parent tenant company ID"
+        },
+        "ownerUid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Auth UID of the tenant owner"
+        },
+        "collectionKey": {
+          "type": "string",
+          "enum": [
+            "invoices",
+            "vouchers",
+            "parties",
+            "items",
+            "accounts",
+            "purchaseInvoices",
+            "purchaseOrders",
+            "debitCreditNotes",
+            "bankStatements",
+            "employees",
+            "payrolls",
+            "budgets",
+            "stockAdjustments",
+            "godowns",
+            "itemBatches",
+            "stockTransfers",
+            "auditLogs",
+            "companiesList",
+            "companiesStores"
+          ],
+          "description": "Logical collection bucket stored in this shard"
+        },
+        "shardIndex": {
+          "type": "number",
+          "description": "Zero-based shard sequence index"
+        },
+        "items": {
+          "type": "array",
+          "description": "Bounded slice of entity records"
+        },
+        "itemCount": {
+          "type": "number",
+          "description": "Number of items in this shard"
+        },
+        "updatedAtMs": {
+          "type": "number",
+          "description": "Epoch milliseconds timestamp of shard write"
+        },
+        "updatedAtIso": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "ISO-8601 timestamp of shard write"
+        }
+      },
+      "required": ["id", "companyId", "ownerUid", "collectionKey", "shardIndex", "items", "itemCount", "updatedAtMs", "updatedAtIso"]
+    },
+    "CompanyMember": {
+      "title": "Company RBAC Member",
+      "description": "Per-tenant RBAC role assignment record controlling UI and Firestore permissions.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Auth UID or operator ID"
+        },
+        "companyId": {
+          "type": "string",
+          "maxLength": 140,
+          "pattern": "^cmp_[a-zA-Z0-9_\\-]+$",
+          "description": "Parent tenant company ID"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "Member email address"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Member display name"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["ADMIN", "MANAGER", "ACCOUNTANT", "BILLING", "AUDITOR", "VIEWER"],
+          "description": "Assigned RBAC role"
+        },
+        "updatedAtMs": {
+          "type": "number",
+          "description": "Epoch milliseconds timestamp"
+        },
+        "updatedAtIso": {
+          "type": "string",
+          "maxLength": 40,
+          "description": "ISO-8601 timestamp"
+        }
+      },
+      "required": ["uid", "companyId", "role", "updatedAtMs", "updatedAtIso"]
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User authentication profile and associated tenant company assignment.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase user UID"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 120,
+          "description": "Full name of the user"
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 200,
+          "description": "User email address"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["ADMIN", "MANAGER", "ACCOUNTANT", "BILLING", "AUDITOR", "VIEWER"],
+          "description": "Role in organization"
+        },
+        "companyId": {
+          "type": "string",
+          "maxLength": 140,
+          "pattern": "^cmp_[a-zA-Z0-9_\\-]+$",
+          "description": "Multi-tenant company identifier"
+        },
+        "pin": {
+          "type": "string",
+          "maxLength": 10,
+          "description": "Optional screen lock PIN"
+        }
+      },
+      "required": ["id", "email", "companyId"]
+    },
+    "LicenseRecord": {
+      "title": "Hardware-Bound Commercial License Record",
+      "description": "Immutable-to-client Ed25519-signed commercial license binding record. Readable only by ownerUid; all client writes strictly denied.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "License document ID"
+        },
+        "ownerUid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Firebase Auth UID of license holder"
+        },
+        "registeredOwner": {
+          "type": "string",
+          "maxLength": 160,
+          "description": "Legal or business name bound to the license"
+        },
+        "machineFingerprintHash": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "SHA-256 hardware fingerprint locked to this license"
+        },
+        "licenseType": {
+          "type": "string",
+          "enum": ["TRIAL", "STANDARD_ANNUAL", "PRO_PERPETUAL", "ENTERPRISE"],
+          "description": "Plan tier"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["ACTIVE", "EXPIRED", "REVOKED"],
+          "description": "Current license status"
+        },
+        "maxSeats": {
+          "type": "number",
+          "description": "Maximum allowed hardware seats"
+        },
+        "issuedAtMs": {
+          "type": "number",
+          "description": "Issuance epoch milliseconds"
+        },
+        "expiresAtMs": {
+          "type": "number",
+          "description": "Expiration epoch milliseconds"
+        },
+        "ed25519Certificate": {
+          "type": "string",
+          "maxLength": 4096,
+          "description": "Signed HV-LIC-V3 asymmetric license certificate"
+        }
+      },
+      "required": ["id", "ownerUid", "machineFingerprintHash", "licenseType", "status", "maxSeats", "issuedAtMs", "expiresAtMs", "ed25519Certificate"]
+    },
+    "LicenseDeviceBinding": {
+      "title": "Hardware Device Seat Binding",
+      "description": "Server-managed device activation binding under /licenses/{licenseId}/devices/{deviceHash}. Client writes strictly forbidden.",
+      "type": "object",
+      "properties": {
+        "deviceHash": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "SHA-256 Hardware Fingerprint ID"
+        },
+        "licenseId": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Parent license ID"
+        },
+        "ownerUid": {
+          "type": "string",
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$",
+          "description": "Owner Firebase Auth UID"
+        },
+        "activatedAtMs": {
+          "type": "number",
+          "description": "Device activation epoch milliseconds"
+        },
+        "lastVerifiedServerTimeMs": {
+          "type": "number",
+          "description": "Monotonic server timestamp recorded at verification"
+        }
+      },
+      "required": ["deviceHash", "licenseId", "ownerUid", "activatedAtMs"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Authenticated user profile with strict UID-scoped tenant company ID and immutable self-role update guard."
+    },
+    "/companies/{companyId}": {
+      "schema": "CompanyData",
+      "description": "Tenant-isolated company accounting header document keyed strictly by cmp_<auth.uid>. Commercial license field is protected against client mutation."
+    },
+    "/companies/{companyId}/members/{memberId}": {
+      "schema": "CompanyMember",
+      "description": "Company RBAC role assignment documents governing Firestore sub-collection write permissions."
+    },
+    "/companies/{companyId}/dataShards/{shardId}": {
+      "schema": "CompanyDataShard",
+      "description": "Bounded sub-collection shards storing large accounting arrays outside the 1 MB root company document."
+    },
+    "/licenses/{licenseId}": {
+      "schema": "LicenseRecord",
+      "description": "Read-only-to-owner commercial license records; all client writes strictly blocked."
+    },
+    "/licenses/{licenseId}/devices/{deviceHash}": {
+      "schema": "LicenseDeviceBinding",
+      "description": "Read-only-to-owner hardware device seat bindings; all client writes strictly blocked."
+    }
+  }
+}

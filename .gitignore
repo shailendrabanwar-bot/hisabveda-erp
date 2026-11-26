@@ -1,0 +1,22 @@
+node_modules/
+build/
+dist/
+dist-electron/
+dev-dist/
+coverage/
+.firebase/
+.DS_Store
+*.log
+
+# Strictly keep all environment files, private keys, and local vaults out of GitHub
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*private-key*
+*secret-key*
+.hv-security-vault.json
+hisabveda-db.json

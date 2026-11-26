@@ -1,0 +1,356 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net (Default Deny)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Global Helpers
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function isValidCompanyId(id) {
+      return id is string && id.size() <= 140 && id.matches('^cmp_[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isVerifiedSignedIn() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isTenantOwner(companyId) {
+      return isSignedIn() && companyId == ('cmp_' + request.auth.uid);
+    }
+
+    function hasMemberDoc(companyId) {
+      return exists(/databases/$(database)/documents/companies/$(companyId)/members/$(request.auth.uid));
+    }
+
+    function getMemberRole(companyId) {
+      return get(/databases/$(database)/documents/companies/$(companyId)/members/$(request.auth.uid)).data.role;
+    }
+
+    function isCompanyReader(companyId) {
+      return isSignedIn() && (isTenantOwner(companyId) || hasMemberDoc(companyId));
+    }
+
+    function hasCompanyRoleIn(companyId, allowedRoles) {
+      return isSignedIn() && (
+        (hasMemberDoc(companyId) && getMemberRole(companyId) in allowedRoles) ||
+        (!hasMemberDoc(companyId) && isTenantOwner(companyId) && ('ADMIN' in allowedRoles))
+      );
+    }
+
+    // Validation Blueprint: User Profile
+    function isValidUserProfile(data, userId) {
+      return data.keys().hasAll(['id', 'email', 'companyId'])
+        && data.keys().hasOnly(['id', 'name', 'email', 'role', 'companyId', 'pin'])
+        && data.id is string
+        && data.id.size() <= 128
+        && isValidId(data.id)
+        && data.id == userId
+        && data.id == request.auth.uid
+        && data.companyId is string
+        && isValidCompanyId(data.companyId)
+        && data.companyId == ('cmp_' + request.auth.uid)
+        && data.email is string
+        && data.email.size() >= 3
+        && data.email.size() <= 200
+        && (!('name' in data) || (data.name is string && data.name.size() <= 120))
+        && (!('role' in data) || (data.role is string && data.role in ['ADMIN', 'MANAGER', 'ACCOUNTANT', 'BILLING', 'AUDITOR', 'VIEWER']))
+        && (!('pin' in data) || (data.pin is string && data.pin.size() <= 10));
+    }
+
+    // Validation Blueprint: Company RBAC Member
+    function isValidCompanyMember(data, companyId, memberId) {
+      return data.keys().hasAll(['uid', 'companyId', 'role', 'updatedAtMs', 'updatedAtIso'])
+        && data.keys().hasOnly(['uid', 'companyId', 'email', 'name', 'role', 'updatedAtMs', 'updatedAtIso'])
+        && data.uid is string
+        && data.uid.size() <= 128
+        && data.uid == memberId
+        && isValidId(data.uid)
+        && data.companyId is string
+        && isValidCompanyId(data.companyId)
+        && data.companyId == companyId
+        && data.role is string
+        && data.role.size() <= 20
+        && data.role in ['ADMIN', 'MANAGER', 'ACCOUNTANT', 'BILLING', 'AUDITOR', 'VIEWER']
+        && (!('email' in data) || (data.email is string && data.email.size() <= 200))
+        && (!('name' in data) || (data.name is string && data.name.size() <= 120))
+        && data.updatedAtMs is number
+        && data.updatedAtIso is string
+        && data.updatedAtIso.size() <= 40;
+    }
+
+    // Validation Blueprint: Company Header & Legacy v1 Dataset
+    // Note: 'license' is strictly blocked from client create/update mutations below.
+    function isValidCompanyDoc(data, companyId) {
+      return data.keys().hasAll(['companyId', 'ownerUid', 'company', 'updatedAtMs', 'updatedAtIso', 'updatedByDevice'])
+        && data.keys().hasOnly([
+          'companyId', 'ownerUid', 'syncSchemaVersion', 'shardManifest',
+          'company', 'accountGroups', 'license', 'userProfiles', 'gstPortalData',
+          'pinRequired', 'securityPin', 'softwareVersion', 'standardLedgersSeeded',
+          'invoices', 'vouchers', 'parties', 'items', 'accounts',
+          'purchaseInvoices', 'purchaseOrders', 'debitCreditNotes', 'bankStatements',
+          'employees', 'payrolls', 'budgets', 'stockAdjustments', 'godowns', 'itemBatches', 'stockTransfers', 'auditLogs',
+          'companiesList', 'companiesStores',
+          'updatedAtMs', 'updatedAtIso', 'updatedByDevice', 'serverTime',
+          'updatedAt', 'updatedBy'
+        ])
+        && data.companyId is string
+        && isValidCompanyId(data.companyId)
+        && data.companyId == companyId
+        && data.companyId == ('cmp_' + request.auth.uid)
+        && data.ownerUid is string
+        && data.ownerUid.size() <= 128
+        && isValidId(data.ownerUid)
+        && data.ownerUid == request.auth.uid
+        && data.company is map
+        && data.updatedAtMs is number
+        && data.updatedAtIso is string
+        && data.updatedAtIso.size() <= 40
+        && data.updatedByDevice is string
+        && data.updatedByDevice.size() <= 64
+        && (!('syncSchemaVersion' in data) || (data.syncSchemaVersion is number && data.syncSchemaVersion >= 1 && data.syncSchemaVersion <= 10))
+        && (!('shardManifest' in data) || data.shardManifest is map)
+        && (!('accountGroups' in data) || (data.accountGroups is list && data.accountGroups.size() <= 1000))
+        && (!('license' in data) || data.license == null || data.license is map)
+        && (!('userProfiles' in data) || (data.userProfiles is list && data.userProfiles.size() <= 200))
+        && (!('gstPortalData' in data) || data.gstPortalData is map)
+        && (!('pinRequired' in data) || data.pinRequired is bool)
+        && (!('securityPin' in data) || (data.securityPin is string && data.securityPin.size() <= 20))
+        && (!('softwareVersion' in data) || (data.softwareVersion is string && data.softwareVersion.size() <= 30))
+        && (!('standardLedgersSeeded' in data) || data.standardLedgersSeeded is bool)
+        && (!('updatedBy' in data) || (data.updatedBy is string && data.updatedBy.size() <= 128))
+        && (!('invoices' in data) || (data.invoices is list && data.invoices.size() <= 10000))
+        && (!('vouchers' in data) || (data.vouchers is list && data.vouchers.size() <= 10000))
+        && (!('parties' in data) || (data.parties is list && data.parties.size() <= 10000))
+        && (!('items' in data) || (data.items is list && data.items.size() <= 10000))
+        && (!('accounts' in data) || (data.accounts is list && data.accounts.size() <= 5000))
+        && (!('purchaseInvoices' in data) || (data.purchaseInvoices is list && data.purchaseInvoices.size() <= 10000))
+        && (!('purchaseOrders' in data) || (data.purchaseOrders is list && data.purchaseOrders.size() <= 10000))
+        && (!('debitCreditNotes' in data) || (data.debitCreditNotes is list && data.debitCreditNotes.size() <= 10000))
+        && (!('bankStatements' in data) || (data.bankStatements is list && data.bankStatements.size() <= 10000))
+        && (!('employees' in data) || (data.employees is list && data.employees.size() <= 5000))
+        && (!('payrolls' in data) || (data.payrolls is list && data.payrolls.size() <= 10000))
+        && (!('budgets' in data) || (data.budgets is list && data.budgets.size() <= 2000))
+        && (!('stockAdjustments' in data) || (data.stockAdjustments is list && data.stockAdjustments.size() <= 10000))
+        && (!('godowns' in data) || (data.godowns is list && data.godowns.size() <= 500))
+        && (!('itemBatches' in data) || (data.itemBatches is list && data.itemBatches.size() <= 10000))
+        && (!('stockTransfers' in data) || (data.stockTransfers is list && data.stockTransfers.size() <= 10000))
+        && (!('auditLogs' in data) || (data.auditLogs is list && data.auditLogs.size() <= 500))
+        && (!('companiesList' in data) || (data.companiesList is list && data.companiesList.size() <= 100))
+        && (!('companiesStores' in data) || data.companiesStores is map);
+    }
+
+    // Validation Blueprint: Sub-Collection Data Shards
+    function isValidDataShard(data, companyId, shardId) {
+      return data.keys().hasAll(['id', 'companyId', 'ownerUid', 'collectionKey', 'shardIndex', 'items', 'itemCount', 'updatedAtMs', 'updatedAtIso'])
+        && data.keys().hasOnly(['id', 'companyId', 'ownerUid', 'collectionKey', 'shardIndex', 'items', 'itemCount', 'updatedAtMs', 'updatedAtIso'])
+        && data.id is string
+        && data.id.size() <= 128
+        && isValidId(data.id)
+        && data.id == shardId
+        && data.companyId is string
+        && isValidCompanyId(data.companyId)
+        && data.companyId == companyId
+        && data.companyId == ('cmp_' + request.auth.uid)
+        && data.ownerUid is string
+        && data.ownerUid.size() <= 128
+        && isValidId(data.ownerUid)
+        && data.ownerUid == request.auth.uid
+        && data.collectionKey is string
+        && data.collectionKey.size() <= 40
+        && data.collectionKey in [
+          'invoices', 'vouchers', 'parties', 'items', 'accounts',
+          'purchaseInvoices', 'purchaseOrders', 'debitCreditNotes', 'bankStatements',
+          'employees', 'payrolls', 'budgets', 'stockAdjustments', 'godowns', 'itemBatches', 'stockTransfers', 'auditLogs',
+          'companiesList', 'companiesStores'
+        ]
+        && data.shardIndex is number
+        && data.shardIndex >= 0
+        && data.shardIndex <= 5000
+        && data.items is list
+        && data.items.size() <= 200
+        && data.itemCount is number
+        && data.itemCount >= 0
+        && data.itemCount <= 200
+        && data.updatedAtMs is number
+        && data.updatedAtIso is string
+        && data.updatedAtIso.size() <= 40;
+    }
+
+    // Read-only startup connection diagnostics checks
+    match /test/connection {
+      allow get: if true;
+      allow list, create, update, delete: if false;
+    }
+
+    match /companies/connection_health_check {
+      allow get: if true;
+      allow list, create, update, delete: if false;
+    }
+
+    // Dedicated Server-Only License Records: clients may ONLY read their own licenses; all client writes strictly blocked
+    match /licenses/{licenseId} {
+      allow get: if isValidId(licenseId)
+        && isVerifiedSignedIn()
+        && existing().ownerUid == request.auth.uid;
+      allow list: if isVerifiedSignedIn()
+        && existing().ownerUid == request.auth.uid;
+      allow create, update, delete: if false;
+
+      match /devices/{deviceHash} {
+        allow get: if isValidId(licenseId)
+          && isValidId(deviceHash)
+          && isVerifiedSignedIn()
+          && get(/databases/$(database)/documents/licenses/$(licenseId)).data.ownerUid == request.auth.uid;
+        allow list: if isValidId(licenseId)
+          && isVerifiedSignedIn()
+          && existing().ownerUid == request.auth.uid;
+        allow create, update, delete: if false;
+      }
+    }
+
+    // User profile documents: strictly isolated per verified user with anti-escalation guard
+    match /users/{userId} {
+      allow get: if isValidId(userId) && isOwner(userId);
+      allow list: if false;
+      allow create: if isValidId(userId)
+        && isVerifiedSignedIn()
+        && isOwner(userId)
+        && isValidUserProfile(incoming(), userId);
+      allow update: if isValidId(userId)
+        && isVerifiedSignedIn()
+        && isOwner(userId)
+        && isValidUserProfile(incoming(), userId)
+        && incoming().id == existing().id
+        && incoming().companyId == existing().companyId
+        && (!('role' in existing()) || incoming().role == existing().role)
+        && incoming().diff(existing()).affectedKeys().hasOnly(['id', 'name', 'email', 'role', 'companyId', 'pin']);
+      allow delete: if false;
+    }
+
+    // Company header documents: strictly tenant-isolated (cmp_<auth.uid>), verified auth, & license writes blocked
+    match /companies/{companyId} {
+      allow get: if isValidCompanyId(companyId) && isCompanyReader(companyId);
+      allow list: if false;
+      allow create: if isValidCompanyId(companyId)
+        && isVerifiedSignedIn()
+        && isTenantOwner(companyId)
+        && isValidCompanyDoc(incoming(), companyId)
+        && !('license' in incoming())
+        && hasCompanyRoleIn(companyId, ['ADMIN', 'MANAGER', 'ACCOUNTANT']);
+      allow update: if isValidCompanyId(companyId)
+        && isVerifiedSignedIn()
+        && isTenantOwner(companyId)
+        && isValidCompanyDoc(incoming(), companyId)
+        && (!('companyId' in existing()) || incoming().companyId == existing().companyId)
+        && (!('ownerUid' in existing()) || incoming().ownerUid == existing().ownerUid)
+        && ((!('license' in incoming()) && !('license' in existing())) || (('license' in existing()) && ('license' in incoming()) && incoming().license == existing().license))
+        && (
+          // Tier 1: Admin / Manager / Accountant header & config writes (explicitly EXCLUDES 'license')
+          (hasCompanyRoleIn(companyId, ['ADMIN', 'MANAGER', 'ACCOUNTANT'])
+            && incoming().diff(existing()).affectedKeys().hasOnly([
+              'companyId', 'ownerUid', 'syncSchemaVersion', 'shardManifest',
+              'company', 'accountGroups', 'userProfiles', 'gstPortalData',
+              'pinRequired', 'securityPin', 'softwareVersion', 'standardLedgersSeeded',
+              'invoices', 'vouchers', 'parties', 'items', 'accounts',
+              'purchaseInvoices', 'purchaseOrders', 'debitCreditNotes', 'bankStatements',
+              'employees', 'payrolls', 'budgets', 'stockAdjustments', 'godowns', 'itemBatches', 'stockTransfers', 'auditLogs',
+              'companiesList', 'companiesStores',
+              'updatedAtMs', 'updatedAtIso', 'updatedByDevice', 'serverTime',
+              'updatedAt', 'updatedBy'
+            ]))
+          ||
+          // Tier 2: Billing operator can only bump shardManifest & sync metadata on header
+          (hasCompanyRoleIn(companyId, ['BILLING'])
+            && incoming().diff(existing()).affectedKeys().hasOnly([
+              'shardManifest', 'updatedAtMs', 'updatedAtIso', 'updatedByDevice', 'serverTime'
+            ]))
+        );
+      allow delete: if false;
+
+      // Sub-collection: Company RBAC Members
+      match /members/{memberId} {
+        allow get: if isValidCompanyId(companyId) && isValidId(memberId)
+          && (isOwner(memberId) || isTenantOwner(companyId) || hasCompanyRoleIn(companyId, ['ADMIN', 'MANAGER']));
+        allow list: if false;
+        allow create: if isValidCompanyId(companyId) && isValidId(memberId)
+          && isVerifiedSignedIn()
+          && isValidCompanyMember(incoming(), companyId, memberId)
+          && (
+            hasCompanyRoleIn(companyId, ['ADMIN']) ||
+            (isTenantOwner(companyId) && isOwner(memberId) && !exists(/databases/$(database)/documents/companies/$(companyId)/members/$(memberId)))
+          );
+        allow update: if isValidCompanyId(companyId) && isValidId(memberId)
+          && isVerifiedSignedIn()
+          && isValidCompanyMember(incoming(), companyId, memberId)
+          && incoming().uid == existing().uid
+          && incoming().companyId == existing().companyId
+          && incoming().diff(existing()).affectedKeys().hasOnly(['uid', 'companyId', 'email', 'name', 'role', 'updatedAtMs', 'updatedAtIso'])
+          && (
+            hasCompanyRoleIn(companyId, ['ADMIN']) ||
+            (isTenantOwner(companyId) && isOwner(memberId) && incoming().role == existing().role)
+          );
+        allow delete: if isValidCompanyId(companyId) && isValidId(memberId)
+          && isVerifiedSignedIn()
+          && hasCompanyRoleIn(companyId, ['ADMIN'])
+          && !isOwner(memberId);
+      }
+
+      // Sub-collection: Sharded Company Accounting Collections (eliminates 1 MB doc limit)
+      match /dataShards/{shardId} {
+        allow get: if isValidCompanyId(companyId) && isValidId(shardId) && isCompanyReader(companyId);
+        // Secure list query: strictly evaluates tenant ownership and resource.data.ownerUid without get()/exists()
+        allow list: if isSignedIn()
+          && isTenantOwner(companyId)
+          && resource.data.ownerUid == request.auth.uid;
+        allow create: if isValidCompanyId(companyId) && isValidId(shardId)
+          && isVerifiedSignedIn()
+          && isTenantOwner(companyId)
+          && isValidDataShard(incoming(), companyId, shardId)
+          && (
+            hasCompanyRoleIn(companyId, ['ADMIN', 'MANAGER', 'ACCOUNTANT']) ||
+            (hasCompanyRoleIn(companyId, ['BILLING']) && incoming().collectionKey in ['invoices', 'parties', 'items', 'itemBatches', 'auditLogs'])
+          );
+        allow update: if isValidCompanyId(companyId) && isValidId(shardId)
+          && isVerifiedSignedIn()
+          && isTenantOwner(companyId)
+          && isValidDataShard(incoming(), companyId, shardId)
+          && incoming().id == existing().id
+          && incoming().companyId == existing().companyId
+          && incoming().ownerUid == existing().ownerUid
+          && incoming().collectionKey == existing().collectionKey
+          && incoming().shardIndex == existing().shardIndex
+          && incoming().diff(existing()).affectedKeys().hasOnly(['items', 'itemCount', 'updatedAtMs', 'updatedAtIso'])
+          && (
+            hasCompanyRoleIn(companyId, ['ADMIN', 'MANAGER', 'ACCOUNTANT']) ||
+            (hasCompanyRoleIn(companyId, ['BILLING']) && incoming().collectionKey in ['invoices', 'parties', 'items', 'itemBatches', 'auditLogs'])
+          );
+        allow delete: if isValidCompanyId(companyId) && isValidId(shardId)
+          && isVerifiedSignedIn()
+          && isTenantOwner(companyId)
+          && hasCompanyRoleIn(companyId, ['ADMIN', 'MANAGER', 'ACCOUNTANT']);
+      }
+    }
+  }
+}

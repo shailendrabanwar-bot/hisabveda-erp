@@ -1,0 +1,6 @@
+{
+  "name": "HisabVeda ERP - Smart Accounting & GST Solution",
+  "description": "Professional GST/Tax compliance, invoice generation, voucher entries, bank reconciliation, budgeting, and real-time dashboard analytics.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
