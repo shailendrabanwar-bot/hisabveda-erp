@@ -82,6 +82,16 @@ export interface AppConfiguration {
   windowsExeVersion: string;
 }
 
+export const DEFAULT_WINDOWS_INSTALLER_URL =
+  'https://github.com/shailendrabanwar-bot/hisabveda-erp/releases/latest';
+
+function getEnvWindowsInstallerUrl(): string {
+  if (typeof import.meta === 'undefined') return '';
+  const env = (import.meta as any).env;
+  const raw = env?.VITE_WINDOWS_INSTALLER_URL || env?.VITE_WINDOWS_EXE_URL || '';
+  return String(raw).trim();
+}
+
 export const DEFAULT_APP_CONFIG: AppConfiguration = {
   negativeCashWarning: true,
   negativeStockWarning: true,
@@ -156,10 +166,7 @@ export const DEFAULT_APP_CONFIG: AppConfiguration = {
   enableAuditLog: true,
   posAutoPromptNewBarcode: true,
 
-  windowsExeDownloadUrl:
-    typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_WINDOWS_EXE_URL
-      ? String((import.meta as any).env.VITE_WINDOWS_EXE_URL).trim()
-      : '',
+  windowsExeDownloadUrl: getEnvWindowsInstallerUrl(),
   windowsExeVersion: '2.0.0',
 };
 
@@ -211,10 +218,7 @@ export function saveAppConfig(config: AppConfiguration): void {
  * GitHub Releases asset links, and standard Google Drive share links -> direct download URL).
  */
 export function resolveWindowsInstallerUrl(rawUrl?: string): string {
-  const envFallback =
-    typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_WINDOWS_EXE_URL
-      ? String((import.meta as any).env.VITE_WINDOWS_EXE_URL).trim()
-      : '';
+  const envFallback = getEnvWindowsInstallerUrl();
   const trimmed = (rawUrl || envFallback || '').trim();
   if (!trimmed) return '';
 

@@ -41,13 +41,16 @@ import {
   Monitor,
   Cpu,
   ExternalLink,
-  Settings,
   Globe
 } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { SnaLogo } from '../SnaLogo';
 import { formatCurrency } from '../../utils/storage';
-import { loadAppConfig, resolveWindowsInstallerUrl } from '../../utils/appConfig';
+import {
+  DEFAULT_WINDOWS_INSTALLER_URL,
+  loadAppConfig,
+  resolveWindowsInstallerUrl,
+} from '../../utils/appConfig';
 
 interface SalesPageProps {
   isHindi: boolean;
@@ -125,51 +128,59 @@ export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onO
 
   // Configurable Windows Desktop (.exe) installer state
   const [appConfig, setAppConfig] = useState(() => loadAppConfig());
-  const [downloadStatusNotice, setDownloadStatusNotice] = useState<{ type: 'success' | 'setup'; text: string } | null>(null);
+  const [downloadSuccessNotice, setDownloadSuccessNotice] = useState<string | null>(null);
+  const [showDownloadFallbackModal, setShowDownloadFallbackModal] = useState(false);
+
+  const whatsappInstallerUrl =
+    'https://wa.me/917489655303?text=Hello%20HisabVeda%20Team%2C%20I%20would%20like%20to%20request%20the%20Windows%20Desktop%20(.exe)%20installer%20v2.0.0.';
 
   useEffect(() => {
     const onConfigUpdated = (e: Event) => {
       const detail = (e as CustomEvent).detail;
       setAppConfig(detail || loadAppConfig());
-      setDownloadStatusNotice(null);
+      setDownloadSuccessNotice(null);
     };
     window.addEventListener('sna_config_updated', onConfigUpdated);
     return () => window.removeEventListener('sna_config_updated', onConfigUpdated);
   }, []);
 
-  const resolvedExeUrl = resolveWindowsInstallerUrl(appConfig.windowsExeDownloadUrl);
+  const envInstallerUrl =
+    typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_WINDOWS_INSTALLER_URL
+      ? String((import.meta as any).env.VITE_WINDOWS_INSTALLER_URL).trim()
+      : '';
+  const resolvedExeUrl = resolveWindowsInstallerUrl(appConfig.windowsExeDownloadUrl || envInstallerUrl);
   const windowsExeVersion = (appConfig.windowsExeVersion || '2.0.0').trim() || '2.0.0';
+  const releaseFallbackUrl = resolvedExeUrl || DEFAULT_WINDOWS_INSTALLER_URL;
 
-  const handleDownloadWindowsExe = () => {
-    if (!resolvedExeUrl) {
-      setDownloadStatusNotice({
-        type: 'setup',
-        text: isHindi
-          ? 'अभी .exe डाउनलोड URL सेट नहीं है। नीचे "Configure .exe Link" से Google Drive / GitHub लिंक जोड़ें या सीधे WhatsApp से इंस्टॉलर मंगवाएँ।'
-          : 'Installer URL is not configured yet. Click "Configure .exe Link" in Settings to paste your Google Drive / GitHub Release link, or request the setup file via WhatsApp.'
-      });
-      return;
-    }
-
+  const openInstallerUrl = (targetUrl: string) => {
     if (typeof window !== 'undefined' && window.hisabvedaDesktop?.openExternalUrl) {
-      window.hisabvedaDesktop.openExternalUrl(resolvedExeUrl).catch(() => {});
+      window.hisabvedaDesktop.openExternalUrl(targetUrl).catch(() => {});
     } else if (typeof document !== 'undefined') {
       const link = document.createElement('a');
-      link.href = resolvedExeUrl;
+      link.href = targetUrl;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      link.download = `Hisabveda-ERP-Setup-${windowsExeVersion}.exe`;
+      if (targetUrl.toLowerCase().includes('.exe')) {
+        link.download = `Hisabveda-ERP-Setup-${windowsExeVersion}.exe`;
+      }
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
+  };
 
-    setDownloadStatusNotice({
-      type: 'success',
-      text: isHindi
-        ? `Hisabveda ERP v${windowsExeVersion} (.exe) डाउनलोड प्रारंभ हो गया है। इंस्टॉल करने के बाद अपना Hardware Machine ID भेजकर लाइसेंस सक्रिय करें।`
-        : `Hisabveda ERP v${windowsExeVersion} (.exe) download started. After installing, open Activation to copy your Hardware Machine ID.`
-    });
+  const handleDownloadWindowsExe = () => {
+    if (!resolvedExeUrl) {
+      setShowDownloadFallbackModal(true);
+      return;
+    }
+
+    openInstallerUrl(resolvedExeUrl);
+    setDownloadSuccessNotice(
+      isHindi
+        ? `HisabVeda Windows Desktop v${windowsExeVersion} (.exe) डाउनलोड खुल रहा है। तुरंत उपयोग के लिए आप बिना इंस्टॉल किए "Open Web ERP" भी चला सकते हैं।`
+        : `Opening HisabVeda Windows Desktop v${windowsExeVersion} (.exe) download. You can also start using Open Web ERP right away with zero installation.`
+    );
   };
 
   // Form states for sales inquiry / checkout
@@ -1472,57 +1483,52 @@ export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onO
                   {resolvedExeUrl && <ExternalLink className="w-4 h-4 opacity-80" />}
                 </button>
 
-                {onOpenInstallerSettings && (
+                <div className="flex flex-wrap items-center justify-center lg:justify-end gap-2">
+                  <a
+                    href={whatsappInstallerUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-4 py-2 bg-white hover:bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-bold transition-all inline-flex items-center justify-center gap-1.5 whitespace-nowrap shadow-sm"
+                  >
+                    <MessageSquare className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    <span>{isHindi ? 'WhatsApp पर मँगवाएँ' : 'Request on WhatsApp'}</span>
+                  </a>
+
                   <button
                     type="button"
-                    onClick={onOpenInstallerSettings}
-                    className="px-3.5 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer shadow-sm"
+                    onClick={onLaunchDemo}
+                    className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition-all inline-flex items-center justify-center gap-1.5 whitespace-nowrap shadow-sm cursor-pointer"
                   >
-                    <Settings className="w-3.5 h-3.5 text-indigo-600" />
-                    <span>{isHindi ? '.exe डाउनलोड लिंक बदलें (Settings)' : 'Configure .exe Download URL'}</span>
+                    <Laptop className="w-3.5 h-3.5 shrink-0" />
+                    <span>{isHindi ? 'Open Web ERP चलाएँ' : 'Open Web ERP'}</span>
                   </button>
-                )}
+                </div>
               </div>
             </div>
 
-            {downloadStatusNotice && (
-              <div
-                className={`p-4 rounded-xl border text-xs sm:text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
-                  downloadStatusNotice.type === 'success'
-                    ? 'bg-emerald-50 border-emerald-200 text-emerald-900'
-                    : 'bg-amber-50 border-amber-200 text-amber-900'
-                }`}
-              >
+            {downloadSuccessNotice && (
+              <div className="p-4 rounded-xl border text-xs sm:text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-emerald-50 border-emerald-200 text-emerald-900">
                 <div className="flex items-start gap-2.5">
-                  {downloadStatusNotice.type === 'success' ? (
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                  ) : (
-                    <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                  )}
-                  <span className="leading-relaxed">{downloadStatusNotice.text}</span>
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                  <span className="leading-relaxed">{downloadSuccessNotice}</span>
                 </div>
-
-                {downloadStatusNotice.type === 'setup' && (
-                  <div className="flex items-center gap-2 shrink-0">
-                    {onOpenInstallerSettings && (
-                      <button
-                        type="button"
-                        onClick={onOpenInstallerSettings}
-                        className="px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-lg text-xs whitespace-nowrap cursor-pointer"
-                      >
-                        {isHindi ? 'लिंक सेट करें' : 'Open Settings'}
-                      </button>
-                    )}
-                    <a
-                      href={`https://wa.me/917489655303?text=${encodeURIComponent(`Namaste, please share Hisabveda ERP v${windowsExeVersion} Windows (.exe) installer download link.`)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-xs whitespace-nowrap"
-                    >
-                      {isHindi ? 'WhatsApp से मँगवाएँ' : 'Request on WhatsApp'}
-                    </a>
-                  </div>
-                )}
+                <div className="flex items-center gap-2 shrink-0">
+                  <a
+                    href={whatsappInstallerUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3 py-1.5 bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold rounded-lg text-xs whitespace-nowrap"
+                  >
+                    {isHindi ? 'WhatsApp सहायता' : 'Request on WhatsApp'}
+                  </a>
+                  <button
+                    type="button"
+                    onClick={onLaunchDemo}
+                    className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg text-xs whitespace-nowrap cursor-pointer"
+                  >
+                    {isHindi ? 'Web ERP खोलें' : 'Open Web ERP'}
+                  </button>
+                </div>
               </div>
             )}
 
@@ -2438,6 +2444,93 @@ export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onO
             >
               {isHindi ? 'बंद करें / वेबसाइट पर वापस जाएँ' : 'Close & Return to Website'}
             </button>
+          </div>
+        </div>
+      )}
+      {/* FRIENDLY WINDOWS INSTALLER ACCESS MODAL */}
+      {showDownloadFallbackModal && (
+        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white border border-slate-200 rounded-2xl max-w-lg w-full p-6 space-y-5 shadow-2xl relative text-slate-800">
+            <button
+              type="button"
+              onClick={() => setShowDownloadFallbackModal(false)}
+              className="absolute top-4 right-4 text-slate-500 hover:text-slate-900 p-2 rounded-xl bg-slate-100 hover:bg-slate-200 cursor-pointer"
+              aria-label="Close download options"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="flex items-center gap-3 pr-8">
+              <div className="w-11 h-11 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-600 shrink-0">
+                <Download className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="font-extrabold text-lg text-slate-900">
+                  {isHindi
+                    ? `Windows Desktop (.exe) v${windowsExeVersion} प्राप्त करें`
+                    : `Get Windows Desktop (.exe) v${windowsExeVersion}`}
+                </h3>
+                <p className="text-xs text-slate-500 font-medium">
+                  {isHindi
+                    ? 'तुरंत इंस्टॉलर लिंक प्राप्त करें या सीधे ब्राउज़र में Web ERP शुरू करें'
+                    : 'Get the verified installer instantly or launch the Cloud Web ERP right away'}
+                </p>
+              </div>
+            </div>
+
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-600 leading-relaxed space-y-2">
+              <p>
+                {isHindi
+                  ? `आप हमारे आधिकारिक WhatsApp (+91-7489655303) पर क्लिक करके तुरंत Windows Desktop (.exe) v${windowsExeVersion} का डायरेक्ट डाउनलोड लिंक मँगवा सकते हैं, आधिकारिक GitHub रिलीज़ से डाउनलोड कर सकते हैं, या बिना इंस्टॉल किए Web ERP क्लाउड एडिशन तुरंत चला सकते हैं।`
+                  : `Request the verified Windows Desktop (.exe) v${windowsExeVersion} setup instantly via WhatsApp (+91-7489655303), download from our official release page, or launch the full-featured Web ERP cloud edition immediately in your browser.`}
+              </p>
+            </div>
+
+            <div className="space-y-2.5">
+              <a
+                href={whatsappInstallerUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-sm transition flex items-center justify-center gap-2"
+              >
+                <MessageSquare className="w-4 h-4 shrink-0" />
+                <span>
+                  {isHindi
+                    ? 'WhatsApp पर तुरंत .exe लिंक प्राप्त करें (+91-7489655303)'
+                    : 'Instant Download via WhatsApp (+91-7489655303)'}
+                </span>
+              </a>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setShowDownloadFallbackModal(false);
+                  onLaunchDemo();
+                }}
+                className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-sm transition flex items-center justify-center gap-2 cursor-pointer"
+              >
+                <Laptop className="w-4 h-4 shrink-0" />
+                <span>
+                  {isHindi
+                    ? 'Open Web ERP चलाएँ (बिना इंस्टॉलेशन के तुरंत शुरू करें)'
+                    : 'Open Web ERP (Use Cloud Edition Right Away)'}
+                </span>
+              </button>
+
+              <a
+                href={releaseFallbackUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-2.5 px-4 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs rounded-xl transition flex items-center justify-center gap-2"
+              >
+                <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                <span>
+                  {isHindi
+                    ? `आधिकारिक रिलीज़ पेज खोलें (v${windowsExeVersion})`
+                    : `Open Official Releases Page (v${windowsExeVersion})`}
+                </span>
+              </a>
+            </div>
           </div>
         </div>
       )}
