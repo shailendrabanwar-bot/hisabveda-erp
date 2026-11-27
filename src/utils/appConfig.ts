@@ -83,7 +83,7 @@ export interface AppConfiguration {
 }
 
 export const DEFAULT_WINDOWS_INSTALLER_URL =
-  'https://github.com/shailendrabanwar-bot/hisabveda-erp/releases/latest';
+  'https://github.com/shailendrabanwar-bot/hisabveda-erp/releases/latest/download/HisabVeda-Setup.exe';
 
 function getEnvWindowsInstallerUrl(): string {
   if (typeof import.meta === 'undefined') return '';
