@@ -27,7 +27,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'npm'
 
       - name: Resolve release tag
         id: meta
@@ -45,7 +44,7 @@ jobs:
           Write-Host "Resolved release tag: $tag"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install --legacy-peer-deps
 
       - name: Build web bundle & obfuscate desktop assets
         env:
