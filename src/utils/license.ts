@@ -15,7 +15,7 @@ const ACTIVATION_CODE_ALPHABET = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
  * 32-byte Ed25519 Public Key ONLY (safe for browser & Electron distribution).
  * Matching Private Key is stored strictly offline or in server `process.env.LICENSE_PRIVATE_KEY`.
  */
-export const DEFAULT_VENDOR_ED25519_PUBLIC_KEY_B64 = 'Z8Ht8Q8s/qmsxfm4KLeB+y/wh8Y0sWj+OAljax0FzlY=';
+export const DEFAULT_VENDOR_ED25519_PUBLIC_KEY_B64 = 'k9ux0kyzL0C1lOC7QkRHxkY2ILtxX8j0FDb9NL4/VWs=';
 
 export function getConfiguredPublicKeyB64(override?: string): string {
   if (override && override.trim()) return override.trim();

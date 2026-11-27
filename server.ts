@@ -1636,7 +1636,7 @@ Return ONLY valid raw JSON with no markdown block ticks.`;
   // -------------------------------------------------------------------------
   // Ed25519 Asymmetric Software Licensing & Monotonic Time Endpoints
   // -------------------------------------------------------------------------
-  const DEFAULT_VENDOR_PUB_B64 = 'Z8Ht8Q8s/qmsxfm4KLeB+y/wh8Y0sWj+OAljax0FzlY=';
+  const DEFAULT_VENDOR_PUB_B64 = 'k9ux0kyzL0C1lOC7QkRHxkY2ILtxX8j0FDb9NL4/VWs=';
   const licenseRateLimiter = createRateLimiter(15 * 60_000, 120, 'License Verification');
   const licenseIssueRateLimiter = createRateLimiter(15 * 60_000, 30, 'License Issuance');
 

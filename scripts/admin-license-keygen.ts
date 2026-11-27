@@ -15,7 +15,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs';
 import nacl from 'tweetnacl';
 
-export const DEFAULT_PUBLIC_KEY_B64 = 'Z8Ht8Q8s/qmsxfm4KLeB+y/wh8Y0sWj+OAljax0FzlY=';
+export const DEFAULT_PUBLIC_KEY_B64 = 'k9ux0kyzL0C1lOC7QkRHxkY2ILtxX8j0FDb9NL4/VWs=';
 
 export type PlanType = 'TRIAL' | 'STANDARD_ANNUAL' | 'PRO_PERPETUAL' | 'ENTERPRISE';
 export type LicenseMode = 'SINGLE_USER' | 'MULTI_USER';

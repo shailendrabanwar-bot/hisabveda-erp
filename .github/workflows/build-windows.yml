@@ -57,7 +57,7 @@ jobs:
         shell: bash
         env:
           VITE_ELECTRON_BUILD: 'true'
-          VITE_LICENSE_PUBLIC_KEY: ${{ vars.VITE_LICENSE_PUBLIC_KEY || 'Z8Ht8Q8s/qmsxfm4KLeB+y/wh8Y0sWj+OAljax0FzlY=' }}
+          VITE_LICENSE_PUBLIC_KEY: ${{ vars.VITE_LICENSE_PUBLIC_KEY || 'k9ux0kyzL0C1lOC7QkRHxkY2ILtxX8j0FDb9NL4/VWs=' }}
           VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL || '' }}
           VITE_WINDOWS_INSTALLER_URL: ${{ vars.VITE_WINDOWS_INSTALLER_URL || 'https://github.com/shailendrabanwar-bot/hisabveda-erp/releases/latest/download/HisabVeda-Setup.exe' }}
         run: |

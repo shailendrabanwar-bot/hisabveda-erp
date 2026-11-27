@@ -45,7 +45,7 @@ const VAULT_AAD = Buffer.from('hisabveda-vault-v3', 'utf8');
 
 // Ed25519 Public Key ONLY (zero private key inside Electron binary or ASAR)
 const VENDOR_ED25519_PUBLIC_KEY_B64 =
-  (process.env.VITE_LICENSE_PUBLIC_KEY || 'Z8Ht8Q8s/qmsxfm4KLeB+y/wh8Y0sWj+OAljax0FzlY=').trim();
+  (process.env.VITE_LICENSE_PUBLIC_KEY || 'k9ux0kyzL0C1lOC7QkRHxkY2ILtxX8j0FDb9NL4/VWs=').trim();
 
 let mainWindow = null;
 let cachedDb = null;
