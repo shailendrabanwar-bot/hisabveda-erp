@@ -1,0 +1,103 @@
+name: Build Windows Desktop Installer (.exe)
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version_tag:
+        description: 'Release tag name when triggered manually (defaults to v<package.json version>, e.g. v2.0.0)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+jobs:
+  build-windows:
+    name: Build Windows (.exe) & Publish Release
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Resolve release tag
+        id: meta
+        shell: pwsh
+        run: |
+          if ("${{ github.ref_type }}" -eq "tag") {
+            $tag = "${{ github.ref_name }}"
+          } elseif ("${{ inputs.version_tag }}".Trim() -ne "") {
+            $tag = "${{ inputs.version_tag }}".Trim()
+          } else {
+            $pkg = Get-Content -Raw -Path package.json | ConvertFrom-Json
+            $tag = "v$($pkg.version)"
+          }
+          "release_tag=$tag" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          Write-Host "Resolved release tag: $tag"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web bundle & obfuscate desktop assets
+        env:
+          VITE_LICENSE_PUBLIC_KEY: ${{ vars.VITE_LICENSE_PUBLIC_KEY || 'Z8Ht8Q8s/qmsxfm4KLeB+y/wh8Y0sWj+OAljax0FzlY=' }}
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL || '' }}
+          VITE_WINDOWS_INSTALLER_URL: ${{ vars.VITE_WINDOWS_INSTALLER_URL || 'https://github.com/shailendrabanwar-bot/hisabveda-erp/releases/latest/download/HisabVeda-Setup.exe' }}
+        run: |
+          npx vite build
+          node scripts/obfuscate-build.mjs
+
+      - name: Build Windows Installer using electron-builder
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: false
+        run: npx electron-builder --win --publish never
+
+      - name: Rename generated Setup .exe to HisabVeda-Setup.exe
+        shell: pwsh
+        run: |
+          $outputDir = "dist-electron"
+          $setupExe = Get-ChildItem -Path $outputDir -Filter "*Setup*.exe" -File | Select-Object -First 1
+          if (-not $setupExe) {
+            $setupExe = Get-ChildItem -Path $outputDir -Filter "*.exe" -File |
+              Where-Object { $_.Name -ne "HisabVeda-Setup.exe" } |
+              Select-Object -First 1
+          }
+          if (-not $setupExe) {
+            throw "No .exe installer found inside $outputDir after electron-builder."
+          }
+
+          $outputFull = (Resolve-Path -LiteralPath $outputDir).Path
+          $targetPath = Join-Path $outputFull "HisabVeda-Setup.exe"
+          if ($setupExe.FullName -ne $targetPath) {
+            Copy-Item -LiteralPath $setupExe.FullName -Destination $targetPath -Force
+          }
+          Write-Host "Prepared Windows installer asset: $targetPath (source: $($setupExe.Name))"
+          Get-ChildItem -Path $outputDir
+
+      - name: Upload HisabVeda-Setup.exe build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HisabVeda-Setup-${{ steps.meta.outputs.release_tag }}
+          path: dist-electron/HisabVeda-Setup.exe
+          if-no-files-found: error
+
+      - name: Attach HisabVeda-Setup.exe to GitHub Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.meta.outputs.release_tag }}
+          name: "HisabVeda ERP Desktop ${{ steps.meta.outputs.release_tag }}"
+          make_latest: true
+          generate_release_notes: true
+          files: |
+            dist-electron/HisabVeda-Setup.exe
