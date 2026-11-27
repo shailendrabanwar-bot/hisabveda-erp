@@ -5,9 +5,11 @@ import { resolveApiUrl } from './apiBase';
 const MACHINE_ID_STORAGE_KEY = 'sna_machine_fingerprint_v1';
 export const CLOCK_WATERMARK_STORAGE_KEY = 'hv_clock_watermark_v1';
 export const LICENSE_ENVELOPE_STORAGE_KEY = 'hv_secure_license_envelope_v1';
+export const CONSUMED_ACTIVATIONS_STORAGE_KEY = 'hv_consumed_activations_v1';
 export const MAX_TRIAL_DAYS = 7;
 export const MAX_TRIAL_VOUCHERS = 50;
 export const CLOCK_SKEW_TOLERANCE_MS = 5 * 60 * 1000; // 5 minutes tolerance for minor NTP drift
+const ACTIVATION_CODE_ALPHABET = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
 
 /**
  * 32-byte Ed25519 Public Key ONLY (safe for browser & Electron distribution).
@@ -329,6 +331,14 @@ export function getHardwareBindingInfo(): HardwareBindingInfo {
   };
 }
 
+export interface ConsumedActivationEntry {
+  licenseId: string;
+  nonceHash: string;
+  activationCodeHash: string;
+  hwid: string;
+  consumedAtIso: string;
+}
+
 export interface SealedLicenseEnvelope {
   v: 1;
   machineId: string;
@@ -336,10 +346,41 @@ export interface SealedLicenseEnvelope {
   lastVerifiedServerTimeMs: number;
   trialStartDate: string;
   license: LicenseInfo | null;
+  consumedSerials?: ConsumedActivationEntry[];
 }
 
 function computeEnvelopeMac(machineId: string, bodyJson: string): string {
   return hmacSha256HexSync(`HV_ENVELOPE_MAC_V1:${machineId.trim().toUpperCase()}`, bodyJson);
+}
+
+function encryptVaultBytesSync(plainText: string, machineId: string, saltHex: string): string {
+  const plainBytes = utf8ToBytes(plainText);
+  const cipher = new Uint8Array(plainBytes.length);
+  const keyBase = `HV_CONSUMED_ENC_V1|${machineId.trim().toUpperCase()}|${saltHex}`;
+  for (let offset = 0; offset < plainBytes.length; offset += 32) {
+    const blockIdx = Math.floor(offset / 32);
+    const keystream = sha256BytesSync(utf8ToBytes(`${keyBase}|${blockIdx}`));
+    const blockEnd = Math.min(plainBytes.length, offset + 32);
+    for (let i = offset; i < blockEnd; i++) {
+      cipher[i] = plainBytes[i] ^ keystream[i - offset];
+    }
+  }
+  return bytesToBase64(cipher);
+}
+
+function decryptVaultBytesSync(cipherB64: string, machineId: string, saltHex: string): string {
+  const cipher = base64ToBytes(cipherB64);
+  const plain = new Uint8Array(cipher.length);
+  const keyBase = `HV_CONSUMED_ENC_V1|${machineId.trim().toUpperCase()}|${saltHex}`;
+  for (let offset = 0; offset < cipher.length; offset += 32) {
+    const blockIdx = Math.floor(offset / 32);
+    const keystream = sha256BytesSync(utf8ToBytes(`${keyBase}|${blockIdx}`));
+    const blockEnd = Math.min(cipher.length, offset + 32);
+    for (let i = offset; i < blockEnd; i++) {
+      plain[i] = cipher[i] ^ keystream[i - offset];
+    }
+  }
+  return bytesToUtf8(plain);
 }
 
 export function sealLicenseCacheEnvelope(
@@ -347,6 +388,8 @@ export function sealLicenseCacheEnvelope(
   machineId: string = getOrGenerateMachineId()
 ): string {
   const normId = machineId.trim().toUpperCase();
+  const existing = readSealedLicenseCacheEnvelope(normId);
+  const mergedConsumed = envelope.consumedSerials ?? existing.envelope?.consumedSerials ?? [];
   const payload: SealedLicenseEnvelope = {
     v: 1,
     machineId: normId,
@@ -354,6 +397,7 @@ export function sealLicenseCacheEnvelope(
     lastVerifiedServerTimeMs: Math.max(0, Number(envelope.lastVerifiedServerTimeMs || 0)),
     trialStartDate: envelope.trialStartDate || new Date().toISOString(),
     license: envelope.license || null,
+    ...(mergedConsumed.length > 0 ? { consumedSerials: mergedConsumed } : {}),
   };
   const bodyJson = JSON.stringify(payload);
   const hmac = computeEnvelopeMac(normId, bodyJson);
@@ -383,6 +427,127 @@ export function readSealedLicenseCacheEnvelope(
   } catch {
     return { exists: true, tampered: true, envelope: null };
   }
+}
+
+export function readConsumedActivationsRegistry(
+  machineId: string = getOrGenerateMachineId()
+): { tampered: boolean; entries: ConsumedActivationEntry[] } {
+  const normId = machineId.trim().toUpperCase();
+  const envelopeRes = readSealedLicenseCacheEnvelope(normId);
+  const envEntries = Array.isArray(envelopeRes.envelope?.consumedSerials)
+    ? envelopeRes.envelope!.consumedSerials!
+    : [];
+
+  const raw = safeReadLocalStorage(CONSUMED_ACTIVATIONS_STORAGE_KEY);
+  if (!raw) {
+    return { tampered: envelopeRes.tampered, entries: envEntries };
+  }
+
+  try {
+    const parsed = JSON.parse(raw);
+    if (
+      !parsed ||
+      typeof parsed !== 'object' ||
+      parsed.v !== 1 ||
+      typeof parsed.salt !== 'string' ||
+      typeof parsed.ct !== 'string' ||
+      typeof parsed.mac !== 'string'
+    ) {
+      return { tampered: true, entries: envEntries };
+    }
+    const expectedMac = hmacSha256HexSync(
+      `HV_CONSUMED_MAC_V1:${normId}`,
+      `${parsed.v}|${parsed.salt}|${parsed.ct}`
+    );
+    if (!constantTimeHexEqual(parsed.mac.toUpperCase(), expectedMac)) {
+      return { tampered: true, entries: envEntries };
+    }
+    const plainJson = decryptVaultBytesSync(parsed.ct, normId, parsed.salt);
+    const decoded = JSON.parse(plainJson);
+    if (!Array.isArray(decoded)) {
+      return { tampered: true, entries: envEntries };
+    }
+    const mergedMap = new Map<string, ConsumedActivationEntry>();
+    for (const item of [...envEntries, ...(decoded as ConsumedActivationEntry[])]) {
+      if (item && typeof item.licenseId === 'string') {
+        mergedMap.set(item.licenseId, item);
+      }
+    }
+    return { tampered: envelopeRes.tampered, entries: Array.from(mergedMap.values()) };
+  } catch {
+    return { tampered: true, entries: envEntries };
+  }
+}
+
+export function writeConsumedActivationsRegistry(
+  entries: ConsumedActivationEntry[],
+  machineId: string = getOrGenerateMachineId()
+): void {
+  const normId = machineId.trim().toUpperCase();
+  const salt = sha256HexSync(`${normId}|${entries.length}|${Date.now()}`).slice(0, 24);
+  const ct = encryptVaultBytesSync(JSON.stringify(entries), normId, salt);
+  const mac = hmacSha256HexSync(`HV_CONSUMED_MAC_V1:${normId}`, `1|${salt}|${ct}`);
+  safeWriteLocalStorage(
+    CONSUMED_ACTIVATIONS_STORAGE_KEY,
+    JSON.stringify({ v: 1, salt, ct, mac })
+  );
+}
+
+export function normalizeActivationCode(rawCode: string): string {
+  const clean = (rawCode || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if (clean.length === 11 && clean.startsWith('ACT')) {
+    return `ACT-${clean.slice(3, 7)}-${clean.slice(7, 11)}`;
+  }
+  if (clean.length === 8) {
+    return `ACT-${clean.slice(0, 4)}-${clean.slice(4, 8)}`;
+  }
+  return (rawCode || '').trim().toUpperCase();
+}
+
+export function deriveActivationCode(certificate: string, expectedMachineId?: string): string {
+  try {
+    const trimmed = (certificate || '').trim();
+    const parts = trimmed.split('.');
+    if (parts.length !== 3 || parts[0] !== 'HV-LIC-V3') return '';
+    const decodedJson = bytesToUtf8(base64ToBytes(parts[1]));
+    const payload = JSON.parse(decodedJson) as SignedLicensePayloadV3;
+    if (!payload || !payload.licenseId || !payload.hwid) return '';
+    const payloadHwid = String(payload.hwid).trim().toUpperCase();
+    const effectiveHwid =
+      payloadHwid === 'ANY_HARDWARE_ID'
+        ? 'ANY_HARDWARE_ID'
+        : (expectedMachineId ? expectedMachineId.trim().toUpperCase() : payloadHwid);
+    const seed = `HV-ACT-V1|${parts[2]}|${effectiveHwid}|${String(payload.licenseId).trim()}|${String(payload.nonce || '').trim()}`;
+    const digest = sha256BytesSync(utf8ToBytes(seed));
+    let chars = '';
+    for (let i = 0; i < 8; i++) {
+      chars += ACTIVATION_CODE_ALPHABET[digest[i] & 31];
+    }
+    return `ACT-${chars.slice(0, 4)}-${chars.slice(4, 8)}`;
+  } catch {
+    return '';
+  }
+}
+
+export function isActivationCodeConsumed(
+  payload: Pick<SignedLicensePayloadV3, 'licenseId' | 'nonce' | 'hwid'>,
+  activationCode: string,
+  machineId: string = getOrGenerateMachineId()
+): { consumed: boolean; tampered: boolean } {
+  const reg = readConsumedActivationsRegistry(machineId);
+  if (reg.tampered) {
+    return { consumed: true, tampered: true };
+  }
+  const normCode = normalizeActivationCode(activationCode);
+  const nonceHash = sha256HexSync(`${payload.licenseId}|${payload.nonce || ''}|${payload.hwid}`);
+  const codeHash = sha256HexSync(`${normCode}|${payload.licenseId}`);
+  const match = reg.entries.some(
+    (entry) =>
+      entry.licenseId === payload.licenseId ||
+      entry.nonceHash === nonceHash ||
+      entry.activationCodeHash === codeHash
+  );
+  return { consumed: match, tampered: false };
 }
 
 // ---------------------------------------------------------------------------
@@ -722,11 +887,12 @@ export function getTrialStatus(
 ): TrialStatus {
   const currentMachineId = getOrGenerateMachineId().trim().toUpperCase();
   const envelopeCheck = readSealedLicenseCacheEnvelope(currentMachineId);
+  const consumedCheck = readConsumedActivationsRegistry(currentMachineId);
   const clockIntegrity = checkAndAdvanceClockWatermark(license, nowMs);
   const vouchersUsed = countTrialTransactions(usageData);
   const vouchersRemaining = Math.max(0, MAX_TRIAL_VOUCHERS - vouchersUsed);
 
-  if (envelopeCheck.tampered) {
+  if (envelopeCheck.tampered || consumedCheck.tampered) {
     return {
       isLicensed: false,
       daysElapsed: MAX_TRIAL_DAYS,
@@ -1014,7 +1180,11 @@ export function validateLicenseKey(
   machineId: string,
   issuedLicenses?: IssuedLicenseRecord[],
   nowMs: number = Date.now(),
-  options?: { publicKeyB64?: string }
+  options?: {
+    publicKeyB64?: string;
+    activationCode?: string;
+    requireActivationCode?: boolean;
+  }
 ): {
   isValid: boolean;
   message: string;
@@ -1023,6 +1193,7 @@ export function validateLicenseKey(
   expiryDate?: string;
   expiresAtIso?: string;
   signedPayload?: SignedLicensePayloadV3;
+  expectedActivationCode?: string;
 } {
   const trimmedKey = (inputKey || '').trim();
   const normalizedMachineId = (machineId || getOrGenerateMachineId()).trim().toUpperCase();
@@ -1054,6 +1225,23 @@ export function validateLicenseKey(
   }
 
   const payload = verified.payload;
+  const expectedActivationCode = deriveActivationCode(trimmedKey, normalizedMachineId);
+
+  if (options?.requireActivationCode || options?.activationCode !== undefined) {
+    const providedCode = normalizeActivationCode(options?.activationCode || '');
+    if (!providedCode) {
+      return {
+        isValid: false,
+        message: 'Unique Activation Code (ACT-XXXX-XXXX) is required along with the HV-LIC-V3 certificate.',
+      };
+    }
+    if (!expectedActivationCode || !constantTimeHexEqual(providedCode, expectedActivationCode)) {
+      return {
+        isValid: false,
+        message: 'Invalid Activation Code (ACT-XXXX-XXXX): does not match this Hardware Machine ID and HV-LIC-V3 certificate.',
+      };
+    }
+  }
 
   // Check revocation / status in Admin Issued Licenses Registry if present
   if (issuedLicenses && issuedLicenses.length > 0) {
@@ -1088,11 +1276,13 @@ export function validateLicenseKey(
     expiryDate: expiresAtIso.split('T')[0],
     expiresAtIso,
     signedPayload: payload,
+    expectedActivationCode,
   };
 }
 
 export interface ActivateLicenseParams {
   inputKey: string;
+  activationCode: string;
   registeredOwner: string;
   currentMachineId: string;
   ownerPin?: string;
@@ -1113,16 +1303,22 @@ export interface ActivateLicenseResult {
 export function activateLicenseOnMachine(params: ActivateLicenseParams): ActivateLicenseResult {
   const nowMs = params.nowMs ?? Date.now();
   const normalizedMachineId = (params.currentMachineId || getOrGenerateMachineId()).trim().toUpperCase();
+  const normalizedCode = normalizeActivationCode(params.activationCode || '');
+
   const validation = validateLicenseKey(
     params.inputKey,
     params.registeredOwner,
     normalizedMachineId,
     params.issuedLicenses,
     nowMs,
-    { publicKeyB64: params.publicKeyB64 }
+    {
+      publicKeyB64: params.publicKeyB64,
+      activationCode: normalizedCode,
+      requireActivationCode: true,
+    }
   );
 
-  if (!validation.isValid || !validation.signedPayload) {
+  if (!validation.isValid || !validation.signedPayload || !validation.expectedActivationCode) {
     return {
       success: false,
       message: validation.message,
@@ -1130,14 +1326,52 @@ export function activateLicenseOnMachine(params: ActivateLicenseParams): Activat
   }
 
   const payload = validation.signedPayload;
+
+  // Enforce single-use activation code / license serial check in encrypted storage
+  const regCheck = readConsumedActivationsRegistry(normalizedMachineId);
+  if (regCheck.tampered) {
+    return {
+      success: false,
+      message: 'Encrypted activation registry failed integrity verification (tampered storage detected).',
+    };
+  }
+
+  const nonceHash = sha256HexSync(`${payload.licenseId}|${payload.nonce || ''}|${payload.hwid}`);
+  const activationCodeHash = sha256HexSync(`${validation.expectedActivationCode}|${payload.licenseId}`);
+
+  const alreadyConsumed = regCheck.entries.some(
+    (entry) =>
+      entry.licenseId === payload.licenseId ||
+      entry.nonceHash === nonceHash ||
+      entry.activationCodeHash === activationCodeHash
+  );
+
+  if (alreadyConsumed) {
+    return {
+      success: false,
+      message: 'This Activation Code has already been used on this machine and cannot be reused after a reset or file copy.',
+    };
+  }
+
   const activatedAtIso = new Date(payload.issuedAtMs || nowMs).toISOString();
   const expiresAtIso = validation.expiresAtIso || new Date(payload.expiresAtMs).toISOString();
   const expiryDate = expiresAtIso.split('T')[0];
+
+  const newConsumedEntry: ConsumedActivationEntry = {
+    licenseId: payload.licenseId,
+    nonceHash,
+    activationCodeHash,
+    hwid: payload.hwid === 'ANY_HARDWARE_ID' ? normalizedMachineId : payload.hwid,
+    consumedAtIso: new Date(nowMs).toISOString(),
+  };
+  const updatedConsumedEntries = [...regCheck.entries, newConsumedEntry];
 
   const license: LicenseInfo = {
     trialStartDate: params.existingLicense?.trialStartDate || activatedAtIso,
     isLicensed: true,
     licenseKey: params.inputKey.trim(),
+    licenseSerial: payload.licenseId,
+    activationCodeHash,
     registeredOwner: payload.clientName || params.registeredOwner.trim() || 'CLIENT',
     machineId: payload.hwid === 'ANY_HARDWARE_ID' ? normalizedMachineId : payload.hwid,
     ...(params.ownerPin?.trim() ? { ownerPin: params.ownerPin.trim() } : {}),
@@ -1155,13 +1389,15 @@ export function activateLicenseOnMachine(params: ActivateLicenseParams): Activat
     vaultTampered: false,
   };
 
-  // Seal immediately into hardware-bound localStorage envelope
+  // Persist consumed serial/nonce into BOTH encrypted standalone registry AND HMAC-sealed envelope
+  writeConsumedActivationsRegistry(updatedConsumedEntries, normalizedMachineId);
   sealLicenseCacheEnvelope(
     {
       maxObservedTimeMs: Math.max(nowMs, getLastVerifiedServerTimeMs()),
       lastVerifiedServerTimeMs: getLastVerifiedServerTimeMs(),
       trialStartDate: license.trialStartDate,
       license,
+      consumedSerials: updatedConsumedEntries,
     },
     normalizedMachineId
   );

@@ -628,6 +628,8 @@ export interface LicenseInfo {
   trialStartDate: string; // ISO string when first launched
   isLicensed: boolean; // true if perpetual / paid serial key entered
   licenseKey?: string; // Activated serial key
+  licenseSerial?: string; // Unique certificate serial (payload.licenseId)
+  activationCodeHash?: string; // SHA-256 hash of consumed single-use ACT-XXXX-XXXX code
   registeredOwner?: string; // Owner/Company name
   machineId: string; // Unique Machine / Hardware Fingerprint
   ownerPin?: string; // Master Owner Security PIN

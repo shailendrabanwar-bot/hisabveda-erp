@@ -1476,6 +1476,21 @@ export const SalesPage: React.FC<SalesPageProps> = ({ isHindi, onLaunchDemo, onO
                     <span>{isHindi ? 'Open Web ERP चलाएँ' : 'Open Web ERP'}</span>
                   </button>
                 </div>
+
+                <div className="mt-1 max-w-md p-3 rounded-xl bg-sky-50/90 border border-sky-200/80 text-xs text-slate-700 leading-relaxed flex items-start gap-2.5 text-left">
+                  <ShieldCheck className="w-4 h-4 text-sky-600 shrink-0 mt-0.5" />
+                  <span>
+                    {isHindi ? (
+                      <>
+                        <strong className="text-slate-900">Windows इंस्टॉलेशन सुझाव:</strong> क्योंकि यह एक सीधा स्वतंत्र इंस्टॉलर है, यदि Windows SmartScreen पर &apos;Windows protected your PC&apos; दिखे, तो सुरक्षित रूप से सेटअप पूरा करने के लिए बस <strong className="text-slate-900">&apos;More info&apos; → &apos;Run anyway&apos;</strong> पर क्लिक करें।
+                      </>
+                    ) : (
+                      <>
+                        <strong className="text-slate-900">Windows Installation Tip:</strong> Since this is a direct independent installer, if Windows SmartScreen shows &apos;Windows protected your PC&apos;, simply click &apos;More info&apos; → &apos;Run anyway&apos; to complete setup safely.
+                      </>
+                    )}
+                  </span>
+                </div>
               </div>
             </div>
 

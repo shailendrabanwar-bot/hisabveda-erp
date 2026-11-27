@@ -735,7 +735,11 @@ export function loadAppData(userId?: string | null, userEmail?: string | null): 
   }
 }
 
-export function saveAppData(data: AppData, userId?: string | null): void {
+export function saveAppData(
+  data: AppData,
+  userId?: string | null,
+  options?: { suppressCloudEvent?: boolean }
+): void {
   try {
     const storageKey = getStorageKey(userId);
     const nowIso = new Date().toISOString();
@@ -782,9 +786,11 @@ export function saveAppData(data: AppData, userId?: string | null): void {
           console.warn('Desktop workspace disk mirror failed:', err);
         });
       }
-      window.dispatchEvent(new CustomEvent('sna_data_saved', {
-        detail: stampedData
-      }));
+      if (!options?.suppressCloudEvent) {
+        window.dispatchEvent(new CustomEvent('sna_data_saved', {
+          detail: stampedData
+        }));
+      }
     }
   } catch (err) {
     console.error('Failed to save accounting data to localStorage:', err);

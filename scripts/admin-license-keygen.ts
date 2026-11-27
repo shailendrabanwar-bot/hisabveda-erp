@@ -84,6 +84,38 @@ export function parsePrivateKeyInput(rawInput: string): nacl.SignKeyPair {
   throw new Error(`Unsupported private key length (${bytes.length} bytes). Expected 32-byte seed or 64-byte Ed25519 secret key.`);
 }
 
+const ACTIVATION_CODE_ALPHABET = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+
+export function normalizeActivationCode(rawCode: string): string {
+  const clean = (rawCode || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if (clean.length === 11 && clean.startsWith('ACT')) {
+    return `ACT-${clean.slice(3, 7)}-${clean.slice(7, 11)}`;
+  }
+  if (clean.length === 8) {
+    return `ACT-${clean.slice(0, 4)}-${clean.slice(4, 8)}`;
+  }
+  return (rawCode || '').trim().toUpperCase();
+}
+
+export function deriveActivationCode(certificate: string): string {
+  try {
+    const parts = certificate.trim().split('.');
+    if (parts.length !== 3 || parts[0] !== 'HV-LIC-V3') return '';
+    const payload = JSON.parse(new TextDecoder().decode(fromBase64Url(parts[1]))) as SignedLicensePayloadV3;
+    if (!payload || !payload.licenseId || !payload.hwid) return '';
+    const hwid = String(payload.hwid).trim().toUpperCase();
+    const seed = `HV-ACT-V1|${parts[2]}|${hwid}|${String(payload.licenseId).trim()}|${String(payload.nonce || '').trim()}`;
+    const digest = crypto.createHash('sha256').update(seed, 'utf8').digest();
+    let chars = '';
+    for (let i = 0; i < 8; i++) {
+      chars += ACTIVATION_CODE_ALPHABET[digest[i] & 31];
+    }
+    return `ACT-${chars.slice(0, 4)}-${chars.slice(4, 8)}`;
+  } catch {
+    return '';
+  }
+}
+
 export function issueSignedLicenseV3(
   keyPair: nacl.SignKeyPair,
   params: {
@@ -96,7 +128,7 @@ export function issueSignedLicenseV3(
     validityDays?: number;
     nowMs?: number;
   }
-): { certificate: string; payload: SignedLicensePayloadV3; publicKeyB64: string } {
+): { certificate: string; activationCode: string; payload: SignedLicensePayloadV3; publicKeyB64: string } {
   const nowMs = params.nowMs ?? Date.now();
   const plan: PlanType = params.plan || 'PRO_PERPETUAL';
   const mode: LicenseMode = params.mode || 'SINGLE_USER';
@@ -132,9 +164,11 @@ export function issueSignedLicenseV3(
   const unsignedToken = `HV-LIC-V3.${payloadB64Url}`;
   const sigBytes = nacl.sign.detached(new TextEncoder().encode(unsignedToken), keyPair.secretKey);
   const certificate = `${unsignedToken}.${toBase64Url(sigBytes)}`;
+  const activationCode = deriveActivationCode(certificate);
 
   return {
     certificate,
+    activationCode,
     payload,
     publicKeyB64: Buffer.from(keyPair.publicKey).toString('base64'),
   };
@@ -144,8 +178,9 @@ export function verifySignedLicenseV3(
   certificate: string,
   publicKeyB64: string = DEFAULT_PUBLIC_KEY_B64,
   expectedHwid?: string,
-  nowMs: number = Date.now()
-): { valid: boolean; reason?: string; payload?: SignedLicensePayloadV3 } {
+  nowMs: number = Date.now(),
+  expectedActivationCode?: string
+): { valid: boolean; activationCode?: string; reason?: string; payload?: SignedLicensePayloadV3 } {
   const parts = certificate.trim().split('.');
   if (parts.length !== 3 || parts[0] !== 'HV-LIC-V3') {
     return { valid: false, reason: 'Invalid certificate format (expected HV-LIC-V3.<payload>.<sig>).' };
@@ -180,10 +215,22 @@ export function verifySignedLicenseV3(
         };
       }
     }
-    if (Number(payload.expiresAtMs || 0) < nowMs) {
-      return { valid: false, reason: 'Signed license certificate has expired.', payload };
+    const derivedCode = deriveActivationCode(certificate);
+    if (expectedActivationCode !== undefined) {
+      const normCode = normalizeActivationCode(expectedActivationCode);
+      if (!normCode || normCode !== derivedCode) {
+        return {
+          valid: false,
+          activationCode: derivedCode,
+          reason: 'Activation Code mismatch for this HV-LIC-V3 certificate and Machine ID.',
+          payload,
+        };
+      }
     }
-    return { valid: true, payload };
+    if (Number(payload.expiresAtMs || 0) < nowMs) {
+      return { valid: false, activationCode: derivedCode, reason: 'Signed license certificate has expired.', payload };
+    }
+    return { valid: true, activationCode: derivedCode, payload };
   } catch (err: any) {
     return { valid: false, reason: err?.message || 'Certificate decode error.' };
   }
@@ -241,7 +288,8 @@ function main() {
     const cert = flags['cert'] || '';
     const pub = flags['pub'] || process.env.VITE_LICENSE_PUBLIC_KEY || DEFAULT_PUBLIC_KEY_B64;
     const hwid = flags['hwid'];
-    const result = verifySignedLicenseV3(cert, pub, hwid);
+    const code = flags['code'];
+    const result = verifySignedLicenseV3(cert, pub, hwid, Date.now(), code);
     console.log(JSON.stringify(result, null, 2));
     if (!result.valid) process.exitCode = 1;
     return;
@@ -251,7 +299,7 @@ function main() {
 Commands:
   keygen
   issue --owner "<Company>" --hwid "<HV-HWID-...>" [--plan PRO_PERPETUAL|STANDARD_ANNUAL|TRIAL|ENTERPRISE] [--mode SINGLE_USER|MULTI_USER] [--seats 1] [--days 365] [--key "<B64>" | --key-file path]
-  verify --cert "<HV-LIC-V3...>" [--hwid "<HV-HWID-...>"] [--pub "<B64>"]`);
+  verify --cert "<HV-LIC-V3...>" [--hwid "<HV-HWID-...>"] [--code "ACT-XXXX-XXXX"] [--pub "<B64>"]`);
 }
 
 if (import.meta.url === `file://${process.argv[1]}` || process.argv[1]?.endsWith('admin-license-keygen.ts')) {

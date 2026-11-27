@@ -91,6 +91,27 @@ function resolvePlanSpec(rawPlan) {
   return { plan: 'STANDARD_ANNUAL', label: 'Annual Commercial (1 Year)', validityDays: 365 };
 }
 
+const ACTIVATION_CODE_ALPHABET = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+
+export function deriveActivationCode(certificate) {
+  try {
+    const parts = String(certificate || '').trim().split('.');
+    if (parts.length !== 3 || parts[0] !== 'HV-LIC-V3') return '';
+    const payload = JSON.parse(Buffer.from(fromBase64Url(parts[1])).toString('utf8'));
+    if (!payload || !payload.licenseId || !payload.hwid) return '';
+    const hwid = String(payload.hwid).trim().toUpperCase();
+    const seed = `HV-ACT-V1|${parts[2]}|${hwid}|${String(payload.licenseId).trim()}|${String(payload.nonce || '').trim()}`;
+    const digest = crypto.createHash('sha256').update(seed, 'utf8').digest();
+    let chars = '';
+    for (let i = 0; i < 8; i++) {
+      chars += ACTIVATION_CODE_ALPHABET[digest[i] & 31];
+    }
+    return `ACT-${chars.slice(0, 4)}-${chars.slice(4, 8)}`;
+  } catch {
+    return '';
+  }
+}
+
 export function signLicenseCertificate({ fullName, machineId, plan, mode, maxSeats }) {
   const rawPrivateKey = process.env.PRIVATE_KEY || process.env.LICENSE_PRIVATE_KEY || '';
   const keyPair = parsePrivateKey(rawPrivateKey);
@@ -124,9 +145,11 @@ export function signLicenseCertificate({ fullName, machineId, plan, mode, maxSea
   const unsignedToken = `HV-LIC-V3.${payloadB64Url}`;
   const signature = nacl.sign.detached(new TextEncoder().encode(unsignedToken), keyPair.secretKey);
   const certificate = `${unsignedToken}.${toBase64Url(signature)}`;
+  const activationCode = deriveActivationCode(certificate);
 
   return {
     certificate,
+    activationCode,
     payload,
     planLabel: planSpec.label,
     expiresDate: new Date(expiresAtMs).toISOString().split('T')[0],
@@ -153,10 +176,10 @@ async function createMailerTransport() {
   });
 }
 
-function buildCustomerEmailHtml({ fullName, email, mobile, machineId, planLabel, expiresDate, certificate }) {
+function buildCustomerEmailHtml({ fullName, email, mobile, machineId, planLabel, expiresDate, certificate, activationCode }) {
   return `
     <div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;margin:0 auto;background:#0f172a;color:#e2e8f0;padding:24px;border-radius:16px;border:1px solid #334155;">
-      <h2 style="margin:0 0 8px;color:#38bdf8;">HisabVeda ERP — License Certificate</h2>
+      <h2 style="margin:0 0 8px;color:#38bdf8;">HisabVeda ERP — License Certificate &amp; Activation Code</h2>
       <p style="margin:0 0 18px;color:#94a3b8;font-size:13px;">Namaste ${escapeHtml(fullName)}, thank you for registering with HisabVeda ERP.</p>
 
       <div style="background:#1e293b;border:1px solid #334155;border-radius:12px;padding:16px;margin-bottom:18px;font-size:13px;">
@@ -166,8 +189,13 @@ function buildCustomerEmailHtml({ fullName, email, mobile, machineId, planLabel,
         <div style="margin-top:6px;"><strong>Locked Hardware Machine ID:</strong> <code>${escapeHtml(machineId)}</code></div>
       </div>
 
+      <div style="margin-bottom:14px;">
+        <div style="font-size:12px;font-weight:bold;color:#34d399;margin-bottom:6px;">1) UNIQUE SINGLE-USE ACTIVATION CODE:</div>
+        <div style="background:#020617;color:#34d399;border:1px solid #10b981;border-radius:10px;padding:12px;font-size:18px;font-weight:bold;letter-spacing:2px;text-align:center;font-family:monospace;">${escapeHtml(activationCode)}</div>
+      </div>
+
       <div style="margin-bottom:18px;">
-        <div style="font-size:12px;font-weight:bold;color:#fbbf24;margin-bottom:6px;">YOUR SIGNED LICENSE CERTIFICATE (COPY FULL TEXT BELOW):</div>
+        <div style="font-size:12px;font-weight:bold;color:#fbbf24;margin-bottom:6px;">2) YOUR SIGNED LICENSE CERTIFICATE (COPY FULL TEXT BELOW):</div>
         <pre style="white-space:pre-wrap;word-break:break-all;background:#020617;color:#fcd34d;border:1px solid #4f46e5;border-radius:10px;padding:14px;font-size:12px;line-height:1.5;">${escapeHtml(certificate)}</pre>
       </div>
 
@@ -177,6 +205,7 @@ function buildCustomerEmailHtml({ fullName, email, mobile, machineId, planLabel,
           <li>Open HisabVeda ERP Desktop and click <strong>Activate License</strong>.</li>
           <li>Stay on the <strong>Activate License Key</strong> tab.</li>
           <li>Paste the entire <code>HV-LIC-V3...</code> certificate above into the License Certificate box.</li>
+          <li>Enter your Unique Single-Use Activation Code (<code>${escapeHtml(activationCode)}</code>) in the Activation Code box.</li>
           <li>Click <strong>Activate Commercial License</strong> — your software unlocks permanently for this PC.</li>
         </ol>
       </div>
@@ -321,12 +350,14 @@ export async function handleLicenseRequest(req, res) {
         planLabel: signed.planLabel,
         expiresDate: signed.expiresDate,
         certificate: signed.certificate,
+        activationCode: signed.activationCode,
       }),
       text: [
         `HisabVeda ERP License Certificate (${signed.planLabel})`,
         `Customer: ${fullName}`,
         `Machine ID: ${machineId}`,
         `Valid Until: ${signed.expiresDate}`,
+        `Unique Activation Code: ${signed.activationCode}`,
         '',
         `Certificate:`,
         signed.certificate,

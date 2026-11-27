@@ -6,11 +6,14 @@ import nacl from 'tweetnacl';
 import {
   DEFAULT_VENDOR_ED25519_PUBLIC_KEY_B64,
   LICENSE_ENVELOPE_STORAGE_KEY,
+  CONSUMED_ACTIVATIONS_STORAGE_KEY,
   CLOCK_WATERMARK_STORAGE_KEY,
   parseAndVerifySignedLicense,
   parseAndVerifyEncryptedLicenseString,
   validateLicenseKey,
   activateLicenseOnMachine,
+  deriveActivationCode,
+  readConsumedActivationsRegistry,
   getTrialStatus,
   getOrGenerateMachineId,
   sealLicenseCacheEnvelope,
@@ -21,6 +24,7 @@ import {
 import {
   issueSignedLicenseV3,
   verifySignedLicenseV3,
+  deriveActivationCode as keygenDeriveActivationCode,
 } from '../../scripts/admin-license-keygen.ts';
 
 function createTestKeyPair() {
@@ -363,9 +367,13 @@ test('activateLicenseOnMachine binds strictly to current Machine ID and starts s
       validityDays: 365,
       nowMs: activationNowMs,
     });
+    assert.match(annualCert.activationCode, /^ACT-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}-[23456789ABCDEFGHJKLMNPQRSTUVWXYZ]{4}$/);
+    assert.equal(annualCert.activationCode, deriveActivationCode(annualCert.certificate, currentMachine));
+    assert.equal(annualCert.activationCode, keygenDeriveActivationCode(annualCert.certificate));
 
     const res = activateLicenseOnMachine({
       inputKey: annualCert.certificate,
+      activationCode: annualCert.activationCode,
       registeredOwner: 'Patel Pharma',
       currentMachineId: currentMachine,
       nowMs: activationNowMs,
@@ -377,6 +385,7 @@ test('activateLicenseOnMachine binds strictly to current Machine ID and starts s
     assert.equal(res.license.machineId, currentMachine);
     assert.equal(res.license.licenseType, 'STANDARD_ANNUAL');
     assert.equal(res.license.validityDays, 365);
+    assert.equal(res.license.licenseSerial, annualCert.payload.licenseId);
 
     const statusDay100 = getTrialStatus(
       res.license,
@@ -549,5 +558,119 @@ test('Electron main.js prevents unlicensed flush-sync or workspace save from dow
   assert.ok(mainJs.includes("ipcMain.handle('hv:save-license'"));
   assert.ok(mainJs.includes("ipcMain.handle('hv:save-workspace'"));
 });
+
+test('Dual-layer activation requires matching ACT-XXXX-XXXX code and enforces single-use against file reset/copy', async () => {
+  const { signLicenseCertificate, deriveActivationCode: mailerDeriveActivationCode } = await import('../../server/auto-license-mailer.js');
+  withMockLocalStorage((store) => {
+    const { kp, publicKeyB64 } = createTestKeyPair();
+    const currentMachine = getOrGenerateMachineId();
+    const nowMs = Date.UTC(2026, 7, 1, 11, 0, 0);
+
+    const certA = issueSignedLicenseV3(kp, {
+      clientName: 'Dual Layer Traders',
+      hwid: currentMachine,
+      plan: 'PRO_PERPETUAL',
+      nowMs,
+    });
+    const certB = issueSignedLicenseV3(kp, {
+      clientName: 'Dual Layer Traders',
+      hwid: currentMachine,
+      plan: 'PRO_PERPETUAL',
+      nowMs,
+    });
+
+    // Verify mailer matches the same ACT-XXXX-XXXX deterministic format
+    const prevKey = process.env.PRIVATE_KEY;
+    process.env.PRIVATE_KEY = Buffer.from(kp.secretKey.slice(0, 32)).toString('base64');
+    try {
+      const mailed = signLicenseCertificate({
+        fullName: 'Mailer Dual Layer',
+        machineId: currentMachine,
+        plan: 'STANDARD_ANNUAL',
+        mode: 'SINGLE_USER',
+        maxSeats: 1,
+      });
+      assert.equal(mailed.activationCode, deriveActivationCode(mailed.certificate, currentMachine));
+      assert.equal(mailed.activationCode, mailerDeriveActivationCode(mailed.certificate));
+    } finally {
+      if (prevKey === undefined) delete process.env.PRIVATE_KEY;
+      else process.env.PRIVATE_KEY = prevKey;
+    }
+
+    // 1. Missing activation code must fail
+    const missingCode = activateLicenseOnMachine({
+      inputKey: certA.certificate,
+      activationCode: '',
+      registeredOwner: 'Dual Layer Traders',
+      currentMachineId: currentMachine,
+      nowMs,
+      publicKeyB64,
+    });
+    assert.equal(missingCode.success, false);
+    assert.match(missingCode.message, /Activation Code/i);
+
+    // 2. Activation code from another certificate must fail
+    const swappedCode = activateLicenseOnMachine({
+      inputKey: certA.certificate,
+      activationCode: certB.activationCode,
+      registeredOwner: 'Dual Layer Traders',
+      currentMachineId: currentMachine,
+      nowMs,
+      publicKeyB64,
+    });
+    assert.equal(swappedCode.success, false);
+    assert.match(swappedCode.message, /Invalid Activation Code/i);
+
+    // 3. Valid pair (certA + certA.activationCode normalized without hyphens/lowercase) activates & consumes serial
+    const validRes = activateLicenseOnMachine({
+      inputKey: certA.certificate,
+      activationCode: certA.activationCode.toLowerCase().replace(/-/g, ''),
+      registeredOwner: 'Dual Layer Traders',
+      currentMachineId: currentMachine,
+      nowMs,
+      publicKeyB64,
+    });
+    assert.equal(validRes.success, true);
+    assert.ok(store.get(CONSUMED_ACTIVATIONS_STORAGE_KEY));
+
+    const consumedReg = readConsumedActivationsRegistry(currentMachine);
+    assert.equal(consumedReg.tampered, false);
+    assert.equal(consumedReg.entries.length, 1);
+    assert.equal(consumedReg.entries[0].licenseId, certA.payload.licenseId);
+
+    // 4. Even if sealed license envelope / workspace is deleted/reset, reusing consumed certA + activationCode fails!
+    store.delete(LICENSE_ENVELOPE_STORAGE_KEY);
+    const replayAfterReset = activateLicenseOnMachine({
+      inputKey: certA.certificate,
+      activationCode: certA.activationCode,
+      registeredOwner: 'Dual Layer Traders',
+      currentMachineId: currentMachine,
+      nowMs: nowMs + 60_000,
+      publicKeyB64,
+    });
+    assert.equal(replayAfterReset.success, false);
+    assert.match(replayAfterReset.message, /already been used/i);
+
+    // 5. A newly issued certificate (certB + certB.activationCode) succeeds cleanly
+    const upgradeRes = activateLicenseOnMachine({
+      inputKey: certB.certificate,
+      activationCode: certB.activationCode,
+      registeredOwner: 'Dual Layer Traders',
+      currentMachineId: currentMachine,
+      nowMs: nowMs + 120_000,
+      publicKeyB64,
+    });
+    assert.equal(upgradeRes.success, true);
+
+    // 6. Tampering with encrypted consumed registry triggers VAULT_TAMPERED in getTrialStatus
+    const rawConsumed = JSON.parse(store.get(CONSUMED_ACTIVATIONS_STORAGE_KEY)!);
+    rawConsumed.ct = 'AAAA' + rawConsumed.ct.slice(4);
+    store.set(CONSUMED_ACTIVATIONS_STORAGE_KEY, JSON.stringify(rawConsumed));
+    const tamperedStatus = getTrialStatus(upgradeRes.license, { vouchers: [], invoices: [], purchaseInvoices: [] }, nowMs + 180_000, { publicKeyB64 });
+    assert.equal(tamperedStatus.vaultTampered, true);
+    assert.equal(tamperedStatus.lockReason, 'VAULT_TAMPERED');
+  });
+});
+
 
 

@@ -10,7 +10,15 @@ import {
   where,
   writeBatch,
 } from 'firebase/firestore';
-import { auth, db, buildFirestoreErrorInfo, OperationType } from '../lib/firebase';
+import {
+  auth,
+  db,
+  buildFirestoreErrorInfo,
+  OperationType,
+  isFirestoreQuotaError,
+  isFirestoreQuotaPaused,
+  pauseFirestoreForQuota,
+} from '../lib/firebase';
 import { AppData, UserProfile } from '../types';
 import { getStorageMode, saveAppData } from './storage';
 
@@ -24,6 +32,9 @@ export function logFirestoreError(
   operationType: OperationType,
   path: string | null
 ) {
+  if (isFirestoreQuotaError(error)) {
+    void pauseFirestoreForQuota();
+  }
   const errInfo = buildFirestoreErrorInfo(error, operationType, path);
   console.error('Firestore Error:', JSON.stringify(errInfo));
   return errInfo;
@@ -74,6 +85,7 @@ let isApplyingRemoteChange = false;
 // Incremental diff caches keyed by companyId
 const lastPushedShardHashes = new Map<string, Map<string, string>>();
 const lastPushedShardManifest = new Map<string, Record<string, number>>();
+const lastPushedHeaderHashes = new Map<string, string>();
 let lastSyncedMemberSignature = '';
 
 const textEncoder = typeof TextEncoder !== 'undefined' ? new TextEncoder() : null;
@@ -404,12 +416,51 @@ function assembleAppDataFromShardsAndHeader(
   };
 }
 
+function buildStableHeaderSignature(data: AppData, companyId: string, manifest: Record<string, number>): string {
+  return hashString(
+    JSON.stringify({
+      companyId,
+      shardManifest: manifest,
+      company: sanitizeCompanyHeader(data.company, companyId),
+      accountGroups: sanitizeForFirestore(data.accountGroups || []).slice(0, 1000),
+      userProfiles: sanitizeUserProfiles(data.userProfiles),
+      gstPortalData: sanitizeForFirestore(data.gstPortalData || {}),
+      pinRequired: Boolean(data.pinRequired),
+      securityPin: String(data.securityPin || '').slice(0, 20),
+      softwareVersion: String(data.softwareVersion || 'v2.4.2').slice(0, 30),
+      standardLedgersSeeded: Boolean(data.standardLedgersSeeded),
+    })
+  );
+}
+
+function primeSyncCachesFromAppData(companyId: string, assembled: AppData, remoteHeaderData?: Record<string, any>) {
+  const seededHashes = new Map<string, string>();
+  const seededManifest: Record<string, number> = {};
+  for (const collectionKey of SHARDED_COLLECTION_KEYS) {
+    const sourceArr = getCollectionSourceArray(assembled, collectionKey);
+    const shards = buildShardsForCollection(collectionKey, sourceArr);
+    seededManifest[collectionKey] = shards.length;
+    for (const shard of shards) {
+      seededHashes.set(shard.shardId, hashString(shard.jsonString));
+    }
+  }
+  lastPushedShardHashes.set(companyId, seededHashes);
+  lastPushedShardManifest.set(
+    companyId,
+    remoteHeaderData?.shardManifest && typeof remoteHeaderData.shardManifest === 'object'
+      ? remoteHeaderData.shardManifest
+      : seededManifest
+  );
+  lastPushedHeaderHashes.set(companyId, buildStableHeaderSignature(assembled, companyId, seededManifest));
+}
+
 /**
  * Pushes the authenticated user's company dataset to Firestore using bounded Sub-Collection Shards
  * (`/companies/{companyId}/dataShards/{shardId}`), eliminating the 1 MB single-document limit.
  */
 export async function pushAppDataToCloud(data: AppData): Promise<boolean> {
   if (isApplyingRemoteChange) return false;
+  if (isFirestoreQuotaPaused()) return false;
 
   const currentUser = auth.currentUser;
   if (!currentUser) return false;
@@ -503,6 +554,14 @@ export async function pushAppDataToCloud(data: AppData): Promise<boolean> {
       }
     }
 
+    const headerHash = buildStableHeaderSignature(data, companyId, nextManifest);
+    const headerChanged = lastPushedHeaderHashes.get(companyId) !== headerHash;
+
+    // Skip redundant cloud roundtrip completely when neither shards nor header changed
+    if (pendingOps.length === 0 && !headerChanged) {
+      return true;
+    }
+
     // 3. Commit dirty/deleted shards first in bounded writeBatch chunks (max 380 ops/batch)
     currentWritePath = `companies/${companyId}/dataShards`;
     for (let i = 0; i < pendingOps.length; i += MAX_BATCH_OPS) {
@@ -524,27 +583,30 @@ export async function pushAppDataToCloud(data: AppData): Promise<boolean> {
     lastPushedShardManifest.set(companyId, nextManifest);
 
     // 4. Write lightweight root company header (license field is excluded per hardened firestore.rules)
-    currentWritePath = `companies/${companyId}`;
-    const headerPayload = {
-      companyId,
-      ownerUid: currentUser.uid,
-      syncSchemaVersion: 2,
-      shardManifest: nextManifest,
-      company: sanitizeCompanyHeader(data.company, companyId),
-      accountGroups: sanitizeForFirestore(data.accountGroups || []).slice(0, 1000),
-      userProfiles: sanitizeUserProfiles(data.userProfiles),
-      gstPortalData: sanitizeForFirestore(data.gstPortalData || {}),
-      pinRequired: Boolean(data.pinRequired),
-      securityPin: String(data.securityPin || '').slice(0, 20),
-      softwareVersion: String(data.softwareVersion || 'v2.4.2').slice(0, 30),
-      standardLedgersSeeded: Boolean(data.standardLedgersSeeded),
-      updatedAtMs: now,
-      updatedAtIso: nowIso,
-      updatedByDevice: DEVICE_SESSION_ID.slice(0, 64),
-      serverTime: serverTimestamp(),
-    };
+    if (headerChanged || pendingOps.length > 0) {
+      currentWritePath = `companies/${companyId}`;
+      const headerPayload = {
+        companyId,
+        ownerUid: currentUser.uid,
+        syncSchemaVersion: 2,
+        shardManifest: nextManifest,
+        company: sanitizeCompanyHeader(data.company, companyId),
+        accountGroups: sanitizeForFirestore(data.accountGroups || []).slice(0, 1000),
+        userProfiles: sanitizeUserProfiles(data.userProfiles),
+        gstPortalData: sanitizeForFirestore(data.gstPortalData || {}),
+        pinRequired: Boolean(data.pinRequired),
+        securityPin: String(data.securityPin || '').slice(0, 20),
+        softwareVersion: String(data.softwareVersion || 'v2.4.2').slice(0, 30),
+        standardLedgersSeeded: Boolean(data.standardLedgersSeeded),
+        updatedAtMs: now,
+        updatedAtIso: nowIso,
+        updatedByDevice: DEVICE_SESSION_ID.slice(0, 64),
+        serverTime: serverTimestamp(),
+      };
 
-    await setDoc(docRef, headerPayload, { merge: true });
+      await setDoc(docRef, headerPayload, { merge: true });
+      lastPushedHeaderHashes.set(companyId, headerHash);
+    }
     return true;
   } catch (error) {
     logFirestoreError(error, OperationType.WRITE, currentWritePath);
@@ -588,6 +650,11 @@ export function subscribeToCloudSync(
     return () => {};
   }
 
+  if (isFirestoreQuotaPaused()) {
+    onStatusChange('error');
+    return () => {};
+  }
+
   const targetCompanyId = `cmp_${currentUser.uid}`;
   const docPath = `companies/${targetCompanyId}`;
   const docRef = doc(db, 'companies', targetCompanyId);
@@ -625,12 +692,10 @@ export function subscribeToCloudSync(
             shardDocs
           );
 
-          // Prime manifest cache so next local write doesn't re-upload unchanged shards unnecessarily
-          if (remoteData.shardManifest && typeof remoteData.shardManifest === 'object') {
-            lastPushedShardManifest.set(targetCompanyId, remoteData.shardManifest);
-          }
+          // Prime shard & header diff caches so next local edit only writes the modified shard
+          primeSyncCachesFromAppData(targetCompanyId, mergedData, remoteData);
 
-          saveAppData(mergedData, currentUser.uid);
+          saveAppData(mergedData, currentUser.uid, { suppressCloudEvent: true });
           onRemoteUpdate(mergedData);
           onStatusChange('connected', new Date().toLocaleTimeString());
         } finally {
@@ -655,6 +720,7 @@ export function subscribeToCloudSync(
  * Manually fetches the latest cloud data (header + sub-collection shards) on-demand for the signed-in user's company.
  */
 export async function pullLatestFromCloud(companyId?: string): Promise<AppData | null> {
+  if (isFirestoreQuotaPaused()) return null;
   const currentUser = auth.currentUser;
   if (!currentUser || !currentUser.emailVerified) return null;
 
@@ -673,10 +739,9 @@ export async function pullLatestFromCloud(companyId?: string): Promise<AppData |
 
     if (snap.exists()) {
       const remoteData = snap.data();
-      if (remoteData.shardManifest && typeof remoteData.shardManifest === 'object') {
-        lastPushedShardManifest.set(targetCompanyId, remoteData.shardManifest);
-      }
-      return assembleAppDataFromShardsAndHeader(targetCompanyId, remoteData, shardDocs);
+      const assembled = assembleAppDataFromShardsAndHeader(targetCompanyId, remoteData, shardDocs);
+      primeSyncCachesFromAppData(targetCompanyId, assembled, remoteData);
+      return assembled;
     }
     return null;
   } catch (e) {

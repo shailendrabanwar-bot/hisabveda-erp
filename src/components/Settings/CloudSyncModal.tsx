@@ -17,7 +17,12 @@ import {
   Mail
 } from 'lucide-react';
 import { sendEmailVerification } from 'firebase/auth';
-import { auth } from '../../lib/firebase';
+import {
+  auth,
+  isFirestoreQuotaPaused,
+  resumeFirestoreFromQuota,
+  FIREBASE_QUOTA_UPGRADE_URL,
+} from '../../lib/firebase';
 import { AppData } from '../../types';
 import {
   pushAppDataToCloud,
@@ -165,17 +170,26 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
     setIsPushing(true);
     setFeedbackMsg(null);
     try {
+      if (isFirestoreQuotaPaused()) {
+        await resumeFirestoreFromQuota();
+      }
       const ok = await pushAppDataToCloud(data);
       if (ok) {
         setFeedbackMsg(isHindi
           ? `✓ वर्तमान डेटा (${diagnostics.shardCount} Shards / ${diagnostics.totalDatasetKB} KB) क्लाउड पर सफलतापूर्वक अपलोड हो गया!`
           : `✓ Dataset (${diagnostics.shardCount} sub-collection shards / ${diagnostics.totalDatasetKB} KB) pushed to Cloud!`);
+      } else if (isFirestoreQuotaPaused()) {
+        setFeedbackMsg(
+          isHindi
+            ? '⚠️ दैनिक मुफ्त Firestore राइट सीमा पूरी हो चुकी है। कोटा कल रीसेट होगा; तब तक सभी प्रविष्टियाँ आपके डिवाइस पर सुरक्षित सेव हैं।'
+            : '⚠️ Daily free-tier Firestore write quota exceeded. Quota resets tomorrow; all entries remain safely saved locally.'
+        );
       } else {
         setFeedbackMsg(isHindi ? 'चेतावनी: क्लाउड सिंक में त्रुटि हुई।' : 'Notice: Cloud sync push failed.');
       }
     } finally {
       setIsPushing(false);
-      setTimeout(() => setFeedbackMsg(null), 4500);
+      setTimeout(() => setFeedbackMsg(null), 5500);
     }
   };
 
@@ -230,6 +244,21 @@ export const CloudSyncModal: React.FC<CloudSyncModalProps> = ({
                   {storageMode === 'local' ? (isHindi ? 'लोकल डिवाइस मोड' : '100% On-Device') : 'Multi-Tenant Cloud'}
                 </span>
               </div>
+              {isFirestoreQuotaPaused() && (
+                <div className="mt-2 p-2.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-[11px] text-amber-200 leading-relaxed">
+                  {isHindi
+                    ? 'दैनिक मुफ्त Firestore राइट कोटा पूरा हो गया है (कल स्वतः रीसेट होगा)। आपका पूरा डेटा लोकल डिवाइस पर सुरक्षित है।'
+                    : 'Daily free-tier Firestore write quota reached (resets tomorrow). Your books continue saving safely on this device.'}{' '}
+                  <a
+                    href={FIREBASE_QUOTA_UPGRADE_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline font-bold text-amber-100"
+                  >
+                    Firebase Console
+                  </a>
+                </div>
+              )}
               <p className="text-[11px] text-slate-400">
                 {isHindi
                   ? 'चुनें कि आपका डेटा केवल पर्सनल डिवाइस में रहे या क्लाउड पर लाइव सिंक हो'

@@ -23,7 +23,7 @@ import {
   signInWithPopup
 } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
-import { auth, db } from '../../lib/firebase';
+import { auth, db, isFirestoreQuotaError, pauseFirestoreForQuota } from '../../lib/firebase';
 import { UserProfile, UserRole } from '../../types';
 import { SnaLogo } from '../SnaLogo';
 import { ALL_USER_ROLES, ROLE_METADATA } from '../../utils/rbac';
@@ -75,9 +75,18 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
       const userCredential = await signInWithPopup(auth, provider);
       const fbUser = userCredential.user;
 
-      const userDocRef = doc(db, 'users', fbUser.uid);
-      const userDoc = await getDoc(userDocRef);
-      const userData = userDoc.exists() ? userDoc.data() : null;
+      let userData: any = null;
+      let userExists = false;
+      try {
+        const userDocRef = doc(db, 'users', fbUser.uid);
+        const userDoc = await getDoc(userDocRef);
+        userExists = userDoc.exists();
+        userData = userExists ? userDoc.data() : null;
+      } catch (profileErr) {
+        if (isFirestoreQuotaError(profileErr)) {
+          void pauseFirestoreForQuota();
+        }
+      }
 
       const loggedInUser: UserProfile = {
         id: fbUser.uid,
@@ -88,8 +97,14 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
         pin: String(userData?.pin || '').slice(0, 10)
       };
 
-      if (fbUser.emailVerified && !userDoc.exists()) {
-        await setDoc(userDocRef, loggedInUser);
+      if (fbUser.emailVerified && !userExists) {
+        try {
+          await setDoc(doc(db, 'users', fbUser.uid), loggedInUser);
+        } catch (writeErr) {
+          if (isFirestoreQuotaError(writeErr)) {
+            void pauseFirestoreForQuota();
+          }
+        }
         onRegisterUser(loggedInUser);
       }
 
@@ -128,9 +143,18 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
       const userCredential = await signInWithEmailAndPassword(auth, email.trim(), password);
       const fbUser = userCredential.user;
 
-      const userDocRef = doc(db, 'users', fbUser.uid);
-      const userDoc = await getDoc(userDocRef);
-      const userData = userDoc.exists() ? userDoc.data() : null;
+      let userData: any = null;
+      let userExists = false;
+      try {
+        const userDocRef = doc(db, 'users', fbUser.uid);
+        const userDoc = await getDoc(userDocRef);
+        userExists = userDoc.exists();
+        userData = userExists ? userDoc.data() : null;
+      } catch (profileErr) {
+        if (isFirestoreQuotaError(profileErr)) {
+          void pauseFirestoreForQuota();
+        }
+      }
 
       const loggedInUser: UserProfile = {
         id: fbUser.uid,
@@ -141,8 +165,14 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
         pin: String(userData?.pin || '').slice(0, 10)
       };
 
-      if (fbUser.emailVerified && !userDoc.exists()) {
-        await setDoc(userDocRef, loggedInUser);
+      if (fbUser.emailVerified && !userExists) {
+        try {
+          await setDoc(doc(db, 'users', fbUser.uid), loggedInUser);
+        } catch (writeErr) {
+          if (isFirestoreQuotaError(writeErr)) {
+            void pauseFirestoreForQuota();
+          }
+        }
         onRegisterUser(loggedInUser);
       }
 
@@ -201,7 +231,13 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
       };
 
       if (fbUser.emailVerified) {
-        await setDoc(doc(db, 'users', fbUser.uid), newUser);
+        try {
+          await setDoc(doc(db, 'users', fbUser.uid), newUser);
+        } catch (writeErr) {
+          if (isFirestoreQuotaError(writeErr)) {
+            void pauseFirestoreForQuota();
+          }
+        }
       } else {
         await sendEmailVerification(fbUser).catch(() => {});
       }

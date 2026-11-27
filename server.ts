@@ -1667,6 +1667,42 @@ Return ONLY valid raw JSON with no markdown block ticks.`;
   const toB64Url = (bytes: Uint8Array): string =>
     Buffer.from(bytes).toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
 
+  const ACTIVATION_CODE_ALPHABET = '23456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+
+  const normalizeActivationCodeServer = (raw: string): string => {
+    const clean = (raw || '').trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (clean.length === 11 && clean.startsWith('ACT')) {
+      return `ACT-${clean.slice(3, 7)}-${clean.slice(7, 11)}`;
+    }
+    if (clean.length === 8) {
+      return `ACT-${clean.slice(0, 4)}-${clean.slice(4, 8)}`;
+    }
+    return (raw || '').trim().toUpperCase();
+  };
+
+  const deriveActivationCodeServer = (certificate: string, expectedHwid?: string): string => {
+    try {
+      const parts = certificate.trim().split('.');
+      if (parts.length !== 3 || parts[0] !== 'HV-LIC-V3') return '';
+      const payload = JSON.parse(Buffer.from(fromB64Url(parts[1])).toString('utf8'));
+      if (!payload || !payload.licenseId || !payload.hwid) return '';
+      const payloadHwid = String(payload.hwid).trim().toUpperCase();
+      const effectiveHwid =
+        payloadHwid === 'ANY_HARDWARE_ID'
+          ? 'ANY_HARDWARE_ID'
+          : (expectedHwid ? expectedHwid.trim().toUpperCase() : payloadHwid);
+      const seed = `HV-ACT-V1|${parts[2]}|${effectiveHwid}|${String(payload.licenseId).trim()}|${String(payload.nonce || '').trim()}`;
+      const digest = crypto.createHash('sha256').update(seed, 'utf8').digest();
+      let chars = '';
+      for (let i = 0; i < 8; i++) {
+        chars += ACTIVATION_CODE_ALPHABET[digest[i] & 31];
+      }
+      return `ACT-${chars.slice(0, 4)}-${chars.slice(4, 8)}`;
+    } catch {
+      return '';
+    }
+  };
+
   const parseServerEd25519KeyPair = (raw?: string): nacl.SignKeyPair | null => {
     const trimmed = (raw || '').trim();
     if (!trimmed) return null;
@@ -1799,6 +1835,20 @@ Return ONLY valid raw JSON with no markdown block ticks.`;
         });
       }
 
+      const providedCode = typeof req.body?.activationCode === 'string'
+        ? normalizeActivationCodeServer(req.body.activationCode)
+        : '';
+      const expectedCode = deriveActivationCodeServer(cert, machineId || undefined);
+      if (req.body?.activationCode !== undefined && (!providedCode || providedCode !== expectedCode)) {
+        return res.status(403).json({
+          success: false,
+          valid: false,
+          reason: 'ACTIVATION_CODE_MISMATCH',
+          serverTimeMs,
+          error: 'Invalid Activation Code (ACT-XXXX-XXXX) for this Hardware Machine ID and HV-LIC-V3 certificate.',
+        });
+      }
+
       return res.json({
         success: true,
         valid: true,
@@ -1885,10 +1935,12 @@ Return ONLY valid raw JSON with no markdown block ticks.`;
       const unsignedToken = `HV-LIC-V3.${payloadB64Url}`;
       const sigBytes = nacl.sign.detached(new Uint8Array(Buffer.from(unsignedToken, 'utf8')), signingKeyPair.secretKey);
       const certificate = `${unsignedToken}.${toB64Url(sigBytes)}`;
+      const activationCode = deriveActivationCodeServer(certificate);
 
       return res.json({
         success: true,
         certificate,
+        activationCode,
         payload,
         publicKeyB64: Buffer.from(signingKeyPair.publicKey).toString('base64'),
       });

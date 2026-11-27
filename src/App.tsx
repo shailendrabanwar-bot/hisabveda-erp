@@ -123,7 +123,16 @@ import { getTrialStatus, syncServerClockFromApi } from './utils/license';
 import { LicenseInfo, UserProfile, DebitCreditNote } from './types';
 import { signOut, onAuthStateChanged, sendEmailVerification, User } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { auth, db, buildFirestoreErrorInfo, OperationType, testFirestoreConnection } from './lib/firebase';
+import {
+  auth,
+  db,
+  buildFirestoreErrorInfo,
+  OperationType,
+  testFirestoreConnection,
+  isFirestoreQuotaError,
+  isFirestoreQuotaPaused,
+  pauseFirestoreForQuota,
+} from './lib/firebase';
 import {
   canAccessTab,
   getRolePermissions,
@@ -542,7 +551,7 @@ export default function App() {
       const verifiedNow = Boolean(auth.currentUser?.emailVerified);
       setFirebaseUser(auth.currentUser);
       setIsEmailVerified(verifiedNow);
-      if (verifiedNow && sessionUser) {
+      if (verifiedNow && sessionUser && !isFirestoreQuotaPaused()) {
         try {
           const userDocRef = doc(db, 'users', current.uid);
           const userSnap = await getDoc(userDocRef);
@@ -556,7 +565,10 @@ export default function App() {
               pin: String(sessionUser.pin || '').slice(0, 10),
             });
           }
-        } catch {
+        } catch (profileErr) {
+          if (isFirestoreQuotaError(profileErr)) {
+            void pauseFirestoreForQuota();
+          }
           // Ignore optional user doc sync error; main company sync effect will run now
         }
         setToastMessage(
@@ -610,7 +622,11 @@ export default function App() {
     let unsub: (() => void) | null = null;
     let debounceTimer: any = null;
 
-    setCloudSyncStatus('syncing');
+    if (isFirestoreQuotaPaused()) {
+      setCloudSyncStatus('error');
+    } else {
+      setCloudSyncStatus('syncing');
+    }
 
     if (data.company.id !== activeCompanyId) {
       setData(prev => ({
@@ -619,19 +635,36 @@ export default function App() {
       }));
     }
 
-    const handleLocalDataSaved = (e: any) => {
-      if (getStorageMode(firebaseUser.uid) === 'local') return;
+    const handleQuotaExceeded = () => {
       clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        if (e.detail) {
-          pushAppDataToCloud({
+      setCloudSyncStatus('error');
+      showErrorToast(
+        isHindi
+          ? '⚠️ क्लाउड डेटाबेस (Firestore) की दैनिक मुफ्त राइट सीमा पूरी हो गई है। आपका डेटा सुरक्षित रूप से लोकल डिवाइस पर सेव हो रहा है — कोटा कल रीसेट होगा।'
+          : '⚠️ Daily Firestore free-tier write quota reached. Your accounting data continues saving safely on this device and quota resets tomorrow.'
+      );
+    };
+
+    const handleLocalDataSaved = (e: any) => {
+      if (getStorageMode(firebaseUser.uid) === 'local' || isFirestoreQuotaPaused()) return;
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(async () => {
+        if (e.detail && !isFirestoreQuotaPaused()) {
+          const ok = await pushAppDataToCloud({
             ...e.detail,
             company: { ...e.detail.company, id: activeCompanyId }
           });
-          setLastSyncTime(new Date().toLocaleTimeString());
+          if (ok) {
+            setLastSyncTime(new Date().toLocaleTimeString());
+            setCloudSyncStatus('connected');
+          } else if (isFirestoreQuotaPaused()) {
+            setCloudSyncStatus('error');
+          }
         }
-      }, 600);
+      }, 1500);
     };
+
+    window.addEventListener('sna_cloud_quota_exceeded', handleQuotaExceeded);
 
     (async () => {
       // Pull cloud snapshot first so fresh device logins never overwrite cloud data with defaults
@@ -644,9 +677,9 @@ export default function App() {
           ...mergedRemote,
           license: resolveAuthoritativeLicense(mergedRemote.license),
         };
-        saveAppData(enrichedRemote, firebaseUser.uid);
+        saveAppData(enrichedRemote, firebaseUser.uid, { suppressCloudEvent: true });
         setData(enrichedRemote);
-      } else {
+      } else if (!isFirestoreQuotaPaused()) {
         // Compute a verified local workspace directly from Firebase UID + Email before first cloud push
         const localWorkspace = loadAppData(firebaseUser.uid, firebaseUser.email);
         const initialPushData: AppData = {
@@ -654,7 +687,7 @@ export default function App() {
           company: { ...localWorkspace.company, id: activeCompanyId },
           license: resolveAuthoritativeLicense(localWorkspace.license),
         };
-        saveAppData(initialPushData, firebaseUser.uid);
+        saveAppData(initialPushData, firebaseUser.uid, { suppressCloudEvent: true });
         setData(initialPushData);
         await pushAppDataToCloud(initialPushData);
       }
@@ -685,6 +718,7 @@ export default function App() {
       if (unsub) unsub();
       clearTimeout(debounceTimer);
       window.removeEventListener('sna_data_saved', handleLocalDataSaved);
+      window.removeEventListener('sna_cloud_quota_exceeded', handleQuotaExceeded);
     };
   }, [sessionUser?.id, firebaseUser?.uid, storageMode, isEmailVerified]);
 
@@ -1082,7 +1116,7 @@ export default function App() {
     setData(updatedData);
     saveAppData(updatedData, sessionUser?.id);
 
-    if (storageMode !== 'local' && firebaseUser && firebaseUser.emailVerified) {
+    if (storageMode !== 'local' && firebaseUser && firebaseUser.emailVerified && !isFirestoreQuotaPaused()) {
       try {
         const companyId = `cmp_${firebaseUser.uid}`;
         const now = Date.now();
@@ -1100,6 +1134,9 @@ export default function App() {
           { merge: true }
         );
       } catch (err) {
+        if (isFirestoreQuotaError(err)) {
+          void pauseFirestoreForQuota();
+        }
         console.warn('Firestore member role sync notice:', JSON.stringify(buildFirestoreErrorInfo(err, OperationType.WRITE, `companies/cmp_${firebaseUser.uid}/members/${userId}`)));
       }
     }
@@ -1157,8 +1194,10 @@ export default function App() {
     }
     const updated = logAuditAction(
       { ...data, license },
-      'License Activated',
-      `Commercial software license registered to ${license.registeredOwner} (${license.licenseKey})`
+      license.isLicensed ? 'License Activated' : 'Free Trial Started',
+      license.isLicensed
+        ? `Commercial software license registered to ${license.registeredOwner} (${license.licenseKey})`
+        : `7-Day Free Trial initialized on hardware machine ${license.machineId}`
     );
     setData(updated);
     saveAppData(updated, sessionUser?.id);
