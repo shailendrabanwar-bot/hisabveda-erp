@@ -167,6 +167,16 @@ const ConfigureSettingsModal = lazyNamed(() => import('./components/Settings/Con
 const CloudSyncModal = lazyNamed(() => import('./components/Settings/CloudSyncModal'), 'CloudSyncModal');
 const KeyboardShortcutsModal = lazyNamed(() => import('./components/Common/KeyboardShortcutsModal'), 'KeyboardShortcutsModal');
 const UserManualModal = lazyNamed(() => import('./components/Help/UserManualModal'), 'UserManualModal');
+
+declare const __HISABVEDA_DESKTOP_BUILD__: boolean | undefined;
+const IS_DESKTOP_COMPILED_BUILD =
+  typeof __HISABVEDA_DESKTOP_BUILD__ !== 'undefined' && Boolean(__HISABVEDA_DESKTOP_BUILD__);
+const AdminLicenseGeneratorModal = IS_DESKTOP_COMPILED_BUILD
+  ? null
+  : lazyNamed(
+      () => import('./components/Security/AdminLicenseGeneratorModal'),
+      'AdminLicenseGeneratorModal'
+    );
 import { buildPayrollAccountingVouchers, buildLanLiveSnapshot } from './utils/enterpriseErpHelpers';
 import {
   APP_SHORTCUT_DEFINITIONS,
@@ -521,6 +531,7 @@ export default function App() {
   const [showMobileModal, setShowMobileModal] = useState(false);
   const [showResetModal, setShowResetModal] = useState(false);
   const [showEWayBillModal, setShowEWayBillModal] = useState(false);
+  const [showAdminLicenseGenModal, setShowAdminLicenseGenModal] = useState(false);
   const [eWayBillInvoiceIds, setEWayBillInvoiceIds] = useState<string[]>([]);
   const [autoInvoiceNotice, setAutoInvoiceNotice] = useState<string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -895,6 +906,7 @@ export default function App() {
     if (showMobileModal) { setShowMobileModal(false); return true; }
     if (showSoftwareUpdateModal) { setShowSoftwareUpdateModal(false); return true; }
     if (showResetModal) { setShowResetModal(false); return true; }
+    if (showAdminLicenseGenModal) { setShowAdminLicenseGenModal(false); return true; }
     return false;
   };
 
@@ -982,6 +994,24 @@ export default function App() {
     window.addEventListener('keydown', handleGlobalKeyDown);
     return () => window.removeEventListener('keydown', handleGlobalKeyDown);
   }, []);
+
+  // Hidden Super Admin Trigger (Ctrl + Shift + L) — strictly Web Browser only (excluded from Electron .exe)
+  const isWebBrowserAdminGeneratorEnabled =
+    !IS_DESKTOP_COMPILED_BUILD &&
+    !isDesktopRuntime &&
+    !(typeof window !== 'undefined' && Boolean((window as any).electronAPI));
+
+  useEffect(() => {
+    if (!isWebBrowserAdminGeneratorEnabled || !AdminLicenseGeneratorModal) return;
+    const handleAdminShortcut = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'l') {
+        e.preventDefault();
+        setShowAdminLicenseGenModal((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleAdminShortcut);
+    return () => window.removeEventListener('keydown', handleAdminShortcut);
+  }, [isWebBrowserAdminGeneratorEnabled]);
 
   // e-Way Bill Modal Handlers
   const handleOpenEWayBillModal = (ids?: string[]) => {
@@ -4159,33 +4189,50 @@ export default function App() {
     );
   }
 
+  const renderAdminLicenseGeneratorModal = () =>
+    isWebBrowserAdminGeneratorEnabled && AdminLicenseGeneratorModal && showAdminLicenseGenModal ? (
+      <React.Suspense fallback={null}>
+        <AdminLicenseGeneratorModal
+          isOpen={true}
+          isHindi={isHindi}
+          onClose={() => setShowAdminLicenseGenModal(false)}
+        />
+      </React.Suspense>
+    ) : null;
+
   // Public Website Page (Web Browser Only — strictly skipped inside Electron Desktop .exe)
   if ((!sessionUser || !firebaseUser) && !isDesktopRuntime && !showWebAuthScreen) {
     return (
-      <React.Suspense fallback={routeSuspenseFallback}>
-        <SalesPage
-          isHindi={isHindi}
-          onLaunchDemo={() => setShowWebAuthScreen(true)}
-          onToggleLanguage={() => setIsHindi((prev) => !prev)}
-        />
-      </React.Suspense>
+      <>
+        <React.Suspense fallback={routeSuspenseFallback}>
+          <SalesPage
+            isHindi={isHindi}
+            onLaunchDemo={() => setShowWebAuthScreen(true)}
+            onToggleLanguage={() => setIsHindi((prev) => !prev)}
+          />
+        </React.Suspense>
+        {renderAdminLicenseGeneratorModal()}
+      </>
     );
   }
 
   // Unauthenticated Guard Screen
   if (!sessionUser || !firebaseUser) {
     return (
-      <React.Suspense fallback={routeSuspenseFallback}>
-        <AuthScreen
-          isHindi={isHindi}
-          onLoginSuccess={handleLoginSuccess}
-          registeredUsers={registeredUsers}
-          onRegisterUser={handleRegisterUser}
-          masterPin={data.securityPin}
-          onResetPassword={handleResetUserPassword}
-          onBackToWebsite={!isDesktopRuntime ? () => setShowWebAuthScreen(false) : undefined}
-        />
-      </React.Suspense>
+      <>
+        <React.Suspense fallback={routeSuspenseFallback}>
+          <AuthScreen
+            isHindi={isHindi}
+            onLoginSuccess={handleLoginSuccess}
+            registeredUsers={registeredUsers}
+            onRegisterUser={handleRegisterUser}
+            masterPin={data.securityPin}
+            onResetPassword={handleResetUserPassword}
+            onBackToWebsite={!isDesktopRuntime ? () => setShowWebAuthScreen(false) : undefined}
+          />
+        </React.Suspense>
+        {renderAdminLicenseGeneratorModal()}
+      </>
     );
   }
 
@@ -4497,6 +4544,10 @@ export default function App() {
           onToggleMobileMenu={setIsMobileDrawerOpen}
           appConfig={appConfig}
           onOpenFeaturesModal={() => openConfigureModal('features')}
+          softwareVersion={data.softwareVersion}
+          onOpenAdminLicenseGenerator={
+            isWebBrowserAdminGeneratorEnabled ? () => setShowAdminLicenseGenModal(true) : undefined
+          }
         />
 
         {/* Main Content Area */}
@@ -5211,6 +5262,9 @@ export default function App() {
           onVerificationRefreshed={handleRefreshEmailVerification}
         />
       )}
+
+      {/* Web-Only Super Admin License Generator Modal (never bundled or mounted in Desktop .exe) */}
+      {renderAdminLicenseGeneratorModal()}
 
       {/* Reset Confirmation Modal */}
       {showResetModal && (

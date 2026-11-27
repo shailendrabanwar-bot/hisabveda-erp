@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { 
   LayoutDashboard, 
   Receipt, 
@@ -60,6 +60,8 @@ interface SidebarProps {
   onToggleMobileMenu?: (open: boolean) => void;
   appConfig?: AppConfiguration;
   onOpenFeaturesModal?: () => void;
+  softwareVersion?: string;
+  onOpenAdminLicenseGenerator?: () => void;
 }
 
 interface MenuItem {
@@ -86,11 +88,33 @@ export const Sidebar: React.FC<SidebarProps> = ({
   mobileMenuOpen: controlledOpen,
   onToggleMobileMenu,
   appConfig,
-  onOpenFeaturesModal
+  onOpenFeaturesModal,
+  softwareVersion,
+  onOpenAdminLicenseGenerator
 }) => {
   const effectiveConfig = appConfig || loadAppConfig();
   const [internalOpen, setInternalOpen] = useState(false);
   const [menuSearch, setMenuSearch] = useState('');
+  const versionClickCountRef = useRef(0);
+  const versionClickTimerRef = useRef<number | null>(null);
+
+  const handleVersionBadgeClick = () => {
+    if (!onOpenAdminLicenseGenerator) return;
+    versionClickCountRef.current += 1;
+    if (versionClickTimerRef.current) {
+      window.clearTimeout(versionClickTimerRef.current);
+    }
+    if (versionClickCountRef.current >= 5) {
+      versionClickCountRef.current = 0;
+      versionClickTimerRef.current = null;
+      onOpenAdminLicenseGenerator();
+      return;
+    }
+    versionClickTimerRef.current = window.setTimeout(() => {
+      versionClickCountRef.current = 0;
+      versionClickTimerRef.current = null;
+    }, 3000);
+  };
 
   const isMenuOpen = controlledOpen !== undefined ? controlledOpen : internalOpen;
   const setMenuOpen = (open: boolean) => {
@@ -552,6 +576,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
             )}
             <p className="font-bold text-amber-300 flex items-center justify-center gap-1.5">
               <span>Hisabveda ERP Software</span>
+              <span
+                onClick={handleVersionBadgeClick}
+                className={`text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-800/90 border border-slate-700 text-slate-300 ${
+                  onOpenAdminLicenseGenerator ? 'cursor-pointer select-none hover:border-indigo-500/40' : ''
+                }`}
+              >
+                {softwareVersion || 'v2.4.2'}
+              </span>
             </p>
             <div className="flex items-center justify-center">
               <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border ${roleMeta.badgeColor}`}>

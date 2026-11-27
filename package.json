@@ -51,7 +51,7 @@
     "start": "node dist/server.cjs",
     "obfuscate": "node scripts/obfuscate-build.mjs",
     "obfuscate:desktop": "node scripts/obfuscate-build.mjs",
-    "build:exe": "vite build && node scripts/obfuscate-build.mjs && electron-builder --win",
+    "build:exe": "VITE_ELECTRON_BUILD=true vite build && node scripts/obfuscate-build.mjs && electron-builder --win",
     "electron:dev": "vite & electron .",
     "preview": "npm run build && NODE_ENV=production node dist/server.cjs",
     "clean": "rm -rf dist server.js",

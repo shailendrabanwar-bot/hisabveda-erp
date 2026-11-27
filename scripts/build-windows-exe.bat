@@ -93,6 +93,7 @@ if not exist "node_modules\electron" (
 
 echo.
 echo  [4/5] Building Vite Production Bundle & Server Bundle...
+set VITE_ELECTRON_BUILD=true
 call npm run build
 if %errorlevel% neq 0 (
     echo [ERROR] Vite production build failed! Fix build errors above and retry.

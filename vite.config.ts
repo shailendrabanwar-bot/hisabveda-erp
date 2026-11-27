@@ -5,9 +5,26 @@ import path from 'path';
 import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
+  const isElectronBuild = process.env.VITE_ELECTRON_BUILD === 'true';
   return {
     base: './',
+    define: {
+      __HISABVEDA_DESKTOP_BUILD__: JSON.stringify(isElectronBuild),
+    },
     plugins: [
+      ...(isElectronBuild
+        ? [
+            {
+              name: 'exclude-admin-generator-in-desktop',
+              enforce: 'pre' as const,
+              load(id: string) {
+                if (id.replace(/\\/g, '/').endsWith('/src/components/Security/AdminLicenseGeneratorModal.tsx')) {
+                  return 'export const AdminLicenseGeneratorModal = () => null;';
+                }
+              },
+            },
+          ]
+        : []),
       {
         name: 'disable-vite-hmr-websocket',
         apply: 'serve',
