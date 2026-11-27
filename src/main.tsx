@@ -20,7 +20,13 @@ if (
   !window.snaNativeAPI
 ) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(() => {});
+    if ((import.meta as any)?.env?.PROD) {
+      navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(() => {});
+    } else {
+      navigator.serviceWorker.getRegistrations().then((regs) => {
+        regs.forEach((r) => r.unregister().catch(() => {}));
+      }).catch(() => {});
+    }
   });
 }
 

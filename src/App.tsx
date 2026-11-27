@@ -66,53 +66,63 @@ import { ExternalImportCommitPayload, ExternalLastImportBatch } from './utils/mu
 import { syncPartyDetailsAcrossAppData } from './utils/gstAuditEngine';
 import { Repeat, X, CheckCircle2, ArrowLeft, RotateCcw, Sparkles, LayoutDashboard, Receipt, ShoppingBag, Package, Menu, AlertTriangle, Calendar } from 'lucide-react';
 
-// UI Components
-import { Header, AppTheme } from './components/Header';
-import { Sidebar, NavTab } from './components/Sidebar';
-import { Dashboard } from './components/Dashboard';
-import { InvoiceList } from './components/Invoices/InvoiceList';
-import { InvoiceFormModal } from './components/Invoices/InvoiceFormModal';
-import { InvoicePrintModal } from './components/Invoices/InvoicePrintModal';
-import { PurchaseModule } from './components/Purchases/PurchaseModule';
-import { PurchaseBillModal } from './components/Purchases/PurchaseBillModal';
-import { VoucherList } from './components/Vouchers/VoucherList';
-import { JournalVoucherModal } from './components/Vouchers/JournalVoucherModal';
-import { PaymentVoucherModal } from './components/Vouchers/PaymentVoucherModal';
-import { ReceiptVoucherModal } from './components/Vouchers/ReceiptVoucherModal';
-import { ContraVoucherModal } from './components/Vouchers/ContraVoucherModal';
-import { BankReconciliation } from './components/BankReconciliation/BankReconciliation';
-import { PayrollManagement, PayrollBatchSaveOptions } from './components/Payroll/PayrollManagement';
-import { TaxCompliance } from './components/Tax/TaxCompliance';
-import { ChartOfAccounts } from './components/Ledger/ChartOfAccounts';
-import { GeneralLedgerView } from './components/Ledger/GeneralLedgerView';
-import { FinancialStatements } from './components/Ledger/FinancialStatements';
-import { Budgeting } from './components/Budgeting/Budgeting';
-import { ItemMasterList } from './components/Masters/ItemMasterList';
-import { BarcodePOSModule } from './components/POS/BarcodePOSModule';
-import { PartyMasterList } from './components/Masters/PartyMasterList';
-import { CompanySettings } from './components/Settings/CompanySettings';
-import { CompanyManagerModal } from './components/Settings/CompanyManagerModal';
-import { SecurityBackupModal } from './components/Security/SecurityBackupModal';
-import { MasterPinPasswordModal } from './components/Security/MasterPinPasswordModal';
-import { PinLockOverlay } from './components/Security/PinLockOverlay';
-import { AuditLogView } from './components/Security/AuditLogView';
-import { LicenseActivationModal } from './components/Security/LicenseActivationModal';
-import { UserManagementModal } from './components/Security/UserManagementModal';
-import { AuthScreen } from './components/Security/AuthScreen';
-import { SalesPage } from './components/Marketing/SalesPage';
-import { DebitCreditNoteModal } from './components/Vouchers/DebitCreditNoteModal';
-import { MISReports } from './components/Reports/MISReports';
-import { UtilitiesModule } from './components/Utilities/UtilitiesModule';
-import { SoftwareUpdateModal } from './components/Settings/SoftwareUpdateModal';
-import { AiComplianceCopilot } from './components/Common/AiComplianceCopilot';
-import { MobileAppModal } from './components/Mobile/MobileAppModal';
-import { LanLiveView } from './components/Mobile/LanLiveView';
+import type { AppTheme } from './components/Header';
+import type { NavTab } from './components/Sidebar';
+import type { PayrollBatchSaveOptions } from './components/Payroll/PayrollManagement';
+import type { ConfigureSection } from './components/Settings/ConfigureSettingsModal';
+
+const lazyNamed = <T extends React.ComponentType<any>>(
+  loader: () => Promise<Record<string, any>>,
+  exportName: string
+) => React.lazy(() => loader().then((mod) => ({ default: mod[exportName] as T })));
+
+// Lazy-loaded UI Components (prevents 120+ burst module requests on initial boot)
+const Header = lazyNamed(() => import('./components/Header'), 'Header');
+const Sidebar = lazyNamed(() => import('./components/Sidebar'), 'Sidebar');
+const Dashboard = lazyNamed(() => import('./components/Dashboard'), 'Dashboard');
+const InvoiceList = lazyNamed(() => import('./components/Invoices/InvoiceList'), 'InvoiceList');
+const InvoiceFormModal = lazyNamed(() => import('./components/Invoices/InvoiceFormModal'), 'InvoiceFormModal');
+const InvoicePrintModal = lazyNamed(() => import('./components/Invoices/InvoicePrintModal'), 'InvoicePrintModal');
+const PurchaseModule = lazyNamed(() => import('./components/Purchases/PurchaseModule'), 'PurchaseModule');
+const PurchaseBillModal = lazyNamed(() => import('./components/Purchases/PurchaseBillModal'), 'PurchaseBillModal');
+const VoucherList = lazyNamed(() => import('./components/Vouchers/VoucherList'), 'VoucherList');
+const JournalVoucherModal = lazyNamed(() => import('./components/Vouchers/JournalVoucherModal'), 'JournalVoucherModal');
+const PaymentVoucherModal = lazyNamed(() => import('./components/Vouchers/PaymentVoucherModal'), 'PaymentVoucherModal');
+const ReceiptVoucherModal = lazyNamed(() => import('./components/Vouchers/ReceiptVoucherModal'), 'ReceiptVoucherModal');
+const ContraVoucherModal = lazyNamed(() => import('./components/Vouchers/ContraVoucherModal'), 'ContraVoucherModal');
+const BankReconciliation = lazyNamed(() => import('./components/BankReconciliation/BankReconciliation'), 'BankReconciliation');
+const PayrollManagement = lazyNamed(() => import('./components/Payroll/PayrollManagement'), 'PayrollManagement');
+const TaxCompliance = lazyNamed(() => import('./components/Tax/TaxCompliance'), 'TaxCompliance');
+const ChartOfAccounts = lazyNamed(() => import('./components/Ledger/ChartOfAccounts'), 'ChartOfAccounts');
+const GeneralLedgerView = lazyNamed(() => import('./components/Ledger/GeneralLedgerView'), 'GeneralLedgerView');
+const FinancialStatements = lazyNamed(() => import('./components/Ledger/FinancialStatements'), 'FinancialStatements');
+const Budgeting = lazyNamed(() => import('./components/Budgeting/Budgeting'), 'Budgeting');
+const ItemMasterList = lazyNamed(() => import('./components/Masters/ItemMasterList'), 'ItemMasterList');
+const BarcodePOSModule = lazyNamed(() => import('./components/POS/BarcodePOSModule'), 'BarcodePOSModule');
+const PartyMasterList = lazyNamed(() => import('./components/Masters/PartyMasterList'), 'PartyMasterList');
+const CompanySettings = lazyNamed(() => import('./components/Settings/CompanySettings'), 'CompanySettings');
+const CompanyManagerModal = lazyNamed(() => import('./components/Settings/CompanyManagerModal'), 'CompanyManagerModal');
+const SecurityBackupModal = lazyNamed(() => import('./components/Security/SecurityBackupModal'), 'SecurityBackupModal');
+const MasterPinPasswordModal = lazyNamed(() => import('./components/Security/MasterPinPasswordModal'), 'MasterPinPasswordModal');
+const PinLockOverlay = lazyNamed(() => import('./components/Security/PinLockOverlay'), 'PinLockOverlay');
+const AuditLogView = lazyNamed(() => import('./components/Security/AuditLogView'), 'AuditLogView');
+const LicenseActivationModal = lazyNamed(() => import('./components/Security/LicenseActivationModal'), 'LicenseActivationModal');
+const UserManagementModal = lazyNamed(() => import('./components/Security/UserManagementModal'), 'UserManagementModal');
+const AuthScreen = lazyNamed(() => import('./components/Security/AuthScreen'), 'AuthScreen');
+const SalesPage = lazyNamed(() => import('./components/Marketing/SalesPage'), 'SalesPage');
+const DebitCreditNoteModal = lazyNamed(() => import('./components/Vouchers/DebitCreditNoteModal'), 'DebitCreditNoteModal');
+const MISReports = lazyNamed(() => import('./components/Reports/MISReports'), 'MISReports');
+const UtilitiesModule = lazyNamed(() => import('./components/Utilities/UtilitiesModule'), 'UtilitiesModule');
+const SoftwareUpdateModal = lazyNamed(() => import('./components/Settings/SoftwareUpdateModal'), 'SoftwareUpdateModal');
+const AiComplianceCopilot = lazyNamed(() => import('./components/Common/AiComplianceCopilot'), 'AiComplianceCopilot');
+const MobileAppModal = lazyNamed(() => import('./components/Mobile/MobileAppModal'), 'MobileAppModal');
+const LanLiveView = lazyNamed(() => import('./components/Mobile/LanLiveView'), 'LanLiveView');
+const EWayBillGeneratorModal = lazyNamed(() => import('./components/Tax/EWayBillGeneratorModal'), 'EWayBillGeneratorModal');
+const ConfigureSettingsModal = lazyNamed(() => import('./components/Settings/ConfigureSettingsModal'), 'ConfigureSettingsModal');
+const CloudSyncModal = lazyNamed(() => import('./components/Settings/CloudSyncModal'), 'CloudSyncModal');
+const KeyboardShortcutsModal = lazyNamed(() => import('./components/Common/KeyboardShortcutsModal'), 'KeyboardShortcutsModal');
+const UserManualModal = lazyNamed(() => import('./components/Help/UserManualModal'), 'UserManualModal');
 import { buildPayrollAccountingVouchers, buildLanLiveSnapshot } from './utils/enterpriseErpHelpers';
-import { EWayBillGeneratorModal } from './components/Tax/EWayBillGeneratorModal';
-import { ConfigureSettingsModal, ConfigureSection } from './components/Settings/ConfigureSettingsModal';
-import { CloudSyncModal } from './components/Settings/CloudSyncModal';
-import { KeyboardShortcutsModal } from './components/Common/KeyboardShortcutsModal';
-import { UserManualModal } from './components/Help/UserManualModal';
 import {
   APP_SHORTCUT_DEFINITIONS,
   AppShortcutDef,
@@ -354,7 +364,16 @@ export default function App() {
       })
       .catch(() => {});
     testFirestoreConnection().catch(() => {});
+    let authResolved = false;
+    const authSafetyTimer = window.setTimeout(() => {
+      if (!authResolved) {
+        setAuthChecked(true);
+      }
+    }, 3000);
+
     const unsubAuth = onAuthStateChanged(auth, async (fbUser) => {
+      authResolved = true;
+      window.clearTimeout(authSafetyTimer);
       setFirebaseUser(fbUser);
       setIsEmailVerified(Boolean(fbUser?.emailVerified));
       setAuthChecked(true);
@@ -414,7 +433,10 @@ export default function App() {
         setIsUnlocked(!userLoaded.pinRequired || !userLoaded.securityPin);
       }
     });
-    return () => unsubAuth();
+    return () => {
+      window.clearTimeout(authSafetyTimer);
+      unsubAuth();
+    };
   }, []);
 
   // Enforce strict RBAC, customer-view & feature-flag tab restrictions
@@ -4062,9 +4084,22 @@ export default function App() {
     setTimeout(() => setToastMessage(null), 4500);
   };
 
+  const routeSuspenseFallback = (
+    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 text-slate-300 gap-3 font-sans">
+      <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+      <p className="text-xs font-semibold tracking-wide text-slate-400">
+        {isHindi ? 'इंटरफ़ेस लोड हो रहा है...' : 'Loading HisabVeda ERP...'}
+      </p>
+    </div>
+  );
+
   // Local Wi-Fi / LAN Multi-PC & Mobile Live View (bypasses Firebase auth; gated by server pairing code)
   if (isLanClientView) {
-    return <LanLiveView isHindi={isHindi} initialCode={urlLanPairCode} />;
+    return (
+      <React.Suspense fallback={routeSuspenseFallback}>
+        <LanLiveView isHindi={isHindi} initialCode={urlLanPairCode} />
+      </React.Suspense>
+    );
   }
 
   // Wait for Firebase Auth verification before deciding session validity
@@ -4082,43 +4117,49 @@ export default function App() {
   // Public Website Page (Web Browser Only — strictly skipped inside Electron Desktop .exe)
   if ((!sessionUser || !firebaseUser) && !isDesktopRuntime && !showWebAuthScreen) {
     return (
-      <SalesPage
-        isHindi={isHindi}
-        onLaunchDemo={() => setShowWebAuthScreen(true)}
-        onToggleLanguage={() => setIsHindi((prev) => !prev)}
-      />
+      <React.Suspense fallback={routeSuspenseFallback}>
+        <SalesPage
+          isHindi={isHindi}
+          onLaunchDemo={() => setShowWebAuthScreen(true)}
+          onToggleLanguage={() => setIsHindi((prev) => !prev)}
+        />
+      </React.Suspense>
     );
   }
 
   // Unauthenticated Guard Screen
   if (!sessionUser || !firebaseUser) {
     return (
-      <AuthScreen
-        isHindi={isHindi}
-        onLoginSuccess={handleLoginSuccess}
-        registeredUsers={registeredUsers}
-        onRegisterUser={handleRegisterUser}
-        masterPin={data.securityPin}
-        onResetPassword={handleResetUserPassword}
-        onBackToWebsite={!isDesktopRuntime ? () => setShowWebAuthScreen(false) : undefined}
-      />
+      <React.Suspense fallback={routeSuspenseFallback}>
+        <AuthScreen
+          isHindi={isHindi}
+          onLoginSuccess={handleLoginSuccess}
+          registeredUsers={registeredUsers}
+          onRegisterUser={handleRegisterUser}
+          masterPin={data.securityPin}
+          onResetPassword={handleResetUserPassword}
+          onBackToWebsite={!isDesktopRuntime ? () => setShowWebAuthScreen(false) : undefined}
+        />
+      </React.Suspense>
     );
   }
 
   // Security PIN Overlay Lock
   if (!isUnlocked && data.pinRequired && data.securityPin) {
     return (
-      <PinLockOverlay
-        storedPin={data.securityPin}
-        userEmail={firebaseUser?.email || sessionUser?.email}
-        onUnlock={() => setIsUnlocked(true)}
-        onVerifiedResetPin={(newPin: string) => {
-          handleUpdateSecurityPinAndPass(newPin, true);
-          setIsUnlocked(true);
-        }}
-        onLogout={handleLogout}
-        isHindi={isHindi}
-      />
+      <React.Suspense fallback={routeSuspenseFallback}>
+        <PinLockOverlay
+          storedPin={data.securityPin}
+          userEmail={firebaseUser?.email || sessionUser?.email}
+          onUnlock={() => setIsUnlocked(true)}
+          onVerifiedResetPin={(newPin: string) => {
+            handleUpdateSecurityPinAndPass(newPin, true);
+            setIsUnlocked(true);
+          }}
+          onLogout={handleLogout}
+          isHindi={isHindi}
+        />
+      </React.Suspense>
     );
   }
 
@@ -4155,6 +4196,7 @@ export default function App() {
   } as React.CSSProperties;
 
   return (
+    <React.Suspense fallback={routeSuspenseFallback}>
     <div 
       className={`h-screen h-[100dvh] max-h-[100dvh] overflow-hidden ${getThemeClass(theme)} flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-300 w-full max-w-full`}
     >
@@ -5230,5 +5272,6 @@ export default function App() {
         </button>
       </nav>
     </div>
+    </React.Suspense>
   );
 }
