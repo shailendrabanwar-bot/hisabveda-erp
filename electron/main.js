@@ -456,7 +456,7 @@ function loadOrInitVault() {
     machineId: liveMachineId,
     boundMachineId: existingBoundId,
     trialStartDate: (existing && existing.trialStartDate) || new Date(nowMs).toISOString(),
-    trialActivated: Boolean(existing?.trialActivated || storedLicense?.isLicensed || storedLicense?.trialActivated),
+    trialActivated: Boolean(existing?.trialActivated || storedLicense?.isLicensed || storedLicense?.trialActivated || !existing),
     trialBusinessName: String(existing?.trialBusinessName || storedLicense?.registeredOwner || ''),
     trialMobile: String(existing?.trialMobile || storedLicense?.trialMobile || ''),
     maxObservedTimeMs: Math.max(Number(existing?.maxObservedTimeMs || 0), 0),

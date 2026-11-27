@@ -918,7 +918,8 @@ export function getTrialStatus(
   const sealedTrialActivated = Boolean(
     license?.isLicensed ||
     license?.trialActivated ||
-    (!envelopeCheck.tampered && envelopeCheck.envelope?.trialActivated)
+    (!envelopeCheck.tampered && envelopeCheck.envelope?.trialActivated) ||
+    !envelopeCheck.exists
   );
 
   if (envelopeCheck.tampered || consumedCheck.tampered) {
@@ -959,6 +960,7 @@ export function getTrialStatus(
           maxObservedTimeMs: Math.max(nowMs, clockIntegrity.highWaterMs),
           lastVerifiedServerTimeMs: getLastVerifiedServerTimeMs(),
           trialStartDate: new Date(effectiveStartMs).toISOString(),
+          trialActivated: true,
           license: null,
         },
         currentMachineId

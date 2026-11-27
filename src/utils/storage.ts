@@ -268,13 +268,14 @@ export function resolveAuthoritativeLicense(candidateLicense?: LicenseInfo | nul
     chosenLicensed ||
     boot?.vault?.trialActivated ||
     (!sealedCheck.tampered && sealedCheck.envelope?.trialActivated) ||
-    candidateLicense?.trialActivated
+    candidateLicense?.trialActivated ||
+    !sealedCheck.exists
   );
 
   const candidateStarts = [
     chosenLicensed?.trialStartDate,
     candidateLicense?.trialActivated ? candidateLicense.trialStartDate : undefined,
-    !sealedCheck.tampered && sealedCheck.envelope?.trialActivated ? sealedCheck.envelope.trialStartDate : undefined,
+    !sealedCheck.tampered && (sealedCheck.envelope?.trialActivated || !sealedCheck.exists) ? (sealedCheck.envelope?.trialStartDate || nowIso) : undefined,
     boot?.vault?.trialActivated ? boot.vault.trialStartDate : undefined,
   ]
     .filter(Boolean)
@@ -301,7 +302,7 @@ export function resolveAuthoritativeLicense(candidateLicense?: LicenseInfo | nul
     !bestVerified && (boot?.vault?.vaultTampered || sealedCheck.tampered || candidateTampered)
   );
 
-  if (!sealedCheck.exists && !sealedCheck.tampered && typeof window !== 'undefined' && typeof localStorage !== 'undefined' && resolvedTrialActivated) {
+  if (!sealedCheck.exists && !sealedCheck.tampered && typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
     sealLicenseCacheEnvelope(
       {
         maxObservedTimeMs: Date.now(),
