@@ -915,17 +915,41 @@ export function getTrialStatus(
   }
 
   if (!license) {
+    const sealedStartMs = envelopeCheck.envelope?.trialStartDate
+      ? Date.parse(envelopeCheck.envelope.trialStartDate)
+      : NaN;
+    const effectiveStartMs = Number.isFinite(sealedStartMs) && sealedStartMs > 0 ? sealedStartMs : nowMs;
+    const hasLocalStorage =
+      typeof window !== 'undefined'
+        ? Boolean(window.localStorage)
+        : Boolean((globalThis as any)?.localStorage);
+    if (!envelopeCheck.exists && hasLocalStorage) {
+      sealLicenseCacheEnvelope(
+        {
+          maxObservedTimeMs: Math.max(nowMs, clockIntegrity.highWaterMs),
+          lastVerifiedServerTimeMs: getLastVerifiedServerTimeMs(),
+          trialStartDate: new Date(effectiveStartMs).toISOString(),
+          license: null,
+        },
+        currentMachineId
+      );
+    }
+    const diffTime = Math.max(0, clockIntegrity.effectiveNowMs - effectiveStartMs);
+    const daysElapsed = Math.floor(diffTime / 86400000);
+    const daysRemaining = Math.max(0, MAX_TRIAL_DAYS - daysElapsed);
+    const hoursRemaining = Math.max(0, Math.ceil((MAX_TRIAL_DAYS * 86400000 - diffTime) / 3600000));
+    const daysExceeded = daysElapsed >= MAX_TRIAL_DAYS;
     const vouchersExceeded = usageData ? vouchersUsed >= MAX_TRIAL_VOUCHERS : false;
     return {
       isLicensed: false,
-      daysElapsed: 0,
-      daysRemaining: MAX_TRIAL_DAYS,
-      hoursRemaining: MAX_TRIAL_DAYS * 24,
+      daysElapsed,
+      daysRemaining,
+      hoursRemaining,
       vouchersUsed,
       vouchersRemaining,
       maxTrialVouchers: MAX_TRIAL_VOUCHERS,
       maxTrialDays: MAX_TRIAL_DAYS,
-      isTrialExpired: clockIntegrity.clockTampered || vouchersExceeded,
+      isTrialExpired: clockIntegrity.clockTampered || daysExceeded || vouchersExceeded,
       clockTampered: clockIntegrity.clockTampered,
       machineMismatch: false,
       vaultTampered: false,
@@ -933,9 +957,11 @@ export function getTrialStatus(
         ? 'CLOCK_TAMPERED'
         : vouchersExceeded
           ? 'TRIAL_VOUCHERS_EXCEEDED'
-          : 'NONE',
-      trialStartDate: new Date(nowMs),
-      expiresAt: new Date(nowMs + MAX_TRIAL_DAYS * 86400000),
+          : daysExceeded
+            ? 'TRIAL_DAYS_EXPIRED'
+            : 'NONE',
+      trialStartDate: new Date(effectiveStartMs),
+      expiresAt: new Date(effectiveStartMs + MAX_TRIAL_DAYS * 86400000),
       currentMachineId,
       licenseType: 'TRIAL',
     };

@@ -659,8 +659,29 @@ function syncLicenseToVault(license) {
     }
     const signedPayload = verified.payload;
     const boundHwid = signedPayload.hwid === 'ANY_HARDWARE_ID' ? liveMachineId : signedPayload.hwid;
+    const nonceHash = crypto
+      .createHash('sha256')
+      .update(`${signedPayload.licenseId}|${signedPayload.nonce || ''}|${signedPayload.hwid}`)
+      .digest('hex')
+      .toUpperCase();
+    const existingConsumed = Array.isArray(vault.consumedSerials) ? vault.consumedSerials : [];
+    const alreadyRecorded = existingConsumed.some((c) => c && c.licenseId === signedPayload.licenseId);
+    const nextConsumed = alreadyRecorded
+      ? existingConsumed
+      : [
+          ...existingConsumed,
+          {
+            licenseId: signedPayload.licenseId,
+            nonceHash,
+            activationCodeHash: String(license.activationCodeHash || ''),
+            hwid: boundHwid,
+            consumedAtIso: license.activatedAtIso || new Date().toISOString(),
+          },
+        ];
+
     vault.boundMachineId = boundHwid;
     vault.vaultTampered = false;
+    vault.consumedSerials = nextConsumed;
     vault.license = {
       ...license,
       isLicensed: true,
@@ -756,6 +777,7 @@ function buildBootstrapPayload() {
       clockTamperLocked: vault.clockTamperLocked,
       vaultTampered: Boolean(vault.vaultTampered),
       machineMismatch,
+      consumedSerials: Array.isArray(vault.consumedSerials) ? vault.consumedSerials : [],
       license: sanitizedVaultLicense,
     },
     db,

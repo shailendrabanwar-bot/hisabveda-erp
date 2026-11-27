@@ -43,6 +43,13 @@ export interface DesktopBootstrapState {
     vaultTampered?: boolean;
     machineMismatch?: boolean;
     license?: any;
+    consumedSerials?: Array<{
+      licenseId: string;
+      nonceHash: string;
+      activationCodeHash?: string;
+      hwid: string;
+      consumedAtIso: string;
+    }>;
   };
   db: {
     version: number;

@@ -30,7 +30,11 @@ import {
   ArrowRightLeft,
   ToggleRight,
   SlidersHorizontal,
-  PenTool
+  PenTool,
+  Clock,
+  Cpu,
+  Copy,
+  MessageCircle
 } from 'lucide-react';
 import JSZip from 'jszip';
 import {
@@ -52,6 +56,11 @@ import {
   resolveCompanyTaxProfile,
 } from '../../utils/companyProfile';
 import { RolePermissions, getRolePermissions, normalizeUserRole } from '../../utils/rbac';
+import {
+  getHardwareBindingInfo,
+  getOrGenerateMachineId,
+  getTrialStatus,
+} from '../../utils/license';
 import { BulkImportUtility } from './BulkImportUtility';
 import { TallyXmlImporter } from './TallyXmlImporter';
 import { TallyImportCommitPayload, TallyLastImportBatch } from '../../utils/tallyXmlImporter';
@@ -95,6 +104,7 @@ interface CompanySettingsProps {
   onResetSoleCompany?: () => void;
   onOpenCompanyManagerModal?: () => void;
   onOpenFeaturesModal?: () => void;
+  onOpenLicenseModal?: () => void;
   activeUserRole?: UserRole;
   permissions?: RolePermissions;
 }
@@ -126,11 +136,13 @@ export const CompanySettings: React.FC<CompanySettingsProps> = ({
   onResetSoleCompany,
   onOpenCompanyManagerModal,
   onOpenFeaturesModal,
+  onOpenLicenseModal,
   activeUserRole = 'ADMIN',
   permissions
 }) => {
   const rbac = permissions || getRolePermissions(normalizeUserRole(activeUserRole));
-  const [activeTab, setActiveTab] = useState<'profile' | 'security' | 'import' | 'downloads'>('profile');
+  const [activeTab, setActiveTab] = useState<'profile' | 'security' | 'license' | 'import' | 'downloads'>('profile');
+  const [copiedMachineId, setCopiedMachineId] = useState(false);
   const [importSubMode, setImportSubMode] = useState<'TALLY_XML' | 'OTHER_SOFTWARE' | 'CSV'>('TALLY_XML');
   const [form, setForm] = useState<CompanyDetails>(data.company);
   const [saved, setSaved] = useState(false);
@@ -192,6 +204,13 @@ export const CompanySettings: React.FC<CompanySettingsProps> = ({
   const [showPin, setShowPin] = useState(false);
   const [securityStatusMsg, setSecurityStatusMsg] = useState<string | null>(null);
   const [securityErrorMsg, setSecurityErrorMsg] = useState<string | null>(null);
+
+  const trialStatus = getTrialStatus(data.license, data);
+  const hwInfo = getHardwareBindingInfo();
+  const machineId = hwInfo.machineId || getOrGenerateMachineId();
+  const whatsappLicenseHref = `https://wa.me/917489655303?text=${encodeURIComponent(
+    `Hello HisabVeda Team, please issue my Signed License Certificate (HV-LIC-V3) & Unique Activation Code.\n\nHardware Machine ID: ${machineId}`
+  )}`;
 
   const handleChange = (field: keyof CompanyDetails, val: any) => {
     setForm(prev => ({ ...prev, [field]: val }));
@@ -414,6 +433,26 @@ FOLDER CONTENTS:
             <span>{isHindi ? 'XML व अन्य सॉफ़्टवेयर डेटा इम्पोर्ट' : 'ERP XML, Other Software & Excel Import'}</span>
           </button>
         )}
+
+        <button
+          type="button"
+          onClick={() => setActiveTab('license')}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
+            activeTab === 'license'
+              ? 'bg-emerald-600 text-white shadow-md'
+              : 'bg-slate-900 text-slate-400 hover:text-slate-200 hover:bg-slate-800'
+          }`}
+        >
+          <ShieldCheck className="w-4 h-4 text-emerald-400" />
+          <span>{isHindi ? 'सॉफ़्टवेयर लाइसेंस' : 'Software License'}</span>
+          {!trialStatus.isLicensed && (
+            <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded ${
+              activeTab === 'license' ? 'bg-white/20 text-white' : 'bg-amber-500/20 text-amber-300'
+            }`}>
+              {trialStatus.isTrialExpired ? (isHindi ? 'समाप्त' : 'Expired') : `${trialStatus.daysRemaining}d`}
+            </span>
+          )}
+        </button>
 
         {rbac.canManageUsersAndPin && (
           <>
@@ -1792,6 +1831,125 @@ FOLDER CONTENTS:
         </div>
       )}
 
+      {/* Tab: Software License & 7-Day Free Trial */}
+      {activeTab === 'license' && (
+        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-5">
+          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+            <div className="flex items-center gap-3">
+              <div className={`p-2.5 rounded-xl border ${
+                trialStatus.isLicensed
+                  ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-400'
+                  : trialStatus.isTrialExpired
+                    ? 'bg-rose-500/15 border-rose-500/40 text-rose-400'
+                    : 'bg-amber-500/15 border-amber-500/40 text-amber-300'
+              }`}>
+                <ShieldCheck className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-sm font-bold text-white">
+                  {isHindi ? 'सॉफ़्टवेयर लाइसेंस और 7-दिवसीय ट्रायल' : 'Software License & Commercial Activation'}
+                </h3>
+                <p className="text-[11px] text-slate-400 mt-0.5">
+                  {isHindi
+                    ? 'हार्डवेयर-लॉक्ड Ed25519 सर्टिफिकेट (HV-LIC-V3) एवं सिंगल-यूज़ एक्टिवेशन कोड प्रबंधन'
+                    : 'Manage your 7-Day Free Trial, Hardware Machine ID, and dual-layer Ed25519 commercial license.'}
+                </p>
+              </div>
+            </div>
+
+            {onOpenLicenseModal && (
+              <button
+                type="button"
+                onClick={onOpenLicenseModal}
+                className={`px-4 py-2.5 rounded-xl font-extrabold text-xs flex items-center gap-2 transition shadow-lg cursor-pointer ${
+                  trialStatus.isLicensed
+                    ? 'bg-emerald-600 hover:bg-emerald-500 text-white'
+                    : 'bg-gradient-to-r from-amber-500 to-emerald-500 hover:from-amber-400 hover:to-emerald-400 text-slate-950'
+                }`}
+              >
+                <KeyRound className="w-4 h-4" />
+                <span>
+                  {trialStatus.isLicensed
+                    ? (isHindi ? 'लाइसेंस विवरण / नवीनीकरण देखें' : 'View / Upgrade Commercial License')
+                    : trialStatus.isTrialExpired
+                      ? (isHindi ? 'ट्रायल समाप्त — लाइसेंस एक्टिवेट करें' : 'Free Trial Expired — Activate License')
+                      : (isHindi
+                          ? `फ्री ट्रायल: ${trialStatus.daysRemaining} दिन शेष — अपग्रेड / लाइसेंस एक्टिवेट करें`
+                          : `Free Trial: ${trialStatus.daysRemaining} ${trialStatus.daysRemaining === 1 ? 'Day' : 'Days'} Left — Upgrade / Activate License`)}
+                </span>
+              </button>
+            )}
+          </div>
+
+          <div className={`p-4 rounded-xl border space-y-2 ${
+            trialStatus.isLicensed
+              ? 'bg-emerald-950/30 border-emerald-500/35 text-emerald-200'
+              : trialStatus.isTrialExpired
+                ? 'bg-rose-950/35 border-rose-500/40 text-rose-200'
+                : 'bg-amber-950/25 border-amber-500/35 text-amber-200'
+          }`}>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="font-bold text-xs flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                <span>
+                  {trialStatus.isLicensed
+                    ? `${isHindi ? 'सक्रिय कमर्शियल लाइसेंस' : 'Active Commercial License'} (${data.license?.licenseType || 'PRO'})`
+                    : trialStatus.isTrialExpired
+                      ? (isHindi ? '7-दिवसीय नि:शुल्क ट्रायल समाप्त हो गया है' : '7-Day Free Trial Expired — Activation Required')
+                      : (isHindi
+                          ? `नि:शुल्क ट्रायल सक्रिय: ${trialStatus.daysRemaining} दिन और ${trialStatus.vouchersRemaining}/${trialStatus.maxTrialVouchers} वाउचर शेष`
+                          : `Free Trial Active: ${trialStatus.daysRemaining} ${trialStatus.daysRemaining === 1 ? 'Day' : 'Days'} Left · ${trialStatus.vouchersRemaining}/${trialStatus.maxTrialVouchers} Vouchers Left`)}
+                </span>
+              </span>
+              <span className="font-mono text-[11px] bg-slate-950/70 px-2.5 py-1 rounded-lg border border-slate-800">
+                {trialStatus.isLicensed
+                  ? (trialStatus.daysRemaining >= 9000 ? 'Lifetime Perpetual' : `Valid Until ${data.license?.expiryDate || 'Active'}`)
+                  : `Day ${Math.min(7, trialStatus.daysElapsed + 1)} of ${trialStatus.maxTrialDays}`}
+              </span>
+            </div>
+            {trialStatus.isLicensed && data.license?.registeredOwner && (
+              <p className="text-[11px] text-emerald-300/90">
+                {isHindi ? 'पंजीकृत स्वामी:' : 'Registered Owner:'} <strong>{data.license.registeredOwner}</strong>
+              </p>
+            )}
+          </div>
+
+          <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
+                <Cpu className="w-4 h-4 text-indigo-400" />
+                <span>{isHindi ? 'आपका हार्डवेयर मशीन आईडी (Machine ID):' : 'Hardware Machine ID:'}</span>
+              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    navigator.clipboard.writeText(machineId);
+                    setCopiedMachineId(true);
+                    setTimeout(() => setCopiedMachineId(false), 2200);
+                  }}
+                  className="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-200 px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-semibold cursor-pointer"
+                >
+                  {copiedMachineId ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedMachineId ? (isHindi ? 'कॉपी हो गया' : 'Copied Machine ID') : (isHindi ? 'Machine ID कॉपी करें' : 'Copy Machine ID')}</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => window.open(whatsappLicenseHref, '_blank', 'noopener,noreferrer')}
+                  className="text-[11px] bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold cursor-pointer"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>{isHindi ? 'WhatsApp पर Machine ID भेजें' : 'Send Machine ID on WhatsApp'}</span>
+                </button>
+              </div>
+            </div>
+            <div className="bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2.5 font-mono text-xs font-extrabold text-indigo-300 select-all">
+              {machineId}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Tab: Security & Master PIN Management */}
       {activeTab === 'security' && rbac.canManageUsersAndPin && (
         <div className="space-y-6">
@@ -1812,16 +1970,29 @@ FOLDER CONTENTS:
                 </div>
               </div>
 
-              {onOpenSecurityModal && (
-                <button
-                  type="button"
-                  onClick={onOpenSecurityModal}
-                  className="bg-indigo-600/30 hover:bg-indigo-600 text-indigo-200 hover:text-white border border-indigo-500/40 px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition cursor-pointer"
-                >
-                  <ShieldCheck className="w-4 h-4 text-emerald-400" />
-                  <span>{isHindi ? 'पूर्ण बैकअप व सुरक्षा केंद्र' : 'Backup & Security Center'}</span>
-                </button>
-              )}
+              <div className="flex flex-wrap items-center gap-2">
+                {onOpenLicenseModal && (
+                  <button
+                    type="button"
+                    onClick={onOpenLicenseModal}
+                    className="bg-emerald-600/25 hover:bg-emerald-600 text-emerald-200 hover:text-white border border-emerald-500/40 px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition cursor-pointer"
+                  >
+                    <KeyRound className="w-4 h-4 text-emerald-400" />
+                    <span>{isHindi ? 'सॉफ़्टवेयर लाइसेंस' : 'Software License'}</span>
+                  </button>
+                )}
+
+                {onOpenSecurityModal && (
+                  <button
+                    type="button"
+                    onClick={onOpenSecurityModal}
+                    className="bg-indigo-600/30 hover:bg-indigo-600 text-indigo-200 hover:text-white border border-indigo-500/40 px-3 py-1.5 rounded-xl font-bold text-xs flex items-center gap-1.5 transition cursor-pointer"
+                  >
+                    <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                    <span>{isHindi ? 'पूर्ण बैकअप व सुरक्षा केंद्र' : 'Backup & Security Center'}</span>
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Notifications */}

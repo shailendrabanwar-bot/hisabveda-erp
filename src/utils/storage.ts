@@ -6,8 +6,10 @@ import {
   getLastVerifiedServerTimeMs,
   getOrGenerateMachineId,
   parseAndVerifySignedLicense,
+  readConsumedActivationsRegistry,
   readSealedLicenseCacheEnvelope,
   sealLicenseCacheEnvelope,
+  writeConsumedActivationsRegistry,
 } from './license';
 
 export const OWNER_ADMIN_EMAIL = 'shailendrabanwar@gmail.com';
@@ -113,10 +115,52 @@ export function hydrateLocalStorageFromDesktop(): void {
       }
     }
 
-    if (authoritativeVaultLicense) {
+    if (authoritativeVaultLicense || (Array.isArray(boot.vault?.consumedSerials) && boot.vault.consumedSerials.length > 0)) {
       const liveHwid = boot.machineId || getOrGenerateMachineId();
       const sealedCheck = readSealedLicenseCacheEnvelope(liveHwid);
-      if (!sealedCheck.tampered && !sealedCheck.envelope?.license?.isLicensed) {
+      const vaultConsumed = Array.isArray(boot.vault?.consumedSerials) ? boot.vault.consumedSerials : [];
+      if (vaultConsumed.length > 0) {
+        const currentConsumed = readConsumedActivationsRegistry(liveHwid);
+        const mergedConsumedMap = new Map<string, {
+          licenseId: string;
+          nonceHash: string;
+          activationCodeHash: string;
+          hwid: string;
+          consumedAtIso: string;
+        }>();
+        for (const entry of [...currentConsumed.entries, ...vaultConsumed]) {
+          if (entry && entry.licenseId) {
+            mergedConsumedMap.set(entry.licenseId, {
+              licenseId: String(entry.licenseId),
+              nonceHash: String(entry.nonceHash || ''),
+              activationCodeHash: String(entry.activationCodeHash || ''),
+              hwid: String(entry.hwid || liveHwid),
+              consumedAtIso: String(entry.consumedAtIso || new Date().toISOString()),
+            });
+          }
+        }
+        const normalizedConsumed = Array.from(mergedConsumedMap.values());
+        writeConsumedActivationsRegistry(normalizedConsumed, liveHwid);
+        if (!sealedCheck.tampered && (!sealedCheck.envelope?.license?.isLicensed || normalizedConsumed.length > 0)) {
+          sealLicenseCacheEnvelope(
+            {
+              maxObservedTimeMs: Math.max(Date.now(), diskClockMs, sealedCheck.envelope?.maxObservedTimeMs || 0),
+              lastVerifiedServerTimeMs: Math.max(
+                getLastVerifiedServerTimeMs(),
+                sealedCheck.envelope?.lastVerifiedServerTimeMs || 0
+              ),
+              trialStartDate:
+                boot.vault?.trialStartDate ||
+                authoritativeVaultLicense?.trialStartDate ||
+                sealedCheck.envelope?.trialStartDate ||
+                new Date().toISOString(),
+              license: authoritativeVaultLicense || sealedCheck.envelope?.license || null,
+              consumedSerials: normalizedConsumed,
+            },
+            liveHwid
+          );
+        }
+      } else if (!sealedCheck.tampered && !sealedCheck.envelope?.license?.isLicensed && authoritativeVaultLicense) {
         sealLicenseCacheEnvelope(
           {
             maxObservedTimeMs: Math.max(Date.now(), diskClockMs, sealedCheck.envelope?.maxObservedTimeMs || 0),
@@ -126,9 +170,11 @@ export function hydrateLocalStorageFromDesktop(): void {
             ),
             trialStartDate:
               boot.vault?.trialStartDate ||
-              authoritativeVaultLicense.trialStartDate ||
+              authoritativeVaultLicense?.trialStartDate ||
+              sealedCheck.envelope?.trialStartDate ||
               new Date().toISOString(),
             license: authoritativeVaultLicense,
+            consumedSerials: sealedCheck.envelope?.consumedSerials || [],
           },
           liveHwid
         );
@@ -220,6 +266,18 @@ export function resolveAuthoritativeLicense(candidateLicense?: LicenseInfo | nul
   const vaultTampered = Boolean(
     !bestVerified && (boot?.vault?.vaultTampered || sealedCheck.tampered || candidateTampered)
   );
+
+  if (!sealedCheck.exists && !sealedCheck.tampered && typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+    sealLicenseCacheEnvelope(
+      {
+        maxObservedTimeMs: Date.now(),
+        lastVerifiedServerTimeMs: getLastVerifiedServerTimeMs(),
+        trialStartDate: earliestTrialStart,
+        license: chosenLicensed || null,
+      },
+      liveMachineId
+    );
+  }
 
   if (chosenLicensed) {
     return {

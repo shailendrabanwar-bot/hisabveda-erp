@@ -901,7 +901,7 @@ export default function App() {
     if (showUserModal) { setShowUserModal(false); return true; }
     if (showSecurityModal) { setShowSecurityModal(false); return true; }
     if (showMasterPinModal) { setShowMasterPinModal(false); return true; }
-    if (showLicenseModal) { setShowLicenseModal(false); return true; }
+    if (showLicenseModal && !isLicenseHardLocked) { setShowLicenseModal(false); return true; }
     if (showCloudSyncModal) { setShowCloudSyncModal(false); return true; }
     if (showMobileModal) { setShowMobileModal(false); return true; }
     if (showSoftwareUpdateModal) { setShowSoftwareUpdateModal(false); return true; }
@@ -1085,6 +1085,16 @@ export default function App() {
   };
 
   const trialStatus = getTrialStatus(data.license, data);
+  const isLicenseHardLocked = Boolean(
+    !trialStatus.isLicensed && (
+      trialStatus.isTrialExpired ||
+      trialStatus.clockTampered ||
+      trialStatus.machineMismatch ||
+      trialStatus.vaultTampered ||
+      trialStatus.lockReason === 'LICENSE_REVOKED' ||
+      trialStatus.lockReason === 'LICENSE_EXPIRED'
+    )
+  );
 
   const requireActiveLicenseForEntry = (isExistingRecord = false): boolean => {
     if (trialStatus.vaultTampered) {
@@ -4326,6 +4336,7 @@ export default function App() {
           if (!requirePermission(rbac.canManageUsersAndPin, 'लाइसेंस प्रबंधन खोलना', 'open License Activation')) return;
           setShowLicenseModal(true);
         }}
+        trialStatus={trialStatus}
         onOpenUpdateModal={() => {
           if (!requirePermission(rbac.canManageUsersAndPin, 'सॉफ़्टवेयर अपडेट खोलना', 'open Software Update')) return;
           setShowSoftwareUpdateModal(true);
@@ -4472,14 +4483,10 @@ export default function App() {
         </div>
       )}
 
-      {/* Trial / License Banner */}
-      {!trialStatus.isLicensed && (
+      {/* Forced-Lock Alert Banner (only shown when trial expires or tamper/mismatch is detected; active 7-day trial uses non-intrusive Header badge) */}
+      {isLicenseHardLocked && (
         <div
-          className={`${
-            trialStatus.vaultTampered || trialStatus.clockTampered || trialStatus.machineMismatch || trialStatus.lockReason === 'LICENSE_REVOKED' || trialStatus.isTrialExpired
-              ? 'bg-gradient-to-r from-rose-700 to-rose-800'
-              : 'bg-gradient-to-r from-amber-600 to-amber-700'
-          } text-white px-4 py-2 text-xs font-bold flex items-center justify-between gap-2 shadow shrink-0`}
+          className="bg-gradient-to-r from-rose-700 to-rose-800 text-white px-4 py-2 text-xs font-bold flex items-center justify-between gap-2 shadow shrink-0"
         >
           <span>
             {trialStatus.vaultTampered
@@ -4498,13 +4505,9 @@ export default function App() {
                     ? (isHindi
                         ? '🚨 मशीन ID बेमेल: यह लाइसेंस किसी अन्य PC का है। इस कंप्यूटर की लाइसेंस कुंजी दर्ज करें।'
                         : '🚨 Machine Mismatch: License belongs to a different PC. Activate a key for this Machine ID.')
-                    : trialStatus.isTrialExpired
-                      ? (isHindi
-                          ? `🔴 ट्रायल सीमा पूर्ण (${trialStatus.vouchersUsed}/${trialStatus.maxTrialVouchers} वाउचर)। सभी सुविधाएं जारी रखने के लिए लाइसेंस एक्टिवेट करें।`
-                          : `🔴 Trial Limit Reached (${trialStatus.vouchersUsed}/${trialStatus.maxTrialVouchers} vouchers). Activate Commercial License.`)
-                      : (isHindi
-                          ? `⚡ सॉफ्टवेयर ट्रायल: ${trialStatus.daysRemaining} दिन एवं ${trialStatus.vouchersRemaining}/${trialStatus.maxTrialVouchers} वाउचर शेष।`
-                          : `⚡ Software Trial: ${trialStatus.daysRemaining} day(s) & ${trialStatus.vouchersRemaining}/${trialStatus.maxTrialVouchers} vouchers remaining. Activate Commercial License.`)}
+                    : (isHindi
+                        ? '🔴 7-दिवसीय नि:शुल्क ट्रायल समाप्त हो गया है। जारी रखने के लिए कमर्शियल लाइसेंस कुंजी + एक्टिवेशन कोड दर्ज करें।'
+                        : '🔴 Free Trial Expired. Enter your Signed License Key + Activation Code to continue.')}
           </span>
           <button
             onClick={() => setShowLicenseModal(true)}
@@ -4949,6 +4952,10 @@ export default function App() {
                 setShowCompanyModal(true);
               }}
               onOpenFeaturesModal={() => openConfigureModal('features')}
+              onOpenLicenseModal={() => {
+                if (!requirePermission(rbac.canManageUsersAndPin, 'लाइसेंस प्रबंधन खोलना', 'open License Activation')) return;
+                setShowLicenseModal(true);
+              }}
               onUpdateSecurityPinAndPass={handleUpdateSecurityPinAndPass}
               onOpenSecurityModal={() => {
                 if (!requirePermission(rbac.canUseAdminBackup, 'सुरक्षा और बैकअप केंद्र खोलना', 'open Security & Backup center')) return;
@@ -5117,13 +5124,13 @@ export default function App() {
         />
       )}
 
-      {(showLicenseModal || trialStatus.clockTampered || trialStatus.machineMismatch || Boolean(trialStatus.vaultTampered) || trialStatus.lockReason === 'LICENSE_REVOKED') && (
+      {(showLicenseModal || isLicenseHardLocked) && (
         <LicenseActivationModal
           data={data}
           isHindi={isHindi}
           onSaveLicense={handleSaveLicense}
-          onClose={() => setShowLicenseModal(false)}
-          isForcedLock={trialStatus.clockTampered || trialStatus.machineMismatch || Boolean(trialStatus.vaultTampered) || trialStatus.lockReason === 'LICENSE_REVOKED'}
+          onClose={isLicenseHardLocked ? undefined : () => setShowLicenseModal(false)}
+          isForcedLock={isLicenseHardLocked}
           isDemoShareMode={isDemoShareMode}
           isCustomerView={isCustomerView}
           isSoftwareOwner={isSoftwareOwner}

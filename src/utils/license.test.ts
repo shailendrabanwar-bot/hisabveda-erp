@@ -672,5 +672,51 @@ test('Dual-layer activation requires matching ACT-XXXX-XXXX code and enforces si
   });
 });
 
+test('First-launch automatic 7-day free trial starts unlocked, seals start timestamp, and auto-locks after 7 days or clock rollback', () => {
+  withMockLocalStorage((store) => {
+    const startMs = Date.UTC(2026, 8, 1, 9, 0, 0);
+    const currentMachine = getOrGenerateMachineId();
+
+    // 1. Fresh first launch without prior license: automatically starts 7-day free trial (unlocked)
+    const initialStatus = getTrialStatus(undefined, { vouchers: [], invoices: [], purchaseInvoices: [] }, startMs);
+    assert.equal(initialStatus.isLicensed, false);
+    assert.equal(initialStatus.isTrialExpired, false);
+    assert.equal(initialStatus.daysRemaining, MAX_TRIAL_DAYS);
+    assert.equal(initialStatus.lockReason, 'NONE');
+    assert.ok(store.get(LICENSE_ENVELOPE_STORAGE_KEY), 'Initial trial envelope should be sealed immediately on first launch');
+
+    const sealed = readSealedLicenseCacheEnvelope(currentMachine);
+    assert.equal(sealed.exists, true);
+    assert.equal(sealed.tampered, false);
+    assert.equal(sealed.envelope?.trialStartDate, new Date(startMs).toISOString());
+
+    // 2. Day 4 (3 days elapsed): still active with 4 days remaining
+    const midTrial = getTrialStatus(undefined, { vouchers: [], invoices: [], purchaseInvoices: [] }, startMs + 3 * 86400000);
+    assert.equal(midTrial.isTrialExpired, false);
+    assert.equal(midTrial.daysElapsed, 3);
+    assert.equal(midTrial.daysRemaining, 4);
+    assert.equal(midTrial.lockReason, 'NONE');
+
+    // 3. System clock rollback before observed high-water mark triggers automatic tamper lock
+    const rolledBack = getTrialStatus(undefined, { vouchers: [], invoices: [], purchaseInvoices: [] }, startMs + 1 * 86400000);
+    assert.equal(rolledBack.clockTampered, true);
+    assert.equal(rolledBack.isTrialExpired, true);
+    assert.equal(rolledBack.lockReason, 'CLOCK_TAMPERED');
+
+    // 4. After 7 full days elapsed: trial auto-locks with TRIAL_DAYS_EXPIRED
+    const expiredTrial = getTrialStatus(undefined, { vouchers: [], invoices: [], purchaseInvoices: [] }, startMs + MAX_TRIAL_DAYS * 86400000);
+    assert.equal(expiredTrial.isTrialExpired, true);
+    assert.equal(expiredTrial.daysRemaining, 0);
+    assert.equal(expiredTrial.lockReason, 'TRIAL_DAYS_EXPIRED');
+  });
+});
+
+test('Electron main.js persists consumedSerials in vault and supports external WhatsApp/mailto links', () => {
+  const mainJs = fs.readFileSync(path.join(process.cwd(), 'electron/main.js'), 'utf8');
+  assert.ok(mainJs.includes('consumedSerials'));
+  assert.ok(mainJs.includes('setWindowOpenHandler'));
+  assert.ok(mainJs.includes("ipcMain.handle('hv:open-external'"));
+});
+
 
 

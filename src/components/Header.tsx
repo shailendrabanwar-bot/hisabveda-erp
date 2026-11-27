@@ -42,6 +42,7 @@ import {
   ToggleRight
 } from 'lucide-react';
 import { AppData, Currency, UserProfile, SalesInvoice, UserRole } from '../types';
+import { TrialStatus } from '../utils/license';
 import { SnaLogo } from './SnaLogo';
 import { formatCurrency, isElectronDesktopRuntime } from '../utils/storage';
 import { AppConfiguration, isNavTabEnabled, loadAppConfig } from '../utils/appConfig';
@@ -66,6 +67,7 @@ interface HeaderProps {
   onOpenSecurityModal: () => void;
   onOpenMasterPinModal?: () => void;
   onOpenLicenseModal: () => void;
+  trialStatus?: TrialStatus;
   onOpenUpdateModal?: () => void;
   onOpenConfigureModal?: () => void;
   onRefreshData?: () => void;
@@ -110,6 +112,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenSecurityModal,
   onOpenMasterPinModal,
   onOpenLicenseModal,
+  trialStatus,
   onOpenUpdateModal,
   onOpenConfigureModal,
   onRefreshData,
@@ -883,6 +886,26 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Right: Quick Mobile Actions */}
         <div className="flex items-center gap-1.5 shrink-0">
+          {trialStatus && !trialStatus.isLicensed && (
+            <button
+              type="button"
+              onClick={onOpenLicenseModal}
+              className={`flex items-center gap-1 px-2 py-1.5 rounded-xl border text-[11px] font-extrabold transition cursor-pointer whitespace-nowrap ${
+                trialStatus.isTrialExpired || trialStatus.clockTampered || trialStatus.vaultTampered || trialStatus.machineMismatch
+                  ? 'bg-rose-500/20 text-rose-200 border-rose-400/50'
+                  : 'bg-amber-500/15 text-amber-200 border-amber-400/40'
+              }`}
+              title={isHindi ? 'लाइसेंस एक्टिवेट / अपग्रेड करें' : 'Free Trial — Upgrade / Activate License'}
+            >
+              <KeyRound className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+              <span>
+                {trialStatus.isTrialExpired
+                  ? (isHindi ? 'एक्टिवेट' : 'Expired')
+                  : (isHindi ? `ट्रायल ${trialStatus.daysRemaining}d` : `Trial ${trialStatus.daysRemaining}d`)}
+              </span>
+            </button>
+          )}
+
           {/* + New Transaction Button */}
           {canCreateAnyQuickTx && (
             <button
@@ -1372,6 +1395,40 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
           )}
 
+          {/* 3.2b NON-INTRUSIVE FREE TRIAL UPGRADE / ACTIVATE BADGE */}
+          {trialStatus && !trialStatus.isLicensed && (
+            <button
+              type="button"
+              onClick={onOpenLicenseModal}
+              className={`hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-[11px] lg:text-xs font-extrabold transition shadow-sm cursor-pointer whitespace-nowrap shrink-0 ${
+                trialStatus.isTrialExpired || trialStatus.clockTampered || trialStatus.vaultTampered || trialStatus.machineMismatch
+                  ? 'bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border-rose-400/50'
+                  : 'bg-amber-500/15 hover:bg-amber-500/25 text-amber-200 border-amber-400/40'
+              }`}
+              title={
+                trialStatus.isTrialExpired
+                  ? (isHindi ? 'ट्रायल समाप्त — कमर्शियल लाइसेंस एक्टिवेट करें' : 'Free Trial Expired — Activate License')
+                  : (isHindi
+                      ? `फ्री ट्रायल: ${trialStatus.daysRemaining} दिन शेष — अपग्रेड / लाइसेंस एक्टिवेट करें`
+                      : `Free Trial: ${trialStatus.daysRemaining} ${trialStatus.daysRemaining === 1 ? 'Day' : 'Days'} Left — Upgrade / Activate License`)
+              }
+            >
+              <KeyRound className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+              <span className="hidden xl:inline">
+                {trialStatus.isTrialExpired
+                  ? (isHindi ? 'ट्रायल समाप्त — लाइसेंस एक्टिवेट करें' : 'Trial Expired — Activate License')
+                  : (isHindi
+                      ? `फ्री ट्रायल: ${trialStatus.daysRemaining} दिन शेष — अपग्रेड / लाइसेंस एक्टिवेट करें`
+                      : `Free Trial: ${trialStatus.daysRemaining} ${trialStatus.daysRemaining === 1 ? 'Day' : 'Days'} Left — Upgrade / Activate License`)}
+              </span>
+              <span className="xl:hidden">
+                {trialStatus.isTrialExpired
+                  ? (isHindi ? 'ट्रायल समाप्त' : 'Activate')
+                  : (isHindi ? `ट्रायल: ${trialStatus.daysRemaining} दिन` : `Free Trial: ${trialStatus.daysRemaining}d — Activate`)}
+              </span>
+            </button>
+          )}
+
           {/* 3.3 CLOUD LIVE SYNC / LOCAL MODE STATUS PILL */}
           <button
             type="button"
@@ -1390,7 +1447,7 @@ export const Header: React.FC<HeaderProps> = ({
             }
           >
             <Cloud className={`w-4 h-4 shrink-0 ${cloudSyncStatus === 'local' ? 'text-amber-400' : cloudSyncStatus === 'error' ? 'text-rose-400' : 'text-emerald-400'}`} />
-            <span className="hidden lg:inline">
+            <span className="hidden 2xl:inline">
               {cloudSyncStatus === 'local'
                 ? (isHindi ? 'डिवाइस मोड' : 'Local Only')
                 : (isHindi ? 'क्लाउड सिंक' : 'Cloud Sync')}
@@ -1717,7 +1774,13 @@ export const Header: React.FC<HeaderProps> = ({
                         <span className="text-[11px] opacity-80">{isHindi ? 'लाइसेंस स्टेटस:' : 'License:'}</span>
                         <span className="text-xs font-extrabold flex items-center gap-1 mt-0.5">
                           <ShieldCheck className="w-3.5 h-3.5" />
-                          <span>{data.license?.isLicensed ? 'PRO ACTIVE' : (isHindi ? 'ट्रायल' : 'TRIAL')}</span>
+                          <span>
+                            {trialStatus?.isLicensed
+                              ? 'PRO ACTIVE'
+                              : trialStatus
+                                ? (isHindi ? `ट्रायल (${trialStatus.daysRemaining}d शेष)` : `Free Trial (${trialStatus.daysRemaining}d Left)`)
+                                : (data.license?.isLicensed ? 'PRO ACTIVE' : (isHindi ? 'ट्रायल' : 'TRIAL'))}
+                          </span>
                         </span>
                       </button>
 
