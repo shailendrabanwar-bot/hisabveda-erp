@@ -1095,6 +1095,13 @@ export default function App() {
       trialStatus.lockReason === 'LICENSE_EXPIRED'
     )
   );
+  const needsFirstTimeTrialOnboarding = Boolean(
+    !trialStatus.isLicensed &&
+    !trialStatus.trialActivated &&
+    !isLicenseHardLocked &&
+    !isDemoShareMode &&
+    !isSoftwareOwner
+  );
 
   const requireActiveLicenseForEntry = (isExistingRecord = false): boolean => {
     if (trialStatus.vaultTampered) {
@@ -1299,15 +1306,36 @@ export default function App() {
     if (typeof window !== 'undefined' && window.hisabvedaDesktop?.saveLicenseState) {
       window.hisabvedaDesktop.saveLicenseState(license).catch(() => {});
     }
+    const shouldPrefillCompanyFromTrial =
+      !license.isLicensed &&
+      license.trialActivated &&
+      license.registeredOwner &&
+      (!data.company.name.trim() || data.company.name === initialSampleData.company.name);
+    const nextCompany = shouldPrefillCompanyFromTrial
+      ? {
+          ...data.company,
+          name: license.registeredOwner || data.company.name,
+          phone: license.trialMobile || data.company.phone,
+        }
+      : data.company;
     const updated = logAuditAction(
-      { ...data, license },
+      { ...data, company: nextCompany, license },
       license.isLicensed ? 'License Activated' : 'Free Trial Started',
       license.isLicensed
         ? `Commercial software license registered to ${license.registeredOwner} (${license.licenseKey})`
-        : `7-Day Free Trial initialized on hardware machine ${license.machineId}`
+        : `7-Day Free Trial started for ${license.registeredOwner || 'Customer'} (${license.trialMobile || ''}) on ${license.machineId}`
     );
     setData(updated);
     saveAppData(updated, sessionUser?.id);
+    if (!license.isLicensed && license.trialActivated) {
+      setShowLicenseModal(false);
+      setToastMessage(
+        isHindi
+          ? '✅ 7-दिवसीय नि:शुल्क ट्रायल शुरू हो गया है! 7 दिन (50 वाउचर) तक पूर्ण उपयोग करें।'
+          : '✅ 7-Day Free Trial activated! Enjoy full access for 7 days (up to 50 vouchers).'
+      );
+      setTimeout(() => setToastMessage(null), 5000);
+    }
     if (storageMode !== 'local' && firebaseUser && isEmailVerified) {
       pushAppDataToCloud({
         ...updated,
@@ -5124,12 +5152,12 @@ export default function App() {
         />
       )}
 
-      {(showLicenseModal || isLicenseHardLocked) && (
+      {(showLicenseModal || isLicenseHardLocked || needsFirstTimeTrialOnboarding) && (
         <LicenseActivationModal
           data={data}
           isHindi={isHindi}
           onSaveLicense={handleSaveLicense}
-          onClose={isLicenseHardLocked ? undefined : () => setShowLicenseModal(false)}
+          onClose={(isLicenseHardLocked || needsFirstTimeTrialOnboarding) ? undefined : () => setShowLicenseModal(false)}
           isForcedLock={isLicenseHardLocked}
           isDemoShareMode={isDemoShareMode}
           isCustomerView={isCustomerView}

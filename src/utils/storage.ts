@@ -115,7 +115,11 @@ export function hydrateLocalStorageFromDesktop(): void {
       }
     }
 
-    if (authoritativeVaultLicense || (Array.isArray(boot.vault?.consumedSerials) && boot.vault.consumedSerials.length > 0)) {
+    if (
+      authoritativeVaultLicense ||
+      boot.vault?.trialActivated ||
+      (Array.isArray(boot.vault?.consumedSerials) && boot.vault.consumedSerials.length > 0)
+    ) {
       const liveHwid = boot.machineId || getOrGenerateMachineId();
       const sealedCheck = readSealedLicenseCacheEnvelope(liveHwid);
       const vaultConsumed = Array.isArray(boot.vault?.consumedSerials) ? boot.vault.consumedSerials : [];
@@ -154,13 +158,20 @@ export function hydrateLocalStorageFromDesktop(): void {
                 authoritativeVaultLicense?.trialStartDate ||
                 sealedCheck.envelope?.trialStartDate ||
                 new Date().toISOString(),
+              trialActivated: Boolean(boot.vault?.trialActivated || authoritativeVaultLicense?.isLicensed),
+              trialBusinessName: boot.vault?.trialBusinessName || authoritativeVaultLicense?.registeredOwner,
+              trialMobile: boot.vault?.trialMobile || authoritativeVaultLicense?.trialMobile,
               license: authoritativeVaultLicense || sealedCheck.envelope?.license || null,
               consumedSerials: normalizedConsumed,
             },
             liveHwid
           );
         }
-      } else if (!sealedCheck.tampered && !sealedCheck.envelope?.license?.isLicensed && authoritativeVaultLicense) {
+      } else if (
+        !sealedCheck.tampered &&
+        ((!sealedCheck.envelope?.license?.isLicensed && authoritativeVaultLicense) ||
+          (boot.vault?.trialActivated && !sealedCheck.envelope?.trialActivated))
+      ) {
         sealLicenseCacheEnvelope(
           {
             maxObservedTimeMs: Math.max(Date.now(), diskClockMs, sealedCheck.envelope?.maxObservedTimeMs || 0),
@@ -173,7 +184,10 @@ export function hydrateLocalStorageFromDesktop(): void {
               authoritativeVaultLicense?.trialStartDate ||
               sealedCheck.envelope?.trialStartDate ||
               new Date().toISOString(),
-            license: authoritativeVaultLicense,
+            trialActivated: Boolean(boot.vault?.trialActivated || authoritativeVaultLicense?.isLicensed),
+            trialBusinessName: boot.vault?.trialBusinessName || authoritativeVaultLicense?.registeredOwner,
+            trialMobile: boot.vault?.trialMobile || authoritativeVaultLicense?.trialMobile,
+            license: authoritativeVaultLicense || sealedCheck.envelope?.license || null,
             consumedSerials: sealedCheck.envelope?.consumedSerials || [],
           },
           liveHwid
@@ -250,11 +264,18 @@ export function resolveAuthoritativeLicense(candidateLicense?: LicenseInfo | nul
 
   const chosenLicensed = bestVerified || fallbackLicensedMismatchOrExpired;
 
+  const resolvedTrialActivated = Boolean(
+    chosenLicensed ||
+    boot?.vault?.trialActivated ||
+    (!sealedCheck.tampered && sealedCheck.envelope?.trialActivated) ||
+    candidateLicense?.trialActivated
+  );
+
   const candidateStarts = [
     chosenLicensed?.trialStartDate,
-    candidateLicense?.trialStartDate,
-    sealedCheck.envelope?.trialStartDate,
-    boot?.vault?.trialStartDate,
+    candidateLicense?.trialActivated ? candidateLicense.trialStartDate : undefined,
+    !sealedCheck.tampered && sealedCheck.envelope?.trialActivated ? sealedCheck.envelope.trialStartDate : undefined,
+    boot?.vault?.trialActivated ? boot.vault.trialStartDate : undefined,
   ]
     .filter(Boolean)
     .map((s) => Date.parse(String(s)))
@@ -263,16 +284,32 @@ export function resolveAuthoritativeLicense(candidateLicense?: LicenseInfo | nul
     ? new Date(Math.min(...candidateStarts)).toISOString()
     : (candidateLicense?.trialStartDate || nowIso);
 
+  const resolvedBusinessName =
+    chosenLicensed?.registeredOwner ||
+    candidateLicense?.registeredOwner ||
+    (!sealedCheck.tampered ? sealedCheck.envelope?.trialBusinessName : undefined) ||
+    boot?.vault?.trialBusinessName ||
+    '';
+
+  const resolvedTrialMobile =
+    candidateLicense?.trialMobile ||
+    (!sealedCheck.tampered ? sealedCheck.envelope?.trialMobile : undefined) ||
+    boot?.vault?.trialMobile ||
+    '';
+
   const vaultTampered = Boolean(
     !bestVerified && (boot?.vault?.vaultTampered || sealedCheck.tampered || candidateTampered)
   );
 
-  if (!sealedCheck.exists && !sealedCheck.tampered && typeof window !== 'undefined' && typeof localStorage !== 'undefined') {
+  if (!sealedCheck.exists && !sealedCheck.tampered && typeof window !== 'undefined' && typeof localStorage !== 'undefined' && resolvedTrialActivated) {
     sealLicenseCacheEnvelope(
       {
         maxObservedTimeMs: Date.now(),
         lastVerifiedServerTimeMs: getLastVerifiedServerTimeMs(),
         trialStartDate: earliestTrialStart,
+        trialActivated: true,
+        ...(resolvedBusinessName ? { trialBusinessName: resolvedBusinessName } : {}),
+        ...(resolvedTrialMobile ? { trialMobile: resolvedTrialMobile } : {}),
         license: chosenLicensed || null,
       },
       liveMachineId
@@ -282,6 +319,7 @@ export function resolveAuthoritativeLicense(candidateLicense?: LicenseInfo | nul
   if (chosenLicensed) {
     return {
       ...chosenLicensed,
+      trialActivated: true,
       trialStartDate: earliestTrialStart,
       machineId: chosenLicensed.machineId || boot?.machineId || liveMachineId,
       vaultTampered,
@@ -290,9 +328,11 @@ export function resolveAuthoritativeLicense(candidateLicense?: LicenseInfo | nul
 
   return {
     trialStartDate: earliestTrialStart,
+    trialActivated: resolvedTrialActivated,
+    ...(resolvedTrialMobile ? { trialMobile: resolvedTrialMobile } : {}),
     isLicensed: false,
     licenseKey: candidateLicense?.licenseKey || '',
-    registeredOwner: candidateLicense?.registeredOwner || '',
+    registeredOwner: resolvedBusinessName,
     machineId: boot?.machineId || liveMachineId,
     licenseType: candidateLicense?.licenseType || 'TRIAL',
     lastKnownTimestamp: candidateLicense?.lastKnownTimestamp || nowIso,

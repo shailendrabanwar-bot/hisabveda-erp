@@ -456,11 +456,15 @@ function loadOrInitVault() {
     machineId: liveMachineId,
     boundMachineId: existingBoundId,
     trialStartDate: (existing && existing.trialStartDate) || new Date(nowMs).toISOString(),
+    trialActivated: Boolean(existing?.trialActivated || storedLicense?.isLicensed || storedLicense?.trialActivated),
+    trialBusinessName: String(existing?.trialBusinessName || storedLicense?.registeredOwner || ''),
+    trialMobile: String(existing?.trialMobile || storedLicense?.trialMobile || ''),
     maxObservedTimeMs: Math.max(Number(existing?.maxObservedTimeMs || 0), 0),
     lastCheckTimeMs: Number(existing?.lastCheckTimeMs || nowMs),
     clockTamperLocked: Boolean(existing?.clockTamperLocked),
     clockTamperDetectedAt: existing?.clockTamperDetectedAt || null,
     vaultTampered: Boolean(tampered || existing?.vaultTampered || signatureTampered),
+    consumedSerials: Array.isArray(existing?.consumedSerials) ? existing.consumedSerials : [],
     license: storedLicense,
   };
 
@@ -636,10 +640,19 @@ function syncLicenseToVault(license) {
   const vault = loadOrInitVault();
   const liveMachineId = computeHardwareMachineId();
 
-  // Never allow resetting trialStartDate to a later date via wiped local state
+  // Never allow resetting trialStartDate once trialActivated is true; allow setting it on first trial activation
   const existingStartMs = vault.trialStartDate ? Date.parse(vault.trialStartDate) : 0;
   const incomingStartMs = license.trialStartDate ? Date.parse(license.trialStartDate) : 0;
-  if (
+  if (!vault.trialActivated && license.trialActivated && !license.isLicensed) {
+    const safeStartMs =
+      Number.isFinite(incomingStartMs) && incomingStartMs > 0 && incomingStartMs <= Date.now() + CLOCK_SKEW_TOLERANCE_MS
+        ? incomingStartMs
+        : Date.now();
+    vault.trialStartDate = new Date(safeStartMs).toISOString();
+    vault.trialActivated = true;
+    vault.trialBusinessName = String(license.registeredOwner || vault.trialBusinessName || '');
+    vault.trialMobile = String(license.trialMobile || vault.trialMobile || '');
+  } else if (
     Number.isFinite(incomingStartMs) &&
     incomingStartMs > 0 &&
     (!existingStartMs || incomingStartMs < existingStartMs)
@@ -700,9 +713,17 @@ function syncLicenseToVault(license) {
 
   if (!vault.license?.isLicensed) {
     vault.boundMachineId = liveMachineId;
+    if (license.trialActivated) {
+      vault.trialActivated = true;
+      if (license.registeredOwner) vault.trialBusinessName = String(license.registeredOwner);
+      if (license.trialMobile) vault.trialMobile = String(license.trialMobile);
+    }
     vault.license = {
       ...license,
       isLicensed: false,
+      trialActivated: Boolean(vault.trialActivated || license.trialActivated),
+      registeredOwner: license.registeredOwner || vault.trialBusinessName || '',
+      trialMobile: license.trialMobile || vault.trialMobile || '',
       machineId: liveMachineId,
       trialStartDate: vault.trialStartDate,
     };
@@ -773,6 +794,9 @@ function buildBootstrapPayload() {
       machineId: liveMachineId,
       boundMachineId: boundId,
       trialStartDate: vault.trialStartDate,
+      trialActivated: Boolean(vault.trialActivated),
+      trialBusinessName: vault.trialBusinessName || '',
+      trialMobile: vault.trialMobile || '',
       maxObservedTimeMs: vault.maxObservedTimeMs,
       clockTamperLocked: vault.clockTamperLocked,
       vaultTampered: Boolean(vault.vaultTampered),

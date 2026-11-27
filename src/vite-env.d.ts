@@ -38,6 +38,9 @@ export interface DesktopBootstrapState {
     machineId: string;
     boundMachineId?: string;
     trialStartDate: string;
+    trialActivated?: boolean;
+    trialBusinessName?: string;
+    trialMobile?: string;
     maxObservedTimeMs: number;
     clockTamperLocked: boolean;
     vaultTampered?: boolean;

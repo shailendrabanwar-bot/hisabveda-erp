@@ -626,6 +626,8 @@ export interface IssuedLicenseRecord {
 
 export interface LicenseInfo {
   trialStartDate: string; // ISO string when first launched
+  trialActivated?: boolean; // True once user starts 7-Day Free Trial (or activates commercial license)
+  trialMobile?: string; // Customer mobile number provided during 1-step free trial onboarding
   isLicensed: boolean; // true if perpetual / paid serial key entered
   licenseKey?: string; // Activated serial key
   licenseSerial?: string; // Unique certificate serial (payload.licenseId)

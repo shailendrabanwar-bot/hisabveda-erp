@@ -1874,8 +1874,8 @@ FOLDER CONTENTS:
                     : trialStatus.isTrialExpired
                       ? (isHindi ? 'ट्रायल समाप्त — लाइसेंस एक्टिवेट करें' : 'Free Trial Expired — Activate License')
                       : (isHindi
-                          ? `फ्री ट्रायल: ${trialStatus.daysRemaining} दिन शेष — अपग्रेड / लाइसेंस एक्टिवेट करें`
-                          : `Free Trial: ${trialStatus.daysRemaining} ${trialStatus.daysRemaining === 1 ? 'Day' : 'Days'} Left — Upgrade / Activate License`)}
+                          ? `फ्री ट्रायल: ${trialStatus.daysRemaining} दिन शेष — लाइसेंस एक्टिवेट करें`
+                          : `Free Trial: ${trialStatus.daysRemaining} ${trialStatus.daysRemaining === 1 ? 'Day' : 'Days'} Left — Activate License`)}
                 </span>
               </button>
             )}

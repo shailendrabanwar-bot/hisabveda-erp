@@ -345,6 +345,9 @@ export interface SealedLicenseEnvelope {
   maxObservedTimeMs: number;
   lastVerifiedServerTimeMs: number;
   trialStartDate: string;
+  trialActivated?: boolean;
+  trialBusinessName?: string;
+  trialMobile?: string;
   license: LicenseInfo | null;
   consumedSerials?: ConsumedActivationEntry[];
 }
@@ -390,12 +393,31 @@ export function sealLicenseCacheEnvelope(
   const normId = machineId.trim().toUpperCase();
   const existing = readSealedLicenseCacheEnvelope(normId);
   const mergedConsumed = envelope.consumedSerials ?? existing.envelope?.consumedSerials ?? [];
+  const resolvedTrialActivated = Boolean(
+    envelope.trialActivated ||
+    existing.envelope?.trialActivated ||
+    envelope.license?.trialActivated ||
+    envelope.license?.isLicensed
+  );
+  const resolvedBusinessName =
+    envelope.trialBusinessName ||
+    existing.envelope?.trialBusinessName ||
+    envelope.license?.registeredOwner ||
+    undefined;
+  const resolvedMobile =
+    envelope.trialMobile ||
+    existing.envelope?.trialMobile ||
+    envelope.license?.trialMobile ||
+    undefined;
   const payload: SealedLicenseEnvelope = {
     v: 1,
     machineId: normId,
     maxObservedTimeMs: Math.max(0, Number(envelope.maxObservedTimeMs || 0)),
     lastVerifiedServerTimeMs: Math.max(0, Number(envelope.lastVerifiedServerTimeMs || 0)),
     trialStartDate: envelope.trialStartDate || new Date().toISOString(),
+    ...(resolvedTrialActivated ? { trialActivated: true } : {}),
+    ...(resolvedBusinessName ? { trialBusinessName: resolvedBusinessName } : {}),
+    ...(resolvedMobile ? { trialMobile: resolvedMobile } : {}),
     license: envelope.license || null,
     ...(mergedConsumed.length > 0 ? { consumedSerials: mergedConsumed } : {}),
   };
@@ -849,6 +871,7 @@ export type TrialLockReason =
 
 export interface TrialStatus {
   isLicensed: boolean;
+  trialActivated: boolean;
   daysElapsed: number;
   daysRemaining: number;
   hoursRemaining?: number;
@@ -892,9 +915,16 @@ export function getTrialStatus(
   const vouchersUsed = countTrialTransactions(usageData);
   const vouchersRemaining = Math.max(0, MAX_TRIAL_VOUCHERS - vouchersUsed);
 
+  const sealedTrialActivated = Boolean(
+    license?.isLicensed ||
+    license?.trialActivated ||
+    (!envelopeCheck.tampered && envelopeCheck.envelope?.trialActivated)
+  );
+
   if (envelopeCheck.tampered || consumedCheck.tampered) {
     return {
       isLicensed: false,
+      trialActivated: false,
       daysElapsed: MAX_TRIAL_DAYS,
       daysRemaining: 0,
       hoursRemaining: 0,
@@ -942,6 +972,7 @@ export function getTrialStatus(
     const vouchersExceeded = usageData ? vouchersUsed >= MAX_TRIAL_VOUCHERS : false;
     return {
       isLicensed: false,
+      trialActivated: sealedTrialActivated,
       daysElapsed,
       daysRemaining,
       hoursRemaining,
@@ -973,6 +1004,7 @@ export function getTrialStatus(
   if (license.vaultTampered) {
     return {
       isLicensed: false,
+      trialActivated: sealedTrialActivated,
       daysElapsed: MAX_TRIAL_DAYS,
       daysRemaining: 0,
       hoursRemaining: 0,
@@ -995,6 +1027,7 @@ export function getTrialStatus(
   if (clockIntegrity.clockTampered) {
     return {
       isLicensed: false,
+      trialActivated: sealedTrialActivated,
       daysElapsed: MAX_TRIAL_DAYS,
       daysRemaining: 0,
       hoursRemaining: 0,
@@ -1030,6 +1063,7 @@ export function getTrialStatus(
     if (!sigCheck.isValid || !sigCheck.payload) {
       return {
         isLicensed: false,
+        trialActivated: true,
         daysElapsed: MAX_TRIAL_DAYS,
         daysRemaining: 0,
         hoursRemaining: 0,
@@ -1061,6 +1095,7 @@ export function getTrialStatus(
     if (machineMismatch) {
       return {
         isLicensed: false,
+        trialActivated: true,
         daysElapsed: MAX_TRIAL_DAYS,
         daysRemaining: 0,
         hoursRemaining: 0,
@@ -1089,6 +1124,7 @@ export function getTrialStatus(
     if (revokedMatch) {
       return {
         isLicensed: false,
+        trialActivated: true,
         daysElapsed: MAX_TRIAL_DAYS,
         daysRemaining: 0,
         hoursRemaining: 0,
@@ -1118,6 +1154,7 @@ export function getTrialStatus(
     if (isExpired) {
       return {
         isLicensed: false,
+        trialActivated: true,
         daysElapsed: license.validityDays || 365,
         daysRemaining: 0,
         hoursRemaining: 0,
@@ -1145,6 +1182,7 @@ export function getTrialStatus(
 
     return {
       isLicensed: true,
+      trialActivated: true,
       daysElapsed,
       daysRemaining: Math.max(1, daysRemaining),
       hoursRemaining,
@@ -1175,6 +1213,7 @@ export function getTrialStatus(
 
   return {
     isLicensed: false,
+    trialActivated: sealedTrialActivated,
     daysElapsed,
     daysRemaining,
     hoursRemaining,
@@ -1431,6 +1470,123 @@ export function activateLicenseOnMachine(params: ActivateLicenseParams): Activat
   return {
     success: true,
     message: validation.message,
+    license,
+  };
+}
+
+export interface StartFreeTrialParams {
+  businessName: string;
+  mobileNumber: string;
+  currentMachineId?: string;
+  existingLicense?: LicenseInfo;
+  nowMs?: number;
+}
+
+export interface StartFreeTrialResult {
+  success: boolean;
+  message: string;
+  license?: LicenseInfo;
+}
+
+export function startFreeTrialOnMachine(params: StartFreeTrialParams): StartFreeTrialResult {
+  const nowMs = params.nowMs ?? Date.now();
+  const normalizedMachineId = (params.currentMachineId || getOrGenerateMachineId()).trim().toUpperCase();
+  const cleanName = (params.businessName || '').trim();
+  const rawMobile = (params.mobileNumber || '').trim();
+  const mobileDigits = rawMobile.replace(/\D/g, '');
+
+  if (cleanName.length < 2) {
+    return {
+      success: false,
+      message: 'Please enter your Name or Business Name to start the 7-Day Free Trial.',
+    };
+  }
+  if (mobileDigits.length < 10) {
+    return {
+      success: false,
+      message: 'Please enter a valid 10-digit Mobile Number to start the 7-Day Free Trial.',
+    };
+  }
+
+  const envelopeCheck = readSealedLicenseCacheEnvelope(normalizedMachineId);
+  if (envelopeCheck.tampered) {
+    return {
+      success: false,
+      message: 'Encrypted trial vault failed verification. Please activate a commercial license.',
+    };
+  }
+
+  const clockIntegrity = checkAndAdvanceClockWatermark(params.existingLicense, nowMs);
+  if (clockIntegrity.clockTampered) {
+    return {
+      success: false,
+      message: 'System clock rollback detected! Restore your computer date/time to continue.',
+    };
+  }
+
+  const alreadyActivated = Boolean(
+    envelopeCheck.envelope?.trialActivated || params.existingLicense?.trialActivated
+  );
+  const existingStartIso =
+    envelopeCheck.envelope?.trialStartDate || params.existingLicense?.trialStartDate;
+  const existingStartMs = existingStartIso ? Date.parse(existingStartIso) : NaN;
+
+  // Never allow resetting an already-started trial's start date
+  const effectiveStartMs =
+    alreadyActivated && Number.isFinite(existingStartMs) && existingStartMs > 0
+      ? existingStartMs
+      : nowMs;
+
+  const daysElapsed = Math.floor(
+    Math.max(0, clockIntegrity.effectiveNowMs - effectiveStartMs) / 86400000
+  );
+  if (alreadyActivated && daysElapsed >= MAX_TRIAL_DAYS) {
+    return {
+      success: false,
+      message: 'The 7-Day Free Trial has already expired on this machine. Please activate a commercial license.',
+    };
+  }
+
+  const trialStartDate = new Date(effectiveStartMs).toISOString();
+  const expiresAtIso = new Date(effectiveStartMs + MAX_TRIAL_DAYS * 86400000).toISOString();
+
+  const license: LicenseInfo = {
+    trialStartDate,
+    trialActivated: true,
+    trialMobile: rawMobile,
+    isLicensed: false,
+    licenseKey: params.existingLicense?.licenseKey || '',
+    registeredOwner: cleanName,
+    machineId: normalizedMachineId,
+    expiryDate: expiresAtIso.split('T')[0],
+    expiresAtIso,
+    validityDays: MAX_TRIAL_DAYS,
+    licenseType: 'TRIAL',
+    lastKnownTimestamp: new Date(nowMs).toISOString(),
+    clockTamperDetected: false,
+    vaultTampered: false,
+    ...(params.existingLicense?.issuedLicenses
+      ? { issuedLicenses: params.existingLicense.issuedLicenses }
+      : {}),
+  };
+
+  sealLicenseCacheEnvelope(
+    {
+      maxObservedTimeMs: Math.max(nowMs, clockIntegrity.highWaterMs),
+      lastVerifiedServerTimeMs: getLastVerifiedServerTimeMs(),
+      trialStartDate,
+      trialActivated: true,
+      trialBusinessName: cleanName,
+      trialMobile: rawMobile,
+      license,
+    },
+    normalizedMachineId
+  );
+
+  const daysLeft = Math.max(1, MAX_TRIAL_DAYS - daysElapsed);
+  return {
+    success: true,
+    message: `7-Day Free Trial activated (${daysLeft} days left, up to ${MAX_TRIAL_VOUCHERS} vouchers).`,
     license,
   };
 }

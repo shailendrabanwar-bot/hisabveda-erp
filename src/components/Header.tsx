@@ -1409,8 +1409,8 @@ export const Header: React.FC<HeaderProps> = ({
                 trialStatus.isTrialExpired
                   ? (isHindi ? 'ट्रायल समाप्त — कमर्शियल लाइसेंस एक्टिवेट करें' : 'Free Trial Expired — Activate License')
                   : (isHindi
-                      ? `फ्री ट्रायल: ${trialStatus.daysRemaining} दिन शेष — अपग्रेड / लाइसेंस एक्टिवेट करें`
-                      : `Free Trial: ${trialStatus.daysRemaining} ${trialStatus.daysRemaining === 1 ? 'Day' : 'Days'} Left — Upgrade / Activate License`)
+                      ? `फ्री ट्रायल: ${trialStatus.daysRemaining} दिन शेष — लाइसेंस एक्टिवेट करें`
+                      : `Free Trial: ${trialStatus.daysRemaining} ${trialStatus.daysRemaining === 1 ? 'Day' : 'Days'} Left — Activate License`)
               }
             >
               <KeyRound className="w-3.5 h-3.5 text-amber-300 shrink-0" />
@@ -1418,8 +1418,8 @@ export const Header: React.FC<HeaderProps> = ({
                 {trialStatus.isTrialExpired
                   ? (isHindi ? 'ट्रायल समाप्त — लाइसेंस एक्टिवेट करें' : 'Trial Expired — Activate License')
                   : (isHindi
-                      ? `फ्री ट्रायल: ${trialStatus.daysRemaining} दिन शेष — अपग्रेड / लाइसेंस एक्टिवेट करें`
-                      : `Free Trial: ${trialStatus.daysRemaining} ${trialStatus.daysRemaining === 1 ? 'Day' : 'Days'} Left — Upgrade / Activate License`)}
+                      ? `फ्री ट्रायल: ${trialStatus.daysRemaining} दिन शेष — लाइसेंस एक्टिवेट करें`
+                      : `Free Trial: ${trialStatus.daysRemaining} ${trialStatus.daysRemaining === 1 ? 'Day' : 'Days'} Left — Activate License`)}
               </span>
               <span className="xl:hidden">
                 {trialStatus.isTrialExpired

@@ -25,7 +25,7 @@ import {
   getTrialStatus, 
   getOrGenerateMachineId,
   getHardwareBindingInfo,
-  getDefaultLicenseInfo,
+  startFreeTrialOnMachine,
   activateLicenseOnMachine,
   normalizeActivationCode,
   syncServerClockFromApi,
@@ -64,7 +64,25 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
   const machineId = hwInfo.machineId || getOrGenerateMachineId();
   const isDesktop = isDesktopAppRuntime();
 
-  const [activeTab, setActiveTab] = useState<'activate' | 'request'>('activate');
+  const issuedList = data.license?.issuedLicenses || [];
+  const integrityHash = computeDataIntegrityHash(data);
+  const canStartFreeTrial =
+    !trialStatus.isLicensed &&
+    !trialStatus.trialActivated &&
+    !trialStatus.isTrialExpired &&
+    !trialStatus.clockTampered &&
+    !trialStatus.machineMismatch &&
+    !trialStatus.vaultTampered &&
+    !isForcedLock;
+
+  const [activeTab, setActiveTab] = useState<'trial' | 'activate' | 'request'>(() =>
+    canStartFreeTrial && !initialKey ? 'trial' : 'activate'
+  );
+  const [trialBusinessName, setTrialBusinessName] = useState(initialOwnerName || '');
+  const [trialMobile, setTrialMobile] = useState('');
+  const [trialError, setTrialError] = useState<string | null>(null);
+  const [isStartingTrial, setIsStartingTrial] = useState(false);
+
   const [inputKey, setInputKey] = useState(initialKey || data.license?.licenseKey || '');
   const [activationCode, setActivationCode] = useState('');
   const [ownerName, setOwnerName] = useState(initialOwnerName || data.license?.registeredOwner || data.company.name || '');
@@ -82,16 +100,6 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
   const [reqPlan, setReqPlan] = useState<'TRIAL' | 'STANDARD_ANNUAL' | 'PRO_PERPETUAL'>('STANDARD_ANNUAL');
   const [requestStatus, setRequestStatus] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  const issuedList = data.license?.issuedLicenses || [];
-  const integrityHash = computeDataIntegrityHash(data);
-  const canStartFreeTrial =
-    !trialStatus.isLicensed &&
-    !trialStatus.isTrialExpired &&
-    !trialStatus.clockTampered &&
-    !trialStatus.machineMismatch &&
-    !trialStatus.vaultTampered &&
-    !isForcedLock;
-
   const whatsappMachineIdText = encodeURIComponent(
     `Hello HisabVeda Team, please issue my Signed License Certificate (HV-LIC-V3) & Unique Activation Code.\n\n${ownerName.trim() ? `Business / Company Name: ${ownerName.trim()}\n` : ''}Hardware Machine ID: ${machineId}`
   );
@@ -107,23 +115,36 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
     setTimeout(() => setCopiedHwid(false), 2500);
   };
 
-  const handleStartFreeTrial = () => {
-    if (!data.license || !data.license.trialStartDate) {
-      const freshTrial = getDefaultLicenseInfo();
-      if (ownerName.trim()) {
-        freshTrial.registeredOwner = ownerName.trim();
-      }
-      onSaveLicense(freshTrial);
-    }
-    if (onClose) {
-      onClose();
-    } else {
-      setStatusMessage({
-        type: 'success',
-        text: isHindi
-          ? `✅ 7-दिवसीय नि:शुल्क ट्रायल सक्रिय है (${trialStatus.daysRemaining} दिन शेष)।`
-          : `✅ 7-Day Free Trial active (${trialStatus.daysRemaining} days remaining).`,
+  const handleStartFreeTrial = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setTrialError(null);
+    setIsStartingTrial(true);
+    try {
+      const serverClockMs = await syncServerClockFromApi().catch(() => null);
+      const effectiveNowMs = serverClockMs || Date.now();
+      const result = startFreeTrialOnMachine({
+        businessName: trialBusinessName,
+        mobileNumber: trialMobile,
+        currentMachineId: machineId,
+        existingLicense: data.license,
+        nowMs: effectiveNowMs,
       });
+
+      if (!result.success || !result.license) {
+        setTrialError(result.message);
+        return;
+      }
+
+      if (typeof window !== 'undefined' && window.hisabvedaDesktop?.saveLicenseState) {
+        await window.hisabvedaDesktop.saveLicenseState(result.license).catch(() => false);
+      }
+
+      onSaveLicense(result.license);
+      if (onClose) {
+        onClose();
+      }
+    } finally {
+      setIsStartingTrial(false);
     }
   };
 
@@ -332,74 +353,138 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
 
         {/* Scrollable Modal Content */}
         <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-6">
-            {/* Prominent 7-Day Free Trial Onboarding Card (Shown when trial has not expired / not licensed) */}
-            {canStartFreeTrial && (
-              <div className="p-4 sm:p-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-br from-emerald-950/60 via-slate-900 to-indigo-950/40 shadow-lg space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <h3 className="text-sm sm:text-base font-extrabold text-white">
-                        {isHindi ? '7-दिवसीय नि:शुल्क ट्रायल (बिना कुंजी के तुरंत शुरू करें)' : '7-Day Free Trial Onboarding'}
-                      </h3>
-                      <span className="text-[11px] font-mono font-bold px-2 py-0.5 rounded-md bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 tabular-nums">
-                        {isHindi
-                          ? `${trialStatus.daysRemaining} दिन शेष`
-                          : `${trialStatus.daysRemaining} ${trialStatus.daysRemaining === 1 ? 'Day' : 'Days'} Remaining`}
-                      </span>
-                    </div>
-                    <p className="text-xs text-slate-300 mt-1">
-                      {isHindi
-                        ? `पूर्ण GST बिलिंग, लेजर और बैकअप सुविधा 7 दिन (अधिकतम ${trialStatus.maxTrialVouchers} वाउचर) तक नि:शुल्क चलाएं।`
-                        : `Full GST billing, ledgers & backups included for ${trialStatus.maxTrialDays} days (${trialStatus.vouchersRemaining}/${trialStatus.maxTrialVouchers} free vouchers left).`}
-                    </p>
-                  </div>
+        {/* Top Navigation Tabs: 1-Step Free Trial (when eligible) vs Activate Key vs Email Request */}
+        <div className={`grid gap-2 bg-slate-950 p-1.5 rounded-2xl border border-slate-800 ${
+          canStartFreeTrial ? 'grid-cols-1 sm:grid-cols-3' : 'grid-cols-2'
+        }`}>
+          {canStartFreeTrial && (
+            <button
+              type="button"
+              onClick={() => setActiveTab('trial')}
+              className={`py-2.5 px-3 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 transition cursor-pointer ${
+                activeTab === 'trial'
+                  ? 'bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-lg shadow-emerald-500/20'
+                  : 'text-emerald-300 hover:text-white hover:bg-slate-900'
+              }`}
+            >
+              <PlayCircle className="w-4 h-4 shrink-0" />
+              <span>{isHindi ? '7-दिन का फ्री ट्रायल शुरू करें' : 'Start 7-Day Free Trial (No Key Required)'}</span>
+            </button>
+          )}
 
-                  <button
-                    type="button"
-                    onClick={handleStartFreeTrial}
-                    className="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 text-slate-950 font-extrabold text-xs sm:text-sm px-5 py-3 rounded-xl shadow-lg shadow-emerald-500/20 transition transform active:scale-95 flex items-center justify-center gap-2 shrink-0 cursor-pointer"
-                  >
-                    <PlayCircle className="w-4 h-4 shrink-0" />
-                    <span>{isHindi ? '7-दिन का फ्री ट्रायल शुरू करें (कुंजी आवश्यक नहीं)' : 'Start 7-Day Free Trial (No Key Required)'}</span>
-                  </button>
-                </div>
+          <button
+            type="button"
+            onClick={() => setActiveTab('activate')}
+            className={`py-2.5 px-3 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 transition cursor-pointer ${
+              activeTab === 'activate'
+                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/25'
+                : 'text-slate-400 hover:text-white hover:bg-slate-900'
+            }`}
+          >
+            <Key className="w-4 h-4 shrink-0" />
+            <span>{isHindi ? 'लाइसेंस कुंजी एक्टिवेट करें' : 'Activate License Key'}</span>
+          </button>
 
-                {/* Clear 3-Step Customer Guide */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 pt-1">
-                  <div className="bg-slate-950/75 border border-slate-800 rounded-xl p-3">
-                    <div className="text-[11px] font-extrabold text-emerald-400 uppercase tracking-wide">
-                      {isHindi ? 'चरण 1 · फ्री ट्रायल चलाएं' : 'Step 1 · Start Free Trial'}
-                    </div>
-                    <p className="text-[11px] text-slate-300 mt-1 leading-relaxed">
-                      {isHindi
-                        ? 'ऊपर बटन दबाएं और बिना किसी लाइसेंस कुंजी के 7 दिनों तक पूरा ERP उपयोग करें।'
-                        : 'Click above to explore invoicing, GST reports & accounting immediately with zero key required.'}
-                    </p>
-                  </div>
-                  <div className="bg-slate-950/75 border border-slate-800 rounded-xl p-3">
-                    <div className="text-[11px] font-extrabold text-indigo-400 uppercase tracking-wide">
-                      {isHindi ? 'चरण 2 · Machine ID भेजें' : 'Step 2 · Send Machine ID'}
-                    </div>
-                    <p className="text-[11px] text-slate-300 mt-1 leading-relaxed">
-                      {isHindi
-                        ? 'नीचे "Send Machine ID on WhatsApp" या Email टैब से अपना हार्डवेयर ID साझा करें।'
-                        : 'Click "Send Machine ID on WhatsApp" below or request via Email to get your dual-layer keys.'}
-                    </p>
-                  </div>
-                  <div className="bg-slate-950/75 border border-slate-800 rounded-xl p-3">
-                    <div className="text-[11px] font-extrabold text-amber-400 uppercase tracking-wide">
-                      {isHindi ? 'चरण 3 · डुअल-लेयर एक्टिवेशन' : 'Step 3 · Dual-Layer Unlock'}
-                    </div>
-                    <p className="text-[11px] text-slate-300 mt-1 leading-relaxed">
-                      {isHindi
-                        ? 'प्राप्त HV-LIC-V3 सर्टिफिकेट और Unique Activation Code (ACT-XXXX-XXXX) दर्ज कर लॉक खोलें।'
-                        : 'Enter both your HV-LIC-V3 Certificate & single-use ACT-XXXX-XXXX Code below to unlock.'}
-                    </p>
-                  </div>
+          <button
+            type="button"
+            onClick={() => setActiveTab('request')}
+            className={`py-2.5 px-3 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 transition cursor-pointer ${
+              activeTab === 'request'
+                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/25'
+                : 'text-slate-400 hover:text-white hover:bg-slate-900'
+            }`}
+          >
+            <Mail className="w-4 h-4 shrink-0" />
+            <span>{isHindi ? 'ईमेल पर लाइसेंस मंगवाएं' : 'Request License Certificate on Email'}</span>
+          </button>
+        </div>
+
+        {/* Simple 1-Step Free Trial Activation Section (Right at top for new customers) */}
+        {canStartFreeTrial && activeTab === 'trial' && (
+          <form
+            onSubmit={handleStartFreeTrial}
+            className="p-4 sm:p-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-br from-emerald-950/60 via-slate-900 to-indigo-950/40 shadow-lg space-y-4"
+          >
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <div className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <h3 className="text-sm sm:text-base font-extrabold text-white">
+                    {isHindi ? '7-दिवसीय नि:शुल्क ट्रायल (बिना किसी कुंजी के तुरंत शुरू करें)' : 'Start 7-Day Free Trial (No Key Required)'}
+                  </h3>
                 </div>
+                <p className="text-xs text-slate-300 mt-1">
+                  {isHindi
+                    ? `पूर्ण GST बिलिंग, लेजर और बैकअप सुविधा 7 दिन (अधिकतम ${trialStatus.maxTrialVouchers} वाउचर) के लिए तुरंत शुरू करें। कोई लाइसेंस कुंजी या एक्टिवेशन कोड नहीं चाहिए।`
+                    : `Get instant full access for 7 days (up to ${trialStatus.maxTrialVouchers} vouchers) with zero license key or activation code required today.`}
+                </p>
+              </div>
+              <span className="text-[11px] font-mono font-bold px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 tabular-nums shrink-0">
+                7 Days · 50 Vouchers Free
+              </span>
+            </div>
+
+            {trialError && (
+              <div className="p-3 rounded-xl border border-rose-500/40 bg-rose-500/10 text-xs font-semibold text-rose-300 flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 shrink-0" />
+                <span>{trialError}</span>
               </div>
             )}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label className="block text-xs font-bold text-slate-200 mb-1 flex items-center gap-1.5">
+                  <Building2 className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>{isHindi ? 'नाम / व्यापार का नाम *' : 'Name / Business Name *'}</span>
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={trialBusinessName}
+                  onChange={(e) => setTrialBusinessName(e.target.value)}
+                  placeholder={isHindi ? 'अपना नाम या कंपनी का नाम दर्ज करें' : 'Enter your name or business name'}
+                  className="w-full bg-slate-950 border border-slate-700 focus:border-emerald-400 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-bold text-slate-200 mb-1 flex items-center gap-1.5">
+                  <Phone className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>{isHindi ? 'मोबाइल नंबर *' : 'Mobile Number *'}</span>
+                </label>
+                <input
+                  type="tel"
+                  required
+                  value={trialMobile}
+                  onChange={(e) => setTrialMobile(e.target.value)}
+                  placeholder={isHindi ? '10 अंकों का मोबाइल नंबर दर्ज करें' : 'Enter your 10-digit mobile number'}
+                  className="w-full bg-slate-950 border border-slate-700 focus:border-emerald-400 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white outline-none font-mono"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
+              <span className="text-[11px] text-slate-400">
+                {isHindi
+                  ? '* ट्रायल प्रारंभ तिथि व मशीन ID सुरक्षित रूप से डिस्क पर लॉक की जाती है।'
+                  : `* Trial start date & machine ID (${machineId.slice(0, 18)}...) are stored securely on disk.`}
+              </span>
+
+              <button
+                type="submit"
+                disabled={isStartingTrial}
+                className="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 disabled:opacity-60 text-slate-950 font-extrabold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg shadow-emerald-500/20 transition transform active:scale-95 flex items-center justify-center gap-2 ml-auto cursor-pointer"
+              >
+                <PlayCircle className="w-4 h-4 shrink-0" />
+                <span>
+                  {isStartingTrial
+                    ? (isHindi ? 'शुरू हो रहा है...' : 'Starting Free Trial...')
+                    : (isHindi ? 'अभी फ्री ट्रायल शुरू करें' : 'Start Free Trial Now')}
+                </span>
+              </button>
+            </div>
+          </form>
+        )}
 
             {/* Trial / License Status Card */}
             <div className={`p-4 rounded-2xl border ${
@@ -528,35 +613,6 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
               )}
             </div>
 
-        {/* Tabs: Activate License Key vs Request License Certificate on Email */}
-        <div className="grid grid-cols-2 gap-2 bg-slate-950 p-1.5 rounded-2xl border border-slate-800">
-          <button
-            type="button"
-            onClick={() => setActiveTab('activate')}
-            className={`py-2.5 px-3 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 transition cursor-pointer ${
-              activeTab === 'activate'
-                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/25'
-                : 'text-slate-400 hover:text-white hover:bg-slate-900'
-            }`}
-          >
-            <Key className="w-4 h-4" />
-            <span>{isHindi ? 'लाइसेंस कुंजी एक्टिवेट करें' : 'Activate License Key'}</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab('request')}
-            className={`py-2.5 px-3 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 transition cursor-pointer ${
-              activeTab === 'request'
-                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/25'
-                : 'text-slate-400 hover:text-white hover:bg-slate-900'
-            }`}
-          >
-            <Mail className="w-4 h-4" />
-            <span>{isHindi ? 'ईमेल पर लाइसेंस मंगवाएं' : 'Request License Certificate on Email'}</span>
-          </button>
-        </div>
-
         {/* Hardware Machine Binding (Anti-Copy Code Security) */}
         <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
           <div className="flex flex-wrap items-center justify-between gap-2">
@@ -602,7 +658,7 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
           </p>
         </div>
 
-        {activeTab === 'activate' ? (
+        {activeTab === 'activate' && (
           <>
             {/* License Mode Selector: Single User vs Multi User */}
             <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3">
@@ -809,7 +865,8 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
               </div>
             </form>
           </>
-        ) : (
+        )}
+        {activeTab === 'request' && (
           /* Customer "Request License Certificate on Email" Form */
           <form onSubmit={handleRequestEmailLicense} className="bg-slate-950 p-4 sm:p-5 rounded-2xl border border-emerald-500/30 space-y-4">
             <div>
