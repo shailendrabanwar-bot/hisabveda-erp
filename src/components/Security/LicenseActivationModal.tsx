@@ -32,7 +32,7 @@ import {
   computeDataIntegrityHash,
   isDesktopAppRuntime
 } from '../../utils/license';
-import { getBackendApiBaseUrl, resolveApiUrl } from '../../utils/apiBase';
+import { resolveApiUrl } from '../../utils/apiBase';
 
 interface LicenseActivationModalProps {
   data: AppData;
@@ -76,11 +76,10 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
   const [copiedHwid, setCopiedHwid] = useState(false);
 
   // Customer "Request License Certificate on Email" form state
-  const [reqFullName, setReqFullName] = useState(initialOwnerName || data.license?.registeredOwner || data.company.name || '');
-  const [reqEmail, setReqEmail] = useState(data.company.email || '');
-  const [reqMobile, setReqMobile] = useState(data.company.phone || '');
+  const [reqFullName, setReqFullName] = useState('');
+  const [reqEmail, setReqEmail] = useState('');
+  const [reqMobile, setReqMobile] = useState('');
   const [reqPlan, setReqPlan] = useState<'TRIAL' | 'STANDARD_ANNUAL' | 'PRO_PERPETUAL'>('STANDARD_ANNUAL');
-  const [isSendingRequest, setIsSendingRequest] = useState(false);
   const [requestStatus, setRequestStatus] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   const issuedList = data.license?.issuedLicenses || [];
@@ -94,9 +93,13 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
     !isForcedLock;
 
   const whatsappMachineIdText = encodeURIComponent(
-    `Hello HisabVeda Team, please issue my Signed License Certificate (HV-LIC-V3) & Unique Activation Code.\n\nBusiness / Company Name: ${ownerName.trim() || data.company.name || 'My Business'}\nHardware Machine ID: ${machineId}`
+    `Hello HisabVeda Team, please issue my Signed License Certificate (HV-LIC-V3) & Unique Activation Code.\n\n${ownerName.trim() ? `Business / Company Name: ${ownerName.trim()}\n` : ''}Hardware Machine ID: ${machineId}`
   );
   const whatsappMachineIdHref = `https://wa.me/917489655303?text=${whatsappMachineIdText}`;
+
+  const handleSendWhatsApp = () => {
+    window.open(whatsappMachineIdHref, '_blank', 'noopener,noreferrer');
+  };
 
   const handleCopyHwid = () => {
     navigator.clipboard.writeText(machineId);
@@ -141,52 +144,55 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
       return;
     }
 
-    const configuredUrl = String((import.meta as any)?.env?.VITE_LICENSE_SERVER_URL || '').trim();
-    const apiBase = getBackendApiBaseUrl();
-    const requestEndpoint = configuredUrl || (apiBase ? `${apiBase}/api/license/request` : '');
-    if (!requestEndpoint) {
-      setRequestStatus({
-        type: 'error',
-        text: isHindi
-          ? 'लाइसेंस ईमेल सर्वर URL (VITE_LICENSE_SERVER_URL / VITE_API_BASE_URL) अभी कॉन्फ़िगर नहीं है। कृपया support@hisabveda.com पर संपर्क करें या प्राप्त सर्टिफिकेट सीधे Activate टैब में पेस्ट करें।'
-          : 'License Email Server URL is not configured yet. Please contact support@hisabveda.com or paste a received certificate in the Activate tab.',
-      });
-      return;
+    const planLabel =
+      reqPlan === 'TRIAL'
+        ? 'Trial (7 Days)'
+        : reqPlan === 'PRO_PERPETUAL'
+          ? 'Lifetime (Perpetual License)'
+          : 'Annual (1 Year Commercial)';
+    const modeLabel =
+      licenseMode === 'MULTI_USER'
+        ? `Multi-User (${maxSeats} Seats)`
+        : 'Single User (1 PC)';
+
+    const subject = `HisabVeda ERP License Certificate Request - ${cleanName}`;
+    const body = [
+      'Hello HisabVeda Support Team,',
+      '',
+      'Please issue a Signed License Certificate (HV-LIC-V3) & Unique Activation Code for my system:',
+      '',
+      `Full Name / Business Name: ${cleanName}`,
+      `Customer Email Address: ${cleanEmail}`,
+      `Mobile Number: ${cleanMobile}`,
+      `Plan Type: ${planLabel}`,
+      `License Mode: ${modeLabel}`,
+      `Hardware Machine ID: ${machineId}`,
+      '',
+      'Thank you.',
+    ].join('\n');
+
+    const mailtoHref = `mailto:support@hisabveda.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    let openedInDesktop = false;
+    if (typeof window !== 'undefined' && window.hisabvedaDesktop?.openExternalUrl) {
+      openedInDesktop = await window.hisabvedaDesktop.openExternalUrl(mailtoHref).catch(() => false);
     }
 
-    setIsSendingRequest(true);
-    try {
-      const response = await fetch(requestEndpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fullName: cleanName,
-          email: cleanEmail,
-          mobile: cleanMobile,
-          plan: reqPlan,
-          mode: licenseMode,
-          maxSeats: licenseMode === 'MULTI_USER' ? maxSeats : 1,
-          machineId,
-        }),
-      });
-      const resData = await response.json().catch(() => ({}));
-      if (!response.ok) {
-        throw new Error(resData?.error || `Server responded with status ${response.status}`);
-      }
-      setRequestStatus({
-        type: 'success',
-        text: isHindi
-          ? `✅ लाइसेंस सर्टिफिकेट सफलतापूर्वक "${cleanEmail}" पर भेज दिया गया है! ईमेल से HV-LIC-V3 सर्टिफिकेट कॉपी करके Activate टैब में पेस्ट करें।`
-          : `✅ License certificate has been emailed to "${cleanEmail}"! Copy the HV-LIC-V3 certificate from your inbox and paste it in the Activate tab.`,
-      });
-    } catch (err: any) {
-      setRequestStatus({
-        type: 'error',
-        text: err?.message || (isHindi ? 'ईमेल अनुरोध भेजने में त्रुटि हुई।' : 'Failed to send license email request.'),
-      });
-    } finally {
-      setIsSendingRequest(false);
+    if (!openedInDesktop && typeof document !== 'undefined') {
+      const mailLink = document.createElement('a');
+      mailLink.href = mailtoHref;
+      mailLink.style.display = 'none';
+      document.body.appendChild(mailLink);
+      mailLink.click();
+      document.body.removeChild(mailLink);
     }
+
+    setRequestStatus({
+      type: 'success',
+      text: isHindi
+        ? `✅ आपका ईमेल ऐप support@hisabveda.com के साथ खुल गया है। कृपया ईमेल भेजें — सर्टिफिकेट प्राप्त होने पर Activate टैब में पेस्ट करें।`
+        : `✅ Email draft prepared for support@hisabveda.com with your Machine ID (${machineId}). Send the email from your mail app to receive your license keys.`,
+    });
   };
 
   const handleActivate = async (e: React.FormEvent) => {
@@ -568,15 +574,14 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                 <span>{copiedHwid ? (isHindi ? 'कॉपी हो गया' : 'Copied Machine ID') : (isHindi ? 'Machine ID कॉपी करें' : 'Copy Machine ID')}</span>
               </button>
 
-              <a
-                href={whatsappMachineIdHref}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={handleSendWhatsApp}
                 className="text-[11px] bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition cursor-pointer font-bold shadow-sm"
               >
                 <MessageCircle className="w-3.5 h-3.5 shrink-0" />
                 <span>{isHindi ? 'WhatsApp पर Machine ID भेजें' : 'Send Machine ID on WhatsApp'}</span>
-              </a>
+              </button>
             </div>
           </div>
           <div className="bg-slate-900 p-3 rounded-xl border border-slate-800 font-mono text-indigo-300 text-sm font-extrabold tracking-wider flex flex-wrap items-center justify-between gap-2 select-all">
@@ -841,7 +846,7 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                   required
                   value={reqFullName}
                   onChange={(e) => setReqFullName(e.target.value)}
-                  placeholder="e.g. Rajesh Kumar / Sharma Traders"
+                  placeholder={isHindi ? 'अपना नाम या कंपनी का नाम दर्ज करें' : 'Enter your name or company name'}
                   className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-emerald-500 outline-none"
                 />
               </div>
@@ -856,7 +861,7 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                   required
                   value={reqEmail}
                   onChange={(e) => setReqEmail(e.target.value)}
-                  placeholder="customer@company.com"
+                  placeholder={isHindi ? 'अपना ईमेल पता दर्ज करें' : 'Enter your email address'}
                   className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-emerald-500 outline-none"
                 />
               </div>
@@ -871,7 +876,7 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                   required
                   value={reqMobile}
                   onChange={(e) => setReqMobile(e.target.value)}
-                  placeholder="+91 98765 43210"
+                  placeholder={isHindi ? 'अपना मोबाइल नंबर दर्ज करें' : 'Enter your mobile number'}
                   className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-emerald-500 outline-none"
                 />
               </div>
@@ -913,14 +918,11 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
 
               <button
                 type="submit"
-                disabled={isSendingRequest}
-                className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 disabled:opacity-60 text-slate-950 font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg transition flex items-center gap-2 ml-auto cursor-pointer"
+                className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg transition flex items-center gap-2 ml-auto cursor-pointer"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>
-                  {isSendingRequest
-                    ? (isHindi ? 'ईमेल भेजा जा रहा है...' : 'Sending Request...')
-                    : (isHindi ? 'ईमेल पर लाइसेंस सर्टिफिकेट भेजें' : 'Send License Request via Email')}
+                  {isHindi ? 'ईमेल पर लाइसेंस सर्टिफिकेट भेजें' : 'Send License Request via Email'}
                 </span>
               </button>
             </div>

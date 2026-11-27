@@ -940,7 +940,7 @@ function registerIpcHandlers() {
   ipcMain.handle('hv:open-external', async (_event, url) => {
     try {
       const parsed = new URL(String(url || ''));
-      if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+      if (parsed.protocol === 'https:' || parsed.protocol === 'http:' || parsed.protocol === 'mailto:') {
         await shell.openExternal(parsed.toString());
         return true;
       }
@@ -1069,12 +1069,25 @@ function createWindow() {
       if (parsed.protocol === 'app:' || parsed.protocol === 'file:' || parsed.protocol === 'data:') return;
       if (allowedOrigin && parsed.origin === allowedOrigin) return;
       event.preventDefault();
+      if (parsed.protocol === 'https:' || parsed.protocol === 'http:' || parsed.protocol === 'mailto:') {
+        shell.openExternal(parsed.toString()).catch(() => {});
+      }
     } catch {
       event.preventDefault();
     }
   });
 
-  mainWindow.webContents.setWindowOpenHandler(() => ({ action: 'deny' }));
+  mainWindow.webContents.setWindowOpenHandler((details) => {
+    try {
+      const parsed = new URL(String(details?.url || ''));
+      if (parsed.protocol === 'https:' || parsed.protocol === 'http:' || parsed.protocol === 'mailto:') {
+        shell.openExternal(parsed.toString()).catch(() => {});
+      }
+    } catch {
+      // ignore invalid external URL
+    }
+    return { action: 'deny' };
+  });
 
   mainWindow.on('closed', () => {
     mainWindow = null;
