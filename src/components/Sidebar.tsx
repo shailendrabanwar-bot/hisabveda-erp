@@ -21,7 +21,8 @@ import {
   Check,
   Sparkles,
   ScanBarcode,
-  ToggleRight
+  ToggleRight,
+  KeyRound
 } from 'lucide-react';
 import { SnaLogo } from './SnaLogo';
 import { UserRole } from '../types';
@@ -62,6 +63,7 @@ interface SidebarProps {
   onOpenFeaturesModal?: () => void;
   softwareVersion?: string;
   onOpenAdminLicenseGenerator?: () => void;
+  isOwner?: boolean;
 }
 
 interface MenuItem {
@@ -90,7 +92,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   appConfig,
   onOpenFeaturesModal,
   softwareVersion,
-  onOpenAdminLicenseGenerator
+  onOpenAdminLicenseGenerator,
+  isOwner = false
 }) => {
   const effectiveConfig = appConfig || loadAppConfig();
   const [internalOpen, setInternalOpen] = useState(false);
@@ -554,6 +557,22 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
           {/* Desktop Footer Badge + Quick Modules Switcher */}
           <div className="p-2.5 border-t border-slate-800 text-[11px] text-slate-400 text-center bg-slate-950/50 shrink-0 space-y-1">
+            {isOwner && onOpenAdminLicenseGenerator && (
+              <button
+                type="button"
+                onClick={onOpenAdminLicenseGenerator}
+                className="w-full flex items-center justify-between px-2.5 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-emerald-500/20 hover:from-amber-500/30 hover:to-emerald-500/30 border border-amber-500/40 text-amber-300 font-extrabold text-[11px] transition cursor-pointer shadow-sm mb-1"
+                title={isHindi ? 'सुपर एडमिन लाइसेंस जनरेटर खोलें' : 'Open Super Admin License Generator'}
+              >
+                <span className="flex items-center gap-1.5">
+                  <KeyRound className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <span>{isHindi ? 'लाइसेंस मैनेजर (एडमिन)' : 'License Manager (Admin)'}</span>
+                </span>
+                <span className="px-1.5 py-0.5 rounded bg-amber-500/30 text-amber-200 text-[9px] font-mono font-bold">
+                  ADMIN
+                </span>
+              </button>
+            )}
             {onOpenFeaturesModal && (
               <button
                 type="button"

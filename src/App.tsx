@@ -996,11 +996,13 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleGlobalKeyDown);
   }, []);
 
-  // Hidden Super Admin Trigger (Ctrl + Shift + L) — strictly Web Browser only (excluded from Electron .exe)
+  // Super Admin Trigger (Ctrl + Shift + L or Sidebar Button) — enabled for OWNER_ADMIN_EMAIL
+  const isOwner = isOwnerEmail(sessionUser?.email);
   const isWebBrowserAdminGeneratorEnabled =
-    !IS_DESKTOP_COMPILED_BUILD &&
-    !isDesktopRuntime &&
-    !(typeof window !== 'undefined' && Boolean((window as any).electronAPI));
+    isOwner ||
+    (!IS_DESKTOP_COMPILED_BUILD &&
+     !isDesktopRuntime &&
+     !(typeof window !== 'undefined' && Boolean((window as any).electronAPI)));
 
   useEffect(() => {
     if (!isWebBrowserAdminGeneratorEnabled || !AdminLicenseGeneratorModal) return;
@@ -4577,6 +4579,7 @@ export default function App() {
           appConfig={appConfig}
           onOpenFeaturesModal={() => openConfigureModal('features')}
           softwareVersion={data.softwareVersion}
+          isOwner={isOwner}
           onOpenAdminLicenseGenerator={
             isWebBrowserAdminGeneratorEnabled ? () => setShowAdminLicenseGenModal(true) : undefined
           }
