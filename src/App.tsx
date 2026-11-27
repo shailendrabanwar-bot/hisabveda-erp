@@ -44,6 +44,7 @@ import {
 } from './utils/accounting';
 import { AppConfiguration, isNavTabEnabled, loadAppConfig, saveAppConfig } from './utils/appConfig';
 import { resolveCompanyTaxProfile } from './utils/companyProfile';
+import { initialSampleData } from './data/sampleData';
 import {
   ALL_FINANCIAL_YEARS,
   buildFYRangeToken,
