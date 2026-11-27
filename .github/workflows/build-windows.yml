@@ -47,26 +47,22 @@ jobs:
           Write-Host "Resolved release tag: $tag"
 
       - name: Install dependencies
-        shell: pwsh
+        shell: bash
         run: |
-          $ErrorActionPreference = "Stop"
-          npm install --legacy-peer-deps
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          npm install --no-save --legacy-peer-deps @rollup/rollup-win32-x64-msvc
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          set -e
+          rm -rf node_modules package-lock.json
+          npm install --legacy-peer-deps && npm install --no-save @rollup/rollup-win32-x64-msvc
 
       - name: Build web bundle & obfuscate desktop assets
-        shell: pwsh
+        shell: bash
         env:
           VITE_LICENSE_PUBLIC_KEY: ${{ vars.VITE_LICENSE_PUBLIC_KEY || 'Z8Ht8Q8s/qmsxfm4KLeB+y/wh8Y0sWj+OAljax0FzlY=' }}
           VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL || '' }}
           VITE_WINDOWS_INSTALLER_URL: ${{ vars.VITE_WINDOWS_INSTALLER_URL || 'https://github.com/shailendrabanwar-bot/hisabveda-erp/releases/latest/download/HisabVeda-Setup.exe' }}
         run: |
-          $ErrorActionPreference = "Stop"
+          set -e
           npx vite build
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node scripts/obfuscate-build.mjs
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          npm run obfuscate
 
       - name: Build Windows Installer using electron-builder
         shell: pwsh
