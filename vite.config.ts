@@ -87,19 +87,33 @@ export default defineConfig(() => {
         },
       }),
     ],
+    optimizeDeps: {
+      include: [
+        'react',
+        'react-dom',
+        'react-dom/client',
+        'react/jsx-dev-runtime',
+        'lucide-react',
+        'firebase/app',
+        'firebase/auth',
+        'firebase/firestore',
+        'recharts',
+        'tweetnacl',
+        'motion',
+        'qrcode.react',
+      ],
+    },
     build: {
-      chunkSizeWarningLimit: 2500,
+      modulePreload: false,
+      chunkSizeWarningLimit: 3500,
       rollupOptions: {
         output: {
           manualChunks(id) {
             if (!id.includes('node_modules')) return;
-            if (id.includes('/react-dom/') || id.includes('/react/') || id.includes('/scheduler/')) return 'vendor-react';
-            if (id.includes('firebase')) return 'vendor-firebase';
-            if (id.includes('pdfjs-dist')) return 'vendor-pdfjs';
-            if (id.includes('xlsx')) return 'vendor-xlsx';
-            if (id.includes('jspdf') || id.includes('html2canvas')) return 'vendor-pdf-export';
-            if (id.includes('recharts') || id.includes('d3-')) return 'vendor-charts';
-            if (id.includes('lucide-react') || id.includes('motion')) return 'vendor-ui';
+            if (id.includes('pdfjs-dist')) return 'lazy-pdfjs';
+            if (id.includes('xlsx')) return 'lazy-xlsx';
+            if (id.includes('jspdf') || id.includes('html2canvas')) return 'lazy-pdf-export';
+            return 'vendor';
           },
         },
       },
@@ -113,6 +127,7 @@ export default defineConfig(() => {
       hmr: false,
       ws: false,
       watch: null,
+      preTransformRequests: false,
     },
   };
 });

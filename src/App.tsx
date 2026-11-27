@@ -63,7 +63,7 @@ import {
 } from './utils/ledgerDeduplicator';
 import { TallyImportCommitPayload, TallyLastImportBatch } from './utils/tallyXmlImporter';
 import { ExternalImportCommitPayload, ExternalLastImportBatch } from './utils/multiSoftwareImporter';
-import { syncPartyDetailsAcrossAppData } from './utils/gstAuditEngine';
+import { syncPartyDetailsAcrossAppData } from './utils/partySync';
 import { Repeat, X, CheckCircle2, ArrowLeft, RotateCcw, Sparkles, LayoutDashboard, Receipt, ShoppingBag, Package, Menu, AlertTriangle, Calendar } from 'lucide-react';
 
 import type { AppTheme } from './components/Header';
@@ -71,10 +71,55 @@ import type { NavTab } from './components/Sidebar';
 import type { PayrollBatchSaveOptions } from './components/Payroll/PayrollManagement';
 import type { ConfigureSection } from './components/Settings/ConfigureSettingsModal';
 
+// Queue & retry dynamic imports to prevent Cloud Run / dev-proxy burst throttling
+// and automatically recover from transient "Failed to fetch dynamically imported module" errors.
+const MAX_CONCURRENT_LAZY_LOADS = 3;
+let activeLazyLoads = 0;
+const lazyLoadQueue: Array<() => void> = [];
+
+const runQueuedLazyLoad = <T,>(fn: () => Promise<T>): Promise<T> =>
+  new Promise((resolve, reject) => {
+    const start = () => {
+      activeLazyLoads += 1;
+      fn()
+        .then(resolve, reject)
+        .finally(() => {
+          activeLazyLoads = Math.max(0, activeLazyLoads - 1);
+          const next = lazyLoadQueue.shift();
+          if (next) next();
+        });
+    };
+    if (activeLazyLoads < MAX_CONCURRENT_LAZY_LOADS) {
+      start();
+    } else {
+      lazyLoadQueue.push(start);
+    }
+  });
+
+const loadWithRetry = async (
+  loader: () => Promise<Record<string, any>>,
+  retries = 4
+): Promise<Record<string, any>> => {
+  const backoffMs = [350, 800, 1500, 2500];
+  let lastErr: unknown;
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
+    try {
+      return await runQueuedLazyLoad(loader);
+    } catch (err) {
+      lastErr = err;
+      if (attempt < retries) {
+        const delay = backoffMs[Math.min(attempt, backoffMs.length - 1)];
+        await new Promise((r) => setTimeout(r, delay));
+      }
+    }
+  }
+  throw lastErr;
+};
+
 const lazyNamed = <T extends React.ComponentType<any>>(
   loader: () => Promise<Record<string, any>>,
   exportName: string
-) => React.lazy(() => loader().then((mod) => ({ default: mod[exportName] as T })));
+) => React.lazy(() => loadWithRetry(loader).then((mod) => ({ default: mod[exportName] as T })));
 
 // Lazy-loaded UI Components (prevents 120+ burst module requests on initial boot)
 const Header = lazyNamed(() => import('./components/Header'), 'Header');
@@ -5071,13 +5116,15 @@ export default function App() {
       )}
 
       {/* Mobile App Setup & Local Wi-Fi / LAN Multi-PC Modal */}
-      <MobileAppModal
-        isOpen={showMobileModal}
-        onClose={() => setShowMobileModal(false)}
-        isHindi={isHindi}
-        data={fyData}
-        fyLabel={activeFyRange.label}
-      />
+      {showMobileModal && (
+        <MobileAppModal
+          isOpen={true}
+          onClose={() => setShowMobileModal(false)}
+          isHindi={isHindi}
+          data={fyData}
+          fyLabel={activeFyRange.label}
+        />
+      )}
 
       {/* Official India GST e-Way Bill Generator Modal */}
       {showEWayBillModal && (
@@ -5116,46 +5163,54 @@ export default function App() {
       )}
 
       {/* F12 Master ERP Configuration & Features Modal */}
-      <ConfigureSettingsModal
-        isOpen={showConfigureModal}
-        onClose={() => setShowConfigureModal(false)}
-        isHindi={isHindi}
-        initialSection={configureSection}
-        onConfigSaved={(cfg) => setAppConfig(cfg)}
-      />
+      {showConfigureModal && (
+        <ConfigureSettingsModal
+          isOpen={true}
+          onClose={() => setShowConfigureModal(false)}
+          isHindi={isHindi}
+          initialSection={configureSection}
+          onConfigSaved={(cfg) => setAppConfig(cfg)}
+        />
+      )}
 
       {/* Keyboard Shortcuts Command Center Modal */}
-      <KeyboardShortcutsModal
-        isOpen={showShortcutsModal}
-        isHindi={isHindi}
-        onClose={() => setShowShortcutsModal(false)}
-        onExecuteShortcut={executeAppShortcut}
-      />
+      {showShortcutsModal && (
+        <KeyboardShortcutsModal
+          isOpen={true}
+          isHindi={isHindi}
+          onClose={() => setShowShortcutsModal(false)}
+          onExecuteShortcut={executeAppShortcut}
+        />
+      )}
 
       {/* Embedded Searchable User Manual & How-To Guide Modal */}
-      <UserManualModal
-        isOpen={showUserManualModal}
-        isHindi={isHindi}
-        onClose={() => setShowUserManualModal(false)}
-        onNavigateTab={(tab) => navigateToTab(tab as NavTab)}
-        onOpenLicenseModal={() => {
-          if (!requirePermission(rbac.canManageUsersAndPin, 'लाइसेंस प्रबंधन खोलना', 'open License Activation')) return;
-          setShowLicenseModal(true);
-        }}
-        onOpenShortcutsModal={() => setShowShortcutsModal(true)}
-      />
+      {showUserManualModal && (
+        <UserManualModal
+          isOpen={true}
+          isHindi={isHindi}
+          onClose={() => setShowUserManualModal(false)}
+          onNavigateTab={(tab) => navigateToTab(tab as NavTab)}
+          onOpenLicenseModal={() => {
+            if (!requirePermission(rbac.canManageUsersAndPin, 'लाइसेंस प्रबंधन खोलना', 'open License Activation')) return;
+            setShowLicenseModal(true);
+          }}
+          onOpenShortcutsModal={() => setShowShortcutsModal(true)}
+        />
+      )}
 
       {/* Multi-System Real-Time Cloud Live Sync Modal */}
-      <CloudSyncModal
-        isOpen={showCloudSyncModal}
-        onClose={() => setShowCloudSyncModal(false)}
-        isHindi={isHindi}
-        data={data}
-        onDataUpdated={(newData) => setData(newData)}
-        syncStatus={cloudSyncStatus}
-        lastSyncTime={lastSyncTime}
-        onVerificationRefreshed={handleRefreshEmailVerification}
-      />
+      {showCloudSyncModal && (
+        <CloudSyncModal
+          isOpen={true}
+          onClose={() => setShowCloudSyncModal(false)}
+          isHindi={isHindi}
+          data={data}
+          onDataUpdated={(newData) => setData(newData)}
+          syncStatus={cloudSyncStatus}
+          lastSyncTime={lastSyncTime}
+          onVerificationRefreshed={handleRefreshEmailVerification}
+        />
+      )}
 
       {/* Reset Confirmation Modal */}
       {showResetModal && (

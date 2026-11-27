@@ -1964,8 +1964,17 @@ Return ONLY valid raw JSON with no markdown block ticks.`;
 
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
+    app.use((req, res, next) => {
+      if (
+        req.method === 'GET' &&
+        (/\.(png|ico|svg|webp|woff2?)$/i.test(req.path) || req.path.startsWith('/assets/'))
+      ) {
+        res.setHeader('Cache-Control', 'public, max-age=86400');
+      }
+      next();
+    });
     const vite = await createViteServer({
-      server: { middlewareMode: true, hmr: false, ws: false },
+      server: { middlewareMode: true, hmr: false, ws: false, preTransformRequests: false },
       appType: "spa",
     });
     app.use(vite.middlewares);
