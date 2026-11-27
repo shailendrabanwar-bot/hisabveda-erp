@@ -1,0 +1,40 @@
+name: Deploy Web App to Firebase Hosting
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+      - 'electron/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-hosting:
+    name: Build & Deploy to Firebase Hosting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build production bundle
+        env:
+          VITE_LICENSE_PUBLIC_KEY: ${{ vars.VITE_LICENSE_PUBLIC_KEY || 'Z8Ht8Q8s/qmsxfm4KLeB+y/wh8Y0sWj+OAljax0FzlY=' }}
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL || '' }}
+          VITE_WINDOWS_INSTALLER_URL: ${{ vars.VITE_WINDOWS_INSTALLER_URL || 'https://github.com/shailendrabanwar-bot/hisabveda-erp/releases/latest/download/HisabVeda-Setup.exe' }}
+        run: npm run build
+
+      - name: Deploy to Firebase Hosting
+        run: npx firebase-tools deploy --only hosting --token "${{ secrets.FIREBASE_TOKEN }}"
