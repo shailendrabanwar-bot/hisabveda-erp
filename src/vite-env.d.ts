@@ -87,11 +87,14 @@ export interface HisabVedaDesktopBridge {
   }>;
   openExternalUrl?: (url: string) => Promise<boolean>;
   flushSync: (payload: { storageKey?: string; data?: any; settings?: any }) => boolean;
-  checkForUpdates?: () => Promise<{ updateAvailable?: boolean; version?: string; error?: string; message?: string }>;
+  getAppVersion?: () => string;
+  checkForUpdates?: () => Promise<{ updateAvailable?: boolean; currentVersion?: string; version?: string; releaseNotes?: string; error?: string; message?: string }>;
   installUpdate?: () => Promise<void>;
-  onUpdateAvailable?: (callback: (info: any) => void) => void;
-  onUpdateProgress?: (callback: (progress: any) => void) => void;
-  onUpdateDownloaded?: (callback: (info: any) => void) => void;
+  onUpdateAvailable?: (callback: (info: any) => void) => (() => void) | void;
+  onUpdateProgress?: (callback: (progress: any) => void) => (() => void) | void;
+  onUpdateDownloaded?: (callback: (info: any) => void) => (() => void) | void;
+  onUpdateNotAvailable?: (callback: (info: any) => void) => (() => void) | void;
+  onUpdateError?: (callback: (err: any) => void) => (() => void) | void;
 }
 
 declare global {

@@ -28,6 +28,20 @@ autoUpdater.on('update-downloaded', (info) => {
   }
 });
 
+autoUpdater.on('update-not-available', (info) => {
+  if (mainWindow && mainWindow.webContents) {
+    mainWindow.webContents.send('hv:update-not-available', info);
+  }
+});
+
+autoUpdater.on('error', (err) => {
+  if (mainWindow && mainWindow.webContents) {
+    mainWindow.webContents.send('hv:update-error', {
+      message: err?.message || 'Auto-update check failed',
+    });
+  }
+});
+
 // Register secure custom protocol so ESM modules, Firebase IndexedDB, and localStorage work cleanly without file:// CORS blocks
 protocol.registerSchemesAsPrivileged([
   {
@@ -1005,20 +1019,45 @@ function registerIpcHandlers() {
     };
   });
 
+  ipcMain.on('hv:get-app-version', (event) => {
+    try {
+      event.returnValue = app.getVersion();
+    } catch {
+      event.returnValue = '2.4.2';
+    }
+  });
+
   ipcMain.handle('hv:check-for-updates', async () => {
+    const currentVersion = app.getVersion();
     if (!app.isPackaged) {
-      return { updateAvailable: false, currentVersion: app.getVersion(), message: 'Development mode: connect to GitHub Releases.' };
+      return {
+        updateAvailable: false,
+        currentVersion,
+        message: 'Development mode: auto-update runs against GitHub Releases in packaged builds.',
+      };
     }
     try {
       const res = await autoUpdater.checkForUpdates();
-      return { updateAvailable: Boolean(res?.updateInfo), version: res?.updateInfo?.version };
+      const latestVersion = res?.updateInfo?.version || currentVersion;
+      const updateAvailable =
+        typeof res?.isUpdateAvailable === 'boolean'
+          ? res.isUpdateAvailable
+          : Boolean(res?.updateInfo?.version && res.updateInfo.version !== currentVersion);
+      return {
+        updateAvailable,
+        currentVersion,
+        version: latestVersion,
+        releaseNotes: typeof res?.updateInfo?.releaseNotes === 'string' ? res.updateInfo.releaseNotes : undefined,
+      };
     } catch (err) {
-      return { error: err?.message || 'Failed to check for updates' };
+      return { currentVersion, error: err?.message || 'Failed to check for updates' };
     }
   });
 
   ipcMain.handle('hv:install-update', () => {
-    autoUpdater.quitAndInstall(false, true);
+    setImmediate(() => {
+      autoUpdater.quitAndInstall(false, true);
+    });
   });
 
   ipcMain.handle('hv:open-external', async (_event, url) => {
@@ -1247,6 +1286,12 @@ app.whenReady().then(() => {
   loadOrRecoverDb();
   registerIpcHandlers();
   createWindow();
+
+  if (app.isPackaged) {
+    setTimeout(() => {
+      autoUpdater.checkForUpdates().catch(() => {});
+    }, 4000);
+  }
 });
 
 app.on('before-quit', () => {

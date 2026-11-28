@@ -65,12 +65,13 @@ import {
 import { TallyImportCommitPayload, TallyLastImportBatch } from './utils/tallyXmlImporter';
 import { ExternalImportCommitPayload, ExternalLastImportBatch } from './utils/multiSoftwareImporter';
 import { syncPartyDetailsAcrossAppData } from './utils/partySync';
-import { Repeat, X, CheckCircle2, ArrowLeft, RotateCcw, Sparkles, LayoutDashboard, Receipt, ShoppingBag, Package, Menu, AlertTriangle, Calendar } from 'lucide-react';
+import { Repeat, X, CheckCircle2, ArrowLeft, RotateCcw, Sparkles, LayoutDashboard, Receipt, ShoppingBag, Package, Menu, AlertTriangle, Calendar, Download } from 'lucide-react';
 
 import type { AppTheme } from './components/Header';
 import type { NavTab } from './components/Sidebar';
 import type { PayrollBatchSaveOptions } from './components/Payroll/PayrollManagement';
 import type { ConfigureSection } from './components/Settings/ConfigureSettingsModal';
+import type { DesktopUpdateState } from './components/Settings/SoftwareUpdateModal';
 
 // Queue & retry dynamic imports to prevent Cloud Run / dev-proxy burst throttling
 // and automatically recover from transient "Failed to fetch dynamically imported module" errors.
@@ -522,6 +523,14 @@ export default function App() {
   const [showCompanyModal, setShowCompanyModal] = useState(false);
   const [showDebitCreditNoteModal, setShowDebitCreditNoteModal] = useState(false);
   const [showSoftwareUpdateModal, setShowSoftwareUpdateModal] = useState(false);
+  const [dismissedUpdateBanner, setDismissedUpdateBanner] = useState(false);
+  const [desktopUpdateState, setDesktopUpdateState] = useState<DesktopUpdateState>({
+    available: false,
+    version: null,
+    progress: null,
+    downloaded: false,
+    error: null,
+  });
   const [showConfigureModal, setShowConfigureModal] = useState(false);
   const [configureSection, setConfigureSection] = useState<ConfigureSection>('features');
   const [showShortcutsModal, setShowShortcutsModal] = useState(false);
@@ -561,6 +570,63 @@ export default function App() {
   const [preImportSnapshot, setPreImportSnapshot] = useState<PreImportSnapshot | null>(() =>
     loadPreImportSnapshot(sessionUser?.id)
   );
+
+  useEffect(() => {
+    const desktop = window.hisabvedaDesktop;
+    if (!desktop?.isDesktopApp) return;
+    const cleanups: Array<() => void> = [];
+
+    const offAvailable = desktop.onUpdateAvailable?.((info: any) => {
+      const ver = info?.version ? `v${String(info.version).replace(/^v/i, '')}` : 'Latest';
+      setDismissedUpdateBanner(false);
+      setDesktopUpdateState((prev) => ({
+        ...prev,
+        available: true,
+        version: ver,
+        error: null,
+      }));
+    });
+    if (typeof offAvailable === 'function') cleanups.push(offAvailable);
+
+    const offProgress = desktop.onUpdateProgress?.((prog: any) => {
+      setDesktopUpdateState((prev) => ({
+        ...prev,
+        available: true,
+        progress: {
+          percent: prog?.percent || 0,
+          transferred: prog?.transferred || 0,
+          total: prog?.total || 0,
+          bytesPerSecond: prog?.bytesPerSecond || 0,
+        },
+      }));
+    });
+    if (typeof offProgress === 'function') cleanups.push(offProgress);
+
+    const offDownloaded = desktop.onUpdateDownloaded?.((info: any) => {
+      const ver = info?.version ? `v${String(info.version).replace(/^v/i, '')}` : null;
+      setDismissedUpdateBanner(false);
+      setDesktopUpdateState((prev) => ({
+        ...prev,
+        available: true,
+        downloaded: true,
+        version: ver || prev.version,
+        progress: { ...(prev.progress || {}), percent: 100 },
+      }));
+    });
+    if (typeof offDownloaded === 'function') cleanups.push(offDownloaded);
+
+    const offError = desktop.onUpdateError?.((err: any) => {
+      setDesktopUpdateState((prev) => ({
+        ...prev,
+        error: err?.message || 'Auto-update error',
+      }));
+    });
+    if (typeof offError === 'function') cleanups.push(offError);
+
+    return () => {
+      cleanups.forEach((fn) => fn());
+    };
+  }, []);
 
   const showErrorToast = (msg: string) => {
     setErrorToastMessage(msg);
@@ -4410,6 +4476,70 @@ export default function App() {
         onOpenFeaturesModal={() => openConfigureModal('features')}
       />
 
+      {/* GitHub Releases Auto-Update Notification Banner */}
+      {desktopUpdateState.available && !dismissedUpdateBanner && (
+        <div className="bg-indigo-950/90 text-indigo-100 px-4 py-2 text-xs font-semibold flex flex-wrap items-center justify-between gap-3 z-40 border-b border-indigo-500/40 shrink-0 shadow-lg">
+          <div className="flex items-center gap-2.5 min-w-0">
+            {desktopUpdateState.downloaded ? (
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            ) : (
+              <Download className="w-4 h-4 text-amber-400 animate-bounce shrink-0" />
+            )}
+            <span className="font-bold truncate">
+              {desktopUpdateState.downloaded
+                ? (isHindi
+                    ? `नया सॉफ्टवेयर अपडेट (${desktopUpdateState.version || 'Latest'}) इंस्टॉल करने के लिए तैयार है!`
+                    : `Software Update Available (${desktopUpdateState.version || 'Latest'}) — Ready to Install!`)
+                : (isHindi
+                    ? `नया सॉफ्टवेयर अपडेट (${desktopUpdateState.version || 'Latest'}) डाउनलोड हो रहा है...`
+                    : `Software Update Available (${desktopUpdateState.version || 'Latest'}) — Downloading...`)}
+            </span>
+            {!desktopUpdateState.downloaded && desktopUpdateState.progress && (
+              <div className="flex items-center gap-2">
+                <div className="w-28 bg-slate-900 rounded-full h-2 overflow-hidden border border-indigo-500/40">
+                  <div
+                    className="bg-emerald-400 h-full transition-all duration-300"
+                    style={{
+                      width: `${Math.min(100, Math.max(0, Math.round(desktopUpdateState.progress.percent || 0)))}%`,
+                    }}
+                  />
+                </div>
+                <span className="font-mono text-[11px] text-indigo-200">
+                  {Math.min(100, Math.max(0, Math.round(desktopUpdateState.progress.percent || 0)))}%
+                </span>
+              </div>
+            )}
+          </div>
+          <div className="flex items-center gap-2 shrink-0">
+            {desktopUpdateState.downloaded ? (
+              <button
+                type="button"
+                onClick={() => window.hisabvedaDesktop?.installUpdate?.()}
+                className="px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-[11px] transition cursor-pointer shadow"
+              >
+                {isHindi ? 'अपडेट और रीस्टार्ट करें' : 'Update & Restart Now'}
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setShowSoftwareUpdateModal(true)}
+                className="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] transition cursor-pointer"
+              >
+                {isHindi ? 'प्रगति देखें' : 'View Progress'}
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => setDismissedUpdateBanner(true)}
+              className="p-1 rounded-lg text-indigo-300 hover:text-white hover:bg-indigo-500/20 transition cursor-pointer"
+              title={isHindi ? 'बंद करें' : 'Dismiss'}
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Email Verification Pending Banner for Email/Password Accounts */}
       {firebaseUser && !isEmailVerified && storageMode !== 'local' && !dismissedEmailVerifyBanner && (
         <div className="bg-amber-500/15 text-amber-200 px-4 py-2 text-xs font-semibold flex flex-wrap items-center justify-between gap-2 z-40 border-b border-amber-500/30 shrink-0">
@@ -4988,6 +5118,7 @@ export default function App() {
                 if (!requirePermission(rbac.canManageUsersAndPin, 'लाइसेंस प्रबंधन खोलना', 'open License Activation')) return;
                 setShowLicenseModal(true);
               }}
+              onOpenSoftwareUpdateModal={() => setShowSoftwareUpdateModal(true)}
               onUpdateSecurityPinAndPass={handleUpdateSecurityPinAndPass}
               onOpenSecurityModal={() => {
                 if (!requirePermission(rbac.canUseAdminBackup, 'सुरक्षा और बैकअप केंद्र खोलना', 'open Security & Backup center')) return;
@@ -5235,6 +5366,10 @@ export default function App() {
         <SoftwareUpdateModal
           data={data}
           isHindi={isHindi}
+          desktopUpdateState={desktopUpdateState}
+          onSyncUpdateState={(next) =>
+            setDesktopUpdateState((prev) => ({ ...prev, ...next }))
+          }
           onClose={() => setShowSoftwareUpdateModal(false)}
           onApplyUpdate={() => {
             const updated = {

@@ -2,76 +2,162 @@ import React, { useState, useEffect } from 'react';
 import { Sparkles, CheckCircle2, ShieldCheck, RefreshCw, X, Zap, Download, AlertCircle } from 'lucide-react';
 import { AppData } from '../../types';
 
+export interface DesktopUpdateProgress {
+  percent?: number;
+  transferred?: number;
+  total?: number;
+  bytesPerSecond?: number;
+}
+
+export interface DesktopUpdateState {
+  available: boolean;
+  version: string | null;
+  progress: DesktopUpdateProgress | null;
+  downloaded: boolean;
+  error: string | null;
+}
+
 interface SoftwareUpdateModalProps {
   data: AppData;
   isHindi: boolean;
   onClose: () => void;
   onApplyUpdate?: () => void;
+  desktopUpdateState?: DesktopUpdateState;
+  onSyncUpdateState?: (next: Partial<DesktopUpdateState>) => void;
+}
+
+function formatBytes(bytes?: number): string {
+  if (!bytes || bytes <= 0) return '0 MB';
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 export const SoftwareUpdateModal: React.FC<SoftwareUpdateModalProps> = ({
   data,
   isHindi,
   onClose,
-  onApplyUpdate
+  onApplyUpdate,
+  desktopUpdateState,
+  onSyncUpdateState,
 }) => {
-  const currentVersion = data.softwareVersion || 'v2.4.2';
+  const isDesktop = Boolean(window.hisabvedaDesktop?.isDesktopApp);
+  const desktopVersionRaw = isDesktop ? window.hisabvedaDesktop?.getAppVersion?.() : undefined;
+  const currentVersion = desktopVersionRaw
+    ? (desktopVersionRaw.startsWith('v') ? desktopVersionRaw : `v${desktopVersionRaw}`)
+    : (data.softwareVersion || 'v2.4.2');
+
   const ownerName = data.license?.registeredOwner || data.company.name;
   const licenseKey = data.license?.licenseKey || 'HV-PRO-2026-SUBSCRIPTION-ACTIVE';
 
   const [checking, setChecking] = useState(false);
-  const [updateAvailable, setUpdateAvailable] = useState(false);
-  const [newVersion, setNewVersion] = useState<string | null>(null);
-  const [downloadProgress, setDownloadProgress] = useState<{ percent?: number; transferred?: number; total?: number } | null>(null);
-  const [updateDownloaded, setUpdateDownloaded] = useState(false);
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [updateAvailable, setUpdateAvailable] = useState(Boolean(desktopUpdateState?.available));
+  const [newVersion, setNewVersion] = useState<string | null>(desktopUpdateState?.version || null);
+  const [downloadProgress, setDownloadProgress] = useState<DesktopUpdateProgress | null>(
+    desktopUpdateState?.progress || null
+  );
+  const [updateDownloaded, setUpdateDownloaded] = useState(Boolean(desktopUpdateState?.downloaded));
+  const [statusMessage, setStatusMessage] = useState<string | null>(desktopUpdateState?.error || null);
+  const [isUpToDate, setIsUpToDate] = useState(false);
 
-  const isDesktop = Boolean(window.hisabvedaDesktop?.isDesktopApp);
+  useEffect(() => {
+    if (!desktopUpdateState) return;
+    if (desktopUpdateState.available) setUpdateAvailable(true);
+    if (desktopUpdateState.version) setNewVersion(desktopUpdateState.version);
+    if (desktopUpdateState.progress) setDownloadProgress(desktopUpdateState.progress);
+    if (desktopUpdateState.downloaded) setUpdateDownloaded(true);
+    if (desktopUpdateState.error) setStatusMessage(desktopUpdateState.error);
+  }, [desktopUpdateState]);
 
   useEffect(() => {
     if (!isDesktop) return;
     const desktop = window.hisabvedaDesktop;
-    if (desktop?.onUpdateAvailable) {
-      desktop.onUpdateAvailable((info: any) => {
-        setUpdateAvailable(true);
-        setNewVersion(info?.version || 'Latest Release');
-      });
-    }
-    if (desktop?.onUpdateProgress) {
-      desktop.onUpdateProgress((progress: any) => {
-        setDownloadProgress({
-          percent: progress?.percent || 0,
-          transferred: progress?.transferred || 0,
-          total: progress?.total || 0,
-        });
-      });
-    }
-    if (desktop?.onUpdateDownloaded) {
-      desktop.onUpdateDownloaded(() => {
-        setUpdateDownloaded(true);
-      });
-    }
-  }, [isDesktop]);
+    const cleanups: Array<() => void> = [];
+
+    const offAvailable = desktop?.onUpdateAvailable?.((info: any) => {
+      const ver = info?.version ? `v${String(info.version).replace(/^v/i, '')}` : 'Latest Release';
+      setUpdateAvailable(true);
+      setIsUpToDate(false);
+      setStatusMessage(null);
+      setNewVersion(ver);
+      onSyncUpdateState?.({ available: true, version: ver, error: null });
+    });
+    if (typeof offAvailable === 'function') cleanups.push(offAvailable);
+
+    const offProgress = desktop?.onUpdateProgress?.((progress: any) => {
+      const prog: DesktopUpdateProgress = {
+        percent: progress?.percent || 0,
+        transferred: progress?.transferred || 0,
+        total: progress?.total || 0,
+        bytesPerSecond: progress?.bytesPerSecond || 0,
+      };
+      setDownloadProgress(prog);
+      onSyncUpdateState?.({ progress: prog });
+    });
+    if (typeof offProgress === 'function') cleanups.push(offProgress);
+
+    const offDownloaded = desktop?.onUpdateDownloaded?.((info: any) => {
+      const ver = info?.version ? `v${String(info.version).replace(/^v/i, '')}` : newVersion;
+      setUpdateDownloaded(true);
+      setDownloadProgress((prev) => ({ ...(prev || {}), percent: 100 }));
+      if (ver) setNewVersion(ver);
+      onSyncUpdateState?.({ downloaded: true, ...(ver ? { version: ver } : {}) });
+    });
+    if (typeof offDownloaded === 'function') cleanups.push(offDownloaded);
+
+    const offNotAvailable = desktop?.onUpdateNotAvailable?.(() => {
+      setChecking(false);
+      setIsUpToDate(true);
+      setStatusMessage(
+        isHindi
+          ? `आप पहले से ही नवीनतम संस्करण (${currentVersion}) चला रहे हैं।`
+          : `You are running the latest version (${currentVersion}).`
+      );
+    });
+    if (typeof offNotAvailable === 'function') cleanups.push(offNotAvailable);
+
+    const offError = desktop?.onUpdateError?.((err: any) => {
+      setChecking(false);
+      setStatusMessage(err?.message || 'Unable to check GitHub Releases right now.');
+    });
+    if (typeof offError === 'function') cleanups.push(offError);
+
+    return () => {
+      cleanups.forEach((fn) => fn());
+    };
+  }, [isDesktop, isHindi, currentVersion, newVersion, onSyncUpdateState]);
 
   const handleCheckForUpdates = async () => {
     if (!isDesktop) {
-      setErrorMsg(isHindi ? 'वेब संस्करण में ऑटो-अपडेट केवल डेस्कटॉप ऐप (Electron) में उपलब्ध है।' : 'Auto-update is fully active in the HisabVeda ERP Desktop App.');
+      setIsUpToDate(true);
+      setStatusMessage(
+        isHindi
+          ? `वेब ऐप नवीनतम संस्करण (${currentVersion}) पर सक्रिय है। ऑटो-अपडेट्स डेस्कटॉप (.exe) ऐप में GitHub Releases से चलते हैं।`
+          : `Web workspace is live on ${currentVersion}. GitHub Releases auto-updater is active in the Desktop (.exe) build.`
+      );
       return;
     }
     setChecking(true);
-    setErrorMsg(null);
+    setStatusMessage(null);
+    setIsUpToDate(false);
     try {
       const res = await window.hisabvedaDesktop?.checkForUpdates?.();
       if (res?.error) {
-        setErrorMsg(res.error);
+        setStatusMessage(res.error);
       } else if (res?.updateAvailable) {
+        const ver = res.version ? `v${String(res.version).replace(/^v/i, '')}` : 'New Version';
         setUpdateAvailable(true);
-        setNewVersion(res.version || 'New Version');
+        setNewVersion(ver);
+        onSyncUpdateState?.({ available: true, version: ver, error: null });
       } else {
-        setErrorMsg(isHindi ? 'आप पहले से ही नवीनतम संस्करण पर हैं!' : 'You are already running the latest version.');
+        setIsUpToDate(true);
+        setStatusMessage(
+          res?.message ||
+            (isHindi
+              ? `आप पहले से ही नवीनतम संस्करण (${currentVersion}) पर हैं!`
+              : `You are already running the latest version (${currentVersion}).`)
+        );
       }
     } catch (err: any) {
-      setErrorMsg(err?.message || 'Failed to check updates');
+      setStatusMessage(err?.message || 'Failed to check for updates');
     } finally {
       setChecking(false);
     }
@@ -86,6 +172,8 @@ export const SoftwareUpdateModal: React.FC<SoftwareUpdateModalProps> = ({
     }
   };
 
+  const percentRounded = Math.min(100, Math.max(0, Math.round(downloadProgress?.percent || 0)));
+
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-3 md:p-6 overflow-y-auto animate-fadeIn">
       <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl p-5 md:p-6 text-slate-200 space-y-5 shadow-2xl my-auto">
@@ -97,9 +185,13 @@ export const SoftwareUpdateModal: React.FC<SoftwareUpdateModalProps> = ({
             </div>
             <div>
               <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <span>{isHindi ? 'सॉफ्टवेयर अपडेट एवं रिलीज सेंटर' : 'Software Update & GitHub Releases Center'}</span>
+                <span>
+                  {updateAvailable
+                    ? (isHindi ? 'सॉफ्टवेयर अपडेट उपलब्ध है' : 'Software Update Available')
+                    : (isHindi ? 'सॉफ्टवेयर अपडेट एवं रिलीज सेंटर' : 'Software Update & GitHub Releases Center')}
+                </span>
                 <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-extrabold px-2 py-0.5 rounded-full">
-                  ELECTRON-UPDATER
+                  AUTO-UPDATER
                 </span>
               </h3>
               <p className="text-xs text-slate-400">
@@ -109,8 +201,9 @@ export const SoftwareUpdateModal: React.FC<SoftwareUpdateModalProps> = ({
           </div>
 
           <button
+            type="button"
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white bg-slate-800 rounded-xl hover:bg-slate-700 transition"
+            className="p-1.5 text-slate-400 hover:text-white bg-slate-800 rounded-xl hover:bg-slate-700 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -126,7 +219,7 @@ export const SoftwareUpdateModal: React.FC<SoftwareUpdateModalProps> = ({
             <p className="text-slate-300">
               {isHindi ? 'पंजीकृत स्वामी:' : 'Registered Owner:'} <strong className="text-white">{ownerName}</strong>
             </p>
-            <p className="text-slate-400 font-mono text-[11px]">Key: {licenseKey}</p>
+            <p className="text-slate-400 font-mono text-[11px] truncate max-w-md">Key: {licenseKey}</p>
           </div>
 
           <div className="bg-slate-950 px-4 py-2.5 rounded-xl border border-slate-800 text-center shrink-0">
@@ -137,25 +230,36 @@ export const SoftwareUpdateModal: React.FC<SoftwareUpdateModalProps> = ({
 
         {/* Update Status / Banner */}
         <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3">
-          <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
+          <div className="flex items-center justify-between border-b border-slate-800/80 pb-2.5">
             <div className="flex items-center gap-2 font-bold text-white text-xs">
               <Zap className="w-4 h-4 text-amber-400 animate-pulse" />
-              <span>{isHindi ? 'अपडेट स्थिति' : 'Live Update Status'}</span>
+              <span>{isHindi ? 'लाइव अपडेट स्थिति' : 'GitHub Releases Live Status'}</span>
             </div>
             <button
+              type="button"
               onClick={handleCheckForUpdates}
               disabled={checking}
-              className="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 text-white font-bold text-xs rounded-lg flex items-center gap-1.5 transition shadow"
+              className="px-3.5 py-1.5 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 text-white font-bold text-xs rounded-lg flex items-center gap-1.5 transition shadow cursor-pointer"
             >
-              {checking ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <RefreshCw className="w-3.5 h-3.5" />}
-              <span>{isHindi ? 'अपडेट जांचें' : 'Check for Updates'}</span>
+              <RefreshCw className={`w-3.5 h-3.5 ${checking ? 'animate-spin' : ''}`} />
+              <span>{checking ? (isHindi ? 'जांच हो रही है...' : 'Checking...') : (isHindi ? 'अपडेट जांचें' : 'Check for Updates')}</span>
             </button>
           </div>
 
-          {errorMsg && (
-            <div className="p-3 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-300 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
-              <span>{errorMsg}</span>
+          {statusMessage && !updateAvailable && !updateDownloaded && (
+            <div
+              className={`p-3 rounded-lg text-xs flex items-center gap-2 border ${
+                isUpToDate
+                  ? 'bg-emerald-950/30 border-emerald-500/35 text-emerald-200'
+                  : 'bg-slate-900 border-slate-800 text-slate-300'
+              }`}
+            >
+              {isUpToDate ? (
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              ) : (
+                <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+              )}
+              <span>{statusMessage}</span>
             </div>
           )}
 
@@ -164,40 +268,55 @@ export const SoftwareUpdateModal: React.FC<SoftwareUpdateModalProps> = ({
               <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
               <div>
                 <h4 className="font-extrabold text-emerald-300 text-sm">
-                  {isHindi ? 'नया अपडेट सफलतापूर्वक डाउनलोड हो गया है!' : 'Update Downloaded Successfully!'}
+                  {isHindi
+                    ? `नया अपडेट ${newVersion || ''} सफलतापूर्वक डाउनलोड हो गया है!`
+                    : `Update ${newVersion || ''} Downloaded Successfully!`}
                 </h4>
                 <p className="text-xs text-slate-300 mt-1">
-                  {isHindi ? 'अपडेट इंस्टॉल करने और ऐप पुनः आरंभ करने के लिए नीचे क्लिक करें।' : 'Click below to apply the update and restart HisabVeda ERP instantly.'}
+                  {isHindi
+                    ? 'अपडेट इंस्टॉल करने और ऐप पुनः आरंभ करने के लिए नीचे क्लिक करें।'
+                    : 'Click below to install the latest release and restart HisabVeda ERP instantly.'}
                 </p>
               </div>
               <button
+                type="button"
                 onClick={handleInstallAndRestart}
-                className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition"
+                className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition cursor-pointer"
               >
                 {isHindi ? 'अपडेट और रीस्टार्ट करें' : 'Update & Restart Now'}
               </button>
             </div>
           ) : updateAvailable ? (
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-xs text-slate-300">
-                <span className="font-bold text-amber-300 flex items-center gap-1.5">
+            <div className="space-y-3 bg-indigo-950/30 border border-indigo-500/40 rounded-xl p-4">
+              <div className="flex items-center justify-between text-xs text-slate-200">
+                <span className="font-bold text-amber-300 flex items-center gap-2">
                   <Download className="w-4 h-4 animate-bounce" />
-                  {isHindi ? `नया संस्करण ${newVersion || ''} डाउनलोड हो रहा है...` : `Downloading new version ${newVersion || ''}...`}
-                </span>
-                {downloadProgress && (
-                  <span className="font-mono font-bold text-indigo-400">
-                    {Math.round(downloadProgress.percent || 0)}%
+                  <span>
+                    {isHindi
+                      ? `नया अपडेट ${newVersion || ''} डाउनलोड हो रहा है...`
+                      : `Software Update Available (${newVersion || ''}) — Downloading...`}
                   </span>
-                )}
+                </span>
+                <span className="font-mono font-bold text-indigo-300">{percentRounded}%</span>
               </div>
-              {downloadProgress && (
-                <div className="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden border border-slate-800">
-                  <div
-                    className="bg-indigo-500 h-full transition-all duration-300 rounded-full"
-                    style={{ width: `${Math.min(100, Math.max(0, downloadProgress.percent || 0))}%` }}
-                  />
+
+              <div className="w-full bg-slate-900 rounded-full h-3 overflow-hidden border border-slate-700">
+                <div
+                  className="bg-gradient-to-r from-indigo-500 to-emerald-400 h-full transition-all duration-300 rounded-full"
+                  style={{ width: `${percentRounded}%` }}
+                />
+              </div>
+
+              {downloadProgress && downloadProgress.total ? (
+                <div className="flex items-center justify-between text-[11px] text-slate-400 font-mono">
+                  <span>
+                    {formatBytes(downloadProgress.transferred)} / {formatBytes(downloadProgress.total)}
+                  </span>
+                  {downloadProgress.bytesPerSecond ? (
+                    <span>{formatBytes(downloadProgress.bytesPerSecond)}/s</span>
+                  ) : null}
                 </div>
-              )}
+              ) : null}
             </div>
           ) : (
             <div className="space-y-2 text-xs text-slate-300">
@@ -219,7 +338,7 @@ export const SoftwareUpdateModal: React.FC<SoftwareUpdateModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition"
+            className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition cursor-pointer"
           >
             {isHindi ? 'बंद करें (Close)' : 'Close'}
           </button>

@@ -34,7 +34,8 @@ import {
   Clock,
   Cpu,
   Copy,
-  MessageCircle
+  MessageCircle,
+  RefreshCw
 } from 'lucide-react';
 import JSZip from 'jszip';
 import {
@@ -210,6 +211,10 @@ export const CompanySettings: React.FC<CompanySettingsProps> = ({
   const trialStatus = getTrialStatus(data.license, data);
   const hwInfo = getHardwareBindingInfo();
   const machineId = hwInfo.machineId || getOrGenerateMachineId();
+  const rawDesktopVersion = window.hisabvedaDesktop?.getAppVersion?.();
+  const appVersionLabel = rawDesktopVersion
+    ? (rawDesktopVersion.startsWith('v') ? rawDesktopVersion : `v${rawDesktopVersion}`)
+    : (data.softwareVersion || 'v2.4.2');
   const whatsappLicenseHref = `https://wa.me/917489655303?text=${encodeURIComponent(
     `Hello HisabVeda Team, please issue my Signed License Certificate (HV-LIC-V3) & Unique Activation Code.\n\nHardware Machine ID: ${machineId}`
   )}`;
@@ -389,6 +394,19 @@ FOLDER CONTENTS:
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
+          {onOpenSoftwareUpdateModal && (
+            <button
+              type="button"
+              onClick={onOpenSoftwareUpdateModal}
+              className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/35 border border-indigo-500/40 text-indigo-200 font-bold text-xs transition cursor-pointer shadow"
+            >
+              <RefreshCw className="w-3.5 h-3.5 text-indigo-400" />
+              <span>{isHindi ? 'अपडेट जांचें' : 'Check for Updates'}</span>
+              <span className="font-mono text-[10px] bg-slate-950/80 text-indigo-300 px-1.5 py-0.5 rounded border border-indigo-500/30">
+                {appVersionLabel}
+              </span>
+            </button>
+          )}
           {onOpenFeaturesModal && rbac.canEditCompanySettings && (
             <button
               type="button"
@@ -1962,7 +1980,7 @@ FOLDER CONTENTS:
                     {isHindi ? 'सॉफ्टवेयर अपडेट (electron-updater)' : 'Software Auto-Updates & GitHub Releases'}
                   </h4>
                   <p className="text-[11px] text-slate-400">
-                    {isHindi ? `वर्तमान संस्करण: ${data.softwareVersion || 'v2.4.2'}` : `Current App Version: ${data.softwareVersion || 'v2.4.2'}`}
+                    {isHindi ? `वर्तमान ऐप संस्करण: ${appVersionLabel}` : `Current App Version: ${appVersionLabel}`}
                   </p>
                 </div>
               </div>
