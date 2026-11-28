@@ -2,7 +2,7 @@
   "name": "hisabveda-erp-software",
   "productName": "HisabVeda ERP",
   "private": true,
-  "version": "2.4.2",
+  "version": "2.4.3",
   "main": "electron/main.js",
   "repository": {
     "type": "git",
