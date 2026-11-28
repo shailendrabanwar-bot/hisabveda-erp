@@ -5,6 +5,28 @@ const os = require('os');
 const crypto = require('crypto');
 const { execFileSync } = require('child_process');
 const nacl = require('tweetnacl');
+const { autoUpdater } = require('electron-updater');
+
+autoUpdater.logger = console;
+autoUpdater.autoDownload = true;
+
+autoUpdater.on('update-available', (info) => {
+  if (mainWindow && mainWindow.webContents) {
+    mainWindow.webContents.send('hv:update-available', info);
+  }
+});
+
+autoUpdater.on('download-progress', (progressObj) => {
+  if (mainWindow && mainWindow.webContents) {
+    mainWindow.webContents.send('hv:update-progress', progressObj);
+  }
+});
+
+autoUpdater.on('update-downloaded', (info) => {
+  if (mainWindow && mainWindow.webContents) {
+    mainWindow.webContents.send('hv:update-downloaded', info);
+  }
+});
 
 // Register secure custom protocol so ESM modules, Firebase IndexedDB, and localStorage work cleanly without file:// CORS blocks
 protocol.registerSchemesAsPrivileged([
@@ -981,6 +1003,22 @@ function registerIpcHandlers() {
       backupCount: backups.length,
       backups,
     };
+  });
+
+  ipcMain.handle('hv:check-for-updates', async () => {
+    if (!app.isPackaged) {
+      return { updateAvailable: false, currentVersion: app.getVersion(), message: 'Development mode: connect to GitHub Releases.' };
+    }
+    try {
+      const res = await autoUpdater.checkForUpdates();
+      return { updateAvailable: Boolean(res?.updateInfo), version: res?.updateInfo?.version };
+    } catch (err) {
+      return { error: err?.message || 'Failed to check for updates' };
+    }
+  });
+
+  ipcMain.handle('hv:install-update', () => {
+    autoUpdater.quitAndInstall(false, true);
   });
 
   ipcMain.handle('hv:open-external', async (_event, url) => {

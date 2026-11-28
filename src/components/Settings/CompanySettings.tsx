@@ -105,6 +105,7 @@ interface CompanySettingsProps {
   onOpenCompanyManagerModal?: () => void;
   onOpenFeaturesModal?: () => void;
   onOpenLicenseModal?: () => void;
+  onOpenSoftwareUpdateModal?: () => void;
   activeUserRole?: UserRole;
   permissions?: RolePermissions;
 }
@@ -137,6 +138,7 @@ export const CompanySettings: React.FC<CompanySettingsProps> = ({
   onOpenCompanyManagerModal,
   onOpenFeaturesModal,
   onOpenLicenseModal,
+  onOpenSoftwareUpdateModal,
   activeUserRole = 'ADMIN',
   permissions
 }) => {
@@ -1945,6 +1947,35 @@ FOLDER CONTENTS:
             </div>
             <div className="bg-slate-900 border border-slate-800 rounded-lg px-3.5 py-2.5 font-mono text-xs font-extrabold text-indigo-300 select-all">
               {machineId}
+            </div>
+          </div>
+
+          {/* Software Updates & GitHub Releases */}
+          <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
+                <div className="p-2 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-xl">
+                  <Sparkles className="w-4 h-4" />
+                </div>
+                <div>
+                  <h4 className="text-xs font-bold text-white">
+                    {isHindi ? 'सॉफ्टवेयर अपडेट (electron-updater)' : 'Software Auto-Updates & GitHub Releases'}
+                  </h4>
+                  <p className="text-[11px] text-slate-400">
+                    {isHindi ? `वर्तमान संस्करण: ${data.softwareVersion || 'v2.4.2'}` : `Current App Version: ${data.softwareVersion || 'v2.4.2'}`}
+                  </p>
+                </div>
+              </div>
+              {onOpenSoftwareUpdateModal && (
+                <button
+                  type="button"
+                  onClick={onOpenSoftwareUpdateModal}
+                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl flex items-center gap-1.5 shadow transition cursor-pointer"
+                >
+                  <RefreshCw className="w-3.5 h-3.5" />
+                  <span>{isHindi ? 'अपडेट जांचें / केंद्र खोलें' : 'Check for Updates'}</span>
+                </button>
+              )}
             </div>
           </div>
         </div>

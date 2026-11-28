@@ -25,6 +25,11 @@ const desktopBridge = {
   getStorageInfo: () => ipcRenderer.invoke('hv:get-storage-info'),
   openExternalUrl: (url) => ipcRenderer.invoke('hv:open-external', url),
   flushSync: (payload) => ipcRenderer.sendSync('hv:flush-sync', payload),
+  checkForUpdates: () => ipcRenderer.invoke('hv:check-for-updates'),
+  installUpdate: () => ipcRenderer.invoke('hv:install-update'),
+  onUpdateAvailable: (callback) => ipcRenderer.on('hv:update-available', (_e, info) => callback(info)),
+  onUpdateProgress: (callback) => ipcRenderer.on('hv:update-progress', (_e, prog) => callback(prog)),
+  onUpdateDownloaded: (callback) => ipcRenderer.on('hv:update-downloaded', (_e, info) => callback(info)),
 };
 
 contextBridge.exposeInMainWorld('hisabvedaDesktop', Object.freeze(desktopBridge));

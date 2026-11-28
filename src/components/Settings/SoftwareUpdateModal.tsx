@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Sparkles, CheckCircle2, ShieldCheck, RefreshCw, X, Zap } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Sparkles, CheckCircle2, ShieldCheck, RefreshCw, X, Zap, Download, AlertCircle } from 'lucide-react';
 import { AppData } from '../../types';
 
 interface SoftwareUpdateModalProps {
@@ -15,23 +15,74 @@ export const SoftwareUpdateModal: React.FC<SoftwareUpdateModalProps> = ({
   onClose,
   onApplyUpdate
 }) => {
-  const isAlreadyUpdated = data.softwareVersion === 'v2.4.2';
-  const [updateApplied, setUpdateApplied] = useState(isAlreadyUpdated);
-  const [alreadyNotice, setAlreadyNotice] = useState(false);
-
+  const currentVersion = data.softwareVersion || 'v2.4.2';
   const ownerName = data.license?.registeredOwner || data.company.name;
   const licenseKey = data.license?.licenseKey || 'HV-PRO-2026-SUBSCRIPTION-ACTIVE';
-  const currentVersion = data.softwareVersion || 'v2.4.0';
 
-  const handleApplyUpdateAction = () => {
-    if (data.softwareVersion === 'v2.4.2' || isAlreadyUpdated) {
-      setAlreadyNotice(true);
-      setUpdateApplied(true);
-    } else {
-      setUpdateApplied(true);
-      if (onApplyUpdate) {
-        onApplyUpdate();
+  const [checking, setChecking] = useState(false);
+  const [updateAvailable, setUpdateAvailable] = useState(false);
+  const [newVersion, setNewVersion] = useState<string | null>(null);
+  const [downloadProgress, setDownloadProgress] = useState<{ percent?: number; transferred?: number; total?: number } | null>(null);
+  const [updateDownloaded, setUpdateDownloaded] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const isDesktop = Boolean(window.hisabvedaDesktop?.isDesktopApp);
+
+  useEffect(() => {
+    if (!isDesktop) return;
+    const desktop = window.hisabvedaDesktop;
+    if (desktop?.onUpdateAvailable) {
+      desktop.onUpdateAvailable((info: any) => {
+        setUpdateAvailable(true);
+        setNewVersion(info?.version || 'Latest Release');
+      });
+    }
+    if (desktop?.onUpdateProgress) {
+      desktop.onUpdateProgress((progress: any) => {
+        setDownloadProgress({
+          percent: progress?.percent || 0,
+          transferred: progress?.transferred || 0,
+          total: progress?.total || 0,
+        });
+      });
+    }
+    if (desktop?.onUpdateDownloaded) {
+      desktop.onUpdateDownloaded(() => {
+        setUpdateDownloaded(true);
+      });
+    }
+  }, [isDesktop]);
+
+  const handleCheckForUpdates = async () => {
+    if (!isDesktop) {
+      setErrorMsg(isHindi ? 'वेब संस्करण में ऑटो-अपडेट केवल डेस्कटॉप ऐप (Electron) में उपलब्ध है।' : 'Auto-update is fully active in the HisabVeda ERP Desktop App.');
+      return;
+    }
+    setChecking(true);
+    setErrorMsg(null);
+    try {
+      const res = await window.hisabvedaDesktop?.checkForUpdates?.();
+      if (res?.error) {
+        setErrorMsg(res.error);
+      } else if (res?.updateAvailable) {
+        setUpdateAvailable(true);
+        setNewVersion(res.version || 'New Version');
+      } else {
+        setErrorMsg(isHindi ? 'आप पहले से ही नवीनतम संस्करण पर हैं!' : 'You are already running the latest version.');
       }
+    } catch (err: any) {
+      setErrorMsg(err?.message || 'Failed to check updates');
+    } finally {
+      setChecking(false);
+    }
+  };
+
+  const handleInstallAndRestart = async () => {
+    if (isDesktop && window.hisabvedaDesktop?.installUpdate) {
+      await window.hisabvedaDesktop.installUpdate();
+    } else {
+      if (onApplyUpdate) onApplyUpdate();
+      onClose();
     }
   };
 
@@ -46,13 +97,13 @@ export const SoftwareUpdateModal: React.FC<SoftwareUpdateModalProps> = ({
             </div>
             <div>
               <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <span>{isHindi ? 'सॉफ्टवेयर अपडेट एवं सब्सक्रिप्शन नोटिफिकेशन केंद्र' : 'Software Update & Active License Subscription Sync'}</span>
+                <span>{isHindi ? 'सॉफ्टवेयर अपडेट एवं रिलीज सेंटर' : 'Software Update & GitHub Releases Center'}</span>
                 <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-extrabold px-2 py-0.5 rounded-full">
-                  LIVE UPDATE
+                  ELECTRON-UPDATER
                 </span>
               </h3>
               <p className="text-xs text-slate-400">
-                {isHindi ? 'सक्रिय सब्सक्रिप्शन ग्राहकों के लिए नवीनतम सुविधाओं का ऑटो-अपडेट नोटिफिकेशन' : 'Automated software updates and feature patches for active subscription users'}
+                {isHindi ? 'GitHub Releases से कनेक्टेड ऑटो-अपडेट और सब्सक्रिप्शन सिंक' : 'Automated updates connected securely to GitHub Releases'}
               </p>
             </div>
           </div>
@@ -65,95 +116,114 @@ export const SoftwareUpdateModal: React.FC<SoftwareUpdateModalProps> = ({
           </button>
         </div>
 
-        {/* Subscription Status Card */}
+        {/* Subscription & Version Card */}
         <div className="bg-indigo-950/30 border border-indigo-500/40 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
           <div className="space-y-1">
             <div className="flex items-center gap-2 font-bold text-emerald-400">
               <ShieldCheck className="w-4 h-4" />
-              <span>{isHindi ? 'सब्सक्रिप्शन स्थिति: सक्रिय / एक्टिव' : 'Subscription Status: ACTIVE'}</span>
+              <span>{isHindi ? 'सब्सक्रिप्शन स्थिति: सक्रिय' : 'Subscription Status: ACTIVE'}</span>
             </div>
             <p className="text-slate-300">
-              {isHindi ? 'पंजीकृत स्वामी:' : 'Registered License Owner:'} <strong className="text-white">{ownerName}</strong>
+              {isHindi ? 'पंजीकृत स्वामी:' : 'Registered Owner:'} <strong className="text-white">{ownerName}</strong>
             </p>
-            <p className="text-slate-400 font-mono text-[11px]">
-              Key: {licenseKey}
-            </p>
+            <p className="text-slate-400 font-mono text-[11px]">Key: {licenseKey}</p>
           </div>
 
-          <div className="bg-slate-950 px-3 py-2 rounded-lg border border-slate-800 text-center shrink-0">
-            <span className="text-slate-400 text-[10px] block font-semibold">{isHindi ? 'सॉफ्टवेयर संस्करण' : 'Software Version'}</span>
-            <span className="text-indigo-300 font-extrabold font-mono text-sm">{currentVersion}</span>
+          <div className="bg-slate-950 px-4 py-2.5 rounded-xl border border-slate-800 text-center shrink-0">
+            <span className="text-slate-400 text-[10px] block font-semibold">{isHindi ? 'वर्तमान संस्करण' : 'Current Version'}</span>
+            <span className="text-indigo-300 font-extrabold font-mono text-base">{currentVersion}</span>
           </div>
         </div>
 
-        {/* Update Banner */}
+        {/* Update Status / Banner */}
         <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3">
           <div className="flex items-center justify-between border-b border-slate-800/80 pb-2">
             <div className="flex items-center gap-2 font-bold text-white text-xs">
               <Zap className="w-4 h-4 text-amber-400 animate-pulse" />
-              <span>{isHindi ? 'नया अपडेट v2.4.2 उपलब्ध है!' : 'New Update v2.4.2 Available for Download!'}</span>
+              <span>{isHindi ? 'अपडेट स्थिति' : 'Live Update Status'}</span>
             </div>
-            <span className="text-[11px] text-slate-400 font-mono">Released: July 2026</span>
+            <button
+              onClick={handleCheckForUpdates}
+              disabled={checking}
+              className="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 text-white font-bold text-xs rounded-lg flex items-center gap-1.5 transition shadow"
+            >
+              {checking ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <RefreshCw className="w-3.5 h-3.5" />}
+              <span>{isHindi ? 'अपडेट जांचें' : 'Check for Updates'}</span>
+            </button>
           </div>
 
-          <div className="space-y-2 text-xs text-slate-300">
-            <p className="font-semibold text-slate-200">
-              {isHindi ? 'नए अपडेट में शामिल सुधार एवं विशेषताएं:' : 'Key Enhancements in this Update Patch:'}
-            </p>
-            <ul className="space-y-1.5 pl-4 list-disc text-slate-300 text-[11px]">
-              <li>🚚 <strong>Consignee & Shipping Logistics:</strong> Delivery Note No., Vehicle No., Terms of Delivery in GST Invoices.</li>
-              <li>🏢 <strong>Isolated Multi-Company Engine:</strong> Creating new companies now starts with a clean, blank dataset automatically.</li>
-              <li>📦 <strong>Item Master Editing:</strong> Full edit, update, and deletion controls for inventory items.</li>
-              <li>🛠️ <strong>Utilities Module:</strong> Full system JSON backup, restore, and CSV master export/import.</li>
-              <li>📱 <strong>Mobile Responsive Design:</strong> Optimized layouts and scrollable tables for smartphone touchscreens.</li>
-              <li>🔒 <strong>One-Click Auth Logout & Data Reset:</strong> Fixed security logout and full data reset modal routines.</li>
-            </ul>
-          </div>
+          {errorMsg && (
+            <div className="p-3 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-300 flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+              <span>{errorMsg}</span>
+            </div>
+          )}
+
+          {updateDownloaded ? (
+            <div className="bg-emerald-950/40 border border-emerald-500/50 rounded-xl p-4 text-center space-y-3">
+              <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
+              <div>
+                <h4 className="font-extrabold text-emerald-300 text-sm">
+                  {isHindi ? 'नया अपडेट सफलतापूर्वक डाउनलोड हो गया है!' : 'Update Downloaded Successfully!'}
+                </h4>
+                <p className="text-xs text-slate-300 mt-1">
+                  {isHindi ? 'अपडेट इंस्टॉल करने और ऐप पुनः आरंभ करने के लिए नीचे क्लिक करें।' : 'Click below to apply the update and restart HisabVeda ERP instantly.'}
+                </p>
+              </div>
+              <button
+                onClick={handleInstallAndRestart}
+                className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs rounded-xl shadow-lg transition"
+              >
+                {isHindi ? 'अपडेट और रीस्टार्ट करें' : 'Update & Restart Now'}
+              </button>
+            </div>
+          ) : updateAvailable ? (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-xs text-slate-300">
+                <span className="font-bold text-amber-300 flex items-center gap-1.5">
+                  <Download className="w-4 h-4 animate-bounce" />
+                  {isHindi ? `नया संस्करण ${newVersion || ''} डाउनलोड हो रहा है...` : `Downloading new version ${newVersion || ''}...`}
+                </span>
+                {downloadProgress && (
+                  <span className="font-mono font-bold text-indigo-400">
+                    {Math.round(downloadProgress.percent || 0)}%
+                  </span>
+                )}
+              </div>
+              {downloadProgress && (
+                <div className="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden border border-slate-800">
+                  <div
+                    className="bg-indigo-500 h-full transition-all duration-300 rounded-full"
+                    style={{ width: `${Math.min(100, Math.max(0, downloadProgress.percent || 0))}%` }}
+                  />
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="space-y-2 text-xs text-slate-300">
+              <p className="font-semibold text-slate-200">
+                {isHindi ? 'नवीनतम संस्करण हाइलाइट्स:' : 'HisabVeda ERP Enterprise Release Highlights:'}
+              </p>
+              <ul className="space-y-1.5 pl-4 list-disc text-slate-300 text-[11px]">
+                <li>🚀 <strong>electron-updater:</strong> Direct secure integration with GitHub Releases for seamless zero-friction updates.</li>
+                <li>🚚 <strong>Consignee & Shipping Logistics:</strong> Delivery Note No., Vehicle No., Terms of Delivery in GST Invoices.</li>
+                <li>🏢 <strong>Isolated Multi-Company Engine:</strong> Clean blank workspace for every newly created company.</li>
+                <li>🛠️ <strong>Enterprise Utilities:</strong> Daily encrypted backups, CSV master sync, and Tally XML migration.</li>
+              </ul>
+            </div>
+          )}
         </div>
 
-        {/* Update Notification Confirmation / Action */}
-        {updateApplied ? (
-          <div className="bg-emerald-950/50 border border-emerald-500/50 rounded-xl p-4 text-center space-y-2 text-xs">
-            <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
-            <h4 className="font-extrabold text-emerald-300 text-sm">
-              {alreadyNotice || isAlreadyUpdated
-                ? (isHindi ? 'सॉफ़्टवेयर पहले से ही नवीनतम संस्करण v2.4.2 पर अपडेट है! (Software update already done!)' : 'Software update already done! You are running the latest version v2.4.2.')
-                : (isHindi ? 'सॉफ्टवेयर सफलतापूर्वक v2.4.2 में अपडेट कर दिया गया है!' : 'Software Version v2.4.2 Updated Successfully!')}
-            </h4>
-            <p className="text-slate-300 text-[11px]">
-              {isHindi ? 'आपकी कंपनी का डेटा सुरक्षित है एवं सभी नए फीचर्स (बैंक ऑटो-पोस्टिंग, पेरोल, जीएसटी और सुरक्षा) सक्रिय हैं।' : 'All accounting, GST, payroll, bank auto-posting, and desktop vault modules are active.'}
-            </p>
-            <div className="pt-2">
-              <button
-                type="button"
-                onClick={onClose}
-                className="px-5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow transition"
-              >
-                {isHindi ? 'बंद करें (OK)' : 'OK / Close'}
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="space-y-3 pt-2 border-t border-slate-800">
-            <div className="flex flex-col sm:flex-row items-center justify-end gap-3">
-              <button
-                type="button"
-                onClick={onClose}
-                className="px-4 py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 text-xs font-semibold w-full sm:w-auto"
-              >
-                {isHindi ? 'बाद में' : 'Remind Me Later'}
-              </button>
-              <button
-                type="button"
-                onClick={handleApplyUpdateAction}
-                className="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 transition transform active:scale-95 w-full sm:w-auto shrink-0"
-              >
-                <RefreshCw className="w-4 h-4" />
-                <span>{isHindi ? 'अभी अपडेट लागू करें' : 'Apply Update Now'}</span>
-              </button>
-            </div>
-          </div>
-        )}
+        {/* Footer Actions */}
+        <div className="flex items-center justify-end pt-2 border-t border-slate-800">
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition"
+          >
+            {isHindi ? 'बंद करें (Close)' : 'Close'}
+          </button>
+        </div>
       </div>
     </div>
   );
