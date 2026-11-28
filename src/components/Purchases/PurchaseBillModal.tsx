@@ -424,20 +424,20 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-3 md:p-6 overflow-y-auto animate-fadeIn">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-5xl p-5 md:p-6 text-slate-200 space-y-5 shadow-2xl my-auto">
+      <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl w-full max-w-5xl p-5 md:p-6 text-[var(--text-primary)] space-y-5 shadow-2xl my-auto">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-amber-600/20 text-amber-400 border border-amber-500/30 rounded-xl">
+            <div className="p-2.5 hv-pill-amber border rounded-xl">
               <ShoppingBag className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-[var(--text-primary)]">
                 {editingBill 
                   ? (isHindi ? `परचेज बिल अपडेट करें (${editingBill.billNumber})` : `Edit Purchase Bill #${editingBill.billNumber}`)
                   : (isHindi ? 'नया परचेज बिल / खरीद प्रविष्टि दर्ज करें' : 'Record New Purchase Invoice / Bill')}
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--text-muted)]">
                 {isHindi ? 'विक्रेता (Vendor) से प्राप्त बिल, जीएसटी इनपुट टैक्स एवं स्टॉक इन्वेंटरी वृद्धि' : 'Log vendor bills, claim GST Input Tax Credit (ITC), and auto-update stock'}
               </p>
             </div>
@@ -448,9 +448,9 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
               <button
                 type="button"
                 onClick={() => setShowPdfImporter(true)}
-                className="flex items-center gap-1.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold text-xs px-3 py-2 rounded-xl shadow transition"
+                className="flex items-center gap-1.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white hv-keep-white font-bold text-xs px-3 py-2 rounded-xl shadow transition cursor-pointer"
               >
-                <Sparkles className="w-4 h-4 text-amber-200" />
+                <Sparkles className="w-4 h-4 text-amber-100" />
                 <span>{isHindi ? '📄 PDF इंपोर्ट (AI Auto-Create)' : '📄 Import PDF Bill'}</span>
               </button>
             )}
@@ -458,7 +458,7 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-white bg-slate-800 rounded-xl hover:bg-slate-700 transition"
+              className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-elevated)] rounded-xl hover:bg-[var(--hover-surface)] transition cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -466,12 +466,12 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
         </div>
 
         {importNotice && (
-          <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-xs font-bold text-emerald-300 flex items-center justify-between shadow animate-fadeIn">
+          <div className="p-3 hv-pill-emerald border rounded-xl text-xs font-bold flex items-center justify-between shadow animate-fadeIn">
             <span>{importNotice}</span>
             <button
               type="button"
               onClick={() => setImportNotice(null)}
-              className="p-1 hover:bg-emerald-500/20 rounded-lg text-emerald-400"
+              className="p-1 hover:bg-emerald-500/20 rounded-lg transition cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -509,72 +509,72 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
 
         <form onSubmit={handleSubmit} className="space-y-5 text-xs">
           {validationError && (
-            <div className="p-3 bg-rose-500/15 border border-rose-500/50 rounded-xl text-rose-200 font-bold flex items-center justify-between gap-2">
+            <div className="p-3 hv-pill-rose border rounded-xl font-bold flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{validationError}</span>
               </div>
-              <button type="button" onClick={() => setValidationError(null)} className="text-rose-300 hover:text-white">
+              <button type="button" onClick={() => setValidationError(null)} className="opacity-80 hover:opacity-100 cursor-pointer">
                 <X className="w-4 h-4" />
               </button>
             </div>
           )}
           {/* Top Invoice Metadata */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 bg-slate-800/60 p-4 rounded-xl border border-slate-700/60">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 hv-elevated p-4 rounded-xl border border-[var(--border-primary)]">
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">System Purchase Ref #</label>
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">System Purchase Ref #</label>
               <input
                 type="text"
                 value={billNumber}
                 onChange={(e) => setBillNumber(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 font-mono text-amber-400 font-bold"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono text-amber-500 font-bold"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">Supplier Bill / Invoice # *</label>
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">Supplier Bill / Invoice # *</label>
               <input
                 type="text"
                 value={supplierInvoiceNo}
                 onChange={(e) => setSupplierInvoiceNo(e.target.value)}
                 placeholder="e.g. SUPP-2026-99"
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 font-mono text-white font-bold"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono font-bold"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">Purchase Date *</label>
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">Purchase Date *</label>
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">Payment Due Date</label>
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">Payment Due Date</label>
               <input
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5"
               />
             </div>
           </div>
 
           {/* Party Selection, Destination Godown & Tax Type */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 bg-slate-800/40 p-4 rounded-xl border border-slate-800">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 hv-elevated p-4 rounded-xl border border-[var(--border-primary)]">
             <div className="md:col-span-2">
               <div className="flex justify-between items-center mb-1">
-                <label className="block text-slate-300 font-semibold">Select Vendor / Supplier *</label>
+                <label className="block text-[var(--text-secondary)] font-semibold">Select Vendor / Supplier *</label>
                 <button
                   type="button"
                   onClick={() => setShowQuickPartyModal(true)}
-                  className="text-[11px] text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 bg-amber-950/60 hover:bg-amber-900/80 border border-amber-500/30 px-2 py-0.5 rounded-lg transition"
+                  className="text-[11px] hv-pill-amber border font-bold flex items-center gap-1 px-2 py-0.5 rounded-lg transition hover:opacity-90 cursor-pointer"
                 >
                   <UserPlus className="w-3 h-3" />
                   <span>{isHindi ? '+ नया सप्लायर' : '+ Quick Vendor'}</span>
@@ -592,22 +592,22 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
 
             {accountsOnly ? (
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'बिलिंग मोड' : 'Accounting Mode'}
                 </label>
-                <div className="bg-amber-500/10 p-2.5 border border-amber-500/35 rounded-xl text-xs font-bold text-amber-300 text-center">
+                <div className="hv-pill-amber border p-2.5 rounded-xl text-xs font-bold text-center">
                   {isHindi ? 'केवल अकाउंटिंग (No Stock)' : 'Accounts Only (No Stock)'}
                 </div>
               </div>
             ) : (batchGodownActive || godowns.length > 1) ? (
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'आवक गोदाम (Dest Godown)' : 'Receive into Godown'}
                 </label>
                 <select
                   value={godownId}
                   onChange={(e) => setGodownId(e.target.value)}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-cyan-300 font-semibold focus:border-cyan-500 focus:outline-none"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-cyan-500 font-semibold focus:border-cyan-500 focus:outline-none"
                 >
                   {godowns.map(g => (
                     <option key={g.id} value={g.id}>{g.name}</option>
@@ -617,12 +617,12 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
             ) : null}
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">Tax Applicability</label>
-              <div className="bg-slate-900 p-2.5 border border-slate-700 rounded-xl flex items-center justify-between text-xs">
-                <span className="text-slate-300 font-medium truncate">
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">Tax Applicability</label>
+              <div className="hv-input p-2.5 border border-[var(--border-subtle)] rounded-xl flex items-center justify-between text-xs">
+                <span className="text-[var(--text-secondary)] font-medium truncate">
                   {!gstActive ? 'Non-GST / Tax-Free' : (isInterState ? 'IGST' : 'CGST + SGST')}
                 </span>
-                <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${!gstActive ? 'bg-slate-800 text-slate-300' : (isInterState ? 'bg-amber-500/20 text-amber-300' : 'bg-emerald-500/20 text-emerald-300')}`}>
+                <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${!gstActive ? 'hv-pill-slate' : (isInterState ? 'hv-pill-amber' : 'hv-pill-emerald')}`}>
                   {!gstActive ? 'EXEMPT' : (isInterState ? 'IGST' : 'INTRA')}
                 </span>
               </div>
@@ -632,8 +632,8 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
           {/* Items Table */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <h4 className="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                <Calculator className="w-4 h-4 text-amber-400" />
+              <h4 className="font-bold text-[var(--text-primary)] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                <Calculator className="w-4 h-4 text-amber-500" />
                 <span>{accountsOnly ? (isHindi ? `सेवा व खर्च विवरण (${items.length})` : `Expense & Service Particulars (${items.length})`) : `Line Items & Purchase Costing (${items.length})`}</span>
               </h4>
 
@@ -642,9 +642,9 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                   <button
                     type="button"
                     onClick={() => setShowQuickItemModal(true)}
-                    className="flex items-center gap-1.5 text-xs font-bold text-emerald-300 hover:text-emerald-200 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-1.5 rounded-xl transition"
+                    className="flex items-center gap-1.5 text-xs font-bold hv-pill-emerald border hover:opacity-90 px-2.5 py-1.5 rounded-xl transition cursor-pointer"
                   >
-                    <PackagePlus className="w-3.5 h-3.5 text-emerald-400" />
+                    <PackagePlus className="w-3.5 h-3.5" />
                     <span>{isHindi ? '+ नया स्टॉक (Item)' : '+ Quick Stock Item'}</span>
                   </button>
                 )}
@@ -652,7 +652,7 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                 <button
                   type="button"
                   onClick={addItemRow}
-                  className="flex items-center gap-1.5 text-xs font-bold text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 px-3 py-1.5 rounded-xl transition"
+                  className="flex items-center gap-1.5 text-xs font-bold hv-pill-amber border hover:opacity-90 px-3 py-1.5 rounded-xl transition cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>{accountsOnly ? (isHindi ? '+ नई लाइन जोड़ें' : '+ Add Particular Row') : (isHindi ? '+ नया आइटम जोड़ें' : '+ Add Item Line')}</span>
@@ -660,9 +660,9 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
               </div>
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-slate-800">
+            <div className="overflow-x-auto rounded-xl border border-[var(--border-primary)]">
               <table className="w-full text-left border-collapse">
-                <thead className="bg-slate-950 text-slate-400 font-bold uppercase text-[10px] border-b border-slate-800">
+                <thead className="bg-[var(--bg-elevated)] text-[var(--text-secondary)] font-bold uppercase text-[10px] border-b border-[var(--border-primary)]">
                   <tr>
                     <th className="p-3">{accountsOnly ? (isHindi ? 'सेवा / खर्च विवरण (Particulars)' : 'Expense / Service Particulars') : 'Item Master'}</th>
                     {gstActive && <th className="p-3 w-20">HSN/SAC</th>}
@@ -672,15 +672,15 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                     <th className="p-3 w-20">Qty</th>
                     <th className="p-3 w-28">Purchase Rate ({currency})</th>
                     {gstActive && <th className="p-3 w-20">Tax %</th>}
-                    {showCess && <th className="p-3 w-20 text-amber-300">Cess %</th>}
+                    {showCess && <th className="p-3 w-20 text-amber-500">Cess %</th>}
                     {gstActive && <th className="p-3 w-28">Tax Amt</th>}
                     <th className="p-3 w-32 text-right">Total ({currency})</th>
                     <th className="p-3 w-10"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800 bg-slate-900/60">
+                <tbody className="divide-y divide-[var(--border-primary)] hv-surface">
                   {items.map((item, idx) => (
-                    <tr key={item.id || idx}>
+                    <tr key={item.id || idx} className="hover:bg-[var(--hover-surface)] transition">
                       <td className="p-2 min-w-[200px]">
                         {accountsOnly ? (
                           <input
@@ -688,7 +688,7 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                             value={item.itemName}
                             onChange={(e) => updateItemRow(idx, 'itemName', e.target.value)}
                             placeholder={isHindi ? 'खर्च / सेवा का विवरण लिखें...' : 'Enter expense / service description...'}
-                            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-2 text-xs text-white font-medium focus:border-amber-500 focus:outline-none"
+                            className="w-full hv-input border border-[var(--border-subtle)] rounded-lg px-2.5 py-2 text-xs font-medium focus:border-amber-500 focus:outline-none"
                           />
                         ) : (
                           <SearchableItemSelect
@@ -711,7 +711,7 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                             type="text"
                             value={item.hsnSacCode}
                             onChange={(e) => updateItemRow(idx, 'hsnSacCode', e.target.value)}
-                            className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-center text-slate-300 font-mono"
+                            className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 text-center font-mono"
                           />
                         </td>
                       )}
@@ -723,14 +723,14 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                               value={item.batchNumber || ''}
                               onChange={(e) => updateItemRow(idx, 'batchNumber', e.target.value)}
                               placeholder="Batch #"
-                              className="bg-slate-900 border border-slate-700 rounded-lg px-1.5 py-1.5 text-[11px] text-indigo-300 font-mono"
+                              className="hv-input border border-[var(--border-subtle)] rounded-lg px-1.5 py-1.5 text-[11px] text-indigo-500 font-mono"
                               title="Batch / Lot Number"
                             />
                             <input
                               type="date"
                               value={item.expiryDate || ''}
                               onChange={(e) => updateItemRow(idx, 'expiryDate', e.target.value)}
-                              className="bg-slate-900 border border-slate-700 rounded-lg px-1 py-1.5 text-[10px] text-rose-300 font-mono"
+                              className="hv-input border border-[var(--border-subtle)] rounded-lg px-1 py-1.5 text-[10px] text-rose-500 font-mono"
                               title="Expiry Date"
                             />
                             <input
@@ -740,7 +740,7 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                               value={item.mrp ?? ''}
                               onChange={(e) => updateItemRow(idx, 'mrp', e.target.value === '' ? undefined : Number(e.target.value))}
                               placeholder="MRP"
-                              className="bg-slate-900 border border-slate-700 rounded-lg px-1.5 py-1.5 text-[11px] text-cyan-300 font-mono text-right"
+                              className="hv-input border border-[var(--border-subtle)] rounded-lg px-1.5 py-1.5 text-[11px] text-cyan-500 font-mono text-right"
                               title="MRP"
                             />
                           </div>
@@ -752,7 +752,7 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                           min={1}
                           value={item.quantity}
                           onChange={(e) => updateItemRow(idx, 'quantity', Number(e.target.value))}
-                          className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-center text-white font-bold"
+                          className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 text-center font-bold"
                         />
                       </td>
                       <td className="p-2">
@@ -762,7 +762,7 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                           value={item.rate || ''}
                           placeholder="0"
                           onChange={(e) => updateItemRow(idx, 'rate', Number(e.target.value))}
-                          className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-right text-amber-300 font-mono font-bold"
+                          className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 text-right text-amber-500 font-mono font-bold"
                         />
                       </td>
                       {gstActive && (
@@ -772,7 +772,7 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                             min={0}
                             value={item.taxRate}
                             onChange={(e) => updateItemRow(idx, 'taxRate', Number(e.target.value))}
-                            className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-center text-slate-300"
+                            className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 text-center"
                           />
                         </td>
                       )}
@@ -785,23 +785,23 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                             value={item.cessPercent ?? ''}
                             placeholder="0"
                             onChange={(e) => updateItemRow(idx, 'cessPercent', Number(e.target.value) || 0)}
-                            className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-center text-amber-300 font-mono"
+                            className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 text-center text-amber-500 font-mono"
                           />
                         </td>
                       )}
                       {gstActive && (
-                        <td className="p-2 text-slate-300 font-mono text-right">
+                        <td className="p-2 text-[var(--text-secondary)] font-mono text-right">
                           {formatCurrency(item.taxAmount, currency)}
                         </td>
                       )}
-                      <td className="p-2 text-right font-mono font-bold text-emerald-400">
+                      <td className="p-2 text-right font-mono font-bold text-emerald-500">
                         {formatCurrency(item.totalAmount, currency)}
                       </td>
                       <td className="p-2 text-center">
                         <button
                           type="button"
                           onClick={() => removeItemRow(idx)}
-                          className="p-1 text-slate-500 hover:text-rose-400 transition"
+                          className="p-1 text-[var(--text-muted)] hover:text-rose-500 transition cursor-pointer"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -815,10 +815,10 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
 
           {/* Payment & Grand Total Summary */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-            <div className="space-y-3 bg-slate-800/40 p-4 rounded-xl border border-slate-800">
+            <div className="space-y-3 hv-elevated p-4 rounded-xl border border-[var(--border-primary)]">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'भुगतान माध्यम (Payment Mode)' : 'Payment Mode'}
                   </label>
                   <select
@@ -839,7 +839,7 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                         if (amountPaid === 0 && grandTotal > 0) setAmountPaid(grandTotal);
                       }
                     }}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-semibold"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-semibold"
                   >
                     <option value="CREDIT">{isHindi ? 'उधार / क्रेडिट (Sundry Creditors)' : 'Credit / Unpaid (Creditors)'}</option>
                     <option value="CASH">{isHindi ? 'नकद (Cash)' : 'Cash'}</option>
@@ -852,13 +852,13 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
 
                 {(paymentMode !== 'CREDIT' || amountPaid > 0) && (
                   <div>
-                    <label className="block text-slate-300 font-semibold mb-1">
+                    <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                       {isHindi ? 'भुगतान खाता (Paid From Ledger)' : 'Paid From (Cash / Bank)'}
                     </label>
                     <select
                       value={paymentAccountId}
                       onChange={(e) => setPaymentAccountId(e.target.value)}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-amber-300 font-semibold"
+                      className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-amber-500 font-semibold"
                     >
                       {(paymentMode === 'CASH'
                         ? (cashLedgers.length > 0 ? cashLedgers : [{ id: 'acc_cash', name: 'Cash in Hand', code: '1010' } as any])
@@ -884,7 +884,7 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
 
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="block text-slate-300 font-semibold">Amount Paid to Vendor ({currency})</label>
+                  <label className="block text-[var(--text-secondary)] font-semibold">Amount Paid to Vendor ({currency})</label>
                   {grandTotal > 0 && amountPaid < grandTotal && (
                     <button
                       type="button"
@@ -895,7 +895,7 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                           setPaymentAccountId(cashLedgers[0]?.id || 'acc_cash');
                         }
                       }}
-                      className="text-[11px] font-bold text-amber-400 hover:text-amber-300 bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded-lg"
+                      className="text-[11px] font-bold hv-pill-amber border hover:opacity-90 px-2 py-0.5 rounded-lg cursor-pointer"
                     >
                       {isHindi ? 'पूर्ण भुगतान (Full Paid)' : 'Mark Full Paid'}
                     </button>
@@ -915,58 +915,58 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                     }
                   }}
                   placeholder="0.00"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-mono font-bold"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono font-bold"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Purchase Notes / Remarks</label>
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">Purchase Notes / Remarks</label>
                 <textarea
                   rows={2}
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Additional terms or goods receiving notes..."
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-slate-200"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2"
                 />
               </div>
             </div>
 
             {/* Total Summary Breakdown */}
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 font-mono">
-              <div className="flex justify-between text-slate-400">
+            <div className="hv-elevated p-4 rounded-xl border border-[var(--border-primary)] space-y-2 font-mono">
+              <div className="flex justify-between text-[var(--text-muted)]">
                 <span>Subtotal (Net Cost):</span>
-                <span>{formatCurrency(subtotal, currency)}</span>
+                <span className="text-[var(--text-primary)]">{formatCurrency(subtotal, currency)}</span>
               </div>
 
               {gstActive && (
                 isInterState ? (
-                  <div className="flex justify-between text-slate-400">
+                  <div className="flex justify-between text-[var(--text-muted)]">
                     <span>IGST:</span>
-                    <span>{formatCurrency(igstAmount, currency)}</span>
+                    <span className="text-[var(--text-primary)]">{formatCurrency(igstAmount, currency)}</span>
                   </div>
                 ) : (
                   <>
-                    <div className="flex justify-between text-slate-400">
+                    <div className="flex justify-between text-[var(--text-muted)]">
                       <span>CGST:</span>
-                      <span>{formatCurrency(cgstAmount, currency)}</span>
+                      <span className="text-[var(--text-primary)]">{formatCurrency(cgstAmount, currency)}</span>
                     </div>
-                    <div className="flex justify-between text-slate-400">
+                    <div className="flex justify-between text-[var(--text-muted)]">
                       <span>SGST:</span>
-                      <span>{formatCurrency(sgstAmount, currency)}</span>
+                      <span className="text-[var(--text-primary)]">{formatCurrency(sgstAmount, currency)}</span>
                     </div>
                   </>
                 )
               )}
 
               {(showCess || totalCess > 0) && (
-                <div className="flex justify-between text-amber-300">
+                <div className="flex justify-between text-amber-500 font-semibold">
                   <span>Cess Total:</span>
                   <span>{formatCurrency(totalCess, currency)}</span>
                 </div>
               )}
 
               {/* Round Off Line */}
-              <div className="flex items-center justify-between text-slate-400">
+              <div className="flex items-center justify-between text-[var(--text-muted)]">
                 <span className="flex items-center gap-1.5">
                   <span>Round Off:</span>
                   <button
@@ -976,29 +976,29 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
                       const diff = Math.round((rounded - baseTotal) * 100) / 100;
                       setRoundOff(diff);
                     }}
-                    className="text-[10px] text-indigo-400 hover:text-indigo-300 underline font-sans"
+                    className="text-[10px] text-indigo-500 hover:underline font-sans font-semibold cursor-pointer"
                   >
                     (Auto)
                   </button>
                 </span>
                 <div className="flex items-center gap-1">
-                  <span className="text-xs text-slate-500">{currencySymbol}</span>
+                  <span className="text-xs text-[var(--text-muted)]">{currencySymbol}</span>
                   <input
                     type="number"
                     step="0.01"
                     value={roundOff}
                     onChange={(e) => setRoundOff(parseFloat(e.target.value) || 0)}
-                    className="w-20 bg-slate-900 border border-slate-700 focus:border-indigo-500 rounded px-1.5 py-0.5 text-right text-xs font-mono text-indigo-300"
+                    className="w-20 hv-input border border-[var(--border-subtle)] focus:border-indigo-500 rounded px-1.5 py-0.5 text-right text-xs font-mono text-indigo-500 font-bold"
                   />
                 </div>
               </div>
 
-              <div className="border-t border-slate-800 pt-2 flex justify-between text-base font-bold text-amber-400">
+              <div className="border-t border-[var(--border-primary)] pt-2 flex justify-between text-base font-bold text-amber-500">
                 <span>Grand Total:</span>
                 <span>{formatCurrency(grandTotal, currency)}</span>
               </div>
 
-              <div className="flex justify-between text-xs text-rose-400 pt-1">
+              <div className="flex justify-between text-xs text-rose-500 font-semibold pt-1">
                 <span>Balance Payable:</span>
                 <span>{formatCurrency(Math.max(0, grandTotal - amountPaid), currency)}</span>
               </div>
@@ -1006,17 +1006,17 @@ export const PurchaseBillModal: React.FC<PurchaseBillModalProps> = ({
           </div>
 
           {/* Modal Actions */}
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[var(--border-primary)]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl transition"
+              className="px-4 py-2.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-semibold rounded-xl transition cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold rounded-xl shadow-lg shadow-amber-600/30 flex items-center gap-2 transition"
+              className="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white hv-keep-white font-bold rounded-xl shadow-lg shadow-amber-600/30 flex items-center gap-2 transition cursor-pointer"
             >
               <CheckCircle2 className="w-4 h-4" />
               <span>{isHindi ? 'परचेज बिल सेव करें' : 'Save Purchase Bill'}</span>

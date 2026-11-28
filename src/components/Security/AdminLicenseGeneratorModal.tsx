@@ -352,21 +352,21 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
 
   return (
     <div className="fixed inset-0 z-[80] bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
-      <div className="bg-slate-900 border border-indigo-500/40 rounded-3xl w-full max-w-2xl my-auto shadow-2xl overflow-hidden text-slate-100">
+      <div className="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-3xl w-full max-w-2xl my-auto shadow-2xl overflow-hidden text-[var(--text-primary)]">
         {/* Header */}
-        <div className="bg-gradient-to-r from-slate-950 via-indigo-950/70 to-slate-950 px-5 py-4 border-b border-slate-800 flex items-center justify-between gap-3">
+        <div className="bg-[var(--bg-elevated)] px-5 py-4 border-b border-[var(--border-primary)] flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center text-indigo-300">
+            <div className="w-10 h-10 rounded-2xl hv-pill-indigo border flex items-center justify-center">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-extrabold text-white flex items-center gap-2">
+              <h2 className="text-base font-extrabold text-[var(--text-primary)] flex items-center gap-2">
                 <span>Super Admin License Generator</span>
-                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-full hv-pill-emerald border">
                   Web Admin Only
                 </span>
               </h2>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[var(--text-muted)]">
                 Ed25519 Offline-Verified Dual-Layer Licensing (HV-LIC-V3 + ACT-XXXX-XXXX)
               </p>
             </div>
@@ -377,7 +377,7 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
               <button
                 type="button"
                 onClick={handleLockGenerator}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 text-rose-300 text-xs font-bold transition cursor-pointer"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl hv-pill-rose border text-xs font-bold transition cursor-pointer"
                 title="Clear private key from memory & sessionStorage"
               >
                 <Lock className="w-3.5 h-3.5" />
@@ -387,7 +387,7 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
             <button
               type="button"
               onClick={onClose}
-              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition cursor-pointer"
+              className="p-2 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-muted)] hover:text-[var(--text-primary)] transition cursor-pointer"
               aria-label="Close"
             >
               <X className="w-4 h-4" />
@@ -399,18 +399,18 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
           {!unlockedKeyPair ? (
             /* STEP 1: STRICT PRIVATE KEY UNLOCK GATE */
             <form onSubmit={handleUnlock} className="space-y-4">
-              <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-4 text-xs text-amber-200 space-y-1.5">
-                <div className="font-bold flex items-center gap-2 text-amber-300">
+              <div className="hv-pill-amber border rounded-2xl p-4 text-xs space-y-1.5">
+                <div className="font-bold flex items-center gap-2">
                   <Lock className="w-4 h-4" />
                   <span>Master Signing Key Required (Zero Keys Stored in Code)</span>
                 </div>
-                <p className="text-amber-100/80 leading-relaxed">
-                  Paste your existing Ed25519 <code className="font-mono text-amber-300">LICENSE_PRIVATE_KEY</code> that matches this app&apos;s verified Public Key (<code className="font-mono text-[11px] break-all">{expectedPublicKeyB64}</code>).
+                <p className="text-[var(--text-secondary)] leading-relaxed">
+                  Paste your existing Ed25519 <code className="font-mono font-bold">LICENSE_PRIVATE_KEY</code> that matches this app&apos;s verified Public Key (<code className="font-mono text-[11px] break-all">{expectedPublicKeyB64}</code>).
                 </p>
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1.5">
+                <label className="block text-xs font-bold text-[var(--text-secondary)] mb-1.5">
                   Master LICENSE_PRIVATE_KEY (Base64 / Hex)
                 </label>
                 <div className="relative">
@@ -422,14 +422,14 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
                       setUnlockError('');
                     }}
                     placeholder="Paste your 64-byte or 32-byte Ed25519 Private Key..."
-                    className="w-full bg-slate-950 border border-slate-700 focus:border-indigo-500 rounded-xl px-3.5 py-2.5 pr-10 text-xs font-mono text-white outline-none"
+                    className="w-full hv-input border rounded-xl px-3.5 py-2.5 pr-10 text-xs font-mono outline-none focus:border-indigo-500"
                     autoComplete="off"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPrivateKey((prev) => !prev)}
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white p-1 cursor-pointer"
+                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 cursor-pointer"
                     title={showPrivateKey ? 'Hide key' : 'Show key'}
                   >
                     {showPrivateKey ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -437,26 +437,26 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
                 </div>
               </div>
 
-              <label className="flex items-center gap-2.5 text-xs text-slate-300 cursor-pointer select-none">
+              <label className="flex items-center gap-2.5 text-xs text-[var(--text-secondary)] cursor-pointer select-none">
                 <input
                   type="checkbox"
                   checked={rememberInSession}
                   onChange={(e) => setRememberInSession(e.target.checked)}
-                  className="rounded border-slate-600 bg-slate-950 text-indigo-500"
+                  className="rounded border-[var(--border-subtle)] text-indigo-500"
                 />
-                <span>Remember in <code className="font-mono text-indigo-300">sessionStorage</code> only until this browser tab closes</span>
+                <span>Remember in <code className="font-mono text-indigo-500 font-bold">sessionStorage</code> only until this browser tab closes</span>
               </label>
 
               {unlockError && (
-                <div className="flex items-start gap-2 bg-rose-500/15 border border-rose-500/40 rounded-xl p-3 text-xs text-rose-200">
-                  <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                <div className="flex items-start gap-2 hv-pill-rose border rounded-xl p-3 text-xs">
+                  <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
                   <span>{unlockError}</span>
                 </div>
               )}
 
               <button
                 type="submit"
-                className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold py-2.5 px-4 rounded-xl text-sm shadow-lg shadow-indigo-600/30 transition cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-extrabold py-2.5 px-4 rounded-xl text-sm shadow-lg shadow-indigo-600/30 transition cursor-pointer"
               >
                 <Unlock className="w-4 h-4" />
                 <span>Verify Key &amp; Unlock License Generator</span>
@@ -465,20 +465,20 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
           ) : (
             /* STEP 2: UNLOCKED LICENSE GENERATION FORM */
             <div className="space-y-5">
-              <div className="flex items-center justify-between bg-emerald-500/10 border border-emerald-500/30 rounded-xl px-3.5 py-2 text-xs text-emerald-300">
+              <div className="flex items-center justify-between hv-pill-emerald border rounded-xl px-3.5 py-2 text-xs">
                 <span className="flex items-center gap-2 font-bold">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4" />
                   <span>Signing Key Verified Against Public Key</span>
                 </span>
-                <span className="font-mono text-[10px] text-emerald-200/80 hidden sm:inline">
+                <span className="font-mono text-[10px] hidden sm:inline">
                   {expectedPublicKeyB64.slice(0, 14)}...
                 </span>
               </div>
 
               <form onSubmit={handleGenerateLicense} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1.5 flex items-center gap-1.5">
-                    <Cpu className="w-3.5 h-3.5 text-indigo-400" />
+                  <label className="block text-xs font-bold text-[var(--text-secondary)] mb-1.5 flex items-center gap-1.5">
+                    <Cpu className="w-3.5 h-3.5 text-indigo-500" />
                     <span>Customer Hardware Machine ID (HV-HWID-...)</span>
                   </label>
                   <div className="flex gap-2">
@@ -490,15 +490,15 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
                         setFormError('');
                       }}
                       placeholder="HV-HWID-..."
-                      className="flex-1 bg-slate-950 border border-slate-700 focus:border-indigo-500 rounded-xl px-3.5 py-2.5 text-xs font-mono text-white outline-none"
+                      className="flex-1 hv-input border focus:border-indigo-500 rounded-xl px-3.5 py-2.5 text-xs font-mono outline-none"
                       required
                     />
                     <button
                       type="button"
                       onClick={handlePasteHwid}
-                      className="flex items-center gap-1.5 px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-xl text-xs font-bold text-slate-200 transition cursor-pointer shrink-0"
+                      className="flex items-center gap-1.5 px-3 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] rounded-xl text-xs font-bold text-[var(--text-primary)] transition cursor-pointer shrink-0"
                     >
-                      <ClipboardPaste className="w-3.5 h-3.5 text-indigo-400" />
+                      <ClipboardPaste className="w-3.5 h-3.5 text-indigo-500" />
                       <span>Paste</span>
                     </button>
                   </div>
@@ -506,8 +506,8 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1.5 flex items-center gap-1.5">
-                      <Building2 className="w-3.5 h-3.5 text-indigo-400" />
+                    <label className="block text-xs font-bold text-[var(--text-secondary)] mb-1.5 flex items-center gap-1.5">
+                      <Building2 className="w-3.5 h-3.5 text-indigo-500" />
                       <span>Registered Owner / Company Name</span>
                     </label>
                     <input
@@ -518,14 +518,14 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
                         setFormError('');
                       }}
                       placeholder="e.g., Sharma Traders Pvt Ltd"
-                      className="w-full bg-slate-950 border border-slate-700 focus:border-indigo-500 rounded-xl px-3.5 py-2.5 text-xs text-white outline-none"
+                      className="w-full hv-input border focus:border-indigo-500 rounded-xl px-3.5 py-2.5 text-xs outline-none"
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-1.5 flex items-center gap-1.5">
-                      <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                    <label className="block text-xs font-bold text-[var(--text-secondary)] mb-1.5 flex items-center gap-1.5">
+                      <MessageCircle className="w-3.5 h-3.5 text-emerald-500" />
                       <span>Customer WhatsApp Number (Optional)</span>
                     </label>
                     <input
@@ -533,14 +533,14 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
                       value={whatsappNumber}
                       onChange={(e) => setWhatsappNumber(e.target.value)}
                       placeholder="e.g., 919876543210"
-                      className="w-full bg-slate-950 border border-slate-700 focus:border-emerald-500 rounded-xl px-3.5 py-2.5 text-xs font-mono text-white outline-none"
+                      className="w-full hv-input border focus:border-emerald-500 rounded-xl px-3.5 py-2.5 text-xs font-mono outline-none"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-2 flex items-center gap-1.5">
-                    <CalendarClock className="w-3.5 h-3.5 text-amber-400" />
+                  <label className="block text-xs font-bold text-[var(--text-secondary)] mb-2 flex items-center gap-1.5">
+                    <CalendarClock className="w-3.5 h-3.5 text-amber-500" />
                     <span>Plan Validity</span>
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
@@ -557,8 +557,8 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
                           key={opt.id}
                           className={`flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl border text-xs cursor-pointer transition ${
                             selected
-                              ? 'bg-indigo-600/20 border-indigo-400 text-white font-bold shadow-sm'
-                              : 'bg-slate-950 border-slate-700/80 text-slate-300 hover:border-slate-600'
+                              ? 'hv-pill-indigo font-bold shadow-sm'
+                              : 'bg-[var(--bg-elevated)] border-[var(--border-primary)] text-[var(--text-secondary)] hover:border-[var(--border-subtle)]'
                           }`}
                         >
                           <input
@@ -569,8 +569,8 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
                             className="text-indigo-500"
                           />
                           <div>
-                            <div className="leading-tight">{opt.title}</div>
-                            <div className="text-[10px] text-slate-400 font-normal">{opt.sub}</div>
+                            <div className="leading-tight text-[var(--text-primary)]">{opt.title}</div>
+                            <div className="text-[10px] text-[var(--text-muted)] font-normal">{opt.sub}</div>
                           </div>
                         </label>
                       );
@@ -579,15 +579,15 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
                 </div>
 
                 {formError && (
-                  <div className="flex items-start gap-2 bg-rose-500/15 border border-rose-500/40 rounded-xl p-3 text-xs text-rose-200">
-                    <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                  <div className="flex items-start gap-2 hv-pill-rose border rounded-xl p-3 text-xs">
+                    <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
                     <span>{formError}</span>
                   </div>
                 )}
 
                 <button
                   type="submit"
-                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-extrabold py-3 px-4 rounded-xl text-sm shadow-lg shadow-indigo-600/30 transition cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white hv-keep-white font-extrabold py-3 px-4 rounded-xl text-sm shadow-lg shadow-indigo-600/30 transition cursor-pointer"
                 >
                   <Sparkles className="w-4 h-4" />
                   <span>Generate Signed Certificate &amp; Activation Code</span>
@@ -595,18 +595,18 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
               </form>
 
               {generated && (
-                <div className="bg-slate-950 border border-emerald-500/40 rounded-2xl p-4 space-y-4">
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-2.5">
+                <div className="bg-[var(--bg-elevated)] border border-emerald-500/40 rounded-2xl p-4 space-y-4">
+                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border-primary)] pb-2.5">
                     <div>
-                      <div className="text-xs font-extrabold text-emerald-300 flex items-center gap-1.5">
+                      <div className="text-xs font-extrabold text-emerald-500 flex items-center gap-1.5">
                         <KeyRound className="w-4 h-4" />
                         <span>License Issued for {generated.clientName}</span>
                       </div>
-                      <div className="text-[11px] text-slate-400">
+                      <div className="text-[11px] text-[var(--text-muted)]">
                         {generated.planLabel} · Serial: <span className="font-mono">{generated.licenseId}</span>
                       </div>
                     </div>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded hv-pill-emerald border">
                       Valid Until: {generated.expiryLabel}
                     </span>
                   </div>
@@ -614,19 +614,19 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
                   {/* Certificate Box */}
                   <div className="space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-bold text-slate-300">
+                      <span className="text-[11px] font-bold text-[var(--text-secondary)]">
                         1. Signed License Certificate (HV-LIC-V3)
                       </span>
                       <button
                         type="button"
                         onClick={() => handleCopy(generated.certificate, 'cert')}
-                        className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-indigo-300 transition cursor-pointer"
+                        className="flex items-center gap-1 px-2.5 py-1 rounded-lg hv-pill-indigo border text-[11px] font-bold transition cursor-pointer"
                       >
-                        {copiedTarget === 'cert' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                        {copiedTarget === 'cert' ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                         <span>{copiedTarget === 'cert' ? 'Copied' : 'Copy Certificate'}</span>
                       </button>
                     </div>
-                    <div className="bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-[11px] font-mono text-indigo-200 break-all max-h-24 overflow-y-auto select-all">
+                    <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-xl p-2.5 text-[11px] font-mono text-[var(--text-primary)] break-all max-h-24 overflow-y-auto select-all">
                       {generated.certificate}
                     </div>
                   </div>
@@ -634,19 +634,19 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
                   {/* Activation Code Box */}
                   <div className="space-y-1.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-bold text-slate-300">
+                      <span className="text-[11px] font-bold text-[var(--text-secondary)]">
                         2. Unique Single-Use Activation Code (ACT-XXXX-XXXX)
                       </span>
                       <button
                         type="button"
                         onClick={() => handleCopy(generated.activationCode, 'code')}
-                        className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] font-bold text-emerald-300 transition cursor-pointer"
+                        className="flex items-center gap-1 px-2.5 py-1 rounded-lg hv-pill-emerald border text-[11px] font-bold transition cursor-pointer"
                       >
-                        {copiedTarget === 'code' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                        {copiedTarget === 'code' ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                         <span>{copiedTarget === 'code' ? 'Copied' : 'Copy Code'}</span>
                       </button>
                     </div>
-                    <div className="bg-slate-900 border border-emerald-500/30 rounded-xl px-3.5 py-2.5 text-base font-mono font-extrabold tracking-widest text-emerald-300 select-all">
+                    <div className="bg-[var(--bg-surface)] border border-emerald-500/40 rounded-xl px-3.5 py-2.5 text-base font-mono font-extrabold tracking-widest text-emerald-500 select-all">
                       {generated.activationCode}
                     </div>
                   </div>
@@ -656,9 +656,9 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
                     <button
                       type="button"
                       onClick={() => handleCopy(buildCustomerDeliveryMessage(generated), 'msg')}
-                      className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-xs font-extrabold transition cursor-pointer"
+                      className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] text-xs font-extrabold transition cursor-pointer"
                     >
-                      {copiedTarget === 'msg' ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-indigo-400" />}
+                      {copiedTarget === 'msg' ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-indigo-500" />}
                       <span>{copiedTarget === 'msg' ? 'Message Copied!' : 'Copy Formatted Message'}</span>
                     </button>
 
@@ -666,7 +666,7 @@ export const AdminLicenseGeneratorModal: React.FC<AdminLicenseGeneratorModalProp
                       href={whatsAppHref}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold shadow-lg shadow-emerald-600/25 transition"
+                      className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white text-xs font-extrabold shadow-lg shadow-emerald-600/25 transition"
                     >
                       <MessageCircle className="w-4 h-4" />
                       <span>Send Directly on WhatsApp</span>

@@ -314,7 +314,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       categoryLabelHindi: 'टूल्स व सेटिंग्स (Tools & Settings)',
       categoryLabelEng: 'Tools & Settings',
       icon: Settings,
-      iconColor: 'text-slate-400',
+      iconColor: 'text-slate-200',
       badge: null
     }
   ];
@@ -348,10 +348,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <>
       {/* 1. MOBILE TOP APP BAR (Visible on mobile screens < md) */}
-      <div className="flex md:hidden items-center justify-between px-3.5 py-2.5 border-b border-slate-800 bg-slate-900/95 backdrop-blur-md shrink-0 w-full z-20">
+      <div className="flex md:hidden items-center justify-between px-3.5 py-2.5 border-b border-[var(--border-primary)] bg-[var(--bg-header)] backdrop-blur-md shrink-0 w-full z-20">
         <div className="flex items-center gap-2.5 min-w-0">
           <SnaLogo size="sm" showText={false} />
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-slate-800/90 border border-slate-700/80 rounded-xl text-sm font-bold text-slate-100 truncate max-w-[190px] shadow-sm">
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-xl text-sm font-bold text-[var(--text-primary)] truncate max-w-[190px] shadow-sm">
             <CurrentIcon className={`w-4 h-4 ${currentItem.iconColor} shrink-0`} />
             <span className="truncate">{currentItem.label}</span>
           </div>
@@ -360,24 +360,24 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <button
           type="button"
           onClick={() => setMenuOpen(true)}
-          className="flex items-center gap-1.5 mirror-btn hover:mirror-btn text-white px-3.5 py-2 rounded-xl text-sm font-bold shadow-md transition cursor-pointer shrink-0"
+          className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white px-3.5 py-2 rounded-xl text-sm font-bold shadow-md border border-indigo-400/50 transition cursor-pointer shrink-0"
         >
-          <Menu className="w-4 h-4 text-indigo-400" />
+          <Menu className="w-4 h-4 text-amber-200" />
           <span>{isHindi ? 'सभी मेनू' : 'All Menus'}</span>
           {totalAlerts > 0 && (
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-400 ring-2 ring-indigo-900" />
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-300 ring-2 ring-indigo-900" />
           )}
         </button>
       </div>
 
       {/* 2. MOBILE FULL-SCREEN NAVIGATION MODAL DRAWER */}
       {isMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-50 flex flex-col bg-slate-950/98 backdrop-blur-2xl text-slate-100 animate-fadeIn">
+        <div className="hv-sidebar md:hidden fixed inset-0 z-50 flex flex-col backdrop-blur-2xl animate-fadeIn">
           {/* Drawer Header */}
-          <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-900/90 shrink-0">
+          <div className="hv-sidebar-card flex items-center justify-between p-4 border-b shrink-0">
             <div className="flex items-center gap-2.5">
               <SnaLogo size="sm" showText={true} />
-              <span className="text-xs bg-indigo-500/20 text-indigo-300 font-bold px-2.5 py-0.5 rounded-full border border-indigo-500/30">
+              <span className="text-xs bg-indigo-500/25 text-indigo-200 font-bold px-2.5 py-0.5 rounded-full border border-indigo-400/40">
                 ERP Navigator
               </span>
             </div>
@@ -388,7 +388,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 setMenuOpen(false);
                 setMenuSearch('');
               }}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white rounded-xl text-sm font-bold border border-slate-700 transition cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-[var(--bg-sidebar-btn)] hover:bg-[var(--bg-sidebar-btn-hover)] text-white rounded-xl text-sm font-bold border border-[var(--border-sidebar)] transition cursor-pointer"
             >
               <X className="w-4 h-4 text-rose-400" />
               <span>{isHindi ? 'बंद करें' : 'Close'}</span>
@@ -396,21 +396,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
 
           {/* Quick Search inside Drawer */}
-          <div className="p-3.5 border-b border-slate-800/80 bg-slate-900/50 shrink-0">
+          <div className="p-3.5 border-b border-[var(--border-sidebar)] bg-[var(--bg-sidebar-card)] shrink-0">
             <div className="relative flex items-center">
-              <Search className="w-4 h-4 text-slate-400 absolute left-3.5 pointer-events-none" />
+              <Search className="w-4 h-4 text-slate-200 absolute left-3.5 pointer-events-none" />
               <input
                 type="text"
                 value={menuSearch}
                 onChange={(e) => setMenuSearch(e.target.value)}
                 placeholder={isHindi ? 'मेनू खोजें (जैसे: सेल, खरीद, स्टॉक, जीएसटी)...' : 'Search module (e.g. Sales, Stock, Tax)...'}
-                className="w-full bg-slate-900 text-slate-100 placeholder-slate-400 text-sm rounded-xl pl-10 pr-9 py-2.5 border border-slate-700 focus:outline-none focus:border-indigo-500"
+                className="w-full bg-[var(--bg-sidebar)] text-white text-sm rounded-xl pl-10 pr-9 py-2.5 border border-[var(--border-sidebar)] focus:outline-none focus:border-indigo-400"
               />
               {menuSearch && (
                 <button
                   type="button"
                   onClick={() => setMenuSearch('')}
-                  className="absolute right-3 text-slate-400 hover:text-white p-1 cursor-pointer"
+                  className="absolute right-3 text-slate-200 hover:text-white p-1 cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -423,9 +423,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
             className="flex-1 min-h-0 overflow-y-auto overscroll-contain p-3.5 space-y-2 pb-28 touch-pan-y"
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
-            <div className="text-xs font-bold uppercase tracking-wider text-slate-400 px-2 py-1 flex items-center justify-between">
+            <div className="text-xs font-bold uppercase tracking-wider text-[var(--text-sidebar-muted)] px-2 py-1 flex items-center justify-between">
               <span>{isHindi ? 'सभी सॉफ्टवेयर मॉड्यूल' : 'All ERP Modules'}</span>
-              <span className="text-indigo-400 font-mono">({filteredItems.length})</span>
+              <span className="text-indigo-300 font-mono">({filteredItems.length})</span>
             </div>
 
             {filteredItems.map((item) => {
@@ -438,23 +438,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   className={`w-full flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-semibold transition-all cursor-pointer ${
                     isActive
                       ? 'mirror-btn-active'
-                      : 'mirror-btn text-slate-200'
+                      : 'mirror-btn text-white'
                   }`}
                 >
                   <div className="flex items-center gap-3 truncate">
                     <div className={`p-2.5 rounded-xl shrink-0 ${
                       isActive 
                         ? 'bg-white/25 text-white shadow-inner' 
-                        : 'bg-slate-800/80 border border-slate-700/80 ' + item.iconColor
+                        : 'bg-white/10 border border-white/15 ' + item.iconColor
                     }`}>
                       <Icon className="w-4.5 h-4.5" />
                     </div>
-                    <span className="truncate text-sm font-bold">{item.label}</span>
+                    <span className="truncate text-sm font-bold text-white">{item.label}</span>
                   </div>
 
                   <div className="flex items-center gap-2 shrink-0">
                     {item.badge && (
-                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full border ${item.badgeColor || 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30'}`}>
+                      <span className={`text-xs font-bold px-2 py-0.5 rounded-full border ${item.badgeColor || 'bg-indigo-500/25 text-indigo-200 border-indigo-400/40'}`}>
                         {item.badge}
                       </span>
                     )}
@@ -465,19 +465,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
             })}
 
             {filteredItems.length === 0 && (
-              <div className="text-center py-10 text-slate-400 text-sm">
+              <div className="text-center py-10 text-[var(--text-sidebar-muted)] text-sm">
                 {isHindi ? `"${menuSearch}" के नाम से कोई मेनू नहीं मिला` : `No menu matches "${menuSearch}"`}
               </div>
             )}
           </div>
 
           {/* Drawer Footer */}
-          <div className="p-3.5 border-t border-slate-800 text-xs text-slate-400 text-center bg-slate-900/90 shrink-0">
+          <div className="hv-sidebar-card p-3.5 border-t text-xs text-center shrink-0">
             <p className="font-bold text-amber-300 flex items-center justify-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-300" />
               <span>Hisabveda Enterprise ERP</span>
             </p>
-            <p className="text-emerald-400 text-xs mt-0.5">
+            <p className="text-emerald-300 text-xs mt-0.5 font-medium">
               {isHindi ? '● मल्टी-सिस्टम क्लाउड लाइव सिंक सक्रिय' : '● Multi-System Cloud Live Sync Active'}
             </p>
           </div>
@@ -485,23 +485,23 @@ export const Sidebar: React.FC<SidebarProps> = ({
       )}
 
       {/* 3. DESKTOP PERMANENT SIDEBAR (Visible on md+ screens) */}
-      <aside className="hidden md:flex md:w-56 lg:w-60 xl:w-64 bg-slate-900/95 backdrop-blur-xl border-r border-slate-800 text-slate-200 flex-col shrink-0 h-full min-h-0 overflow-hidden shadow-2xl">
+      <aside className="hv-sidebar hidden md:flex md:w-56 lg:w-60 xl:w-64 backdrop-blur-xl border-r flex-col shrink-0 h-full min-h-0 overflow-hidden shadow-2xl">
         {/* Quick Menu Filter on Desktop */}
-        <div className="px-2.5 py-2 border-b border-slate-800/80 bg-slate-950/40 shrink-0">
+        <div className="hv-sidebar-card px-2.5 py-2 border-b shrink-0">
           <div className="relative flex items-center">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" />
+            <Search className="w-3.5 h-3.5 text-slate-200 absolute left-2.5 pointer-events-none" />
             <input
               type="text"
               value={menuSearch}
               onChange={(e) => setMenuSearch(e.target.value)}
               placeholder={isHindi ? 'मेनू खोजें...' : 'Quick menu search...'}
-              className="w-full bg-slate-950/80 text-slate-100 placeholder-slate-400 text-xs rounded-lg pl-8 pr-6 py-1.5 border border-slate-800 focus:outline-none focus:border-indigo-500"
+              className="w-full bg-[var(--bg-sidebar)] text-white text-xs rounded-lg pl-8 pr-6 py-1.5 border border-[var(--border-sidebar)] focus:outline-none focus:border-indigo-400"
             />
             {menuSearch && (
               <button
                 type="button"
                 onClick={() => setMenuSearch('')}
-                className="absolute right-2 text-slate-400 hover:text-white p-0.5 cursor-pointer"
+                className="absolute right-2 text-slate-200 hover:text-white p-0.5 cursor-pointer"
               >
                 <X className="w-3 h-3" />
               </button>
@@ -522,7 +522,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
                   className={`w-full flex items-center justify-between gap-1.5 px-2.5 py-1.5 rounded-xl text-[12.5px] font-semibold transition-all cursor-pointer ${
                     isActive
                       ? 'mirror-btn-active font-bold'
-                      : 'mirror-btn text-slate-200 hover:text-white'
+                      : 'mirror-btn text-white hover:text-white'
                   }`}
                   title={item.label}
                 >
@@ -530,16 +530,16 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     <div className={`p-1.5 rounded-lg shrink-0 ${
                       isActive 
                         ? 'bg-white/20 text-white' 
-                        : 'bg-slate-800/80 border border-slate-700/60 ' + item.iconColor
+                        : 'bg-white/10 border border-white/15 ' + item.iconColor
                     }`}>
                       <Icon className="w-3.5 h-3.5" />
                     </div>
-                    <span className="truncate">{item.label}</span>
+                    <span className="truncate text-white">{item.label}</span>
                   </div>
 
                   {item.badge && (
                     <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full border shrink-0 whitespace-nowrap ${
-                      item.badgeColor || 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30'
+                      item.badgeColor || 'bg-indigo-500/25 text-indigo-200 border-indigo-400/40'
                     }`}>
                       {item.badge}
                     </span>
@@ -549,26 +549,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
             })}
 
             {filteredItems.length === 0 && (
-              <div className="text-center py-8 text-slate-400 text-xs">
+              <div className="text-center py-8 text-[var(--text-sidebar-muted)] text-xs">
                 {isHindi ? `"${menuSearch}" के नाम से कोई मेनू नहीं` : `No menu matches "${menuSearch}"`}
               </div>
             )}
           </nav>
 
           {/* Desktop Footer Badge + Quick Modules Switcher */}
-          <div className="p-2.5 border-t border-slate-800 text-[11px] text-slate-400 text-center bg-slate-950/50 shrink-0 space-y-1">
+          <div className="hv-sidebar-card p-2.5 border-t text-[11px] text-center shrink-0 space-y-1">
             {isOwner && onOpenAdminLicenseGenerator && (
               <button
                 type="button"
                 onClick={onOpenAdminLicenseGenerator}
-                className="w-full flex items-center justify-between px-2.5 py-2 rounded-xl bg-gradient-to-r from-amber-500/20 to-emerald-500/20 hover:from-amber-500/30 hover:to-emerald-500/30 border border-amber-500/40 text-amber-300 font-extrabold text-[11px] transition cursor-pointer shadow-sm mb-1"
+                className="w-full flex items-center justify-between px-2.5 py-2 rounded-xl bg-gradient-to-r from-amber-500/25 to-emerald-500/25 hover:from-amber-500/35 hover:to-emerald-500/35 border border-amber-400/50 text-amber-200 font-extrabold text-[11px] transition cursor-pointer shadow-sm mb-1"
                 title={isHindi ? 'सुपर एडमिन लाइसेंस जनरेटर खोलें' : 'Open Super Admin License Generator'}
               >
                 <span className="flex items-center gap-1.5">
-                  <KeyRound className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <KeyRound className="w-3.5 h-3.5 text-amber-300 shrink-0" />
                   <span>{isHindi ? 'लाइसेंस मैनेजर (एडमिन)' : 'License Manager (Admin)'}</span>
                 </span>
-                <span className="px-1.5 py-0.5 rounded bg-amber-500/30 text-amber-200 text-[9px] font-mono font-bold">
+                <span className="px-1.5 py-0.5 rounded bg-amber-500/35 text-amber-100 text-[9px] font-mono font-bold">
                   ADMIN
                 </span>
               </button>
@@ -577,17 +577,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <button
                 type="button"
                 onClick={onOpenFeaturesModal}
-                className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 font-bold text-[11px] transition cursor-pointer"
+                className="w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-400/40 text-cyan-200 font-bold text-[11px] transition cursor-pointer"
                 title={isHindi ? 'POS, बिना इन्वेंटरी अकाउंटिंग व अन्य मॉड्यूल ऑन/ऑफ करें' : 'Enable / Disable POS, Accounts-Only & ERP Modules'}
               >
                 <span className="flex items-center gap-1.5">
-                  <ToggleRight className="w-3.5 h-3.5 text-cyan-400" />
+                  <ToggleRight className="w-3.5 h-3.5 text-cyan-300" />
                   <span>{isHindi ? 'फीचर्स ऑन/ऑफ' : 'Modules On/Off'}</span>
                 </span>
                 <span className={`px-1.5 py-0.2 rounded text-[9px] font-mono font-extrabold ${
                   effectiveConfig.accountingWithoutInventory
-                    ? 'bg-amber-500/20 text-amber-300'
-                    : 'bg-emerald-500/20 text-emerald-300'
+                    ? 'bg-amber-500/25 text-amber-200'
+                    : 'bg-emerald-500/25 text-emerald-200'
                 }`}>
                   {effectiveConfig.accountingWithoutInventory ? 'ACC ONLY' : 'FULL ERP'}
                 </span>
@@ -597,19 +597,19 @@ export const Sidebar: React.FC<SidebarProps> = ({
               <span>Hisabveda ERP Software</span>
               <span
                 onClick={handleVersionBadgeClick}
-                className={`text-[10px] font-mono px-1.5 py-0.2 rounded bg-slate-800/90 border border-slate-700 text-slate-300 ${
-                  onOpenAdminLicenseGenerator ? 'cursor-pointer select-none hover:border-indigo-500/40' : ''
+                className={`text-[10px] font-mono px-1.5 py-0.2 rounded bg-white/10 border border-white/20 text-white ${
+                  onOpenAdminLicenseGenerator ? 'cursor-pointer select-none hover:border-indigo-400' : ''
                 }`}
               >
                 {softwareVersion || 'v2.4.2'}
               </span>
             </p>
             <div className="flex items-center justify-center">
-              <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded border ${roleMeta.badgeColor}`}>
+              <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded border bg-indigo-500/25 text-indigo-100 border-indigo-400/45">
                 {normalizedRole}
               </span>
             </div>
-            <p className="text-emerald-400 flex items-center justify-center gap-1 font-medium text-[11px]">
+            <p className="text-emerald-300 flex items-center justify-center gap-1 font-medium text-[11px]">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
               <span>{isHindi ? 'मल्टी-सिस्टम क्लाउड सिंक ऑन' : 'Multi-System Cloud Sync Active'}</span>
             </p>

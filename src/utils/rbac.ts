@@ -43,7 +43,7 @@ export const ROLE_METADATA: Record<UserRole, RoleMeta> = {
     role: 'ADMIN',
     labelEn: 'Administrator (Full Control)',
     labelHi: 'व्यवस्थापक (पूर्ण अधिकार)',
-    badgeColor: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/40',
+    badgeColor: 'hv-pill-indigo',
     summaryEn: 'Full access: companies, users, Master PIN, imports, deletions & settings.',
     summaryHi: 'सभी अधिकार: कंपनी, उपयोगकर्ता, मास्टर पिन, इम्पोर्ट, डिलीट एवं सेटिंग्स।'
   },
@@ -51,7 +51,7 @@ export const ROLE_METADATA: Record<UserRole, RoleMeta> = {
     role: 'MANAGER',
     labelEn: 'Operations Manager',
     labelHi: 'मैनेजर (प्रबंधन व संचालन)',
-    badgeColor: 'bg-sky-500/20 text-sky-300 border-sky-500/40',
+    badgeColor: 'hv-pill-sky',
     summaryEn: 'Billing, accounting, deletes, payroll, imports & company profile; cannot reset workspace or manage Admin PIN.',
     summaryHi: 'बिलिंग, खाते, डिलीट, पेरोल व इम्पोर्ट; वर्कस्पेस रीसेट व मास्टर पिन बदलाव निषिद्ध।'
   },
@@ -59,7 +59,7 @@ export const ROLE_METADATA: Record<UserRole, RoleMeta> = {
     role: 'ACCOUNTANT',
     labelEn: 'Senior Accountant',
     labelHi: 'सीनियर अकाउंटेंट',
-    badgeColor: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40',
+    badgeColor: 'hv-pill-emerald',
     summaryEn: 'Vouchers, purchases, GST, BRS, ledgers, ERP XML import & record edits/deletes; no user/PIN/company delete access.',
     summaryHi: 'वाउचर, खरीद, जीएसटी, बैंक मिलान, लेजर व XML इम्पोर्ट; यूज़र, पिन व कंपनी डिलीट वर्जित।'
   },
@@ -67,7 +67,7 @@ export const ROLE_METADATA: Record<UserRole, RoleMeta> = {
     role: 'BILLING',
     labelEn: 'Billing Operator (No Delete)',
     labelHi: 'बिलिंग ऑपरेटर (बिना डिलीट अधिकार)',
-    badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/40',
+    badgeColor: 'hv-pill-amber',
     summaryEn: 'Can create/edit Sales Invoices, receipts, Parties & Items. Strictly CANNOT delete records, edit ledgers, or access settings/imports.',
     summaryHi: 'केवल सेल इनवॉइस, रसीद, पार्टी व स्टॉक बना सकते हैं — कोई भी डेटा डिलीट या सेटिंग्स/लेजर बदलना सख्त वर्जित।'
   },
@@ -75,7 +75,7 @@ export const ROLE_METADATA: Record<UserRole, RoleMeta> = {
     role: 'AUDITOR',
     labelEn: 'Tax Auditor (Read-Only)',
     labelHi: 'टैक्स ऑडिटर (केवल देखने हेतु)',
-    badgeColor: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
+    badgeColor: 'hv-pill-purple',
     summaryEn: 'Read-only access to all books, GST, financial statements & audit trails with print/export. Zero write or delete access.',
     summaryHi: 'सभी खाते, GST, रिपोर्ट्स व ऑडिट लॉग केवल देख/प्रिंट कर सकते हैं। कोई बदलाव या डिलीट अनुमत नहीं।'
   },
@@ -83,7 +83,7 @@ export const ROLE_METADATA: Record<UserRole, RoleMeta> = {
     role: 'VIEWER',
     labelEn: 'Restricted Viewer (Read-Only)',
     labelHi: 'व्यूअर (सीमित पठन अधिकार)',
-    badgeColor: 'bg-slate-600/30 text-slate-300 border-slate-500/40',
+    badgeColor: 'hv-pill-slate',
     summaryEn: 'Basic read-only view of dashboard, invoices, parties, stock and statements. Cannot export, edit, delete, or view audit settings.',
     summaryHi: 'डैशबोर्ड, बिल, पार्टी व रिपोर्ट केवल देखने की अनुमति। एक्सपोर्ट, संपादन या डिलीट पूर्णतः बंद।'
   }

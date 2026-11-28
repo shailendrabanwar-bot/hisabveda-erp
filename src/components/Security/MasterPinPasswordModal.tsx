@@ -142,52 +142,52 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden text-slate-100 flex flex-col">
+      <div className="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-2xl w-full max-w-xl shadow-2xl overflow-hidden text-[var(--text-primary)] flex flex-col">
         {/* Header */}
-        <div className="p-4 bg-gradient-to-r from-slate-900 via-slate-800 to-amber-950/40 border-b border-slate-700 flex items-center justify-between">
+        <div className="p-4 bg-[var(--bg-elevated)] border-b border-[var(--border-primary)] flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+            <div className="w-9 h-9 rounded-xl hv-pill-amber border flex items-center justify-center">
               <KeyRound className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
+              <h3 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2">
                 {isHindi ? 'मास्टर सिक्योरिटी पिन बदलें' : 'Change Master Security PIN'}
               </h3>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[var(--text-muted)]">
                 {isHindi ? 'सॉफ़्टवेयर एक्सेस एवं स्क्रीन लॉक सुरक्षा पिन सेटिंग्स' : 'Manage application startup screen lock PIN security'}
               </p>
             </div>
           </div>
           <button 
             onClick={onClose} 
-            className="p-1.5 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition cursor-pointer"
+            className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-lg transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Current Security Overview Banner */}
-        <div className="p-4 bg-slate-800/60 border-b border-slate-700/80 flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="p-4 bg-[var(--bg-elevated)] border-b border-[var(--border-primary)] flex flex-wrap items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2.5">
-            <div className={`p-2 rounded-lg border ${pinRequired ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400' : 'bg-slate-800 border-slate-700 text-slate-400'}`}>
+            <div className={`p-2 rounded-lg border ${pinRequired ? 'hv-pill-emerald' : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-muted)]'}`}>
               {pinRequired ? <Lock className="w-4 h-4" /> : <Unlock className="w-4 h-4" />}
             </div>
             <div>
-              <div className="font-semibold text-slate-200 flex items-center gap-1.5">
+              <div className="font-semibold text-[var(--text-primary)] flex items-center gap-1.5">
                 <span>{isHindi ? 'वर्तमान मास्टर पिन स्थिति:' : 'Master PIN Lock:'}</span>
-                <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${pinRequired ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40' : 'bg-slate-700 text-slate-300'}`}>
+                <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${pinRequired ? 'hv-pill-emerald' : 'hv-pill-slate'}`}>
                   {pinRequired ? (isHindi ? 'सक्रिय (LOCKED)' : 'ENABLED') : (isHindi ? 'अक्षम (OFF)' : 'DISABLED')}
                 </span>
               </div>
-              <div className="text-[11px] text-slate-400 font-mono mt-0.5">
+              <div className="text-[11px] text-[var(--text-muted)] font-mono mt-0.5">
                 {isHindi ? 'लागू पिन: ' : 'Active PIN: '}
-                <span className="text-amber-400 font-bold tracking-widest">
+                <span className="text-amber-500 font-bold tracking-widest">
                   {showPin ? currentSavedPin : '••••'}
                 </span>
                 <button
                   type="button"
                   onClick={() => setShowPin(!showPin)}
-                  className="ml-2 text-[10px] text-slate-400 hover:text-amber-300 underline inline-flex items-center gap-0.5 cursor-pointer"
+                  className="ml-2 text-[10px] text-[var(--text-secondary)] hover:text-amber-500 underline inline-flex items-center gap-0.5 cursor-pointer"
                 >
                   {showPin ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
                   {showPin ? (isHindi ? 'छिपाएं' : 'Hide') : (isHindi ? 'देखें' : 'Show')}
@@ -201,7 +201,7 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
               <button
                 type="button"
                 onClick={handleResetToDefault}
-                className="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-amber-300 border border-slate-700 px-2.5 py-1 rounded-lg flex items-center gap-1 transition cursor-pointer"
+                className="text-[11px] bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] hover:text-amber-500 border border-[var(--border-subtle)] px-2.5 py-1 rounded-lg flex items-center gap-1 transition cursor-pointer"
                 title={isHindi ? 'मास्टर पिन हटाएं' : 'Clear Master PIN'}
               >
                 <RotateCcw className="w-3 h-3" />
@@ -214,8 +214,8 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
         {/* Modal Body */}
         <div className="p-5 space-y-4">
           {!rbac.canManageUsersAndPin ? (
-            <div className="p-5 rounded-xl bg-rose-950/60 border border-rose-500/40 text-rose-200 text-xs space-y-3 text-center">
-              <AlertTriangle className="w-8 h-8 text-rose-400 mx-auto" />
+            <div className="p-5 rounded-xl hv-pill-rose border text-xs space-y-3 text-center">
+              <AlertTriangle className="w-8 h-8 mx-auto" />
               <p className="font-bold">
                 {isHindi
                   ? 'अनुमति अस्वीकृत: केवल Administrator ही मास्टर सिक्योरिटी पिन बदल सकते हैं।'
@@ -224,7 +224,7 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl font-bold cursor-pointer"
+                className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] rounded-xl font-bold cursor-pointer"
               >
                 {isHindi ? 'बंद करें' : 'Close'}
               </button>
@@ -232,7 +232,7 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
           ) : (
             <>
           {confirmDefaultReset && (
-            <div className="p-3.5 rounded-xl bg-amber-950/70 border border-amber-500/50 text-amber-200 text-xs flex flex-wrap items-center justify-between gap-2">
+            <div className="p-3.5 rounded-xl hv-pill-amber border text-xs flex flex-wrap items-center justify-between gap-2">
               <span className="font-semibold">
                 {isHindi
                   ? 'क्या आप वाकई वर्तमान मास्टर पिन हटाना चाहते हैं?'
@@ -242,14 +242,14 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setConfirmDefaultReset(false)}
-                  className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold cursor-pointer"
+                  className="px-2.5 py-1 rounded-lg bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-semibold cursor-pointer"
                 >
                   {isHindi ? 'नहीं' : 'Cancel'}
                 </button>
                 <button
                   type="button"
                   onClick={confirmResetToDefaultNow}
-                  className="px-3 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold cursor-pointer"
+                  className="px-3 py-1 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold cursor-pointer"
                 >
                   {isHindi ? 'हाँ, रीसेट करें' : 'Confirm Reset'}
                 </button>
@@ -259,24 +259,24 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
 
           {/* Feedback Messages */}
           {errorMessage && (
-            <div className="p-3 rounded-xl bg-rose-950/60 border border-rose-500/50 text-rose-300 text-xs flex items-center gap-2">
+            <div className="p-3 rounded-xl hv-pill-rose border text-xs flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 shrink-0" />
               <span>{errorMessage}</span>
             </div>
           )}
 
           {successMessage && (
-            <div className="p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/50 text-emerald-300 text-xs flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+            <div className="p-3 rounded-xl hv-pill-emerald border text-xs flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>{successMessage}</span>
             </div>
           )}
 
           {/* MASTER PIN CHANGE */}
           <form onSubmit={handleSavePin} className="space-y-4">
-              <div className="bg-slate-800/50 p-3.5 rounded-xl border border-slate-700/70 space-y-2">
+              <div className="bg-[var(--bg-elevated)] p-3.5 rounded-xl border border-[var(--border-primary)] space-y-2">
                 <div className="flex items-center justify-between">
-                  <label htmlFor="pinLockToggle" className="text-xs font-semibold text-slate-200 flex items-center gap-2 cursor-pointer">
+                  <label htmlFor="pinLockToggle" className="text-xs font-semibold text-[var(--text-primary)] flex items-center gap-2 cursor-pointer">
                     <input
                       type="checkbox"
                       id="pinLockToggle"
@@ -286,11 +286,11 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
                     />
                     <span>{isHindi ? 'सॉफ्टवेयर शुरू होने पर मास्टर पिन लॉक सक्रिय रखें' : 'Require Master PIN Lock when opening the software'}</span>
                   </label>
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded ${pinRequired ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-700 text-slate-400'}`}>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${pinRequired ? 'hv-pill-emerald' : 'hv-pill-slate'}`}>
                     {pinRequired ? (isHindi ? 'सुरक्षा सक्रिय' : 'Protected') : (isHindi ? 'असुरक्षित' : 'Unlocked')}
                   </span>
                 </div>
-                <p className="text-[10px] text-slate-400 pl-6">
+                <p className="text-[10px] text-[var(--text-muted)] pl-6">
                   {isHindi 
                     ? 'यदि सक्षम है, तो सॉफ़्टवेयर खोलने पर यह सुरक्षा PIN दर्ज करना आवश्यक होगा।' 
                     : 'When enabled, users must enter this PIN code every time the application is opened.'}
@@ -302,7 +302,7 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
                 {currentSavedPin && (
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <label className="text-xs font-semibold text-slate-300">
+                      <label className="text-xs font-semibold text-[var(--text-secondary)]">
                         {isHindi ? 'वर्तमान मास्टर पिन (Current PIN) *' : 'Current Master PIN *'}
                       </label>
                     </div>
@@ -312,7 +312,7 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
                       value={currentPinInput}
                       onChange={(e) => setCurrentPinInput(e.target.value)}
                       placeholder={isHindi ? 'वर्तमान पिन दर्ज करें' : 'Enter current PIN'}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono tracking-widest text-sm focus:border-amber-500 focus:outline-none"
+                      className="w-full hv-input border rounded-xl px-3 py-2 font-mono tracking-widest text-sm focus:border-amber-500 focus:outline-none"
                       required
                     />
                   </div>
@@ -321,7 +321,7 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
                 {/* New PIN & Confirm PIN */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1">
                       {isHindi ? 'नया 4-6 अंकों का पिन *' : 'New Master PIN (4-6 digits) *'}
                     </label>
                     <div className="relative">
@@ -331,14 +331,14 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
                         value={newPin}
                         onChange={(e) => setNewPin(e.target.value)}
                         placeholder="••••"
-                        className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono tracking-widest text-sm focus:border-amber-500 focus:outline-none text-center"
+                        className="w-full hv-input border rounded-xl px-3 py-2 font-mono tracking-widest text-sm focus:border-amber-500 focus:outline-none text-center"
                         required
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1">
                       {isHindi ? 'नए पिन की पुष्टि करें (Confirm) *' : 'Confirm New PIN *'}
                     </label>
                     <div className="relative">
@@ -348,22 +348,22 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
                         value={confirmPin}
                         onChange={(e) => setConfirmPin(e.target.value)}
                         placeholder="••••"
-                        className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono tracking-widest text-sm focus:border-amber-500 focus:outline-none text-center"
+                        className="w-full hv-input border rounded-xl px-3 py-2 font-mono tracking-widest text-sm focus:border-amber-500 focus:outline-none text-center"
                         required
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-slate-800/40 p-2.5 rounded-xl border border-slate-700/50 flex flex-wrap items-center justify-between gap-2">
-                  <div className="text-[11px] text-slate-400 font-medium">
+                <div className="bg-[var(--bg-elevated)] p-2.5 rounded-xl border border-[var(--border-primary)] flex flex-wrap items-center justify-between gap-2">
+                  <div className="text-[11px] text-[var(--text-muted)] font-medium">
                     {isHindi ? 'सुरक्षित 6-अंकीय रैंडम PIN जनरेटर:' : 'Secure CSPRNG 6-Digit PIN Generator:'}
                   </div>
                   <div className="flex items-center gap-1.5 flex-wrap">
                     <button
                       type="button"
                       onClick={handleGenerateRandomPin}
-                      className="px-2.5 py-1 bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-[10px] font-bold rounded border border-amber-500/40 flex items-center gap-1 cursor-pointer"
+                      className="px-2.5 py-1 hv-pill-amber text-[10px] font-bold rounded border flex items-center gap-1 cursor-pointer"
                     >
                       <Sparkles className="w-2.5 h-2.5" />
                       <span>{isHindi ? 'सुरक्षित रैंडम पिन बनाएं' : 'Generate Strong Random PIN'}</span>
@@ -377,13 +377,13 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
                 <button
                   type="button"
                   onClick={onClose}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition cursor-pointer"
+                  className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] font-semibold text-xs rounded-xl transition cursor-pointer"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg shadow-amber-500/20 transition flex items-center gap-1.5 cursor-pointer"
+                  className="px-5 py-2 bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold text-xs rounded-xl shadow-lg shadow-amber-500/20 transition flex items-center gap-1.5 cursor-pointer"
                 >
                   <Save className="w-4 h-4" />
                   <span>{isHindi ? 'नया मास्टर पिन सहेजें' : 'Save Master PIN'}</span>
@@ -392,9 +392,9 @@ export const MasterPinPasswordModal: React.FC<MasterPinPasswordModalProps> = ({
             </form>
 
           {/* Security Standards Footer Info */}
-          <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-400">
+          <div className="pt-2 border-t border-[var(--border-primary)] flex items-center justify-between text-[10px] text-[var(--text-muted)]">
             <span className="flex items-center gap-1">
-              <Shield className="w-3 h-3 text-emerald-400" />
+              <Shield className="w-3 h-3 text-emerald-500" />
               <span>{isHindi ? '256-बिट लोकल एन्क्रिप्टेड स्टोरेज' : 'AES-256 Local Encrypted Storage'}</span>
             </span>
             <span>{isHindi ? 'सॉफ़्टवेयर बैकअप में सुरक्षित' : 'Backed up in JSON DB'}</span>

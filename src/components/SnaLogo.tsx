@@ -74,19 +74,19 @@ export const HisabvedaLogo: React.FC<HisabvedaLogoProps> = ({
       {showText && (
         <div className="flex flex-col leading-none">
           <div className="flex items-center gap-1">
-            <span className={`font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-500 ${dim.text} leading-tight`}>
+            <span className={`hv-logo-hisab font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-500 ${dim.text} leading-tight`}>
               HISAB
             </span>
-            <span className={`font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-500 ${dim.text} leading-tight`}>
+            <span className={`hv-logo-veda font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-500 ${dim.text} leading-tight`}>
               VEDA
             </span>
           </div>
           <div className="flex items-center gap-1.5 mt-0.5">
-            <span className={`font-bold tracking-widest uppercase text-amber-400/90 ${dim.sub}`}>
+            <span className={`hv-logo-sub font-bold tracking-widest uppercase text-amber-400 ${dim.sub}`}>
               हिसाबवेद
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-[9px] font-mono text-emerald-300 font-bold bg-emerald-500/15 px-1.5 py-0.5 rounded border border-emerald-500/40">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="hv-logo-badge text-[9px] font-mono text-emerald-300 font-bold bg-emerald-500/15 px-1.5 py-0.5 rounded border border-emerald-500/40">
               ERP v2.0
             </span>
           </div>

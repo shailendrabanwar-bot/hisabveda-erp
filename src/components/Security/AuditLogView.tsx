@@ -133,23 +133,23 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
   return (
     <div className="space-y-6">
       {/* Top Banner Header */}
-      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl">
+      <div className="hv-surface border rounded-2xl p-5 shadow-xl">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shadow-lg">
+            <div className="w-12 h-12 rounded-xl hv-pill-indigo border flex items-center justify-center shadow-sm">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl font-black text-slate-100 tracking-wide">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h2 className="text-xl font-black text-[var(--text-primary)] tracking-wide">
                   {isHindi ? 'ऑडिट लॉग एवं इतिहास (Audit Trail)' : 'Chronological Audit Trail & Log'}
                 </h2>
-                <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span className="hv-pill-emerald border text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                   {isHindi ? 'सक्रिय एनक्रिप्टेड ट्रैकिंग' : 'Active Immutable Logging'}
                 </span>
               </div>
-              <p className="text-xs text-slate-400 mt-1">
+              <p className="text-xs text-[var(--text-muted)] mt-1">
                 {isHindi 
                   ? 'इनवॉइस निर्माण, वाउचर संशोधन एवं सिस्टम बदलावों की पूरी समयबद्ध जवाबदेही' 
                   : 'Real-time chronological activity ledger for transaction creation, edits, deletions, and administrative actions.'}
@@ -161,7 +161,7 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
             {!perms.isReadOnly && (
               <button
                 onClick={() => setShowAddNoteModal(true)}
-                className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs px-3.5 py-2 rounded-xl transition shadow-md shadow-indigo-600/30"
+                className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-semibold text-xs px-3.5 py-2 rounded-xl transition shadow-md shadow-indigo-600/30 cursor-pointer"
               >
                 <PlusCircle className="w-4 h-4" />
                 <span>{isHindi ? 'मैनुअल ऑडिट नोट जोड़ें' : 'Add Audit Note'}</span>
@@ -171,9 +171,9 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
             {perms.canExportData && (
               <button
                 onClick={handleExportCSV}
-                className="flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-xs px-3.5 py-2 rounded-xl transition"
+                className="flex items-center gap-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-semibold text-xs px-3.5 py-2 rounded-xl transition cursor-pointer"
               >
-                <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+                <FileSpreadsheet className="w-4 h-4 text-emerald-500" />
                 <span>{isHindi ? 'CSV रिपोर्ट' : 'Export Audit CSV'}</span>
               </button>
             )}
@@ -181,47 +181,47 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
         </div>
 
         {exportNotice && (
-          <div className="mt-3 bg-amber-500/15 border border-amber-500/40 text-amber-200 text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between">
+          <div className="mt-3 hv-pill-amber border text-xs font-semibold px-3 py-2 rounded-xl flex items-center justify-between">
             <span>{exportNotice}</span>
-            <button type="button" onClick={() => setExportNotice(null)} className="text-amber-300 hover:text-white font-bold px-1">
+            <button type="button" onClick={() => setExportNotice(null)} className="font-bold px-1 cursor-pointer">
               ✕
             </button>
           </div>
         )}
 
         {/* Quick Stats Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5 pt-4 border-t border-slate-800">
-          <div className="bg-slate-950/60 border border-slate-800/80 p-3 rounded-xl">
-            <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-5 pt-4 border-t border-[var(--border-primary)]">
+          <div className="bg-[var(--bg-elevated)] border border-[var(--border-primary)] p-3 rounded-xl">
+            <p className="text-[10px] uppercase font-bold text-[var(--text-muted)] tracking-wider">
               {isHindi ? 'कुल रिकॉर्डेड घटनाएं' : 'Total Trail Entries'}
             </p>
-            <p className="text-lg font-black text-slate-100 mt-0.5">{auditList.length}</p>
+            <p className="text-lg font-black text-[var(--text-primary)] mt-0.5 tabular-nums">{auditList.length}</p>
           </div>
 
-          <div className="bg-slate-950/60 border border-slate-800/80 p-3 rounded-xl">
-            <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+          <div className="bg-[var(--bg-elevated)] border border-[var(--border-primary)] p-3 rounded-xl">
+            <p className="text-[10px] uppercase font-bold text-[var(--text-muted)] tracking-wider">
               {isHindi ? 'इनवॉइस एक्टिविटी' : 'Invoice Events'}
             </p>
-            <p className="text-lg font-black text-emerald-400 mt-0.5">
+            <p className="text-lg font-black text-emerald-500 mt-0.5 tabular-nums">
               {auditList.filter(l => l.action.toLowerCase().includes('invoice') || l.action.toLowerCase().includes('payment')).length}
             </p>
           </div>
 
-          <div className="bg-slate-950/60 border border-slate-800/80 p-3 rounded-xl">
-            <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+          <div className="bg-[var(--bg-elevated)] border border-[var(--border-primary)] p-3 rounded-xl">
+            <p className="text-[10px] uppercase font-bold text-[var(--text-muted)] tracking-wider">
               {isHindi ? 'वाउचर एवं लेजर पोस्टिंग' : 'Voucher Postings'}
             </p>
-            <p className="text-lg font-black text-indigo-400 mt-0.5">
+            <p className="text-lg font-black text-indigo-500 mt-0.5 tabular-nums">
               {auditList.filter(l => l.action.toLowerCase().includes('voucher')).length}
             </p>
           </div>
 
-          <div className="bg-slate-950/60 border border-slate-800/80 p-3 rounded-xl">
-            <p className="text-[10px] uppercase font-bold text-slate-400 tracking-wider">
+          <div className="bg-[var(--bg-elevated)] border border-[var(--border-primary)] p-3 rounded-xl">
+            <p className="text-[10px] uppercase font-bold text-[var(--text-muted)] tracking-wider">
               {isHindi ? 'ऑपरेटिंग यूज़र' : 'Active Audit User'}
             </p>
-            <p className="text-sm font-bold text-amber-300 mt-1 flex items-center gap-1.5">
-              <User className="w-3.5 h-3.5 text-amber-400" />
+            <p className="text-sm font-bold text-amber-500 mt-1 flex items-center gap-1.5">
+              <User className="w-3.5 h-3.5" />
               <span>Admin / Officer</span>
             </p>
           </div>
@@ -229,16 +229,16 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="hv-surface border rounded-2xl p-4 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-3">
         {/* Search Input */}
         <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+          <Search className="w-4 h-4 text-[var(--text-muted)] absolute left-3.5 top-3" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={isHindi ? 'एक्शन, यूज़र या विवरण खोजें...' : 'Search actions, details, user...'}
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition"
+            className="w-full hv-input border rounded-xl pl-9 pr-4 py-2 text-xs focus:outline-none focus:border-indigo-500 transition"
           />
         </div>
 
@@ -254,10 +254,10 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition cursor-pointer ${
                 selectedCategory === cat.id
-                  ? 'bg-indigo-600 text-white shadow-sm'
-                  : 'bg-slate-800/80 hover:bg-slate-800 text-slate-400 hover:text-slate-200'
+                  ? 'bg-indigo-600 text-white hv-keep-white shadow-sm'
+                  : 'bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-primary)]'
               }`}
             >
               {cat.label}
@@ -267,60 +267,60 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
       </div>
 
       {/* Chronological Audit Trail List / Table */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
-        <div className="p-4 border-b border-slate-800 flex items-center justify-between bg-slate-950/40">
+      <div className="hv-surface border rounded-2xl shadow-xl overflow-hidden">
+        <div className="p-4 border-b border-[var(--border-primary)] flex items-center justify-between bg-[var(--bg-elevated)]">
           <div className="flex items-center gap-2">
-            <History className="w-4 h-4 text-indigo-400" />
-            <h3 className="font-bold text-sm text-slate-200">
+            <History className="w-4 h-4 text-indigo-500" />
+            <h3 className="font-bold text-sm text-[var(--text-primary)]">
               {isHindi ? 'कालानुक्रमिक ऑडिट इतिहास' : 'Chronological Audit Ledger'}
             </h3>
-            <span className="text-xs text-slate-400">({filteredLogs.length} entries)</span>
+            <span className="text-xs text-[var(--text-muted)] tabular-nums">({filteredLogs.length} entries)</span>
           </div>
 
-          <span className="text-[11px] text-slate-500 font-mono">
+          <span className="text-[11px] text-[var(--text-muted)] font-mono">
             {isHindi ? 'नवीनतम पहले' : 'Sorted: Newest First'}
           </span>
         </div>
 
         {filteredLogs.length === 0 ? (
-          <div className="p-12 text-center text-slate-500 space-y-2">
-            <ShieldCheck className="w-10 h-10 mx-auto text-slate-600 opacity-50" />
-            <p className="text-sm font-medium">{isHindi ? 'कोई ऑडिट लॉग प्रविष्टि नहीं मिली' : 'No matching audit trail logs found'}</p>
-            <p className="text-xs text-slate-600">{isHindi ? 'अपनी खोज फ़िल्टर बदलें' : 'Try adjusting your search filter or add a manual entry'}</p>
+          <div className="p-12 text-center text-[var(--text-muted)] space-y-2">
+            <ShieldCheck className="w-10 h-10 mx-auto text-[var(--text-muted)]" />
+            <p className="text-sm font-medium text-[var(--text-primary)]">{isHindi ? 'कोई ऑडिट लॉग प्रविष्टि नहीं मिली' : 'No matching audit trail logs found'}</p>
+            <p className="text-xs text-[var(--text-muted)]">{isHindi ? 'अपनी खोज फ़िल्टर बदलें' : 'Try adjusting your search filter or add a manual entry'}</p>
           </div>
         ) : (
-          <div className="divide-y divide-slate-800/60">
+          <div className="divide-y divide-[var(--border-primary)]">
             {filteredLogs.map((log) => (
               <div 
                 key={log.id} 
                 onClick={() => setSelectedLog(log)}
-                className="p-4 hover:bg-slate-800/60 cursor-pointer transition flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
+                className="p-4 hover:bg-[var(--hover-surface)] cursor-pointer transition flex flex-col sm:flex-row sm:items-center justify-between gap-3 group"
               >
                 <div className="flex items-start gap-3.5">
-                  <div className="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700/80 group-hover:border-indigo-500/50 flex items-center justify-center shrink-0 mt-0.5 transition">
+                  <div className="w-9 h-9 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border-subtle)] group-hover:border-indigo-500/50 flex items-center justify-center shrink-0 mt-0.5 transition">
                     {getActionIcon(log.action)}
                   </div>
 
                   <div className="space-y-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-bold text-sm text-slate-100 group-hover:text-indigo-300 transition">
+                      <span className="font-bold text-sm text-[var(--text-primary)] group-hover:text-indigo-500 transition">
                         {log.action}
                       </span>
-                      <span className="text-[10px] font-semibold bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 px-2 py-0.5 rounded-md flex items-center gap-1">
-                        <User className="w-3 h-3 text-indigo-400" />
+                      <span className="text-[10px] font-semibold hv-pill-indigo border px-2 py-0.5 rounded-md flex items-center gap-1">
+                        <User className="w-3 h-3" />
                         {log.user}
                       </span>
                     </div>
 
-                    <p className="text-xs text-slate-300 leading-relaxed">
+                    <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
                       {log.details}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0 sm:self-center pl-12 sm:pl-0">
-                  <div className="text-right text-xs text-slate-400 font-mono flex items-center gap-1.5 bg-slate-950/60 px-2.5 py-1.5 rounded-lg border border-slate-800 group-hover:border-slate-700">
-                    <Clock className="w-3.5 h-3.5 text-indigo-400" />
+                  <div className="text-right text-xs text-[var(--text-muted)] font-mono flex items-center gap-1.5 bg-[var(--bg-elevated)] px-2.5 py-1.5 rounded-lg border border-[var(--border-primary)]">
+                    <Clock className="w-3.5 h-3.5 text-indigo-500" />
                     <span>{log.timestamp}</span>
                   </div>
                 </div>
@@ -333,15 +333,15 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
       {/* Modal: Add Manual Audit Note */}
       {showAddNoteModal && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="font-bold text-base text-slate-100 flex items-center gap-2">
-                <PlusCircle className="w-5 h-5 text-indigo-400" />
+          <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
+              <h3 className="font-bold text-base text-[var(--text-primary)] flex items-center gap-2">
+                <PlusCircle className="w-5 h-5 text-indigo-500" />
                 <span>{isHindi ? 'मैनुअल ऑडिट प्रविष्टि जोड़ें' : 'Add Manual Audit Entry'}</span>
               </h3>
               <button 
                 onClick={() => setShowAddNoteModal(false)}
-                className="text-slate-400 hover:text-white text-lg font-bold"
+                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] text-lg font-bold cursor-pointer"
               >
                 ✕
               </button>
@@ -349,7 +349,7 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
 
             <form onSubmit={handleCreateNote} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1">
                   {isHindi ? 'एक्शन शीर्षक / प्रकार' : 'Action Title / Category'}
                 </label>
                 <input
@@ -357,13 +357,13 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
                   value={noteAction}
                   onChange={(e) => setNoteAction(e.target.value)}
                   placeholder="e.g. Annual Audit Verification, Tax File Uploaded"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-100 focus:outline-none focus:border-indigo-500"
+                  className="w-full hv-input border rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-indigo-500"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">
+                <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1">
                   {isHindi ? 'विस्तृत विवरण' : 'Detailed Notes / Reason'}
                 </label>
                 <textarea
@@ -371,7 +371,7 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
                   value={noteDetails}
                   onChange={(e) => setNoteDetails(e.target.value)}
                   placeholder={isHindi ? 'ऑडिट प्रविष्टि के संबंध में विस्तृत विवरण लिखें...' : 'Enter details regarding the compliance check or audit note...'}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-100 focus:outline-none focus:border-indigo-500"
+                  className="w-full hv-input border rounded-xl p-3 text-xs focus:outline-none focus:border-indigo-500"
                   required
                 />
               </div>
@@ -380,13 +380,13 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowAddNoteModal(false)}
-                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 transition"
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-[var(--text-primary)] bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] transition cursor-pointer"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 transition shadow-md shadow-indigo-600/30"
+                  className="px-4 py-2 rounded-xl text-xs font-bold text-white hv-keep-white bg-indigo-600 hover:bg-indigo-500 transition shadow-md shadow-indigo-600/30 cursor-pointer"
                 >
                   {isHindi ? 'ऑडिट लॉग में सहेजें' : 'Save Audit Entry'}
                 </button>
@@ -399,62 +399,62 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
       {/* Modal: Audit Log Details Inspector */}
       {selectedLog && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl w-full max-w-lg p-6 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 bg-indigo-500/20 text-indigo-400 rounded-xl border border-indigo-500/30">
+                <div className="p-2 hv-pill-indigo rounded-xl border">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-base text-slate-100">
+                  <h3 className="font-bold text-base text-[var(--text-primary)]">
                     {isHindi ? 'ऑडिट प्रविष्टि विस्तृत विवरण' : 'Audit Trail Record Details'}
                   </h3>
-                  <span className="font-mono text-[10px] text-slate-400">Log ID: {selectedLog.id}</span>
+                  <span className="font-mono text-[10px] text-[var(--text-muted)]">Log ID: {selectedLog.id}</span>
                 </div>
               </div>
 
               <button 
                 onClick={() => setSelectedLog(null)}
-                className="text-slate-400 hover:text-white text-lg font-bold"
+                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] text-lg font-bold cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="grid grid-cols-2 gap-3 bg-slate-950 p-3 rounded-xl border border-slate-800">
+              <div className="grid grid-cols-2 gap-3 bg-[var(--bg-elevated)] p-3 rounded-xl border border-[var(--border-primary)]">
                 <div>
-                  <span className="block text-[10px] uppercase font-bold text-slate-400">Action / Event</span>
-                  <span className="font-bold text-indigo-300 text-sm">{selectedLog.action}</span>
+                  <span className="block text-[10px] uppercase font-bold text-[var(--text-muted)]">Action / Event</span>
+                  <span className="font-bold text-indigo-500 text-sm">{selectedLog.action}</span>
                 </div>
                 <div>
-                  <span className="block text-[10px] uppercase font-bold text-slate-400">User / Operator</span>
-                  <span className="font-bold text-slate-200">{selectedLog.user}</span>
+                  <span className="block text-[10px] uppercase font-bold text-[var(--text-muted)]">User / Operator</span>
+                  <span className="font-bold text-[var(--text-primary)]">{selectedLog.user}</span>
                 </div>
               </div>
 
-              <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 space-y-2">
-                <div className="flex justify-between items-center text-slate-400 font-mono text-[11px]">
+              <div className="bg-[var(--bg-elevated)] p-3 rounded-xl border border-[var(--border-primary)] space-y-2">
+                <div className="flex justify-between items-center text-[var(--text-muted)] font-mono text-[11px]">
                   <span>{isHindi ? 'घटना तिथि एवं समय (Timestamp):' : 'Logged Date & Time:'}</span>
-                  <span className="text-amber-300 font-bold">{selectedLog.timestamp}</span>
+                  <span className="text-amber-500 font-bold">{selectedLog.timestamp}</span>
                 </div>
-                <div className="flex justify-between items-center text-slate-400 font-mono text-[11px]">
+                <div className="flex justify-between items-center text-[var(--text-muted)] font-mono text-[11px]">
                   <span>{isHindi ? 'ट्रैकिंग स्थिति:' : 'Verification Status:'}</span>
-                  <span className="text-emerald-400 font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">
+                  <span className="hv-pill-emerald font-bold px-2 py-0.5 rounded border">
                     ✓ Verified Immutable Record
                   </span>
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="block text-slate-300 font-bold">{isHindi ? 'पूर्ण ऑडिट विवरण (Complete Audit Narrative):' : 'Full Narrative & Change Record:'}</label>
-                <div className="bg-slate-950 p-3.5 rounded-xl border border-slate-800 text-slate-200 font-mono leading-relaxed text-xs max-h-40 overflow-y-auto">
+                <label className="block text-[var(--text-secondary)] font-bold">{isHindi ? 'पूर्ण ऑडिट विवरण (Complete Audit Narrative):' : 'Full Narrative & Change Record:'}</label>
+                <div className="bg-[var(--bg-elevated)] p-3.5 rounded-xl border border-[var(--border-primary)] text-[var(--text-primary)] font-mono leading-relaxed text-xs max-h-40 overflow-y-auto">
                   {selectedLog.details}
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[var(--border-primary)]">
               <button
                 type="button"
                 onClick={() => {
@@ -462,12 +462,12 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
                   setCopiedLogId(selectedLog.id);
                   setTimeout(() => setCopiedLogId(null), 2500);
                 }}
-                className="px-3.5 py-2 rounded-xl text-xs font-bold text-slate-200 bg-slate-800 hover:bg-slate-700 transition flex items-center gap-1.5"
+                className="px-3.5 py-2 rounded-xl text-xs font-bold text-[var(--text-primary)] bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] transition flex items-center gap-1.5 cursor-pointer"
               >
                 {copiedLogId === selectedLog.id ? (
                   <>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                    <span className="text-emerald-300">{isHindi ? 'कॉपी हो गया ✓' : 'Copied ✓'}</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                    <span className="text-emerald-500">{isHindi ? 'कॉपी हो गया ✓' : 'Copied ✓'}</span>
                   </>
                 ) : (
                   <span>{isHindi ? 'विवरण कॉपी करें' : 'Copy Details'}</span>
@@ -476,7 +476,7 @@ export const AuditLogView: React.FC<AuditLogViewProps> = ({
               <button
                 type="button"
                 onClick={() => setSelectedLog(null)}
-                className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-indigo-600 hover:bg-indigo-500 transition"
+                className="px-4 py-2 rounded-xl text-xs font-bold text-white hv-keep-white bg-indigo-600 hover:bg-indigo-500 transition cursor-pointer"
               >
                 {isHindi ? 'बंद करें' : 'Close'}
               </button>

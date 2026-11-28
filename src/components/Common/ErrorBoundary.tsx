@@ -53,21 +53,21 @@ export class ErrorBoundary extends (React.Component as any) {
     const state = (this as any).state as State;
     if (state.hasError) {
       return (
-        <div className="min-h-screen bg-slate-950 flex items-center justify-center p-4 text-slate-100 font-sans">
-          <div className="max-w-md w-full bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-2xl text-center space-y-4">
-            <div className="w-14 h-14 bg-rose-500/10 border border-rose-500/30 rounded-2xl flex items-center justify-center mx-auto text-rose-400">
+        <div className="min-h-screen hv-canvas flex items-center justify-center p-4 text-[var(--text-primary)] font-sans">
+          <div className="max-w-md w-full hv-surface border rounded-2xl p-6 shadow-2xl text-center space-y-4">
+            <div className="w-14 h-14 hv-pill-rose border rounded-2xl flex items-center justify-center mx-auto">
               <AlertTriangle className="w-8 h-8" />
             </div>
 
             <div className="space-y-1">
-              <h2 className="text-lg font-bold text-white">सिस्टम सुरक्षा पुनर्प्राप्ति (Recovery Mode)</h2>
-              <p className="text-xs text-slate-400">
+              <h2 className="text-lg font-bold text-[var(--text-primary)]">सिस्टम सुरक्षा पुनर्प्राप्ति (Recovery Mode)</h2>
+              <p className="text-xs text-[var(--text-muted)]">
                 एक अप्रत्याशित समस्या के कारण स्क्रीन क्रैश होने से रोक दी गई है।
               </p>
             </div>
 
             {state.error && (
-              <div className="text-left bg-slate-950 p-3 rounded-lg border border-slate-800 text-[11px] font-mono text-rose-300 max-h-28 overflow-y-auto break-all">
+              <div className="text-left hv-canvas p-3 rounded-lg border text-[11px] font-mono text-rose-500 max-h-28 overflow-y-auto break-all">
                 {state.error.toString()}
               </div>
             )}
@@ -75,7 +75,7 @@ export class ErrorBoundary extends (React.Component as any) {
             <div className="flex flex-col gap-2 pt-2">
               <button
                 onClick={this.handleReload}
-                className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold py-2.5 px-4 rounded-xl text-xs transition cursor-pointer"
               >
                 <RotateCcw className="w-4 h-4" />
                 <span>पुनः लोड करें (Reload Application)</span>
@@ -84,26 +84,26 @@ export class ErrorBoundary extends (React.Component as any) {
               {!state.confirmReset ? (
                 <button
                   onClick={this.handleRequestReset}
-                  className="w-full flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-2 px-4 rounded-xl text-xs transition cursor-pointer border border-slate-700"
+                  className="w-full flex items-center justify-center gap-2 hv-elevated hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] font-semibold py-2 px-4 rounded-xl text-xs transition cursor-pointer border"
                 >
-                  <Trash2 className="w-3.5 h-3.5 text-rose-400" />
+                  <Trash2 className="w-3.5 h-3.5 text-rose-500" />
                   <span>कैश साफ़ करें व पुनः लोड करें (Reset & Reload)</span>
                 </button>
               ) : (
-                <div className="bg-rose-950/50 border border-rose-500/40 rounded-xl p-3 space-y-2 text-xs">
-                  <p className="text-rose-200 font-semibold">
+                <div className="hv-pill-rose border rounded-xl p-3 space-y-2 text-xs">
+                  <p className="font-semibold">
                     क्या आप वाकई लोकल कैश साफ़ करके डिफ़ॉल्ट डेटा पर रीलोड करना चाहते हैं?
                   </p>
                   <div className="flex gap-2 justify-center">
                     <button
                       onClick={() => (this as any).setState({ confirmReset: false })}
-                      className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg font-semibold cursor-pointer"
+                      className="px-3 py-1.5 hv-elevated hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border rounded-lg font-semibold cursor-pointer"
                     >
                       रद्द करें
                     </button>
                     <button
                       onClick={this.handleConfirmResetCache}
-                      className="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white rounded-lg font-bold cursor-pointer"
+                      className="px-3 py-1.5 bg-rose-600 hover:bg-rose-500 text-white hv-keep-white rounded-lg font-bold cursor-pointer"
                     >
                       हाँ, रीसेट व रीलोड करें
                     </button>

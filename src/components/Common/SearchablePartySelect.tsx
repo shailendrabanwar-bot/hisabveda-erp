@@ -145,26 +145,26 @@ export const SearchablePartySelect: React.FC<SearchablePartySelectProps> = ({
         type="button"
         onClick={handleOpen}
         onKeyDown={handleKeyDown}
-        className="w-full text-left bg-slate-900 hover:bg-slate-800/80 border border-slate-700 focus:border-indigo-500 rounded-xl px-3 py-2 text-xs text-slate-100 flex items-center justify-between gap-1 transition shadow-sm cursor-pointer"
+        className="w-full text-left hv-input hover:bg-[var(--hover-surface)] border focus:border-indigo-500 rounded-xl px-3 py-2 text-xs text-[var(--text-primary)] flex items-center justify-between gap-1 transition shadow-sm cursor-pointer"
       >
         <div className="truncate flex-1 font-medium">
           {selectedParty ? (
             <div className="flex items-center gap-2">
-              <span className="font-bold text-white truncate">{selectedParty.name}</span>
-              <span className="text-[10px] text-slate-400 font-mono">({selectedParty.state})</span>
+              <span className="font-bold text-[var(--text-primary)] truncate">{selectedParty.name}</span>
+              <span className="text-[10px] text-[var(--text-muted)] font-mono">({selectedParty.state})</span>
               {selectedParty.gstin && (
-                <span className="text-[10px] bg-slate-800 text-indigo-300 px-1 rounded font-mono border border-slate-700">
+                <span className="text-[10px] hv-pill-indigo px-1 rounded font-mono border">
                   {selectedParty.gstin}
                 </span>
               )}
             </div>
           ) : (
-            <span className="text-slate-400">
+            <span className="text-[var(--text-muted)]">
               {placeholder || (isHindi ? '🔍 ग्राहक / पार्टी चुनें या खोजें...' : '🔍 Select or search customer party...')}
             </span>
           )}
         </div>
-        <ChevronDown className={`w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-3.5 h-3.5 text-[var(--text-muted)] shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {/* Floating Dropdown Overlay */}
@@ -179,11 +179,11 @@ export const SearchablePartySelect: React.FC<SearchablePartySelectProps> = ({
             maxHeight: `${coords.maxHeight}px`,
             zIndex: 9999
           }}
-          className="bg-slate-900 border border-slate-700 rounded-xl shadow-2xl overflow-hidden flex flex-col animate-fadeIn text-xs"
+          className="hv-surface border rounded-xl shadow-2xl overflow-hidden flex flex-col animate-fadeIn text-xs"
         >
           {/* Search Input Box */}
-          <div className="p-2 border-b border-slate-800 bg-slate-950 flex items-center gap-2">
-            <Search className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+          <div className="p-2 border-b hv-canvas flex items-center gap-2">
+            <Search className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
             <input
               ref={inputRef}
               type="text"
@@ -194,13 +194,13 @@ export const SearchablePartySelect: React.FC<SearchablePartySelectProps> = ({
               }}
               onKeyDown={handleKeyDown}
               placeholder={isHindi ? 'नाम, GSTIN, फ़ोन या राज्य खोजें...' : 'Search by name, GSTIN, phone, state...'}
-              className="w-full bg-transparent text-white text-xs placeholder-slate-400 focus:outline-none"
+              className="w-full bg-transparent text-[var(--text-primary)] text-xs placeholder:text-[var(--text-muted)] focus:outline-none"
             />
             {search && (
               <button
                 type="button"
                 onClick={() => setSearch('')}
-                className="text-slate-400 hover:text-white p-0.5"
+                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-0.5 cursor-pointer"
               >
                 <X className="w-3 h-3" />
               </button>
@@ -209,8 +209,8 @@ export const SearchablePartySelect: React.FC<SearchablePartySelectProps> = ({
 
           {/* Quick Add Header */}
           {onAddNewParty && (
-            <div className="px-2.5 py-1.5 bg-slate-800/40 border-b border-slate-800 flex items-center justify-between">
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+            <div className="px-2.5 py-1.5 hv-elevated border-b flex items-center justify-between">
+              <span className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-wider">
                 {filteredParties.length} {isHindi ? 'पार्टियां उपलब्ध' : 'Parties Found'}
               </span>
               <button
@@ -219,7 +219,7 @@ export const SearchablePartySelect: React.FC<SearchablePartySelectProps> = ({
                   setIsOpen(false);
                   onAddNewParty();
                 }}
-                className="text-[11px] text-indigo-400 hover:text-indigo-300 font-bold flex items-center gap-1 hover:underline cursor-pointer"
+                className="text-[11px] text-indigo-500 font-bold flex items-center gap-1 hover:underline cursor-pointer"
               >
                 <UserPlus className="w-3 h-3" />
                 <span>{isHindi ? '+ नई पार्टी जोड़ें' : '+ Create New Party'}</span>
@@ -228,11 +228,11 @@ export const SearchablePartySelect: React.FC<SearchablePartySelectProps> = ({
           )}
 
           {/* Parties List */}
-          <div className="overflow-y-auto flex-1 divide-y divide-slate-800/70 p-1">
+          <div className="overflow-y-auto flex-1 divide-y divide-[var(--border-primary)] p-1">
             {filteredParties.length === 0 ? (
               <div className="p-4 text-center space-y-2">
-                <AlertCircle className="w-5 h-5 text-amber-400 mx-auto opacity-70" />
-                <p className="text-slate-400 text-xs">
+                <AlertCircle className="w-5 h-5 text-amber-500 mx-auto opacity-80" />
+                <p className="text-[var(--text-muted)] text-xs">
                   {isHindi ? `"${search}" से संबंधित कोई पार्टी नहीं मिली` : `No party found matching "${search}"`}
                 </p>
                 {onAddNewParty && (
@@ -242,7 +242,7 @@ export const SearchablePartySelect: React.FC<SearchablePartySelectProps> = ({
                       setIsOpen(false);
                       onAddNewParty();
                     }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600/20 text-indigo-300 border border-indigo-500/40 hover:bg-indigo-600/30 rounded-lg font-bold text-xs transition cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 hv-pill-indigo border rounded-lg font-bold text-xs transition cursor-pointer"
                   >
                     <UserPlus className="w-3.5 h-3.5" />
                     <span>{isHindi ? `"${search}" को नई पार्टी बनाएँ` : `Create "${search}" as New Party`}</span>
@@ -260,37 +260,37 @@ export const SearchablePartySelect: React.FC<SearchablePartySelectProps> = ({
                     onClick={() => handleSelect(party)}
                     onMouseEnter={() => setHighlightedIndex(idx)}
                     className={`p-2 rounded-lg cursor-pointer transition flex items-center justify-between gap-2 ${
-                      isHighlighted ? 'bg-indigo-600/20 border border-indigo-500/30 text-white' : 'hover:bg-slate-800/60 text-slate-200'
-                    } ${isSelected ? 'bg-indigo-950/40 font-semibold text-indigo-200' : ''}`}
+                      isHighlighted ? 'hv-pill-indigo border' : 'hover:bg-[var(--hover-surface)] text-[var(--text-primary)]'
+                    } ${isSelected ? 'hv-pill-indigo border font-semibold' : ''}`}
                   >
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="font-bold text-slate-100 truncate">
+                        <span className="font-bold text-[var(--text-primary)] truncate">
                           {party.name}
                         </span>
-                        <span className="text-[10px] bg-slate-800 text-slate-400 px-1 rounded font-mono">
+                        <span className="text-[10px] hv-elevated text-[var(--text-secondary)] px-1 rounded font-mono border">
                           {party.code}
                         </span>
-                        <span className={`text-[9px] px-1.5 py-0.2 rounded font-bold ${
-                          party.type === 'CUSTOMER' ? 'bg-indigo-500/20 text-indigo-300' : 'bg-amber-500/20 text-amber-300'
+                        <span className={`text-[9px] px-1.5 py-0.2 rounded font-bold border ${
+                          party.type === 'CUSTOMER' ? 'hv-pill-indigo' : 'hv-pill-amber'
                         }`}>
                           {party.type}
                         </span>
                       </div>
                       
-                      <div className="flex items-center gap-2 mt-0.5 text-[11px] text-slate-400 truncate">
+                      <div className="flex items-center gap-2 mt-0.5 text-[11px] text-[var(--text-muted)] truncate">
                         <span>📍 {party.state || 'N/A'}</span>
                         {party.gstin ? (
-                          <span className="text-slate-300 font-mono">• GSTIN: {party.gstin}</span>
+                          <span className="text-[var(--text-secondary)] font-mono">• GSTIN: {party.gstin}</span>
                         ) : (
-                          <span className="text-slate-500">• Unregistered</span>
+                          <span className="text-[var(--text-muted)]">• Unregistered</span>
                         )}
                         {party.phone && <span>• 📞 {party.phone}</span>}
                       </div>
                     </div>
 
                     {isSelected && (
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <Check className="w-4 h-4 text-emerald-500 shrink-0" />
                     )}
                   </div>
                 );

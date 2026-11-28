@@ -294,42 +294,42 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
   return (
     <div className="md:h-full md:min-h-0 flex flex-col p-4 md:p-5 gap-3.5 w-full md:overflow-hidden">
       {/* Top Header */}
-      <div className="shrink-0 flex flex-col md:flex-row items-start md:items-center justify-between bg-slate-900 p-4 rounded-2xl border border-slate-800 shadow-lg gap-4">
+      <div className="shrink-0 flex flex-col md:flex-row items-start md:items-center justify-between hv-surface p-4 rounded-2xl border border-[var(--border-primary)] shadow-lg gap-4">
         <div className="flex items-center gap-3 w-full md:w-auto">
           <button
             onClick={onBack}
-            className="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl transition shrink-0"
+            className="p-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] rounded-xl transition shrink-0"
           >
             <ArrowLeft className="w-5 h-5" />
           </button>
           <div className="space-y-1 w-full">
             <div className="flex flex-wrap items-center gap-2">
-              <h2 className="text-lg font-bold text-white">{party ? party.name : account?.name}</h2>
-              <span className="font-mono text-xs text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/30">
+              <h2 className="text-lg font-bold text-[var(--text-primary)]">{party ? party.name : account?.name}</h2>
+              <span className="font-mono text-xs hv-pill-indigo px-2 py-0.5 rounded border font-semibold">
                 Code: {party ? party.code : account?.code}
               </span>
               {party && (
-                <span className="text-xs font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                <span className="text-xs font-semibold hv-pill-emerald px-2 py-0.5 rounded border">
                   Party ({party.type})
                 </span>
               )}
             </div>
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-[var(--text-muted)]">
               {party ? `GSTIN: ${party.gstin || 'Unregistered'} | State: ${party.state || 'N/A'}` : `Category: ${account?.category} (${account?.subCategory})`}
             </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-2 w-full md:w-auto justify-end">
+        <div className="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
           {/* Account & Party Selector Dropdown */}
-          <div className="flex items-center gap-2 bg-slate-800 p-1.5 rounded-xl border border-slate-700">
-            <span className="text-[11px] font-bold text-slate-400 pl-1 whitespace-nowrap">
+          <div className="flex items-center gap-2 hv-elevated p-1.5 rounded-xl border border-[var(--border-subtle)]">
+            <span className="text-[11px] font-bold text-[var(--text-muted)] pl-1 whitespace-nowrap">
               {isHindi ? 'खाता बदलें:' : 'Select Ledger:'}
             </span>
             <select
               value={currentAccountId}
               onChange={(e) => setCurrentAccountId(e.target.value)}
-              className="bg-slate-900 text-slate-100 font-bold text-xs px-2.5 py-1.5 rounded-lg border border-slate-700 outline-none focus:border-indigo-500 max-w-[240px] truncate"
+              className="hv-input font-bold text-xs px-2.5 py-1.5 rounded-lg border border-[var(--border-subtle)] outline-none focus:border-indigo-500 max-w-[240px] truncate"
             >
               <optgroup label="General Accounts & Ledgers">
                 {allAccounts.map(acc => (
@@ -360,13 +360,13 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
           </div>
 
           {party && (
-            <div className="flex items-center bg-slate-800 border border-emerald-600/40 rounded-xl overflow-hidden shrink-0">
+            <div className="flex items-center hv-input border border-emerald-500/50 rounded-xl overflow-hidden shrink-0">
               <input
                 type="tel"
                 value={whatsappPhone}
                 onChange={(e) => setWhatsappPhone(e.target.value)}
                 placeholder={isHindi ? 'WhatsApp नं.' : 'Party Phone'}
-                className="w-28 bg-transparent text-slate-100 text-xs px-2.5 py-2 outline-none font-mono placeholder:font-sans placeholder:text-slate-400"
+                className="w-28 bg-transparent text-[var(--text-primary)] text-xs px-2.5 py-2 outline-none font-mono placeholder:font-sans placeholder:text-[var(--text-placeholder)]"
               />
               <a
                 href={buildWhatsAppLedgerReminderUrl({
@@ -382,7 +382,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
                 })}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 bg-green-600 hover:bg-green-500 text-white font-bold text-xs px-3 py-2 transition whitespace-nowrap"
+                className="flex items-center gap-1.5 bg-green-600 hover:bg-green-500 text-white hv-keep-white font-bold text-xs px-3 py-2 transition whitespace-nowrap"
                 title={isHindi ? 'WhatsApp पर लेजर बकाया रिमाइंडर भेजें' : 'Send Ledger Reminder on WhatsApp'}
               >
                 <MessageCircle className="w-4 h-4" />
@@ -394,7 +394,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
           {perms.canExportData && (
             <button
               onClick={handleOpenPrintModal}
-              className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition shadow-lg shadow-indigo-600/30 whitespace-nowrap shrink-0"
+              className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs px-3.5 py-2 rounded-xl transition shadow-lg shadow-indigo-600/30 whitespace-nowrap shrink-0"
             >
               <Printer className="w-4 h-4" />
               <span>{isHindi ? 'प्रिंट / PDF ऑप्शन' : 'Print / Export'}</span>
@@ -404,9 +404,9 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
       </div>
 
       {/* Date Range / Period Selection Toolbar */}
-      <div className="shrink-0 bg-slate-900 border border-slate-800 p-3 rounded-2xl flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 shadow-md">
-        <div className="flex items-center gap-2 text-sm font-bold text-slate-200">
-          <Calendar className="w-4 h-4 text-indigo-400 shrink-0" />
+      <div className="shrink-0 hv-surface border border-[var(--border-primary)] p-3 rounded-2xl flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 shadow-md">
+        <div className="flex items-center gap-2 text-sm font-bold text-[var(--text-secondary)]">
+          <Calendar className="w-4 h-4 text-indigo-500 shrink-0" />
           <span>{isHindi ? 'अवधि / तिथि चयन (Date & Period Selection):' : 'Select Period & Date Range:'}</span>
         </div>
 
@@ -417,8 +417,8 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
             onClick={() => handlePresetChange('ALL_TO_CURRENT')}
             className={`px-3 py-1.5 rounded-xl font-bold border transition cursor-pointer ${
               datePreset === 'ALL_TO_CURRENT' || datePreset === 'ALL'
-                ? 'bg-emerald-600/25 border-emerald-400/50 text-emerald-200'
-                : 'bg-slate-950 hover:bg-slate-800 border-slate-700 text-slate-300'
+                ? 'hv-pill-emerald'
+                : 'bg-[var(--bg-input)] hover:bg-[var(--hover-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)]'
             }`}
             title={isHindi ? 'शुरू से आज तक का पूरा कस्टमर/अकाउंट लेज़र एक क्लिक में देखें' : 'View full cumulative ledger up to Today'}
           >
@@ -429,7 +429,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
           <select
             value={datePreset}
             onChange={(e) => handlePresetChange(e.target.value)}
-            className="bg-slate-950 text-indigo-300 font-bold px-3 py-1.5 rounded-xl border border-slate-700 outline-none focus:border-indigo-500 cursor-pointer"
+            className="hv-input font-bold px-3 py-1.5 rounded-xl border border-[var(--border-subtle)] outline-none focus:border-indigo-500 cursor-pointer"
           >
             <option value="ALL">{isHindi ? 'सभी समय / सभी वर्ष (All Time)' : 'All Years (Complete History)'}</option>
             <option value="ALL_TO_CURRENT">{isHindi ? 'प्रारंभ से आज तक (Up to Current Date)' : 'All Years – Current Date'}</option>
@@ -440,8 +440,8 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
           </select>
 
           {/* From Date Input */}
-          <div className="flex items-center gap-1.5 bg-slate-950 px-2.5 py-1.5 rounded-xl border border-slate-700">
-            <span className="text-[11px] font-bold text-slate-400">{isHindi ? 'से:' : 'From:'}</span>
+          <div className="flex items-center gap-1.5 hv-input px-2.5 py-1.5 rounded-xl border border-[var(--border-subtle)]">
+            <span className="text-[11px] font-bold text-[var(--text-muted)]">{isHindi ? 'से:' : 'From:'}</span>
             <input
               type="date"
               value={fromDate}
@@ -449,13 +449,13 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
                 setFromDate(e.target.value);
                 setDatePreset('CUSTOM');
               }}
-              className="bg-transparent text-slate-100 font-mono text-xs outline-none cursor-pointer"
+              className="bg-transparent text-[var(--text-primary)] font-mono text-xs outline-none cursor-pointer"
             />
           </div>
 
           {/* To Date Input */}
-          <div className="flex items-center gap-1.5 bg-slate-950 px-2.5 py-1.5 rounded-xl border border-slate-700">
-            <span className="text-[11px] font-bold text-slate-400">{isHindi ? 'तक:' : 'To:'}</span>
+          <div className="flex items-center gap-1.5 hv-input px-2.5 py-1.5 rounded-xl border border-[var(--border-subtle)]">
+            <span className="text-[11px] font-bold text-[var(--text-muted)]">{isHindi ? 'तक:' : 'To:'}</span>
             <input
               type="date"
               value={toDate}
@@ -463,7 +463,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
                 setToDate(e.target.value);
                 setDatePreset('CUSTOM');
               }}
-              className="bg-transparent text-slate-100 font-mono text-xs outline-none cursor-pointer"
+              className="bg-transparent text-[var(--text-primary)] font-mono text-xs outline-none cursor-pointer"
             />
           </div>
 
@@ -475,7 +475,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
                 setToDate('');
                 setDatePreset('ALL');
               }}
-              className="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl border border-slate-700 font-bold transition flex items-center gap-1"
+              className="px-2.5 py-1.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] rounded-xl border border-[var(--border-subtle)] font-bold transition flex items-center gap-1"
               title={isHindi ? 'तिथि फ़िल्टर हटाएं' : 'Clear Date Filter'}
             >
               <X className="w-3.5 h-3.5" />
@@ -486,38 +486,38 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
       </div>
 
       {/* View Display Toggles Toolbar */}
-      <div className="shrink-0 bg-slate-900/90 border border-slate-800 p-3 rounded-xl flex items-center justify-between text-xs gap-3 flex-wrap">
-        <div className="flex items-center gap-2 text-slate-200 font-bold">
-          <Settings2 className="w-4 h-4 text-indigo-400" />
+      <div className="shrink-0 hv-surface border border-[var(--border-primary)] p-3 rounded-xl flex items-center justify-between text-xs gap-3 flex-wrap">
+        <div className="flex items-center gap-2 text-[var(--text-secondary)] font-bold">
+          <Settings2 className="w-4 h-4 text-indigo-500" />
           <span>{isHindi ? 'व्यू सेटिंग्स (Display Toggles):' : 'Ledger View Options:'}</span>
         </div>
         <div className="flex items-center gap-4 flex-wrap">
-          <label className="flex items-center gap-1.5 cursor-pointer text-slate-200 hover:text-white font-medium select-none">
+          <label className="flex items-center gap-1.5 cursor-pointer text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium select-none">
             <input
               type="checkbox"
               checked={showOpposingLedger}
               onChange={(e) => setShowOpposingLedger(e.target.checked)}
-              className="rounded bg-slate-950 border-slate-700 text-indigo-500 focus:ring-0 w-3.5 h-3.5 cursor-pointer"
+              className="rounded bg-[var(--bg-input)] border-[var(--border-subtle)] text-indigo-500 focus:ring-0 w-3.5 h-3.5 cursor-pointer"
             />
             <span>{isHindi ? 'विरोधी लेजर (Debited/Credited Ledger)' : 'Opposing Counter Ledger'}</span>
           </label>
 
-          <label className="flex items-center gap-1.5 cursor-pointer text-slate-200 hover:text-white font-medium select-none">
+          <label className="flex items-center gap-1.5 cursor-pointer text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium select-none">
             <input
               type="checkbox"
               checked={showBankRef}
               onChange={(e) => setShowBankRef(e.target.checked)}
-              className="rounded bg-slate-950 border-slate-700 text-indigo-500 focus:ring-0 w-3.5 h-3.5 cursor-pointer"
+              className="rounded bg-[var(--bg-input)] border-[var(--border-subtle)] text-indigo-500 focus:ring-0 w-3.5 h-3.5 cursor-pointer"
             />
             <span>{isHindi ? 'बैंक रिफ. / UTR सं.' : 'Bank Ref / UTR No.'}</span>
           </label>
 
-          <label className="flex items-center gap-1.5 cursor-pointer text-slate-200 hover:text-white font-medium select-none">
+          <label className="flex items-center gap-1.5 cursor-pointer text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-medium select-none">
             <input
               type="checkbox"
               checked={showNarration}
               onChange={(e) => setShowNarration(e.target.checked)}
-              className="rounded bg-slate-950 border-slate-700 text-indigo-500 focus:ring-0 w-3.5 h-3.5 cursor-pointer"
+              className="rounded bg-[var(--bg-input)] border-[var(--border-subtle)] text-indigo-500 focus:ring-0 w-3.5 h-3.5 cursor-pointer"
             />
             <span>{isHindi ? 'नैरेशन दिखाएँ (Show Narration)' : 'Show Narration'}</span>
           </label>
@@ -526,21 +526,21 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
 
       {/* Opening Balance & Summary Bar */}
       <div className="shrink-0 grid grid-cols-1 md:grid-cols-3 gap-3">
-        <div className="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700 flex justify-between items-center text-sm text-slate-200">
+        <div className="hv-surface p-3.5 rounded-xl border border-[var(--border-primary)] flex justify-between items-center text-sm text-[var(--text-secondary)]">
           <span>{fromDate ? (isHindi ? 'अवधि प्रारंभिक शेष (Period Opening):' : 'Period Opening Balance:') : (isHindi ? 'प्रारंभिक शेष (Opening Balance):' : 'Opening Ledger Balance:')}</span>
-          <span className="font-mono tabular-nums font-bold text-indigo-300">
+          <span className="font-mono tabular-nums font-bold text-indigo-500">
             {formatCurrency(Math.abs(periodOpeningBal), currency)} ({periodOpeningBal >= 0 ? 'DR' : 'CR'})
           </span>
         </div>
-        <div className="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700 flex justify-between items-center text-sm text-slate-200">
+        <div className="hv-surface p-3.5 rounded-xl border border-[var(--border-primary)] flex justify-between items-center text-sm text-[var(--text-secondary)]">
           <span>{isHindi ? 'कुल नामे (Total Debit):' : 'Total Period Debit:'}</span>
-          <span className="font-mono tabular-nums font-bold text-emerald-400">
+          <span className="font-mono tabular-nums font-bold text-emerald-500">
             {formatCurrency(rows.reduce((sum, r) => sum + r.debit, 0), currency)}
           </span>
         </div>
-        <div className="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700 flex justify-between items-center text-sm text-slate-200">
+        <div className="hv-surface p-3.5 rounded-xl border border-[var(--border-primary)] flex justify-between items-center text-sm text-[var(--text-secondary)]">
           <span>{isHindi ? 'कुल जमा (Total Credit):' : 'Total Period Credit:'}</span>
-          <span className="font-mono tabular-nums font-bold text-rose-400">
+          <span className="font-mono tabular-nums font-bold text-rose-500">
             {formatCurrency(rows.reduce((sum, r) => sum + r.credit, 0), currency)}
           </span>
         </div>
@@ -548,20 +548,20 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
 
       {/* Multi-Delete Selected Toolbar */}
       {selectedIds.length > 0 && (perms.canDeleteRecords || perms.canBulkReclassify) && (
-        <div className="shrink-0 flex items-center justify-between bg-rose-950/60 border border-rose-500/40 p-3.5 rounded-2xl text-sm animate-fade-in shadow-xl">
-          <div className="flex items-center gap-2.5 text-rose-300 font-bold">
-            <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0" />
+        <div className="shrink-0 flex flex-wrap items-center justify-between gap-2 hv-pill-rose border p-3.5 rounded-2xl text-sm animate-fade-in shadow-xl">
+          <div className="flex items-center gap-2.5 font-bold">
+            <AlertTriangle className="w-5 h-5 shrink-0" />
             <span>
               {isHindi 
                 ? `${selectedIds.length} लेज़र प्रविष्टियाँ चुनी गईं` 
                 : `${selectedIds.length} entries selected`}
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <button
               type="button"
               onClick={toggleSelectAll}
-              className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl font-semibold border border-slate-700 transition"
+              className="px-3 py-1.5 bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] rounded-xl font-semibold border border-[var(--border-subtle)] transition"
             >
               {allSelected ? (isHindi ? 'सब अन-सेलेक्ट करें' : 'Deselect All') : (isHindi ? 'सभी चुनें' : 'Select All')}
             </button>
@@ -569,7 +569,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
               <button
                 type="button"
                 onClick={() => setShowReclassifyModal(true)}
-                className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold rounded-xl flex items-center gap-1.5 shadow-lg shadow-indigo-600/30 transition"
+                className="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-extrabold rounded-xl flex items-center gap-1.5 shadow-lg shadow-indigo-600/30 transition"
               >
                 <Edit className="w-4 h-4" />
                 <span>{isHindi ? `काउंटर लेज़र बदलें (${selectedIds.length})` : `Reclassify Ledger (${selectedIds.length})`}</span>
@@ -579,7 +579,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
               <button
                 type="button"
                 onClick={() => setShowBulkConfirm(true)}
-                className="px-4 py-1.5 bg-rose-600 hover:bg-rose-500 text-white font-extrabold rounded-xl flex items-center gap-1.5 shadow-lg shadow-rose-600/30 transition"
+                className="px-4 py-1.5 bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-extrabold rounded-xl flex items-center gap-1.5 shadow-lg shadow-rose-600/30 transition"
               >
                 <Trash2 className="w-4 h-4" />
                 <span>{isHindi ? `चयनित ${selectedIds.length} प्रविष्टियाँ हटाएँ` : `Delete Selected (${selectedIds.length})`}</span>
@@ -590,10 +590,10 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
       )}
 
       {/* Ledger Table */}
-      <div className="flex-1 min-h-0 flex flex-col bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
+      <div className="flex-1 min-h-0 flex flex-col hv-surface border border-[var(--border-primary)] rounded-2xl shadow-xl overflow-hidden">
         <div className="flex-1 min-h-0 overflow-auto">
-          <table className="w-full text-left text-sm text-slate-200">
-            <thead className="sticky top-0 z-10 bg-slate-800 text-slate-300 font-bold text-xs uppercase tracking-wider border-b border-slate-700">
+          <table className="w-full text-left text-sm text-[var(--text-secondary)]">
+            <thead className="sticky top-0 z-10 hv-elevated text-[var(--text-secondary)] font-bold text-xs uppercase tracking-wider border-b border-[var(--border-primary)]">
               <tr>
                 {(perms.canDeleteRecords || perms.canBulkReclassify) && (
                   <th className="p-3 w-10 text-center">
@@ -601,7 +601,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
                       type="checkbox"
                       checked={allSelected}
                       onChange={toggleSelectAll}
-                      className="rounded bg-slate-950 border-slate-700 text-indigo-500 focus:ring-0 w-4 h-4 cursor-pointer"
+                      className="rounded bg-[var(--bg-input)] border-[var(--border-subtle)] text-indigo-500 focus:ring-0 w-4 h-4 cursor-pointer"
                       title={isHindi ? 'सभी चुनें / अन-सेलेक्ट करें' : 'Select All / Deselect All'}
                     />
                   </th>
@@ -616,10 +616,10 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
                 <th className="p-3 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800">
+            <tbody className="divide-y divide-[var(--border-primary)]">
               {rows.length === 0 ? (
                 <tr>
-                  <td colSpan={(perms.canDeleteRecords || perms.canBulkReclassify) ? 9 : 8} className="p-8 text-center text-slate-500">
+                  <td colSpan={(perms.canDeleteRecords || perms.canBulkReclassify) ? 9 : 8} className="p-8 text-center text-[var(--text-muted)]">
                     {isHindi ? 'इस खाते में कोई ट्रांजैक्शन नहीं है।' : 'No transactions posted to this ledger account yet.'}
                   </td>
                 </tr>
@@ -627,50 +627,50 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
                 rows.map((r) => {
                   const isSelected = selectedIds.includes(r.id);
                   return (
-                    <tr key={r.id} className={`transition ${isSelected ? 'bg-indigo-950/40' : 'hover:bg-slate-800/40'}`}>
+                    <tr key={r.id} className={`transition ${isSelected ? 'bg-indigo-500/15' : 'hover:bg-[var(--hover-surface)]'}`}>
                       {(perms.canDeleteRecords || perms.canBulkReclassify) && (
                         <td className="p-3 text-center">
                           <input
                             type="checkbox"
                             checked={isSelected}
                             onChange={() => toggleSelectRow(r.id)}
-                            className="rounded bg-slate-950 border-slate-700 text-indigo-500 focus:ring-0 w-4 h-4 cursor-pointer"
+                            className="rounded bg-[var(--bg-input)] border-[var(--border-subtle)] text-indigo-500 focus:ring-0 w-4 h-4 cursor-pointer"
                           />
                         </td>
                       )}
-                      <td className="p-3 text-slate-300 font-mono whitespace-nowrap">{r.date}</td>
-                      <td className="p-3 font-bold text-indigo-300 font-mono whitespace-nowrap">{r.voucherNo}</td>
+                      <td className="p-3 text-[var(--text-secondary)] font-mono whitespace-nowrap">{r.date}</td>
+                      <td className="p-3 font-bold text-indigo-500 font-mono whitespace-nowrap">{r.voucherNo}</td>
                       <td className="p-3 whitespace-nowrap">
-                        <span className="px-2 py-0.5 rounded text-xs font-bold bg-slate-800 border border-slate-700 text-slate-200">
+                        <span className="px-2 py-0.5 rounded text-xs font-bold hv-pill-slate border">
                           {r.voucherType}
                         </span>
                       </td>
-                      <td className="p-3 font-medium text-slate-100">
+                      <td className="p-3 font-medium text-[var(--text-primary)]">
                         {showOpposingLedger && (
-                          <div className="font-bold text-indigo-300 text-sm flex items-center gap-1">
-                            <span className="text-slate-500">↳</span>
+                          <div className="font-bold text-indigo-500 text-sm flex items-center gap-1">
+                            <span className="text-[var(--text-muted)]">↳</span>
                             <span>{r.opposingLedger}</span>
                           </div>
                         )}
-                        <div className="text-slate-200 text-sm mt-0.5">{r.particulars}</div>
+                        <div className="text-[var(--text-secondary)] text-sm mt-0.5">{r.particulars}</div>
                         {showBankRef && r.bankRef && (
-                          <div className="text-xs font-mono text-cyan-400 mt-0.5 bg-cyan-950/40 px-1.5 py-0.5 rounded border border-cyan-500/20 inline-block">
+                          <div className="text-xs font-mono mt-0.5 hv-pill-cyan px-1.5 py-0.5 rounded border inline-block">
                             Ref/UTR: {r.bankRef}
                           </div>
                         )}
                         {showNarration && r.narration && (
-                          <div className="text-xs text-slate-400 italic mt-0.5 border-l-2 border-indigo-500/30 pl-1.5">
+                          <div className="text-xs text-[var(--text-muted)] italic mt-0.5 border-l-2 border-indigo-500/40 pl-1.5">
                             Note: {r.narration}
                           </div>
                         )}
                       </td>
-                      <td className="p-3 text-right font-mono tabular-nums text-emerald-400 font-semibold whitespace-nowrap">
+                      <td className="p-3 text-right font-mono tabular-nums text-emerald-500 font-semibold whitespace-nowrap">
                         {r.debit > 0 ? formatCurrency(r.debit, currency) : '-'}
                       </td>
-                      <td className="p-3 text-right font-mono tabular-nums text-rose-400 font-semibold whitespace-nowrap">
+                      <td className="p-3 text-right font-mono tabular-nums text-rose-500 font-semibold whitespace-nowrap">
                         {r.credit > 0 ? formatCurrency(r.credit, currency) : '-'}
                       </td>
-                      <td className="p-3 text-right font-mono tabular-nums font-bold text-slate-100 whitespace-nowrap">
+                      <td className="p-3 text-right font-mono tabular-nums font-bold text-[var(--text-primary)] whitespace-nowrap">
                         {formatCurrency(r.runningBalance, currency)} ({r.runningType})
                       </td>
                       <td className="p-3 text-center whitespace-nowrap">
@@ -680,7 +680,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
                             <button
                               onClick={() => onPrintInvoice(r.rawObj)}
                               title={isHindi ? 'देखें / प्रिंट करें' : 'View / Print'}
-                              className="p-1.5 text-blue-400 hover:text-white bg-blue-500/10 hover:bg-blue-600 rounded-lg transition"
+                              className="p-1.5 hv-pill-blue border hover:bg-blue-600 hover:text-white rounded-lg transition"
                             >
                               <Eye className="w-3.5 h-3.5" />
                             </button>
@@ -691,7 +691,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
                             <button
                               onClick={() => onEditInvoice(r.rawObj)}
                               title={isHindi ? 'संशोधन करें' : 'Edit Invoice'}
-                              className="p-1.5 text-amber-400 hover:text-white bg-amber-500/10 hover:bg-amber-600 rounded-lg transition"
+                              className="p-1.5 hv-pill-amber border hover:bg-amber-600 hover:text-white rounded-lg transition"
                             >
                               <Edit className="w-3.5 h-3.5" />
                             </button>
@@ -700,7 +700,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
                             <button
                               onClick={() => onEditPurchaseBill(r.rawObj)}
                               title={isHindi ? 'संशोधन करें' : 'Edit Purchase Bill'}
-                              className="p-1.5 text-amber-400 hover:text-white bg-amber-500/10 hover:bg-amber-600 rounded-lg transition"
+                              className="p-1.5 hv-pill-amber border hover:bg-amber-600 hover:text-white rounded-lg transition"
                             >
                               <Edit className="w-3.5 h-3.5" />
                             </button>
@@ -709,7 +709,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
                             <button
                               onClick={() => onEditVoucher(r.rawObj)}
                               title={isHindi ? 'वाउचर संपादित करें' : 'Edit Voucher'}
-                              className="p-1.5 text-amber-400 hover:text-white bg-amber-500/10 hover:bg-amber-600 rounded-lg transition"
+                              className="p-1.5 hv-pill-amber border hover:bg-amber-600 hover:text-white rounded-lg transition"
                             >
                               <Edit className="w-3.5 h-3.5" />
                             </button>
@@ -725,7 +725,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
                                 voucherNo: r.voucherNo
                               })}
                               title={isHindi ? 'एंट्री डिलीट करें' : 'Delete Entry'}
-                              className="p-1.5 text-rose-400 hover:text-white bg-rose-500/10 hover:bg-rose-600 rounded-lg transition"
+                              className="p-1.5 hv-pill-rose border hover:bg-rose-600 hover:text-white rounded-lg transition"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -744,22 +744,22 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
       {/* Bulk Delete Confirmation Modal */}
       {showBulkConfirm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-md shadow-2xl space-y-4">
-            <div className="flex items-center gap-3 text-rose-400">
-              <div className="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-500/30 flex items-center justify-center shrink-0">
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl p-6 w-full max-w-md shadow-2xl space-y-4">
+            <div className="flex items-center gap-3 text-rose-500">
+              <div className="w-10 h-10 rounded-xl hv-pill-rose border flex items-center justify-center shrink-0">
                 <AlertTriangle className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-white">
+                <h3 className="font-bold text-base text-[var(--text-primary)]">
                   {isHindi ? 'मल्टीपल प्रविष्टियाँ डिलीट करें' : 'Confirm Bulk Entry Deletion'}
                 </h3>
-                <p className="text-xs text-slate-400 font-mono">
+                <p className="text-xs text-[var(--text-muted)] font-mono">
                   {isHindi ? `चयनित ${selectedIds.length} आइटम` : `${selectedIds.length} items selected`}
                 </p>
               </div>
             </div>
 
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
               {isHindi
                 ? `क्या आप वाकई चुनी गई ${selectedIds.length} लेज़र/बैंक प्रविष्टियों को एक साथ हटाना चाहते हैं? यह क्रिया स्थायी है और लेज़र बैलेंस रिमूव हो जाएगा।`
                 : `Are you sure you want to permanently delete all ${selectedIds.length} selected transactions? This action will remove associated postings and adjust account balances.`}
@@ -769,14 +769,14 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
               <button
                 type="button"
                 onClick={() => setShowBulkConfirm(false)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-semibold transition"
+                className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] rounded-xl text-xs font-semibold transition"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>
               <button
                 type="button"
                 onClick={handleExecuteBulkDelete}
-                className="px-5 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-extrabold transition shadow-lg shadow-rose-600/30 flex items-center gap-1.5"
+                className="px-5 py-2 bg-rose-600 hover:bg-rose-500 text-white hv-keep-white rounded-xl text-xs font-extrabold transition shadow-lg shadow-rose-600/30 flex items-center gap-1.5"
               >
                 <Trash2 className="w-4 h-4" />
                 <span>{isHindi ? `सभी ${selectedIds.length} डिलीट करें (Enter)` : `Delete All ${selectedIds.length} (Enter)`}</span>
@@ -789,22 +789,22 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
       {/* Delete Confirmation Modal */}
       {deleteConfirm && deleteConfirm.show && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-md shadow-2xl space-y-4">
-            <div className="flex items-center gap-3 text-rose-400">
-              <div className="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-500/30 flex items-center justify-center shrink-0">
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl p-6 w-full max-w-md shadow-2xl space-y-4">
+            <div className="flex items-center gap-3 text-rose-500">
+              <div className="w-10 h-10 rounded-xl hv-pill-rose border flex items-center justify-center shrink-0">
                 <AlertTriangle className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-white">
+                <h3 className="font-bold text-base text-[var(--text-primary)]">
                   {isHindi ? 'एंट्री डिलीट करने की पुष्टि' : 'Confirm Entry Deletion'}
                 </h3>
-                <p className="text-xs text-slate-400 font-mono">
+                <p className="text-xs text-[var(--text-muted)] font-mono">
                   Ref: {deleteConfirm.voucherNo}
                 </p>
               </div>
             </div>
 
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
               {isHindi
                 ? `क्या आप वाकई ${deleteConfirm.voucherNo} की यह प्रविष्टि हटाना चाहते हैं? यह क्रिया स्थायी है और लेज़र बैलेंस अपडेट हो जाएगा।`
                 : `Are you sure you want to permanently delete transaction ${deleteConfirm.voucherNo}? This action cannot be undone and will revert all associated postings.`}
@@ -813,13 +813,13 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
             <div className="flex items-center justify-end gap-3 pt-2">
               <button
                 onClick={() => setDeleteConfirm(null)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-semibold transition"
+                className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] rounded-xl text-xs font-semibold transition"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>
               <button
                 onClick={handleDeleteEntry}
-                className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-rose-600/30 flex items-center gap-1.5"
+                className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white hv-keep-white rounded-xl text-xs font-bold transition shadow-lg shadow-rose-600/30 flex items-center gap-1.5"
               >
                 <Trash2 className="w-4 h-4" />
                 <span>{isHindi ? 'डिलीट करें' : 'Delete Entry'}</span>
@@ -832,29 +832,29 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
       {/* Bulk Reclassify Counter Ledger Modal */}
       {showReclassifyModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 w-full max-w-lg shadow-2xl space-y-4">
-            <div className="flex items-center gap-3 text-indigo-400">
-              <div className="w-10 h-10 rounded-xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center shrink-0">
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl p-6 w-full max-w-lg shadow-2xl space-y-4">
+            <div className="flex items-center gap-3 text-indigo-500">
+              <div className="w-10 h-10 rounded-xl hv-pill-indigo border flex items-center justify-center shrink-0">
                 <Edit className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-white">
+                <h3 className="font-bold text-base text-[var(--text-primary)]">
                   {isHindi ? 'काउंटर लेज़र बल्क री-क्लासिफाई / ट्रांसफर' : 'Bulk Reclassify Counter Ledger'}
                 </h3>
-                <p className="text-xs text-slate-400 font-mono">
+                <p className="text-xs text-[var(--text-muted)] font-mono">
                   {isHindi ? `चुने गए ${selectedIds.length} प्रविष्टियों का काउंटर लेज़र बदलें` : `Change counter-ledger for ${selectedIds.length} selected entries`}
                 </p>
               </div>
             </div>
 
-            <div className="space-y-3 bg-slate-800/60 p-4 rounded-xl border border-slate-700">
-              <label className="block text-xs font-bold text-slate-300">
+            <div className="space-y-3 hv-elevated p-4 rounded-xl border border-[var(--border-primary)]">
+              <label className="block text-xs font-bold text-[var(--text-secondary)]">
                 {isHindi ? 'नया काउंटर लेज़र चुनें (Target Ledger Account):' : 'Select Target Counter Ledger Account:'}
               </label>
               <select
                 value={targetReclassifyAccountId}
                 onChange={(e) => setTargetReclassifyAccountId(e.target.value)}
-                className="w-full bg-slate-900 text-slate-100 font-bold text-xs p-3 rounded-xl border border-slate-700 outline-none focus:border-indigo-500"
+                className="w-full hv-input font-bold text-xs p-3 rounded-xl border border-[var(--border-subtle)] outline-none focus:border-indigo-500"
               >
                 {data.accounts.map(acc => (
                   <option key={acc.id} value={acc.id}>
@@ -863,7 +863,7 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
                 ))}
               </select>
 
-              <p className="text-[11px] text-slate-400 leading-relaxed pt-1">
+              <p className="text-[11px] text-[var(--text-muted)] leading-relaxed pt-1">
                 {isHindi 
                   ? `💡 यह कार्रवाई चुने गए सभी वाउचर्स का काउंटर लेज़र (जैसे Suspense Account से बदलकर Supreme Suppliers या Rent Expense) तुरंत अपडेट कर देगी।`
                   : `💡 This will immediately reallocate the counter leg of all selected vouchers from current/suspense account to the target ledger chosen above.`}
@@ -874,14 +874,14 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
               <button
                 type="button"
                 onClick={() => setShowReclassifyModal(false)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-semibold transition"
+                className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] rounded-xl text-xs font-semibold transition"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>
               <button
                 type="button"
                 onClick={handleExecuteBulkReclassify}
-                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-extrabold transition shadow-lg shadow-indigo-600/30 flex items-center gap-1.5"
+                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white rounded-xl text-xs font-extrabold transition shadow-lg shadow-indigo-600/30 flex items-center gap-1.5"
               >
                 <Edit className="w-4 h-4" />
                 <span>{isHindi ? `सभी ${selectedIds.length} प्रविष्टियाँ स्थानांतरित करें` : `Apply Reclassification (${selectedIds.length})`}</span>
@@ -893,87 +893,87 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
 
       {/* Print Customization Modal */}
       {showPrintModal && (
-        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-5 animate-scale-up">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <Printer className="w-5 h-5 text-indigo-400" />
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-5 animate-scale-up">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
+              <h3 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <Printer className="w-5 h-5 text-indigo-500" />
                 <span>{isHindi ? 'प्रिंट एवं रिपोर्ट ऑप्शंस' : 'Ledger Print & Export Options'}</span>
               </h3>
               <button
                 onClick={() => setShowPrintModal(false)}
-                className="p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
+                className="p-1 text-[var(--text-muted)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--hover-surface)]"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <p className="text-xs text-slate-300">
+            <p className="text-xs text-[var(--text-secondary)]">
               {isHindi ? 'चुने गए खाते की लेजर रिपोर्ट में कौन सी जानकारी शामिल करना चाहते हैं?' : 'Select features to include in the generated print statement:'}
             </p>
 
-            <div className="space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs">
-              <div className="pb-2 border-b border-slate-800/80 space-y-2">
-                <span className="font-semibold text-indigo-400 block">{isHindi ? 'रिपोर्ट तिथि सीमा (Print Period Range):' : 'Report Date Period Range:'}</span>
+            <div className="space-y-3 hv-elevated p-4 rounded-xl border border-[var(--border-primary)] text-xs">
+              <div className="pb-2 border-b border-[var(--border-primary)] space-y-2">
+                <span className="font-semibold text-indigo-500 block">{isHindi ? 'रिपोर्ट तिथि सीमा (Print Period Range):' : 'Report Date Period Range:'}</span>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div>
-                    <label className="text-[10px] text-slate-400 font-semibold block mb-1">{isHindi ? 'से (From Date):' : 'From Date:'}</label>
+                    <label className="text-[10px] text-[var(--text-muted)] font-semibold block mb-1">{isHindi ? 'से (From Date):' : 'From Date:'}</label>
                     <input
                       type="date"
                       value={printFromDate}
                       onChange={(e) => setPrintFromDate(e.target.value)}
-                      className="w-full bg-slate-900 text-slate-100 font-mono text-xs p-2 rounded-lg border border-slate-700 outline-none focus:border-indigo-500"
+                      className="w-full hv-input font-mono text-xs p-2 rounded-lg border border-[var(--border-subtle)] outline-none focus:border-indigo-500"
                     />
                   </div>
                   <div>
-                    <label className="text-[10px] text-slate-400 font-semibold block mb-1">{isHindi ? 'तक (To Date):' : 'To Date:'}</label>
+                    <label className="text-[10px] text-[var(--text-muted)] font-semibold block mb-1">{isHindi ? 'तक (To Date):' : 'To Date:'}</label>
                     <input
                       type="date"
                       value={printToDate}
                       onChange={(e) => setPrintToDate(e.target.value)}
-                      className="w-full bg-slate-900 text-slate-100 font-mono text-xs p-2 rounded-lg border border-slate-700 outline-none focus:border-indigo-500"
+                      className="w-full hv-input font-mono text-xs p-2 rounded-lg border border-[var(--border-subtle)] outline-none focus:border-indigo-500"
                     />
                   </div>
                 </div>
               </div>
 
-              <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-slate-900">
-                <span className="font-semibold text-slate-200">{isHindi ? 'विरोधी लेज़र (Counter Dr/Cr Account)' : 'Opposing Ledger Account'}</span>
+              <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-[var(--hover-surface)]">
+                <span className="font-semibold text-[var(--text-secondary)]">{isHindi ? 'विरोधी लेज़र (Counter Dr/Cr Account)' : 'Opposing Ledger Account'}</span>
                 <input
                   type="checkbox"
                   checked={printOptOpposing}
                   onChange={(e) => setPrintOptOpposing(e.target.checked)}
-                  className="rounded bg-slate-900 border-slate-700 text-indigo-500 w-4 h-4 cursor-pointer"
+                  className="rounded bg-[var(--bg-input)] border-[var(--border-subtle)] text-indigo-500 w-4 h-4 cursor-pointer"
                 />
               </label>
 
-              <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-slate-900">
-                <span className="font-semibold text-slate-200">{isHindi ? 'बैंक रिफरेंस / UTR सं.' : 'Bank Ref / UTR No.'}</span>
+              <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-[var(--hover-surface)]">
+                <span className="font-semibold text-[var(--text-secondary)]">{isHindi ? 'बैंक रिफरेंस / UTR सं.' : 'Bank Ref / UTR No.'}</span>
                 <input
                   type="checkbox"
                   checked={printOptBankRef}
                   onChange={(e) => setPrintOptBankRef(e.target.checked)}
-                  className="rounded bg-slate-900 border-slate-700 text-indigo-500 w-4 h-4 cursor-pointer"
+                  className="rounded bg-[var(--bg-input)] border-[var(--border-subtle)] text-indigo-500 w-4 h-4 cursor-pointer"
                 />
               </label>
 
-              <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-slate-900">
-                <span className="font-semibold text-slate-200">{isHindi ? 'नैरेशन (Narration Notes)' : 'Transaction Narration Notes'}</span>
+              <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-[var(--hover-surface)]">
+                <span className="font-semibold text-[var(--text-secondary)]">{isHindi ? 'नैरेशन (Narration Notes)' : 'Transaction Narration Notes'}</span>
                 <input
                   type="checkbox"
                   checked={printOptNarration}
                   onChange={(e) => setPrintOptNarration(e.target.checked)}
-                  className="rounded bg-slate-900 border-slate-700 text-indigo-500 w-4 h-4 cursor-pointer"
+                  className="rounded bg-[var(--bg-input)] border-[var(--border-subtle)] text-indigo-500 w-4 h-4 cursor-pointer"
                 />
               </label>
 
-              <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-slate-900">
-                <span className="font-semibold text-slate-200">{isHindi ? 'रनिंग बैलेंस कॉलम (Running Balance)' : 'Running Balance Column'}</span>
+              <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-[var(--hover-surface)]">
+                <span className="font-semibold text-[var(--text-secondary)]">{isHindi ? 'रनिंग बैलेंस कॉलम (Running Balance)' : 'Running Balance Column'}</span>
                 <input
                   type="checkbox"
                   checked={printOptRunningBal}
                   onChange={(e) => setPrintOptRunningBal(e.target.checked)}
-                  className="rounded bg-slate-900 border-slate-700 text-indigo-500 w-4 h-4 cursor-pointer"
+                  className="rounded bg-[var(--bg-input)] border-[var(--border-subtle)] text-indigo-500 w-4 h-4 cursor-pointer"
                 />
               </label>
             </div>
@@ -981,13 +981,13 @@ export const GeneralLedgerView: React.FC<GeneralLedgerViewProps> = ({
             <div className="flex justify-end gap-3 pt-2">
               <button
                 onClick={() => setShowPrintModal(false)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-xs transition"
+                className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-bold rounded-xl text-xs transition"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>
               <button
                 onClick={handlePrintTrigger}
-                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold rounded-xl text-xs shadow-lg shadow-indigo-600/30 transition flex items-center gap-1.5"
+                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-extrabold rounded-xl text-xs shadow-lg shadow-indigo-600/30 transition flex items-center gap-1.5"
               >
                 <Printer className="w-4 h-4" />
                 <span>{isHindi ? 'प्रिंट तैयार करें' : 'Generate Printout'}</span>

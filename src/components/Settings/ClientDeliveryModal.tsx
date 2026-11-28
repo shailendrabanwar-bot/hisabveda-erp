@@ -375,22 +375,22 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 text-slate-100 rounded-2xl w-full max-w-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]">
+      <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] text-[var(--text-primary)] rounded-2xl w-full max-w-3xl shadow-2xl overflow-hidden my-auto flex flex-col max-h-[92vh]">
         
         {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-950 via-slate-900 to-slate-900 p-5 border-b border-indigo-500/30 flex items-center justify-between">
+        <div className="bg-[var(--bg-elevated)] p-5 border-b border-[var(--border-primary)] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-indigo-600/30 border border-indigo-500/40 rounded-xl text-indigo-400">
+            <div className="p-2.5 hv-pill-indigo border rounded-xl">
               <Share2 className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="text-lg font-extrabold text-white flex items-center gap-2">
+              <h2 className="text-lg font-extrabold text-[var(--text-primary)] flex items-center gap-2 flex-wrap">
                 <span>{isHindi ? 'ग्राहक वितरण एवं लिंक/सेटअप एक्सपोर्ट सेंटर' : 'Client Software Delivery & Link/Setup Exporter'}</span>
-                <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] px-2 py-0.5 rounded-full font-mono">
+                <span className="hv-pill-emerald border text-[10px] px-2 py-0.5 rounded-full font-mono">
                   VENDOR PRO
                 </span>
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--text-muted)]">
                 {isHindi 
                   ? 'ग्राहक को ऑनलाइन वेब लिंक भेजें, डेस्कटॉप सेटअप डाउनलोड करें या लाइसेंस की जारी करें'
                   : 'Send shareable app link to clients, export setup bundle or generate license keys'}
@@ -400,20 +400,20 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
 
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-700 transition"
+            className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] rounded-xl border border-[var(--border-subtle)] transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Selection */}
-        <div className="flex items-center border-b border-slate-800 bg-slate-900/50 px-5 gap-2 overflow-x-auto">
+        <div className="flex items-center border-b border-[var(--border-primary)] bg-[var(--bg-elevated)] px-5 gap-2 overflow-x-auto">
           <button
             onClick={() => setActiveTab('link')}
-            className={`py-3 px-4 font-bold text-xs flex items-center gap-2 border-b-2 transition whitespace-nowrap ${
+            className={`py-3 px-4 font-bold text-xs flex items-center gap-2 border-b-2 transition whitespace-nowrap cursor-pointer ${
               activeTab === 'link'
-                ? 'border-indigo-500 text-indigo-400 bg-indigo-500/10'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-indigo-500 text-indigo-500 bg-indigo-500/10'
+                : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
             <Globe className="w-4 h-4" />
@@ -422,10 +422,10 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
 
           <button
             onClick={() => setActiveTab('setup')}
-            className={`py-3 px-4 font-bold text-xs flex items-center gap-2 border-b-2 transition whitespace-nowrap ${
+            className={`py-3 px-4 font-bold text-xs flex items-center gap-2 border-b-2 transition whitespace-nowrap cursor-pointer ${
               activeTab === 'setup'
-                ? 'border-indigo-500 text-indigo-400 bg-indigo-500/10'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-indigo-500 text-indigo-500 bg-indigo-500/10'
+                : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
             <Download className="w-4 h-4" />
@@ -434,10 +434,10 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
 
           <button
             onClick={() => setActiveTab('license')}
-            className={`py-3 px-4 font-bold text-xs flex items-center gap-2 border-b-2 transition whitespace-nowrap ${
+            className={`py-3 px-4 font-bold text-xs flex items-center gap-2 border-b-2 transition whitespace-nowrap cursor-pointer ${
               activeTab === 'license'
-                ? 'border-indigo-500 text-indigo-400 bg-indigo-500/10'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-indigo-500 text-indigo-500 bg-indigo-500/10'
+                : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
             <Key className="w-4 h-4" />
@@ -446,10 +446,10 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
 
           <button
             onClick={() => setActiveTab('mobile')}
-            className={`py-3 px-4 font-bold text-xs flex items-center gap-2 border-b-2 transition whitespace-nowrap ${
+            className={`py-3 px-4 font-bold text-xs flex items-center gap-2 border-b-2 transition whitespace-nowrap cursor-pointer ${
               activeTab === 'mobile'
-                ? 'border-emerald-500 text-emerald-400 bg-emerald-500/10'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-emerald-500 text-emerald-500 bg-emerald-500/10'
+                : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
             <Smartphone className="w-4 h-4" />
@@ -461,15 +461,15 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
         <div className="p-5 space-y-5 overflow-y-auto flex-1">
           
           {/* Customer Profile Details Form */}
-          <div className="bg-slate-800/60 border border-slate-700/80 rounded-2xl p-4 space-y-3">
-            <h3 className="text-xs font-bold text-amber-300 flex items-center gap-1.5 uppercase tracking-wide">
-              <Building2 className="w-4 h-4 text-amber-400" />
+          <div className="bg-[var(--bg-elevated)] border border-[var(--border-primary)] rounded-2xl p-4 space-y-3">
+            <h3 className="text-xs font-bold text-amber-500 flex items-center gap-1.5 uppercase tracking-wide">
+              <Building2 className="w-4 h-4" />
               <span>{isHindi ? 'ग्राहक/कंपनी विवरण (जिसे सॉफ़्टवेयर बेचना है):' : 'Target Client / Customer Details (To Sale Software):'}</span>
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
-                <label className="block text-[11px] text-slate-300 font-semibold mb-1">
+                <label className="block text-[11px] text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'ग्राहक कंपनी का नाम:' : 'Client Business Name:'}
                 </label>
                 <input
@@ -477,12 +477,12 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                   value={clientName}
                   onChange={(e) => setClientName(e.target.value)}
                   placeholder="e.g. Ramesh Traders & Co."
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full hv-input border rounded-xl p-2 text-xs focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] text-slate-300 font-semibold mb-1">
+                <label className="block text-[11px] text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'व्हाट्सएप / मोबाइल नं.:' : 'WhatsApp / Mobile No.:'}
                 </label>
                 <input
@@ -490,12 +490,12 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                   value={clientPhone}
                   onChange={(e) => setClientPhone(e.target.value)}
                   placeholder="e.g. 9876543210"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-white focus:outline-none focus:border-indigo-500 font-mono"
+                  className="w-full hv-input border rounded-xl p-2 text-xs focus:outline-none focus:border-indigo-500 font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] text-slate-300 font-semibold mb-1">
+                <label className="block text-[11px] text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'लाइसेंस प्रकार:' : 'License Plan:'}
                 </label>
                 <select
@@ -504,7 +504,7 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                     const newType = e.target.value as 'perpetual' | 'annual' | 'trial';
                     setLicenseType(newType);
                   }}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-xs text-white focus:outline-none focus:border-indigo-500 font-bold"
+                  className="w-full hv-input border rounded-xl p-2 text-xs focus:outline-none focus:border-indigo-500 font-bold"
                 >
                   <option value="perpetual">Full License (Lifetime)</option>
                   <option value="annual">Annual Subscription (1 Year)</option>
@@ -519,22 +519,22 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
             <div className="space-y-4">
               
               {/* Comprehensive 403 Forbidden Root-Cause & Instant Fix Box */}
-              <div className="bg-gradient-to-br from-amber-950/60 via-slate-900 to-slate-900 border-2 border-amber-500/60 p-4 rounded-2xl space-y-3 shadow-xl">
+              <div className="bg-[var(--bg-elevated)] border-2 border-amber-500/50 p-4 rounded-2xl space-y-3 shadow-md">
                 <div className="flex items-start gap-3">
-                  <div className="p-2 bg-amber-500/20 text-amber-400 border border-amber-500/40 rounded-xl shrink-0 text-lg">
+                  <div className="p-2 hv-pill-amber border rounded-xl shrink-0 text-lg">
                     ⚠️
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between flex-wrap gap-1">
-                      <strong className="text-amber-300 text-sm font-extrabold flex items-center gap-1.5">
+                      <strong className="text-amber-500 text-sm font-extrabold flex items-center gap-1.5">
                         <span>{isHindi ? 'Error 403 (Forbidden) क्यों आता है और इसका सही हल:' : 'Why Error 403 (Forbidden) Occurs & True Resolution:'}</span>
                       </strong>
-                      <span className="text-[10px] bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded-full font-mono font-bold border border-rose-500/30">
+                      <span className="text-[10px] hv-pill-rose px-2 py-0.5 rounded-full font-mono font-bold border">
                         GOOGLE SANDBOX SECURITY
                       </span>
                     </div>
                     
-                    <p className="mt-1 text-xs text-slate-300 leading-relaxed">
+                    <p className="mt-1 text-xs text-[var(--text-secondary)] leading-relaxed">
                       {isHindi 
                         ? 'Google AI Studio का ais-pre-...run.app लिंक केवल आपके गूगल अकाउंट (ShailendraBanwar@gmail.com) के आंतरिक प्रीव्यू के लिए सुरक्षित है। Google Cloud सुरक्षा (IAP) के कारण कोई भी बाहरी ग्राहक इसे सीधे मोबाइल या ब्राउज़र पर नहीं खोल सकता (403 एरर आती है)।'
                         : 'Google AI Studio ais-pre-...run.app URLs are internal developer preview sandboxes strictly restricted to your Google account. Google Cloud Frontend blocks external users with HTTP 403 Forbidden by design.'}
@@ -543,22 +543,22 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 pt-1 text-xs">
-                  <div className="bg-slate-950/90 border border-emerald-500/40 p-3 rounded-xl space-y-1.5">
-                    <div className="font-bold text-emerald-300 flex items-center gap-1.5 text-[11px]">
+                  <div className="bg-[var(--bg-surface)] border border-emerald-500/40 p-3 rounded-xl space-y-1.5">
+                    <div className="font-bold text-emerald-500 flex items-center gap-1.5 text-[11px]">
                       <span>🖥️ 1. {isHindi ? 'डेस्कटॉप ऑफ़लाइन इंस्टॉलर (100% सफल, बिना इंटरनेट/सर्वर)' : 'Offline Desktop Installer (100% Working, No Server Needed)'}</span>
                     </div>
-                    <p className="text-[11px] text-slate-300 leading-normal">
+                    <p className="text-[11px] text-[var(--text-secondary)] leading-normal">
                       {isHindi
                         ? 'ऊपर "2. सेटअप डाउनलोड" टैब पर जाएँ और "डेस्कटॉप सेटअप फाइल (.html)" या ZIP पैकेज डाउनलोड करें। इसे पेनड्राइव या व्हाट्सएप से ग्राहक को दें। ग्राहक के कंप्यूटर पर यह बिना किसी गूगल एरर के तुरंत चलेगा।'
                         : 'Go to Tab 2 "Desktop Setup File" and download the standalone setup launcher or ZIP bundle. Send to clients via Pen Drive or WhatsApp; runs directly on their PC without Google restrictions.'}
                     </p>
                   </div>
 
-                  <div className="bg-slate-950/90 border border-indigo-500/40 p-3 rounded-xl space-y-1.5">
-                    <div className="font-bold text-indigo-300 flex items-center gap-1.5 text-[11px]">
+                  <div className="bg-[var(--bg-surface)] border border-indigo-500/40 p-3 rounded-xl space-y-1.5">
+                    <div className="font-bold text-indigo-500 flex items-center gap-1.5 text-[11px]">
                       <span>🌐 2. {isHindi ? 'फ्री पब्लिक होस्टिंग (Vercel / Render पर डिप्लॉय)' : 'Free Public Hosting Deployment (Vercel / Render)'}</span>
                     </div>
-                    <p className="text-[11px] text-slate-300 leading-normal">
+                    <p className="text-[11px] text-[var(--text-secondary)] leading-normal">
                       {isHindi
                         ? 'यदि आपको वास्तविक पब्लिक वेब लिंक चाहिए, तो कोड को GitHub से Render.com या Vercel पर 2 मिनट में फ्री होस्ट करें। फिर अपना पब्लिक डोमेन नीचे दर्ज करें ताकि ग्राहकों को लिंक से सीधा एक्सेस मिले।'
                         : 'To share a true public link from WhatsApp, deploy this repo to Vercel or Render.com (free 2-minute deploy). Enter your custom URL below to update all share links.'}
@@ -567,27 +567,27 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                 </div>
 
                 {/* Custom Base URL Toggle Button & Form */}
-                <div className="pt-1 border-t border-slate-800 flex flex-col gap-2">
+                <div className="pt-1 border-t border-[var(--border-primary)] flex flex-col gap-2">
                   <div className="flex items-center justify-between">
                     <button
                       type="button"
                       onClick={() => setShowDomainConfig(!showDomainConfig)}
-                      className="text-[11px] text-indigo-400 hover:text-indigo-300 font-bold flex items-center gap-1.5 transition"
+                      className="text-[11px] text-indigo-500 font-bold flex items-center gap-1.5 transition cursor-pointer"
                     >
                       <Globe className="w-3.5 h-3.5" />
                       <span>{showDomainConfig ? (isHindi ? 'कस्टम URL सेटिंग्स छिपाएं' : 'Hide Custom URL Settings') : (isHindi ? '⚙️ अपना कस्टम डोमेन / पब्लिक URL बदलें' : '⚙️ Configure Custom Public Domain URL')}</span>
                     </button>
 
                     {customBaseUrl && (
-                      <span className="text-[10px] text-emerald-400 font-mono bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">
+                      <span className="text-[10px] hv-pill-emerald font-mono px-2 py-0.5 rounded border">
                         Custom: {customBaseUrl}
                       </span>
                     )}
                   </div>
 
                   {showDomainConfig && (
-                    <div className="bg-slate-950 p-3 rounded-xl border border-indigo-500/40 space-y-2 mt-1 animate-fadeIn">
-                      <label className="block text-[11px] font-bold text-slate-300">
+                    <div className="bg-[var(--bg-surface)] p-3 rounded-xl border border-indigo-500/40 space-y-2 mt-1 animate-fadeIn">
+                      <label className="block text-[11px] font-bold text-[var(--text-secondary)]">
                         {isHindi ? 'पब्लिक वेबसाइट या डोमेन URL (उदा. https://billing.mycompany.com):' : 'Public Website or Custom Hosted Domain URL:'}
                       </label>
                       <div className="flex items-center gap-2">
@@ -596,12 +596,12 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                           value={customBaseUrl}
                           onChange={(e) => setCustomBaseUrl(e.target.value)}
                           placeholder="https://accounting.mycompany.com or public Vercel/Netlify URL"
-                          className="flex-1 bg-slate-900 border border-slate-700 rounded-lg p-2 text-xs text-white focus:outline-none focus:border-indigo-500 font-mono"
+                          className="flex-1 hv-input border rounded-lg p-2 text-xs focus:outline-none focus:border-indigo-500 font-mono"
                         />
                         <button
                           type="button"
                           onClick={() => handleSaveCustomDomain(customBaseUrl)}
-                          className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-2 rounded-lg text-xs transition shrink-0"
+                          className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-3 py-2 rounded-lg text-xs transition shrink-0 cursor-pointer"
                         >
                           {domainSaved ? (isHindi ? 'सेव हो गया!' : 'Saved!') : (isHindi ? 'सेव करें' : 'Save URL')}
                         </button>
@@ -609,14 +609,14 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                           <button
                             type="button"
                             onClick={() => handleSaveCustomDomain('')}
-                            className="bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white px-2.5 py-2 rounded-lg text-xs transition shrink-0"
+                            className="bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] px-2.5 py-2 rounded-lg text-xs transition shrink-0 cursor-pointer"
                             title="Reset to default cloud URL"
                           >
                             Reset
                           </button>
                         )}
                       </div>
-                      <p className="text-[10px] text-slate-400">
+                      <p className="text-[10px] text-[var(--text-muted)]">
                         * All generated WhatsApp messages, customer links, and QR codes will automatically use this URL.
                       </p>
                     </div>
@@ -625,17 +625,17 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
               </div>
 
               {/* LINK TYPE 1: 7-DAY DEMO TRIAL SHARE LINK */}
-              <div className="bg-slate-900 border border-emerald-500/40 p-4 rounded-2xl space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-extrabold text-emerald-300 flex items-center gap-1.5">
-                    <Globe className="w-4 h-4 text-emerald-400" />
+              <div className="bg-[var(--bg-elevated)] border border-emerald-500/40 p-4 rounded-2xl space-y-2.5">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <span className="text-xs font-extrabold text-emerald-500 flex items-center gap-1.5">
+                    <Globe className="w-4 h-4" />
                     <span>{isHindi ? '1. केवल 7-दिवसीय मुफ़्त डेमो लिंक (7-Day Free Trial Link):' : '1. 7-Day Free Demo Trial Link (Trial Only):'}</span>
                   </span>
-                  <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-bold">
+                  <span className="text-[10px] hv-pill-emerald border px-2 py-0.5 rounded-full font-bold">
                     Admin Tools 100% Hidden
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-[var(--text-muted)]">
                   {isHindi 
                     ? 'ट्रायल ग्राहकों को यह लिंक भेजें। इसमें एक्टिवेट ऑप्शन, रीसेलर टूल, मास्टर की और एडमिन पिन बिल्कुल दिखाई नहीं देंगे।'
                     : 'Send this link to demo trial users. All activation options, reseller tools, master keys, and PIN controls are completely hidden.'}
@@ -646,15 +646,15 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                     type="text"
                     readOnly
                     value={demoShareUrl}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-emerald-300 font-mono select-all focus:outline-none"
+                    className="w-full hv-input border rounded-xl px-3 py-2 text-xs text-emerald-500 font-mono select-all focus:outline-none"
                   />
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       type="button"
                       onClick={handleCopyDemoLink}
-                      className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold px-3 py-2 rounded-xl text-xs transition shadow-lg shrink-0 cursor-pointer"
+                      className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-bold px-3 py-2 rounded-xl text-xs transition shadow-lg shrink-0 cursor-pointer"
                     >
-                      {copiedDemoLink ? <Check className="w-4 h-4 text-slate-950" /> : <Copy className="w-4 h-4" />}
+                      {copiedDemoLink ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                       <span>{copiedDemoLink ? (isHindi ? 'कॉपी हुआ!' : 'Copied!') : (isHindi ? 'कॉपी' : 'Copy')}</span>
                     </button>
 
@@ -665,7 +665,7 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                           onClose();
                           onToggleCustomerPreview();
                         }}
-                        className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-sky-600 hover:bg-sky-500 text-slate-950 font-bold px-3 py-2 rounded-xl text-xs transition shadow-lg shrink-0 cursor-pointer"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-sky-600 hover:bg-sky-500 text-white hv-keep-white font-bold px-3 py-2 rounded-xl text-xs transition shadow-lg shrink-0 cursor-pointer"
                         title={isHindi ? 'यहीं स्क्रीन पर ग्राहक का व्यू टेस्ट करें' : 'Preview this view right here'}
                       >
                         <Eye className="w-3.5 h-3.5" />
@@ -677,7 +677,7 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                       href={demoShareUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center justify-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2.5 py-2 rounded-xl text-xs transition border border-slate-700 shrink-0 cursor-pointer"
+                      className="flex items-center justify-center gap-1 bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] font-bold px-2.5 py-2 rounded-xl text-xs transition border border-[var(--border-subtle)] shrink-0 cursor-pointer"
                       title={isHindi ? 'नए ब्राउज़र टैब में खोलें' : 'Open in New Tab'}
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -688,17 +688,17 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
               </div>
 
               {/* LINK TYPE 2: PAID COMMERCIAL SOFTWARE ACTIVATION LINK */}
-              <div className="bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-indigo-500/30 p-4 rounded-2xl space-y-2.5">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
-                    <Key className="w-4 h-4 text-indigo-400" />
+              <div className="bg-[var(--bg-elevated)] border border-indigo-500/40 p-4 rounded-2xl space-y-2.5">
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <span className="text-xs font-bold text-indigo-500 flex items-center gap-1.5">
+                    <Key className="w-4 h-4" />
                     <span>{isHindi ? '2. खरीदने वाले ग्राहक हेतु एक्टिवेशन लिंक (Paid License Link):' : '2. Paid Customer Commercial Activation Link:'}</span>
                   </span>
-                  <span className="text-[10px] bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full font-mono">
+                  <span className="text-[10px] hv-pill-indigo border px-2 py-0.5 rounded-full font-mono">
                     Product Key Included
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-[var(--text-muted)]">
                   {isHindi 
                     ? 'जिस ग्राहक ने सॉफ्टवेयर खरीदा है, उसे यह लिंक दें ताकि वे अपनी सीरियल की (Product Key) डालकर लाइफटाइम/वार्षिक एक्सेस एक्टिवेट कर सकें।'
                     : 'Send this link to paid customers so they can enter their serial product key to activate full access.'}
@@ -709,15 +709,15 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                     type="text"
                     readOnly
                     value={customShareUrl}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-indigo-200 font-mono select-all focus:outline-none"
+                    className="w-full hv-input border rounded-xl px-3 py-2 text-xs text-indigo-500 font-mono select-all focus:outline-none"
                   />
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       type="button"
                       onClick={handleCopyLink}
-                      className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-2 rounded-xl text-xs transition shadow-lg shrink-0 cursor-pointer"
+                      className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-3 py-2 rounded-xl text-xs transition shadow-lg shrink-0 cursor-pointer"
                     >
-                      {copiedLink ? <Check className="w-4 h-4 text-emerald-300" /> : <Copy className="w-4 h-4" />}
+                      {copiedLink ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
                       <span>{copiedLink ? (isHindi ? 'कॉपी हुआ!' : 'Copied!') : (isHindi ? 'कॉपी' : 'Copy')}</span>
                     </button>
 
@@ -728,7 +728,7 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                           onClose();
                           onToggleCustomerPreview();
                         }}
-                        className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-sky-600 hover:bg-sky-500 text-slate-950 font-bold px-3 py-2 rounded-xl text-xs transition shadow-lg shrink-0 cursor-pointer"
+                        className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-sky-600 hover:bg-sky-500 text-white hv-keep-white font-bold px-3 py-2 rounded-xl text-xs transition shadow-lg shrink-0 cursor-pointer"
                         title={isHindi ? 'यहीं स्क्रीन पर ग्राहक का व्यू टेस्ट करें' : 'Preview this view right here'}
                       >
                         <Eye className="w-3.5 h-3.5" />
@@ -740,7 +740,7 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                       href={customShareUrl}
                       target="_blank"
                       rel="noreferrer"
-                      className="flex items-center justify-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-2.5 py-2 rounded-xl text-xs transition border border-slate-700 shrink-0 cursor-pointer"
+                      className="flex items-center justify-center gap-1 bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] font-bold px-2.5 py-2 rounded-xl text-xs transition border border-[var(--border-subtle)] shrink-0 cursor-pointer"
                       title={isHindi ? 'नए ब्राउज़र टैब में खोलें' : 'Open in New Tab'}
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
@@ -751,13 +751,13 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
               </div>
 
               {/* WhatsApp & Message Delivery */}
-              <div className="bg-slate-800/40 border border-slate-700/60 p-4 rounded-2xl space-y-3">
-                <h4 className="text-xs font-bold text-white flex items-center gap-2">
-                  <Smartphone className="w-4 h-4 text-emerald-400" />
+              <div className="bg-[var(--bg-elevated)] border border-[var(--border-primary)] p-4 rounded-2xl space-y-3">
+                <h4 className="text-xs font-bold text-[var(--text-primary)] flex items-center gap-2">
+                  <Smartphone className="w-4 h-4 text-emerald-500" />
                   <span>{isHindi ? 'व्हाट्सएप या मैसेज द्वारा सीधा भेजें (Direct Message Delivery)' : 'Send Directly via WhatsApp / SMS'}</span>
                 </h4>
 
-                <div className="bg-slate-950/80 border border-slate-800 p-3 rounded-xl text-xs font-mono text-slate-300 whitespace-pre-wrap leading-relaxed">
+                <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] p-3 rounded-xl text-xs font-mono text-[var(--text-secondary)] whitespace-pre-wrap leading-relaxed">
                   {whatsappMessage}
                 </div>
 
@@ -766,7 +766,7 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                     href={whatsappShareUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition shadow-lg"
+                    className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition shadow-lg"
                   >
                     <Send className="w-4 h-4" />
                     <span>{isHindi ? 'व्हाट्सएप पर शेयर करें' : 'Send via WhatsApp'}</span>
@@ -774,9 +774,9 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
 
                   <button
                     onClick={handleCopyWhatsAppText}
-                    className="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-1.5 transition"
+                    className="bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
                   >
-                    {copiedMsg ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
+                    {copiedMsg ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
                     <span>{copiedMsg ? (isHindi ? 'मैसेज कॉपी हुआ!' : 'Message Copied!') : (isHindi ? 'मैसेज टेक्स्ट कॉपी करें' : 'Copy Text')}</span>
                   </button>
                 </div>
@@ -789,20 +789,20 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
             <div className="space-y-4">
               
               {/* PRIMARY OPTION: 100% SECURE 7-DAY TRIAL CLIENT PACKAGE (.ZIP) */}
-              <div className="bg-gradient-to-br from-emerald-950/60 via-slate-900 to-slate-900 border-2 border-emerald-500/50 p-4.5 rounded-2xl space-y-3.5 shadow-xl">
+              <div className="bg-[var(--bg-elevated)] border-2 border-emerald-500/50 p-4.5 rounded-2xl space-y-3.5 shadow-md">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-2.5">
-                    <div className="p-2.5 bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 rounded-xl">
+                    <div className="p-2.5 hv-pill-emerald border rounded-xl">
                       <Lock className="w-5 h-5" />
                     </div>
                     <div>
-                      <h4 className="text-sm font-extrabold text-emerald-300 flex items-center gap-2">
+                      <h4 className="text-sm font-extrabold text-emerald-500 flex items-center gap-2 flex-wrap">
                         <span>{isHindi ? '1. सुरक्षित 7-दिवसीय ट्रायल क्लाइंट पैकेज (.ZIP)' : '1. Secure 7-Day Free Trial Client Package (.ZIP)'}</span>
-                        <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full font-mono border border-emerald-500/30">
+                        <span className="text-[10px] hv-pill-emerald px-2 py-0.5 rounded-full font-mono border">
                           TRIAL LOCKED
                         </span>
                       </h4>
-                      <p className="text-[11px] text-slate-400 mt-0.5">
+                      <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
                         {isHindi 
                           ? 'ग्राहक को देने के लिए 100% सुरक्षित ट्रायल पैकेज। इसमें फुल लाइसेंस लीक होने का शून्य (0%) खतरा है।' 
                           : 'Completely safe trial package to distribute to clients. 0% risk of full license leak.'}
@@ -813,32 +813,32 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
 
                 {/* Trial Security Guarantees */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-                  <div className="bg-slate-950/80 border border-emerald-500/20 p-2.5 rounded-xl space-y-1">
-                    <span className="text-emerald-400 font-bold flex items-center gap-1 text-[11px]">
+                  <div className="bg-[var(--bg-surface)] border border-emerald-500/30 p-2.5 rounded-xl space-y-1">
+                    <span className="text-emerald-500 font-bold flex items-center gap-1 text-[11px]">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       {isHindi ? '7 दिन बाद ऑटो-लॉक' : 'Auto-Locks Day 8'}
                     </span>
-                    <p className="text-[10px] text-slate-400">
+                    <p className="text-[10px] text-[var(--text-muted)]">
                       {isHindi ? '7 दिन पूरे होते ही सॉफ्टवेयर रुक जाएगा और एक्टिवेशन की माँगेगा।' : 'App locks automatically after 7 days; requires key.'}
                     </p>
                   </div>
 
-                  <div className="bg-slate-950/80 border border-emerald-500/20 p-2.5 rounded-xl space-y-1">
-                    <span className="text-emerald-400 font-bold flex items-center gap-1 text-[11px]">
+                  <div className="bg-[var(--bg-surface)] border border-emerald-500/30 p-2.5 rounded-xl space-y-1">
+                    <span className="text-emerald-500 font-bold flex items-center gap-1 text-[11px]">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       {isHindi ? 'कोई पर्सनल बिल/डेटा नहीं' : 'Zero Private Data'}
                     </span>
-                    <p className="text-[10px] text-slate-400">
+                    <p className="text-[10px] text-[var(--text-muted)]">
                       {isHindi ? 'आपकी कंपनी के पर्सनल बिल व लेज़र इसमें बिल्कुल नहीं जाएँगे।' : 'Your previous invoices & party ledger remain 100% private.'}
                     </p>
                   </div>
 
-                  <div className="bg-slate-950/80 border border-emerald-500/20 p-2.5 rounded-xl space-y-1">
-                    <span className="text-emerald-400 font-bold flex items-center gap-1 text-[11px]">
+                  <div className="bg-[var(--bg-surface)] border border-emerald-500/30 p-2.5 rounded-xl space-y-1">
+                    <span className="text-emerald-500 font-bold flex items-center gap-1 text-[11px]">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       {isHindi ? 'एडमिन टूल्स ब्लॉक' : 'Admin Tools Hidden'}
                     </span>
-                    <p className="text-[10px] text-slate-400">
+                    <p className="text-[10px] text-[var(--text-muted)]">
                       {isHindi ? 'रीसेलर की जनरेटर और एडमिन पिन ग्राहक से छिपा रहेगा।' : 'Reseller key generator & master PIN are fully locked.'}
                     </p>
                   </div>
@@ -848,7 +848,7 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                   type="button"
                   onClick={handleDownloadTrialClientPackage}
                   disabled={isZippingTrial}
-                  className="w-full bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 hover:from-emerald-500 hover:to-indigo-500 text-white font-extrabold py-3 px-5 rounded-xl text-xs flex items-center justify-center gap-2 shadow-xl transition transform active:scale-95 disabled:opacity-60"
+                  className="w-full bg-gradient-to-r from-emerald-600 via-teal-600 to-indigo-600 hover:from-emerald-500 hover:to-indigo-500 text-white hv-keep-white font-extrabold py-3 px-5 rounded-xl text-xs flex items-center justify-center gap-2 shadow-xl transition transform active:scale-95 disabled:opacity-60 cursor-pointer"
                 >
                   {isZippingTrial ? (
                     <>
@@ -857,7 +857,7 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                     </>
                   ) : trialZipDone ? (
                     <>
-                      <Check className="w-4 h-4 text-emerald-300" />
+                      <Check className="w-4 h-4" />
                       <span>{isHindi ? '7-दिवसीय ट्रायल ZIP डाउनलोड हो गया!' : '7-Day Trial ZIP Downloaded!'}</span>
                     </>
                   ) : (
@@ -874,12 +874,12 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
               </div>
 
               {/* SECONDARY OPTION: STANDALONE HTML LAUNCHER */}
-              <div className="bg-slate-800/50 border border-slate-700/70 p-4 rounded-2xl space-y-3">
-                <h4 className="text-xs font-bold text-amber-300 flex items-center gap-2">
-                  <Laptop className="w-4 h-4 text-amber-400" />
+              <div className="bg-[var(--bg-elevated)] border border-[var(--border-primary)] p-4 rounded-2xl space-y-3">
+                <h4 className="text-xs font-bold text-amber-500 flex items-center gap-2">
+                  <Laptop className="w-4 h-4" />
                   <span>{isHindi ? '2. सिंगल डेस्कटॉप HTML लॉन्चर (.html)' : '2. Standalone Desktop HTML Launcher (.html)'}</span>
                 </h4>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
                   {isHindi 
                     ? 'ग्राहक को व्हाट्सएप या ईमेल द्वारा भेजने के लिए एक सिंगल .HTML सेटअप फाइल डाउनलोड करें। ग्राहक इसे विंडोज़ PC या मैक पर बिना किसी सर्वर सेटअप के चला सकता है।'
                     : 'Download a self-contained .HTML launcher file to send via Pen Drive or Email. Customers can launch it on Windows or Mac without technical installation.'}
@@ -888,9 +888,9 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                 <div className="pt-1">
                   <button
                     onClick={handleDownloadOfflineHTMLSetup}
-                    className="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition"
+                    className="w-full bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold py-2.5 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition cursor-pointer"
                   >
-                    <Download className="w-4 h-4 text-amber-400" />
+                    <Download className="w-4 h-4 text-amber-500" />
                     <span>{isHindi ? 'डेस्कटॉप सेटअप फाइल डाउनलोड करें (.html)' : 'Download Desktop Setup File (.html)'}</span>
                   </button>
                 </div>
@@ -898,34 +898,34 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
 
               {/* Data Backup & Project ZIP Package */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div className="bg-slate-800/40 border border-slate-700 p-4 rounded-2xl space-y-2">
-                  <div className="flex items-center gap-2 text-indigo-400 font-bold text-xs">
+                <div className="bg-[var(--bg-elevated)] border border-[var(--border-primary)] p-4 rounded-2xl space-y-2">
+                  <div className="flex items-center gap-2 text-indigo-500 font-bold text-xs">
                     <FileCode className="w-4 h-4" />
                     <span>{isHindi ? 'ग्राहक स्टार्टर डेटाबेस (.json)' : 'Customer Starter Database (.json)'}</span>
                   </div>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-[var(--text-muted)]">
                     {isHindi ? 'ग्राहक के नए एकाउंट्स के लिए प्री-कॉन्फ़िगर्ड कंपनी बैकअप डाउनलोड करें।' : 'Export pre-configured starter backup for client setup.'}
                   </p>
                   <button
                     onClick={() => exportBackupJSON(data)}
-                    className="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs font-bold py-2 rounded-xl text-indigo-300 hover:text-white transition mt-2 flex items-center justify-center gap-1.5"
+                    className="w-full bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-xs font-bold py-2 rounded-xl text-indigo-500 transition mt-2 flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'डेटा बैकअप डाउनलोड' : 'Download JSON Data'}</span>
                   </button>
                 </div>
 
-                <div className="bg-slate-800/40 border border-slate-700 p-4 rounded-2xl space-y-2">
-                  <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs">
+                <div className="bg-[var(--bg-elevated)] border border-[var(--border-primary)] p-4 rounded-2xl space-y-2">
+                  <div className="flex items-center gap-2 text-emerald-500 font-bold text-xs">
                     <PackageCheck className="w-4 h-4" />
                     <span>{isHindi ? 'वेब होस्टिंग निर्देश (Server Deploy)' : 'Web Server Bundle Setup'}</span>
                   </div>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-[var(--text-muted)]">
                     {isHindi ? 'क्लाउड सर्वर या डोमेन पर होस्ट करने हेतु आवश्यक सेटिंग्स।' : 'Hosted on cloud environment. Instant client access.'}
                   </p>
                   <button
                     onClick={handleCopyLink}
-                    className="w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 text-xs font-bold py-2 rounded-xl text-emerald-300 hover:text-white transition mt-2 flex items-center justify-center gap-1.5"
+                    className="w-full bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-xs font-bold py-2 rounded-xl text-emerald-500 transition mt-2 flex items-center justify-center gap-1.5 cursor-pointer"
                   >
                     <ExternalLink className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'एप्लीकेशन URL शेयर करें' : 'Share App URL'}</span>
@@ -938,10 +938,10 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
           {/* TAB 3: LICENSE KEY GENERATOR */}
           {activeTab === 'license' && (
             <div className="space-y-4">
-              <div className="bg-gradient-to-r from-slate-900 via-indigo-950/60 to-slate-900 border border-indigo-500/30 p-5 rounded-2xl space-y-4">
+              <div className="bg-[var(--bg-elevated)] border border-indigo-500/40 p-5 rounded-2xl space-y-4">
                 <div className="flex items-center justify-between gap-2 flex-wrap">
-                  <h4 className="text-xs font-bold text-indigo-300 flex items-center gap-2">
-                    <Key className="w-4 h-4 text-amber-400" />
+                  <h4 className="text-xs font-bold text-indigo-500 flex items-center gap-2">
+                    <Key className="w-4 h-4 text-amber-500" />
                     <span>{isHindi ? 'Ed25519 हस्ताक्षरित सर्टिफिकेट जारीकर्ता (HV-LIC-V3)' : 'Ed25519 Signed Certificate Issuer (HV-LIC-V3)'}</span>
                   </h4>
 
@@ -949,7 +949,7 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                     type="button"
                     disabled={isIssuingKey}
                     onClick={() => handleGenerateKey()}
-                    className="text-[11px] bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white font-bold px-3 py-1.5 rounded-lg transition cursor-pointer"
+                    className="text-[11px] bg-indigo-600 hover:bg-indigo-500 disabled:opacity-60 text-white hv-keep-white font-bold px-3 py-1.5 rounded-lg transition cursor-pointer"
                   >
                     {isIssuingKey
                       ? (isHindi ? 'जारी हो रहा है...' : 'Signing...')
@@ -958,7 +958,7 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                 </div>
 
                 <div>
-                  <label className="block text-[11px] text-slate-300 font-semibold mb-1">
+                  <label className="block text-[11px] text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'ग्राहक का Hardware Machine ID (आवश्यक):' : 'Client Hardware Machine ID (Required for Machine Lock):'}
                   </label>
                   <input
@@ -966,63 +966,63 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                     value={clientHwid}
                     onChange={(e) => setClientHwid(e.target.value.toUpperCase())}
                     placeholder="HV-HWID-..."
-                    className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2 text-xs text-indigo-300 font-mono focus:outline-none focus:border-indigo-500"
+                    className="w-full hv-input border rounded-xl p-2 text-xs text-indigo-500 font-mono focus:outline-none focus:border-indigo-500"
                   />
                 </div>
 
                 {issueError && (
-                  <div className="bg-amber-950/50 border border-amber-500/40 rounded-xl p-3 text-[11px] text-amber-200 space-y-1.5">
+                  <div className="hv-pill-amber border rounded-xl p-3 text-[11px] space-y-1.5">
                     <p>{issueError}</p>
-                    <code className="block bg-slate-950 border border-slate-800 rounded p-2 text-[10px] text-emerald-300 font-mono break-all">
+                    <code className="block bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded p-2 text-[10px] text-emerald-500 font-mono break-all">
                       {offlineCliSnippet}
                     </code>
                   </div>
                 )}
 
-                <div className="bg-slate-950 border border-indigo-500/40 p-3 rounded-xl flex items-center justify-between gap-3 shadow-inner">
+                <div className="bg-[var(--bg-surface)] border border-indigo-500/40 p-3 rounded-xl flex items-center justify-between gap-3 shadow-inner">
                   <input
                     type="text"
                     value={generatedKey}
                     onChange={(e) => setGeneratedKey(e.target.value.trim())}
                     placeholder="HV-LIC-V3.<payload>.<ed25519-signature>"
-                    className="flex-1 bg-transparent font-mono text-xs font-bold text-amber-300 focus:outline-none"
+                    className="flex-1 bg-transparent font-mono text-xs font-bold text-amber-500 focus:outline-none"
                   />
 
                   <button
                     type="button"
                     onClick={handleCopyLicenseKey}
                     disabled={!generatedKey}
-                    className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 border border-slate-700 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-bold transition shrink-0"
+                    className="flex items-center gap-1.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] disabled:opacity-50 border border-[var(--border-subtle)] text-indigo-500 px-3 py-1.5 rounded-lg text-xs font-bold transition shrink-0 cursor-pointer"
                   >
-                    {copiedKey ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copiedKey ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedKey ? 'Copied' : 'Copy Cert'}</span>
                   </button>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 text-xs">
-                  <div className="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-                    <span className="text-slate-400 block text-[10px]">{isHindi ? 'रजिस्टर्ड कंपनी:' : 'Registered Client:'}</span>
-                    <span className="font-bold text-white">{clientName || 'Default Enterprise'}</span>
+                  <div className="bg-[var(--bg-surface)] p-2.5 rounded-xl border border-[var(--border-primary)]">
+                    <span className="text-[var(--text-muted)] block text-[10px]">{isHindi ? 'रजिस्टर्ड कंपनी:' : 'Registered Client:'}</span>
+                    <span className="font-bold text-[var(--text-primary)]">{clientName || 'Default Enterprise'}</span>
                   </div>
-                  <div className="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-                    <span className="text-slate-400 block text-[10px]">{isHindi ? 'लाइसेंस अवधि:' : 'License Type:'}</span>
-                    <span className="font-bold text-emerald-400 uppercase">{licenseType}</span>
+                  <div className="bg-[var(--bg-surface)] p-2.5 rounded-xl border border-[var(--border-primary)]">
+                    <span className="text-[var(--text-muted)] block text-[10px]">{isHindi ? 'लाइसेंस अवधि:' : 'License Type:'}</span>
+                    <span className="font-bold text-emerald-500 uppercase">{licenseType}</span>
                   </div>
                 </div>
               </div>
 
               {/* Printable Software Receipt / Certificate */}
-              <div className="bg-slate-800/40 border border-slate-700 p-4 rounded-2xl flex items-center justify-between gap-3">
+              <div className="bg-[var(--bg-elevated)] border border-[var(--border-primary)] p-4 rounded-2xl flex items-center justify-between gap-3">
                 <div>
-                  <h5 className="text-xs font-bold text-white">{isHindi ? 'ग्राहक के लिए सॉफ़्टवेयर बिक्री रसीद (Sale Certificate)' : 'Print Client Software Purchase Certificate'}</h5>
-                  <p className="text-[11px] text-slate-400">{isHindi ? 'सॉफ़्टवेयर बिक्री व लाइसेंस आवंटन प्रमाण पत्र मुद्रित करें।' : 'Print purchase invoice / license certificate for customer.'}</p>
+                  <h5 className="text-xs font-bold text-[var(--text-primary)]">{isHindi ? 'ग्राहक के लिए सॉफ़्टवेयर बिक्री रसीद (Sale Certificate)' : 'Print Client Software Purchase Certificate'}</h5>
+                  <p className="text-[11px] text-[var(--text-muted)]">{isHindi ? 'सॉफ़्टवेयर बिक्री व लाइसेंस आवंटन प्रमाण पत्र मुद्रित करें।' : 'Print purchase invoice / license certificate for customer.'}</p>
                 </div>
 
                 <button
                   onClick={() => window.print()}
-                  className="bg-slate-700 hover:bg-slate-600 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shrink-0"
+                  className="bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shrink-0 cursor-pointer"
                 >
-                  <Printer className="w-4 h-4 text-amber-400" />
+                  <Printer className="w-4 h-4 text-amber-500" />
                   <span>{isHindi ? 'रसीद प्रिंट करें' : 'Print Certificate'}</span>
                 </button>
               </div>
@@ -1034,19 +1034,19 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
             <div className="space-y-4 animate-fadeIn">
               
               {/* Top Banner */}
-              <div className="bg-gradient-to-r from-emerald-950/60 via-slate-900 to-indigo-950/60 border border-emerald-500/40 p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="hv-pill-emerald border p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 shrink-0">
+                  <div className="w-10 h-10 rounded-2xl bg-[var(--bg-surface)] border border-emerald-500/40 flex items-center justify-center text-emerald-500 shrink-0">
                     <Smartphone className="w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-extrabold text-sm text-white flex items-center gap-2">
+                    <h4 className="font-extrabold text-sm text-[var(--text-primary)] flex items-center gap-2 flex-wrap">
                       <span>{isHindi ? '📱 मोबाइल ऐप इंस्टॉलेशन एवं वितरण केंद्र' : '📱 Mobile App Delivery & Android APK Center'}</span>
-                      <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full border border-emerald-500/30">
+                      <span className="text-[10px] hv-pill-emerald px-2 py-0.5 rounded-full border">
                         Android & iOS
                       </span>
                     </h4>
-                    <p className="text-xs text-slate-300 mt-0.5">
+                    <p className="text-xs text-[var(--text-secondary)] mt-0.5">
                       {isHindi 
                         ? 'ग्राहक अपने स्मार्टफोन में बिना किसी प्ले स्टोर शुल्क के सीधे 1-क्लिक में Hisabveda ERP चला सकते हैं।' 
                         : 'Clients can install Hisabveda ERP directly onto their smartphones with standalone full-screen support.'}
@@ -1059,8 +1059,8 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 
                 {/* Left: Mobile QR Code */}
-                <div className="bg-slate-950 p-5 rounded-2xl border border-slate-800 text-center space-y-3">
-                  <span className="text-xs font-bold text-emerald-400 block">
+                <div className="bg-[var(--bg-elevated)] p-5 rounded-2xl border border-[var(--border-primary)] text-center space-y-3">
+                  <span className="text-xs font-bold text-emerald-500 block">
                     {isHindi ? 'ग्राहक हेतु मोबाइल QR कोड (Scan & Install):' : 'Mobile QR Code for Client:'}
                   </span>
                   
@@ -1073,7 +1073,7 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                     />
                   </div>
 
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-[var(--text-muted)]">
                     {isHindi 
                       ? 'ग्राहक किसी भी फोन के कैमरे से स्कैन करेगा तो ऐप तुरंत खुल जाएगा।' 
                       : 'Client scans this code with camera to open & install the app.'}
@@ -1084,7 +1084,7 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                       type="text"
                       readOnly
                       value={demoShareUrl}
-                      className="w-full bg-slate-900 border border-slate-800 rounded-xl px-2.5 py-1.5 text-[11px] text-emerald-300 font-mono select-all focus:outline-none truncate"
+                      className="w-full hv-input border rounded-xl px-2.5 py-1.5 text-[11px] text-emerald-500 font-mono select-all focus:outline-none truncate"
                     />
                     <button
                       type="button"
@@ -1093,7 +1093,7 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                         setCopiedLink(true);
                         setTimeout(() => setCopiedLink(false), 2500);
                       }}
-                      className="bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold px-3 py-1.5 rounded-xl text-xs transition shadow shrink-0 cursor-pointer"
+                      className="bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-bold px-3 py-1.5 rounded-xl text-xs transition shadow shrink-0 cursor-pointer"
                     >
                       {copiedLink ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                     </button>
@@ -1101,14 +1101,14 @@ h2 { font-size: 22px; font-weight: 800; color: #ffffff; margin-bottom: 8px; }
                 </div>
 
                 {/* Right: Mobile WhatsApp Message & Instructions */}
-                <div className="bg-slate-950 p-5 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-3">
+                <div className="bg-[var(--bg-elevated)] p-5 rounded-2xl border border-[var(--border-primary)] flex flex-col justify-between space-y-3">
                   <div className="space-y-2">
-                    <span className="text-xs font-bold text-emerald-300 flex items-center gap-1.5">
+                    <span className="text-xs font-bold text-emerald-500 flex items-center gap-1.5">
                       <Smartphone className="w-3.5 h-3.5" />
                       <span>{isHindi ? 'व्हाट्सएप मोबाइल इनवाइट संदेश:' : 'WhatsApp Mobile App Message:'}</span>
                     </span>
 
-                    <div className="bg-slate-900 border border-slate-800 p-3 rounded-xl text-[11px] font-mono text-slate-300 whitespace-pre-wrap leading-relaxed max-h-40 overflow-y-auto">
+                    <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] p-3 rounded-xl text-[11px] font-mono text-[var(--text-secondary)] whitespace-pre-wrap leading-relaxed max-h-40 overflow-y-auto">
 {`📱 *HISABVEDA ERP - मोबाइल ऐप एक्सेस* 📱
 
 नमस्ते ${clientName ? clientName : 'सर/मैडम'},
@@ -1129,7 +1129,7 @@ ${demoShareUrl}
                     href={`https://api.whatsapp.com/send?${clientPhone ? `phone=${encodeURIComponent(clientPhone)}&` : ''}text=${encodeURIComponent(`📱 *HISABVEDA ERP - मोबाइल ऐप एक्सेस*\n\nनमस्ते ${clientName ? clientName : 'सर/मैडम'},\nआपके व्यापार के लिए Hisabveda ERP मोबाइल लिंक:\n${demoShareUrl}\n\n1. फोन ब्राउज़र में लिंक खोलें\n2. 3 डॉट्स दबाकर "Install App" पर टैप करें।`)}`}
                     target="_blank"
                     rel="noreferrer"
-                    className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-extrabold py-2.5 rounded-xl text-xs shadow-lg transition cursor-pointer"
+                    className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold py-2.5 rounded-xl text-xs shadow-lg transition cursor-pointer"
                   >
                     <Smartphone className="w-4 h-4" />
                     <span>{isHindi ? '📱 व्हाट्सएप पर मोबाइल ऐप लिंक भेजें' : 'Send Mobile Link on WhatsApp'}</span>
@@ -1139,27 +1139,27 @@ ${demoShareUrl}
               </div>
 
               {/* Native Android APK Generation Card */}
-              <div className="bg-slate-950/80 p-4 rounded-2xl border border-teal-500/40 space-y-3 text-xs">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                  <span className="font-bold text-teal-300 flex items-center gap-2">
-                    <Download className="w-4 h-4 text-teal-400" />
+              <div className="bg-[var(--bg-elevated)] p-4 rounded-2xl border border-teal-500/40 space-y-3 text-xs">
+                <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-2 flex-wrap gap-2">
+                  <span className="font-bold text-teal-500 flex items-center gap-2">
+                    <Download className="w-4 h-4" />
                     <span>{isHindi ? 'Android APK पैकेज (.apk) जनरेटर टूल:' : 'Native Android APK Package (.apk) Builder:'}</span>
                   </span>
-                  <span className="text-[10px] bg-teal-500/20 text-teal-300 px-2 py-0.5 rounded font-mono font-bold">
+                  <span className="text-[10px] hv-pill-cyan border px-2 py-0.5 rounded font-mono font-bold">
                     CAPACITOR / ANDROID STUDIO
                   </span>
                 </div>
 
-                <p className="text-[11px] text-slate-300 leading-relaxed">
+                <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed">
                   {isHindi 
                     ? 'यदि ग्राहक आपसे मांगता है कि "मुझे .apk फाइल भेजिए" या आपको Google Play Store पर Hisabveda ERP ऐप पब्लिश करना है, तो यह 1-क्लिक बिल्डर स्क्रिप्ट उपयोग करें:' 
                     : 'If you want to distribute a direct .apk file or publish to Google Play Store, download this automated script:'}
                 </p>
 
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-900 p-3 rounded-xl border border-slate-800">
-                  <div className="text-[11px] text-slate-300">
-                    <p className="font-mono text-emerald-400 font-bold">HisabVeda_Android_APK_Builder.zip</p>
-                    <p className="text-slate-400 text-[10px]">{isHindi ? 'प्रोजेक्ट को 1-क्लिक में Android Studio प्रोजेक्ट में बदलता है।' : 'Automates Capacitor Android project generation.'}</p>
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[var(--bg-surface)] p-3 rounded-xl border border-[var(--border-primary)]">
+                  <div className="text-[11px] text-[var(--text-secondary)]">
+                    <p className="font-mono text-emerald-500 font-bold">HisabVeda_Android_APK_Builder.zip</p>
+                    <p className="text-[var(--text-muted)] text-[10px]">{isHindi ? 'प्रोजेक्ट को 1-क्लिक में Android Studio प्रोजेक्ट में बदलता है।' : 'Automates Capacitor Android project generation.'}</p>
                   </div>
 
                   <button
@@ -1167,7 +1167,7 @@ ${demoShareUrl}
                     onClick={async () => {
                       await downloadAndroidApkBuilderZip();
                     }}
-                    className="shrink-0 flex items-center gap-2 bg-teal-600 hover:bg-teal-500 text-slate-950 font-extrabold px-4 py-2 rounded-xl text-xs transition shadow cursor-pointer"
+                    className="shrink-0 flex items-center gap-2 bg-teal-600 hover:bg-teal-500 text-white hv-keep-white font-extrabold px-4 py-2 rounded-xl text-xs transition shadow cursor-pointer"
                   >
                     <Download className="w-4 h-4" />
                     <span>{isHindi ? 'APK बिल्डर (.ZIP) डाउनलोड करें' : 'Download APK Builder (.ZIP)'}</span>
@@ -1181,15 +1181,15 @@ ${demoShareUrl}
         </div>
 
         {/* Footer */}
-        <div className="bg-slate-950 p-4 border-t border-slate-800 flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs text-slate-400">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
+        <div className="bg-[var(--bg-elevated)] p-4 border-t border-[var(--border-primary)] flex items-center justify-between">
+          <div className="flex items-center gap-2 text-xs text-[var(--text-muted)]">
+            <ShieldCheck className="w-4 h-4 text-emerald-500" />
             <span>{isHindi ? 'Hisabveda ERP सुरक्षित वितरण प्रणाली v2.0' : 'Hisabveda ERP Secure Client Distribution v2.0'}</span>
           </div>
 
           <button
             onClick={onClose}
-            className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-2 rounded-xl text-xs transition shadow-lg cursor-pointer"
+            className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-5 py-2 rounded-xl text-xs transition shadow-lg cursor-pointer"
           >
             {isHindi ? 'बंद करें' : 'Close'}
           </button>

@@ -1120,17 +1120,17 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
   return (
     <div className="p-3 sm:p-4 lg:p-5 max-w-[1600px] mx-auto space-y-3 font-sans">
       {/* Top Counter Terminal Header */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-xl flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-3.5 shadow-xl flex flex-col lg:flex-row lg:items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0">
+          <div className="w-10 h-10 rounded-xl hv-pill-cyan border flex items-center justify-center shrink-0">
             <ScanBarcode className="w-5 h-5" />
           </div>
           <div>
-            <h2 className="text-base font-extrabold text-white tracking-tight flex items-center gap-2">
+            <h2 className="text-base font-extrabold text-[var(--text-primary)] tracking-tight flex items-center gap-2">
               <span>{isHindi ? 'हाई-स्पीड बारकोड POS टर्मिनल' : 'High-Speed Barcode POS Terminal'}</span>
             </h2>
-            <p className="text-[11px] text-slate-400 flex flex-wrap items-center gap-x-2">
-              <span className="inline-flex items-center gap-1 font-mono text-cyan-400">
+            <p className="text-[11px] text-[var(--text-muted)] flex flex-wrap items-center gap-x-2">
+              <span className="inline-flex items-center gap-1 font-mono text-cyan-500">
                 <Keyboard className="w-3 h-3" /> F2 Scan • F4 Hold • F8 Exact Cash • F9 Checkout & Print
               </span>
             </p>
@@ -1140,19 +1140,19 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
         <div className="flex flex-wrap items-center gap-2.5">
           {/* Active Godown / Counter */}
           {(batchGodownActive || godowns.length > 1) && (
-            <div className="flex items-center gap-2 bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 min-h-[40px]">
-              <Warehouse className="w-4 h-4 text-amber-400 shrink-0" />
+            <div className="flex items-center gap-2 hv-elevated border border-[var(--border-primary)] rounded-xl px-3 py-1.5 min-h-[40px]">
+              <Warehouse className="w-4 h-4 text-amber-500 shrink-0" />
               <div className="flex flex-col">
-                <span className="text-[9px] font-bold uppercase tracking-wider text-slate-500">
+                <span className="text-[9px] font-bold uppercase tracking-wider text-[var(--text-muted)]">
                   {isHindi ? 'सक्रिय गोदाम / काउंटर' : 'Active Counter / Godown'}
                 </span>
                 <select
                   value={activeGodown?.id || ''}
                   onChange={(e) => setSelectedGodownId(e.target.value)}
-                  className="bg-transparent text-xs font-bold text-white focus:outline-none cursor-pointer"
+                  className="bg-transparent text-xs font-bold text-[var(--text-primary)] focus:outline-none cursor-pointer"
                 >
                   {godowns.map((g) => (
-                    <option key={g.id} value={g.id} className="bg-slate-900 text-white">
+                    <option key={g.id} value={g.id} className="bg-[var(--bg-surface)] text-[var(--text-primary)]">
                       {g.name} ({g.code})
                     </option>
                   ))}
@@ -1162,7 +1162,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
           )}
 
           {/* Multi-Price Tier Switcher */}
-          <div className="inline-flex items-center bg-slate-950 border border-slate-800 rounded-xl p-1 min-h-[40px] text-xs font-bold">
+          <div className="inline-flex items-center hv-elevated border border-[var(--border-primary)] rounded-xl p-1 min-h-[40px] text-xs font-bold">
             {(
               [
                 { id: 'RETAIL', label: isHindi ? 'रिटेल' : 'Retail' },
@@ -1176,8 +1176,8 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                 onClick={() => handlePriceTierChange(t.id)}
                 className={`px-2.5 py-1.5 rounded-lg transition cursor-pointer ${
                   priceTier === t.id
-                    ? 'bg-indigo-600 text-white shadow'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 {t.label}
@@ -1192,8 +1192,8 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
               onClick={() => setInclusivePricing((v) => !v)}
               className={`px-3 py-2 rounded-xl border text-xs font-bold transition min-h-[40px] ${
                 inclusivePricing
-                  ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300'
-                  : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'
+                  ? 'hv-pill-emerald'
+                  : 'hv-elevated border-[var(--border-primary)] text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
               title={
                 isHindi
@@ -1222,8 +1222,8 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
               }}
               className={`px-3 py-2 rounded-xl border text-xs font-bold transition min-h-[40px] flex items-center gap-1.5 ${
                 autoPromptNewBarcode
-                  ? 'bg-cyan-500/15 border-cyan-500/40 text-cyan-300'
-                  : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'
+                  ? 'hv-pill-cyan'
+                  : 'hv-elevated border-[var(--border-primary)] text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
               title={
                 isHindi
@@ -1244,7 +1244,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
           <button
             type="button"
             onClick={() => setShowParkedDrawer((v) => !v)}
-            className="flex items-center gap-1.5 bg-slate-950 hover:bg-slate-800 border border-slate-700 text-amber-300 font-bold px-3.5 py-2 rounded-xl text-xs transition min-h-[40px]"
+            className="flex items-center gap-1.5 hv-pill-amber border font-bold px-3.5 py-2 rounded-xl text-xs transition min-h-[40px] hover:opacity-90"
           >
             <Clock className="w-4 h-4" />
             <span>{isHindi ? 'होल्ड बिल' : 'Held Bills'}</span>
@@ -1262,10 +1262,10 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
         <div
           className={`px-4 py-2.5 rounded-xl border text-xs font-bold flex flex-wrap items-center justify-between gap-2 animate-fadeIn ${
             scanBanner.type === 'ok'
-              ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300'
+              ? 'hv-pill-emerald'
               : scanBanner.type === 'warn'
-              ? 'bg-amber-500/15 border-amber-500/40 text-amber-300'
-              : 'bg-rose-500/15 border-rose-500/40 text-rose-300'
+              ? 'hv-pill-amber'
+              : 'hv-pill-rose'
           }`}
         >
           <div className="flex items-center gap-2">
@@ -1283,7 +1283,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
               <button
                 type="button"
                 onClick={() => openQuickAddForBarcode(unmatchedCode, true)}
-                className="bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold px-2.5 py-1 rounded-lg text-[11px] flex items-center gap-1 shrink-0 transition"
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-2.5 py-1 rounded-lg text-[11px] flex items-center gap-1 shrink-0 transition"
               >
                 <PackagePlus className="w-3.5 h-3.5" />
                 <span>
@@ -1302,22 +1302,22 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
 
       {/* Parked Bills Recall Drawer */}
       {showParkedDrawer && (
-        <div className="bg-slate-900 border border-amber-500/40 rounded-2xl p-4 shadow-xl space-y-3 animate-fadeIn">
+        <div className="hv-surface border border-amber-500/40 rounded-2xl p-4 shadow-xl space-y-3 animate-fadeIn">
           <div className="flex items-center justify-between">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-amber-300 flex items-center gap-2">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-amber-500 flex items-center gap-2">
               <PauseCircle className="w-4 h-4" />
               <span>{isHindi ? 'होल्ड किए गए काउंटर बिल (Recall Bill)' : 'Parked Counter Bills Queue'}</span>
             </h3>
             <button
               type="button"
               onClick={() => setShowParkedDrawer(false)}
-              className="text-slate-400 hover:text-white p-1"
+              className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
           {parkedBills.length === 0 ? (
-            <p className="text-xs text-slate-500 py-2">
+            <p className="text-xs text-[var(--text-muted)] py-2">
               {isHindi ? 'अभी कोई बिल होल्ड पर नहीं है।' : 'No parked bills in queue.'}
             </p>
           ) : (
@@ -1325,11 +1325,11 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
               {parkedBills.map((pb) => (
                 <div
                   key={pb.id}
-                  className="bg-slate-950 border border-slate-800 rounded-xl p-3 flex items-center justify-between gap-2 text-xs"
+                  className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3 flex items-center justify-between gap-2 text-xs"
                 >
                   <div className="min-w-0">
-                    <div className="font-bold text-white truncate">{pb.label}</div>
-                    <div className="text-[11px] text-slate-400 font-mono">
+                    <div className="font-bold text-[var(--text-primary)] truncate">{pb.label}</div>
+                    <div className="text-[11px] text-[var(--text-muted)] font-mono">
                       {pb.parkedAt} • {pb.lines.length} lines
                     </div>
                   </div>
@@ -1337,7 +1337,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                     <button
                       type="button"
                       onClick={() => handleRecallBill(pb)}
-                      className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1"
+                      className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-2.5 py-1.5 rounded-lg flex items-center gap-1"
                     >
                       <PlayCircle className="w-3.5 h-3.5" />
                       <span>{isHindi ? 'खोलें' : 'Recall'}</span>
@@ -1345,7 +1345,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                     <button
                       type="button"
                       onClick={() => setParkedBills((prev) => prev.filter((x) => x.id !== pb.id))}
-                      className="p-1.5 text-rose-400 hover:bg-rose-500/15 rounded-lg"
+                      className="p-1.5 text-rose-500 hover:bg-rose-500/15 rounded-lg"
                       title="Discard"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -1365,10 +1365,10 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
           {/* Barcode Scan Input Bar */}
           <form
             onSubmit={handleScanSubmit}
-            className="bg-slate-900 border-2 border-cyan-500/40 focus-within:border-cyan-400 rounded-2xl p-3 shadow-xl flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5"
+            className="hv-surface border-2 border-cyan-500/40 focus-within:border-cyan-500 rounded-2xl p-3 shadow-xl flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5"
           >
             <div className="relative flex-1 flex items-center">
-              <ScanBarcode className="w-5 h-5 text-cyan-400 absolute left-3 pointer-events-none" />
+              <ScanBarcode className="w-5 h-5 text-cyan-500 absolute left-3 pointer-events-none" />
               <input
                 ref={scanInputRef}
                 type="text"
@@ -1382,7 +1382,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                     ? 'बारकोड स्कैन करें या SKU / बैच नंबर / आइटम नाम लिखकर Enter दबाएं [F2]...'
                     : 'Scan Barcode or type SKU / Batch No / Item Name & press Enter [F2]...'
                 }
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-9 py-2.5 text-sm font-mono font-bold text-white placeholder-slate-500 focus:outline-none min-h-[44px]"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl pl-10 pr-9 py-2.5 text-sm font-mono font-bold focus:outline-none min-h-[44px]"
               />
               {scanInput && (
                 <button
@@ -1392,7 +1392,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                     setCatalogSearch('');
                     focusScanInput();
                   }}
-                  className="absolute right-2.5 text-slate-400 hover:text-white p-1"
+                  className="absolute right-2.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -1402,7 +1402,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
             <div className="flex items-center gap-2 shrink-0">
               <button
                 type="submit"
-                className="bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-extrabold px-4 py-2.5 rounded-xl text-xs transition min-h-[44px]"
+                className="bg-cyan-600 hover:bg-cyan-500 text-white hv-keep-white font-extrabold px-4 py-2.5 rounded-xl text-xs transition min-h-[44px]"
               >
                 {isHindi ? 'जोड़ें (Enter)' : 'Add [↵]'}
               </button>
@@ -1410,10 +1410,10 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
               <button
                 type="button"
                 onClick={() => setShowCameraModal(true)}
-                className="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-bold px-3 py-2.5 rounded-xl text-xs flex items-center gap-1.5 transition min-h-[44px]"
+                className="bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold px-3 py-2.5 rounded-xl text-xs flex items-center gap-1.5 transition min-h-[44px]"
                 title={isHindi ? 'कैमरा से बारकोड स्कैन करें' : 'Scan Barcode with Camera'}
               >
-                <Camera className="w-4 h-4 text-cyan-400" />
+                <Camera className="w-4 h-4 text-cyan-500" />
                 <span className="hidden sm:inline">{isHindi ? 'कैमरा' : 'Cam'}</span>
               </button>
 
@@ -1425,7 +1425,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                     setUnmatchedCode('');
                     setShowQuickItem(true);
                   }}
-                  className="bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-indigo-300 font-bold px-3 py-2.5 rounded-xl text-xs flex items-center gap-1.5 transition min-h-[44px]"
+                  className="hv-pill-indigo border font-bold px-3 py-2.5 rounded-xl text-xs flex items-center gap-1.5 transition min-h-[44px] hover:opacity-90"
                   title={isHindi ? 'नया स्टॉक आइटम जोड़ें' : 'Quick Add New Item'}
                 >
                   <PackagePlus className="w-4 h-4" />
@@ -1436,7 +1436,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
           </form>
 
           {/* Category Filter + Search */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-3 shadow-lg">
+          <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-3.5 space-y-3 shadow-lg">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full">
                 {categories.map((cat) => (
@@ -1446,8 +1446,8 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                     onClick={() => setSelectedCategory(cat)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold whitespace-nowrap transition border ${
                       selectedCategory === cat
-                        ? 'bg-indigo-600 border-indigo-500 text-white'
-                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'
+                        ? 'bg-indigo-600 border-indigo-500 text-white hv-keep-white'
+                        : 'hv-elevated border-[var(--border-primary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                     }`}
                   >
                     {cat === 'ALL' ? (isHindi ? 'सभी श्रेणियां' : 'All Items') : cat}
@@ -1456,20 +1456,20 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
               </div>
 
               <div className="relative flex items-center w-full sm:w-52">
-                <Search className="w-3.5 h-3.5 text-slate-500 absolute left-2.5 pointer-events-none" />
+                <Search className="w-3.5 h-3.5 text-[var(--text-muted)] absolute left-2.5 pointer-events-none" />
                 <input
                   type="text"
                   value={catalogSearch}
                   onChange={(e) => setCatalogSearch(e.target.value)}
                   placeholder={isHindi ? 'आइटम खोजें...' : 'Filter catalog...'}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-8 pr-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-lg pl-8 pr-2.5 py-1.5 text-xs focus:outline-none focus:border-indigo-500"
                 />
               </div>
             </div>
 
             {/* Catalog Item Touch Grid */}
             {catalogItems.length === 0 ? (
-              <div className="py-12 text-center text-slate-500 text-xs space-y-2">
+              <div className="py-12 text-center text-[var(--text-muted)] text-xs space-y-2">
                 <p>{isHindi ? 'कोई मिलान आइटम नहीं मिला।' : 'No matching inventory items found.'}</p>
                 {perms.canCreateEditMasters && onAddItem && (
                   <button
@@ -1480,7 +1480,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                       setUnmatchedCode(typed);
                       setShowQuickItem(true);
                     }}
-                    className="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-2 rounded-xl"
+                    className="inline-flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-4 py-2 rounded-xl"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>
@@ -1511,26 +1511,26 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                       onClick={() => addItemToCart(item)}
                       className={`text-left p-3 rounded-xl border transition flex flex-col justify-between min-h-[96px] active:scale-[0.98] ${
                         outOfStock
-                          ? 'bg-slate-950/70 border-slate-800/80 opacity-75 hover:border-amber-500/40'
-                          : 'bg-slate-950 border-slate-800 hover:border-cyan-500/60 hover:bg-slate-900'
+                          ? 'hv-elevated border-[var(--border-primary)] opacity-75 hover:border-amber-500/40'
+                          : 'hv-elevated border-[var(--border-primary)] hover:border-cyan-500/60 hover:bg-[var(--hover-surface)]'
                       }`}
                     >
                       <div className="space-y-1">
-                        <div className="text-xs font-bold text-white line-clamp-2 leading-snug">
+                        <div className="text-xs font-bold text-[var(--text-primary)] line-clamp-2 leading-snug">
                           {item.name}
                         </div>
-                        <div className="text-[10px] font-mono text-slate-400 truncate">
+                        <div className="text-[10px] font-mono text-[var(--text-muted)] truncate">
                           {item.barcode || item.code || item.hsnSacCode}
                         </div>
                       </div>
 
-                      <div className="mt-2 pt-2 border-t border-slate-800/80 flex items-end justify-between gap-1">
+                      <div className="mt-2 pt-2 border-t border-[var(--border-primary)] flex items-end justify-between gap-1">
                         <div>
-                          <div className="text-xs font-black font-mono text-emerald-400 tabular-nums">
+                          <div className="text-xs font-black font-mono text-emerald-500 tabular-nums">
                             {formatCurrency(getItemPriceForTier(item, priceTier, firstBatch), currency)}
                           </div>
                           {priceTier !== 'MRP' && item.mrp && item.mrp > getItemPriceForTier(item, priceTier, firstBatch) && (
-                            <div className="text-[9px] font-mono text-slate-500 line-through">
+                            <div className="text-[9px] font-mono text-[var(--text-muted)] line-through">
                               MRP {currencySymbol}{item.mrp}
                             </div>
                           )}
@@ -1540,10 +1540,10 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                           <span
                             className={`text-[10px] font-mono font-bold block ${
                               outOfStock
-                                ? 'text-rose-400'
+                                ? 'text-rose-500'
                                 : godownQty <= (item.minStockLevel || 5)
-                                ? 'text-amber-400'
-                                : 'text-cyan-400'
+                                ? 'text-amber-500'
+                                : 'text-cyan-500'
                             }`}
                           >
                             {godownQty} {item.unit || 'PCS'}
@@ -1552,8 +1552,8 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                             <span
                               className={`text-[9px] font-mono block ${
                                 expInfo.bucket === 'EXPIRING_SOON'
-                                  ? 'text-amber-400 font-bold'
-                                  : 'text-slate-500'
+                                  ? 'text-amber-500 font-bold'
+                                  : 'text-[var(--text-muted)]'
                               }`}
                             >
                               {firstBatch.expiryDate?.slice(0, 7)}
@@ -1572,9 +1572,9 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
         {/* RIGHT PANEL: Customer + Active Cart + Express Settlement */}
         <div className="xl:col-span-5 space-y-3">
           {/* Customer Selector */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-lg space-y-2">
+          <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-3.5 shadow-lg space-y-2">
             <div className="flex items-center justify-between gap-2">
-              <label className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+              <label className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)]">
                 {isHindi ? 'ग्राहक (Customer / Walk-in)' : 'Customer (Walk-In / Registered)'}
               </label>
               <div className="flex items-center gap-2">
@@ -1582,7 +1582,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                   <button
                     type="button"
                     onClick={() => setSelectedPartyId('')}
-                    className="text-[11px] font-bold text-amber-400 hover:underline"
+                    className="text-[11px] font-bold text-amber-500 hover:underline"
                   >
                     {isHindi ? 'वॉक-इन कैश चुनें' : 'Reset to Walk-In'}
                   </button>
@@ -1591,7 +1591,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                   <button
                     type="button"
                     onClick={() => setShowQuickParty(true)}
-                    className="text-[11px] font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1"
+                    className="text-[11px] font-bold text-indigo-500 hover:underline flex items-center gap-1"
                   >
                     <UserPlus className="w-3.5 h-3.5" />
                     <span>{isHindi ? '+ नया ग्राहक' : '+ New Customer'}</span>
@@ -1610,15 +1610,15 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
               />
             ) : (
               <div className="flex items-center gap-2">
-                <div className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs font-bold text-emerald-300 flex items-center justify-between">
+                <div className="flex-1 hv-elevated border border-[var(--border-primary)] rounded-xl px-3 py-2 text-xs font-bold text-emerald-500 flex items-center justify-between">
                   <span>{isHindi ? 'वॉक-इन कैश ग्राहक (Counter Consumer)' : 'Walk-In Cash Customer (Retail Counter)'}</span>
-                  <span className="text-[10px] font-mono text-slate-500">{taxProfile.gstEnabled ? 'URP' : 'Retail'}</span>
+                  <span className="text-[10px] font-mono text-[var(--text-muted)]">{taxProfile.gstEnabled ? 'URP' : 'Retail'}</span>
                 </div>
                 {customerParties.length > 0 && (
                   <button
                     type="button"
                     onClick={() => setSelectedPartyId(customerParties[0].id)}
-                    className="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-3 py-2 rounded-xl text-xs border border-slate-700 shrink-0"
+                    className="bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] font-bold px-3 py-2 rounded-xl text-xs border border-[var(--border-subtle)] shrink-0"
                   >
                     {isHindi ? 'पार्टी चुनें' : 'Pick Party'}
                   </button>
@@ -1627,9 +1627,9 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
             )}
 
             {selectedParty && posPartyCreditEval && (posPartyCreditEval.creditLimitExceeded || posPartyCreditEval.overdueInvoices.length > 0) && (
-              <div className="bg-amber-500/10 border border-amber-500/35 rounded-xl px-3 py-2 text-[11px] text-amber-200 space-y-0.5">
+              <div className="hv-pill-amber border rounded-xl px-3 py-2 text-[11px] space-y-0.5">
                 {posPartyCreditEval.creditLimitExceeded && (
-                  <div className="font-bold text-rose-300">
+                  <div className="font-bold text-rose-500">
                     {isHindi
                       ? `क्रेडिट सीमा पार: अनुमानित बकाया ${formatCurrency(posPartyCreditEval.projectedBalance, currency)} / सीमा ${formatCurrency(posPartyCreditEval.creditLimit, currency)}`
                       : `Credit Limit Alert: Projected ${formatCurrency(posPartyCreditEval.projectedBalance, currency)} > Limit ${formatCurrency(posPartyCreditEval.creditLimit, currency)}`}
@@ -1647,14 +1647,14 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
           </div>
 
           {/* Active POS Cart */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden flex flex-col">
-            <div className="px-4 py-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+          <div className="hv-surface border border-[var(--border-primary)] rounded-2xl shadow-xl overflow-hidden flex flex-col">
+            <div className="px-4 py-3 hv-elevated border-b border-[var(--border-primary)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <ShoppingCart className="w-4 h-4 text-cyan-400" />
-                <span className="text-xs font-extrabold uppercase tracking-wider text-white">
+                <ShoppingCart className="w-4 h-4 text-cyan-500" />
+                <span className="text-xs font-extrabold uppercase tracking-wider text-[var(--text-primary)]">
                   {isHindi ? 'काउंटर बिल कार्ट' : 'Active Counter Cart'}
                 </span>
-                <span className="text-[11px] font-mono text-slate-400">
+                <span className="text-[11px] font-mono text-[var(--text-muted)]">
                   ({cart.length} {isHindi ? 'लाइन' : 'lines'} • {totals.totalQty} {isHindi ? 'नग' : 'qty'})
                 </span>
               </div>
@@ -1665,7 +1665,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                     <button
                       type="button"
                       onClick={handleParkBill}
-                      className="text-[11px] font-bold text-amber-300 hover:text-amber-200 flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-500/10 border border-amber-500/30"
+                      className="text-[11px] font-bold hv-pill-amber border hover:opacity-90 flex items-center gap-1 px-2 py-1 rounded-lg transition cursor-pointer"
                       title="Hold Bill [F4]"
                     >
                       <PauseCircle className="w-3.5 h-3.5" />
@@ -1674,7 +1674,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                     <button
                       type="button"
                       onClick={() => setCart([])}
-                      className="text-[11px] font-bold text-rose-400 hover:text-rose-300 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-rose-500/10"
+                      className="text-[11px] font-bold text-rose-500 hover:bg-rose-500/10 flex items-center gap-1 px-2 py-1 rounded-lg transition cursor-pointer"
                       title="Clear Cart"
                     >
                       <RotateCcw className="w-3.5 h-3.5" />
@@ -1686,14 +1686,14 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
             </div>
 
             {cart.length === 0 ? (
-              <div className="py-12 px-4 text-center text-slate-500 text-xs space-y-1.5">
-                <ScanBarcode className="w-8 h-8 text-slate-700 mx-auto" />
-                <p className="font-semibold text-slate-400">
+              <div className="py-12 px-4 text-center text-[var(--text-muted)] text-xs space-y-1.5">
+                <ScanBarcode className="w-8 h-8 text-[var(--text-muted)] opacity-50 mx-auto" />
+                <p className="font-semibold text-[var(--text-secondary)]">
                   {isHindi ? 'बिलिंग शुरू करने के लिए बारकोड स्कैन करें या आइटम पर क्लिक करें' : 'Scan a barcode or click any item to start counter billing'}
                 </p>
               </div>
             ) : (
-              <div className="divide-y divide-slate-800/80 max-h-[290px] overflow-y-auto">
+              <div className="divide-y divide-[var(--border-primary)] max-h-[290px] overflow-y-auto">
                 {cart.map((line) => {
                   const lineBatches = getSortedItemBatchesFefo(
                     data.itemBatches || [],
@@ -1707,17 +1707,17 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                   const net = gross * (1 - line.discountPercent / 100) * (1 + (effTax + effCess) / 100);
 
                   return (
-                    <div key={line.id} className="p-3 hover:bg-slate-800/30 space-y-2 text-xs">
+                    <div key={line.id} className="p-3 hover:bg-[var(--hover-surface)] space-y-2 text-xs transition">
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
-                          <div className="font-bold text-white truncate">{line.itemName}</div>
-                          <div className="text-[10px] font-mono text-slate-400 flex flex-wrap items-center gap-x-2">
+                          <div className="font-bold text-[var(--text-primary)] truncate">{line.itemName}</div>
+                          <div className="text-[10px] font-mono text-[var(--text-muted)] flex flex-wrap items-center gap-x-2">
                             {!forceZeroTax && <span>Tax: {line.taxRate}%</span>}
                             {showCess && (line.cessPercent || 0) > 0 && (
-                              <span className="text-amber-300">Cess: {line.cessPercent}%</span>
+                              <span className="text-amber-500 font-semibold">Cess: {line.cessPercent}%</span>
                             )}
                             {line.batchNumber && (
-                              <span className="text-cyan-300">
+                              <span className="text-cyan-500 font-semibold">
                                 Batch: {line.batchNumber}
                                 {line.expiryDate ? ` (${line.expiryDate})` : ''}
                               </span>
@@ -1725,13 +1725,13 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                           </div>
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
-                          <span className="font-mono font-black text-emerald-400 tabular-nums text-sm">
+                          <span className="font-mono font-black text-emerald-500 tabular-nums text-sm">
                             {formatCurrency(net, currency)}
                           </span>
                           <button
                             type="button"
                             onClick={() => setCart((prev) => prev.filter((x) => x.id !== line.id))}
-                            className="text-slate-500 hover:text-rose-400 p-1 rounded"
+                            className="text-[var(--text-muted)] hover:text-rose-500 p-1 rounded transition cursor-pointer"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -1740,7 +1740,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
 
                       <div className="flex flex-wrap items-center justify-between gap-2">
                         {/* Qty Stepper */}
-                        <div className="inline-flex items-center bg-slate-950 border border-slate-700 rounded-lg overflow-hidden">
+                        <div className="inline-flex items-center hv-input border border-[var(--border-subtle)] rounded-lg overflow-hidden">
                           <button
                             type="button"
                             onClick={() =>
@@ -1752,7 +1752,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                                   .filter((x) => x.quantity > 0)
                               )
                             }
-                            className="px-2 py-1 text-slate-300 hover:bg-slate-800"
+                            className="px-2 py-1 text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] cursor-pointer"
                           >
                             <Minus className="w-3 h-3" />
                           </button>
@@ -1783,7 +1783,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                                 prev.map((x) => (x.id === line.id ? { ...x, quantity: val } : x))
                               );
                             }}
-                            className="w-12 bg-transparent text-center font-mono font-bold text-white text-xs focus:outline-none"
+                            className="w-12 bg-transparent text-center font-mono font-bold text-[var(--text-primary)] text-xs focus:outline-none"
                           />
                           <button
                             type="button"
@@ -1810,7 +1810,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                                 )
                               );
                             }}
-                            className="px-2 py-1 text-slate-300 hover:bg-slate-800"
+                            className="px-2 py-1 text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] cursor-pointer"
                           >
                             <Plus className="w-3 h-3" />
                           </button>
@@ -1818,7 +1818,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
 
                         {/* Rate & Discount Inputs */}
                         <div className="flex items-center gap-1.5">
-                          <label className="text-[10px] text-slate-500">Rate</label>
+                          <label className="text-[10px] text-[var(--text-muted)] font-semibold">Rate</label>
                           <input
                             type="number"
                             step="0.01"
@@ -1829,9 +1829,9 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                                 prev.map((x) => (x.id === line.id ? { ...x, rate: r } : x))
                               );
                             }}
-                            className="w-20 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-right font-mono text-white text-xs"
+                            className="w-20 hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1 text-right font-mono text-xs"
                           />
-                          <label className="text-[10px] text-slate-500">Disc%</label>
+                          <label className="text-[10px] text-[var(--text-muted)] font-semibold">Disc%</label>
                           <input
                             type="number"
                             min={0}
@@ -1844,7 +1844,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                                 prev.map((x) => (x.id === line.id ? { ...x, discountPercent: d } : x))
                               );
                             }}
-                            className="w-14 bg-slate-950 border border-slate-800 rounded-lg px-1.5 py-1 text-right font-mono text-amber-300 text-xs"
+                            className="w-14 hv-input border border-[var(--border-subtle)] rounded-lg px-1.5 py-1 text-right font-mono text-amber-500 font-bold text-xs"
                           />
                         </div>
                       </div>
@@ -1852,7 +1852,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                       {/* Batch Picker when multiple batches exist */}
                       {lineBatches.length > 0 && (
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-semibold text-slate-500 shrink-0">
+                          <span className="text-[10px] font-semibold text-[var(--text-muted)] shrink-0">
                             {isHindi ? 'बैच:' : 'Batch:'}
                           </span>
                           <select
@@ -1875,7 +1875,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                                 )
                               );
                             }}
-                            className="flex-1 bg-slate-950 border border-slate-800 rounded-lg px-2 py-1 text-[11px] font-mono text-slate-200 focus:outline-none"
+                            className="flex-1 hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1 text-[11px] font-mono focus:outline-none"
                           >
                             <option value="">-- No Specific Batch --</option>
                             {lineBatches.map((b) => {
@@ -1898,41 +1898,41 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
             )}
 
             {/* Totals Strip */}
-            <div className="p-4 bg-slate-950 border-t border-slate-800 space-y-2 text-xs">
+            <div className="p-4 hv-elevated border-t border-[var(--border-primary)] space-y-2 text-xs">
               {forceZeroTax && (
-                <div className="text-[11px] font-semibold text-amber-300 bg-amber-500/10 border border-amber-500/25 rounded-lg px-2.5 py-1.5 mb-1">
+                <div className="text-[11px] font-semibold hv-pill-amber border rounded-lg px-2.5 py-1.5 mb-1">
                   {taxProfile.isComposition
                     ? (isHindi ? 'कंपोज़िशन डीलर: 0% GST बिल ऑफ सप्लाई' : 'Composition Dealer: 0% GST Bill of Supply')
                     : (isHindi ? 'गैर-जीएसटी बिलिंग मोड (Tax-Free)' : 'Non-GST Billing Mode (Tax-Free)')}
                 </div>
               )}
-              <div className="flex justify-between text-slate-400">
+              <div className="flex justify-between text-[var(--text-muted)]">
                 <span>{isHindi ? 'उप-योग (Subtotal):' : 'Subtotal:'}</span>
-                <span className="font-mono tabular-nums text-slate-200">{formatCurrency(totals.subtotal, currency)}</span>
+                <span className="font-mono tabular-nums text-[var(--text-primary)]">{formatCurrency(totals.subtotal, currency)}</span>
               </div>
               {totals.totalDiscount > 0 && (
-                <div className="flex justify-between text-emerald-400">
+                <div className="flex justify-between text-emerald-500 font-semibold">
                   <span>{isHindi ? 'छूट (Discount):' : 'Discount:'}</span>
                   <span className="font-mono tabular-nums">-{formatCurrency(totals.totalDiscount, currency)}</span>
                 </div>
               )}
               {!forceZeroTax && (
-                <div className="flex justify-between text-slate-400">
+                <div className="flex justify-between text-[var(--text-muted)]">
                   <span>{totals.isInterState ? 'IGST:' : 'CGST + SGST:'}</span>
-                  <span className="font-mono tabular-nums text-slate-200">{formatCurrency(totals.totalTax, currency)}</span>
+                  <span className="font-mono tabular-nums text-[var(--text-primary)]">{formatCurrency(totals.totalTax, currency)}</span>
                 </div>
               )}
               {showCess && totals.cessAmount > 0 && (
-                <div className="flex justify-between text-amber-300">
+                <div className="flex justify-between text-amber-500 font-semibold">
                   <span>Cess:</span>
                   <span className="font-mono tabular-nums">{formatCurrency(totals.cessAmount, currency)}</span>
                 </div>
               )}
-              <div className="flex justify-between items-center pt-2 border-t border-slate-800">
-                <span className="text-sm font-extrabold text-white">
+              <div className="flex justify-between items-center pt-2 border-t border-[var(--border-primary)]">
+                <span className="text-sm font-extrabold text-[var(--text-primary)]">
                   {isHindi ? 'कुल देय राशि (Net Payable):' : 'Net Payable:'}
                 </span>
-                <span className="text-2xl font-black font-mono tabular-nums text-emerald-400">
+                <span className="text-2xl font-black font-mono tabular-nums text-emerald-500">
                   {formatCurrency(totals.grandTotal, currency)}
                 </span>
               </div>
@@ -1940,7 +1940,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
           </div>
 
           {/* Express Payment & Checkout Card */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-3">
+          <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4 shadow-xl space-y-3">
             <div className="grid grid-cols-5 gap-1.5 text-[11px] font-bold">
               {(
                 [
@@ -1958,10 +1958,10 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                     key={m.id}
                     type="button"
                     onClick={() => setPaymentMethod(m.id)}
-                    className={`py-2 px-1.5 rounded-xl border flex flex-col items-center justify-center gap-1 transition min-h-[48px] ${
+                    className={`py-2 px-1.5 rounded-xl border flex flex-col items-center justify-center gap-1 transition min-h-[48px] cursor-pointer ${
                       active
-                        ? 'bg-indigo-600 border-indigo-500 text-white shadow'
-                        : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'
+                        ? 'bg-indigo-600 border-indigo-500 text-white hv-keep-white shadow'
+                        : 'hv-elevated border-[var(--border-primary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                     }`}
                   >
                     <Icon className="w-4 h-4" />
@@ -1972,15 +1972,15 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
             </div>
 
             {paymentMethod === 'CASH' && (
-              <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2.5 text-xs">
+              <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3 space-y-2.5 text-xs">
                 <div className="flex items-center justify-between gap-2">
-                  <label className="text-slate-400 font-semibold">
+                  <label className="text-[var(--text-secondary)] font-semibold">
                     {isHindi ? 'नकद खाता (Cash Ledger):' : 'Cash Account:'}
                   </label>
                   <select
                     value={selectedCashAccountId}
                     onChange={(e) => setSelectedCashAccountId(e.target.value)}
-                    className="w-44 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-[11px] font-semibold text-emerald-300"
+                    className="w-44 hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1 text-[11px] font-semibold text-emerald-500"
                   >
                     {(cashLedgers.length > 0 ? cashLedgers : [{ id: 'acc_cash', name: 'Cash in Hand', code: '1010' } as any]).map(acc => (
                       <option key={acc.id} value={acc.id}>{acc.name}</option>
@@ -1988,7 +1988,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                   </select>
                 </div>
                 <div className="flex items-center justify-between gap-2">
-                  <label className="text-slate-400 font-semibold">
+                  <label className="text-[var(--text-secondary)] font-semibold">
                     {isHindi ? 'प्राप्त नकद (Tendered Cash):' : 'Cash Received:'}
                   </label>
                   <input
@@ -1998,14 +1998,14 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                     value={tenderedCash || ''}
                     onChange={(e) => setTenderedCash(parseFloat(e.target.value) || 0)}
                     placeholder={String(totals.grandTotal)}
-                    className="w-32 bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1.5 text-right font-mono font-bold text-white"
+                    className="w-32 hv-input border border-[var(--border-subtle)] rounded-lg px-2.5 py-1.5 text-right font-mono font-bold"
                   />
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   <button
                     type="button"
                     onClick={() => setTenderedCash(totals.grandTotal)}
-                    className="px-2.5 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 font-mono font-bold text-[11px]"
+                    className="px-2.5 py-1 rounded-lg hv-pill-emerald border font-mono font-bold text-[11px] cursor-pointer hover:opacity-90"
                   >
                     Exact ({currencySymbol}{totals.grandTotal})
                   </button>
@@ -2014,18 +2014,18 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                       key={den}
                       type="button"
                       onClick={() => setTenderedCash((prev) => (prev || 0) + den)}
-                      className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-slate-300 hover:text-white font-mono text-[11px]"
+                      className="px-2.5 py-1 rounded-lg bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-mono text-[11px] cursor-pointer transition"
                     >
                       +{currencySymbol}{den}
                     </button>
                   ))}
                 </div>
                 {tenderedCash > 0 && (
-                  <div className="flex items-center justify-between pt-2 border-t border-slate-800">
-                    <span className="font-bold text-slate-300">
+                  <div className="flex items-center justify-between pt-2 border-t border-[var(--border-primary)]">
+                    <span className="font-bold text-[var(--text-secondary)]">
                       {isHindi ? 'वापस छुट्टे (Change Due):' : 'Change to Return:'}
                     </span>
-                    <span className="font-mono font-black text-base text-amber-400 tabular-nums">
+                    <span className="font-mono font-black text-base text-amber-500 tabular-nums">
                       {formatCurrency(changeDue, currency)}
                     </span>
                   </div>
@@ -2034,15 +2034,15 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
             )}
 
             {paymentMethod === 'UPI' && (
-              <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2.5">
+              <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3 space-y-2.5">
                 <div className="flex items-center justify-between gap-2 text-xs">
-                  <label className="text-slate-400 font-semibold">
+                  <label className="text-[var(--text-secondary)] font-semibold">
                     {isHindi ? 'जमा बैंक खाता (Bank Ledger):' : 'Deposit Bank Account:'}
                   </label>
                   <select
                     value={selectedBankAccountId}
                     onChange={(e) => setSelectedBankAccountId(e.target.value)}
-                    className="w-44 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-[11px] font-semibold text-cyan-300"
+                    className="w-44 hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1 text-[11px] font-semibold text-cyan-500"
                   >
                     {(bankLedgers.length > 0 ? bankLedgers : [{ id: 'acc_bank', name: 'Bank Account', code: '1020' } as any]).map(acc => (
                       <option key={acc.id} value={acc.id}>{acc.name}</option>
@@ -2051,15 +2051,15 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                 </div>
                 {totals.grandTotal > 0 && currency === 'INR' && Boolean(data.company.upiId?.trim()) && (
                   <div className="flex items-center gap-3">
-                    <div className="bg-white p-1.5 rounded-lg shrink-0">
+                    <div className="bg-white p-1.5 rounded-lg shrink-0 border border-slate-300">
                       <QRCodeSVG value={upiUri} size={74} level="M" />
                     </div>
                     <div className="text-xs space-y-1">
-                      <div className="font-bold text-white">
+                      <div className="font-bold text-[var(--text-primary)]">
                         {isHindi ? 'ग्राहक को UPI QR स्कैन कराएं' : 'Customer Scan & Pay (UPI)'}
                       </div>
-                      <div className="text-[11px] font-mono text-cyan-400">{upiId}</div>
-                      <div className="font-mono font-black text-emerald-400">
+                      <div className="text-[11px] font-mono text-cyan-500 font-semibold">{upiId}</div>
+                      <div className="font-mono font-black text-emerald-500">
                         {formatCurrency(totals.grandTotal, currency)}
                       </div>
                     </div>
@@ -2069,70 +2069,70 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
             )}
 
             {paymentMethod === 'CARD' && (
-              <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2 text-xs">
+              <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3 space-y-2 text-xs">
                 <div className="flex items-center justify-between gap-2">
-                  <label className="text-slate-400 font-semibold">
+                  <label className="text-[var(--text-secondary)] font-semibold">
                     {isHindi ? 'कार्ड सेटलमेंट बैंक:' : 'Card Settlement Bank:'}
                   </label>
                   <select
                     value={selectedBankAccountId}
                     onChange={(e) => setSelectedBankAccountId(e.target.value)}
-                    className="w-44 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-[11px] font-semibold text-cyan-300"
+                    className="w-44 hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1 text-[11px] font-semibold text-cyan-500"
                   >
                     {(bankLedgers.length > 0 ? bankLedgers : [{ id: 'acc_bank', name: 'Bank Account', code: '1020' } as any]).map(acc => (
                       <option key={acc.id} value={acc.id}>{acc.name}</option>
                     ))}
                   </select>
                 </div>
-                <div className="flex items-center justify-between text-[11px] text-slate-400">
+                <div className="flex items-center justify-between text-[11px] text-[var(--text-muted)]">
                   <span>{isHindi ? 'पूर्ण राशि बैंक खाते में डेबिट होगी' : 'Full amount debits selected Bank ledger immediately'}</span>
-                  <span className="font-mono font-bold text-emerald-400">{formatCurrency(totals.grandTotal, currency)}</span>
+                  <span className="font-mono font-bold text-emerald-500">{formatCurrency(totals.grandTotal, currency)}</span>
                 </div>
               </div>
             )}
 
             {paymentMethod === 'SPLIT' && (
-              <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2.5 text-xs">
+              <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3 space-y-2.5 text-xs">
                 <div className="grid grid-cols-3 gap-2">
                   <div>
-                    <label className="block text-[10px] text-slate-400 mb-1">Cash</label>
+                    <label className="block text-[10px] text-[var(--text-muted)] font-semibold mb-1">Cash</label>
                     <input
                       type="number"
                       min={0}
                       value={splitCash || ''}
                       onChange={(e) => setSplitCash(parseFloat(e.target.value) || 0)}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 font-mono text-white text-right"
+                      className="w-full hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1.5 font-mono text-right"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] text-slate-400 mb-1">UPI</label>
+                    <label className="block text-[10px] text-[var(--text-muted)] font-semibold mb-1">UPI</label>
                     <input
                       type="number"
                       min={0}
                       value={splitUpi || ''}
                       onChange={(e) => setSplitUpi(parseFloat(e.target.value) || 0)}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 font-mono text-white text-right"
+                      className="w-full hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1.5 font-mono text-right"
                     />
                   </div>
                   <div>
-                    <label className="block text-[10px] text-slate-400 mb-1">Card</label>
+                    <label className="block text-[10px] text-[var(--text-muted)] font-semibold mb-1">Card</label>
                     <input
                       type="number"
                       min={0}
                       value={splitCard || ''}
                       onChange={(e) => setSplitCard(parseFloat(e.target.value) || 0)}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 font-mono text-white text-right"
+                      className="w-full hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1.5 font-mono text-right"
                     />
                   </div>
                 </div>
-                <div className="flex items-center justify-between gap-2 pt-1.5 border-t border-slate-800">
-                  <label className="text-[11px] text-slate-400 font-semibold">
+                <div className="flex items-center justify-between gap-2 pt-1.5 border-t border-[var(--border-primary)]">
+                  <label className="text-[11px] text-[var(--text-secondary)] font-semibold">
                     {isHindi ? 'UPI/Card हेतु बैंक खाता:' : 'Bank (for UPI/Card):'}
                   </label>
                   <select
                     value={selectedBankAccountId}
                     onChange={(e) => setSelectedBankAccountId(e.target.value)}
-                    className="w-44 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-[11px] font-semibold text-cyan-300"
+                    className="w-44 hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1 text-[11px] font-semibold text-cyan-500"
                   >
                     {(bankLedgers.length > 0 ? bankLedgers : [{ id: 'acc_bank', name: 'Bank Account', code: '1020' } as any]).map(acc => (
                       <option key={acc.id} value={acc.id}>{acc.name}</option>
@@ -2146,8 +2146,8 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
               <div
                 className={`rounded-xl p-2.5 border text-xs ${
                   negativeStockPolicy === 'BLOCK'
-                    ? 'bg-rose-500/15 border-rose-500/45 text-rose-200 font-semibold'
-                    : 'bg-amber-500/10 border-amber-500/40 text-amber-200'
+                    ? 'hv-pill-rose font-semibold'
+                    : 'hv-pill-amber'
                 }`}
               >
                 {negativeStockPolicy === 'BLOCK' ? (
@@ -2164,7 +2164,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                       className="w-4 h-4 mt-0.5 rounded accent-amber-500 shrink-0"
                     />
                     <span>
-                      <strong className="text-amber-300">{isHindi ? 'कम स्टॉक चेतावनी: ' : 'Low Stock Warning: '}</strong>
+                      <strong className="font-extrabold">{isHindi ? 'कम स्टॉक चेतावनी: ' : 'Low Stock Warning: '}</strong>
                       {negativeStockViolations.map((v) => `${v.name} (Avail: ${v.available}, Cart: ${v.reqQty})`).join(', ')} —{' '}
                       {isHindi ? 'कम स्टॉक के साथ बिल जारी करने की पुष्टि करें।' : 'Confirm proceeding with negative stock.'}
                     </span>
@@ -2178,9 +2178,9 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                 type="button"
                 disabled={cart.length === 0 || (negativeStockPolicy === 'BLOCK' && negativeStockViolations.length > 0)}
                 onClick={() => handleCheckout(false)}
-                className="w-full bg-slate-800 hover:bg-slate-700 disabled:opacity-40 text-white font-bold py-3 px-4 rounded-xl text-xs flex items-center justify-center gap-2 border border-slate-700 transition min-h-[46px]"
+                className="w-full bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] disabled:opacity-40 text-[var(--text-primary)] font-bold py-3 px-4 rounded-xl text-xs flex items-center justify-center gap-2 border border-[var(--border-subtle)] transition min-h-[46px] cursor-pointer"
               >
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                 <span>{isHindi ? 'केवल सेव करें' : 'Save Bill Only'}</span>
               </button>
 
@@ -2188,7 +2188,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                 type="button"
                 disabled={cart.length === 0 || (negativeStockPolicy === 'BLOCK' && negativeStockViolations.length > 0)}
                 onClick={() => handleCheckout(true)}
-                className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 text-white font-extrabold py-3 px-4 rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition min-h-[46px]"
+                className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 text-white hv-keep-white font-extrabold py-3 px-4 rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 transition min-h-[46px] cursor-pointer"
               >
                 <Printer className="w-4 h-4" />
                 <span>{isHindi ? 'बिल बनाएं & प्रिंट [F9]' : 'Checkout & Print [F9]'}</span>
@@ -2201,20 +2201,20 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
       {/* Camera Scanner Modal */}
       {showCameraModal && (
         <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-md overflow-hidden shadow-2xl">
-            <div className="px-5 py-3.5 bg-slate-950 border-b border-slate-800 flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2 font-bold text-white text-sm">
-                <Camera className="w-4 h-4 text-cyan-400" />
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-3xl w-full max-w-md overflow-hidden shadow-2xl">
+            <div className="px-5 py-3.5 hv-elevated border-b border-[var(--border-primary)] flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 font-bold text-[var(--text-primary)] text-sm">
+                <Camera className="w-4 h-4 text-cyan-500" />
                 <span>{isHindi ? 'कैमरा बारकोड स्कैनर' : 'Camera Barcode Scanner'}</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <button
                   type="button"
                   onClick={() => setCameraFacing((prev) => (prev === 'environment' ? 'user' : 'environment'))}
-                  className="text-xs px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center gap-1"
+                  className="text-xs px-2.5 py-1 rounded-lg bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] flex items-center gap-1 cursor-pointer"
                   title={isHindi ? 'फ्रंट / बैक कैमरा बदलें' : 'Switch Front / Back Camera'}
                 >
-                  <SwitchCamera className="w-3.5 h-3.5 text-cyan-400" />
+                  <SwitchCamera className="w-3.5 h-3.5 text-cyan-500" />
                   <span className="hidden sm:inline">
                     {cameraFacing === 'environment' ? (isHindi ? 'बैक' : 'Rear') : (isHindi ? 'फ्रंट' : 'Front')}
                   </span>
@@ -2222,7 +2222,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowCameraModal(false)}
-                  className="text-slate-400 hover:text-white p-1"
+                  className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -2230,13 +2230,13 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
             </div>
 
             <div className="p-4 space-y-3">
-              <div className="bg-black rounded-2xl overflow-hidden aspect-video relative flex items-center justify-center border border-slate-800">
+              <div className="bg-black rounded-2xl overflow-hidden aspect-video relative flex items-center justify-center border border-[var(--border-primary)]">
                 <video ref={videoRef} className="w-full h-full object-cover" muted playsInline />
                 {cameraActive && (
                   <div className="absolute inset-8 border-2 border-cyan-400/70 rounded-xl pointer-events-none" />
                 )}
                 {!cameraActive && !cameraError && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-400 text-xs gap-2 bg-slate-950/70">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-300 text-xs gap-2 bg-slate-950/70">
                     <Camera className="w-7 h-7 text-cyan-400 animate-pulse" />
                     <span>{isHindi ? 'कैमरा चालू हो रहा है...' : 'Starting camera...'}</span>
                   </div>
@@ -2244,14 +2244,14 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
               </div>
 
               {cameraError && (
-                <div className="p-3 rounded-xl bg-amber-500/15 border border-amber-500/40 text-amber-100 text-xs space-y-2">
-                  <div className="font-bold flex items-center gap-1.5 text-amber-300">
+                <div className="p-3 rounded-xl hv-pill-amber border text-xs space-y-2">
+                  <div className="font-bold flex items-center gap-1.5">
                     <AlertTriangle className="w-4 h-4 shrink-0" />
                     <span>{cameraError}</span>
                   </div>
 
                   {cameraErrorKind === 'PERMISSION_DENIED' && (
-                    <ol className="list-decimal pl-4 space-y-1 text-[11px] text-slate-200 leading-relaxed">
+                    <ol className="list-decimal pl-4 space-y-1 text-[11px] leading-relaxed">
                       <li>
                         {isHindi
                           ? 'ब्राउज़र के एड्रेस बार (ऊपर बाईं ओर 🔒 या कैमरा आइकन) पर क्लिक करें → Camera को "Allow" चुनें।'
@@ -2274,7 +2274,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                     <button
                       type="button"
                       onClick={() => setCameraRetryKey((k) => k + 1)}
-                      className="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-extrabold text-[11px] flex items-center gap-1.5"
+                      className="px-3 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white hv-keep-white font-extrabold text-[11px] flex items-center gap-1.5 cursor-pointer"
                     >
                       <RefreshCw className="w-3.5 h-3.5" />
                       <span>{isHindi ? 'कैमरा पुनः प्रयास करें' : 'Retry Camera'}</span>
@@ -2284,9 +2284,9 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                       href={typeof window !== 'undefined' ? window.location.href : '#'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 font-bold text-[11px] flex items-center gap-1.5"
+                      className="px-3 py-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] font-bold text-[11px] flex items-center gap-1.5"
                     >
-                      <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
+                      <ExternalLink className="w-3.5 h-3.5 text-cyan-500" />
                       <span>{isHindi ? 'नए टैब में खोलें' : 'Open in New Tab'}</span>
                     </a>
                   </div>
@@ -2306,9 +2306,9 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                 type="button"
                 disabled={photoScanBusy}
                 onClick={() => photoScanInputRef.current?.click()}
-                className="w-full py-2.5 px-3 rounded-xl bg-indigo-600/25 hover:bg-indigo-600/35 border border-indigo-500/40 text-indigo-200 font-bold text-xs flex items-center justify-center gap-2 transition disabled:opacity-50"
+                className="w-full py-2.5 px-3 rounded-xl hv-pill-indigo border hover:opacity-90 font-bold text-xs flex items-center justify-center gap-2 transition disabled:opacity-50 cursor-pointer"
               >
-                <ImagePlus className="w-4 h-4 text-indigo-300" />
+                <ImagePlus className="w-4 h-4" />
                 <span>
                   {photoScanBusy
                     ? isHindi
@@ -2320,7 +2320,7 @@ export const BarcodePOSModule: React.FC<BarcodePOSModuleProps> = ({
                 </span>
               </button>
 
-              <p className="text-[11px] text-slate-400 text-center">
+              <p className="text-[11px] text-[var(--text-muted)] text-center">
                 {isHindi
                   ? 'बारकोड को फ्रेम के बीच रखें। स्कैन होते ही आइटम अपने आप बिल में जुड़ जाएगा (नया बारकोड होने पर जोड़ने की विंडो खुलेगी)।'
                   : 'Center the barcode inside the cyan frame. Items add automatically (unregistered barcodes open Quick Add).'}

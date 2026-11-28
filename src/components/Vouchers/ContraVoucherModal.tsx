@@ -133,22 +133,22 @@ export const ContraVoucherModal: React.FC<ContraVoucherModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 text-slate-100 rounded-3xl w-full max-w-xl shadow-2xl overflow-hidden my-auto animate-fadeIn">
+      <div className="hv-surface border border-[var(--border-subtle)] text-[var(--text-primary)] rounded-3xl w-full max-w-xl shadow-2xl overflow-hidden my-auto animate-fadeIn">
         
         {/* Header */}
-        <div className="bg-gradient-to-r from-amber-950 via-slate-900 to-slate-900 p-5 border-b border-amber-500/30 flex items-center justify-between">
+        <div className="hv-elevated p-5 border-b border-[var(--border-primary)] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-amber-500/20 border border-amber-500/30 rounded-xl text-amber-400">
+            <div className="p-2.5 hv-pill-amber border rounded-xl">
               <RefreshCw className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="text-base font-extrabold text-white flex items-center gap-2">
+              <h2 className="text-base font-extrabold text-[var(--text-primary)] flex items-center gap-2">
                 <span>{editingVoucher ? (isHindi ? 'कॉण्ट्रा वाउचर संपादित करें' : 'Edit Contra Voucher') : (isHindi ? 'नया कॉण्ट्रा वाउचर (Contra Voucher - F4)' : 'Create Contra Voucher (F4)')}</span>
-                <span className="bg-amber-500/20 text-amber-300 text-[10px] px-2 py-0.5 rounded-full font-mono border border-amber-500/30">
+                <span className="hv-pill-amber text-[10px] px-2 py-0.5 rounded-full font-mono border">
                   CONTRA
                 </span>
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--text-muted)]">
                 {isHindi ? 'बैंक में कैश जमा, बैंक से कैश निकासी या बैंक से बैंक ट्रांसफर' : 'Cash Deposit to Bank, Cash Withdrawal or Inter-Bank Transfer'}
               </p>
             </div>
@@ -156,7 +156,7 @@ export const ContraVoucherModal: React.FC<ContraVoucherModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl border border-slate-700 transition"
+            className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] rounded-xl border border-[var(--border-subtle)] transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -165,8 +165,8 @@ export const ContraVoucherModal: React.FC<ContraVoucherModalProps> = ({
         {/* Form */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4 text-xs">
           {bankAndCashAccounts.length < 2 && (
-            <div className="p-3 bg-amber-500/15 border border-amber-500/50 rounded-xl text-amber-200 font-semibold flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+            <div className="p-3 hv-pill-amber border rounded-xl font-semibold flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
               <span>
                 {isHindi
                   ? 'कॉण्ट्रा वाउचर के लिए Chart of Accounts में कम से कम 2 कैश/बैंक खाते होने आवश्यक हैं।'
@@ -176,12 +176,12 @@ export const ContraVoucherModal: React.FC<ContraVoucherModalProps> = ({
           )}
 
           {validationError && (
-            <div className="p-3 bg-rose-500/15 border border-rose-500/50 rounded-xl text-rose-200 font-bold flex items-center justify-between gap-2">
+            <div className="p-3 hv-pill-rose border rounded-xl font-bold flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{validationError}</span>
               </div>
-              <button type="button" onClick={() => setValidationError(null)} className="text-rose-300 hover:text-white">
+              <button type="button" onClick={() => setValidationError(null)} className="opacity-80 hover:opacity-100">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -189,7 +189,7 @@ export const ContraVoucherModal: React.FC<ContraVoucherModalProps> = ({
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'वाउचर सं. (Voucher No.):' : 'Voucher No:'}
               </label>
               <input
@@ -197,12 +197,12 @@ export const ContraVoucherModal: React.FC<ContraVoucherModalProps> = ({
                 value={voucherNumber}
                 onChange={(e) => setVoucherNumber(e.target.value)}
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-amber-300 font-mono font-bold"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 text-amber-500 font-mono font-bold"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'दिनांक (Date):' : 'Date:'}
               </label>
               <input
@@ -210,24 +210,24 @@ export const ContraVoucherModal: React.FC<ContraVoucherModalProps> = ({
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
                 required
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono"
               />
             </div>
           </div>
 
           {/* Transfer direction */}
-          <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3">
+          <div className="hv-elevated p-4 rounded-2xl border border-[var(--border-primary)] space-y-3">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <div className="flex items-center justify-between gap-2 mb-1">
-                  <label className="block text-rose-400 font-bold flex items-center gap-1">
+                  <label className="block text-rose-500 font-bold flex items-center gap-1">
                     <span>{isHindi ? 'खाते से निकाला (Credit - From):' : 'Transfer From (Cr / Paid Out):'}</span>
                   </label>
                   {onAddAccount && (
                     <button
                       type="button"
                       onClick={() => setQuickTargetSide('FROM')}
-                      className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-300 hover:text-amber-200 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 px-2 py-0.5 rounded-md transition"
+                      className="inline-flex items-center gap-1 text-[10px] font-bold hv-pill-amber border px-2 py-0.5 rounded-md transition"
                     >
                       <PlusCircle className="w-3 h-3" />
                       <span>{isHindi ? '+ नया बैंक/कैश' : '+ New'}</span>
@@ -243,35 +243,36 @@ export const ContraVoucherModal: React.FC<ContraVoucherModalProps> = ({
                     }
                     setFromAccountId(e.target.value);
                   }}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white outline-none focus:border-amber-400"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-xs outline-none focus:border-amber-400"
                 >
                   <option value="">{isHindi ? '-- कैश/बैंक खाता चुनें --' : '-- Select Cash / Bank Account --'}</option>
                   {bankAndCashAccounts.map(acc => (
                     <option key={acc.id} value={acc.id}>{acc.name} ({acc.code})</option>
                   ))}
                   {onAddAccount && (
-                    <option value="__CREATE_NEW__" className="text-amber-300 font-bold">
+                    <option value="__CREATE_NEW__" className="text-amber-500 font-bold">
                       {isHindi ? '➕ + नया बैंक / कैश खाता बनाएँ...' : '➕ + Add New Bank / Cash Ledger...'}
                     </option>
                   )}
                 </select>
                 {fromBalance && (
-                  <p className={`text-[11px] font-mono mt-1 ${isCashDeficit ? 'text-rose-400 font-bold' : 'text-slate-400'}`}>
+                  <p className={`text-[11px] font-mono mt-1 ${isCashDeficit ? 'text-rose-500 font-bold' : 'text-[var(--text-muted)]'}`}>
                     {isHindi ? 'उपलब्ध: ' : 'Avail: '}{formatCurrency(fromBalance.netBalance, currency)} {fromBalance.balanceType}
+                    {isCashDeficit && (isHindi ? ' — अपर्याप्त नकद!' : ' — Insufficient Cash!')}
                   </p>
                 )}
               </div>
 
               <div>
                 <div className="flex items-center justify-between gap-2 mb-1">
-                  <label className="block text-emerald-400 font-bold flex items-center gap-1">
+                  <label className="block text-emerald-500 font-bold flex items-center gap-1">
                     <span>{isHindi ? 'खाते में जमा हुआ (Debit - To):' : 'Transfer To (Dr / Received In):'}</span>
                   </label>
                   {onAddAccount && (
                     <button
                       type="button"
                       onClick={() => setQuickTargetSide('TO')}
-                      className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-300 hover:text-amber-200 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 px-2 py-0.5 rounded-md transition"
+                      className="inline-flex items-center gap-1 text-[10px] font-bold hv-pill-amber border px-2 py-0.5 rounded-md transition"
                     >
                       <PlusCircle className="w-3 h-3" />
                       <span>{isHindi ? '+ नया बैंक/कैश' : '+ New'}</span>
@@ -287,20 +288,20 @@ export const ContraVoucherModal: React.FC<ContraVoucherModalProps> = ({
                     }
                     setToAccountId(e.target.value);
                   }}
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-xs text-white outline-none focus:border-amber-400"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-xs outline-none focus:border-amber-400"
                 >
                   <option value="">{isHindi ? '-- कैश/बैंक खाता चुनें --' : '-- Select Cash / Bank Account --'}</option>
                   {bankAndCashAccounts.map(acc => (
                     <option key={acc.id} value={acc.id}>{acc.name} ({acc.code})</option>
                   ))}
                   {onAddAccount && (
-                    <option value="__CREATE_NEW__" className="text-amber-300 font-bold">
+                    <option value="__CREATE_NEW__" className="text-amber-500 font-bold">
                       {isHindi ? '➕ + नया बैंक / कैश खाता बनाएँ...' : '➕ + Add New Bank / Cash Ledger...'}
                     </option>
                   )}
                 </select>
                 {toBalance && (
-                  <p className="text-[11px] font-mono text-slate-400 mt-1">
+                  <p className="text-[11px] font-mono text-[var(--text-muted)] mt-1">
                     {isHindi ? 'शेष: ' : 'Bal: '}{formatCurrency(toBalance.netBalance, currency)} {toBalance.balanceType}
                   </p>
                 )}
@@ -309,7 +310,7 @@ export const ContraVoucherModal: React.FC<ContraVoucherModalProps> = ({
 
             <div className="grid grid-cols-2 gap-3 pt-2">
               <div>
-                <label className="block text-slate-300 font-bold mb-1">
+                <label className="block text-[var(--text-secondary)] font-bold mb-1">
                   {isHindi ? 'स्थानांतरित राशि (Amount):' : 'Transfer Amount:'}
                 </label>
                 <input
@@ -320,12 +321,12 @@ export const ContraVoucherModal: React.FC<ContraVoucherModalProps> = ({
                   placeholder="0.00"
                   onChange={(e) => setAmount(parseFloat(e.target.value) || 0)}
                   required
-                  className="w-full bg-slate-900 border border-amber-500/50 rounded-xl px-3 py-2 text-sm text-amber-300 font-mono font-extrabold"
+                  className="w-full hv-input border border-amber-500/50 rounded-xl px-3 py-2 text-sm text-amber-500 font-mono font-extrabold"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold mb-1">
+                <label className="block text-[var(--text-secondary)] font-bold mb-1">
                   {isHindi ? 'रेफरेंस / चेकमार्क / UTR सं.:' : 'Ref / Cheque / UTR No:'}
                 </label>
                 <input
@@ -333,30 +334,30 @@ export const ContraVoucherModal: React.FC<ContraVoucherModalProps> = ({
                   value={referenceNo}
                   onChange={(e) => setReferenceNo(e.target.value)}
                   placeholder="e.g. UTR-9821415 or CHQ-0012"
-                  className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono"
                 />
               </div>
             </div>
           </div>
 
           <div>
-            <label className="block text-slate-300 font-bold mb-1">
+            <label className="block text-[var(--text-secondary)] font-bold mb-1">
               {isHindi ? 'विवरण / नारेशन (Narration):' : 'Narration / Remarks:'}
             </label>
             <textarea
               rows={2}
               value={narration}
               onChange={(e) => setNarration(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-200 outline-none focus:border-indigo-500"
+              className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-xs outline-none focus:border-indigo-500"
               placeholder={isHindi ? 'कैश बैंक में जमा कराया गया...' : 'Cash deposited into bank account...'}
             />
           </div>
 
-          <div className="flex items-center justify-between pt-3 border-t border-slate-800">
+          <div className="flex items-center justify-between pt-3 border-t border-[var(--border-primary)]">
             <button
               type="button"
               onClick={onClose}
-              className="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2.5 rounded-xl transition"
+              className="bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-bold px-4 py-2.5 rounded-xl transition"
             >
               {isHindi ? 'रद्द करें' : 'Cancel'}
             </button>

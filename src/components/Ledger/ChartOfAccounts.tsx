@@ -416,13 +416,13 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
   return (
     <div className="md:h-full md:min-h-0 flex flex-col p-4 md:p-5 gap-3.5 w-full md:overflow-hidden animate-fadeIn">
       {/* Top Header Banner */}
-      <div className="shrink-0 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-slate-900 p-4 md:p-5 rounded-2xl border border-slate-800 shadow-lg">
+      <div className="shrink-0 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hv-surface p-4 md:p-5 rounded-2xl border border-[var(--border-primary)] shadow-lg">
         <div>
-          <h2 className="text-xl font-bold text-slate-100 flex items-center gap-2">
-            <FolderTree className="w-5 h-5 text-indigo-400" />
+          <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2">
+            <FolderTree className="w-5 h-5 text-indigo-500" />
             <span>{isHindi ? 'लेजर ग्रुप एवं खाता बही मास्टर (Chart of Accounts & Ledger Master)' : 'Chart of Accounts & Master Ledger Directory'}</span>
           </h2>
-          <p className="text-sm text-slate-400 mt-1">
+          <p className="text-sm text-[var(--text-muted)] mt-1">
             {isHindi 
               ? 'मुख्य समूहों (Primary Groups), सब-ग्रुप्स (Sub-Groups) एवं लेजर खातों को देखें, जोड़ें, सम्पादित (Edit) या डिलीट (Delete) करें'
               : 'Multi-level account groups hierarchy, edit/delete ledgers, statutory payables, salary components, and print master statement'}
@@ -436,8 +436,8 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               onClick={openDupAuditModal}
               className={`flex items-center gap-1.5 font-bold text-xs px-3.5 py-2.5 rounded-xl border transition cursor-pointer ${
                 dupAudit.totalDuplicateRecords > 0
-                  ? 'bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border-amber-400/50 shadow-lg shadow-amber-500/10'
-                  : 'bg-slate-800 hover:bg-slate-700 text-emerald-300 border-emerald-500/30'
+                  ? 'hv-pill-amber hover:brightness-95 shadow-lg shadow-amber-500/10'
+                  : 'bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-emerald-500 border-emerald-500/40'
               }`}
               title={isHindi ? 'एक नाम के डुप्लीकेट लेजर व पार्टी जाँचें और मर्ज करें' : 'Inspect & auto-merge duplicate ledgers and parties'}
             >
@@ -446,7 +446,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               <span className={`px-1.5 py-0.5 rounded-full text-[10px] font-extrabold font-mono ${
                 dupAudit.totalDuplicateRecords > 0
                   ? 'bg-amber-400 text-slate-950'
-                  : 'bg-emerald-500/20 text-emerald-300'
+                  : 'hv-pill-emerald border'
               }`}>
                 {dupAudit.totalDuplicateRecords > 0 ? dupAudit.totalDuplicateRecords : '0 ✓'}
               </span>
@@ -456,9 +456,9 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
           {perms.canExportData && (
             <button
               onClick={handlePrintChartOfAccounts}
-              className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-emerald-400 border border-emerald-500/30 font-bold text-xs px-3.5 py-2.5 rounded-xl transition"
+              className="flex items-center gap-1.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-emerald-500 border border-emerald-500/40 font-bold text-xs px-3.5 py-2.5 rounded-xl transition"
             >
-              <Printer className="w-4 h-4 text-emerald-400" />
+              <Printer className="w-4 h-4 text-emerald-500" />
               <span>{isHindi ? 'प्रिंट खाता सूची' : 'Print Master Chart'}</span>
             </button>
           )}
@@ -467,15 +467,15 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
             <>
               <button
                 onClick={openCreateGroupModal}
-                className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-indigo-300 border border-indigo-500/30 font-bold text-xs px-3.5 py-2.5 rounded-xl transition"
+                className="flex items-center gap-1.5 hv-pill-indigo hover:brightness-95 border font-bold text-xs px-3.5 py-2.5 rounded-xl transition"
               >
-                <FolderPlus className="w-4 h-4 text-indigo-400" />
+                <FolderPlus className="w-4 h-4" />
                 <span>{isHindi ? '+ नया ग्रुप / सब-ग्रुप' : '+ Create Group'}</span>
               </button>
 
               <button
                 onClick={openCreateAccountModal}
-                className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 transition"
+                className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 transition"
               >
                 <Plus className="w-4 h-4" />
                 <span>{isHindi ? '+ नया लेजर खाता' : '+ Create Sub-Ledger Account'}</span>
@@ -486,33 +486,33 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
       </div>
 
       {/* Group Hierarchy Bar */}
-      <div className="shrink-0 bg-slate-900/70 p-3 rounded-xl border border-slate-800 flex items-center justify-between flex-wrap gap-2 text-xs text-slate-300">
+      <div className="shrink-0 hv-surface p-3 rounded-xl border border-[var(--border-primary)] flex items-center justify-between flex-wrap gap-2 text-xs text-[var(--text-secondary)]">
         <div className="flex items-center gap-2">
-          <Layers className="w-4 h-4 text-indigo-400" />
-          <span className="font-semibold text-slate-200">
+          <Layers className="w-4 h-4 text-indigo-500" />
+          <span className="font-semibold text-[var(--text-primary)]">
             {isHindi ? 'कुल खाता समूह एवं लेजर दर्ज हैं:' : 'Active Account Groups & Registered Ledgers:'}
           </span>
-          <span className="bg-indigo-950 text-indigo-300 border border-indigo-500/30 font-bold font-mono px-2 py-0.5 rounded text-xs">
+          <span className="hv-pill-indigo border font-bold font-mono px-2 py-0.5 rounded text-xs">
             {allGroups.length} {isHindi ? 'ग्रुप्स' : 'Groups'} / {data.accounts.length} {isHindi ? 'लेजर्स' : 'Ledgers'}
           </span>
         </div>
 
-        <div className="text-xs text-slate-400 flex items-center gap-1">
-          <Info className="w-3.5 h-3.5 text-amber-400" />
+        <div className="text-xs text-[var(--text-muted)] flex items-center gap-1">
+          <Info className="w-3.5 h-3.5 text-amber-500" />
           <span>{isHindi ? 'बैंक रिकॉन्सिलिएशन या वाउचर में नया बैंक लेजर जोड़ने पर वह स्वतः यहाँ दिखेगा।' : 'Bank ledgers added in Reconciliation or Vouchers sync instantly to Chart of Accounts.'}</span>
         </div>
       </div>
 
       {/* Filter Bar + Condensed / Detailed View Switcher */}
-      <div className="shrink-0 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 bg-slate-900/90 p-3 rounded-xl border border-slate-800">
+      <div className="shrink-0 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 hv-surface p-3 rounded-xl border border-[var(--border-primary)]">
         <div className="relative w-full lg:w-72 shrink-0">
-          <Search className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
+          <Search className="w-4 h-4 absolute left-3 top-3 text-[var(--text-muted)]" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={isHindi ? 'ग्रुप, खाता नाम या कोड खोजें...' : 'Search Group, Sub-Group, Account Name or Code...'}
-            className="w-full bg-slate-800 text-slate-100 placeholder-slate-400 text-sm rounded-xl pl-9 pr-3 py-2 border border-slate-700 focus:outline-none focus:border-indigo-500"
+            className="w-full hv-input text-sm rounded-xl pl-9 pr-3 py-2 border border-[var(--border-subtle)] focus:outline-none focus:border-indigo-500"
           />
         </div>
 
@@ -522,10 +522,10 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`text-xs px-3 py-1.5 rounded-lg font-semibold transition shrink-0 cursor-pointer ${
+                className={`text-xs px-3 py-1.5 rounded-lg font-semibold transition shrink-0 cursor-pointer border ${
                   selectedCategory === cat
-                    ? 'bg-indigo-600 text-white shadow'
-                    : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                    ? 'bg-indigo-600 text-white hv-keep-white border-indigo-500 shadow'
+                    : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] border-[var(--border-subtle)] hover:bg-[var(--hover-surface)]'
                 }`}
               >
                 {cat}
@@ -534,18 +534,18 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
           </div>
 
           {/* Condensed vs Detailed View Mode Switcher */}
-          <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs shadow-inner shrink-0">
+          <div className="flex items-center hv-elevated p-1 rounded-xl border border-[var(--border-subtle)] text-xs shrink-0">
             <button
               type="button"
               onClick={() => setCoaViewMode('condensed')}
               className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition cursor-pointer ${
                 coaViewMode === 'condensed'
-                  ? 'bg-indigo-600 text-white shadow'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
               title={isHindi ? 'संक्षिप्त समूह सारांश (केवल मुख्य ग्रुप्स व कुल शेष)' : 'Condensed View (Group-Wise Summary Totals)'}
             >
-              <Layers className="w-3.5 h-3.5 text-amber-300" />
+              <Layers className="w-3.5 h-3.5 text-amber-400" />
               <span>{isHindi ? 'संक्षिप्त (Condensed)' : 'Condensed'}</span>
             </button>
             <button
@@ -553,15 +553,15 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               onClick={() => setCoaViewMode('detailed')}
               className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition cursor-pointer ${
                 coaViewMode === 'detailed'
-                  ? 'bg-indigo-600 text-white shadow'
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
               title={isHindi ? 'विस्तृत दृश्य (सभी सब-लेजर व पार्टी खातों के साथ)' : 'Detailed View (Expanded All Sub-Ledgers & Parties)'}
             >
               <ListTree className="w-3.5 h-3.5 text-emerald-400" />
               <span>{isHindi ? 'विस्तृत (Detailed)' : 'Detailed'}</span>
             </button>
-            <span className="hidden xl:inline text-[10px] text-slate-500 font-mono px-2">
+            <span className="hidden xl:inline text-[10px] text-[var(--text-muted)] font-mono px-2">
               Alt+F1
             </span>
           </div>
@@ -570,27 +570,27 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
 
       {/* Accounts View: Condensed Group Summary Table vs Detailed Expanded Cards */}
       {coaViewMode === 'condensed' ? (
-        <div className="flex-1 min-h-0 flex flex-col bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
-          <div className="shrink-0 p-3.5 px-4 bg-slate-950/90 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="flex-1 min-h-0 flex flex-col hv-surface border border-[var(--border-primary)] rounded-2xl shadow-xl overflow-hidden">
+          <div className="shrink-0 p-3.5 px-4 hv-elevated border-b border-[var(--border-primary)] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Layers className="w-4 h-4 text-amber-400" />
+              <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <Layers className="w-4 h-4 text-amber-500" />
                 <span>{isHindi ? 'संक्षिप्त चार्ट ऑफ़ अकाउंट्स (Group-Wise Condensed Summary)' : 'Condensed Chart of Accounts — Group-Wise Summary'}</span>
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">
                 {isHindi
                   ? 'प्रत्येक खाता समूह का प्रारंभिक व वर्तमान शुद्ध शेष देखें — विस्तृत देखने हेतु किसी ग्रुप पर क्लिक करें'
                   : 'Group-level Opening & Net Current Balances — click Group Summary or switch to Detailed (Alt+F1) to inspect sub-ledgers'}
               </p>
             </div>
-            <span className="text-xs font-mono bg-slate-800 text-indigo-300 px-2.5 py-1 rounded-lg border border-slate-700 self-start sm:self-auto">
+            <span className="text-xs font-mono hv-pill-indigo px-2.5 py-1 rounded-lg border self-start sm:self-auto font-semibold">
               {groupedMap.size} {isHindi ? 'ग्रुप्स' : 'Groups'} • {filteredAccounts.length} {isHindi ? 'लेजर्स' : 'Ledgers'}
             </span>
           </div>
 
           <div className="flex-1 min-h-0 overflow-auto">
-            <table className="w-full text-left text-sm text-slate-200 min-w-[720px]">
-              <thead className="sticky top-0 z-10 bg-slate-800 text-slate-300 font-bold text-xs uppercase border-b border-slate-700">
+            <table className="w-full text-left text-sm text-[var(--text-secondary)] min-w-[720px]">
+              <thead className="sticky top-0 z-10 hv-elevated text-[var(--text-secondary)] font-bold text-xs uppercase border-b border-[var(--border-primary)]">
                 <tr>
                   <th className="p-3 w-12">#</th>
                   <th className="p-3">{isHindi ? 'खाता समूह (Account Group)' : 'Account Group / Parent'}</th>
@@ -601,7 +601,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                   <th className="p-3 text-right">{isHindi ? 'कार्रवाई' : 'Actions'}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/80">
+              <tbody className="divide-y divide-[var(--border-primary)]">
                 {Array.from(groupedMap.entries()).map(([groupName, accounts], idx) => {
                   const matchedGroupObj = allGroups.find(g => g.name === groupName || g.id === groupName);
                   const groupCategory = accounts[0]?.category || matchedGroupObj?.category || 'EXPENSE';
@@ -626,13 +626,13 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                       : 0;
 
                   return (
-                    <tr key={groupName} className="hover:bg-slate-800/40 transition">
-                      <td className="p-3 font-mono font-bold text-slate-500">{idx + 1}</td>
+                    <tr key={groupName} className="hover:bg-[var(--hover-surface)] transition">
+                      <td className="p-3 font-mono font-bold text-[var(--text-muted)]">{idx + 1}</td>
                       <td className="p-3">
-                        <div className="font-bold text-slate-100 flex items-center gap-2 flex-wrap">
+                        <div className="font-bold text-[var(--text-primary)] flex items-center gap-2 flex-wrap">
                           <span>{groupName}</span>
                           {matchedGroupObj?.parentGroupName && (
-                            <span className="text-[10px] text-indigo-300 bg-indigo-950/70 px-1.5 py-0.5 rounded border border-indigo-500/30 font-mono">
+                            <span className="text-[10px] hv-pill-indigo px-1.5 py-0.5 rounded border font-mono">
                               ↳ {matchedGroupObj.parentGroupName}
                             </span>
                           )}
@@ -640,29 +640,29 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                       </td>
                       <td className="p-3">
                         <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase border ${
-                          groupCategory === 'ASSET' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' :
-                          groupCategory === 'LIABILITY' ? 'bg-rose-500/10 text-rose-400 border-rose-500/30' :
-                          groupCategory === 'REVENUE' ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/30' :
-                          'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                          groupCategory === 'ASSET' ? 'hv-pill-emerald' :
+                          groupCategory === 'LIABILITY' ? 'hv-pill-rose' :
+                          groupCategory === 'REVENUE' ? 'hv-pill-indigo' :
+                          'hv-pill-amber'
                         }`}>
                           {groupCategory}
                         </span>
                       </td>
                       <td className="p-3 text-center font-mono">
-                        <span className="bg-slate-800 text-slate-200 px-2 py-0.5 rounded border border-slate-700 font-bold">
+                        <span className="hv-pill-slate px-2 py-0.5 rounded border font-bold">
                           {accounts.length}
                         </span>
                         {matchingPartiesCount > 0 && (
-                          <span className="ml-1 text-[10px] text-emerald-400 font-semibold">
+                          <span className="ml-1 text-[10px] text-emerald-500 font-semibold">
                             +{matchingPartiesCount} {isHindi ? 'पार्टियां' : 'Parties'}
                           </span>
                         )}
                       </td>
-                      <td className="p-3 text-right font-mono tabular-nums text-slate-300">
+                      <td className="p-3 text-right font-mono tabular-nums text-[var(--text-secondary)]">
                         {formatCurrency(Math.abs(openSigned), currency)}{' '}
                         <span className="text-xs font-bold">({openSigned >= 0 ? 'DR' : 'CR'})</span>
                       </td>
-                      <td className={`p-3 text-right font-mono tabular-nums font-bold ${netSigned >= 0 ? 'text-emerald-400' : 'text-indigo-300'}`}>
+                      <td className={`p-3 text-right font-mono tabular-nums font-bold ${netSigned >= 0 ? 'text-emerald-500' : 'text-indigo-500'}`}>
                         {formatCurrency(Math.abs(netSigned), currency)}{' '}
                         <span className="text-xs">({netSigned >= 0 ? 'DR' : 'CR'})</span>
                       </td>
@@ -671,7 +671,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                           <button
                             type="button"
                             onClick={() => setSummaryGroup({ name: groupName, accounts })}
-                            className="px-2.5 py-1 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 rounded-lg text-[11px] font-semibold transition flex items-center gap-1 cursor-pointer"
+                            className="px-2.5 py-1 hv-pill-indigo hover:brightness-95 border rounded-lg text-[11px] font-semibold transition flex items-center gap-1 cursor-pointer"
                           >
                             <FolderTree className="w-3 h-3" />
                             <span>{isHindi ? 'समरी देखें' : 'Inspect'}</span>
@@ -682,7 +682,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                               setSearch(groupName);
                               setCoaViewMode('detailed');
                             }}
-                            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-lg text-[11px] font-semibold transition flex items-center gap-1 cursor-pointer"
+                            className="px-2.5 py-1 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] rounded-lg text-[11px] font-semibold transition flex items-center gap-1 cursor-pointer"
                             title={isHindi ? 'इस ग्रुप के सभी सब-लेजर खोलें' : 'Expand detailed ledgers for this group'}
                           >
                             <Eye className="w-3 h-3" />
@@ -710,29 +710,29 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
           }, 0);
 
           return (
-            <div key={groupName} className="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
+            <div key={groupName} className="hv-surface border border-[var(--border-primary)] rounded-2xl shadow-xl overflow-hidden">
               {/* Group Header */}
-              <div className="p-4 bg-slate-950/90 border-b border-slate-800 flex items-center justify-between">
+              <div className="p-4 hv-elevated border-b border-[var(--border-primary)] flex items-center justify-between flex-wrap gap-3">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-indigo-500/10 text-indigo-400 rounded-xl border border-indigo-500/20">
+                  <div className="p-2 hv-pill-indigo rounded-xl border">
                     <Layers className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-white text-xs tracking-wide flex items-center gap-2 flex-wrap">
+                    <h3 className="font-bold text-[var(--text-primary)] text-xs tracking-wide flex items-center gap-2 flex-wrap">
                       <span>{groupName}</span>
                       
                       {matchedGroupObj?.parentGroupName && (
-                        <span className="text-[10px] text-indigo-300 bg-indigo-950/80 px-2 py-0.5 rounded border border-indigo-500/30 font-mono flex items-center gap-1">
+                        <span className="text-[10px] hv-pill-indigo px-2 py-0.5 rounded border font-mono flex items-center gap-1">
                           <CornerDownRight className="w-3 h-3" />
                           <span>Sub-Group of {matchedGroupObj.parentGroupName}</span>
                         </span>
                       )}
 
                       <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase border ${
-                        groupCategory === 'ASSET' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' :
-                        groupCategory === 'LIABILITY' ? 'bg-rose-500/10 text-rose-400 border-rose-500/30' :
-                        groupCategory === 'REVENUE' ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/30' :
-                        'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                        groupCategory === 'ASSET' ? 'hv-pill-emerald' :
+                        groupCategory === 'LIABILITY' ? 'hv-pill-rose' :
+                        groupCategory === 'REVENUE' ? 'hv-pill-indigo' :
+                        'hv-pill-amber'
                       }`}>
                         {groupCategory}
                       </span>
@@ -746,14 +746,14 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                               name: matchedGroupObj.name
                             })
                           }
-                          className="text-[10px] text-rose-400 hover:text-rose-300 bg-rose-500/10 border border-rose-500/20 px-2 py-0.5 rounded flex items-center gap-1 cursor-pointer"
+                          className="text-[10px] hv-pill-rose hover:brightness-95 border px-2 py-0.5 rounded flex items-center gap-1 cursor-pointer"
                         >
                           <Trash2 className="w-3 h-3" />
                           <span>Delete Group</span>
                         </button>
                       )}
                     </h3>
-                    <div className="text-[10px] text-slate-400 mt-0.5">
+                    <div className="text-[10px] text-[var(--text-muted)] mt-0.5">
                       {accounts.length} {isHindi ? 'उप-लेजर खाते इस ग्रुप में पंजीकृत हैं' : 'Sub-Ledger Accounts registered under this group'}
                     </div>
                   </div>
@@ -763,23 +763,23 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                   <button
                     type="button"
                     onClick={() => setSummaryGroup({ name: groupName, accounts })}
-                    className="px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 rounded-xl text-xs font-semibold transition flex items-center gap-1.5"
+                    className="px-3 py-1.5 hv-pill-indigo hover:brightness-95 border rounded-xl text-xs font-semibold transition flex items-center gap-1.5"
                   >
-                    <FolderTree className="w-3.5 h-3.5 text-indigo-400" />
+                    <FolderTree className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'ग्रुप समरी (Group Summary)' : 'Group Summary'}</span>
                   </button>
 
                   <div className="text-right font-mono">
-                    <div className="text-[10px] text-slate-400">Group Total Balance:</div>
-                    <div className="text-xs font-bold text-indigo-300">{formatCurrency(groupTotalBalance, currency)}</div>
+                    <div className="text-[10px] text-[var(--text-muted)]">Group Total Balance:</div>
+                    <div className="text-xs font-bold text-indigo-500">{formatCurrency(groupTotalBalance, currency)}</div>
                   </div>
                 </div>
               </div>
 
               {/* Sub-Ledgers Table */}
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-sm text-slate-200">
-                  <thead className="sticky top-0 z-10 bg-slate-800 text-slate-300 font-bold text-xs uppercase border-b border-slate-700">
+                <table className="w-full text-left text-sm text-[var(--text-secondary)]">
+                  <thead className="sticky top-0 z-10 hv-elevated text-[var(--text-secondary)] font-bold text-xs uppercase border-b border-[var(--border-primary)]">
                     <tr>
                       <th className="p-3 w-20">Code</th>
                       <th className="p-3">Sub-Ledger Account Name</th>
@@ -789,35 +789,35 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                       <th className="p-3 text-right">Actions (View / Edit / Delete)</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/80">
+                  <tbody className="divide-y divide-[var(--border-primary)]">
                     {accounts.map((acc) => {
                       const balInfo = balancesMap.get(acc.id);
                       return (
-                        <tr key={acc.id} className="hover:bg-slate-800/40 transition">
-                          <td className="p-3 font-mono font-bold text-indigo-400 pl-6">{acc.code}</td>
+                        <tr key={acc.id} className="hover:bg-[var(--hover-surface)] transition">
+                          <td className="p-3 font-mono font-bold text-indigo-500 pl-6">{acc.code}</td>
                           <td className="p-3">
-                            <div className="font-semibold text-slate-100 flex items-center gap-1.5">
-                              <span className="text-slate-600">├─</span>
+                            <div className="font-semibold text-[var(--text-primary)] flex items-center gap-1.5">
+                              <span className="text-[var(--text-muted)]">├─</span>
                               <span>{acc.name}</span>
                               {acc.accountNumber && (
-                                <span className="text-xs bg-slate-800 text-indigo-300 font-mono px-1.5 py-0.5 rounded border border-slate-700">
+                                <span className="text-xs hv-pill-indigo font-mono px-1.5 py-0.5 rounded border">
                                   A/c: {acc.accountNumber}
                                 </span>
                               )}
                               {acc.isSystem && (
-                                <span className="text-[10px] bg-amber-500/10 text-amber-300 px-1.5 py-0.5 rounded border border-amber-500/20">System</span>
+                                <span className="text-[10px] hv-pill-amber px-1.5 py-0.5 rounded border">System</span>
                               )}
                             </div>
                           </td>
                           <td className="p-3">
-                            <span className="bg-slate-800 text-slate-200 border border-slate-700 px-2 py-0.5 rounded text-xs font-medium">
+                            <span className="hv-pill-slate border px-2 py-0.5 rounded text-xs font-medium">
                               {acc.subCategory || 'Sub-Ledger'}
                             </span>
                           </td>
-                          <td className="p-3 text-right font-mono tabular-nums text-slate-300">
+                          <td className="p-3 text-right font-mono tabular-nums text-[var(--text-secondary)]">
                             {formatCurrency(acc.openingBalance, currency)} ({acc.balanceType})
                           </td>
-                          <td className="p-3 text-right font-mono tabular-nums font-bold text-slate-100">
+                          <td className="p-3 text-right font-mono tabular-nums font-bold text-[var(--text-primary)]">
                             {formatCurrency(balInfo?.netBalance || 0, currency)} ({balInfo?.balanceType || 'DR'})
                           </td>
                           <td className="p-3 text-right">
@@ -825,7 +825,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                               <button
                                 onClick={() => onSelectAccountLedger(acc.id)}
                                 title="View Ledger Transactions"
-                                className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-indigo-300 rounded-lg text-xs font-semibold transition flex items-center gap-1"
+                                className="px-2.5 py-1 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-indigo-500 rounded-lg text-xs font-semibold transition flex items-center gap-1"
                               >
                                 <Eye className="w-3.5 h-3.5" />
                                 <span>View</span>
@@ -835,7 +835,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                                 <button
                                   onClick={() => handleOpenEditAccount(acc)}
                                   title="Edit Ledger Account"
-                                  className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-amber-300 rounded-lg text-xs font-semibold transition flex items-center gap-1"
+                                  className="px-2.5 py-1 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-amber-500 rounded-lg text-xs font-semibold transition flex items-center gap-1"
                                 >
                                   <Edit3 className="w-3.5 h-3.5" />
                                   <span>Edit</span>
@@ -852,7 +852,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                                     })
                                   }
                                   title="Delete Ledger Account"
-                                  className="px-2 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 rounded-lg text-xs font-semibold transition flex items-center gap-1 cursor-pointer"
+                                  className="px-2 py-1 hv-pill-rose hover:brightness-95 border rounded-lg text-xs font-semibold transition flex items-center gap-1 cursor-pointer"
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
                                 </button>
@@ -883,31 +883,31 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                       return partyList.map(p => {
                         const out = calculatePartyOutstanding(p, data);
                         return (
-                          <tr key={`party_${p.id}`} className="hover:bg-slate-800/40 transition bg-indigo-950/10">
-                            <td className="p-3 font-mono font-bold text-emerald-400 pl-6">{p.code}</td>
+                          <tr key={`party_${p.id}`} className="hover:bg-[var(--hover-surface)] transition bg-indigo-500/5">
+                            <td className="p-3 font-mono font-bold text-emerald-500 pl-6">{p.code}</td>
                             <td className="p-3">
-                              <div className="font-semibold text-slate-100 flex items-center gap-1.5">
-                                <span className="text-slate-600">├─</span>
-                                <span className="text-emerald-300 font-bold">{p.name}</span>
-                                <span className="text-[9px] bg-emerald-500/10 text-emerald-300 font-semibold px-1.5 py-0.5 rounded border border-emerald-500/20">
+                              <div className="font-semibold text-[var(--text-primary)] flex items-center gap-1.5 flex-wrap">
+                                <span className="text-[var(--text-muted)]">├─</span>
+                                <span className="text-emerald-500 font-bold">{p.name}</span>
+                                <span className="text-[9px] hv-pill-emerald font-semibold px-1.5 py-0.5 rounded border">
                                   {isDebtorsGroup ? 'Customer Party' : 'Vendor Party'}
                                 </span>
                                 {p.gstin && (
-                                  <span className="text-[10px] bg-slate-800 text-indigo-300 font-mono px-1.5 py-0.5 rounded border border-slate-700">
+                                  <span className="text-[10px] hv-pill-slate font-mono px-1.5 py-0.5 rounded border">
                                     GSTIN: {p.gstin}
                                   </span>
                                 )}
                               </div>
                             </td>
                             <td className="p-3">
-                              <span className="bg-indigo-950 text-indigo-300 border border-indigo-500/30 px-2 py-0.5 rounded text-[10px] font-medium">
+                              <span className="hv-pill-indigo border px-2 py-0.5 rounded text-[10px] font-medium">
                                 Party Ledger Master
                               </span>
                             </td>
-                            <td className="p-3 text-right font-mono text-slate-400">
+                            <td className="p-3 text-right font-mono text-[var(--text-muted)]">
                               {formatCurrency(p.openingBalance || 0, currency)} ({p.balanceType || 'DR'})
                             </td>
-                            <td className="p-3 text-right font-mono font-bold text-emerald-400">
+                            <td className="p-3 text-right font-mono font-bold text-emerald-500">
                               {formatCurrency(out.netBalance, currency)} ({out.balanceType})
                             </td>
                             <td className="p-3 text-right">
@@ -915,7 +915,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                                 <button
                                   onClick={() => onSelectAccountLedger(p.id)}
                                   title="View Party Ledger Statement"
-                                  className="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-md shadow-indigo-600/30"
+                                  className="px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white rounded-lg text-xs font-bold transition flex items-center gap-1 shadow-md shadow-indigo-600/30"
                                 >
                                   <Eye className="w-3.5 h-3.5" />
                                   <span>{isHindi ? 'लेजर देखें' : 'View Ledger'}</span>
@@ -938,15 +938,15 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
       {/* Modal 1: Add New Group / Sub-Group */}
       {showAddGroupModal && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg p-5 md:p-6 text-slate-200 space-y-4 shadow-2xl">
-            <h3 className="text-base font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
-              <FolderPlus className="w-5 h-5 text-indigo-400" />
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl w-full max-w-lg p-5 md:p-6 text-[var(--text-secondary)] space-y-4 shadow-2xl">
+            <h3 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2 border-b border-[var(--border-primary)] pb-3">
+              <FolderPlus className="w-5 h-5 text-indigo-500" />
               <span>{isHindi ? 'नया खाता ग्रुप या सब-ग्रुप बनाएं' : 'Create New Account Group / Sub-Group'}</span>
             </h3>
 
             <form onSubmit={handleSaveGroup} className="space-y-4 text-xs">
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'खाता श्रेणी (Category) *' : 'Account Category *'}
                 </label>
                 <select
@@ -957,7 +957,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                     setGrpParentId('');
                   }}
                   required
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-medium"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-[var(--text-primary)] font-medium"
                 >
                   <option value="">{isHindi ? '-- श्रेणी चुनें --' : '-- Select Category --'}</option>
                   <option value="ASSET">ASSET (संपत्ति)</option>
@@ -969,7 +969,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'ग्रुप का नाम (Group Name) *' : 'Group Name *'}
                 </label>
                 <input
@@ -977,19 +977,19 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                   value={grpName}
                   onChange={(e) => setGrpName(e.target.value)}
                   placeholder={isHindi ? 'उदा: Employee Welfare Expenses' : 'e.g. Employee Welfare & Allowances'}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-semibold"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-[var(--text-primary)] font-semibold"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'पेरेंट ग्रुप (सब-ग्रुप बनाने के लिए पैरेंट ग्रुप चुनें)' : 'Parent Group (Select to create as Sub-Group)'}
                 </label>
                 <select
                   value={grpParentId}
                   onChange={(e) => setGrpParentId(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-indigo-300 font-bold"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-bold"
                 >
                   <option value="">{isHindi ? 'कोई नहीं (मुख्य प्राइमरी ग्रुप बनाएं)' : 'None (Create as Top Primary Group)'}</option>
                   {activeCategoryGroups.map(g => (
@@ -1001,7 +1001,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'विवरण (Description / Notes)' : 'Description / Purpose'}
                 </label>
                 <input
@@ -1009,21 +1009,21 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                   value={grpDescription}
                   onChange={(e) => setGrpDescription(e.target.value)}
                   placeholder="e.g. For grouping staff medical insurance, PF, and employee benefit ledgers"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-slate-300"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-[var(--border-primary)]">
                 <button
                   type="button"
                   onClick={() => setShowAddGroupModal(false)}
-                  className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl"
+                  className="px-4 py-2.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-semibold rounded-xl"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 flex items-center gap-2"
+                  className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 flex items-center gap-2"
                 >
                   <CheckCircle2 className="w-4 h-4" />
                   <span>{isHindi ? 'ग्रुप सेव करें' : 'Save Account Group'}</span>
@@ -1037,22 +1037,22 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
       {/* Modal 2: Add New Sub-Ledger Account */}
       {showAddAccountModal && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg p-5 md:p-6 text-slate-200 space-y-4 shadow-2xl">
-            <h3 className="text-base font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
-              <FolderTree className="w-5 h-5 text-indigo-400" />
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl w-full max-w-lg p-5 md:p-6 text-[var(--text-secondary)] space-y-4 shadow-2xl">
+            <h3 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2 border-b border-[var(--border-primary)] pb-3">
+              <FolderTree className="w-5 h-5 text-indigo-500" />
               <span>{isHindi ? 'नया लेजर खाता बनाएं' : 'Create Sub-Ledger Account'}</span>
             </h3>
 
             <form onSubmit={handleSaveAccount} className="space-y-4 text-xs">
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'खाता वर्ग (Account Category) *' : 'Account Category *'}
                 </label>
                 <select
                   value={accCategory}
                   onChange={(e) => setAccCategory(e.target.value as any)}
                   required
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-medium"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-medium"
                 >
                   <option value="">{isHindi ? '-- खाता वर्ग चुनें --' : '-- Select Category --'}</option>
                   <option value="ASSET">ASSET (संपत्ति)</option>
@@ -1064,14 +1064,14 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'खाता समूह चुनें (Select Group / Sub-Group) *' : 'Select Account Group / Sub-Group *'}
                 </label>
                 <select
                   value={accSelectedGroup}
                   onChange={(e) => setAccSelectedGroup(e.target.value)}
                   required
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-indigo-300 font-bold"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-bold"
                 >
                   <option value="">{isHindi ? '-- खाता समूह चुनें --' : '-- Select Account Group --'}</option>
                   {allGroups.map(g => (
@@ -1083,7 +1083,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'लेजर का नाम (Sub-Ledger Account Name) *' : 'Sub-Ledger Account Name *'}
                 </label>
                 <input
@@ -1091,13 +1091,13 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                   value={accName}
                   onChange={(e) => setAccName(e.target.value)}
                   placeholder="e.g. Staff Medical Insurance Exp A/c or HDFC Bank Current A/c"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-semibold"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-semibold"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'बैंक खाता संख्या / संदर्भ (Bank Account No / Ref)' : 'Bank Account Number / External Ref'}
                 </label>
                 <input
@@ -1105,13 +1105,13 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                   value={accAccountNumber}
                   onChange={(e) => setAccAccountNumber(e.target.value)}
                   placeholder="e.g. 50200012345678"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-indigo-300 font-mono"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'प्रारंभिक शेष (Opening Balance)' : 'Opening Balance'}
                   </label>
                   <input
@@ -1119,18 +1119,18 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                     value={accOpeningBalance || ''}
                     onChange={(e) => setAccOpeningBalance(Number(e.target.value) || 0)}
                     placeholder="0.00"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 font-mono text-white"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'शेष प्रकार (Dr / Cr)' : 'Balance Type (Dr / Cr)'}
                   </label>
                   <select
                     value={accBalanceType}
                     onChange={(e) => setAccBalanceType(e.target.value as any)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 font-mono text-white font-bold"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono font-bold"
                   >
                     <option value="DR">DR (Debit)</option>
                     <option value="CR">CR (Credit)</option>
@@ -1138,17 +1138,17 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-[var(--border-primary)]">
                 <button
                   type="button"
                   onClick={() => setShowAddAccountModal(false)}
-                  className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl"
+                  className="px-4 py-2.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-semibold rounded-xl"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 flex items-center gap-2"
+                  className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 flex items-center gap-2"
                 >
                   <CheckCircle2 className="w-4 h-4" />
                   <span>{isHindi ? 'लेजर खाता सेव करें' : 'Save Sub-Ledger Account'}</span>
@@ -1162,19 +1162,19 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
       {/* Modal 3: Edit Existing Sub-Ledger Account */}
       {editingAccount && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg p-5 md:p-6 text-slate-200 space-y-4 shadow-2xl animate-fadeIn">
-            <h3 className="text-base font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
-              <Edit3 className="w-5 h-5 text-amber-400" />
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl w-full max-w-lg p-5 md:p-6 text-[var(--text-secondary)] space-y-4 shadow-2xl animate-fadeIn">
+            <h3 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2 border-b border-[var(--border-primary)] pb-3">
+              <Edit3 className="w-5 h-5 text-amber-500" />
               <span>{isHindi ? 'लेजर खाता संपादित करें (Edit Sub-Ledger Account)' : 'Edit Sub-Ledger Account'}</span>
             </h3>
 
             <form onSubmit={handleUpdateExistingAccount} className="space-y-4 text-xs">
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Account Category *</label>
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">Account Category *</label>
                 <select
                   value={accCategory}
                   onChange={(e) => setAccCategory(e.target.value as any)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-medium"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-medium"
                 >
                   <option value="ASSET">ASSET (संपत्ति)</option>
                   <option value="LIABILITY">LIABILITY (देनदारी)</option>
@@ -1185,11 +1185,11 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Account Group / Sub-Group *</label>
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">Account Group / Sub-Group *</label>
                 <select
                   value={accSelectedGroup}
                   onChange={(e) => setAccSelectedGroup(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-indigo-300 font-bold"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-bold"
                 >
                   {allGroups.map(g => (
                     <option key={g.id} value={g.name}>
@@ -1200,44 +1200,44 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Account Name *</label>
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">Account Name *</label>
                 <input
                   type="text"
                   value={accName}
                   onChange={(e) => setAccName(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-semibold"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-semibold"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Bank Account Number / External Ref</label>
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">Bank Account Number / External Ref</label>
                 <input
                   type="text"
                   value={accAccountNumber}
                   onChange={(e) => setAccAccountNumber(e.target.value)}
                   placeholder="e.g. 50200012345678"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-indigo-300 font-mono"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Opening Balance</label>
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">Opening Balance</label>
                   <input
                     type="number"
                     value={accOpeningBalance}
                     onChange={(e) => setAccOpeningBalance(Number(e.target.value))}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 font-mono text-white"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Balance Type (Dr / Cr)</label>
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">Balance Type (Dr / Cr)</label>
                   <select
                     value={accBalanceType}
                     onChange={(e) => setAccBalanceType(e.target.value as any)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 font-mono text-white font-bold"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono font-bold"
                   >
                     <option value="DR">DR (Debit)</option>
                     <option value="CR">CR (Credit)</option>
@@ -1245,17 +1245,17 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+              <div className="flex items-center justify-end gap-3 pt-3 border-t border-[var(--border-primary)]">
                 <button
                   type="button"
                   onClick={() => setEditingAccount(null)}
-                  className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl"
+                  className="px-4 py-2.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-semibold rounded-xl"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2.5 bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold rounded-xl shadow-lg shadow-amber-600/30 flex items-center gap-2"
+                  className="px-6 py-2.5 bg-amber-600 hover:bg-amber-500 text-white hv-keep-white font-bold rounded-xl shadow-lg shadow-amber-600/30 flex items-center gap-2"
                 >
                   <CheckCircle2 className="w-4 h-4" />
                   <span>Update Account</span>
@@ -1268,51 +1268,51 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
 
       {/* Group Summary Modal */}
       {summaryGroup && (
-        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-4 animate-scale-up">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-4 animate-scale-up">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-indigo-500/20 text-indigo-400 rounded-xl border border-indigo-500/30">
+                <div className="p-2 hv-pill-indigo rounded-xl border">
                   <FolderTree className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white">
+                  <h3 className="text-base font-bold text-[var(--text-primary)]">
                     {isHindi ? `ग्रुप समरी: ${summaryGroup.name}` : `Group Summary: ${summaryGroup.name}`}
                   </h3>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-[var(--text-muted)]">
                     {isHindi ? `इस ग्रुप के अंतर्गत शामिल कुल ${summaryGroup.accounts.length} सब-लेजर खाते` : `${summaryGroup.accounts.length} Sub-Ledgers included in this group`}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setSummaryGroup(null)}
-                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800"
+                className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--hover-surface)]"
               >
                 ✕
               </button>
             </div>
 
-            <div className="max-h-[60vh] overflow-y-auto divide-y divide-slate-800 border border-slate-800 rounded-xl bg-slate-950">
+            <div className="max-h-[60vh] overflow-y-auto divide-y divide-[var(--border-primary)] border border-[var(--border-primary)] rounded-xl hv-elevated">
               {summaryGroup.accounts.length === 0 ? (
-                <div className="p-6 text-center text-xs text-slate-500">
+                <div className="p-6 text-center text-xs text-[var(--text-muted)]">
                   {isHindi ? 'इस ग्रुप में कोई सब-लेजर खाता मौजूद नहीं है।' : 'No sub-ledger accounts under this group yet.'}
                 </div>
               ) : (
                 summaryGroup.accounts.map(acc => {
                   const bal = balancesMap.get(acc.id);
                   return (
-                    <div key={acc.id} className="p-3.5 flex items-center justify-between hover:bg-slate-900 transition">
+                    <div key={acc.id} className="p-3.5 flex items-center justify-between hover:bg-[var(--hover-surface)] transition">
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
-                          <span className="font-mono text-xs font-bold text-indigo-400">{acc.code}</span>
-                          <span className="font-bold text-slate-100 text-xs">{acc.name}</span>
+                          <span className="font-mono text-xs font-bold text-indigo-500">{acc.code}</span>
+                          <span className="font-bold text-[var(--text-primary)] text-xs">{acc.name}</span>
                           {acc.accountNumber && (
-                            <span className="text-[10px] text-cyan-400 bg-cyan-950/60 px-1.5 py-0.5 rounded border border-cyan-500/20 font-mono">
+                            <span className="text-[10px] hv-pill-cyan px-1.5 py-0.5 rounded border font-mono">
                               A/c: {acc.accountNumber}
                             </span>
                           )}
                         </div>
-                        <div className="text-[11px] text-slate-400 flex items-center gap-3">
+                        <div className="text-[11px] text-[var(--text-muted)] flex items-center gap-3">
                           <span>{acc.subCategory || acc.category}</span>
                           <span>•</span>
                           <span>{isHindi ? 'प्रारंभिक:' : 'Opening:'} {formatCurrency(acc.openingBalance, currency)} ({acc.balanceType})</span>
@@ -1321,8 +1321,8 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
 
                       <div className="flex items-center gap-4">
                         <div className="text-right">
-                          <div className="text-[10px] text-slate-400">{isHindi ? 'वर्तमान बैलेंस' : 'Net Balance'}</div>
-                          <div className="text-xs font-bold text-indigo-300 font-mono">
+                          <div className="text-[10px] text-[var(--text-muted)]">{isHindi ? 'वर्तमान बैलेंस' : 'Net Balance'}</div>
+                          <div className="text-xs font-bold text-indigo-500 font-mono">
                             {formatCurrency(bal?.netBalance || 0, currency)} ({bal?.balanceType || 'DR'})
                           </div>
                         </div>
@@ -1332,7 +1332,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                             setSummaryGroup(null);
                             onSelectAccountLedger(acc.id);
                           }}
-                          className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition shadow-lg shadow-indigo-600/30 flex items-center gap-1.5 shrink-0"
+                          className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white rounded-xl text-xs font-bold transition shadow-lg shadow-indigo-600/30 flex items-center gap-1.5 shrink-0"
                         >
                           <Eye className="w-3.5 h-3.5" />
                           <span>{isHindi ? 'लेजर खोलें (Dr/Cr breakdown)' : 'View Ledger'}</span>
@@ -1347,7 +1347,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
             <div className="flex justify-end pt-2">
               <button
                 onClick={() => setSummaryGroup(null)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-xs transition"
+                className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-bold rounded-xl text-xs transition"
               >
                 {isHindi ? 'बंद करें' : 'Close'}
               </button>
@@ -1359,17 +1359,17 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
       {/* Smart Duplicate Ledger & Party Inspector Modal */}
       {showDupAuditModal && (
         <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-3xl max-h-[88vh] flex flex-col shadow-2xl overflow-hidden animate-fadeIn">
-            <div className="p-4 sm:p-5 border-b border-slate-800 flex items-start justify-between gap-3 bg-slate-950/70">
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl w-full max-w-3xl max-h-[88vh] flex flex-col shadow-2xl overflow-hidden animate-fadeIn">
+            <div className="p-4 sm:p-5 border-b border-[var(--border-primary)] flex items-start justify-between gap-3 hv-elevated">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl hv-pill-amber border flex items-center justify-center shrink-0">
                   <Sparkles className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-base font-extrabold text-white">
+                  <h3 className="text-base font-extrabold text-[var(--text-primary)]">
                     {isHindi ? 'स्मार्ट डुप्लीकेट लेज़र एवं पार्टी इंस्पेक्टर' : 'Smart Duplicate Ledger & Party Inspector'}
                   </h3>
-                  <p className="text-xs text-slate-400 mt-0.5">
+                  <p className="text-xs text-[var(--text-muted)] mt-0.5">
                     {isHindi
                       ? 'एक ही नाम, GSTIN, या मिलती-जुलती स्पेलिंग वाले डुप्लीकेट लेज़रों को सुरक्षित रूप से मर्ज करें (सभी वाउचर और बिल स्वतः मुख्य लेज़र से जुड़ जाएँगे)।'
                       : 'Consolidate duplicate ledgers & parties by exact name, canonical key, GSTIN, or fuzzy match. All vouchers, bills & notes automatically relink.'}
@@ -1379,7 +1379,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               <button
                 type="button"
                 onClick={() => setShowDupAuditModal(false)}
-                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 cursor-pointer"
+                className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--hover-surface)] cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1387,12 +1387,12 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
 
             <div className="p-4 sm:p-5 overflow-y-auto space-y-4 flex-1 text-xs">
               {dupAudit.accountClusters.length === 0 && dupAudit.partyClusters.length === 0 ? (
-                <div className="p-8 text-center space-y-2 bg-emerald-950/20 border border-emerald-500/30 rounded-2xl">
-                  <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto" />
-                  <p className="font-bold text-sm text-emerald-200">
+                <div className="p-8 text-center space-y-2 hv-pill-emerald border rounded-2xl">
+                  <CheckCircle2 className="w-10 h-10 mx-auto" />
+                  <p className="font-bold text-sm">
                     {isHindi ? 'बधाई हो! कोई डुप्लीकेट लेज़र या पार्टी नहीं मिली।' : 'No Duplicate Ledgers or Parties Found!'}
                   </p>
-                  <p className="text-slate-400 text-xs">
+                  <p className="text-[var(--text-muted)] text-xs">
                     {isHindi
                       ? 'आपका चार्ट ऑफ़ एकाउंट्स और पार्टी मास्टर 100% साफ़ और डुप्लीकेट-मुक्त है।'
                       : 'Your Chart of Accounts and Party Master are clean and conflict-free.'}
@@ -1401,8 +1401,8 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               ) : (
                 <>
                   {/* Opening Balance Merge Strategy */}
-                  <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <span className="font-bold text-slate-300">
+                  <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <span className="font-bold text-[var(--text-secondary)]">
                       {isHindi ? 'ओपनिंग बैलेंस मर्ज नियम:' : 'Opening Balance Merge Rule:'}
                     </span>
                     <div className="flex flex-wrap items-center gap-2">
@@ -1411,8 +1411,8 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                         onClick={() => setDupMergeStrategy('KEEP_PRIMARY_OR_NONZERO')}
                         className={`px-3 py-1.5 rounded-lg font-bold border transition cursor-pointer ${
                           dupMergeStrategy === 'KEEP_PRIMARY_OR_NONZERO'
-                            ? 'bg-indigo-600 text-white border-indigo-400'
-                            : 'bg-slate-900 text-slate-300 border-slate-700'
+                            ? 'bg-indigo-600 text-white hv-keep-white border-indigo-400'
+                            : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-subtle)]'
                         }`}
                       >
                         {isHindi ? 'मुख्य / गैर-शून्य बैलेंस रखें (अनुशंसित)' : 'Keep Primary / Non-Zero (Recommended)'}
@@ -1422,8 +1422,8 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                         onClick={() => setDupMergeStrategy('SUM')}
                         className={`px-3 py-1.5 rounded-lg font-bold border transition cursor-pointer ${
                           dupMergeStrategy === 'SUM'
-                            ? 'bg-indigo-600 text-white border-indigo-400'
-                            : 'bg-slate-900 text-slate-300 border-slate-700'
+                            ? 'bg-indigo-600 text-white hv-keep-white border-indigo-400'
+                            : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-subtle)]'
                         }`}
                       >
                         {isHindi ? 'सभी का योग जोड़ें (Sum)' : 'Sum All Openings'}
@@ -1434,15 +1434,15 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                   {/* Account Clusters */}
                   {dupAudit.accountClusters.length > 0 && (
                     <div className="space-y-2.5">
-                      <h4 className="font-extrabold text-indigo-300 uppercase tracking-wide text-[11px]">
+                      <h4 className="font-extrabold text-indigo-500 uppercase tracking-wide text-[11px]">
                         {isHindi ? `डुप्लीकेट लेज़र खाते (${dupAudit.accountClusters.length} समूह)` : `Duplicate Ledger Accounts (${dupAudit.accountClusters.length} clusters)`}
                       </h4>
                       {dupAudit.accountClusters.map((cluster) => {
                         const checked = selectedDupClusterIds.includes(cluster.clusterId);
                         return (
-                          <div key={cluster.clusterId} className="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2">
+                          <div key={cluster.clusterId} className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3 space-y-2">
                             <div className="flex items-center justify-between gap-2 flex-wrap">
-                              <label className="flex items-center gap-2 cursor-pointer font-bold text-white">
+                              <label className="flex items-center gap-2 cursor-pointer font-bold text-[var(--text-primary)]">
                                 <input
                                   type="checkbox"
                                   checked={checked}
@@ -1456,20 +1456,20 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                                   className="accent-amber-500 rounded cursor-pointer"
                                 />
                                 <span>{cluster.primary.name}</span>
-                                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded hv-pill-emerald border">
                                   PRIMARY • {cluster.primary.code}
                                 </span>
                               </label>
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded hv-pill-amber border">
                                 {cluster.reason} ({cluster.similarity}%)
                               </span>
                             </div>
                             <div className="pl-6 space-y-1 text-[11px]">
-                              <div className="text-slate-400">
-                                Primary Opening: <strong className="text-slate-200 font-mono">{formatCurrency(cluster.primary.openingBalance, currency)} ({cluster.primary.balanceType})</strong> | Entries linked: <strong className="text-indigo-300">{cluster.usageCounts[cluster.primary.id] || 0}</strong>
+                              <div className="text-[var(--text-muted)]">
+                                Primary Opening: <strong className="text-[var(--text-primary)] font-mono">{formatCurrency(cluster.primary.openingBalance, currency)} ({cluster.primary.balanceType})</strong> | Entries linked: <strong className="text-indigo-500">{cluster.usageCounts[cluster.primary.id] || 0}</strong>
                               </div>
                               {cluster.duplicates.map((dup) => (
-                                <div key={dup.id} className="flex flex-wrap items-center justify-between gap-2 text-rose-300/90 bg-rose-950/20 px-2.5 py-1 rounded-lg border border-rose-500/20">
+                                <div key={dup.id} className="flex flex-wrap items-center justify-between gap-2 hv-pill-rose px-2.5 py-1 rounded-lg border">
                                   <span>↳ Merge Duplicate: <strong>{dup.name}</strong> ({dup.code})</span>
                                   <span className="font-mono text-[10px]">
                                     Op: {formatCurrency(dup.openingBalance, currency)} ({dup.balanceType}) • Txns: {cluster.usageCounts[dup.id] || 0}
@@ -1486,15 +1486,15 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                   {/* Party Clusters */}
                   {dupAudit.partyClusters.length > 0 && (
                     <div className="space-y-2.5">
-                      <h4 className="font-extrabold text-emerald-300 uppercase tracking-wide text-[11px]">
+                      <h4 className="font-extrabold text-emerald-500 uppercase tracking-wide text-[11px]">
                         {isHindi ? `डुप्लीकेट पार्टियाँ / ग्राहक / सप्लायर (${dupAudit.partyClusters.length} समूह)` : `Duplicate Parties / Customers / Vendors (${dupAudit.partyClusters.length} clusters)`}
                       </h4>
                       {dupAudit.partyClusters.map((cluster) => {
                         const checked = selectedDupClusterIds.includes(cluster.clusterId);
                         return (
-                          <div key={cluster.clusterId} className="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2">
+                          <div key={cluster.clusterId} className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3 space-y-2">
                             <div className="flex items-center justify-between gap-2 flex-wrap">
-                              <label className="flex items-center gap-2 cursor-pointer font-bold text-white">
+                              <label className="flex items-center gap-2 cursor-pointer font-bold text-[var(--text-primary)]">
                                 <input
                                   type="checkbox"
                                   checked={checked}
@@ -1508,20 +1508,20 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                                   className="accent-amber-500 rounded cursor-pointer"
                                 />
                                 <span>{cluster.primary.name}</span>
-                                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                                <span className="font-mono text-[10px] px-1.5 py-0.5 rounded hv-pill-emerald border">
                                   PRIMARY • {cluster.primary.gstin || cluster.primary.code}
                                 </span>
                               </label>
-                              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/15 text-amber-300 border border-amber-500/30">
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded hv-pill-amber border">
                                 {cluster.reason} ({cluster.similarity}%)
                               </span>
                             </div>
                             <div className="pl-6 space-y-1 text-[11px]">
-                              <div className="text-slate-400">
-                                Primary Opening: <strong className="text-slate-200 font-mono">{formatCurrency(cluster.primary.openingBalance, currency)} ({cluster.primary.balanceType})</strong> | Entries linked: <strong className="text-indigo-300">{cluster.usageCounts[cluster.primary.id] || 0}</strong>
+                              <div className="text-[var(--text-muted)]">
+                                Primary Opening: <strong className="text-[var(--text-primary)] font-mono">{formatCurrency(cluster.primary.openingBalance, currency)} ({cluster.primary.balanceType})</strong> | Entries linked: <strong className="text-indigo-500">{cluster.usageCounts[cluster.primary.id] || 0}</strong>
                               </div>
                               {cluster.duplicates.map((dup) => (
-                                <div key={dup.id} className="flex flex-wrap items-center justify-between gap-2 text-rose-300/90 bg-rose-950/20 px-2.5 py-1 rounded-lg border border-rose-500/20">
+                                <div key={dup.id} className="flex flex-wrap items-center justify-between gap-2 hv-pill-rose px-2.5 py-1 rounded-lg border">
                                   <span>↳ Merge Duplicate: <strong>{dup.name}</strong> ({dup.gstin || dup.code})</span>
                                   <span className="font-mono text-[10px]">
                                     Op: {formatCurrency(dup.openingBalance, currency)} ({dup.balanceType}) • Txns: {cluster.usageCounts[dup.id] || 0}
@@ -1538,8 +1538,8 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               )}
             </div>
 
-            <div className="p-4 border-t border-slate-800 bg-slate-950/80 flex items-center justify-between gap-3">
-              <span className="text-xs text-slate-400">
+            <div className="p-4 border-t border-[var(--border-primary)] hv-elevated flex items-center justify-between gap-3">
+              <span className="text-xs text-[var(--text-muted)]">
                 {dupAudit.totalDuplicateRecords > 0
                   ? (isHindi
                       ? `${selectedDupClusterIds.length} समूह चुने गए`
@@ -1550,7 +1550,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowDupAuditModal(false)}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl text-xs transition cursor-pointer"
+                  className="px-4 py-2 bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-bold rounded-xl text-xs transition cursor-pointer"
                 >
                   {isHindi ? 'बंद करें' : 'Close'}
                 </button>
@@ -1566,14 +1566,14 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                       className={`px-5 py-2 rounded-xl text-xs font-extrabold transition flex items-center gap-1.5 ${
                         selectedDupClusterIds.length > 0
                           ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-lg cursor-pointer'
-                          : 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                          : 'bg-[var(--bg-surface)] text-[var(--text-muted)] border border-[var(--border-subtle)] cursor-not-allowed'
                       }`}
                     >
                       <GitMerge className="w-4 h-4" />
                       <span>{isHindi ? 'चयनित डुप्लीकेट मर्ज करें' : 'Merge & Clean Selected'}</span>
                     </button>
                   ) : (
-                    <span className="text-[11px] text-amber-300 bg-amber-500/10 border border-amber-500/30 px-3 py-1.5 rounded-xl font-semibold">
+                    <span className="text-[11px] hv-pill-amber border px-3 py-1.5 rounded-xl font-semibold">
                       {isHindi ? 'केवल रीड-ओनली ऑडिट (मर्ज अनुमति नहीं)' : 'Audit Preview Only (No Merge Permission)'}
                     </span>
                   )
@@ -1587,21 +1587,21 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
       {/* Inline Delete Confirmation Modal */}
       {confirmDeleteTarget && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn">
-          <div className="bg-slate-900 border border-rose-500/40 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
+          <div className="hv-surface border border-rose-500/40 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-400 shrink-0">
+              <div className="w-10 h-10 rounded-xl hv-pill-rose border flex items-center justify-center shrink-0">
                 <Trash2 className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-white">
+                <h3 className="font-bold text-base text-[var(--text-primary)]">
                   {confirmDeleteTarget.kind === 'GROUP'
                     ? (isHindi ? 'खाता समूह हटाने की पुष्टि' : 'Delete Custom Account Group?')
                     : (isHindi ? 'लेजर खाता हटाने की पुष्टि' : 'Delete Ledger Account?')}
                 </h3>
-                <p className="text-xs text-slate-400">{confirmDeleteTarget.name}</p>
+                <p className="text-xs text-[var(--text-muted)]">{confirmDeleteTarget.name}</p>
               </div>
             </div>
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
               {confirmDeleteTarget.kind === 'GROUP'
                 ? (isHindi
                     ? `क्या आप वाकई कस्टम ग्रुप "${confirmDeleteTarget.name}" को हटाना चाहते हैं?`
@@ -1614,7 +1614,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
               <button
                 type="button"
                 onClick={() => setConfirmDeleteTarget(null)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl text-xs transition cursor-pointer"
+                className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-semibold rounded-xl text-xs transition cursor-pointer"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>
@@ -1628,7 +1628,7 @@ export const ChartOfAccounts: React.FC<ChartOfAccountsProps> = ({
                   }
                   setConfirmDeleteTarget(null);
                 }}
-                className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl text-xs transition shadow-lg shadow-rose-600/30 cursor-pointer"
+                className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-bold rounded-xl text-xs transition shadow-lg shadow-rose-600/30 cursor-pointer"
               >
                 {isHindi ? 'हाँ, डिलीट करें' : 'Yes, Delete'}
               </button>

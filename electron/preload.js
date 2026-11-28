@@ -27,6 +27,7 @@ const desktopBridge = {
   flushSync: (payload) => ipcRenderer.sendSync('hv:flush-sync', payload),
   getAppVersion: () => ipcRenderer.sendSync('hv:get-app-version'),
   checkForUpdates: () => ipcRenderer.invoke('hv:check-for-updates'),
+  downloadUpdate: () => ipcRenderer.invoke('hv:download-update'),
   installUpdate: () => ipcRenderer.invoke('hv:install-update'),
   onUpdateAvailable: (callback) => {
     const listener = (_e, info) => callback(info);

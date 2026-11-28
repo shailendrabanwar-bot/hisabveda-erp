@@ -1146,21 +1146,21 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
   const lowStockCount = filteredItems.filter(it => (it.currentStock || 0) <= (it.minStockLevel || 0)).length;
 
   return (
-    <div className="p-4 md:p-6 space-y-5 max-w-7xl mx-auto text-slate-100">
+    <div className="p-4 md:p-6 space-y-5 max-w-7xl mx-auto text-[var(--text-primary)]">
       {/* Header Banner + Global Period Search with OK Button */}
-      <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl">
+      <div className="flex flex-col xl:flex-row items-start xl:items-center justify-between gap-4 hv-surface p-5 rounded-2xl border border-[var(--border-primary)] shadow-xl">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-gradient-to-tr from-emerald-600 to-indigo-600 rounded-2xl text-white shadow-lg shadow-emerald-500/20 shrink-0">
+          <div className="p-3 bg-gradient-to-tr from-emerald-600 to-indigo-600 rounded-2xl text-white hv-keep-white shadow-lg shadow-emerald-500/20 shrink-0">
             <FileSpreadsheet className="w-7 h-7" />
           </div>
           <div>
-            <h2 className="text-lg md:text-xl font-bold flex flex-wrap items-center gap-2">
+            <h2 className="text-lg md:text-xl font-bold flex flex-wrap items-center gap-2 text-[var(--text-primary)]">
               <span>{isHindi ? 'एमआईएस रिपोर्ट एवं एक्सपोर्ट सेंटर (MIS Reports)' : 'MIS Reports & Export Hub'}</span>
-              <span className="text-[11px] font-mono bg-slate-800 border border-slate-700 text-emerald-300 px-2.5 py-0.5 rounded-full">
+              <span className="text-[11px] font-mono hv-pill-emerald border px-2.5 py-0.5 rounded-full">
                 {periodLabel}
               </span>
             </h2>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs text-[var(--text-muted)] mt-1">
               {isHindi
                 ? 'तारीख की अवधि चुनकर OK दबाएँ व सभी 8 रिपोर्ट्स का पूरा विवरण Excel / PDF में प्राप्त करें'
                 : 'Select date period, click OK to apply, and inspect full breakdowns or export Excel / PDF'}
@@ -1170,25 +1170,25 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
 
         {/* Global Date Period Filter + Custom FY-to-FY Selector + Explicit OK Button */}
         <div className="flex flex-col gap-2 w-full xl:w-auto">
-          <div className="flex flex-wrap items-center gap-2 bg-slate-950/80 p-2.5 rounded-xl border border-slate-800 text-xs">
-            <Calendar className="w-4 h-4 text-emerald-400 shrink-0" />
-            <span className="text-slate-400 font-semibold">{isHindi ? 'अवधि (F2):' : 'Period (F2):'}</span>
+          <div className="flex flex-wrap items-center gap-2 hv-elevated p-2.5 rounded-xl border border-[var(--border-subtle)] text-xs">
+            <Calendar className="w-4 h-4 text-emerald-500 shrink-0" />
+            <span className="text-[var(--text-secondary)] font-semibold">{isHindi ? 'अवधि (F2):' : 'Period (F2):'}</span>
             <input
               ref={periodStartInputRef}
               type="date"
               value={draftStartDate}
               onChange={(e) => setDraftStartDate(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') handleApplyPeriod(); }}
-              className="bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-white font-mono text-xs focus:outline-none focus:border-emerald-500 cursor-pointer"
+              className="hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1.5 font-mono text-xs focus:outline-none focus:border-emerald-500 cursor-pointer"
               aria-label="Period Start Date"
             />
-            <span className="text-slate-500 font-bold">-</span>
+            <span className="text-[var(--text-muted)] font-bold">-</span>
             <input
               type="date"
               value={draftEndDate}
               onChange={(e) => setDraftEndDate(e.target.value)}
               onKeyDown={(e) => { if (e.key === 'Enter') handleApplyPeriod(); }}
-              className="bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-white font-mono text-xs focus:outline-none focus:border-emerald-500 cursor-pointer"
+              className="hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1.5 font-mono text-xs focus:outline-none focus:border-emerald-500 cursor-pointer"
               aria-label="Period End Date"
             />
             <button
@@ -1197,7 +1197,7 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
               className={`flex items-center gap-1 px-4 py-1.5 rounded-lg font-extrabold text-xs transition cursor-pointer shadow-md ${
                 hasPendingDateChanges
                   ? 'bg-amber-500 hover:bg-amber-400 text-slate-950 ring-2 ring-amber-400/50 animate-pulse'
-                  : 'bg-emerald-600 hover:bg-emerald-500 text-white shadow-emerald-600/20'
+                  : 'bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white shadow-emerald-600/20'
               }`}
               title={isHindi ? 'चुनी गई अवधि लागू करें' : 'Apply selected date period'}
             >
@@ -1208,7 +1208,7 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
               <button
                 type="button"
                 onClick={() => applyPresetPeriod('FULL_FY')}
-                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-[11px] font-semibold transition cursor-pointer"
+                className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-primary)] text-[11px] font-semibold transition cursor-pointer"
                 title={isHindi ? 'सक्रिय वित्तीय वर्ष पर वापस जाएँ' : 'Reset to Active Financial Year'}
               >
                 <RotateCcw className="w-3 h-3" />
@@ -1225,8 +1225,8 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                 onClick={() => applyPresetPeriod('FULL_FY')}
                 className={`px-2.5 py-1 rounded-lg border font-semibold transition cursor-pointer ${
                   fyScope === 'ACTIVE_FY' && startDate === defaultPeriod.start && endDate === defaultPeriod.end
-                    ? 'bg-indigo-600 text-white border-indigo-400'
-                    : 'bg-slate-800/80 hover:bg-indigo-600/30 border-slate-700 text-slate-300 hover:text-white'
+                    ? 'bg-indigo-600 text-white hv-keep-white border-indigo-400'
+                    : 'hv-elevated hover:bg-[var(--hover-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 {isHindi ? `सक्रिय वर्ष (${getFinancialYearRange(activeFyData.company.financialYearStart).label})` : `Active FY (${getFinancialYearRange(activeFyData.company.financialYearStart).label})`}
@@ -1234,14 +1234,14 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
               <button
                 type="button"
                 onClick={() => applyPresetPeriod('THIS_MONTH')}
-                className="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 text-slate-300 hover:text-white font-semibold transition cursor-pointer"
+                className="px-2.5 py-1 rounded-lg hv-elevated hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-semibold transition cursor-pointer"
               >
                 {isHindi ? 'इस माह' : 'This Month'}
               </button>
               <button
                 type="button"
                 onClick={() => applyPresetPeriod('LAST_MONTH')}
-                className="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-indigo-600/30 border border-slate-700 text-slate-300 hover:text-white font-semibold transition cursor-pointer"
+                className="px-2.5 py-1 rounded-lg hv-elevated hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] font-semibold transition cursor-pointer"
               >
                 {isHindi ? 'पिछला माह' : 'Last Month'}
               </button>
@@ -1250,8 +1250,8 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                 onClick={() => setFyScope(prev => prev === 'FY_RANGE' ? 'ACTIVE_FY' : 'FY_RANGE')}
                 className={`px-2.5 py-1 rounded-lg border font-bold transition flex items-center gap-1 cursor-pointer ${
                   fyScope === 'FY_RANGE'
-                    ? 'bg-emerald-600 text-white border-emerald-400 shadow'
-                    : 'bg-slate-800/80 hover:bg-emerald-600/20 border-emerald-500/30 text-emerald-300'
+                    ? 'bg-emerald-600 text-white hv-keep-white border-emerald-400 shadow'
+                    : 'hv-pill-emerald hover:opacity-90'
                 }`}
               >
                 <Globe2 className="w-3 h-3" />
@@ -1260,7 +1260,7 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
             </div>
 
             {periodAppliedNotice && (
-              <span className="inline-flex items-center gap-1 text-emerald-400 font-bold">
+              <span className="inline-flex items-center gap-1 text-emerald-500 font-bold">
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 {isHindi ? 'अवधि लागू हो गई!' : 'Period Applied!'}
               </span>
@@ -1268,22 +1268,22 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
           </div>
 
           {fyScope === 'FY_RANGE' && (
-            <div className="flex flex-wrap items-center gap-2 bg-emerald-950/30 border border-emerald-500/30 px-3 py-2 rounded-xl text-xs">
-              <span className="text-emerald-300 font-bold">{isHindi ? 'किस वित्तीय वर्ष से:' : 'From FY:'}</span>
+            <div className="flex flex-wrap items-center gap-2 hv-pill-emerald border px-3 py-2 rounded-xl text-xs">
+              <span className="font-bold">{isHindi ? 'किस वित्तीय वर्ष से:' : 'From FY:'}</span>
               <select
                 value={fromFyStart}
                 onChange={(e) => setFromFyStart(e.target.value)}
-                className="bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-white font-mono text-xs font-bold cursor-pointer"
+                className="hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1 font-mono text-xs font-bold cursor-pointer"
               >
                 {availableFysAsc.map((fy) => (
                   <option key={fy.fyStart} value={fy.fyStart}>{fy.label} ({fy.count})</option>
                 ))}
               </select>
-              <span className="text-emerald-300 font-bold">{isHindi ? 'किस वित्तीय वर्ष तक:' : 'To FY:'}</span>
+              <span className="font-bold">{isHindi ? 'किस वित्तीय वर्ष तक:' : 'To FY:'}</span>
               <select
                 value={toFyStart}
                 onChange={(e) => setToFyStart(e.target.value)}
-                className="bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-white font-mono text-xs font-bold cursor-pointer"
+                className="hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1 font-mono text-xs font-bold cursor-pointer"
               >
                 {availableFysAsc.map((fy) => (
                   <option key={fy.fyStart} value={fy.fyStart}>{fy.label} ({fy.count})</option>
@@ -1307,13 +1307,13 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
               onClick={() => setActiveReport(tab.id)}
               className={`p-3 rounded-xl border text-xs font-bold text-left transition flex flex-col justify-between gap-2 cursor-pointer ${
                 isActive
-                  ? 'bg-gradient-to-b from-indigo-600 to-indigo-700 text-white border-indigo-500 shadow-lg shadow-indigo-600/30'
-                  : 'bg-slate-900 border-slate-800 text-slate-300 hover:bg-slate-800 hover:border-slate-700'
+                  ? 'bg-gradient-to-b from-indigo-600 to-indigo-700 text-white hv-keep-white border-indigo-500 shadow-lg shadow-indigo-600/30'
+                  : 'hv-surface border-[var(--border-primary)] text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] hover:text-[var(--text-primary)]'
               }`}
             >
               <div className="flex items-center justify-between gap-1">
-                <Icon className={`w-4 h-4 ${isActive ? 'text-amber-300' : 'text-indigo-400'}`} />
-                <span className={`text-[10px] font-mono ${isActive ? 'text-indigo-100' : 'text-slate-500'}`}>Alt+{idx + 1}</span>
+                <Icon className={`w-4 h-4 ${isActive ? 'text-amber-300' : 'text-indigo-500'}`} />
+                <span className={`text-[10px] font-mono ${isActive ? 'text-indigo-100' : 'text-[var(--text-muted)]'}`}>Alt+{idx + 1}</span>
               </div>
               <span className="line-clamp-2 leading-tight">{tab.label}</span>
             </button>
@@ -1322,26 +1322,26 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
       </div>
 
       {/* Active Report View Panel */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-5 space-y-4 shadow-xl">
         {/* Top Control Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-slate-800 pb-4">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 border-b border-[var(--border-primary)] pb-4">
           <div className="flex items-center gap-2 w-full sm:w-96">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-2.5 text-[var(--text-muted)]" />
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 onKeyDown={(e) => { if (e.key === 'Enter') handleApplyPeriod(); }}
                 placeholder={isHindi ? 'नाम, बिल नं, GSTIN या विवरण खोजें...' : 'Search party, doc no, GSTIN, item...'}
-                className="w-full bg-slate-800 text-slate-200 placeholder-slate-400 text-xs rounded-xl pl-9 pr-3 py-2 border border-slate-700 focus:outline-none focus:border-indigo-500"
+                className="w-full hv-input text-xs rounded-xl pl-9 pr-3 py-2 border border-[var(--border-subtle)] focus:outline-none focus:border-indigo-500"
               />
             </div>
             {search && (
               <button
                 type="button"
                 onClick={() => setSearch('')}
-                className="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold border border-slate-700 cursor-pointer"
+                className="px-2.5 py-2 rounded-xl hv-elevated hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] text-xs font-semibold border border-[var(--border-subtle)] cursor-pointer"
               >
                 {isHindi ? 'साफ़' : 'Clear'}
               </button>
@@ -1364,7 +1364,7 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                 <button
                   type="button"
                   onClick={handleExportActiveExcel}
-                  className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow transition cursor-pointer"
+                  className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-bold text-xs px-3.5 py-2 rounded-xl shadow transition cursor-pointer"
                 >
                   <Download className="w-4 h-4" />
                   <span>{isHindi ? 'Excel (CSV) एक्सपोर्ट' : 'Export to Excel'}</span>
@@ -1372,7 +1372,7 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                 <button
                   type="button"
                   onClick={handlePrintActiveReport}
-                  className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow transition cursor-pointer"
+                  className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs px-3.5 py-2 rounded-xl shadow transition cursor-pointer"
                 >
                   <Printer className="w-4 h-4" />
                   <span>{isHindi ? 'प्रिंट / PDF बनाएं' : 'Print / Export PDF'}</span>
@@ -1386,32 +1386,32 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
         {activeReport === 'SALES' && (
           <div className="space-y-4">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कुल बिक्री बिल' : 'Total Invoices'}</p>
-                <p className="text-lg font-extrabold font-mono text-white mt-0.5">{salesInvoices.length}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कुल बिक्री बिल' : 'Total Invoices'}</p>
+                <p className="text-lg font-extrabold font-mono text-[var(--text-primary)] mt-0.5">{salesInvoices.length}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कर योग्य राशि (Taxable)' : 'Taxable Value'}</p>
-                <p className="text-lg font-extrabold font-mono text-indigo-300 mt-0.5">{formatCurrency(salesTotalTaxable, currency)}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कर योग्य राशि (Taxable)' : 'Taxable Value'}</p>
+                <p className="text-lg font-extrabold font-mono text-indigo-500 mt-0.5">{formatCurrency(salesTotalTaxable, currency)}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कुल जीएसटी कर' : 'Total Output GST'}</p>
-                <p className="text-lg font-extrabold font-mono text-emerald-400 mt-0.5">{formatCurrency(salesTotalTax, currency)}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कुल जीएसटी कर' : 'Total Output GST'}</p>
+                <p className="text-lg font-extrabold font-mono text-emerald-500 mt-0.5">{formatCurrency(salesTotalTax, currency)}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कुल बिक्री (Grand Total)' : 'Gross Sales Total'}</p>
-                <p className="text-lg font-extrabold font-mono text-amber-300 mt-0.5">{formatCurrency(salesGrandTotal, currency)}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कुल बिक्री (Grand Total)' : 'Gross Sales Total'}</p>
+                <p className="text-lg font-extrabold font-mono text-amber-500 mt-0.5">{formatCurrency(salesGrandTotal, currency)}</p>
               </div>
             </div>
 
-            <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
-              <Receipt className="w-4 h-4 text-emerald-400" />
+            <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+              <Receipt className="w-4 h-4 text-emerald-500" />
               <span>{isHindi ? 'बिक्री इनवॉइस रजिस्टर (Sales Register Summary)' : 'Sales Invoices Register'}</span>
             </h3>
 
-            <div className="overflow-x-auto border border-slate-800 rounded-xl">
+            <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
+                <thead className="hv-elevated text-[var(--text-secondary)] font-semibold border-b border-[var(--border-primary)]">
                   <tr>
                     <th className="p-3">{isHindi ? 'इनवॉइस सं.' : 'Invoice No'}</th>
                     <th className="p-3">{isHindi ? 'तारीख' : 'Date'}</th>
@@ -1424,10 +1424,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                     <th className="p-3 text-center">{isHindi ? 'स्थिति' : 'Status'}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 font-mono">
+                <tbody className="divide-y divide-[var(--border-primary)] font-mono">
                   {salesInvoices.length === 0 ? (
                     <tr>
-                      <td colSpan={9} className="p-6 text-center text-slate-500 font-sans">
+                      <td colSpan={9} className="p-6 text-center text-[var(--text-muted)] font-sans">
                         {isHindi ? 'चुनी गई अवधि में कोई बिक्री रिकॉर्ड उपलब्ध नहीं है। ऊपर "All Time" या सही तारीख चुनकर OK दबाएँ।' : 'No sales records found for this period. Try clicking "All Time" or update period and click OK.'}
                       </td>
                     </tr>
@@ -1441,36 +1441,36 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                           voucherKind: 'SALES',
                           record: inv
                         })}
-                        className="hover:bg-slate-800/60 cursor-pointer transition-colors"
+                        className="hover:bg-[var(--hover-surface)] cursor-pointer transition-colors"
                         title={isHindi ? 'पूरा इनवॉइस विवरण देखें' : 'Click to inspect invoice breakdown'}
                       >
-                        <td className="p-3 font-bold text-indigo-300 underline decoration-indigo-500/40">{inv.invoiceNumber}</td>
-                        <td className="p-3 text-slate-300">{inv.date}</td>
-                        <td className="p-3 font-sans text-slate-200">
+                        <td className="p-3 font-bold text-indigo-500 underline decoration-indigo-500/40">{inv.invoiceNumber}</td>
+                        <td className="p-3 text-[var(--text-secondary)]">{inv.date}</td>
+                        <td className="p-3 font-sans text-[var(--text-primary)]">
                           <button
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
                               setSelectedLedgerTarget({ id: inv.partyId, name: inv.partyName });
                             }}
-                            className="text-indigo-400 hover:text-indigo-300 font-bold hover:underline text-left cursor-pointer"
+                            className="text-indigo-500 hover:opacity-80 font-bold hover:underline text-left cursor-pointer"
                             title={isHindi ? 'खाता बही (Ledger) देखें' : 'Click to View Ledger Statement'}
                           >
                             {inv.partyName}
                           </button>
                         </td>
-                        <td className="p-3 text-slate-400">{inv.partyGstin || '-'}</td>
+                        <td className="p-3 text-[var(--text-muted)]">{inv.partyGstin || '-'}</td>
                         <td className="p-3 text-right">{formatCurrency(inv.subtotal, currency)}</td>
-                        <td className="p-3 text-right text-emerald-400">{formatCurrency(inv.totalTax, currency)}</td>
-                        <td className="p-3 text-right font-bold text-amber-300">{formatCurrency(inv.grandTotal, currency)}</td>
-                        <td className="p-3 text-right text-slate-300">{formatCurrency(inv.amountPaid || 0, currency)}</td>
+                        <td className="p-3 text-right text-emerald-500">{formatCurrency(inv.totalTax, currency)}</td>
+                        <td className="p-3 text-right font-bold text-amber-500">{formatCurrency(inv.grandTotal, currency)}</td>
+                        <td className="p-3 text-right text-[var(--text-secondary)]">{formatCurrency(inv.amountPaid || 0, currency)}</td>
                         <td className="p-3 text-center font-sans">
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                          <span className={`px-2 py-0.5 rounded border text-[10px] font-bold ${
                             inv.status === 'PAID'
-                              ? 'bg-emerald-500/20 text-emerald-400'
+                              ? 'hv-pill-emerald'
                               : inv.status === 'PARTIAL'
-                                ? 'bg-amber-500/20 text-amber-300'
-                                : 'bg-rose-500/20 text-rose-400'
+                                ? 'hv-pill-amber'
+                                : 'hv-pill-rose'
                           }`}>
                             {inv.status}
                           </span>
@@ -1480,12 +1480,12 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                   )}
                 </tbody>
                 {salesInvoices.length > 0 && (
-                  <tfoot className="bg-slate-950 font-mono font-bold border-t border-slate-700 text-slate-200">
+                  <tfoot className="hv-elevated font-mono font-bold border-t border-[var(--border-primary)] text-[var(--text-primary)]">
                     <tr>
                       <td colSpan={4} className="p-3 font-sans">{isHindi ? 'कुल योग (Total)' : 'Total'}</td>
                       <td className="p-3 text-right">{formatCurrency(salesTotalTaxable, currency)}</td>
-                      <td className="p-3 text-right text-emerald-400">{formatCurrency(salesTotalTax, currency)}</td>
-                      <td className="p-3 text-right text-amber-300">{formatCurrency(salesGrandTotal, currency)}</td>
+                      <td className="p-3 text-right text-emerald-500">{formatCurrency(salesTotalTax, currency)}</td>
+                      <td className="p-3 text-right text-amber-500">{formatCurrency(salesGrandTotal, currency)}</td>
                       <td className="p-3 text-right">{formatCurrency(salesPaidTotal, currency)}</td>
                       <td />
                     </tr>
@@ -1500,32 +1500,32 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
         {activeReport === 'PURCHASE' && (
           <div className="space-y-4">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कुल खरीद बिल' : 'Total Purchase Bills'}</p>
-                <p className="text-lg font-extrabold font-mono text-white mt-0.5">{purchaseInvoices.length}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कुल खरीद बिल' : 'Total Purchase Bills'}</p>
+                <p className="text-lg font-extrabold font-mono text-[var(--text-primary)] mt-0.5">{purchaseInvoices.length}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कर योग्य खरीद' : 'Taxable Purchases'}</p>
-                <p className="text-lg font-extrabold font-mono text-indigo-300 mt-0.5">{formatCurrency(purTotalTaxable, currency)}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कर योग्य खरीद' : 'Taxable Purchases'}</p>
+                <p className="text-lg font-extrabold font-mono text-indigo-500 mt-0.5">{formatCurrency(purTotalTaxable, currency)}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'इनपुट जीएसटी (ITC)' : 'Total Input GST'}</p>
-                <p className="text-lg font-extrabold font-mono text-rose-400 mt-0.5">{formatCurrency(purTotalTax, currency)}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'इनपुट जीएसटी (ITC)' : 'Total Input GST'}</p>
+                <p className="text-lg font-extrabold font-mono text-rose-500 mt-0.5">{formatCurrency(purTotalTax, currency)}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कुल खरीद राशि' : 'Gross Purchase Total'}</p>
-                <p className="text-lg font-extrabold font-mono text-amber-300 mt-0.5">{formatCurrency(purGrandTotal, currency)}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कुल खरीद राशि' : 'Gross Purchase Total'}</p>
+                <p className="text-lg font-extrabold font-mono text-amber-500 mt-0.5">{formatCurrency(purGrandTotal, currency)}</p>
               </div>
             </div>
 
-            <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4 text-rose-400" />
+            <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+              <ShoppingBag className="w-4 h-4 text-rose-500" />
               <span>{isHindi ? 'खरीद इनवॉइस रजिस्टर (Purchase Register Summary)' : 'Purchase Bills Register'}</span>
             </h3>
 
-            <div className="overflow-x-auto border border-slate-800 rounded-xl">
+            <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
+                <thead className="hv-elevated text-[var(--text-secondary)] font-semibold border-b border-[var(--border-primary)]">
                   <tr>
                     <th className="p-3">{isHindi ? 'बिल सं.' : 'Bill No'}</th>
                     <th className="p-3">{isHindi ? 'विक्रेता इनवॉइस सं.' : 'Supplier Inv No'}</th>
@@ -1538,10 +1538,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                     <th className="p-3 text-center">{isHindi ? 'स्थिति' : 'Status'}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 font-mono">
+                <tbody className="divide-y divide-[var(--border-primary)] font-mono">
                   {purchaseInvoices.length === 0 ? (
                     <tr>
-                      <td colSpan={9} className="p-6 text-center text-slate-500 font-sans">
+                      <td colSpan={9} className="p-6 text-center text-[var(--text-muted)] font-sans">
                         {isHindi ? 'चुनी गई अवधि में कोई खरीद रिकॉर्ड उपलब्ध नहीं है।' : 'No purchase records found for selected period.'}
                       </td>
                     </tr>
@@ -1555,36 +1555,36 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                           voucherKind: 'PURCHASE',
                           record: pur
                         })}
-                        className="hover:bg-slate-800/60 cursor-pointer transition-colors"
+                        className="hover:bg-[var(--hover-surface)] cursor-pointer transition-colors"
                         title={isHindi ? 'पूरा बिल विवरण देखें' : 'Click to inspect purchase breakdown'}
                       >
-                        <td className="p-3 font-bold text-indigo-300 underline decoration-indigo-500/40">{pur.billNumber}</td>
-                        <td className="p-3 text-slate-300">{pur.supplierInvoiceNo || '-'}</td>
-                        <td className="p-3 text-slate-300">{pur.date}</td>
-                        <td className="p-3 font-sans text-slate-200">
+                        <td className="p-3 font-bold text-indigo-500 underline decoration-indigo-500/40">{pur.billNumber}</td>
+                        <td className="p-3 text-[var(--text-secondary)]">{pur.supplierInvoiceNo || '-'}</td>
+                        <td className="p-3 text-[var(--text-secondary)]">{pur.date}</td>
+                        <td className="p-3 font-sans text-[var(--text-primary)]">
                           <button
                             type="button"
                             onClick={(e) => {
                               e.stopPropagation();
                               setSelectedLedgerTarget({ id: pur.partyId, name: pur.partyName });
                             }}
-                            className="text-amber-400 hover:text-amber-300 font-bold hover:underline text-left cursor-pointer"
+                            className="text-amber-500 hover:opacity-80 font-bold hover:underline text-left cursor-pointer"
                             title={isHindi ? 'खाता बही (Ledger) देखें' : 'Click to View Ledger Statement'}
                           >
                             {pur.partyName}
                           </button>
                         </td>
                         <td className="p-3 text-right">{formatCurrency(pur.subtotal, currency)}</td>
-                        <td className="p-3 text-right text-rose-400">{formatCurrency(pur.totalTax, currency)}</td>
-                        <td className="p-3 text-right font-bold text-amber-300">{formatCurrency(pur.grandTotal, currency)}</td>
-                        <td className="p-3 text-right text-slate-300">{formatCurrency(pur.amountPaid || 0, currency)}</td>
+                        <td className="p-3 text-right text-rose-500">{formatCurrency(pur.totalTax, currency)}</td>
+                        <td className="p-3 text-right font-bold text-amber-500">{formatCurrency(pur.grandTotal, currency)}</td>
+                        <td className="p-3 text-right text-[var(--text-secondary)]">{formatCurrency(pur.amountPaid || 0, currency)}</td>
                         <td className="p-3 text-center font-sans">
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
+                          <span className={`px-2 py-0.5 rounded border text-[10px] font-bold ${
                             pur.status === 'PAID'
-                              ? 'bg-emerald-500/20 text-emerald-400'
+                              ? 'hv-pill-emerald'
                               : pur.status === 'PARTIAL'
-                                ? 'bg-amber-500/20 text-amber-300'
-                                : 'bg-rose-500/20 text-rose-400'
+                                ? 'hv-pill-amber'
+                                : 'hv-pill-rose'
                           }`}>
                             {pur.status}
                           </span>
@@ -1594,12 +1594,12 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                   )}
                 </tbody>
                 {purchaseInvoices.length > 0 && (
-                  <tfoot className="bg-slate-950 font-mono font-bold border-t border-slate-700 text-slate-200">
+                  <tfoot className="hv-elevated font-mono font-bold border-t border-[var(--border-primary)] text-[var(--text-primary)]">
                     <tr>
                       <td colSpan={4} className="p-3 font-sans">{isHindi ? 'कुल योग (Total)' : 'Total'}</td>
                       <td className="p-3 text-right">{formatCurrency(purTotalTaxable, currency)}</td>
-                      <td className="p-3 text-right text-rose-400">{formatCurrency(purTotalTax, currency)}</td>
-                      <td className="p-3 text-right text-amber-300">{formatCurrency(purGrandTotal, currency)}</td>
+                      <td className="p-3 text-right text-rose-500">{formatCurrency(purTotalTax, currency)}</td>
+                      <td className="p-3 text-right text-amber-500">{formatCurrency(purGrandTotal, currency)}</td>
                       <td className="p-3 text-right">{formatCurrency(purPaidTotal, currency)}</td>
                       <td />
                     </tr>
@@ -1614,32 +1614,32 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
         {activeReport === 'DAYBOOK' && (
           <div className="space-y-4">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कुल प्रविष्टियाँ' : 'Total Transactions'}</p>
-                <p className="text-lg font-extrabold font-mono text-white mt-0.5">{daybookEntries.length}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कुल प्रविष्टियाँ' : 'Total Transactions'}</p>
+                <p className="text-lg font-extrabold font-mono text-[var(--text-primary)] mt-0.5">{daybookEntries.length}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'नकद / बैंक आवक (Inflow)' : 'Cash/Bank Inflow (Receipts)'}</p>
-                <p className="text-lg font-extrabold font-mono text-emerald-400 mt-0.5">{formatCurrency(daybookReceipts, currency)}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'नकद / बैंक आवक (Inflow)' : 'Cash/Bank Inflow (Receipts)'}</p>
+                <p className="text-lg font-extrabold font-mono text-emerald-500 mt-0.5">{formatCurrency(daybookReceipts, currency)}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'नकद / बैंक जावक (Outflow)' : 'Cash/Bank Outflow (Payments)'}</p>
-                <p className="text-lg font-extrabold font-mono text-rose-400 mt-0.5">{formatCurrency(daybookPayments, currency)}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'नकद / बैंक जावक (Outflow)' : 'Cash/Bank Outflow (Payments)'}</p>
+                <p className="text-lg font-extrabold font-mono text-rose-500 mt-0.5">{formatCurrency(daybookPayments, currency)}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कुल डे-बुक वॉल्यूम' : 'Total Daybook Volume'}</p>
-                <p className="text-lg font-extrabold font-mono text-amber-300 mt-0.5">{formatCurrency(daybookTotalAmt, currency)}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कुल डे-बुक वॉल्यूम' : 'Total Daybook Volume'}</p>
+                <p className="text-lg font-extrabold font-mono text-amber-500 mt-0.5">{formatCurrency(daybookTotalAmt, currency)}</p>
               </div>
             </div>
 
-            <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-indigo-400" />
+            <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-indigo-500" />
               <span>{isHindi ? 'दैनिक रोखड़ एवं बैंक बही (Day Book)' : 'Day Book & Cash/Bank Transaction Log'}</span>
             </h3>
 
-            <div className="overflow-x-auto border border-slate-800 rounded-xl">
+            <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
+                <thead className="hv-elevated text-[var(--text-secondary)] font-semibold border-b border-[var(--border-primary)]">
                   <tr>
                     <th className="p-3">{isHindi ? 'दस्तावेज़ सं.' : 'Doc / Voucher No'}</th>
                     <th className="p-3">{isHindi ? 'प्रकार' : 'Type'}</th>
@@ -1650,10 +1650,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                     <th className="p-3 text-right">{isHindi ? 'राशि' : 'Amount'}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 font-mono">
+                <tbody className="divide-y divide-[var(--border-primary)] font-mono">
                   {daybookEntries.length === 0 ? (
                     <tr>
-                      <td colSpan={7} className="p-6 text-center text-slate-500 font-sans">
+                      <td colSpan={7} className="p-6 text-center text-[var(--text-muted)] font-sans">
                         {isHindi ? 'चुनी गई अवधि में कोई प्रविष्टि नहीं है।' : 'No transactions logged for selected dates.'}
                       </td>
                     </tr>
@@ -1667,17 +1667,17 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                           voucherKind: row.voucherKind,
                           record: row.record
                         })}
-                        className="hover:bg-slate-800/60 cursor-pointer transition-colors"
+                        className="hover:bg-[var(--hover-surface)] cursor-pointer transition-colors"
                         title={isHindi ? 'पूरा विवरण देखें' : 'Click to inspect transaction entries'}
                       >
-                        <td className="p-3 font-bold text-indigo-300 underline decoration-indigo-500/40">{row.docNumber}</td>
+                        <td className="p-3 font-bold text-indigo-500 underline decoration-indigo-500/40">{row.docNumber}</td>
                         <td className="p-3 font-sans">
-                          <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-200 border border-slate-700">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-bold hv-pill-slate border">
                             {row.typeLabel}
                           </span>
                         </td>
-                        <td className="p-3 text-slate-300">{row.date}</td>
-                        <td className="p-3 font-sans text-slate-200">
+                        <td className="p-3 text-[var(--text-secondary)]">{row.date}</td>
+                        <td className="p-3 font-sans text-[var(--text-primary)]">
                           {row.partyName ? (
                             <button
                               type="button"
@@ -1685,7 +1685,7 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                                 e.stopPropagation();
                                 setSelectedLedgerTarget({ id: row.partyId, name: row.partyName });
                               }}
-                              className="text-indigo-400 hover:text-indigo-300 font-bold hover:underline text-left cursor-pointer"
+                              className="text-indigo-500 hover:opacity-80 font-bold hover:underline text-left cursor-pointer"
                               title={isHindi ? 'खाता बही (Ledger) देखें' : 'Click to View Ledger Statement'}
                             >
                               {row.partyName}
@@ -1694,27 +1694,27 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                             <span>{row.referenceNo || '-'}</span>
                           )}
                         </td>
-                        <td className="p-3 font-sans text-[11px] text-slate-300 max-w-xs">
+                        <td className="p-3 font-sans text-[11px] text-[var(--text-secondary)] max-w-xs">
                           {row.accountSummary.map((e, idx) => (
                             <div key={idx} className="truncate">
-                              <span className={e.side === 'Dr' ? 'text-emerald-400 font-bold' : 'text-amber-300 font-bold'}>
+                              <span className={e.side === 'Dr' ? 'text-emerald-500 font-bold' : 'text-amber-500 font-bold'}>
                                 {e.side}
                               </span>{' '}
                               {e.name}
                             </div>
                           ))}
                         </td>
-                        <td className="p-3 font-sans text-slate-400 max-w-xs truncate">{row.narration || '-'}</td>
-                        <td className="p-3 text-right font-bold text-emerald-400">{formatCurrency(row.amount, currency)}</td>
+                        <td className="p-3 font-sans text-[var(--text-muted)] max-w-xs truncate">{row.narration || '-'}</td>
+                        <td className="p-3 text-right font-bold text-emerald-500">{formatCurrency(row.amount, currency)}</td>
                       </tr>
                     ))
                   )}
                 </tbody>
                 {daybookEntries.length > 0 && (
-                  <tfoot className="bg-slate-950 font-mono font-bold border-t border-slate-700 text-slate-200">
+                  <tfoot className="hv-elevated font-mono font-bold border-t border-[var(--border-primary)] text-[var(--text-primary)]">
                     <tr>
                       <td colSpan={6} className="p-3 font-sans">{isHindi ? 'कुल डे-बुक राशि (Total)' : 'Total Daybook Amount'}</td>
-                      <td className="p-3 text-right text-emerald-400">{formatCurrency(daybookTotalAmt, currency)}</td>
+                      <td className="p-3 text-right text-emerald-500">{formatCurrency(daybookTotalAmt, currency)}</td>
                     </tr>
                   </tfoot>
                 )}
@@ -1727,38 +1727,38 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
         {activeReport === 'OUTSTANDING' && (
           <div className="space-y-4">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कुल पार्टियाँ' : 'Parties Matched'}</p>
-                <p className="text-lg font-extrabold font-mono text-white mt-0.5">{filteredParties.length}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कुल पार्टियाँ' : 'Parties Matched'}</p>
+                <p className="text-lg font-extrabold font-mono text-[var(--text-primary)] mt-0.5">{filteredParties.length}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'लेने योग्य (Total Receivable DR)' : 'Total Receivable (DR)'}</p>
-                <p className="text-lg font-extrabold font-mono text-amber-300 mt-0.5">{formatCurrency(totalReceivableDR, currency)}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'लेने योग्य (Total Receivable DR)' : 'Total Receivable (DR)'}</p>
+                <p className="text-lg font-extrabold font-mono text-amber-500 mt-0.5">{formatCurrency(totalReceivableDR, currency)}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'देने योग्य (Total Payable CR)' : 'Total Payable (CR)'}</p>
-                <p className="text-lg font-extrabold font-mono text-rose-400 mt-0.5">{formatCurrency(totalPayableCR, currency)}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'देने योग्य (Total Payable CR)' : 'Total Payable (CR)'}</p>
+                <p className="text-lg font-extrabold font-mono text-rose-500 mt-0.5">{formatCurrency(totalPayableCR, currency)}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'अवधि में लंबित बिल' : 'Pending Bills (Period)'}</p>
-                <p className="text-lg font-extrabold font-mono text-indigo-300 mt-0.5">{pendingBills.length}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'अवधि में लंबित बिल' : 'Pending Bills (Period)'}</p>
+                <p className="text-lg font-extrabold font-mono text-indigo-500 mt-0.5">{pendingBills.length}</p>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 bg-slate-950 p-3 rounded-xl border border-slate-800">
-              <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
-                <Users className="w-4 h-4 text-amber-400" />
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 hv-elevated p-3 rounded-xl border border-[var(--border-subtle)]">
+              <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <Users className="w-4 h-4 text-amber-500" />
                 <span>{isHindi ? 'पार्टी एवं बिल-वार बकाया रिपोर्ट (Customer & Vendor Outstanding)' : 'Customer & Vendor Outstanding Details'}</span>
               </h3>
 
-              <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-lg border border-slate-800 text-xs">
+              <div className="flex items-center gap-1 hv-surface p-1 rounded-lg border border-[var(--border-primary)] text-xs">
                 <button
                   type="button"
                   onClick={() => setOutstandingSubTab('PARTY_WISE')}
                   className={`px-3 py-1.5 rounded-md font-bold transition cursor-pointer ${
                     outstandingSubTab === 'PARTY_WISE'
-                      ? 'bg-indigo-600 text-white shadow'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   {isHindi ? 'पार्टी/ग्राहक सारांश (Party Wise)' : 'Party Wise Summary'}
@@ -1768,8 +1768,8 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                   onClick={() => setOutstandingSubTab('BILL_WISE')}
                   className={`px-3 py-1.5 rounded-md font-bold transition cursor-pointer ${
                     outstandingSubTab === 'BILL_WISE'
-                      ? 'bg-indigo-600 text-white shadow'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   {isHindi ? 'बिल/वाउचर वार विवरण (Bill Wise)' : 'Bill-wise Pending'}
@@ -1778,9 +1778,9 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
             </div>
 
             {outstandingSubTab === 'PARTY_WISE' ? (
-              <div className="overflow-x-auto border border-slate-800 rounded-xl">
+              <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
+                  <thead className="hv-elevated text-[var(--text-secondary)] font-semibold border-b border-[var(--border-primary)]">
                     <tr>
                       <th className="p-3">{isHindi ? 'पार्टी नाम' : 'Party Name'}</th>
                       <th className="p-3">{isHindi ? 'प्रकार' : 'Type'}</th>
@@ -1792,10 +1792,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                       <th className="p-3 text-right">{isHindi ? 'वर्तमान बकाया' : 'Outstanding Bal'}</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60 font-mono">
+                  <tbody className="divide-y divide-[var(--border-primary)] font-mono">
                     {partySummaries.length === 0 ? (
                       <tr>
-                        <td colSpan={8} className="p-6 text-center text-slate-500 font-sans">
+                        <td colSpan={8} className="p-6 text-center text-[var(--text-muted)] font-sans">
                           {isHindi ? 'कोई पार्टी बकाया रिकॉर्ड उपलब्ध नहीं है।' : 'No party outstanding records found.'}
                         </td>
                       </tr>
@@ -1804,38 +1804,38 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                         <tr
                           key={party.id}
                           onClick={() => setSelectedLedgerTarget({ id: party.id, name: party.name })}
-                          className="hover:bg-slate-800/60 cursor-pointer transition-colors"
+                          className="hover:bg-[var(--hover-surface)] cursor-pointer transition-colors"
                           title={isHindi ? 'पार्टी खाता बही (Ledger) खोलें' : 'Click to open party ledger'}
                         >
-                          <td className="p-3 font-bold font-sans text-slate-200">
+                          <td className="p-3 font-bold font-sans text-[var(--text-primary)]">
                             <button
                               type="button"
                               onClick={() => setSelectedLedgerTarget({ id: party.id, name: party.name })}
-                              className="text-indigo-300 hover:text-indigo-200 font-extrabold hover:underline text-left flex items-center gap-1.5 cursor-pointer"
+                              className="text-indigo-500 hover:opacity-80 font-extrabold hover:underline text-left flex items-center gap-1.5 cursor-pointer"
                               title={isHindi ? 'खाता बही (Ledger) देखें' : 'Click to View Detailed Ledger Statement'}
                             >
                               <span>{party.name}</span>
                             </button>
                             {party.gstCategory && (
-                              <span className="text-[9px] font-semibold text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded font-mono block w-fit mt-0.5">
+                              <span className="text-[9px] font-semibold hv-pill-slate border px-1.5 py-0.5 rounded font-mono block w-fit mt-0.5">
                                 {party.gstCategory}
                               </span>
                             )}
                           </td>
                           <td className="p-3 font-sans">
-                            <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                              party.type === 'CUSTOMER' ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'
+                            <span className={`px-2 py-0.5 rounded border text-[10px] font-bold ${
+                              party.type === 'CUSTOMER' ? 'hv-pill-emerald' : 'hv-pill-rose'
                             }`}>
                               {party.type}
                             </span>
                           </td>
-                          <td className="p-3 text-slate-400">{party.gstin || '-'}</td>
-                          <td className="p-3 text-slate-300 font-sans">{party.phone || '-'}</td>
+                          <td className="p-3 text-[var(--text-muted)]">{party.gstin || '-'}</td>
+                          <td className="p-3 text-[var(--text-secondary)] font-sans">{party.phone || '-'}</td>
                           <td className="p-3 text-right">{formatCurrency(party.openingBalance, currency)} ({party.balanceType})</td>
-                          <td className="p-3 text-right text-indigo-300">{formatCurrency(out.totalInvoiced, currency)}</td>
-                          <td className="p-3 text-right text-emerald-400">{formatCurrency(out.totalPaid, currency)}</td>
+                          <td className="p-3 text-right text-indigo-500">{formatCurrency(out.totalInvoiced, currency)}</td>
+                          <td className="p-3 text-right text-emerald-500">{formatCurrency(out.totalPaid, currency)}</td>
                           <td className={`p-3 text-right font-bold font-mono text-sm ${
-                            out.balanceType === 'DR' ? 'text-amber-300' : 'text-rose-400'
+                            out.balanceType === 'DR' ? 'text-amber-500' : 'text-rose-500'
                           }`}>
                             {formatCurrency(out.netBalance, currency)} <span className="text-[10px] font-bold">({out.balanceType})</span>
                           </td>
@@ -1846,9 +1846,9 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                 </table>
               </div>
             ) : (
-              <div className="overflow-x-auto border border-slate-800 rounded-xl">
+              <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
+                  <thead className="hv-elevated text-[var(--text-secondary)] font-semibold border-b border-[var(--border-primary)]">
                     <tr>
                       <th className="p-3">{isHindi ? 'बिल नं.' : 'Bill / Invoice #'}</th>
                       <th className="p-3">{isHindi ? 'तिथि' : 'Date'}</th>
@@ -1860,10 +1860,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                       <th className="p-3 text-center">{isHindi ? 'आयु (दिन)' : 'Aging'}</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60 font-mono">
+                  <tbody className="divide-y divide-[var(--border-primary)] font-mono">
                     {pendingBills.length === 0 ? (
                       <tr>
-                        <td colSpan={8} className="p-8 text-center text-slate-500 font-sans">
+                        <td colSpan={8} className="p-8 text-center text-[var(--text-muted)] font-sans">
                           {isHindi ? 'चुनी गई अवधि में कोई लंबित या बकाया बिल नहीं है।' : 'No pending or unpaid bills found for selected period.'}
                         </td>
                       </tr>
@@ -1871,10 +1871,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                       pendingBills.map((bill) => {
                         const invDate = new Date(bill.date);
                         const daysOld = Math.max(0, Math.floor((new Date().getTime() - invDate.getTime()) / (1000 * 60 * 60 * 24)));
-                        let agingBadgeClass = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
-                        if (daysOld > 90) agingBadgeClass = 'bg-rose-500/20 text-rose-300 border-rose-500/30';
-                        else if (daysOld > 60) agingBadgeClass = 'bg-amber-500/20 text-amber-300 border-amber-500/30';
-                        else if (daysOld > 30) agingBadgeClass = 'bg-sky-500/20 text-sky-300 border-sky-500/30';
+                        let agingBadgeClass = 'hv-pill-emerald';
+                        if (daysOld > 90) agingBadgeClass = 'hv-pill-rose';
+                        else if (daysOld > 60) agingBadgeClass = 'hv-pill-amber';
+                        else if (daysOld > 30) agingBadgeClass = 'hv-pill-sky';
 
                         return (
                           <tr
@@ -1902,33 +1902,33 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                                 }
                               }
                             }}
-                            className="hover:bg-slate-800/60 cursor-pointer transition-colors"
+                            className="hover:bg-[var(--hover-surface)] cursor-pointer transition-colors"
                             title={isHindi ? 'बिल का पूरा विवरण देखें' : 'Click to view bill breakdown'}
                           >
-                            <td className="p-3 font-bold text-indigo-300 underline decoration-indigo-500/40">{bill.docNumber}</td>
-                            <td className="p-3 text-slate-300">{bill.date}</td>
-                            <td className="p-3 font-bold font-sans text-slate-100">
+                            <td className="p-3 font-bold text-indigo-500 underline decoration-indigo-500/40">{bill.docNumber}</td>
+                            <td className="p-3 text-[var(--text-secondary)]">{bill.date}</td>
+                            <td className="p-3 font-bold font-sans text-[var(--text-primary)]">
                               <button
                                 type="button"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   setSelectedLedgerTarget({ id: bill.partyId, name: bill.partyName });
                                 }}
-                                className="text-indigo-400 hover:underline text-left cursor-pointer"
+                                className="text-indigo-500 hover:underline text-left cursor-pointer"
                               >
                                 {bill.partyName}
                               </button>
                             </td>
                             <td className="p-3 font-sans">
-                              <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                                bill.kind === 'RECEIVABLE' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'
+                              <span className={`px-2 py-0.5 rounded border text-[10px] font-bold ${
+                                bill.kind === 'RECEIVABLE' ? 'hv-pill-emerald' : 'hv-pill-rose'
                               }`}>
                                 {bill.kind}
                               </span>
                             </td>
-                            <td className="p-3 text-right text-slate-300">{formatCurrency(bill.grandTotal, currency)}</td>
-                            <td className="p-3 text-right text-emerald-400">{formatCurrency(bill.amountPaid, currency)}</td>
-                            <td className="p-3 text-right font-bold text-amber-300">{formatCurrency(bill.pending, currency)}</td>
+                            <td className="p-3 text-right text-[var(--text-secondary)]">{formatCurrency(bill.grandTotal, currency)}</td>
+                            <td className="p-3 text-right text-emerald-500">{formatCurrency(bill.amountPaid, currency)}</td>
+                            <td className="p-3 text-right font-bold text-amber-500">{formatCurrency(bill.pending, currency)}</td>
                             <td className="p-3 text-center font-sans">
                               <span className={`px-2 py-0.5 rounded border text-[10px] font-bold ${agingBadgeClass}`}>
                                 {daysOld} days
@@ -1948,52 +1948,52 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
         {/* 5. GST RETURN SUMMARY (Full CGST/SGST/IGST Split + Transaction Table) */}
         {activeReport === 'GST' && (
           <div className="space-y-4">
-            <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
-              <FileCheck2 className="w-4 h-4 text-emerald-400" />
+            <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+              <FileCheck2 className="w-4 h-4 text-emerald-500" />
               <span>{isHindi ? 'जीएसटी विवरणी समरी (GSTR-1 & GSTR-3B Tax Liability)' : 'GST Returns Summary (GSTR-1 & GSTR-3B)'}</span>
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs font-mono">
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-                <p className="font-sans text-slate-400 font-semibold">{isHindi ? '1. आउटवर्ड सप्लाई टैक्स (Output GST)' : 'Outward Sales GST (GSTR-1)'}</p>
-                <p className="text-lg font-bold text-emerald-400">{formatCurrency(gstStats.totalOutTax, currency)}</p>
-                <div className="text-[11px] text-slate-400 flex flex-wrap gap-x-3 gap-y-1 border-t border-slate-800 pt-2">
-                  <span>CGST: <b className="text-slate-200">{formatCurrency(gstStats.outCgst, currency)}</b></span>
-                  <span>SGST: <b className="text-slate-200">{formatCurrency(gstStats.outSgst, currency)}</b></span>
-                  <span>IGST: <b className="text-slate-200">{formatCurrency(gstStats.outIgst, currency)}</b></span>
+              <div className="p-4 rounded-xl hv-elevated border border-[var(--border-subtle)] space-y-2">
+                <p className="font-sans text-[var(--text-muted)] font-semibold">{isHindi ? '1. आउटवर्ड सप्लाई टैक्स (Output GST)' : 'Outward Sales GST (GSTR-1)'}</p>
+                <p className="text-lg font-bold text-emerald-500">{formatCurrency(gstStats.totalOutTax, currency)}</p>
+                <div className="text-[11px] text-[var(--text-muted)] flex flex-wrap gap-x-3 gap-y-1 border-t border-[var(--border-subtle)] pt-2">
+                  <span>CGST: <b className="text-[var(--text-primary)]">{formatCurrency(gstStats.outCgst, currency)}</b></span>
+                  <span>SGST: <b className="text-[var(--text-primary)]">{formatCurrency(gstStats.outSgst, currency)}</b></span>
+                  <span>IGST: <b className="text-[var(--text-primary)]">{formatCurrency(gstStats.outIgst, currency)}</b></span>
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-                <p className="font-sans text-slate-400 font-semibold">{isHindi ? '2. इनपुट टैक्स क्रेडिट (Eligible ITC)' : 'Inward Purchase ITC (GSTR-2B)'}</p>
-                <p className="text-lg font-bold text-rose-400">{formatCurrency(gstStats.totalInTax, currency)}</p>
-                <div className="text-[11px] text-slate-400 flex flex-wrap gap-x-3 gap-y-1 border-t border-slate-800 pt-2">
-                  <span>CGST: <b className="text-slate-200">{formatCurrency(gstStats.inCgst, currency)}</b></span>
-                  <span>SGST: <b className="text-slate-200">{formatCurrency(gstStats.inSgst, currency)}</b></span>
-                  <span>IGST: <b className="text-slate-200">{formatCurrency(gstStats.inIgst, currency)}</b></span>
+              <div className="p-4 rounded-xl hv-elevated border border-[var(--border-subtle)] space-y-2">
+                <p className="font-sans text-[var(--text-muted)] font-semibold">{isHindi ? '2. इनपुट टैक्स क्रेडिट (Eligible ITC)' : 'Inward Purchase ITC (GSTR-2B)'}</p>
+                <p className="text-lg font-bold text-rose-500">{formatCurrency(gstStats.totalInTax, currency)}</p>
+                <div className="text-[11px] text-[var(--text-muted)] flex flex-wrap gap-x-3 gap-y-1 border-t border-[var(--border-subtle)] pt-2">
+                  <span>CGST: <b className="text-[var(--text-primary)]">{formatCurrency(gstStats.inCgst, currency)}</b></span>
+                  <span>SGST: <b className="text-[var(--text-primary)]">{formatCurrency(gstStats.inSgst, currency)}</b></span>
+                  <span>IGST: <b className="text-[var(--text-primary)]">{formatCurrency(gstStats.inIgst, currency)}</b></span>
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-                <p className="font-sans text-slate-400 font-semibold">
+              <div className="p-4 rounded-xl hv-elevated border border-[var(--border-subtle)] space-y-2">
+                <p className="font-sans text-[var(--text-muted)] font-semibold">
                   {gstStats.netTaxPayable > 0
                     ? (isHindi ? '3. शुद्ध देय जीएसटी (Net Payable)' : 'Net GST Cash Payable')
                     : (isHindi ? '3. शेष ITC क्रेडिट (ITC Carryforward)' : 'Net ITC Credit Balance')}
                 </p>
-                <p className="text-lg font-bold text-amber-300">
+                <p className="text-lg font-bold text-amber-500">
                   {formatCurrency(gstStats.netTaxPayable > 0 ? gstStats.netTaxPayable : gstStats.itcCarryForward, currency)}
                 </p>
-                <div className="text-[11px] text-slate-400 flex flex-wrap gap-x-3 gap-y-1 border-t border-slate-800 pt-2">
-                  <span>Net CGST: <b className="text-slate-200">{formatCurrency(gstStats.netCgst, currency)}</b></span>
-                  <span>Net SGST: <b className="text-slate-200">{formatCurrency(gstStats.netSgst, currency)}</b></span>
-                  <span>Net IGST: <b className="text-slate-200">{formatCurrency(gstStats.netIgst, currency)}</b></span>
+                <div className="text-[11px] text-[var(--text-muted)] flex flex-wrap gap-x-3 gap-y-1 border-t border-[var(--border-subtle)] pt-2">
+                  <span>Net CGST: <b className="text-[var(--text-primary)]">{formatCurrency(gstStats.netCgst, currency)}</b></span>
+                  <span>Net SGST: <b className="text-[var(--text-primary)]">{formatCurrency(gstStats.netSgst, currency)}</b></span>
+                  <span>Net IGST: <b className="text-[var(--text-primary)]">{formatCurrency(gstStats.netIgst, currency)}</b></span>
                 </div>
               </div>
             </div>
 
-            <div className="overflow-x-auto border border-slate-800 rounded-xl">
+            <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
+                <thead className="hv-elevated text-[var(--text-secondary)] font-semibold border-b border-[var(--border-primary)]">
                   <tr>
                     <th className="p-3">{isHindi ? 'बिल / इनवॉइस सं.' : 'Doc No'}</th>
                     <th className="p-3">{isHindi ? 'तारीख' : 'Date'}</th>
@@ -2007,10 +2007,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                     <th className="p-3 text-right">{isHindi ? 'कुल टैक्स' : 'Total Tax'}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 font-mono">
+                <tbody className="divide-y divide-[var(--border-primary)] font-mono">
                   {gstStats.registerRows.length === 0 ? (
                     <tr>
-                      <td colSpan={10} className="p-6 text-center text-slate-500 font-sans">
+                      <td colSpan={10} className="p-6 text-center text-[var(--text-muted)] font-sans">
                         {isHindi ? 'चुनी गई अवधि में कोई GST ट्रांज़ैक्शन उपलब्ध नहीं है।' : 'No GST transactions found for selected period.'}
                       </td>
                     </tr>
@@ -2024,25 +2024,25 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                           voucherKind: row.sourceKind,
                           record: row.sourceRecord
                         })}
-                        className="hover:bg-slate-800/60 cursor-pointer transition-colors"
+                        className="hover:bg-[var(--hover-surface)] cursor-pointer transition-colors"
                         title={isHindi ? 'टैक्स व आइटम विवरण देखें' : 'Click to inspect GST invoice details'}
                       >
-                        <td className="p-3 font-bold text-indigo-300 underline decoration-indigo-500/40">{row.docNo}</td>
-                        <td className="p-3 text-slate-300">{row.date}</td>
+                        <td className="p-3 font-bold text-indigo-500 underline decoration-indigo-500/40">{row.docNo}</td>
+                        <td className="p-3 text-[var(--text-secondary)]">{row.date}</td>
                         <td className="p-3 font-sans">
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                            row.supplyType.includes('OUTWARD') ? 'bg-emerald-500/20 text-emerald-300' : 'bg-sky-500/20 text-sky-300'
+                          <span className={`px-2 py-0.5 rounded border text-[10px] font-bold ${
+                            row.supplyType.includes('OUTWARD') ? 'hv-pill-emerald' : 'hv-pill-sky'
                           }`}>
                             {row.supplyType}
                           </span>
                         </td>
-                        <td className="p-3 font-sans font-bold text-slate-200">{row.partyName}</td>
-                        <td className="p-3 text-slate-400">{row.gstin}</td>
+                        <td className="p-3 font-sans font-bold text-[var(--text-primary)]">{row.partyName}</td>
+                        <td className="p-3 text-[var(--text-muted)]">{row.gstin}</td>
                         <td className="p-3 text-right">{formatCurrency(row.taxable, currency)}</td>
                         <td className="p-3 text-right">{formatCurrency(row.cgst, currency)}</td>
                         <td className="p-3 text-right">{formatCurrency(row.sgst, currency)}</td>
                         <td className="p-3 text-right">{formatCurrency(row.igst, currency)}</td>
-                        <td className="p-3 text-right font-bold text-amber-300">{formatCurrency(row.totalTax, currency)}</td>
+                        <td className="p-3 text-right font-bold text-amber-500">{formatCurrency(row.totalTax, currency)}</td>
                       </tr>
                     ))
                   )}
@@ -2056,13 +2056,13 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
         {activeReport === 'STOCK' && (
           <div className="space-y-4">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कुल आइटम (SKUs)' : 'Total Items'}</p>
-                <p className="text-lg font-extrabold font-mono text-white mt-0.5">{filteredItems.length}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कुल आइटम (SKUs)' : 'Total Items'}</p>
+                <p className="text-lg font-extrabold font-mono text-[var(--text-primary)] mt-0.5">{filteredItems.length}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कुल स्टॉक यूनिट्स' : 'Total Units in Hand'}</p>
-                <p className="text-lg font-extrabold font-mono text-indigo-300 mt-0.5">{stockTotalUnits}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कुल स्टॉक यूनिट्स' : 'Total Units in Hand'}</p>
+                <p className="text-lg font-extrabold font-mono text-indigo-500 mt-0.5">{stockTotalUnits}</p>
               </div>
               <button
                 type="button"
@@ -2073,18 +2073,18 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                   subtitle: periodLabel,
                   accInventoryOpening: plStats.openingStock
                 })}
-                className="p-3.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-emerald-500/50 text-left transition cursor-pointer"
+                className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)] hover:border-emerald-500/50 text-left transition cursor-pointer"
                 title={isHindi ? 'सभी आइटम का विस्तृत मूल्यांकन देखें' : 'Click to view item-wise stock valuation'}
               >
-                <p className="text-slate-400 underline decoration-slate-600">{isHindi ? 'क्रय स्टॉक वैल्यू (Cost)' : 'Stock Cost Value'}</p>
-                <p className="text-lg font-extrabold font-mono text-emerald-400 mt-0.5">{formatCurrency(stockCostValue, currency)}</p>
+                <p className="text-[var(--text-muted)] underline decoration-[var(--border-subtle)]">{isHindi ? 'क्रय स्टॉक वैल्यू (Cost)' : 'Stock Cost Value'}</p>
+                <p className="text-lg font-extrabold font-mono text-emerald-500 mt-0.5">{formatCurrency(stockCostValue, currency)}</p>
               </button>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'अनुमानित बिक्री मूल्य' : 'Potential Sales Value'}</p>
-                <p className="text-lg font-extrabold font-mono text-amber-300 mt-0.5 flex items-center gap-2">
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'अनुमानित बिक्री मूल्य' : 'Potential Sales Value'}</p>
+                <p className="text-lg font-extrabold font-mono text-amber-500 mt-0.5 flex items-center gap-2 flex-wrap">
                   <span>{formatCurrency(stockSalesValue, currency)}</span>
                   {lowStockCount > 0 && (
-                    <span className="text-[10px] font-sans bg-rose-500/20 text-rose-300 border border-rose-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <span className="text-[10px] font-sans hv-pill-rose border px-2 py-0.5 rounded-full flex items-center gap-1">
                       <AlertTriangle className="w-3 h-3" /> {lowStockCount} Low
                     </span>
                   )}
@@ -2092,14 +2092,14 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
               </div>
             </div>
 
-            <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
-              <Package className="w-4 h-4 text-indigo-400" />
+            <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+              <Package className="w-4 h-4 text-indigo-500" />
               <span>{isHindi ? 'इन्वेंट्री एवं स्टॉक मूल्यांकन (Stock Inventory Valuation)' : 'Stock Valuation & Physical Inventory'}</span>
             </h3>
 
-            <div className="overflow-x-auto border border-slate-800 rounded-xl">
+            <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
+                <thead className="hv-elevated text-[var(--text-secondary)] font-semibold border-b border-[var(--border-primary)]">
                   <tr>
                     <th className="p-3">{isHindi ? 'आइटम कोड' : 'Code'}</th>
                     <th className="p-3">{isHindi ? 'आइटम नाम व श्रेणी' : 'Item Name & Category'}</th>
@@ -2110,10 +2110,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                     <th className="p-3 text-right">{isHindi ? 'स्टॉक वैल्यू' : 'Cost Value'}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 font-mono">
+                <tbody className="divide-y divide-[var(--border-primary)] font-mono">
                   {filteredItems.length === 0 ? (
                     <tr>
-                      <td colSpan={7} className="p-6 text-center text-slate-500 font-sans">
+                      <td colSpan={7} className="p-6 text-center text-[var(--text-muted)] font-sans">
                         {isHindi ? 'कोई स्टॉक आइटम उपलब्ध नहीं है।' : 'No inventory items found.'}
                       </td>
                     </tr>
@@ -2131,26 +2131,26 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                             subtitle: periodLabel,
                             accInventoryOpening: plStats.openingStock
                           })}
-                          className="hover:bg-slate-800/60 cursor-pointer transition-colors"
+                          className="hover:bg-[var(--hover-surface)] cursor-pointer transition-colors"
                           title={isHindi ? 'विस्तृत स्टॉक वैल्यूएशन देखें' : 'Click to inspect stock valuation breakdown'}
                         >
-                          <td className="p-3 text-slate-400 font-bold">{item.code}</td>
+                          <td className="p-3 text-[var(--text-muted)] font-bold">{item.code}</td>
                           <td className="p-3 font-sans">
-                            <div className="font-bold text-slate-200 underline decoration-slate-600">{item.name}</div>
-                            <div className="text-[10px] text-slate-400">{item.category || 'General'}{item.location ? ` • ${item.location}` : ''}</div>
+                            <div className="font-bold text-[var(--text-primary)] underline decoration-[var(--border-subtle)]">{item.name}</div>
+                            <div className="text-[10px] text-[var(--text-muted)]">{item.category || 'General'}{item.location ? ` • ${item.location}` : ''}</div>
                           </td>
-                          <td className="p-3 text-slate-400">{item.hsnSacCode || '-'}</td>
+                          <td className="p-3 text-[var(--text-muted)]">{item.hsnSacCode || '-'}</td>
                           <td className="p-3 text-right font-bold">
-                            <span className={isLow ? 'text-rose-400' : 'text-indigo-300'}>
+                            <span className={isLow ? 'text-rose-500' : 'text-indigo-500'}>
                               {item.currentStock} {item.unit}
                             </span>
                             {isLow && (
-                              <span className="ml-1.5 text-[9px] font-sans bg-rose-500/20 text-rose-300 px-1.5 py-0.5 rounded">LOW</span>
+                              <span className="ml-1.5 text-[9px] font-sans hv-pill-rose border px-1.5 py-0.5 rounded">LOW</span>
                             )}
                           </td>
                           <td className="p-3 text-right">{formatCurrency(item.purchasePrice, currency)}</td>
                           <td className="p-3 text-right">{formatCurrency(item.salesPrice, currency)}</td>
-                          <td className="p-3 text-right font-bold text-emerald-400">
+                          <td className="p-3 text-right font-bold text-emerald-500">
                             {formatCurrency(itemVal, currency)}
                           </td>
                         </tr>
@@ -2159,12 +2159,12 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                   )}
                 </tbody>
                 {filteredItems.length > 0 && (
-                  <tfoot className="bg-slate-950 font-mono font-bold border-t border-slate-700 text-slate-200">
+                  <tfoot className="hv-elevated font-mono font-bold border-t border-[var(--border-primary)] text-[var(--text-primary)]">
                     <tr>
                       <td colSpan={3} className="p-3 font-sans">{isHindi ? 'कुल स्टॉक मूल्य (Total Valuation)' : 'Total Stock Valuation'}</td>
-                      <td className="p-3 text-right text-indigo-300">{stockTotalUnits}</td>
+                      <td className="p-3 text-right text-indigo-500">{stockTotalUnits}</td>
                       <td colSpan={2} />
-                      <td className="p-3 text-right text-emerald-400">{formatCurrency(stockCostValue, currency)}</td>
+                      <td className="p-3 text-right text-emerald-500">{formatCurrency(stockCostValue, currency)}</td>
                     </tr>
                   </tfoot>
                 )}
@@ -2176,17 +2176,17 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
         {/* 7. PROFIT & LOSS SUMMARY (Full Trading + Indirect Expense Ledger Breakdown) */}
         {activeReport === 'PROFIT_LOSS' && (
           <div className="space-y-4">
-            <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
-              <PieChart className="w-4 h-4 text-emerald-400" />
+            <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+              <PieChart className="w-4 h-4 text-emerald-500" />
               <span>{isHindi ? 'लाभ-हानि खाता एवं वित्तीय सारांश (P&L Statement)' : 'Profit & Loss Statement Summary'}</span>
             </h3>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 text-xs font-mono">
               {/* Trading & Gross Profit Account */}
-              <div className="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
-                <p className="font-sans text-xs font-extrabold uppercase tracking-wider text-indigo-300 border-b border-slate-800 pb-2 flex items-center justify-between">
+              <div className="p-5 rounded-2xl hv-elevated border border-[var(--border-subtle)] space-y-2">
+                <p className="font-sans text-xs font-extrabold uppercase tracking-wider text-indigo-500 border-b border-[var(--border-subtle)] pb-2 flex items-center justify-between">
                   <span>{isHindi ? 'ट्रेडिंग व सकल लाभ (Trading Summary)' : 'Trading & Gross Profit'}</span>
-                  <span className="text-[10px] font-normal text-slate-400">{isHindi ? 'विवरण हेतु पंक्ति पर क्लिक करें' : 'Click any row for details'}</span>
+                  <span className="text-[10px] font-normal text-[var(--text-muted)]">{isHindi ? 'विवरण हेतु पंक्ति पर क्लिक करें' : 'Click any row for details'}</span>
                 </p>
 
                 <button
@@ -2199,10 +2199,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                     metricValue: plStats.grossSales,
                     accounts: plStats.salesItems.map(x => x.row)
                   })}
-                  className="w-full flex justify-between text-slate-300 py-1.5 px-2 rounded-lg hover:bg-slate-900 border-b border-slate-800/70 cursor-pointer text-left transition"
+                  className="w-full flex justify-between text-[var(--text-secondary)] py-1.5 px-2 rounded-lg hover:bg-[var(--hover-surface)] border-b border-[var(--border-subtle)] cursor-pointer text-left transition"
                 >
-                  <span className="font-sans font-semibold underline decoration-slate-600">{isHindi ? 'कुल बिक्री एवं प्रत्यक्ष आय (Net Sales)' : 'Sales & Direct Revenues (Net)'}</span>
-                  <span className="text-emerald-400 font-bold">{formatCurrency(plStats.grossSales, currency)}</span>
+                  <span className="font-sans font-semibold underline decoration-[var(--border-subtle)]">{isHindi ? 'कुल बिक्री एवं प्रत्यक्ष आय (Net Sales)' : 'Sales & Direct Revenues (Net)'}</span>
+                  <span className="text-emerald-500 font-bold">{formatCurrency(plStats.grossSales, currency)}</span>
                 </button>
                 <button
                   type="button"
@@ -2213,10 +2213,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                     subtitle: periodLabel,
                     accInventoryOpening: plStats.openingStock
                   })}
-                  className="w-full flex justify-between text-slate-300 py-1.5 px-2 rounded-lg hover:bg-slate-900 border-b border-slate-800/70 cursor-pointer text-left transition"
+                  className="w-full flex justify-between text-[var(--text-secondary)] py-1.5 px-2 rounded-lg hover:bg-[var(--hover-surface)] border-b border-[var(--border-subtle)] cursor-pointer text-left transition"
                 >
-                  <span className="font-sans font-semibold underline decoration-slate-600">{isHindi ? 'अंतिम स्टॉक (Closing Stock)' : 'Closing Stock Valuation'}</span>
-                  <span className="text-sky-300 font-bold">{formatCurrency(plStats.closingStock, currency)}</span>
+                  <span className="font-sans font-semibold underline decoration-[var(--border-subtle)]">{isHindi ? 'अंतिम स्टॉक (Closing Stock)' : 'Closing Stock Valuation'}</span>
+                  <span className="text-sky-500 font-bold">{formatCurrency(plStats.closingStock, currency)}</span>
                 </button>
                 <button
                   type="button"
@@ -2227,10 +2227,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                     subtitle: periodLabel,
                     accInventoryOpening: plStats.openingStock
                   })}
-                  className="w-full flex justify-between text-slate-300 py-1.5 px-2 rounded-lg hover:bg-slate-900 border-b border-slate-800/70 cursor-pointer text-left transition"
+                  className="w-full flex justify-between text-[var(--text-secondary)] py-1.5 px-2 rounded-lg hover:bg-[var(--hover-surface)] border-b border-[var(--border-subtle)] cursor-pointer text-left transition"
                 >
-                  <span className="font-sans font-semibold underline decoration-slate-600">{isHindi ? 'प्रारंभिक स्टॉक (Opening Stock)' : 'Opening Stock'}</span>
-                  <span className="text-rose-300 font-bold">{formatCurrency(plStats.openingStock, currency)}</span>
+                  <span className="font-sans font-semibold underline decoration-[var(--border-subtle)]">{isHindi ? 'प्रारंभिक स्टॉक (Opening Stock)' : 'Opening Stock'}</span>
+                  <span className="text-rose-500 font-bold">{formatCurrency(plStats.openingStock, currency)}</span>
                 </button>
                 <button
                   type="button"
@@ -2242,10 +2242,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                     metricValue: plStats.totalPurchases,
                     accounts: plStats.directExpenseItems.map(x => x.row)
                   })}
-                  className="w-full flex justify-between text-slate-300 py-1.5 px-2 rounded-lg hover:bg-slate-900 border-b border-slate-800/70 cursor-pointer text-left transition"
+                  className="w-full flex justify-between text-[var(--text-secondary)] py-1.5 px-2 rounded-lg hover:bg-[var(--hover-surface)] border-b border-[var(--border-subtle)] cursor-pointer text-left transition"
                 >
-                  <span className="font-sans font-semibold underline decoration-slate-600">{isHindi ? 'कुल प्रत्यक्ष व्यय व खरीद (Net)' : 'Direct Expenses & Purchases (Net)'}</span>
-                  <span className="text-rose-400 font-bold">{formatCurrency(plStats.totalPurchases, currency)}</span>
+                  <span className="font-sans font-semibold underline decoration-[var(--border-subtle)]">{isHindi ? 'कुल प्रत्यक्ष व्यय व खरीद (Net)' : 'Direct Expenses & Purchases (Net)'}</span>
+                  <span className="text-rose-500 font-bold">{formatCurrency(plStats.totalPurchases, currency)}</span>
                 </button>
 
                 <button
@@ -2259,44 +2259,44 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                     metricValue: plStats.grossProfit,
                     accounts: [...plStats.salesItems.map(x => x.row), ...plStats.directExpenseItems.map(x => x.row)]
                   })}
-                  className="w-full flex justify-between pt-2 px-2 py-1.5 rounded-lg hover:bg-slate-900 text-sm font-bold cursor-pointer text-left transition"
+                  className="w-full flex justify-between pt-2 px-2 py-1.5 rounded-lg hover:bg-[var(--hover-surface)] text-sm font-bold cursor-pointer text-left transition"
                 >
-                  <span className="font-sans text-white underline decoration-slate-600">{isHindi ? 'सकल लाभ (Gross Profit / Loss):' : 'Gross Profit / Loss:'}</span>
-                  <span className={plStats.grossProfit >= 0 ? 'text-emerald-400' : 'text-rose-400'}>
+                  <span className="font-sans text-[var(--text-primary)] underline decoration-[var(--border-subtle)]">{isHindi ? 'सकल लाभ (Gross Profit / Loss):' : 'Gross Profit / Loss:'}</span>
+                  <span className={plStats.grossProfit >= 0 ? 'text-emerald-500' : 'text-rose-500'}>
                     {formatCurrency(plStats.grossProfit, currency)}
                   </span>
                 </button>
               </div>
 
               {/* Indirect Incomes, Voucher Expenses & Net Profit */}
-              <div className="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2.5">
-                <p className="font-sans text-xs font-extrabold uppercase tracking-wider text-amber-300 border-b border-slate-800 pb-2">
+              <div className="p-5 rounded-2xl hv-elevated border border-[var(--border-subtle)] space-y-2.5">
+                <p className="font-sans text-xs font-extrabold uppercase tracking-wider text-amber-500 border-b border-[var(--border-subtle)] pb-2">
                   {isHindi ? 'अप्रत्यक्ष खर्च, आय व शुद्ध लाभ (Expenses & Net P&L)' : 'Indirect Expenses, Other Income & Net Profit'}
                 </p>
 
                 {plStats.otherIncomeItems.length > 0 && (
-                  <div className="space-y-1 border-b border-slate-800/70 pb-2">
-                    <div className="font-sans text-[11px] font-bold text-emerald-300">{isHindi ? 'अन्य आय (Indirect Income):' : 'Other Income:'}</div>
+                  <div className="space-y-1 border-b border-[var(--border-subtle)] pb-2">
+                    <div className="font-sans text-[11px] font-bold text-emerald-500">{isHindi ? 'अन्य आय (Indirect Income):' : 'Other Income:'}</div>
                     {plStats.otherIncomeItems.map((inc) => (
                       <button
                         type="button"
                         key={inc.id}
                         onClick={() => setSelectedLedgerTarget({ id: inc.id, name: inc.name, preferredKind: 'ACCOUNT' })}
-                        className="w-full flex justify-between text-slate-300 text-xs py-1 px-2 rounded hover:bg-slate-900 cursor-pointer text-left transition"
+                        className="w-full flex justify-between text-[var(--text-secondary)] text-xs py-1 px-2 rounded hover:bg-[var(--hover-surface)] cursor-pointer text-left transition"
                       >
                         <span className="font-sans hover:underline">{inc.name}</span>
-                        <span className="text-emerald-400 font-semibold">{formatCurrency(inc.amount, currency)}</span>
+                        <span className="text-emerald-500 font-semibold">{formatCurrency(inc.amount, currency)}</span>
                       </button>
                     ))}
                   </div>
                 )}
 
                 <div className="space-y-1">
-                  <div className="font-sans text-[11px] font-bold text-rose-300">
+                  <div className="font-sans text-[11px] font-bold text-rose-500">
                     {isHindi ? 'अप्रत्यक्ष एवं परिचालन खर्च (Indirect Expenses):' : 'Operating & Indirect Expenses:'}
                   </div>
                   {plStats.expenseItems.length === 0 ? (
-                    <p className="font-sans text-xs text-slate-500">
+                    <p className="font-sans text-xs text-[var(--text-muted)]">
                       {isHindi ? 'चुनी गई अवधि में कोई वाउचर खर्च दर्ज नहीं है।' : 'No indirect expense vouchers recorded in selected period.'}
                     </p>
                   ) : (
@@ -2305,11 +2305,11 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                         type="button"
                         key={exp.id}
                         onClick={() => setSelectedLedgerTarget({ id: exp.id, name: exp.name, preferredKind: 'ACCOUNT' })}
-                        className="w-full flex justify-between text-slate-300 py-1 px-2 rounded hover:bg-slate-900 border-b border-slate-900 cursor-pointer text-left transition"
+                        className="w-full flex justify-between text-[var(--text-secondary)] py-1 px-2 rounded hover:bg-[var(--hover-surface)] border-b border-[var(--border-subtle)] cursor-pointer text-left transition"
                         title={isHindi ? 'लेजर स्टेटमेंट खोलें' : 'Click to open ledger'}
                       >
                         <span className="font-sans hover:underline">{exp.name}</span>
-                        <span className="text-rose-400 font-semibold">{formatCurrency(exp.amount, currency)}</span>
+                        <span className="text-rose-500 font-semibold">{formatCurrency(exp.amount, currency)}</span>
                       </button>
                     ))
                   )}
@@ -2325,10 +2325,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                     metricValue: plStats.totalVoucherExpenses,
                     accounts: plStats.expenseItems.map(x => x.row)
                   })}
-                  className="w-full flex justify-between text-slate-300 pt-2 px-2 py-1 rounded hover:bg-slate-900 border-t border-slate-800 cursor-pointer text-left transition"
+                  className="w-full flex justify-between text-[var(--text-secondary)] pt-2 px-2 py-1 rounded hover:bg-[var(--hover-surface)] border-t border-[var(--border-subtle)] cursor-pointer text-left transition"
                 >
-                  <span className="font-sans font-bold underline decoration-slate-600">{isHindi ? 'कुल अप्रत्यक्ष खर्च:' : 'Total Indirect Expenses:'}</span>
-                  <span className="text-rose-400 font-bold">{formatCurrency(plStats.totalVoucherExpenses, currency)}</span>
+                  <span className="font-sans font-bold underline decoration-[var(--border-subtle)]">{isHindi ? 'कुल अप्रत्यक्ष खर्च:' : 'Total Indirect Expenses:'}</span>
+                  <span className="text-rose-500 font-bold">{formatCurrency(plStats.totalVoucherExpenses, currency)}</span>
                 </button>
 
                 <button
@@ -2347,10 +2347,10 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                       ...plStats.expenseItems.map(x => x.row),
                     ]
                   })}
-                  className="w-full flex justify-between py-2 px-2 rounded-lg hover:bg-slate-900 border-t-2 border-slate-700 text-sm font-extrabold cursor-pointer text-left transition"
+                  className="w-full flex justify-between py-2 px-2 rounded-lg hover:bg-[var(--hover-surface)] border-t-2 border-[var(--border-primary)] text-sm font-extrabold cursor-pointer text-left transition"
                 >
-                  <span className="font-sans text-white underline decoration-slate-600">{isHindi ? 'शुद्ध लाभ / हानि (Net Profit / Loss):' : 'Net Profit / Loss:'}</span>
-                  <span className={plStats.netProfit >= 0 ? 'text-emerald-400' : 'text-rose-400'}>
+                  <span className="font-sans text-[var(--text-primary)] underline decoration-[var(--border-subtle)]">{isHindi ? 'शुद्ध लाभ / हानि (Net Profit / Loss):' : 'Net Profit / Loss:'}</span>
+                  <span className={plStats.netProfit >= 0 ? 'text-emerald-500' : 'text-rose-500'}>
                     {formatCurrency(plStats.netProfit, currency)}
                   </span>
                 </button>
@@ -2363,38 +2363,38 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
         {activeReport === 'DEBIT_CREDIT_NOTES' && (
           <div className="space-y-4">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कुल नोट्स' : 'Total Notes'}</p>
-                <p className="text-lg font-extrabold font-mono text-white mt-0.5">{debitCreditNotes.length}</p>
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कुल नोट्स' : 'Total Notes'}</p>
+                <p className="text-lg font-extrabold font-mono text-[var(--text-primary)] mt-0.5">{debitCreditNotes.length}</p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'डेबिट नोट्स (Purchase Return)' : 'Debit Notes Total'}</p>
-                <p className="text-lg font-extrabold font-mono text-rose-400 mt-0.5">
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'डेबिट नोट्स (Purchase Return)' : 'Debit Notes Total'}</p>
+                <p className="text-lg font-extrabold font-mono text-rose-500 mt-0.5">
                   {formatCurrency(debitCreditNotes.filter(n => n.type === 'DEBIT_NOTE').reduce((s, n) => s + n.grandTotal, 0), currency)}
                 </p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'क्रेडिट नोट्स (Sales Return)' : 'Credit Notes Total'}</p>
-                <p className="text-lg font-extrabold font-mono text-emerald-400 mt-0.5">
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'क्रेडिट नोट्स (Sales Return)' : 'Credit Notes Total'}</p>
+                <p className="text-lg font-extrabold font-mono text-emerald-500 mt-0.5">
                   {formatCurrency(debitCreditNotes.filter(n => n.type === 'CREDIT_NOTE').reduce((s, n) => s + n.grandTotal, 0), currency)}
                 </p>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-950 border border-slate-800">
-                <p className="text-slate-400">{isHindi ? 'कुल टैक्स समायोजन' : 'Total Tax Adjusted'}</p>
-                <p className="text-lg font-extrabold font-mono text-amber-300 mt-0.5">
+              <div className="p-3.5 rounded-xl hv-elevated border border-[var(--border-subtle)]">
+                <p className="text-[var(--text-muted)]">{isHindi ? 'कुल टैक्स समायोजन' : 'Total Tax Adjusted'}</p>
+                <p className="text-lg font-extrabold font-mono text-amber-500 mt-0.5">
                   {formatCurrency(debitCreditNotes.reduce((s, n) => s + n.totalTax, 0), currency)}
                 </p>
               </div>
             </div>
 
-            <h3 className="text-sm font-bold text-slate-200 flex items-center gap-2">
-              <ArrowRightLeft className="w-4 h-4 text-amber-400" />
+            <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+              <ArrowRightLeft className="w-4 h-4 text-amber-500" />
               <span>{isHindi ? 'डेबिट व क्रेडिट नोट रजिस्टर (Debit & Credit Notes Log)' : 'Debit & Credit Notes Register'}</span>
             </h3>
 
-            <div className="overflow-x-auto border border-slate-800 rounded-xl">
+            <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400 font-semibold border-b border-slate-800">
+                <thead className="hv-elevated text-[var(--text-secondary)] font-semibold border-b border-[var(--border-primary)]">
                   <tr>
                     <th className="p-3">{isHindi ? 'नोट सं.' : 'Note No'}</th>
                     <th className="p-3">{isHindi ? 'प्रकार' : 'Type'}</th>
@@ -2406,39 +2406,39 @@ export const MISReports: React.FC<MISReportsProps> = ({ data: activeFyData, mast
                     <th className="p-3 text-right">{isHindi ? 'कुल राशि' : 'Grand Total'}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 font-mono">
+                <tbody className="divide-y divide-[var(--border-primary)] font-mono">
                   {debitCreditNotes.length === 0 ? (
                     <tr>
-                      <td colSpan={8} className="p-6 text-center text-slate-500 font-sans">
+                      <td colSpan={8} className="p-6 text-center text-[var(--text-muted)] font-sans">
                         {isHindi ? 'चुनी गई अवधि में कोई डेबिट/क्रेडिट नोट रिकॉर्ड उपलब्ध नहीं है।' : 'No debit or credit notes found for selected period.'}
                       </td>
                     </tr>
                   ) : (
                     debitCreditNotes.map((dcn) => (
-                      <tr key={dcn.id} className="hover:bg-slate-800/40">
-                        <td className="p-3 font-bold text-indigo-300">{dcn.noteNumber}</td>
+                      <tr key={dcn.id} className="hover:bg-[var(--hover-surface)]">
+                        <td className="p-3 font-bold text-indigo-500">{dcn.noteNumber}</td>
                         <td className="p-3 font-sans">
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
-                            dcn.type === 'DEBIT_NOTE' ? 'bg-rose-500/20 text-rose-400' : 'bg-emerald-500/20 text-emerald-400'
+                          <span className={`px-2 py-0.5 rounded border text-[10px] font-bold ${
+                            dcn.type === 'DEBIT_NOTE' ? 'hv-pill-rose' : 'hv-pill-emerald'
                           }`}>
                             {dcn.type}
                           </span>
                         </td>
-                        <td className="p-3 text-slate-300">{dcn.date}</td>
-                        <td className="p-3 font-sans font-bold text-slate-200">
+                        <td className="p-3 text-[var(--text-secondary)]">{dcn.date}</td>
+                        <td className="p-3 font-sans font-bold text-[var(--text-primary)]">
                           <button
                             type="button"
                             onClick={() => setSelectedLedgerTarget({ id: dcn.partyId, name: dcn.partyName, preferredKind: 'PARTY' })}
-                            className="text-indigo-400 hover:text-indigo-300 font-bold hover:underline text-left cursor-pointer"
+                            className="text-indigo-500 hover:opacity-80 font-bold hover:underline text-left cursor-pointer"
                             title={isHindi ? 'खाता बही (Ledger) देखें' : 'Click to View Detailed Ledger Statement'}
                           >
                             {dcn.partyName}
                           </button>
                         </td>
-                        <td className="p-3 font-sans text-slate-400">{dcn.reason}</td>
+                        <td className="p-3 font-sans text-[var(--text-muted)]">{dcn.reason}</td>
                         <td className="p-3 text-right">{formatCurrency(dcn.subtotal, currency)}</td>
-                        <td className="p-3 text-right text-emerald-400">{formatCurrency(dcn.totalTax, currency)}</td>
-                        <td className="p-3 text-right font-bold text-amber-300">{formatCurrency(dcn.grandTotal, currency)}</td>
+                        <td className="p-3 text-right text-emerald-500">{formatCurrency(dcn.totalTax, currency)}</td>
+                        <td className="p-3 text-right font-bold text-amber-500">{formatCurrency(dcn.grandTotal, currency)}</td>
                       </tr>
                     ))
                   )}

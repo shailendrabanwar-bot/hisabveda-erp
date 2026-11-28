@@ -111,24 +111,24 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-fadeIn">
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto">
+      <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl w-full max-w-xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto">
         {/* Modal Header */}
-        <div className="bg-slate-950 px-5 py-3.5 border-b border-slate-800 flex items-center justify-between shrink-0">
+        <div className="hv-elevated px-5 py-3.5 border-b border-[var(--border-primary)] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
             <div className={`p-2 rounded-xl border ${
               isFromBarcodeScan
-                ? 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30'
-                : 'bg-emerald-600/20 text-emerald-400 border-emerald-500/30'
+                ? 'hv-pill-cyan'
+                : 'hv-pill-emerald'
             }`}>
               {isFromBarcodeScan ? <ScanBarcode className="w-5 h-5" /> : <PackagePlus className="w-5 h-5" />}
             </div>
             <div>
-              <h3 className="font-bold text-sm text-white">
+              <h3 className="font-bold text-sm text-[var(--text-primary)]">
                 {isFromBarcodeScan
                   ? (isHindi ? 'स्कैन किए गए नए बारकोड से आइटम व स्टॉक जोड़ें' : 'Register Scanned Barcode & Add Stock')
                   : (isHindi ? 'त्वरित नया स्टॉक आइटम जोड़ें (+ Quick Add Stock Ledger)' : '+ Quick Create Stock Item / Ledger')}
               </h3>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[var(--text-muted)]">
                 {isFromBarcodeScan
                   ? (isHindi ? 'नाम, HSN कोड, विवरण व स्टॉक भरकर सीधे बिल में जोड़ें' : 'Enter Item Name, HSN Code, Description & Stock Qty to bill immediately')
                   : (isHindi ? 'इनवॉइस बनाते समय सीधे नया उत्पाद या स्टॉक ledger जोड़ें' : 'Add new product master directly during invoice creation')}
@@ -139,7 +139,7 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl transition cursor-pointer"
+            className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-primary)] rounded-xl transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -148,19 +148,19 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
         {/* Modal Form */}
         <form onSubmit={handleSubmit} className="p-5 overflow-y-auto space-y-4 text-xs flex-1">
           {isFromBarcodeScan && (
-            <div className="bg-cyan-950/40 border border-cyan-500/40 rounded-xl p-3 flex flex-wrap items-center justify-between gap-2">
+            <div className="hv-pill-cyan border rounded-xl p-3 flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <ScanBarcode className="w-4 h-4 text-cyan-400 shrink-0" />
+                <ScanBarcode className="w-4 h-4 shrink-0" />
                 <div>
-                  <div className="text-[10px] uppercase tracking-wider font-bold text-cyan-300">
+                  <div className="text-[10px] uppercase tracking-wider font-bold">
                     {isHindi ? 'स्कैन किया गया बारकोड' : 'Scanned Barcode'}
                   </div>
-                  <div className="font-mono font-black text-sm text-white">{initialBarcode}</div>
+                  <div className="font-mono font-black text-sm text-[var(--text-primary)]">{initialBarcode}</div>
                 </div>
               </div>
               {defaultGodownName && (
-                <div className="flex items-center gap-1.5 bg-slate-900/90 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] text-amber-300 font-bold">
-                  <Warehouse className="w-3.5 h-3.5 text-amber-400" />
+                <div className="flex items-center gap-1.5 hv-elevated border border-[var(--border-subtle)] px-2.5 py-1 rounded-lg text-[11px] text-amber-500 font-bold">
+                  <Warehouse className="w-3.5 h-3.5" />
                   <span>{defaultGodownName}</span>
                 </div>
               )}
@@ -169,7 +169,7 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="sm:col-span-2">
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'सामग्री / उत्पाद का नाम (Item / Product Name) *' : 'Stock Item Name *'}
               </label>
               <input
@@ -177,14 +177,14 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Wireless Ergonomic Mouse / Cotton Shirt"
-                className="w-full bg-slate-950 text-white border border-slate-700 rounded-xl px-3 py-2 font-semibold focus:border-emerald-500 outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-semibold focus:border-emerald-500 outline-none"
                 required
                 autoFocus
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'उत्पाद विवरण (Description / Brand / Size / Spec)' : 'Item Description (Brand / Size / Spec)'}
               </label>
               <input
@@ -192,13 +192,13 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder={isHindi ? 'उदा. 500ml पैक, लाल रंग, 1 साल वारंटी या अन्य विवरण...' : 'e.g. 500ml Pack, Model spec, color or customer bill note...'}
-                className="w-full bg-slate-950 text-slate-100 border border-slate-700 rounded-xl px-3 py-2 focus:border-cyan-500 outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 focus:border-cyan-500 outline-none"
               />
             </div>
 
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'एचएसएन / एसएससी कोड (HSN/SAC Code)' : 'HSN / SAC Code'}
               </label>
               <input
@@ -206,19 +206,19 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
                 value={hsnSacCode}
                 onChange={(e) => setHsnSacCode(e.target.value)}
                 placeholder="8517"
-                className="w-full bg-slate-950 text-white border border-slate-700 rounded-xl px-3 py-2 font-mono focus:border-emerald-500 outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono focus:border-emerald-500 outline-none"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-1">
-                <label className="block text-slate-300 font-bold">
+                <label className="block text-[var(--text-secondary)] font-bold">
                   {isHindi ? 'मापक इकाई (Unit)' : 'Unit of Measurement (UOM)'}
                 </label>
                 <button
                   type="button"
                   onClick={() => setShowAddUnitInput(!showAddUnitInput)}
-                  className="text-[10px] text-amber-300 hover:text-amber-200 font-bold flex items-center gap-0.5"
+                  className="text-[10px] text-amber-500 hover:underline font-bold flex items-center gap-0.5 cursor-pointer"
                 >
                   <PlusCircle className="w-3 h-3" />
                   <span>{isHindi ? '+ नई यूनिट' : '+ New Unit'}</span>
@@ -232,13 +232,13 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
                     value={newUnitName}
                     onChange={(e) => setNewUnitName(e.target.value)}
                     placeholder="e.g. ROLL / BUNDLE"
-                    className="w-full bg-slate-950 text-amber-300 border border-amber-500/60 rounded-xl px-2 py-1.5 uppercase font-bold text-xs outline-none"
+                    className="w-full hv-input text-amber-500 border border-amber-500/60 rounded-xl px-2 py-1.5 uppercase font-bold text-xs outline-none"
                     autoFocus
                   />
                   <button
                     type="button"
                     onClick={handleAddNewCustomUnit}
-                    className="px-2 py-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs rounded-xl"
+                    className="px-2 py-1 bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs rounded-xl cursor-pointer"
                   >
                     OK
                   </button>
@@ -253,7 +253,7 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
                       setUnit(e.target.value);
                     }
                   }}
-                  className="w-full bg-slate-950 text-white border border-slate-700 rounded-xl px-3 py-2 font-semibold focus:border-emerald-500 outline-none"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-semibold focus:border-emerald-500 outline-none"
                 >
                   <option value="">{isHindi ? '-- इकाई चुनें --' : '-- Select Unit --'}</option>
                   {allAvailableUnits.map((u) => (
@@ -266,13 +266,13 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
 
             {gstEnabled && (
               <div>
-                <label className="block text-slate-300 font-bold mb-1">
+                <label className="block text-[var(--text-secondary)] font-bold mb-1">
                   {isHindi ? 'जीएसटी दर % (GST Rate)' : 'GST Rate (%)'}
                 </label>
                 <select
                   value={gstRate}
                   onChange={(e) => setGstRate(Number(e.target.value))}
-                  className="w-full bg-slate-950 text-white border border-slate-700 rounded-xl px-3 py-2 font-bold focus:border-emerald-500 outline-none"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-bold focus:border-emerald-500 outline-none"
                 >
                   <option value={0}>0% (Exempt)</option>
                   <option value={5}>5% GST</option>
@@ -285,7 +285,7 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
 
             {gstEnabled && cessEnabled && (
               <div>
-                <label className="block text-amber-300 font-bold mb-1">
+                <label className="block text-amber-500 font-bold mb-1">
                   {isHindi ? 'सेस दर % (Cess Rate)' : 'Cess Rate (%)'}
                 </label>
                 <input
@@ -295,13 +295,13 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
                   value={cessRate || ''}
                   onChange={(e) => setCessRate(Math.max(0, Number(e.target.value) || 0))}
                   placeholder="0"
-                  className="w-full bg-slate-950 text-amber-300 border border-slate-700 rounded-xl px-3 py-2 font-mono font-bold focus:border-amber-500 outline-none"
+                  className="w-full hv-input text-amber-500 border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono font-bold focus:border-amber-500 outline-none"
                 />
               </div>
             )}
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? `बिक्री मूल्य - रिटेल (Retail Sale ${currencySymbol})` : `Retail Sale Price (${currencySymbol})`}
               </label>
               <input
@@ -309,12 +309,12 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
                 value={sellingPrice || ''}
                 onChange={(e) => setSellingPrice(Number(e.target.value))}
                 placeholder="0"
-                className="w-full bg-slate-950 text-emerald-400 border border-slate-700 rounded-xl px-3 py-2 font-mono font-bold focus:border-emerald-500 outline-none"
+                className="w-full hv-input text-emerald-500 border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono font-bold focus:border-emerald-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? `थोक मूल्य (Wholesale Price ${currencySymbol})` : `Wholesale Price (${currencySymbol} Optional)`}
               </label>
               <input
@@ -322,12 +322,12 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
                 value={wholesalePrice || ''}
                 onChange={(e) => setWholesalePrice(Number(e.target.value))}
                 placeholder="0"
-                className="w-full bg-slate-950 text-cyan-300 border border-slate-700 rounded-xl px-3 py-2 font-mono font-bold focus:border-cyan-500 outline-none"
+                className="w-full hv-input text-cyan-500 border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono font-bold focus:border-cyan-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? `खरीद दर / कॉस्ट (Purchase Rate ${currencySymbol})` : `Purchase Cost (${currencySymbol})`}
               </label>
               <input
@@ -335,12 +335,12 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
                 value={purchasePrice || ''}
                 onChange={(e) => setPurchasePrice(Number(e.target.value))}
                 placeholder="0"
-                className="w-full bg-slate-950 text-slate-200 border border-slate-700 rounded-xl px-3 py-2 font-mono focus:border-emerald-500 outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono focus:border-emerald-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? `एमआरपी (MRP ${currencySymbol} - वैकल्पिक)` : `MRP (${currencySymbol} - Optional)`}
               </label>
               <input
@@ -348,12 +348,12 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
                 value={mrp || ''}
                 onChange={(e) => setMrp(Number(e.target.value))}
                 placeholder="0"
-                className="w-full bg-slate-950 text-slate-200 border border-slate-700 rounded-xl px-3 py-2 font-mono focus:border-emerald-500 outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono focus:border-emerald-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'प्रारंभिक स्टॉक मात्रा' : 'Initial Opening Stock'}
               </label>
               <input
@@ -361,19 +361,19 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
                 value={openingStock || ''}
                 onChange={(e) => setOpeningStock(Number(e.target.value))}
                 placeholder="0"
-                className="w-full bg-slate-950 text-amber-300 border border-slate-700 rounded-xl px-3 py-2 font-mono font-bold focus:border-emerald-500 outline-none"
+                className="w-full hv-input text-amber-500 border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono font-bold focus:border-emerald-500 outline-none"
               />
             </div>
 
             <div className="sm:col-span-2">
               <div className="flex items-center justify-between mb-1">
-                <label className="block text-slate-300 font-bold">
+                <label className="block text-[var(--text-secondary)] font-bold">
                   {isHindi ? 'बारकोड / EAN-13 (खाली छोड़ने पर स्वतः बनेगा)' : 'Barcode / EAN-13 (Auto-generated if blank)'}
                 </label>
                 <button
                   type="button"
                   onClick={() => setBarcode(generateEan13Barcode(name || code || Date.now()))}
-                  className="text-[11px] bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/40 text-cyan-300 font-bold px-2.5 py-1 rounded-lg flex items-center gap-1 cursor-pointer transition"
+                  className="text-[11px] hv-pill-cyan border font-bold px-2.5 py-1 rounded-lg flex items-center gap-1 cursor-pointer transition hover:opacity-90"
                 >
                   <Sparkles className="w-3 h-3" />
                   <span>{isHindi ? 'ऑटो बारकोड बनाएं' : 'Auto-Generate Barcode'}</span>
@@ -384,7 +384,7 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
                 value={barcode}
                 onChange={(e) => setBarcode(e.target.value)}
                 placeholder="890..."
-                className="w-full bg-slate-950 text-cyan-300 border border-slate-700 rounded-xl px-3 py-2 font-mono focus:border-cyan-500 outline-none"
+                className="w-full hv-input text-cyan-500 border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono focus:border-cyan-500 outline-none"
               />
               {barcode.trim() && (
                 <div className="mt-2 bg-white rounded-xl p-2 flex items-center justify-between border border-slate-300">
@@ -395,7 +395,7 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
             </div>
 
             <div className="sm:col-span-2">
-              <label className="flex items-center gap-2 cursor-pointer p-2 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 font-semibold">
+              <label className="flex items-center gap-2 cursor-pointer p-2 rounded-xl hv-elevated border border-[var(--border-primary)] text-[var(--text-secondary)] font-semibold">
                 <input
                   type="checkbox"
                   checked={trackBatchExpiry}
@@ -408,17 +408,17 @@ export const QuickAddStockItemModal: React.FC<QuickAddStockItemModalProps> = ({
           </div>
 
           {/* Action Buttons */}
-          <div className="pt-3 border-t border-slate-800 flex items-center justify-end gap-2 shrink-0">
+          <div className="pt-3 border-t border-[var(--border-primary)] flex items-center justify-end gap-2 shrink-0">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-xl transition"
+              className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-bold text-xs rounded-xl transition cursor-pointer"
             >
               {isHindi ? 'रद्द करें' : 'Cancel'}
             </button>
             <button
               type="submit"
-              className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition shadow-lg shadow-emerald-600/30 flex items-center gap-1.5"
+              className="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-bold text-xs rounded-xl transition shadow-lg shadow-emerald-600/30 flex items-center gap-1.5 cursor-pointer"
             >
               <PackagePlus className="w-4 h-4" />
               <span>{submitLabel || (isHindi ? 'स्टॉक आइटम सेव करें' : 'Save & Add Item')}</span>

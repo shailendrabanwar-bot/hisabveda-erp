@@ -836,20 +836,20 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm p-3 md:p-6 animate-fadeIn overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl max-h-[92vh] flex flex-col my-auto">
+      <div className="hv-surface border border-[var(--border-subtle)] rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl max-h-[92vh] flex flex-col my-auto">
         
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-5 border-b border-slate-800 bg-slate-900/80 shrink-0">
+        <div className="flex items-center justify-between p-5 border-b border-[var(--border-primary)] hv-elevated shrink-0">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-amber-500/10 text-amber-400 rounded-xl border border-amber-500/20">
+            <div className="p-2.5 hv-pill-amber rounded-xl border">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
+              <h3 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2 flex-wrap">
                 {reviewData ? (
                   <>
                     <span>{isHindi ? 'समीक्षा एवं पुष्टि (Review Extracted Invoice)' : 'Review & Confirm Invoice Details'}</span>
-                    <span className="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-medium">
+                    <span className="text-xs hv-pill-emerald border px-2 py-0.5 rounded-full font-medium">
                       {isHindi ? 'सत्यापन आवश्यक' : 'Verification Mode'}
                     </span>
                   </>
@@ -857,7 +857,7 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                   isHindi ? 'AI परचेज बिल PDF/इमेज इंपोर्ट' : 'AI Purchase Bill PDF / Image Import'
                 )}
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">
                 {reviewData 
                   ? (isHindi ? 'कृपया निकाले गए डेटा, अतिरिक्त भाड़ा/हम्माली प्रभार एवं कर की जाँच करें' : 'Verify vendor, stock items, freight/hamali extra charges & GST totals before saving')
                   : (isHindi ? 'सप्लायर लेज़र एवं स्टॉक आइटम का स्वतः निर्माण' : 'Auto-extracts vendor, items, prices & extra charges')}
@@ -866,7 +866,7 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
           </div>
           <button
             onClick={onClose}
-            className="p-2 text-slate-400 hover:text-slate-200 hover:bg-slate-800 rounded-xl transition"
+            className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)] rounded-xl transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -880,7 +880,7 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
             <>
               <div
                 onClick={() => fileInputRef.current?.click()}
-                className="border-2 border-dashed border-slate-700 hover:border-amber-500/60 bg-slate-800/40 hover:bg-slate-800/80 rounded-2xl p-8 text-center cursor-pointer transition group"
+                className="border-2 border-dashed border-[var(--border-subtle)] hover:border-amber-500/60 hv-elevated hover:bg-[var(--hover-surface)] rounded-2xl p-8 text-center cursor-pointer transition group"
               >
                 <input
                   type="file"
@@ -891,19 +891,19 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                 />
                 {loading ? (
                   <div className="flex flex-col items-center gap-3">
-                    <Loader2 className="w-10 h-10 text-amber-400 animate-spin" />
-                    <p className="text-xs font-semibold text-amber-300">{statusMsg}</p>
+                    <Loader2 className="w-10 h-10 text-amber-500 animate-spin" />
+                    <p className="text-xs font-semibold text-amber-500">{statusMsg}</p>
                   </div>
                 ) : (
                   <div className="flex flex-col items-center gap-3">
-                    <div className="p-4 bg-amber-500/10 group-hover:bg-amber-500/20 text-amber-400 rounded-2xl border border-amber-500/20 transition transform group-hover:scale-110">
+                    <div className="p-4 hv-pill-amber rounded-2xl border transition transform group-hover:scale-110">
                       <UploadCloud className="w-8 h-8" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-200">
+                      <p className="text-sm font-bold text-[var(--text-primary)]">
                         {isHindi ? 'परचेज बिल PDF या इमेज अपलोड करें' : 'Upload Purchase Invoice PDF or Image'}
                       </p>
-                      <p className="text-xs text-slate-400 mt-1">
+                      <p className="text-xs text-[var(--text-muted)] mt-1">
                         {isHindi ? 'PDF, PNG, JPG, JPEG फ़ाइलें समर्थित हैं' : 'Supports PDF bills, scanned receipts, JPG, PNG'}
                       </p>
                     </div>
@@ -912,20 +912,20 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
               </div>
 
               {/* Highlights */}
-              <div className="space-y-2 bg-slate-950/60 p-4 rounded-2xl border border-slate-800 text-xs">
-                <div className="flex items-center gap-2 text-slate-300">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <div className="space-y-2 hv-elevated p-4 rounded-2xl border border-[var(--border-primary)] text-xs">
+                <div className="flex items-center gap-2 text-[var(--text-secondary)]">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                   <span>{isHindi ? 'सप्लायर/वेन्डर लेज़र एवं स्टॉक आइटम का स्वतः निर्माण (Auto-Create)' : 'Vendor Ledger & Stock Items auto-created if missing'}</span>
                 </div>
-                <div className="flex items-center gap-2 text-slate-300">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <div className="flex items-center gap-2 text-[var(--text-secondary)]">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0" />
                   <span>{isHindi ? 'भाड़ा (Freight), हम्माली, पैकिंग एवं अन्य अतिरिक्त प्रभारों की अलग प्रविष्टि' : 'Extracts Freight, Carriage, Hamali, Packaging & Extra Charges separately'}</span>
                 </div>
               </div>
 
               {errorMsg && (
-                <div className="p-3 bg-rose-500/10 border border-rose-500/20 rounded-xl text-xs font-semibold text-rose-300 flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                <div className="p-3 hv-pill-rose border rounded-xl text-xs font-semibold flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
                   <span>{errorMsg}</span>
                 </div>
               )}
@@ -937,11 +937,11 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
             <div className="space-y-5 animate-fadeIn">
               
               {/* Top Banner with File Info */}
-              <div className="flex items-center justify-between bg-amber-500/10 border border-amber-500/20 rounded-2xl p-3.5 px-4 text-xs">
-                <div className="flex items-center gap-2.5 text-amber-300 font-medium">
-                  <FileText className="w-4 h-4 text-amber-400 shrink-0" />
+              <div className="flex items-center justify-between hv-pill-amber border rounded-2xl p-3.5 px-4 text-xs">
+                <div className="flex items-center gap-2.5 font-medium flex-wrap">
+                  <FileText className="w-4 h-4 shrink-0" />
                   <span>{isHindi ? `फ़ाइल: ${fileName}` : `Parsed File: ${fileName}`}</span>
-                  <span className="bg-slate-900 border border-slate-700 text-indigo-300 px-2 py-0.5 rounded-full text-[10px] font-bold">
+                  <span className="hv-elevated border border-[var(--border-subtle)] text-indigo-500 px-2 py-0.5 rounded-full text-[10px] font-bold">
                     {fyRange.label}
                   </span>
                 </div>
@@ -950,7 +950,7 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                     setReviewData(null);
                     setValidationError(null);
                   }}
-                  className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-amber-300 transition underline underline-offset-2"
+                  className="flex items-center gap-1.5 text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition underline underline-offset-2 cursor-pointer"
                 >
                   <ArrowLeft className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'दूसरी फ़ाइल चुनें' : 'Upload another file'}</span>
@@ -959,15 +959,15 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
 
               {/* Out-of-Financial-Year Guard Warning */}
               {!isReviewDateInFY && (
-                <div className="p-3.5 bg-rose-500/15 border border-rose-500/50 rounded-2xl text-xs text-rose-200 flex items-start gap-2.5 shadow-lg">
-                  <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+                <div className="p-3.5 hv-pill-rose border rounded-2xl text-xs flex items-start gap-2.5 shadow-lg">
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-extrabold text-rose-300">
+                    <p className="font-extrabold">
                       {isHindi
                         ? `⚠️ पुरानी / बाहरी वित्तीय वर्ष तिथि पकड़ी गई (${reviewData.invoiceDate})`
                         : `⚠️ Out-of-Financial-Year Bill Date Detected (${reviewData.invoiceDate})`}
                     </p>
-                    <p className="text-[11px] text-rose-200/90 mt-0.5">
+                    <p className="text-[11px] opacity-90 mt-0.5">
                       {isHindi
                         ? `सक्रिय वित्तीय वर्ष ${fyRange.label} (${fyRange.displayRange}) है। यह बिल इस वित्तीय वर्ष का नहीं है — सेव करने से पहले बिल दिनांक की जाँच करें या सही वित्तीय वर्ष में जाएं।`
                         : `Active Financial Year is ${fyRange.label} (${fyRange.displayRange}). Bills outside this period are blocked from posting to keep P&L and GST accurate.`}
@@ -978,32 +978,32 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
 
               {/* Validation Error Banner */}
               {validationError && (
-                <div className="p-3.5 bg-rose-600/20 border border-rose-500/60 rounded-2xl text-xs font-bold text-rose-200 flex items-center justify-between gap-2">
+                <div className="p-3.5 hv-pill-rose border rounded-2xl text-xs font-bold flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                    <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>{validationError}</span>
                   </div>
-                  <button type="button" onClick={() => setValidationError(null)} className="text-rose-300 hover:text-white">
+                  <button type="button" onClick={() => setValidationError(null)} className="opacity-80 hover:opacity-100 cursor-pointer">
                     <X className="w-4 h-4" />
                   </button>
                 </div>
               )}
 
               {/* Vendor & Invoice Meta Controls */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-slate-950/60 p-4 md:p-5 rounded-2xl border border-slate-800">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 hv-elevated p-4 md:p-5 rounded-2xl border border-[var(--border-primary)]">
                 {/* Party Name */}
                 <div className="space-y-1.5 md:col-span-2">
                   <div className="flex items-center justify-between">
-                    <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                      <Building2 className="w-3.5 h-3.5 text-amber-400" />
+                    <label className="text-xs font-bold text-[var(--text-secondary)] flex items-center gap-1.5">
+                      <Building2 className="w-3.5 h-3.5 text-amber-500" />
                       <span>{isHindi ? 'सप्लायर / वेन्डर का नाम (Supplier Name)' : 'Supplier / Vendor Name'}</span>
                     </label>
                     {data.parties.some(p => p.name.trim().toLowerCase() === reviewData.supplierName.trim().toLowerCase() || (reviewData.supplierGstin && p.gstin === reviewData.supplierGstin)) ? (
-                      <span className="text-[11px] text-emerald-400 font-medium flex items-center gap-1 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                      <span className="text-[11px] hv-pill-emerald font-medium flex items-center gap-1 px-2 py-0.5 rounded-full border">
                         <CheckCircle2 className="w-3 h-3" /> {isHindi ? 'मौजूदा वेन्डर मिला' : 'Existing Vendor Matched'}
                       </span>
                     ) : (
-                      <span className="text-[11px] text-amber-400 font-medium flex items-center gap-1 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">
+                      <span className="text-[11px] hv-pill-amber font-medium flex items-center gap-1 px-2 py-0.5 rounded-full border">
                         <Plus className="w-3 h-3" /> {isHindi ? 'नया वेन्डर लेज़र बनेगा' : 'New Vendor Ledger Will Be Created'}
                       </span>
                     )}
@@ -1013,13 +1013,13 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                     value={reviewData.supplierName}
                     onChange={(e) => setReviewData({ ...reviewData, supplierName: e.target.value })}
                     placeholder="Enter Supplier Vendor Name"
-                    className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm focus:outline-none"
                   />
                 </div>
 
                 {/* GSTIN */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-300">
+                  <label className="text-xs font-semibold text-[var(--text-secondary)]">
                     {isHindi ? 'सप्लायर GSTIN' : 'Supplier GSTIN'}
                   </label>
                   <input
@@ -1027,13 +1027,13 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                     value={reviewData.supplierGstin}
                     onChange={(e) => setReviewData({ ...reviewData, supplierGstin: e.target.value.toUpperCase() })}
                     placeholder="15-digit GSTIN"
-                    className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm text-slate-100 font-mono focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm font-mono focus:outline-none"
                   />
                 </div>
 
                 {/* Invoice Ref Number */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-300">
+                  <label className="text-xs font-semibold text-[var(--text-secondary)]">
                     {isHindi ? 'इनवॉइस / बिल नंबर (Supplier Bill No)' : 'Invoice / Bill Reference No'}
                   </label>
                   <input
@@ -1041,33 +1041,33 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                     value={reviewData.supplierInvoiceNo}
                     onChange={(e) => setReviewData({ ...reviewData, supplierInvoiceNo: e.target.value })}
                     placeholder="e.g. INV-2024-001"
-                    className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm text-slate-100 font-mono focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm font-mono focus:outline-none"
                   />
                 </div>
 
                 {/* Invoice Date */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-300">
+                  <label className="text-xs font-semibold text-[var(--text-secondary)]">
                     {isHindi ? 'बिल दिनांक (Bill Date)' : 'Invoice Date'}
                   </label>
                   <input
                     type="date"
                     value={reviewData.invoiceDate}
                     onChange={(e) => setReviewData({ ...reviewData, invoiceDate: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm focus:outline-none"
                   />
                 </div>
 
                 {/* Due Date */}
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold text-slate-300">
+                  <label className="text-xs font-semibold text-[var(--text-secondary)]">
                     {isHindi ? 'भुगतान देय तिथि (Due Date)' : 'Payment Due Date'}
                   </label>
                   <input
                     type="date"
                     value={reviewData.dueDate}
                     onChange={(e) => setReviewData({ ...reviewData, dueDate: e.target.value })}
-                    className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm text-slate-100 focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-xl px-3.5 py-2 text-sm focus:outline-none"
                   />
                 </div>
               </div>
@@ -1075,22 +1075,22 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
               {/* SECTION 1: Stock Items Table */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-                    <PackageCheck className="w-4 h-4 text-amber-400" />
+                  <h4 className="text-xs font-bold text-[var(--text-primary)] uppercase tracking-wider flex items-center gap-1.5">
+                    <PackageCheck className="w-4 h-4 text-amber-500" />
                     <span>{isHindi ? '1. सामान / उत्पाद सूची (Stock Items)' : '1. Purchased Stock Items'}</span>
                   </h4>
                   <button
                     onClick={handleAddItemRow}
-                    className="flex items-center gap-1 px-3 py-1.5 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-xl text-xs font-semibold transition"
+                    className="flex items-center gap-1 px-3 py-1.5 hv-pill-amber border hover:opacity-90 rounded-xl text-xs font-semibold transition cursor-pointer"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>{isHindi ? '+ आइटम जोड़ें' : '+ Add Item Row'}</span>
                   </button>
                 </div>
 
-                <div className="border border-slate-800 rounded-2xl overflow-x-auto bg-slate-950/40">
+                <div className="border border-[var(--border-primary)] rounded-2xl overflow-x-auto hv-surface">
                   <table className="w-full text-xs text-left min-w-[650px]">
-                    <thead className="bg-slate-900 text-slate-400 font-semibold border-b border-slate-800">
+                    <thead className="bg-[var(--bg-elevated)] text-[var(--text-secondary)] font-semibold border-b border-[var(--border-primary)]">
                       <tr>
                         <th className="p-3 w-1/3">{isHindi ? 'आइटम का नाम (Item Name)' : 'Item Description'}</th>
                         <th className="p-3 w-20">{isHindi ? 'HSN' : 'HSN Code'}</th>
@@ -1102,7 +1102,7 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                         <th className="p-3 w-10 text-center"></th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/60">
+                    <tbody className="divide-y divide-[var(--border-primary)]">
                       {reviewData.items.map((it) => {
                         const isExistingItem = data.items.some(i => i.name.trim().toLowerCase() === it.itemName.trim().toLowerCase());
                         const lineGross = (Number(it.quantity) || 0) * (Number(it.rate) || 0);
@@ -1112,19 +1112,19 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                         const lineTotal = taxable + lineTax;
 
                         return (
-                          <tr key={it.id} className="hover:bg-slate-800/30 transition">
+                          <tr key={it.id} className="hover:bg-[var(--hover-surface)] transition">
                             <td className="p-2.5">
                               <input
                                 type="text"
                                 value={it.itemName}
                                 onChange={(e) => handleItemChange(it.id, 'itemName', e.target.value)}
-                                className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-lg px-2.5 py-1.5 text-xs text-slate-100 focus:outline-none"
+                                className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-lg px-2.5 py-1.5 text-xs focus:outline-none"
                               />
                               <div className="mt-1">
                                 {isExistingItem ? (
-                                  <span className="text-[10px] text-emerald-400 font-medium">✓ {isHindi ? 'मौजूदा स्टॉक आइटम' : 'Matched Item Master'}</span>
+                                  <span className="text-[10px] text-emerald-500 font-semibold">✓ {isHindi ? 'मौजूदा स्टॉक आइटम' : 'Matched Item Master'}</span>
                                 ) : (
-                                  <span className="text-[10px] text-amber-400 font-medium">+ {isHindi ? 'नया स्टॉक आइटम बनेगा' : 'Will Auto-Create New Item'}</span>
+                                  <span className="text-[10px] text-amber-500 font-semibold">+ {isHindi ? 'नया स्टॉक आइटम बनेगा' : 'Will Auto-Create New Item'}</span>
                                 )}
                               </div>
                             </td>
@@ -1133,7 +1133,7 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                                 type="text"
                                 value={it.hsnSacCode}
                                 onChange={(e) => handleItemChange(it.id, 'hsnSacCode', e.target.value)}
-                                className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-lg px-2 py-1.5 text-xs text-slate-100 font-mono focus:outline-none"
+                                className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-lg px-2 py-1.5 text-xs font-mono focus:outline-none"
                               />
                             </td>
                             <td className="p-2.5">
@@ -1143,7 +1143,7 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                                 step="any"
                                 value={it.quantity}
                                 onChange={(e) => handleItemChange(it.id, 'quantity', parseFloat(e.target.value) || 0)}
-                                className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-lg px-2 py-1.5 text-xs text-slate-100 text-right font-semibold focus:outline-none"
+                                className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-lg px-2 py-1.5 text-xs text-right font-semibold focus:outline-none"
                               />
                             </td>
                             <td className="p-2.5">
@@ -1151,7 +1151,7 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                                 type="text"
                                 value={it.unit}
                                 onChange={(e) => handleItemChange(it.id, 'unit', e.target.value.toUpperCase())}
-                                className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-lg px-2 py-1.5 text-xs text-slate-100 uppercase focus:outline-none"
+                                className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-lg px-2 py-1.5 text-xs uppercase focus:outline-none"
                               />
                             </td>
                             <td className="p-2.5">
@@ -1161,14 +1161,14 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                                 step="any"
                                 value={it.rate}
                                 onChange={(e) => handleItemChange(it.id, 'rate', parseFloat(e.target.value) || 0)}
-                                className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-lg px-2 py-1.5 text-xs text-slate-100 text-right font-semibold focus:outline-none"
+                                className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-lg px-2 py-1.5 text-xs text-right font-semibold focus:outline-none"
                               />
                             </td>
                             <td className="p-2.5">
                               <select
                                 value={it.taxRate}
                                 onChange={(e) => handleItemChange(it.id, 'taxRate', parseFloat(e.target.value) || 0)}
-                                className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-lg px-1.5 py-1.5 text-xs text-slate-100 text-right focus:outline-none"
+                                className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-lg px-1.5 py-1.5 text-xs text-right focus:outline-none"
                               >
                                 <option value={0}>0%</option>
                                 <option value={5}>5%</option>
@@ -1177,14 +1177,14 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                                 <option value={28}>28%</option>
                               </select>
                             </td>
-                            <td className="p-2.5 text-right font-bold text-slate-200">
+                            <td className="p-2.5 text-right font-bold text-[var(--text-primary)]">
                               ₹{lineTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </td>
                             <td className="p-2.5 text-center">
                               {reviewData.items.length > 1 && (
                                 <button
                                   onClick={() => handleRemoveItemRow(it.id)}
-                                  className="p-1 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-lg transition"
+                                  className="p-1 text-rose-500 hover:bg-rose-500/15 rounded-lg transition"
                                   title="Remove item"
                                 >
                                   <Trash2 className="w-4 h-4" />
@@ -1200,39 +1200,39 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
               </div>
 
               {/* SECTION 2: Additional Charges & Extra Expenses */}
-              <div className="space-y-3 bg-slate-950/80 p-4 rounded-2xl border border-slate-800">
+              <div className="space-y-3 hv-elevated p-4 rounded-2xl border border-[var(--border-primary)]">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                   <div>
-                    <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                      <Sparkles className="w-4 h-4 text-amber-400" />
+                    <h4 className="text-xs font-bold text-amber-500 uppercase tracking-wider flex items-center gap-1.5">
+                      <Sparkles className="w-4 h-4 text-amber-500" />
                       <span>{isHindi ? '2. अतिरिक्त प्रभार (Freight, Carriage, Hamali & Extra Charges)' : '2. Additional Charges & Extra Expenses'}</span>
                     </h4>
-                    <p className="text-[11px] text-slate-400 mt-0.5">
+                    <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
                       {isHindi ? 'भाड़ा, गाड़ी भाड़ा, हम्माली/लोडिंग, पैकिंग प्रभार आदि अलग से दर्ज करें' : 'Log transport freight, cartage, hamali/loading, packaging charges with custom description'}
                     </p>
                   </div>
                   <div className="flex items-center gap-1.5 flex-wrap">
                     <button
                       onClick={() => handleAddChargeRow('Freight Charges (भाड़ा)')}
-                      className="px-2.5 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-lg text-[11px] font-semibold transition"
+                      className="px-2.5 py-1 hv-pill-amber border rounded-lg text-[11px] font-semibold transition"
                     >
                       + {isHindi ? 'भाड़ा (Freight)' : 'Freight'}
                     </button>
                     <button
                       onClick={() => handleAddChargeRow('Carriage Inward (गाड़ी भाड़ा)')}
-                      className="px-2.5 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-lg text-[11px] font-semibold transition"
+                      className="px-2.5 py-1 hv-pill-amber border rounded-lg text-[11px] font-semibold transition"
                     >
                       + {isHindi ? 'गाड़ी भाड़ा (Cartage)' : 'Cartage'}
                     </button>
                     <button
                       onClick={() => handleAddChargeRow('Hamali / Loading Charges (हम्माली)')}
-                      className="px-2.5 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-lg text-[11px] font-semibold transition"
+                      className="px-2.5 py-1 hv-pill-amber border rounded-lg text-[11px] font-semibold transition"
                     >
                       + {isHindi ? 'हम्माली (Hamali)' : 'Hamali'}
                     </button>
                     <button
                       onClick={() => handleAddChargeRow('Packaging Charges (पैकिंग)')}
-                      className="px-2.5 py-1 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 rounded-lg text-[11px] font-semibold transition"
+                      className="px-2.5 py-1 hv-pill-amber border rounded-lg text-[11px] font-semibold transition"
                     >
                       + {isHindi ? 'पैकिंग (Packaging)' : 'Packaging'}
                     </button>
@@ -1240,13 +1240,13 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                 </div>
 
                 {reviewData.additionalCharges.length === 0 ? (
-                  <div className="p-3 bg-slate-900/60 border border-slate-800/80 rounded-xl text-center text-xs text-slate-400">
+                  <div className="p-3 hv-surface border border-[var(--border-primary)] rounded-xl text-center text-xs text-[var(--text-muted)]">
                     <span>{isHindi ? 'कोई अतिरिक्त प्रभार नहीं है। जोड़ने के लिए ऊपर बटन पर क्लिक करें।' : 'No additional charges added. Click above to add Freight, Hamali, Packaging, etc.'}</span>
                   </div>
                 ) : (
-                  <div className="border border-slate-800 rounded-xl overflow-x-auto bg-slate-900/50">
+                  <div className="border border-[var(--border-primary)] rounded-xl overflow-x-auto hv-surface">
                     <table className="w-full text-xs text-left min-w-[550px]">
-                      <thead className="bg-slate-900 text-slate-400 font-semibold border-b border-slate-800">
+                      <thead className="bg-[var(--bg-elevated)] text-[var(--text-secondary)] font-semibold border-b border-[var(--border-primary)]">
                         <tr>
                           <th className="p-2.5 w-1/2">{isHindi ? 'शुल्क का प्रकार / विवरण (Charge Description)' : 'Charge Description'}</th>
                           <th className="p-2.5 w-28 text-right">{isHindi ? 'कर योग्य मूल्य (₹)' : 'Taxable Amount (₹)'}</th>
@@ -1256,7 +1256,7 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                           <th className="p-2.5 w-10 text-center"></th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-800/60">
+                      <tbody className="divide-y divide-[var(--border-primary)]">
                         {reviewData.additionalCharges.map((ch) => {
                           const amt = Number(ch.amount) || 0;
                           const gstP = Number(ch.gstPercent) || 0;
@@ -1264,14 +1264,14 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                           const chTotal = amt + taxAmt;
 
                           return (
-                            <tr key={ch.id} className="hover:bg-slate-800/30 transition">
+                            <tr key={ch.id} className="hover:bg-[var(--hover-surface)] transition">
                               <td className="p-2">
                                 <input
                                   type="text"
                                   value={ch.description}
                                   onChange={(e) => handleChargeChange(ch.id, 'description', e.target.value)}
                                   placeholder="e.g. Freight / Loading / Packaging"
-                                  className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-lg px-2.5 py-1 text-xs text-slate-100 focus:outline-none"
+                                  className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-lg px-2.5 py-1 text-xs focus:outline-none"
                                 />
                               </td>
                               <td className="p-2">
@@ -1281,14 +1281,14 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                                   step="any"
                                   value={ch.amount}
                                   onChange={(e) => handleChargeChange(ch.id, 'amount', parseFloat(e.target.value) || 0)}
-                                  className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-lg px-2 py-1 text-xs text-slate-100 text-right font-semibold focus:outline-none"
+                                  className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-lg px-2 py-1 text-xs text-right font-semibold focus:outline-none"
                                 />
                               </td>
                               <td className="p-2">
                                 <select
                                   value={ch.gstPercent}
                                   onChange={(e) => handleChargeChange(ch.id, 'gstPercent', parseFloat(e.target.value) || 0)}
-                                  className="w-full bg-slate-900 border border-slate-700 focus:border-amber-500 rounded-lg px-1.5 py-1 text-xs text-slate-100 text-right focus:outline-none"
+                                  className="w-full hv-input border border-[var(--border-subtle)] focus:border-amber-500 rounded-lg px-1.5 py-1 text-xs text-right focus:outline-none"
                                 >
                                   <option value={0}>0%</option>
                                   <option value={5}>5%</option>
@@ -1297,16 +1297,16 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                                   <option value={28}>28%</option>
                                 </select>
                               </td>
-                              <td className="p-2 text-right font-medium text-emerald-400">
+                              <td className="p-2 text-right font-medium text-emerald-500">
                                 ₹{taxAmt.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                               </td>
-                              <td className="p-2 text-right font-bold text-amber-300">
+                              <td className="p-2 text-right font-bold text-amber-500">
                                 ₹{chTotal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                               </td>
                               <td className="p-2 text-center">
                                 <button
                                   onClick={() => handleRemoveChargeRow(ch.id)}
-                                  className="p-1 text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 rounded-lg transition"
+                                  className="p-1 text-rose-500 hover:bg-rose-500/15 rounded-lg transition"
                                   title="Remove charge"
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
@@ -1322,21 +1322,21 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
               </div>
 
               {/* SECTION 3: ROUND OFF ADJUSTMENT */}
-              <div className="bg-slate-800/40 p-4 rounded-2xl border border-slate-700/60 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="hv-elevated p-4 rounded-2xl border border-[var(--border-subtle)] flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 rounded-xl">
+                  <div className="p-2 hv-pill-indigo border rounded-xl">
                     <RefreshCw className="w-4 h-4" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-slate-200 flex items-center gap-2">
+                    <h4 className="text-xs font-bold text-[var(--text-primary)] flex items-center gap-2">
                       <span>3. {isHindi ? 'राउंड ऑफ समायोजन (Round Off Adjustment)' : 'Round Off Adjustment (Invoice Value Match)'}</span>
                       {reviewData.roundOff !== 0 && (
-                        <span className="text-[10px] bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-1.5 py-0.5 rounded font-mono font-bold">
+                        <span className="text-[10px] hv-pill-indigo border px-1.5 py-0.5 rounded font-mono font-bold">
                           {reviewData.roundOff > 0 ? `+₹${reviewData.roundOff.toFixed(2)}` : `-₹${Math.abs(reviewData.roundOff).toFixed(2)}`}
                         </span>
                       )}
                     </h4>
-                    <p className="text-[11px] text-slate-400">
+                    <p className="text-[11px] text-[var(--text-muted)]">
                       {isHindi 
                         ? 'यदि इनवॉइस में कुछ पैसे का अंतर है तो यहाँ राउंड ऑफ जोड़ें/घटाएं ताकि इनवॉइस वैल्यू बिल्कुल मैच हो जाए।' 
                         : 'Adjust rounding fraction (+/-) so the grand total matches the physical supplier invoice exactly.'}
@@ -1346,20 +1346,20 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
 
                 <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
                   <div className="relative">
-                    <span className="absolute left-2.5 top-1.5 text-xs text-slate-400 font-mono">₹</span>
+                    <span className="absolute left-2.5 top-1.5 text-xs text-[var(--text-muted)] font-mono">₹</span>
                     <input
                       type="number"
                       step="0.01"
                       value={reviewData.roundOff || 0}
                       onChange={(e) => handleRoundOffChange(parseFloat(e.target.value) || 0)}
                       placeholder="0.00"
-                      className="w-28 bg-slate-900 border border-slate-700 focus:border-indigo-500 rounded-xl pl-6 pr-2.5 py-1.5 text-xs font-mono font-bold text-indigo-300 text-right focus:outline-none"
+                      className="w-28 hv-input border border-[var(--border-subtle)] focus:border-indigo-500 rounded-xl pl-6 pr-2.5 py-1.5 text-xs font-mono font-bold text-indigo-500 text-right focus:outline-none"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={handleAutoRoundOff}
-                    className="px-2.5 py-1.5 bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 border border-indigo-500/30 rounded-xl text-xs font-semibold flex items-center gap-1 transition"
+                    className="px-2.5 py-1.5 hv-pill-indigo border rounded-xl text-xs font-semibold flex items-center gap-1 transition"
                     title="Auto-calculate round off to nearest rupee"
                   >
                     <RefreshCw className="w-3 h-3" />
@@ -1369,7 +1369,7 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
                     <button
                       type="button"
                       onClick={() => handleRoundOffChange(0)}
-                      className="px-2 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 rounded-xl text-xs transition"
+                      className="px-2 py-1.5 bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-subtle)] rounded-xl text-xs transition"
                       title="Reset to 0"
                     >
                       {isHindi ? 'रीसेट' : 'Zero'}
@@ -1379,34 +1379,34 @@ export const PurchaseBillPDFImporter: React.FC<PurchaseBillPDFImporterProps> = (
               </div>
 
               {/* Summary Calculations Footer */}
-              <div className="bg-slate-950 p-4.5 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs text-slate-300 w-full md:w-auto">
+              <div className="hv-elevated p-4.5 rounded-2xl border border-[var(--border-primary)] flex flex-col md:flex-row items-center justify-between gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs text-[var(--text-secondary)] w-full md:w-auto">
                   <div>
-                    <span className="text-slate-400 block text-[10px]">{isHindi ? 'सामान का कर योग्य मूल्य' : 'Items Taxable'}</span>
-                    <span className="font-semibold text-slate-100">₹{totals.itemsSubtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                    <span className="text-[var(--text-muted)] block text-[10px]">{isHindi ? 'सामान का कर योग्य मूल्य' : 'Items Taxable'}</span>
+                    <span className="font-semibold text-[var(--text-primary)]">₹{totals.itemsSubtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[10px]">{isHindi ? 'अतिरिक्त प्रभार कर योग्य' : 'Charges Taxable'}</span>
-                    <span className="font-semibold text-amber-300">₹{totals.chargesSubtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                    <span className="text-[var(--text-muted)] block text-[10px]">{isHindi ? 'अतिरिक्त प्रभार कर योग्य' : 'Charges Taxable'}</span>
+                    <span className="font-semibold text-amber-500">₹{totals.chargesSubtotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[10px]">{isHindi ? 'कुल जीएसटी कर' : 'Total GST Tax'}</span>
-                    <span className="font-semibold text-emerald-400">₹{totals.totalTax.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                    <span className="text-[var(--text-muted)] block text-[10px]">{isHindi ? 'कुल जीएसटी कर' : 'Total GST Tax'}</span>
+                    <span className="font-semibold text-emerald-500">₹{totals.totalTax.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400 block text-[10px]">{isHindi ? 'कुल कर योग्य राशि' : 'Total Taxable Value'}</span>
-                    <span className="font-bold text-slate-200">₹{totals.totalTaxable.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                    <span className="text-[var(--text-muted)] block text-[10px]">{isHindi ? 'कुल कर योग्य राशि' : 'Total Taxable Value'}</span>
+                    <span className="font-bold text-[var(--text-primary)]">₹{totals.totalTaxable.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4 shrink-0 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-slate-800 pt-3 md:pt-0">
+                <div className="flex items-center gap-4 shrink-0 w-full md:w-auto justify-between md:justify-end border-t md:border-t-0 border-[var(--border-primary)] pt-3 md:pt-0">
                   <div className="text-right">
-                    <span className="text-xs text-slate-400 block">{isHindi ? 'अंतिम इनवॉइस मूल्य' : 'Grand Total Invoice Value'}</span>
-                    <span className="text-lg font-extrabold text-amber-400">₹{totals.grandTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
+                    <span className="text-xs text-[var(--text-muted)] block">{isHindi ? 'अंतिम इनवॉइस मूल्य' : 'Grand Total Invoice Value'}</span>
+                    <span className="text-lg font-extrabold text-amber-500">₹{totals.grandTotal.toLocaleString('en-IN', { minimumFractionDigits: 2 })}</span>
                   </div>
                   <button
                     onClick={handleConfirmAndSave}
-                    className="px-6 py-2.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold rounded-xl shadow-lg shadow-amber-500/20 text-xs transition transform active:scale-95 flex items-center gap-2"
+                    className="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white hv-keep-white font-bold rounded-xl shadow-lg shadow-amber-500/20 text-xs transition transform active:scale-95 flex items-center gap-2"
                   >
                     <CheckCircle2 className="w-4 h-4" />
                     <span>{isHindi ? 'सहमत होकर परचेज बिल सहेजें' : 'Confirm & Post Purchase Bill'}</span>

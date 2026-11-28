@@ -412,21 +412,21 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
       />
 
       {/* Header */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-white space-y-4">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-5 text-[var(--text-primary)] space-y-4 shadow-sm">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="space-y-1">
-            <div className="text-xs text-amber-400 font-semibold">
+            <div className="text-xs text-amber-500 font-semibold">
               {isHindi ? 'सॉफ्टवेयर बनाम जीएसटी पोर्टल ऑडिट' : 'GST Return vs Software Audit'} · FY {selectedFy}
             </div>
-            <h2 className="text-xl font-bold text-white flex items-center gap-2.5">
-              <ShieldCheck className="w-6 h-6 text-amber-400 shrink-0" />
+            <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2.5">
+              <ShieldCheck className="w-6 h-6 text-amber-500 shrink-0" />
               <span>
                 {isHindi
                   ? 'जीएसटी रिटर्न बनाम सॉफ्टवेयर ऑडिट रिपोर्ट (Portal vs Books)'
                   : 'GST Return vs Software Books Reconciliation & Audit Report'}
               </span>
             </h2>
-            <p className="text-xs text-slate-400 max-w-3xl">
+            <p className="text-xs text-[var(--text-muted)] max-w-3xl">
               {isHindi
                 ? 'पोर्टल पर दाखिल GSTR-1, GSTR-3B और GSTR-2A/2B का सॉफ्टवेयर की बिक्री और खरीद से मिलान करें। खास तौर पर यह पकड़ेगा कि यदि सॉफ्टवेयर में परचेज बिल ज्यादा हैं और पोर्टल पर कम, तो कितना ITC जोखिम में है।'
                 : 'Audit what is filed on GST Portal (GSTR-1, GSTR-3B, GSTR-2A/2B) against your Software Sales & Purchase Books. Automatically detects Excess Purchase Bills missing on Portal, Rule 88C mismatches, and Rule 37 180-day unpaid risks.'}
@@ -437,7 +437,7 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
             <select
               value={selectedFy}
               onChange={(e) => setSelectedFy(e.target.value)}
-              className="bg-slate-950 border border-slate-700 text-amber-300 font-mono font-bold text-xs rounded-xl px-3 py-2.5 cursor-pointer outline-none"
+              className="hv-input border text-amber-500 font-mono font-bold text-xs rounded-xl px-3 py-2.5 cursor-pointer outline-none"
             >
               {availableFys.map((fy) => (
                 <option key={fy} value={fy}>
@@ -449,7 +449,7 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
             <button
               type="button"
               onClick={() => jsonInputRef.current?.click()}
-              className="px-3.5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+              className="px-3.5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
             >
               <Upload className="w-4 h-4" />
               <span>{isHindi ? 'GSTR-1 / 3B JSON अपलोड' : 'Upload GSTR-1 / 3B JSON'}</span>
@@ -458,7 +458,7 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
             <button
               type="button"
               onClick={() => handleSyncPortalAsPerBooks()}
-              className="px-3.5 py-2.5 bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+              className="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
               title="If GSTR-1/3B returns were generated & filed directly from this software, click to sync Portal Return columns with Books."
             >
               <RefreshCw className="w-4 h-4" />
@@ -468,9 +468,9 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
             <button
               type="button"
               onClick={handleExportAuditExcel}
-              className="px-3 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+              className="px-3 py-2.5 hv-elevated hover:bg-[var(--bg-hover)] border border-[var(--border-primary)] text-[var(--text-primary)] text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
             >
-              <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+              <FileSpreadsheet className="w-4 h-4 text-emerald-500" />
               <span>Excel</span>
             </button>
 
@@ -486,61 +486,61 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
         </div>
 
         {/* Annual Audit Comparison KPIs */}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 pt-3 border-t border-slate-800">
-          <div className="bg-slate-950 border border-slate-800 rounded-xl p-3.5">
-            <div className="text-[11px] text-slate-400">{isHindi ? 'बुक्स बिक्री टैक्स (Sales)' : 'Books Sales Tax'}</div>
-            <div className="text-lg font-bold text-white font-mono tabular-nums mt-0.5">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 pt-3 border-t border-[var(--border-subtle)]">
+          <div className="hv-elevated border border-[var(--border-subtle)] rounded-xl p-3.5">
+            <div className="text-[11px] text-[var(--text-muted)] font-medium">{isHindi ? 'बुक्स बिक्री टैक्स (Sales)' : 'Books Sales Tax'}</div>
+            <div className="text-lg font-bold text-[var(--text-primary)] font-mono tabular-nums mt-0.5">
               {formatCurrency(audit.totals.booksOutwardTax, currency)}
             </div>
-            <div className="text-[11px] text-slate-500 mt-0.5">
-              Portal GSTR-1: <span className="font-mono text-indigo-300">{formatCurrency(audit.totals.portalGstr1Tax, currency)}</span>
+            <div className="text-[11px] text-[var(--text-muted)] mt-0.5">
+              Portal GSTR-1: <span className="font-mono text-indigo-500 font-semibold">{formatCurrency(audit.totals.portalGstr1Tax, currency)}</span>
             </div>
           </div>
 
-          <div className="bg-slate-950 border border-slate-800 rounded-xl p-3.5">
-            <div className="text-[11px] text-slate-400">{isHindi ? 'GSTR-3B आउटपुट बनाम 1' : '3B Outward vs GSTR-1'}</div>
-            <div className="text-lg font-bold text-indigo-300 font-mono tabular-nums mt-0.5">
+          <div className="hv-elevated border border-[var(--border-subtle)] rounded-xl p-3.5">
+            <div className="text-[11px] text-[var(--text-muted)] font-medium">{isHindi ? 'GSTR-3B आउटपुट बनाम 1' : '3B Outward vs GSTR-1'}</div>
+            <div className="text-lg font-bold text-indigo-500 font-mono tabular-nums mt-0.5">
               {formatCurrency(audit.totals.portalGstr3bOutwardTax, currency)}
             </div>
-            <div className="text-[11px] text-slate-500 mt-0.5">
-              Diff: <span className="font-mono text-amber-300">{formatCurrency(audit.totals.portalGstr3bOutwardTax - audit.totals.portalGstr1Tax, currency)}</span>
+            <div className="text-[11px] text-[var(--text-muted)] mt-0.5">
+              Diff: <span className="font-mono text-amber-500 font-semibold">{formatCurrency(audit.totals.portalGstr3bOutwardTax - audit.totals.portalGstr1Tax, currency)}</span>
             </div>
           </div>
 
-          <div className="bg-slate-950 border border-slate-800 rounded-xl p-3.5">
-            <div className="text-[11px] text-slate-400">{isHindi ? 'परचेज बिल बुक्स ITC' : 'Books Purchase ITC'}</div>
-            <div className="text-lg font-bold text-emerald-400 font-mono tabular-nums mt-0.5">
+          <div className="hv-elevated border border-[var(--border-subtle)] rounded-xl p-3.5">
+            <div className="text-[11px] text-[var(--text-muted)] font-medium">{isHindi ? 'परचेज बिल बुक्स ITC' : 'Books Purchase ITC'}</div>
+            <div className="text-lg font-bold text-emerald-500 font-mono tabular-nums mt-0.5">
               {formatCurrency(audit.totals.booksItcTotal, currency)}
             </div>
-            <div className="text-[11px] text-slate-500 mt-0.5 tabular-nums">
+            <div className="text-[11px] text-[var(--text-muted)] mt-0.5 tabular-nums">
               {audit.totals.booksPurchaseCount} {isHindi ? 'बिल बुक्स में' : 'bills in Books'}
             </div>
           </div>
 
-          <div className="bg-slate-950 border border-rose-500/40 rounded-xl p-3.5">
-            <div className="text-[11px] text-rose-300 font-semibold">
+          <div className="hv-pill-rose border rounded-xl p-3.5">
+            <div className="text-[11px] font-semibold">
               {isHindi ? 'पोर्टल 2B ITC बनाम बुक्स' : 'Portal 2B ITC vs Books'}
             </div>
-            <div className="text-lg font-bold text-rose-400 font-mono tabular-nums mt-0.5">
+            <div className="text-lg font-bold text-rose-500 font-mono tabular-nums mt-0.5">
               {formatCurrency(audit.totals.portal2bItc, currency)}
             </div>
-            <div className="text-[11px] text-rose-300/80 mt-0.5 tabular-nums">
+            <div className="text-[11px] opacity-85 mt-0.5 tabular-nums">
               Gap: {formatCurrency(audit.totals.booksItcTotal - audit.totals.portal2bItc, currency)} ({audit.totals.booksPurchaseCount - audit.totals.portal2bCount} bills)
             </div>
           </div>
 
-          <div className="bg-slate-950 border border-amber-500/40 rounded-xl p-3.5">
-            <div className="text-[11px] text-amber-300 font-semibold">
+          <div className="hv-pill-amber border rounded-xl p-3.5">
+            <div className="text-[11px] font-semibold">
               {isHindi ? 'जीएसटी ऑडिट जोखिम स्तर' : 'Audit Health Status'}
             </div>
             <div
               className={`text-lg font-bold font-mono tabular-nums mt-0.5 ${
-                audit.complianceScore >= 85 ? 'text-emerald-400' : audit.complianceScore >= 60 ? 'text-amber-400' : 'text-rose-400'
+                audit.complianceScore >= 85 ? 'text-emerald-500' : audit.complianceScore >= 60 ? 'text-amber-500' : 'text-rose-500'
               }`}
             >
               {audit.complianceScore}% Clean
             </div>
-            <div className="text-[11px] text-slate-400 mt-0.5 tabular-nums">
+            <div className="text-[11px] opacity-85 mt-0.5 tabular-nums">
               {audit.findings.length} {isHindi ? 'ऑडिट अलर्ट सक्रिय' : 'audit alerts found'}
             </div>
           </div>
@@ -551,23 +551,23 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
         <div
           className={`p-3.5 rounded-xl border text-xs font-medium flex items-center justify-between gap-2 ${
             notice.type === 'success'
-              ? 'bg-emerald-950/70 border-emerald-500/40 text-emerald-200'
+              ? 'hv-pill-emerald'
               : notice.type === 'error'
-              ? 'bg-rose-950/70 border-rose-500/40 text-rose-200'
-              : 'bg-slate-900 border-indigo-500/40 text-indigo-200'
+              ? 'hv-pill-rose'
+              : 'hv-pill-indigo'
           }`}
         >
           <span>{notice.text}</span>
-          <button type="button" onClick={() => setNotice(null)} className="text-slate-400 hover:text-white cursor-pointer">
+          <button type="button" onClick={() => setNotice(null)} className="text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer">
             ✕
           </button>
         </div>
       )}
 
       {/* Advanced Audit Findings (Rule 37, Excess Purchase vs Portal, Rule 88C, Sec 17(5), GSTIN) */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
-        <h3 className="text-sm font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-2.5">
-          <ShieldAlert className="w-4 h-4 text-amber-400" />
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-5 space-y-3">
+        <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2 border-b border-[var(--border-subtle)] pb-2.5">
+          <ShieldAlert className="w-4 h-4 text-amber-500" />
           <span>
             {isHindi
               ? 'प्रमुख ऑडिट निष्कर्ष एवं कानूनी जोखिम जांच (CA Audit Flags)'
@@ -576,7 +576,7 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
         </h3>
 
         {audit.findings.length === 0 ? (
-          <div className="bg-emerald-950/20 border border-emerald-500/30 rounded-xl p-4 text-xs text-emerald-300 flex items-center gap-2.5">
+          <div className="hv-pill-emerald border rounded-xl p-4 text-xs flex items-center gap-2.5 font-medium">
             <CheckCircle2 className="w-5 h-5 shrink-0" />
             <span>
               {isHindi
@@ -591,29 +591,29 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
                 key={f.id}
                 className={`p-4 rounded-xl border space-y-1.5 text-xs ${
                   f.severity === 'CRITICAL'
-                    ? 'bg-rose-950/25 border-rose-500/40'
+                    ? 'hv-pill-rose'
                     : f.severity === 'WARNING'
-                    ? 'bg-amber-950/25 border-amber-500/40'
-                    : 'bg-indigo-950/25 border-indigo-500/40'
+                    ? 'hv-pill-amber'
+                    : 'hv-pill-indigo'
                 }`}
               >
                 <div className="flex items-start justify-between gap-2">
-                  <div className="font-bold text-white flex items-center gap-1.5">
+                  <div className="font-bold text-[var(--text-primary)] flex items-center gap-1.5">
                     {f.severity === 'CRITICAL' ? (
-                      <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+                      <AlertTriangle className="w-4 h-4 text-rose-500 shrink-0" />
                     ) : (
-                      <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+                      <AlertCircle className="w-4 h-4 text-amber-500 shrink-0" />
                     )}
                     <span>{isHindi ? f.titleHi : f.titleEn}</span>
                   </div>
-                  <span className="font-mono font-bold text-amber-300 shrink-0 tabular-nums">
+                  <span className="font-mono font-bold text-amber-500 shrink-0 tabular-nums">
                     {formatCurrency(f.amountAtRisk, currency)}
                   </span>
                 </div>
-                <div className="text-[11px] text-slate-400 font-mono">{f.ruleCode}</div>
-                <p className="text-slate-300 leading-relaxed">{isHindi ? f.detailHi : f.detailEn}</p>
+                <div className="text-[11px] opacity-80 font-mono">{f.ruleCode}</div>
+                <p className="text-[var(--text-primary)] leading-relaxed">{isHindi ? f.detailHi : f.detailEn}</p>
                 {f.affectedRefs.length > 0 && (
-                  <div className="text-[11px] font-mono text-slate-400 pt-1">
+                  <div className="text-[11px] font-mono opacity-85 pt-1">
                     Ref: {f.affectedRefs.join(' · ')}
                   </div>
                 )}
@@ -624,15 +624,15 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
       </div>
 
       {/* 12-Month Return vs Software Audit Table */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
-        <div className="p-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl overflow-hidden">
+        <div className="p-4 border-b border-[var(--border-subtle)] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <h3 className="text-sm font-bold text-white">
+            <h3 className="text-sm font-bold text-[var(--text-primary)]">
               {isHindi
                 ? `मासिक रिटर्न बनाम सॉफ्टवेयर मिलान तालिका (अप्रैल – मार्च FY ${selectedFy})`
                 : `12-Month Return vs Software Audit Matrix (FY ${selectedFy})`}
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[var(--text-muted)]">
               {isHindi
                 ? 'किसी भी माह का पोर्टल GSTR-1 / 3B डेटा बदलने या दर्ज करने के लिए "Edit Portal" पर क्लिक करें।'
                 : 'Click "Edit Portal" on any month to enter filed portal figures manually or compare uploaded JSONs.'}
@@ -641,8 +641,8 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-slate-300">
-            <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-bold border-b border-slate-800">
+          <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+            <thead className="hv-elevated text-[var(--text-muted)] uppercase text-[10px] font-bold border-b border-[var(--border-primary)]">
               <tr>
                 <th className="p-3">{isHindi ? 'माह' : 'Period'}</th>
                 <th className="p-3 text-right">{isHindi ? 'बुक्स बिक्री कर' : 'Books Sales Tax'}</th>
@@ -657,7 +657,7 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
                 <th className="p-3 text-right">{isHindi ? 'क्रिया' : 'Action'}</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800 font-mono tabular-nums">
+            <tbody className="divide-y divide-[var(--border-subtle)] font-mono tabular-nums">
               {audit.monthlyRows.map((r) => {
                 const g1Out = r.portalGstr1
                   ? r.portalGstr1.outwardIgst + r.portalGstr1.outwardCgst + r.portalGstr1.outwardSgst
@@ -670,41 +670,41 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
                   : 0;
 
                 const statusText: Record<MonthlyGstAuditRow['auditStatus'], { label: string; cls: string }> = {
-                  RECONCILED: { label: 'Matched', cls: 'text-emerald-400' },
-                  OUTWARD_MISMATCH: { label: 'Sales Diff', cls: 'text-amber-400' },
-                  ITC_AT_RISK: { label: 'ITC Risk', cls: 'text-rose-400' },
-                  BOTH_MISMATCH: { label: 'Mismatch', cls: 'text-rose-400 font-bold' },
-                  PORTAL_PENDING: { label: 'No Portal', cls: 'text-slate-500' },
+                  RECONCILED: { label: 'Matched', cls: 'text-emerald-500' },
+                  OUTWARD_MISMATCH: { label: 'Sales Diff', cls: 'text-amber-500' },
+                  ITC_AT_RISK: { label: 'ITC Risk', cls: 'text-rose-500' },
+                  BOTH_MISMATCH: { label: 'Mismatch', cls: 'text-rose-500 font-bold' },
+                  PORTAL_PENDING: { label: 'No Portal', cls: 'text-[var(--text-muted)]' },
                 };
 
                 const st = statusText[r.auditStatus];
                 return (
-                  <tr key={r.monthKey} className="hover:bg-slate-800/40">
-                    <td className="p-3 font-sans font-bold text-white whitespace-nowrap">
+                  <tr key={r.monthKey} className="hover:bg-[var(--bg-hover)]">
+                    <td className="p-3 font-sans font-bold text-[var(--text-primary)] whitespace-nowrap">
                       {isHindi ? r.labelHi : r.labelEn}
                     </td>
-                    <td className="p-3 text-right text-white">{formatCurrency(r.booksOutwardTotalTax, currency)}</td>
-                    <td className="p-3 text-right text-indigo-300">
+                    <td className="p-3 text-right text-[var(--text-primary)]">{formatCurrency(r.booksOutwardTotalTax, currency)}</td>
+                    <td className="p-3 text-right text-indigo-500">
                       {r.portalGstr1 ? formatCurrency(g1Out, currency) : '-'}
                     </td>
-                    <td className="p-3 text-right text-indigo-200">
+                    <td className="p-3 text-right text-indigo-500">
                       {r.portalGstr3b ? formatCurrency(g3Out, currency) : '-'}
                     </td>
                     <td className="p-3 text-center">
-                      <span className="text-white">{r.booksPurchaseCount}</span>
-                      <span className="text-slate-500"> / </span>
-                      <span className={r.booksPurchaseCount > r.portal2bCount && r.portal2bCount > 0 ? 'text-rose-400 font-bold' : 'text-emerald-400'}>
+                      <span className="text-[var(--text-primary)]">{r.booksPurchaseCount}</span>
+                      <span className="text-[var(--text-muted)]"> / </span>
+                      <span className={r.booksPurchaseCount > r.portal2bCount && r.portal2bCount > 0 ? 'text-rose-500 font-bold' : 'text-emerald-500'}>
                         {r.portal2bCount}
                       </span>
                     </td>
-                    <td className="p-3 text-right text-emerald-300">{formatCurrency(r.booksItcTotal, currency)}</td>
-                    <td className="p-3 text-right text-emerald-400">
+                    <td className="p-3 text-right text-emerald-500">{formatCurrency(r.booksItcTotal, currency)}</td>
+                    <td className="p-3 text-right text-emerald-500 font-semibold">
                       {r.portal2bCount > 0 ? formatCurrency(r.portal2bItc, currency) : '-'}
                     </td>
-                    <td className="p-3 text-right text-slate-200">
+                    <td className="p-3 text-right text-[var(--text-primary)]">
                       {r.portalGstr3b ? formatCurrency(g3Itc, currency) : '-'}
                     </td>
-                    <td className={`p-3 text-right font-bold ${r.itcDiffBooksVs2b > 5 ? 'text-rose-400' : 'text-slate-400'}`}>
+                    <td className={`p-3 text-right font-bold ${r.itcDiffBooksVs2b > 5 ? 'text-rose-500' : 'text-[var(--text-muted)]'}`}>
                       {r.itcDiffBooksVs2b !== 0 ? formatCurrency(r.itcDiffBooksVs2b, currency) : '-'}
                     </td>
                     <td className={`p-3 text-center font-sans text-[11px] font-bold ${st.cls}`}>{st.label}</td>
@@ -712,7 +712,7 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
                       <button
                         type="button"
                         onClick={() => openMonthEditor(r)}
-                        className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-amber-300 rounded-lg text-[11px] font-bold inline-flex items-center gap-1 cursor-pointer"
+                        className="px-2.5 py-1 hv-pill-amber border rounded-lg text-[11px] font-bold inline-flex items-center gap-1 cursor-pointer hover:opacity-90"
                       >
                         <Edit3 className="w-3 h-3" />
                         <span>{isHindi ? 'संपादित' : 'Edit Portal'}</span>
@@ -731,103 +731,103 @@ export const GstReturnAuditReport: React.FC<GstReturnAuditReportProps> = ({
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
           <form
             onSubmit={handleSaveMonthPortalEdit}
-            className="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-xl w-full space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto"
+            className="hv-surface border border-[var(--border-primary)] rounded-2xl p-6 max-w-xl w-full space-y-4 shadow-2xl max-h-[90vh] overflow-y-auto text-[var(--text-primary)]"
           >
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-3">
               <div>
-                <h3 className="text-base font-bold text-white">
+                <h3 className="text-base font-bold text-[var(--text-primary)]">
                   {isHindi ? `पोर्टल रिटर्न प्रविष्टि: ${editingMonth.labelHi}` : `Portal Filed Returns: ${editingMonth.labelEn}`}
                 </h3>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-[var(--text-muted)]">
                   Books Sales Tax: {formatCurrency(editingMonth.booksOutwardTotalTax, currency)} · Books ITC: {formatCurrency(editingMonth.booksItcTotal, currency)}
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setEditingMonth(null)}
-                className="text-slate-400 hover:text-white cursor-pointer"
+                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
             <div className="space-y-3 text-xs">
-              <div className="text-indigo-300 font-bold uppercase tracking-wider text-[11px]">Portal GSTR-1 Outward</div>
+              <div className="text-indigo-500 font-bold uppercase tracking-wider text-[11px]">Portal GSTR-1 Outward</div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 <div>
-                  <label className="block text-slate-400 mb-1">Taxable</label>
-                  <input type="number" step="0.01" value={portalEditForm.gstr1Taxable} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr1Taxable: e.target.value })} className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-white font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">Taxable</label>
+                  <input type="number" step="0.01" value={portalEditForm.gstr1Taxable} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr1Taxable: e.target.value })} className="w-full hv-input border rounded-xl px-2.5 py-2 font-mono" />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">IGST</label>
-                  <input type="number" step="0.01" value={portalEditForm.gstr1Igst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr1Igst: e.target.value })} className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-white font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">IGST</label>
+                  <input type="number" step="0.01" value={portalEditForm.gstr1Igst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr1Igst: e.target.value })} className="w-full hv-input border rounded-xl px-2.5 py-2 font-mono" />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">CGST</label>
-                  <input type="number" step="0.01" value={portalEditForm.gstr1Cgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr1Cgst: e.target.value })} className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-white font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">CGST</label>
+                  <input type="number" step="0.01" value={portalEditForm.gstr1Cgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr1Cgst: e.target.value })} className="w-full hv-input border rounded-xl px-2.5 py-2 font-mono" />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">SGST</label>
-                  <input type="number" step="0.01" value={portalEditForm.gstr1Sgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr1Sgst: e.target.value })} className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-white font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">SGST</label>
+                  <input type="number" step="0.01" value={portalEditForm.gstr1Sgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr1Sgst: e.target.value })} className="w-full hv-input border rounded-xl px-2.5 py-2 font-mono" />
                 </div>
               </div>
 
-              <div className="text-amber-300 font-bold uppercase tracking-wider text-[11px] pt-2">Portal GSTR-3B Outward & Claimed ITC</div>
+              <div className="text-amber-500 font-bold uppercase tracking-wider text-[11px] pt-2">Portal GSTR-3B Outward & Claimed ITC</div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                 <div>
-                  <label className="block text-slate-400 mb-1">3B Taxable</label>
-                  <input type="number" step="0.01" value={portalEditForm.gstr3bOutTaxable} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bOutTaxable: e.target.value })} className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-white font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">3B Taxable</label>
+                  <input type="number" step="0.01" value={portalEditForm.gstr3bOutTaxable} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bOutTaxable: e.target.value })} className="w-full hv-input border rounded-xl px-2.5 py-2 font-mono" />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">3B Out IGST</label>
-                  <input type="number" step="0.01" value={portalEditForm.gstr3bOutIgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bOutIgst: e.target.value })} className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-white font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">3B Out IGST</label>
+                  <input type="number" step="0.01" value={portalEditForm.gstr3bOutIgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bOutIgst: e.target.value })} className="w-full hv-input border rounded-xl px-2.5 py-2 font-mono" />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">3B Out CGST</label>
-                  <input type="number" step="0.01" value={portalEditForm.gstr3bOutCgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bOutCgst: e.target.value })} className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-white font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">3B Out CGST</label>
+                  <input type="number" step="0.01" value={portalEditForm.gstr3bOutCgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bOutCgst: e.target.value })} className="w-full hv-input border rounded-xl px-2.5 py-2 font-mono" />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">3B Out SGST</label>
-                  <input type="number" step="0.01" value={portalEditForm.gstr3bOutSgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bOutSgst: e.target.value })} className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-white font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">3B Out SGST</label>
+                  <input type="number" step="0.01" value={portalEditForm.gstr3bOutSgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bOutSgst: e.target.value })} className="w-full hv-input border rounded-xl px-2.5 py-2 font-mono" />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                 <div>
-                  <label className="block text-slate-400 mb-1">3B ITC IGST</label>
-                  <input type="number" step="0.01" value={portalEditForm.gstr3bItcIgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bItcIgst: e.target.value })} className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-emerald-300 font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">3B ITC IGST</label>
+                  <input type="number" step="0.01" value={portalEditForm.gstr3bItcIgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bItcIgst: e.target.value })} className="w-full hv-input border rounded-xl px-2.5 py-2 text-emerald-500 font-mono font-semibold" />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">3B ITC CGST</label>
-                  <input type="number" step="0.01" value={portalEditForm.gstr3bItcCgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bItcCgst: e.target.value })} className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-emerald-300 font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">3B ITC CGST</label>
+                  <input type="number" step="0.01" value={portalEditForm.gstr3bItcCgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bItcCgst: e.target.value })} className="w-full hv-input border rounded-xl px-2.5 py-2 text-emerald-500 font-mono font-semibold" />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">3B ITC SGST</label>
-                  <input type="number" step="0.01" value={portalEditForm.gstr3bItcSgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bItcSgst: e.target.value })} className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-emerald-300 font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">3B ITC SGST</label>
+                  <input type="number" step="0.01" value={portalEditForm.gstr3bItcSgst} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bItcSgst: e.target.value })} className="w-full hv-input border rounded-xl px-2.5 py-2 text-emerald-500 font-mono font-semibold" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
                 <div>
-                  <label className="block text-slate-400 mb-1">Tax Paid via ITC</label>
-                  <input type="number" step="0.01" value={portalEditForm.gstr3bTaxPaidItc} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bTaxPaidItc: e.target.value })} className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-white font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">Tax Paid via ITC</label>
+                  <input type="number" step="0.01" value={portalEditForm.gstr3bTaxPaidItc} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bTaxPaidItc: e.target.value })} className="w-full hv-input border rounded-xl px-2.5 py-2 font-mono" />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">Tax Paid in Cash</label>
-                  <input type="number" step="0.01" value={portalEditForm.gstr3bTaxPaidCash} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bTaxPaidCash: e.target.value })} className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-white font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">Tax Paid in Cash</label>
+                  <input type="number" step="0.01" value={portalEditForm.gstr3bTaxPaidCash} onChange={(e) => setPortalEditForm({ ...portalEditForm, gstr3bTaxPaidCash: e.target.value })} className="w-full hv-input border rounded-xl px-2.5 py-2 font-mono" />
                 </div>
                 <div>
-                  <label className="block text-slate-400 mb-1">Portal ARN (Optional)</label>
-                  <input type="text" value={portalEditForm.arn} onChange={(e) => setPortalEditForm({ ...portalEditForm, arn: e.target.value })} placeholder="AA230726..." className="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-white font-mono" />
+                  <label className="block text-[var(--text-secondary)] mb-1">Portal ARN (Optional)</label>
+                  <input type="text" value={portalEditForm.arn} onChange={(e) => setPortalEditForm({ ...portalEditForm, arn: e.target.value })} placeholder="AA230726..." className="w-full hv-input border rounded-xl px-2.5 py-2 font-mono" />
                 </div>
               </div>
             </div>
 
-            <div className="flex justify-end gap-2 pt-3 border-t border-slate-800">
+            <div className="flex justify-end gap-2 pt-3 border-t border-[var(--border-subtle)]">
               <button
                 type="button"
                 onClick={() => setEditingMonth(null)}
-                className="px-4 py-2 bg-slate-800 text-slate-300 text-xs font-bold rounded-xl cursor-pointer"
+                className="px-4 py-2 hv-elevated hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] border border-[var(--border-primary)] text-xs font-bold rounded-xl cursor-pointer"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>

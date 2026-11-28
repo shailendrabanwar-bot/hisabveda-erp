@@ -293,18 +293,18 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto animate-fadeIn">
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto">
+      <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl w-full max-w-xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto text-[var(--text-primary)]">
         {/* Modal Header */}
-        <div className="bg-slate-950 px-5 py-3.5 border-b border-slate-800 flex items-center justify-between shrink-0">
+        <div className="hv-elevated px-5 py-3.5 border-b border-[var(--border-primary)] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-xl">
+            <div className="p-2 hv-pill-indigo border rounded-xl">
               <UserPlus className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-sm text-white">
+              <h3 className="font-bold text-sm text-[var(--text-primary)]">
                 {isHindi ? 'त्वरित नया पार्टी मास्टर जोड़ें (+ Quick Add Party)' : '+ Quick Create Party Master'}
               </h3>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[var(--text-muted)]">
                 {isHindi ? 'इनवॉइस में तुरंत उपयोग के लिए ग्राहक/सप्लायर बनाएं' : 'Add new customer or supplier on the fly for immediate invoicing'}
               </p>
             </div>
@@ -312,7 +312,7 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl transition"
+            className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-primary)] rounded-xl transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -322,7 +322,7 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
         <form onSubmit={handleSubmit} className="p-5 overflow-y-auto space-y-4 text-xs flex-1">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="sm:col-span-2">
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'पार्टी का नाम (Party / Customer Name) *' : 'Party / Company Name *'}
               </label>
               <input
@@ -330,20 +330,20 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Acme Traders & Co."
-                className="w-full bg-slate-950 text-white border border-slate-700 rounded-xl px-3 py-2 font-semibold focus:border-indigo-500 outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-semibold focus:border-indigo-500 outline-none"
                 required
                 autoFocus
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'पार्टी का प्रकार (Party Type)' : 'Party Type *'}
               </label>
               <select
                 value={type}
                 onChange={(e) => setType(e.target.value as any)}
-                className="w-full bg-slate-950 text-white border border-slate-700 rounded-xl px-3 py-2 font-semibold focus:border-indigo-500 outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-semibold focus:border-indigo-500 outline-none"
               >
                 <option value="CUSTOMER">{isHindi ? 'ग्राहक (Customer)' : 'Customer (Debtor)'}</option>
                 <option value="VENDOR">{isHindi ? 'विक्रेता / सप्लायर (Vendor)' : 'Vendor / Supplier (Creditor)'}</option>
@@ -351,8 +351,8 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
               </select>
             </div>
 
-            <div className="sm:col-span-2 bg-slate-950/60 p-3 rounded-xl border border-slate-800 space-y-2">
-              <label className="block text-amber-300 font-bold">
+            <div className="sm:col-span-2 hv-elevated p-3 rounded-xl border border-[var(--border-primary)] space-y-2">
+              <label className="block text-amber-500 font-bold">
                 {isHindi ? 'जीएसटी पंजीकरण प्रकार (GST Registration Type) *' : 'GST Registration Type *'}
               </label>
               <select
@@ -364,7 +364,7 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                     setGstin('');
                   }
                 }}
-                className="w-full bg-slate-900 text-amber-300 font-bold border border-amber-500/50 rounded-xl px-3 py-2 text-xs focus:border-amber-400 outline-none"
+                className="w-full hv-input text-amber-500 font-bold border border-amber-500/50 rounded-xl px-3 py-2 text-xs focus:border-amber-400 outline-none"
               >
                 <option value="UNREGISTERED">Unregistered / Consumer (गैर-पंजीकृत / उपभोक्ता)</option>
                 <option value="REGULAR">Regular (नियमित पंजीकृत GSTIN)</option>
@@ -375,7 +375,7 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
 
             <div className="sm:col-span-2 space-y-2">
               <div className="flex items-center justify-between">
-                <label className="block text-slate-300 font-bold">
+                <label className="block text-[var(--text-secondary)] font-bold">
                   {isHindi ? 'जीएसटी नंबर (GSTIN)' : 'GSTIN (Optional / URP)'}
                 </label>
                 <div className="flex items-center gap-1.5">
@@ -383,7 +383,7 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                     type="button"
                     onClick={() => handleFetchGstinDetails()}
                     disabled={isVerifyingGstin || !gstin.trim()}
-                    className="flex items-center gap-1.5 text-[11px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-bold px-2.5 py-1 rounded-lg border border-amber-500/30 transition disabled:opacity-50"
+                    className="flex items-center gap-1.5 text-[11px] hv-pill-amber font-bold px-2.5 py-1 rounded-lg border transition disabled:opacity-50"
                   >
                     {isVerifyingGstin ? (
                       <>
@@ -392,7 +392,7 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                       </>
                     ) : (
                       <>
-                        <Sparkles className="w-3 h-3 text-amber-400" />
+                        <Sparkles className="w-3 h-3" />
                         <span>{isHindi ? 'GST विवरण भरें' : 'Fetch GST'}</span>
                       </>
                     )}
@@ -404,7 +404,7 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                     rel="noopener noreferrer"
                     onClick={handleCopyGstinBeforePortal}
                     title="Govt GST Portal par search karein"
-                    className="flex items-center gap-1 text-[11px] bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 font-bold px-2 py-1 rounded-lg border border-blue-500/30 transition"
+                    className="flex items-center gap-1 text-[11px] hv-pill-blue font-bold px-2 py-1 rounded-lg border transition"
                   >
                     <ExternalLink className="w-3 h-3" />
                     <span>Govt Search</span>
@@ -414,7 +414,7 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                     type="button"
                     onClick={() => setShowPasteBox(!showPasteBox)}
                     title="GST Portal text paste karein"
-                    className="flex items-center gap-1 text-[11px] bg-purple-600/20 hover:bg-purple-600/30 text-purple-300 font-bold px-2 py-1 rounded-lg border border-purple-500/30 transition"
+                    className="flex items-center gap-1 text-[11px] hv-pill-purple font-bold px-2 py-1 rounded-lg border transition"
                   >
                     <Clipboard className="w-3 h-3" />
                     <span>Paste</span>
@@ -453,10 +453,10 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                     }}
                     maxLength={15}
                     placeholder="e.g. 07AAAAA0000A1Z5 or URP"
-                    className="w-full bg-slate-950 text-amber-300 border border-slate-700 rounded-xl px-3 py-2 font-mono uppercase focus:border-indigo-500 outline-none"
+                    className="w-full hv-input text-amber-500 border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono uppercase focus:border-indigo-500 outline-none"
                   />
                   {(pan || stateCode) && (
-                    <div className="mt-1 flex flex-wrap items-center gap-2 text-[10px] font-mono text-emerald-300">
+                    <div className="mt-1 flex flex-wrap items-center gap-2 text-[10px] font-mono text-emerald-500">
                       {stateCode && state && <span>State: {stateCode} - {state}</span>}
                       {pan && <span>PAN: {pan}</span>}
                     </div>
@@ -470,7 +470,7 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                       setStateCode(code);
                       setState(code ? (INDIAN_STATE_CODES[code] || '') : '');
                     }}
-                    className="w-full bg-slate-950 text-white border border-slate-700 rounded-xl px-3 py-2 font-semibold focus:border-indigo-500 outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-semibold focus:border-indigo-500 outline-none"
                   >
                     <option value="">{isHindi ? '-- राज्य चुनें --' : '-- Select State --'}</option>
                     {Object.entries(INDIAN_STATE_CODES).map(([code, name]) => (
@@ -484,15 +484,15 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
 
               {/* Collapsible Paste Portal Text Parser Box */}
               {showPasteBox && (
-                <div className="p-3 bg-purple-950/40 border border-purple-500/40 rounded-xl space-y-2 mt-2">
+                <div className="p-3 hv-pill-purple border rounded-xl space-y-2 mt-2">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-purple-200">
+                    <span className="text-[11px] font-bold">
                       {isHindi ? '📋 Govt GST Portal रिजल्ट यहाँ पेस्ट करें:' : '📋 Paste Govt GST Portal Search Text/JSON:'}
                     </span>
                     <button 
                       type="button" 
                       onClick={() => setShowPasteBox(false)}
-                      className="text-slate-400 hover:text-slate-200 text-xs"
+                      className="text-[var(--text-muted)] hover:text-[var(--text-primary)] text-xs"
                     >
                       ✕
                     </button>
@@ -502,13 +502,13 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                     onChange={(e) => setGstPasteInput(e.target.value)}
                     placeholder={isHindi ? "Govt GST portal (services.gst.gov.in) se copy kiya gaya text ya JSON paste karein..." : "Paste full text copied from Govt GST Portal (services.gst.gov.in)..."}
                     rows={3}
-                    className="w-full bg-slate-900 border border-purple-500/30 rounded-lg p-2 text-xs font-mono text-purple-100 focus:outline-none focus:border-purple-400"
+                    className="w-full hv-input border border-purple-500/40 rounded-lg p-2 text-xs font-mono focus:outline-none focus:border-purple-500"
                   />
                   <div className="flex justify-end gap-2">
                     <button
                       type="button"
                       onClick={() => handleParsePastedGstText(gstPasteInput)}
-                      className="bg-purple-500 hover:bg-purple-400 text-slate-950 font-bold px-3 py-1 rounded-lg text-xs transition"
+                      className="bg-purple-600 hover:bg-purple-500 text-white hv-keep-white font-bold px-3 py-1 rounded-lg text-xs transition"
                     >
                       {isHindi ? 'विवरण एक्सट्रेक्ट करें' : 'Extract Party Details'}
                     </button>
@@ -519,37 +519,37 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
               {gstVerificationResult && (
                 <div className={`p-2.5 rounded-xl border text-[11px] font-medium space-y-1.5 ${
                   gstInfoMeta?.isVerified
-                    ? 'bg-emerald-950/60 border-emerald-500/40 text-emerald-200'
-                    : 'bg-amber-950/50 border-amber-500/40 text-amber-200'
+                    ? 'hv-pill-emerald'
+                    : 'hv-pill-amber'
                 }`}>
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-start gap-1.5">
                       {gstInfoMeta?.isVerified ? (
-                        <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
                       ) : (
-                        <AlertTriangle className="w-4 h-4 shrink-0 text-amber-400 mt-0.5" />
+                        <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
                       )}
                       <span>{gstVerificationResult}</span>
                     </div>
                   </div>
                   {gstInfoMeta && (
-                    <div className="flex flex-wrap items-center gap-2 text-[10px] pt-1 border-t border-slate-700/50">
+                    <div className="flex flex-wrap items-center gap-2 text-[10px] pt-1 border-t border-[var(--border-subtle)]">
                       {gstInfoMeta.status && (
-                        <span className={`px-2 py-0.5 rounded font-bold ${
+                        <span className={`px-2 py-0.5 rounded font-bold border ${
                           gstInfoMeta.status === 'Active'
-                            ? 'bg-emerald-500/20 text-emerald-300'
-                            : 'bg-rose-500/20 text-rose-300'
+                            ? 'hv-pill-emerald'
+                            : 'hv-pill-rose'
                         }`}>
                           {gstInfoMeta.status}
                         </span>
                       )}
                       {gstInfoMeta.constitution && (
-                        <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300">
+                        <span className="px-2 py-0.5 rounded hv-pill-slate border">
                           {gstInfoMeta.constitution}
                         </span>
                       )}
                       {gstInfoMeta.source && (
-                        <span className="px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300">
+                        <span className="px-2 py-0.5 rounded hv-pill-indigo border">
                           {gstInfoMeta.source}
                         </span>
                       )}
@@ -557,7 +557,7 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                         <button
                           type="button"
                           onClick={() => setShowPasteBox(true)}
-                          className="px-2 py-0.5 rounded bg-purple-500/25 hover:bg-purple-500/40 text-purple-200 border border-purple-500/40 font-bold"
+                          className="px-2 py-0.5 rounded hv-pill-purple border font-bold"
                         >
                           📋 {isHindi ? 'Portal Text Paste करें' : 'Paste Portal Result'}
                         </button>
@@ -569,7 +569,7 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'कानूनी नाम (Legal Name)' : 'Legal Name'}
               </label>
               <input
@@ -577,12 +577,12 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                 value={legalName}
                 onChange={(e) => setLegalName(e.target.value)}
                 placeholder="Official Registered Name"
-                className="w-full bg-slate-950 text-white border border-slate-700 rounded-xl px-3 py-2 focus:border-indigo-500 outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 focus:border-indigo-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'पैन नंबर (PAN)' : 'PAN Number'}
               </label>
               <input
@@ -591,12 +591,12 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                 onChange={(e) => setPan(e.target.value.toUpperCase())}
                 maxLength={10}
                 placeholder="ABCDE1234F"
-                className="w-full bg-slate-950 text-indigo-300 border border-slate-700 rounded-xl px-3 py-2 font-mono uppercase focus:border-indigo-500 outline-none"
+                className="w-full hv-input text-indigo-500 border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono uppercase focus:border-indigo-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'मोबाइल नंबर (Phone)' : 'Phone / Mobile'}
               </label>
               <input
@@ -604,12 +604,12 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 placeholder="+91 9876543210"
-                className="w-full bg-slate-950 text-white border border-slate-700 rounded-xl px-3 py-2 font-mono focus:border-indigo-500 outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono focus:border-indigo-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'पिनकोड (Pincode)' : 'Pincode'}
               </label>
               <input
@@ -618,12 +618,12 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                 onChange={(e) => setPincode(e.target.value.replace(/[^0-9]/g, '').slice(0, 6))}
                 maxLength={6}
                 placeholder="482001"
-                className="w-full bg-slate-950 text-white border border-slate-700 rounded-xl px-3 py-2 font-mono focus:border-indigo-500 outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono focus:border-indigo-500 outline-none"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'बिलिंग का पूरा पता (Full Address)' : 'Billing Address'}
               </label>
               <input
@@ -631,12 +631,12 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="Shop No. 12, Commercial Complex..."
-                className="w-full bg-slate-950 text-white border border-slate-700 rounded-xl px-3 py-2 focus:border-indigo-500 outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 focus:border-indigo-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'प्रारंभिक शेष (Opening Balance)' : 'Opening Balance (₹)'}
               </label>
               <input
@@ -644,18 +644,18 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                 value={openingBalance || ''}
                 onChange={(e) => setOpeningBalance(Number(e.target.value))}
                 placeholder="0"
-                className="w-full bg-slate-950 text-emerald-400 border border-slate-700 rounded-xl px-3 py-2 font-mono font-bold focus:border-indigo-500 outline-none"
+                className="w-full hv-input text-emerald-500 border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono font-bold focus:border-indigo-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'शेष प्रकार (Balance Type)' : 'Dr / Cr Type'}
               </label>
               <select
                 value={openingBalanceType}
                 onChange={(e) => setOpeningBalanceType(e.target.value as 'DR' | 'CR')}
-                className="w-full bg-slate-950 text-white border border-slate-700 rounded-xl px-3 py-2 font-bold focus:border-indigo-500 outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-bold focus:border-indigo-500 outline-none"
               >
                 <option value="DR">DR (Receivable / लेने हैं)</option>
                 <option value="CR">CR (Payable / देने हैं)</option>
@@ -663,7 +663,7 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-amber-300 font-bold mb-1">
+              <label className="block text-amber-500 font-bold mb-1">
                 {isHindi ? 'क्रेडिट सीमा (Credit Limit - वैकल्पिक)' : 'Credit Limit (Optional)'}
               </label>
               <input
@@ -672,12 +672,12 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                 value={creditLimit || ''}
                 onChange={(e) => setCreditLimit(Math.max(0, Number(e.target.value) || 0))}
                 placeholder="0 (No limit)"
-                className="w-full bg-slate-950 text-amber-300 border border-slate-700 rounded-xl px-3 py-2 font-mono font-bold focus:border-amber-500 outline-none"
+                className="w-full hv-input text-amber-500 border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono font-bold focus:border-amber-500 outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-amber-300 font-bold mb-1">
+              <label className="block text-amber-500 font-bold mb-1">
                 {isHindi ? 'क्रेडिट अवधि (Credit Period Days)' : 'Credit Period (Days)'}
               </label>
               <input
@@ -687,23 +687,23 @@ export const QuickAddPartyModal: React.FC<QuickAddPartyModalProps> = ({
                 value={creditDays || ''}
                 onChange={(e) => setCreditDays(Math.max(0, Math.floor(Number(e.target.value) || 0)))}
                 placeholder="e.g. 15 or 30"
-                className="w-full bg-slate-950 text-white border border-slate-700 rounded-xl px-3 py-2 font-mono font-bold focus:border-amber-500 outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 font-mono font-bold focus:border-amber-500 outline-none"
               />
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="pt-3 border-t border-slate-800 flex items-center justify-end gap-2 shrink-0">
+          <div className="pt-3 border-t border-[var(--border-primary)] flex items-center justify-end gap-2 shrink-0">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs rounded-xl transition"
+              className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-bold text-xs rounded-xl transition"
             >
               {isHindi ? 'रद्द करें' : 'Cancel'}
             </button>
             <button
               type="submit"
-              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition shadow-lg shadow-indigo-600/30 flex items-center gap-1.5"
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs rounded-xl transition shadow-lg shadow-indigo-600/30 flex items-center gap-1.5"
             >
               <UserPlus className="w-4 h-4" />
               <span>{isHindi ? 'पार्टी सेव करें (+ Auto Select)' : 'Save & Select Party'}</span>

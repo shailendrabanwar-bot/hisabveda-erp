@@ -344,15 +344,15 @@ export const Header: React.FC<HeaderProps> = ({
     <div
       className={
         isMobileOverlay
-          ? "mt-2 bg-slate-900 border border-slate-700/90 rounded-2xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-800 animate-fadeIn text-sm max-h-[65dvh] flex flex-col"
-          : "absolute top-full left-0 right-0 md:left-auto md:right-0 md:w-[480px] lg:w-[540px] mt-2 bg-slate-900 border border-slate-700/90 rounded-2xl shadow-2xl z-50 overflow-hidden divide-y divide-slate-800 animate-fadeIn text-sm max-h-[75vh] flex flex-col"
+          ? "mt-2 bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-2xl shadow-2xl z-50 overflow-hidden divide-y divide-[var(--border-primary)] animate-fadeIn text-sm max-h-[65dvh] flex flex-col"
+          : "absolute top-full left-0 right-0 md:left-auto md:right-0 md:w-[480px] lg:w-[540px] mt-2 bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-2xl shadow-2xl z-50 overflow-hidden divide-y divide-[var(--border-primary)] animate-fadeIn text-sm max-h-[75vh] flex flex-col"
       }
     >
       {/* Header with Results Count & Filter Tabs */}
-      <div className="p-3 bg-slate-950 flex flex-col gap-2">
+      <div className="p-3 bg-[var(--bg-elevated)] flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-            <Search className="w-4 h-4 text-indigo-400" />
+          <span className="text-xs font-bold text-[var(--text-secondary)] flex items-center gap-1.5">
+            <Search className="w-4 h-4 text-indigo-500" />
             <span>
               {isHindi
                 ? `खोज परिणाम: "${searchQuery}" (${totalResultsCount} मिले)`
@@ -365,7 +365,7 @@ export const Header: React.FC<HeaderProps> = ({
               setIsSearchFocused(false);
               if (isMobileOverlay) setShowMobileSearch(false);
             }}
-            className="text-xs text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 px-2 py-0.5 rounded-lg border border-slate-700 transition cursor-pointer"
+            className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] px-2 py-0.5 rounded-lg border border-[var(--border-subtle)] transition cursor-pointer"
           >
             {isMobileOverlay ? (isHindi ? 'बंद करें' : 'Close') : 'Esc'}
           </button>
@@ -378,8 +378,8 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={() => setSearchCategory('all')}
             className={`px-2.5 py-1 rounded-lg font-bold transition shrink-0 ${
               searchCategory === 'all'
-                ? 'bg-indigo-600 text-white'
-                : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                ? 'bg-indigo-600 text-white hv-keep-white'
+                : 'bg-[var(--bg-surface)] text-[var(--text-muted)] hover:text-[var(--text-primary)] border border-[var(--border-primary)]'
             }`}
           >
             All ({totalResultsCount})
@@ -390,8 +390,8 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setSearchCategory('invoices')}
               className={`px-2.5 py-1 rounded-lg font-bold transition shrink-0 ${
                 searchCategory === 'invoices'
-                  ? 'bg-emerald-600 text-white'
-                  : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  ? 'bg-emerald-600 text-white hv-keep-white'
+                  : 'bg-[var(--bg-surface)] text-[var(--text-muted)] hover:text-[var(--text-primary)] border border-[var(--border-primary)]'
               }`}
             >
               Invoices ({matchingInvoices.length})
@@ -403,8 +403,8 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setSearchCategory('parties')}
               className={`px-2.5 py-1 rounded-lg font-bold transition shrink-0 ${
                 searchCategory === 'parties'
-                  ? 'bg-amber-600 text-white'
-                  : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  ? 'bg-amber-600 text-white hv-keep-white'
+                  : 'bg-[var(--bg-surface)] text-[var(--text-muted)] hover:text-[var(--text-primary)] border border-[var(--border-primary)]'
               }`}
             >
               Parties ({matchingParties.length})
@@ -416,8 +416,8 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setSearchCategory('items')}
               className={`px-2.5 py-1 rounded-lg font-bold transition shrink-0 ${
                 searchCategory === 'items'
-                  ? 'bg-cyan-600 text-white'
-                  : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  ? 'bg-cyan-600 text-white hv-keep-white'
+                  : 'bg-[var(--bg-surface)] text-[var(--text-muted)] hover:text-[var(--text-primary)] border border-[var(--border-primary)]'
               }`}
             >
               Items ({matchingItems.length})
@@ -429,8 +429,8 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setSearchCategory('accounts')}
               className={`px-2.5 py-1 rounded-lg font-bold transition shrink-0 ${
                 searchCategory === 'accounts'
-                  ? 'bg-purple-600 text-white'
-                  : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  ? 'bg-purple-600 text-white hv-keep-white'
+                  : 'bg-[var(--bg-surface)] text-[var(--text-muted)] hover:text-[var(--text-primary)] border border-[var(--border-primary)]'
               }`}
             >
               Ledgers ({matchingAccounts.length})
@@ -442,8 +442,8 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={() => setSearchCategory('vouchers')}
               className={`px-2.5 py-1 rounded-lg font-bold transition shrink-0 ${
                 searchCategory === 'vouchers'
-                  ? 'bg-rose-600 text-white'
-                  : 'bg-slate-800 text-slate-400 hover:text-slate-200'
+                  ? 'bg-rose-600 text-white hv-keep-white'
+                  : 'bg-[var(--bg-surface)] text-[var(--text-muted)] hover:text-[var(--text-primary)] border border-[var(--border-primary)]'
               }`}
             >
               Vouchers ({matchingVouchers.length})
@@ -453,13 +453,13 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Scrollable Results Container */}
-      <div className="overflow-y-auto flex-1 divide-y divide-slate-800/80 p-2.5 space-y-2">
+      <div className="overflow-y-auto flex-1 divide-y divide-[var(--border-primary)] p-2.5 space-y-2">
         {totalResultsCount === 0 ? (
-          <div className="p-6 text-center text-slate-400 space-y-2">
-            <p className="font-semibold text-slate-200 text-sm">
+          <div className="p-6 text-center text-[var(--text-muted)] space-y-2">
+            <p className="font-semibold text-[var(--text-primary)] text-sm">
               {isHindi ? `"${searchQuery}" के लिए कोई रिकॉर्ड नहीं मिला` : `No matching records found for "${searchQuery}"`}
             </p>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[var(--text-muted)]">
               {isHindi
                 ? 'सुझाव: इनवॉइस नंबर (INV-..), ग्राहक/पार्टी का नाम, या सामग्री (Item) का नाम खोजें।'
                 : 'Tip: Try searching by invoice number, party name, phone, or stock item.'}
@@ -469,7 +469,7 @@ export const Header: React.FC<HeaderProps> = ({
           <>
             {(searchCategory === 'all' || searchCategory === 'invoices') && matchingInvoices.length > 0 && (
               <div className="space-y-1">
-                <div className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5 px-1">
+                <div className="text-xs font-bold text-emerald-500 uppercase tracking-wider flex items-center gap-1.5 px-1">
                   <FileText className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'बिक्री इनवॉइस (Sales Invoices)' : 'Sales Invoices'}</span>
                 </div>
@@ -482,27 +482,27 @@ export const Header: React.FC<HeaderProps> = ({
                       if (onSelectInvoice) onSelectInvoice(inv);
                       else if (onNavigateTab) onNavigateTab('invoices');
                     }}
-                    className="p-2.5 hover:bg-slate-800/90 rounded-xl cursor-pointer transition flex items-center justify-between gap-2.5 group"
+                    className="p-2.5 hover:bg-[var(--hover-surface)] rounded-xl cursor-pointer transition flex items-center justify-between gap-2.5 group"
                   >
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white group-hover:text-emerald-300 transition text-sm">
+                        <span className="font-bold text-[var(--text-primary)] group-hover:text-emerald-500 transition text-sm">
                           {inv.invoiceNumber}
                         </span>
-                        <span className="text-xs text-slate-400 font-mono">{inv.date}</span>
-                        <span className={`text-[11px] px-2 py-0.5 rounded font-bold ${
-                          inv.status === 'PAID' ? 'bg-emerald-500/20 text-emerald-300' : 'bg-rose-500/20 text-rose-300'
+                        <span className="text-xs text-[var(--text-muted)] font-mono">{inv.date}</span>
+                        <span className={`text-[11px] px-2 py-0.5 rounded font-bold border ${
+                          inv.status === 'PAID' ? 'hv-pill-emerald' : 'hv-pill-rose'
                         }`}>
                           {inv.status}
                         </span>
                       </div>
-                      <div className="text-xs text-slate-300 truncate mt-0.5">{inv.partyName}</div>
+                      <div className="text-xs text-[var(--text-secondary)] truncate mt-0.5">{inv.partyName}</div>
                     </div>
                     <div className="text-right shrink-0">
-                      <div className="font-bold font-mono text-emerald-400 text-sm">
+                      <div className="font-bold font-mono text-emerald-500 text-sm">
                         {formatCurrency(inv.totalAmount, inv.currency || data.company.currency)}
                       </div>
-                      <span className="text-xs text-indigo-400 group-hover:underline flex items-center justify-end gap-0.5 mt-0.5">
+                      <span className="text-xs text-indigo-500 group-hover:underline flex items-center justify-end gap-0.5 mt-0.5">
                         <span>{isHindi ? 'देखें' : 'View'}</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
                       </span>
@@ -514,7 +514,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             {(searchCategory === 'all' || searchCategory === 'parties') && matchingParties.length > 0 && (
               <div className="space-y-1 pt-1.5">
-                <div className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5 px-1">
+                <div className="text-xs font-bold text-amber-500 uppercase tracking-wider flex items-center gap-1.5 px-1">
                   <Users className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'पार्टियां (Customers & Vendors)' : 'Parties & Customers'}</span>
                 </div>
@@ -527,24 +527,24 @@ export const Header: React.FC<HeaderProps> = ({
                       if (onSelectParty) onSelectParty(p.id);
                       if (onNavigateTab) onNavigateTab('parties');
                     }}
-                    className="p-2.5 hover:bg-slate-800/90 rounded-xl cursor-pointer transition flex items-center justify-between gap-2.5 group"
+                    className="p-2.5 hover:bg-[var(--hover-surface)] rounded-xl cursor-pointer transition flex items-center justify-between gap-2.5 group"
                   >
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white group-hover:text-amber-300 transition text-sm">{p.name}</span>
-                        <span className="text-xs bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded font-mono">{p.code}</span>
-                        <span className={`text-[11px] px-2 py-0.5 rounded font-bold ${
-                          p.type === 'CUSTOMER' ? 'bg-indigo-500/20 text-indigo-300' : 'bg-amber-500/20 text-amber-300'
+                        <span className="font-bold text-[var(--text-primary)] group-hover:text-amber-500 transition text-sm">{p.name}</span>
+                        <span className="text-xs bg-[var(--bg-elevated)] text-[var(--text-muted)] px-1.5 py-0.5 rounded font-mono border border-[var(--border-primary)]">{p.code}</span>
+                        <span className={`text-[11px] px-2 py-0.5 rounded font-bold border ${
+                          p.type === 'CUSTOMER' ? 'hv-pill-indigo' : 'hv-pill-amber'
                         }`}>
                           {p.type}
                         </span>
                       </div>
-                      <div className="text-xs text-slate-400 truncate mt-0.5">
+                      <div className="text-xs text-[var(--text-muted)] truncate mt-0.5">
                         {p.city ? `${p.city}, ` : ''}{p.state} • {p.phone || p.gstin || 'No GSTIN'}
                       </div>
                     </div>
                     <div className="text-right shrink-0">
-                      <span className="text-xs text-amber-400 group-hover:underline flex items-center justify-end gap-0.5">
+                      <span className="text-xs text-amber-500 group-hover:underline flex items-center justify-end gap-0.5">
                         <span>{isHindi ? 'खाता खोलें' : 'Open Party'}</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
                       </span>
@@ -556,7 +556,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             {(searchCategory === 'all' || searchCategory === 'items') && matchingItems.length > 0 && (
               <div className="space-y-1 pt-1.5">
-                <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5 px-1">
+                <div className="text-xs font-bold text-cyan-500 uppercase tracking-wider flex items-center gap-1.5 px-1">
                   <Package className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'इन्वेंटरी सामग्री (Stock Items)' : 'Inventory Stock Items'}</span>
                 </div>
@@ -568,22 +568,22 @@ export const Header: React.FC<HeaderProps> = ({
                       setShowMobileSearch(false);
                       if (onNavigateTab) onNavigateTab('items');
                     }}
-                    className="p-2.5 hover:bg-slate-800/90 rounded-xl cursor-pointer transition flex items-center justify-between gap-2.5 group"
+                    className="p-2.5 hover:bg-[var(--hover-surface)] rounded-xl cursor-pointer transition flex items-center justify-between gap-2.5 group"
                   >
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white group-hover:text-cyan-300 transition text-sm">{item.name}</span>
-                        <span className="text-xs bg-slate-800 text-cyan-300 px-1.5 py-0.5 rounded font-mono">{item.code}</span>
+                        <span className="font-bold text-[var(--text-primary)] group-hover:text-cyan-500 transition text-sm">{item.name}</span>
+                        <span className="text-xs hv-pill-cyan px-1.5 py-0.5 rounded font-mono border">{item.code}</span>
                       </div>
-                      <div className="text-xs text-slate-400 truncate mt-0.5">
+                      <div className="text-xs text-[var(--text-muted)] truncate mt-0.5">
                         {item.category} • HSN: {item.hsnSacCode} • GST: {item.taxRate}%
                       </div>
                     </div>
                     <div className="text-right shrink-0">
-                      <div className="font-bold font-mono text-cyan-400 text-sm">
+                      <div className="font-bold font-mono text-cyan-500 text-sm">
                         {item.currentStock} {item.unit}
                       </div>
-                      <div className="text-xs text-slate-400">{formatCurrency(item.salePrice, data.company.currency)}</div>
+                      <div className="text-xs text-[var(--text-muted)]">{formatCurrency(item.salePrice, data.company.currency)}</div>
                     </div>
                   </div>
                 ))}
@@ -592,7 +592,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             {(searchCategory === 'all' || searchCategory === 'accounts') && matchingAccounts.length > 0 && (
               <div className="space-y-1 pt-1.5">
-                <div className="text-xs font-bold text-purple-400 uppercase tracking-wider flex items-center gap-1.5 px-1">
+                <div className="text-xs font-bold text-purple-500 uppercase tracking-wider flex items-center gap-1.5 px-1">
                   <BookOpen className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'खाते व लेज़र (Chart of Accounts)' : 'Chart of Accounts'}</span>
                 </div>
@@ -605,17 +605,17 @@ export const Header: React.FC<HeaderProps> = ({
                       if (onSelectAccount) onSelectAccount(acc.id);
                       if (onNavigateTab) onNavigateTab('ledger');
                     }}
-                    className="p-2.5 hover:bg-slate-800/90 rounded-xl cursor-pointer transition flex items-center justify-between gap-2.5 group"
+                    className="p-2.5 hover:bg-[var(--hover-surface)] rounded-xl cursor-pointer transition flex items-center justify-between gap-2.5 group"
                   >
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white group-hover:text-purple-300 transition text-sm">{acc.name}</span>
-                        <span className="text-xs bg-slate-800 text-purple-300 px-1.5 py-0.5 rounded font-mono">{acc.code}</span>
+                        <span className="font-bold text-[var(--text-primary)] group-hover:text-purple-500 transition text-sm">{acc.name}</span>
+                        <span className="text-xs hv-pill-purple px-1.5 py-0.5 rounded font-mono border">{acc.code}</span>
                       </div>
-                      <div className="text-xs text-slate-400 mt-0.5">{acc.group} ({acc.category})</div>
+                      <div className="text-xs text-[var(--text-muted)] mt-0.5">{acc.group} ({acc.category})</div>
                     </div>
                     <div className="text-right shrink-0">
-                      <span className="text-xs text-purple-400 group-hover:underline flex items-center justify-end gap-0.5">
+                      <span className="text-xs text-purple-500 group-hover:underline flex items-center justify-end gap-0.5">
                         <span>{isHindi ? 'लेज़र खोलें' : 'Open Ledger'}</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
                       </span>
@@ -627,7 +627,7 @@ export const Header: React.FC<HeaderProps> = ({
 
             {(searchCategory === 'all' || searchCategory === 'vouchers') && matchingVouchers.length > 0 && (
               <div className="space-y-1 pt-1.5">
-                <div className="text-xs font-bold text-rose-400 uppercase tracking-wider flex items-center gap-1.5 px-1">
+                <div className="text-xs font-bold text-rose-500 uppercase tracking-wider flex items-center gap-1.5 px-1">
                   <Receipt className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'वाउचर एंट्रीज (Vouchers)' : 'Vouchers & Journal Entries'}</span>
                 </div>
@@ -639,21 +639,21 @@ export const Header: React.FC<HeaderProps> = ({
                       setShowMobileSearch(false);
                       if (onNavigateTab) onNavigateTab('vouchers');
                     }}
-                    className="p-2.5 hover:bg-slate-800/90 rounded-xl cursor-pointer transition flex items-center justify-between gap-2.5 group"
+                    className="p-2.5 hover:bg-[var(--hover-surface)] rounded-xl cursor-pointer transition flex items-center justify-between gap-2.5 group"
                   >
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white group-hover:text-rose-300 transition text-sm">{vch.voucherNumber}</span>
-                        <span className="text-[11px] bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded font-bold">{vch.type}</span>
-                        <span className="text-xs text-slate-400 font-mono">{vch.date}</span>
+                        <span className="font-bold text-[var(--text-primary)] group-hover:text-rose-500 transition text-sm">{vch.voucherNumber}</span>
+                        <span className="text-[11px] hv-pill-rose px-2 py-0.5 rounded font-bold border">{vch.type}</span>
+                        <span className="text-xs text-[var(--text-muted)] font-mono">{vch.date}</span>
                       </div>
-                      <div className="text-xs text-slate-300 truncate mt-0.5">{vch.partyName || vch.narration}</div>
+                      <div className="text-xs text-[var(--text-secondary)] truncate mt-0.5">{vch.partyName || vch.narration}</div>
                     </div>
                     <div className="text-right shrink-0">
-                      <div className="font-bold font-mono text-rose-400 text-sm">
+                      <div className="font-bold font-mono text-rose-500 text-sm">
                         {formatCurrency(vch.amount, data.company.currency)}
                       </div>
-                      <span className="text-xs text-rose-400 group-hover:underline flex items-center justify-end gap-0.5 mt-0.5">
+                      <span className="text-xs text-rose-500 group-hover:underline flex items-center justify-end gap-0.5 mt-0.5">
                         <span>{isHindi ? 'देखें' : 'View'}</span>
                         <ArrowUpRight className="w-3.5 h-3.5" />
                       </span>
@@ -667,14 +667,14 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Footer Quick Actions */}
-      <div className="p-2.5 bg-slate-950 flex items-center justify-between text-xs text-slate-400">
+      <div className="p-2.5 bg-[var(--bg-elevated)] flex items-center justify-between text-xs text-[var(--text-muted)]">
         <span className="flex items-center gap-1">
           <span>{isHindi ? 'परिणाम पर क्लिक करके सीधे खोलें' : 'Click any result to open'}</span>
         </span>
         <button
           type="button"
           onClick={() => onSearchChange('')}
-          className="text-slate-400 hover:text-white underline cursor-pointer"
+          className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] underline cursor-pointer"
         >
           {isHindi ? 'खोज रीसेट करें' : 'Clear search'}
         </button>
@@ -684,7 +684,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <>
-    <header className="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-xl border-b border-slate-800 text-slate-100 shadow-xl px-3 sm:px-4 py-2 shrink-0 w-full max-w-full">
+    <header className="hv-header sticky top-0 z-50 bg-[var(--bg-header)] backdrop-blur-xl border-b border-[var(--border-primary)] text-[var(--text-primary)] shadow-md px-3 sm:px-4 py-2 shrink-0 w-full max-w-full">
       
       {/* ============================================================
           1. MOBILE TOP TASKBAR (For small phone screens < md)
@@ -699,8 +699,8 @@ export const Header: React.FC<HeaderProps> = ({
               if (rbac.canManageCompanies && onOpenCompanyManager) onOpenCompanyManager();
             }}
             disabled={!rbac.canManageCompanies}
-            className={`flex items-center gap-1 px-2 py-1.5 bg-slate-800/90 text-slate-100 rounded-xl border border-slate-700/80 text-xs font-bold truncate max-w-[110px] shadow-sm ${
-              rbac.canManageCompanies ? 'hover:bg-slate-800 hover:text-amber-300 cursor-pointer' : 'opacity-90 cursor-default'
+            className={`flex items-center gap-1 px-2 py-1.5 bg-[var(--bg-elevated)] text-[var(--text-primary)] rounded-xl border border-[var(--border-subtle)] text-xs font-bold truncate max-w-[110px] shadow-sm ${
+              rbac.canManageCompanies ? 'hover:bg-[var(--hover-surface)] cursor-pointer' : 'cursor-default'
             }`}
             title={
               rbac.canManageCompanies
@@ -708,7 +708,7 @@ export const Header: React.FC<HeaderProps> = ({
                 : (isHindi ? 'केवल एडमिन कंपनी बदल सकते हैं' : 'Only Admin can manage companies')
             }
           >
-            <Building2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <Building2 className="w-3.5 h-3.5 text-amber-500 shrink-0" />
             <span className="truncate">{data.company.name?.trim() || (isHindi ? 'कंपनी' : 'Company')}</span>
           </button>
 
@@ -721,10 +721,10 @@ export const Header: React.FC<HeaderProps> = ({
               }}
               className={`flex items-center gap-1 px-2 py-1.5 rounded-xl border text-[11px] font-mono font-extrabold cursor-pointer ${
                 isCustomPeriodSelected || isAllYearsSelected
-                  ? 'bg-emerald-500/20 border-emerald-500/50 text-emerald-300'
+                  ? 'hv-pill-emerald'
                   : currentFyObj && currentFyObj.fyStart !== activeFyRange.fyStart
-                    ? 'bg-amber-500/20 border-amber-500/50 text-amber-300'
-                    : 'bg-indigo-500/15 border-indigo-500/40 text-indigo-300'
+                    ? 'hv-pill-amber'
+                    : 'hv-pill-indigo'
               }`}
               title={isHindi ? 'वित्तीय वर्ष या कस्टम पीरियड चुनें' : 'Select Financial Year or Custom Period'}
             >
@@ -734,27 +734,27 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             {showFyMenu && (
-              <div className="absolute left-0 mt-2 w-[310px] max-h-[430px] overflow-y-auto bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl z-50 p-2.5 space-y-2 animate-fadeIn">
-                <div className="px-2 py-1 border-b border-slate-800 flex items-center justify-between gap-2">
-                  <span className="text-[11px] font-bold text-slate-200">
+              <div className="absolute left-0 mt-2 w-[310px] max-h-[430px] overflow-y-auto bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-2xl shadow-2xl z-50 p-2.5 space-y-2 animate-fadeIn">
+                <div className="px-2 py-1 border-b border-[var(--border-primary)] flex items-center justify-between gap-2">
+                  <span className="text-[11px] font-bold text-[var(--text-primary)]">
                     {isHindi ? 'वित्तीय वर्ष / अवधि चुनें' : 'Select FY / Custom Period'}
                   </span>
-                  <span className="text-[10px] text-amber-400 font-mono truncate">{activeFyRange.shortLabel}</span>
+                  <span className="text-[10px] text-amber-500 font-mono truncate font-bold">{activeFyRange.shortLabel}</span>
                 </div>
 
                 {/* Custom Period Selector (Replaces All Years Combined) */}
-                <div className="bg-emerald-950/35 border border-emerald-500/30 rounded-xl p-2.5 space-y-2">
+                <div className="hv-pill-emerald border rounded-xl p-2.5 space-y-2">
                   <div className="flex items-center justify-between gap-1">
-                    <span className="text-[11px] font-extrabold text-emerald-300 flex items-center gap-1">
+                    <span className="text-[11px] font-extrabold flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
                       <span>{isHindi ? 'कस्टम पीरियड चुनें' : 'Select Period'}</span>
                     </span>
-                    <div className="flex items-center gap-1 bg-slate-950 p-0.5 rounded-lg border border-slate-800">
+                    <div className="flex items-center gap-1 bg-[var(--bg-surface)] p-0.5 rounded-lg border border-[var(--border-primary)]">
                       <button
                         type="button"
                         onClick={() => setCustomPeriodMode('FY')}
                         className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${
-                          customPeriodMode === 'FY' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'
+                          customPeriodMode === 'FY' ? 'bg-emerald-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                         }`}
                       >
                         FY → FY
@@ -763,7 +763,7 @@ export const Header: React.FC<HeaderProps> = ({
                         type="button"
                         onClick={() => setCustomPeriodMode('DATES')}
                         className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer ${
-                          customPeriodMode === 'DATES' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'
+                          customPeriodMode === 'DATES' ? 'bg-emerald-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                         }`}
                       >
                         {isHindi ? 'तारीख' : 'Dates'}
@@ -775,11 +775,11 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className="space-y-1.5">
                       <div className="grid grid-cols-2 gap-1.5">
                         <div>
-                          <label className="text-[10px] text-slate-400 block mb-0.5">{isHindi ? 'किस FY से' : 'From FY'}</label>
+                          <label className="text-[10px] text-[var(--text-secondary)] block mb-0.5 font-semibold">{isHindi ? 'किस FY से' : 'From FY'}</label>
                           <select
                             value={customFromFy}
                             onChange={(e) => setCustomFromFy(e.target.value)}
-                            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1 text-[11px] font-mono text-white cursor-pointer"
+                            className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg px-2 py-1 text-[11px] font-mono text-[var(--text-primary)] cursor-pointer"
                           >
                             {fyListAsc.map((fy) => (
                               <option key={fy.fyStart} value={fy.fyStart}>{fy.label}</option>
@@ -787,11 +787,11 @@ export const Header: React.FC<HeaderProps> = ({
                           </select>
                         </div>
                         <div>
-                          <label className="text-[10px] text-slate-400 block mb-0.5">{isHindi ? 'किस FY तक' : 'To FY'}</label>
+                          <label className="text-[10px] text-[var(--text-secondary)] block mb-0.5 font-semibold">{isHindi ? 'किस FY तक' : 'To FY'}</label>
                           <select
                             value={customToFy}
                             onChange={(e) => setCustomToFy(e.target.value)}
-                            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1 text-[11px] font-mono text-white cursor-pointer"
+                            className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg px-2 py-1 text-[11px] font-mono text-[var(--text-primary)] cursor-pointer"
                           >
                             {fyListAsc.map((fy) => (
                               <option key={fy.fyStart} value={fy.fyStart}>{fy.label}</option>
@@ -805,7 +805,7 @@ export const Header: React.FC<HeaderProps> = ({
                           onChangeFinancialYear?.(buildFYRangeToken(customFromFy, customToFy));
                           setShowFyMenu(false);
                         }}
-                        className="w-full py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-extrabold transition cursor-pointer"
+                        className="w-full py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white text-[11px] font-extrabold transition cursor-pointer"
                       >
                         {isHindi ? 'पीरियड लागू करें (Apply Period)' : 'Apply Selected FY Period'}
                       </button>
@@ -814,21 +814,21 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className="space-y-1.5">
                       <div className="grid grid-cols-2 gap-1.5">
                         <div>
-                          <label className="text-[10px] text-slate-400 block mb-0.5">{isHindi ? 'शुरुआत दिनांक' : 'From Date'}</label>
+                          <label className="text-[10px] text-[var(--text-secondary)] block mb-0.5 font-semibold">{isHindi ? 'शुरुआत दिनांक' : 'From Date'}</label>
                           <input
                             type="date"
                             value={customFromDate}
                             onChange={(e) => setCustomFromDate(e.target.value)}
-                            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-1.5 py-1 text-[11px] font-mono text-white"
+                            className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg px-1.5 py-1 text-[11px] font-mono text-[var(--text-primary)]"
                           />
                         </div>
                         <div>
-                          <label className="text-[10px] text-slate-400 block mb-0.5">{isHindi ? 'अंतिम दिनांक' : 'To Date'}</label>
+                          <label className="text-[10px] text-[var(--text-secondary)] block mb-0.5 font-semibold">{isHindi ? 'अंतिम दिनांक' : 'To Date'}</label>
                           <input
                             type="date"
                             value={customToDate}
                             onChange={(e) => setCustomToDate(e.target.value)}
-                            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-1.5 py-1 text-[11px] font-mono text-white"
+                            className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg px-1.5 py-1 text-[11px] font-mono text-[var(--text-primary)]"
                           />
                         </div>
                       </div>
@@ -838,7 +838,7 @@ export const Header: React.FC<HeaderProps> = ({
                           onChangeFinancialYear?.(buildDateRangeToken(customFromDate, customToDate));
                           setShowFyMenu(false);
                         }}
-                        className="w-full py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-extrabold transition cursor-pointer"
+                        className="w-full py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white text-[11px] font-extrabold transition cursor-pointer"
                       >
                         {isHindi ? 'दिनांक अवधि लागू करें' : 'Apply Date Period'}
                       </button>
@@ -859,20 +859,20 @@ export const Header: React.FC<HeaderProps> = ({
                         }}
                         className={`w-full text-left px-2.5 py-2 rounded-xl flex items-center justify-between text-xs transition cursor-pointer ${
                           isActive
-                            ? 'bg-indigo-600 text-white font-bold'
-                            : 'hover:bg-slate-800 text-slate-200'
+                            ? 'bg-indigo-600 text-white hv-keep-white font-bold'
+                            : 'hover:bg-[var(--hover-surface)] text-[var(--text-primary)]'
                         }`}
                       >
                         <div className="flex items-center gap-1.5">
                           <Calendar className="w-3.5 h-3.5 shrink-0" />
                           <span>{fy.label}</span>
                           {fy.isCurrent && (
-                            <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold ${isActive ? 'bg-white/20 text-white' : 'bg-emerald-500/20 text-emerald-300'}`}>
+                            <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold border ${isActive ? 'bg-white/20 text-white border-white/30' : 'hv-pill-emerald'}`}>
                               {isHindi ? 'चालू' : 'Current'}
                             </span>
                           )}
                         </div>
-                        <span className={`text-[10px] font-mono ${isActive ? 'text-indigo-100' : 'text-slate-400'}`}>
+                        <span className={`text-[10px] font-mono ${isActive ? 'text-indigo-100' : 'text-[var(--text-muted)]'}`}>
                           {fy.count} {isHindi ? 'एंट्री' : 'rec'}
                         </span>
                       </button>
@@ -892,12 +892,12 @@ export const Header: React.FC<HeaderProps> = ({
               onClick={onOpenLicenseModal}
               className={`flex items-center gap-1 px-2 py-1.5 rounded-xl border text-[11px] font-extrabold transition cursor-pointer whitespace-nowrap ${
                 trialStatus.isTrialExpired || trialStatus.clockTampered || trialStatus.vaultTampered || trialStatus.machineMismatch
-                  ? 'bg-rose-500/20 text-rose-200 border-rose-400/50'
-                  : 'bg-amber-500/15 text-amber-200 border-amber-400/40'
+                  ? 'hv-pill-rose'
+                  : 'hv-pill-amber'
               }`}
               title={isHindi ? 'लाइसेंस एक्टिवेट / अपग्रेड करें' : 'Free Trial — Upgrade / Activate License'}
             >
-              <KeyRound className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+              <KeyRound className="w-3.5 h-3.5 shrink-0" />
               <span>
                 {trialStatus.isTrialExpired
                   ? (isHindi ? 'एक्टिवेट' : 'Expired')
@@ -911,9 +911,9 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               type="button"
               onClick={() => setShowMobileTxSheet(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 text-white font-extrabold text-xs rounded-xl shadow-md shadow-indigo-600/30 border border-indigo-400/40 cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 text-white hv-keep-white font-extrabold text-xs rounded-xl shadow-md shadow-indigo-600/30 border border-indigo-400/40 cursor-pointer"
             >
-              <Plus className="w-4 h-4 text-amber-300" />
+              <Plus className="w-4 h-4 text-amber-200" />
               <span>{isHindi ? '+ नया' : '+ New'}</span>
             </button>
           )}
@@ -933,7 +933,7 @@ export const Header: React.FC<HeaderProps> = ({
               }
             }}
             className={`p-2 rounded-xl border transition cursor-pointer ${
-              showMobileSearch ? 'bg-indigo-600 text-white border-indigo-500' : 'bg-slate-800 text-slate-300 border-slate-700'
+              showMobileSearch ? 'bg-indigo-600 text-white hv-keep-white border-indigo-500' : 'bg-[var(--bg-elevated)] text-[var(--text-primary)] border-[var(--border-subtle)]'
             }`}
             title={isHindi ? 'खोजें' : 'Search'}
           >
@@ -945,7 +945,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               type="button"
               onClick={onOpenUserManual}
-              className="p-2 bg-slate-800 hover:bg-slate-700 text-sky-300 rounded-xl border border-slate-700 cursor-pointer"
+              className="p-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-sky-500 rounded-xl border border-[var(--border-subtle)] cursor-pointer"
               title={isHindi ? 'सॉफ़्टवेयर उपयोग गाइड (User Manual)' : 'User Manual / How to Use'}
               aria-label={isHindi ? 'उपयोग गाइड खोलें' : 'Open User Manual'}
             >
@@ -958,7 +958,7 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               type="button"
               onClick={onOpenConfigureModal}
-              className="p-2 bg-slate-800 hover:bg-slate-700 text-amber-300 rounded-xl border border-slate-700 cursor-pointer"
+              className="p-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-amber-500 rounded-xl border border-[var(--border-subtle)] cursor-pointer"
               title="F12 Configure"
             >
               <Settings className="w-4 h-4" />
@@ -969,7 +969,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={onToggleHindi}
-            className="px-2.5 py-1.5 bg-slate-800 text-indigo-300 hover:text-white rounded-xl border border-slate-700 text-xs font-bold cursor-pointer"
+            className="px-2.5 py-1.5 hv-pill-indigo rounded-xl border text-xs font-bold cursor-pointer"
           >
             {isHindi ? 'Eng' : 'हिंदी'}
           </button>
@@ -987,8 +987,8 @@ export const Header: React.FC<HeaderProps> = ({
             }}
             className={`p-2 rounded-xl border transition cursor-pointer ${
               showMoreMenu
-                ? 'bg-indigo-600 text-white border-indigo-500 shadow-md shadow-indigo-600/30'
-                : 'bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border-slate-700'
+                ? 'bg-indigo-600 text-white hv-keep-white border-indigo-500 shadow-md shadow-indigo-600/30'
+                : 'bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border-[var(--border-subtle)]'
             }`}
             title={isHindi ? 'और विकल्प' : 'More Options'}
           >
@@ -1006,7 +1006,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex items-center gap-2 min-w-0 shrink">
           <SnaLogo size="sm" showText={true} />
 
-          <div className="h-5 w-[1px] bg-slate-800 my-auto hidden lg:block shrink-0"></div>
+          <div className="h-5 w-[1px] bg-[var(--border-primary)] my-auto hidden lg:block shrink-0"></div>
 
           {/* Company Selector Button */}
           <button
@@ -1015,8 +1015,8 @@ export const Header: React.FC<HeaderProps> = ({
               if (rbac.canManageCompanies && onOpenCompanyManager) onOpenCompanyManager();
             }}
             disabled={!rbac.canManageCompanies}
-            className={`font-bold text-slate-100 text-xs lg:text-sm flex items-center gap-1.5 transition bg-slate-800/90 px-2.5 py-1.5 rounded-xl border border-slate-700/80 shadow-sm group min-w-0 ${
-              rbac.canManageCompanies ? 'hover:text-amber-300 hover:bg-slate-800 cursor-pointer' : 'opacity-90 cursor-default'
+            className={`font-bold text-[var(--text-primary)] text-xs lg:text-sm flex items-center gap-1.5 transition bg-[var(--bg-elevated)] px-2.5 py-1.5 rounded-xl border border-[var(--border-subtle)] shadow-sm group min-w-0 ${
+              rbac.canManageCompanies ? 'hover:bg-[var(--hover-surface)] cursor-pointer' : 'cursor-default'
             }`}
             title={
               rbac.canManageCompanies
@@ -1024,9 +1024,9 @@ export const Header: React.FC<HeaderProps> = ({
                 : (isHindi ? 'केवल एडमिन नई कंपनी बना या बदल सकते हैं' : 'Only Admin can create or switch companies')
             }
           >
-            <Building2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+            <Building2 className="w-3.5 h-3.5 text-amber-500 shrink-0" />
             <span className="truncate max-w-[115px] lg:max-w-[155px] xl:max-w-[195px]">{data.company.name?.trim() || (isHindi ? 'कंपनी सेटअप करें' : 'Setup Company')}</span>
-            {rbac.canManageCompanies && <Plus className="w-3.5 h-3.5 text-emerald-400 shrink-0 group-hover:scale-110 transition" />}
+            {rbac.canManageCompanies && <Plus className="w-3.5 h-3.5 text-emerald-500 shrink-0 group-hover:scale-110 transition" />}
           </button>
 
           {/* Financial Year & Custom Period Switcher Dropdown */}
@@ -1040,10 +1040,10 @@ export const Header: React.FC<HeaderProps> = ({
               }}
               className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-mono font-extrabold transition shadow-sm cursor-pointer ${
                 isCustomPeriodSelected || isAllYearsSelected
-                  ? 'bg-emerald-500/20 hover:bg-emerald-500/30 border-emerald-400/50 text-emerald-300'
+                  ? 'hv-pill-emerald'
                   : currentFyObj && currentFyObj.fyStart !== activeFyRange.fyStart
-                    ? 'bg-amber-500/20 hover:bg-amber-500/30 border-amber-400/50 text-amber-300'
-                    : 'bg-indigo-500/15 hover:bg-indigo-500/25 border-indigo-400/40 text-indigo-300'
+                    ? 'hv-pill-amber'
+                    : 'hv-pill-indigo'
               }`}
               title={isHindi ? `सक्रिय अवधि: ${activeFyRange.displayRange} (बदलने या कस्टम पीरियड चुनने के लिए क्लिक करें)` : `Active Period: ${activeFyRange.displayRange} (Click to switch FY or Select Custom Period)`}
             >
@@ -1053,13 +1053,13 @@ export const Header: React.FC<HeaderProps> = ({
             </button>
 
             {showFyMenu && (
-              <div className="absolute left-0 mt-2 w-[350px] max-h-[480px] overflow-y-auto bg-slate-900/98 backdrop-blur-2xl border border-slate-700 rounded-2xl shadow-2xl z-50 p-3 space-y-2.5 animate-fadeIn">
-                <div className="pb-2 border-b border-slate-800">
-                  <div className="text-xs font-bold text-white flex items-center justify-between gap-2">
+              <div className="absolute left-0 mt-2 w-[350px] max-h-[480px] overflow-y-auto bg-[var(--bg-surface)] backdrop-blur-2xl border border-[var(--border-subtle)] rounded-2xl shadow-2xl z-50 p-3 space-y-2.5 animate-fadeIn">
+                <div className="pb-2 border-b border-[var(--border-primary)]">
+                  <div className="text-xs font-bold text-[var(--text-primary)] flex items-center justify-between gap-2">
                     <span>{isHindi ? 'वित्तीय वर्ष या कस्टम पीरियड चुनें' : 'Select Financial Year / Period'}</span>
-                    <span className="text-[11px] font-mono text-amber-300 truncate max-w-[140px]">{activeFyRange.shortLabel}</span>
+                    <span className="text-[11px] font-mono text-amber-500 truncate max-w-[140px] font-bold">{activeFyRange.shortLabel}</span>
                   </div>
-                  <p className="text-[11px] text-slate-400 mt-0.5 font-sans">
+                  <p className="text-[11px] text-[var(--text-muted)] mt-0.5 font-sans">
                     {isHindi
                       ? 'नीचे से एकल FY चुनें या कस्टम पीरियड (किस FY से किस FY तक / कस्टम तारीख) सेट करें।'
                       : 'Choose a single FY below or Select Custom Period (From FY → To FY or Exact Dates).'}
@@ -1067,18 +1067,18 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
 
                 {/* Custom Period Selector (Replaces All Years Combined) */}
-                <div className="bg-emerald-950/35 border border-emerald-500/35 rounded-xl p-3 space-y-2.5">
+                <div className="hv-pill-emerald border rounded-xl p-3 space-y-2.5">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-extrabold text-emerald-300 flex items-center gap-1.5">
-                      <Calendar className="w-3.5 h-3.5 text-emerald-400" />
+                    <span className="text-xs font-extrabold flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5" />
                       <span>{isHindi ? 'कस्टम पीरियड चुनें' : 'Select Period'}</span>
                     </span>
-                    <div className="flex items-center gap-1 bg-slate-950 p-0.5 rounded-lg border border-slate-800">
+                    <div className="flex items-center gap-1 bg-[var(--bg-surface)] p-0.5 rounded-lg border border-[var(--border-primary)]">
                       <button
                         type="button"
                         onClick={() => setCustomPeriodMode('FY')}
                         className={`px-2 py-1 rounded-md text-[11px] font-bold transition cursor-pointer ${
-                          customPeriodMode === 'FY' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
+                          customPeriodMode === 'FY' ? 'bg-emerald-600 text-white hv-keep-white shadow' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                         }`}
                       >
                         {isHindi ? 'FY से FY' : 'FY → FY'}
@@ -1087,7 +1087,7 @@ export const Header: React.FC<HeaderProps> = ({
                         type="button"
                         onClick={() => setCustomPeriodMode('DATES')}
                         className={`px-2 py-1 rounded-md text-[11px] font-bold transition cursor-pointer ${
-                          customPeriodMode === 'DATES' ? 'bg-emerald-600 text-white shadow' : 'text-slate-400 hover:text-white'
+                          customPeriodMode === 'DATES' ? 'bg-emerald-600 text-white hv-keep-white shadow' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                         }`}
                       >
                         {isHindi ? 'कस्टम दिनांक' : 'Custom Dates'}
@@ -1099,13 +1099,13 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className="space-y-2">
                       <div className="grid grid-cols-2 gap-2">
                         <div>
-                          <label className="text-[10px] font-bold text-slate-400 block mb-1">
+                          <label className="text-[10px] font-bold text-[var(--text-secondary)] block mb-1">
                             {isHindi ? 'किस वित्तीय वर्ष से (From FY)' : 'From Financial Year'}
                           </label>
                           <select
                             value={customFromFy}
                             onChange={(e) => setCustomFromFy(e.target.value)}
-                            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono text-white font-bold cursor-pointer focus:outline-none focus:border-emerald-500"
+                            className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg px-2 py-1.5 text-xs font-mono text-[var(--text-primary)] font-bold cursor-pointer focus:outline-none focus:border-emerald-500"
                           >
                             {fyListAsc.map((fy) => (
                               <option key={fy.fyStart} value={fy.fyStart}>{fy.label} ({fy.count})</option>
@@ -1113,13 +1113,13 @@ export const Header: React.FC<HeaderProps> = ({
                           </select>
                         </div>
                         <div>
-                          <label className="text-[10px] font-bold text-slate-400 block mb-1">
+                          <label className="text-[10px] font-bold text-[var(--text-secondary)] block mb-1">
                             {isHindi ? 'किस वित्तीय वर्ष तक (To FY)' : 'To Financial Year'}
                           </label>
                           <select
                             value={customToFy}
                             onChange={(e) => setCustomToFy(e.target.value)}
-                            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono text-white font-bold cursor-pointer focus:outline-none focus:border-emerald-500"
+                            className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg px-2 py-1.5 text-xs font-mono text-[var(--text-primary)] font-bold cursor-pointer focus:outline-none focus:border-emerald-500"
                           >
                             {fyListAsc.map((fy) => (
                               <option key={fy.fyStart} value={fy.fyStart}>{fy.label} ({fy.count})</option>
@@ -1133,7 +1133,7 @@ export const Header: React.FC<HeaderProps> = ({
                           onChangeFinancialYear?.(buildFYRangeToken(customFromFy, customToFy));
                           setShowFyMenu(false);
                         }}
-                        className="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold shadow-md shadow-emerald-600/25 transition cursor-pointer flex items-center justify-center gap-1.5"
+                        className="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white text-xs font-extrabold shadow-md shadow-emerald-600/25 transition cursor-pointer flex items-center justify-center gap-1.5"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5" />
                         <span>{isHindi ? 'चयनित FY पीरियड लागू करें' : 'Apply Selected Period (FY → FY)'}</span>
@@ -1143,25 +1143,25 @@ export const Header: React.FC<HeaderProps> = ({
                     <div className="space-y-2">
                       <div className="grid grid-cols-2 gap-2">
                         <div>
-                          <label className="text-[10px] font-bold text-slate-400 block mb-1">
+                          <label className="text-[10px] font-bold text-[var(--text-secondary)] block mb-1">
                             {isHindi ? 'प्रारंभ तिथि (From)' : 'From Date'}
                           </label>
                           <input
                             type="date"
                             value={customFromDate}
                             onChange={(e) => setCustomFromDate(e.target.value)}
-                            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono text-white focus:outline-none focus:border-emerald-500"
+                            className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg px-2 py-1.5 text-xs font-mono text-[var(--text-primary)] focus:outline-none focus:border-emerald-500"
                           />
                         </div>
                         <div>
-                          <label className="text-[10px] font-bold text-slate-400 block mb-1">
+                          <label className="text-[10px] font-bold text-[var(--text-secondary)] block mb-1">
                             {isHindi ? 'अंतिम तिथि (To)' : 'To Date'}
                           </label>
                           <input
                             type="date"
                             value={customToDate}
                             onChange={(e) => setCustomToDate(e.target.value)}
-                            className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-xs font-mono text-white focus:outline-none focus:border-emerald-500"
+                            className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-lg px-2 py-1.5 text-xs font-mono text-[var(--text-primary)] focus:outline-none focus:border-emerald-500"
                           />
                         </div>
                       </div>
@@ -1171,7 +1171,7 @@ export const Header: React.FC<HeaderProps> = ({
                           onChangeFinancialYear?.(buildDateRangeToken(customFromDate, customToDate));
                           setShowFyMenu(false);
                         }}
-                        className="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold shadow-md shadow-emerald-600/25 transition cursor-pointer flex items-center justify-center gap-1.5"
+                        className="w-full py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white text-xs font-extrabold shadow-md shadow-emerald-600/25 transition cursor-pointer flex items-center justify-center gap-1.5"
                       >
                         <CheckCircle2 className="w-3.5 h-3.5" />
                         <span>{isHindi ? 'कस्टम दिनांक अवधि लागू करें' : 'Apply Custom Date Period'}</span>
@@ -1182,7 +1182,7 @@ export const Header: React.FC<HeaderProps> = ({
 
                 {/* Single Financial Year Quick List */}
                 <div className="space-y-1">
-                  <div className="px-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                  <div className="px-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">
                     {isHindi ? 'एकल वित्तीय वर्ष (Single FY Quick Switch)' : 'Single Financial Year'}
                   </div>
                   {fyList.map((fy) => {
@@ -1197,8 +1197,8 @@ export const Header: React.FC<HeaderProps> = ({
                         }}
                         className={`w-full text-left px-3 py-2 rounded-xl flex items-center justify-between text-xs transition cursor-pointer ${
                           isActive
-                            ? 'bg-indigo-600 text-white font-bold shadow-md'
-                            : 'hover:bg-slate-800 text-slate-200'
+                            ? 'bg-indigo-600 text-white hv-keep-white font-bold shadow-md'
+                            : 'hover:bg-[var(--hover-surface)] text-[var(--text-primary)]'
                         }`}
                       >
                         <div className="flex items-center gap-2">
@@ -1207,17 +1207,17 @@ export const Header: React.FC<HeaderProps> = ({
                             <div className="flex items-center gap-1.5 font-bold">
                               <span>{fy.label}</span>
                               {fy.isCurrent && (
-                                <span className={`text-[10px] px-1.5 py-0.2 rounded font-bold ${isActive ? 'bg-white/20 text-white' : 'bg-emerald-500/20 text-emerald-300'}`}>
+                                <span className={`text-[10px] px-1.5 py-0.2 rounded font-bold border ${isActive ? 'bg-white/20 text-white border-white/30' : 'hv-pill-emerald'}`}>
                                   {isHindi ? 'चालू वर्ष' : 'Current'}
                                 </span>
                               )}
                             </div>
-                            <div className={`text-[10px] font-mono ${isActive ? 'text-indigo-100' : 'text-slate-400'}`}>
+                            <div className={`text-[10px] font-mono ${isActive ? 'text-indigo-100' : 'text-[var(--text-muted)]'}`}>
                               {fy.fyStart} → {fy.fyEnd}
                             </div>
                           </div>
                         </div>
-                        <span className={`text-[11px] font-mono px-2 py-0.5 rounded-lg ${isActive ? 'bg-white/20 text-white' : 'bg-slate-800 text-slate-300'}`}>
+                        <span className={`text-[11px] font-mono px-2 py-0.5 rounded-lg ${isActive ? 'bg-white/20 text-white' : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] border border-[var(--border-primary)]'}`}>
                           {fy.count} {isHindi ? 'प्रविष्टि' : 'txns'}
                         </span>
                       </button>
@@ -1232,7 +1232,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* SECTION 2: GLOBAL SEARCH BAR (FLEXIBLE & COMPACT) */}
         <div className="flex-1 min-w-[130px] max-w-[240px] lg:max-w-xs xl:max-w-sm mx-1 relative" ref={searchContainerRef}>
           <div className="relative flex items-center">
-            <Search className="w-4 h-4 absolute left-3 text-slate-400 pointer-events-none" />
+            <Search className="w-4 h-4 absolute left-3 text-[var(--text-muted)] pointer-events-none" />
             <input
               ref={searchInputRef}
               type="text"
@@ -1243,7 +1243,7 @@ export const Header: React.FC<HeaderProps> = ({
                 setIsSearchFocused(true);
               }}
               placeholder={isHindi ? 'इनवॉइस, पार्टी, सामग्री, खाता खोजें...' : 'Search Invoices, Parties, Items, Ledgers...'}
-              className="w-full bg-slate-800/90 text-slate-100 placeholder-slate-400 text-sm rounded-xl pl-9 pr-12 py-1.5 border border-slate-700/80 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition shadow-inner"
+              className="w-full bg-[var(--bg-elevated)] text-[var(--text-primary)] text-sm rounded-xl pl-9 pr-12 py-1.5 border border-[var(--border-subtle)] focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition shadow-inner"
             />
             {searchQuery ? (
               <button
@@ -1252,13 +1252,13 @@ export const Header: React.FC<HeaderProps> = ({
                   onSearchChange('');
                   searchInputRef.current?.focus();
                 }}
-                className="absolute right-2.5 text-slate-400 hover:text-white p-1 rounded cursor-pointer"
+                className="absolute right-2.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 rounded cursor-pointer"
                 title={isHindi ? 'सर्च हटाएं' : 'Clear search'}
               >
                 <X className="w-4 h-4" />
               </button>
             ) : (
-              <span className="absolute right-2.5 text-[11px] text-slate-400 font-mono bg-slate-900/90 px-1.5 py-0.5 rounded border border-slate-700 pointer-events-none hidden xl:inline">
+              <span className="absolute right-2.5 text-[11px] text-[var(--text-muted)] font-mono bg-[var(--bg-surface)] px-1.5 py-0.5 rounded border border-[var(--border-subtle)] pointer-events-none hidden xl:inline">
                 Ctrl+K
               </span>
             )}
@@ -1280,19 +1280,19 @@ export const Header: React.FC<HeaderProps> = ({
                   setShowTxMenu(!showTxMenu);
                   setShowMoreMenu(false);
                 }}
-                className="flex items-center gap-1.5 px-2.5 lg:px-3 py-1.5 bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 hover:from-indigo-500 hover:to-indigo-400 text-white font-extrabold text-xs lg:text-sm rounded-xl shadow-md shadow-indigo-600/30 border border-indigo-400/50 transition-all cursor-pointer whitespace-nowrap"
+                className="flex items-center gap-1.5 px-2.5 lg:px-3 py-1.5 bg-gradient-to-r from-indigo-600 via-indigo-500 to-indigo-600 hover:from-indigo-500 hover:to-indigo-400 text-white hv-keep-white font-extrabold text-xs lg:text-sm rounded-xl shadow-md shadow-indigo-600/30 border border-indigo-400/50 transition-all cursor-pointer whitespace-nowrap"
                 title={isHindi ? 'नया लेन-देन दर्ज करें (इनवॉइस, जर्नल, पेमेंट, रसीद)' : 'Create New Transaction (Invoice, Journal, Payment, Receipt)'}
               >
-                <Plus className="w-4 h-4 text-amber-300 shrink-0" />
+                <Plus className="w-4 h-4 text-amber-200 shrink-0" />
                 <span>{isHindi ? '+ लेन-देन' : '+ Transactions'}</span>
                 <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showTxMenu ? 'rotate-180' : ''}`} />
               </button>
 
               {showTxMenu && (
-                <div className="absolute right-0 mt-2 w-56 bg-slate-900/98 backdrop-blur-2xl border border-slate-700 rounded-2xl shadow-2xl z-50 p-2 space-y-1 animate-fadeIn">
-                  <div className="px-3 py-1.5 text-xs font-bold text-slate-400 uppercase tracking-wider border-b border-slate-800 flex items-center justify-between">
+                <div className="absolute right-0 mt-2 w-56 bg-[var(--bg-surface)] backdrop-blur-2xl border border-[var(--border-subtle)] rounded-2xl shadow-2xl z-50 p-2 space-y-1 animate-fadeIn">
+                  <div className="px-3 py-1.5 text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider border-b border-[var(--border-primary)] flex items-center justify-between">
                     <span>{isHindi ? 'त्वरित वाउचर निर्माण' : 'Quick Voucher'}</span>
-                    <span className="text-amber-400 font-mono text-[11px]">F5 - F8</span>
+                    <span className="text-amber-500 font-mono text-[11px] font-bold">F5 - F8</span>
                   </div>
                   
                   {rbac.canCreateEditTransactions && (
@@ -1302,12 +1302,12 @@ export const Header: React.FC<HeaderProps> = ({
                           onOpenQuickModal('invoice');
                           setShowTxMenu(false);
                         }}
-                        className="w-full text-left px-3 py-2 hover:bg-slate-800 rounded-xl flex items-center gap-3 text-sm text-slate-100 hover:text-indigo-300 font-semibold transition cursor-pointer"
+                        className="w-full text-left px-3 py-2 hover:bg-[var(--hover-surface)] rounded-xl flex items-center gap-3 text-sm text-[var(--text-primary)] font-semibold transition cursor-pointer"
                       >
-                        <FileText className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <FileText className="w-4 h-4 text-emerald-500 shrink-0" />
                         <div>
                           <div className="font-bold">{isHindi ? 'सेल इनवॉइस' : 'Sales Invoice'}</div>
-                          <div className="text-xs text-slate-400 font-normal">{isHindi ? 'जीएसटी बिल/इनवॉइस (F8)' : 'Tax Invoice (F8)'}</div>
+                          <div className="text-xs text-[var(--text-muted)] font-normal">{isHindi ? 'जीएसटी बिल/इनवॉइस (F8)' : 'Tax Invoice (F8)'}</div>
                         </div>
                       </button>
 
@@ -1317,12 +1317,12 @@ export const Header: React.FC<HeaderProps> = ({
                             onNavigateTab('pos');
                             setShowTxMenu(false);
                           }}
-                          className="w-full text-left px-3 py-2 hover:bg-slate-800 rounded-xl flex items-center gap-3 text-sm text-slate-100 hover:text-cyan-300 font-semibold transition cursor-pointer"
+                          className="w-full text-left px-3 py-2 hover:bg-[var(--hover-surface)] rounded-xl flex items-center gap-3 text-sm text-[var(--text-primary)] font-semibold transition cursor-pointer"
                         >
-                          <ScanBarcode className="w-4 h-4 text-cyan-400 shrink-0" />
+                          <ScanBarcode className="w-4 h-4 text-cyan-500 shrink-0" />
                           <div>
                             <div className="font-bold">{isHindi ? 'बारकोड POS बिलिंग' : 'Barcode POS Billing'}</div>
-                            <div className="text-xs text-slate-400 font-normal">{isHindi ? 'काउंटर स्कैनर टर्मिनल' : 'High-Speed Counter POS'}</div>
+                            <div className="text-xs text-[var(--text-muted)] font-normal">{isHindi ? 'काउंटर स्कैनर टर्मिनल' : 'High-Speed Counter POS'}</div>
                           </div>
                         </button>
                       )}
@@ -1336,12 +1336,12 @@ export const Header: React.FC<HeaderProps> = ({
                           onOpenQuickModal('journal');
                           setShowTxMenu(false);
                         }}
-                        className="w-full text-left px-3 py-2 hover:bg-slate-800 rounded-xl flex items-center gap-3 text-sm text-slate-100 hover:text-indigo-300 font-semibold transition cursor-pointer"
+                        className="w-full text-left px-3 py-2 hover:bg-[var(--hover-surface)] rounded-xl flex items-center gap-3 text-sm text-[var(--text-primary)] font-semibold transition cursor-pointer"
                       >
-                        <BookOpen className="w-4 h-4 text-amber-400 shrink-0" />
+                        <BookOpen className="w-4 h-4 text-amber-500 shrink-0" />
                         <div>
                           <div className="font-bold">{isHindi ? 'जर्नल एंट्री' : 'Journal Entry'}</div>
-                          <div className="text-xs text-slate-400 font-normal">{isHindi ? 'एडजस्टमेंट वाउचर (F7)' : 'Adjustment Entry (F7)'}</div>
+                          <div className="text-xs text-[var(--text-muted)] font-normal">{isHindi ? 'एडजस्टमेंट वाउचर (F7)' : 'Adjustment Entry (F7)'}</div>
                         </div>
                       </button>
 
@@ -1350,12 +1350,12 @@ export const Header: React.FC<HeaderProps> = ({
                           onOpenQuickModal('payment');
                           setShowTxMenu(false);
                         }}
-                        className="w-full text-left px-3 py-2 hover:bg-slate-800 rounded-xl flex items-center gap-3 text-sm text-slate-100 hover:text-indigo-300 font-semibold transition cursor-pointer"
+                        className="w-full text-left px-3 py-2 hover:bg-[var(--hover-surface)] rounded-xl flex items-center gap-3 text-sm text-[var(--text-primary)] font-semibold transition cursor-pointer"
                       >
-                        <CreditCard className="w-4 h-4 text-rose-400 shrink-0" />
+                        <CreditCard className="w-4 h-4 text-rose-500 shrink-0" />
                         <div>
                           <div className="font-bold">{isHindi ? 'पेमेंट वाउचर' : 'Payment Entry'}</div>
-                          <div className="text-xs text-slate-400 font-normal">{isHindi ? 'सप्लायर/खर्च भुगतान (F5)' : 'Supplier Payouts (F5)'}</div>
+                          <div className="text-xs text-[var(--text-muted)] font-normal">{isHindi ? 'सप्लायर/खर्च भुगतान (F5)' : 'Supplier Payouts (F5)'}</div>
                         </div>
                       </button>
 
@@ -1364,12 +1364,12 @@ export const Header: React.FC<HeaderProps> = ({
                           onOpenQuickModal('receipt');
                           setShowTxMenu(false);
                         }}
-                        className="w-full text-left px-3 py-2 hover:bg-slate-800 rounded-xl flex items-center gap-3 text-sm text-slate-100 hover:text-indigo-300 font-semibold transition cursor-pointer"
+                        className="w-full text-left px-3 py-2 hover:bg-[var(--hover-surface)] rounded-xl flex items-center gap-3 text-sm text-[var(--text-primary)] font-semibold transition cursor-pointer"
                       >
-                        <Receipt className="w-4 h-4 text-sky-400 shrink-0" />
+                        <Receipt className="w-4 h-4 text-sky-500 shrink-0" />
                         <div>
                           <div className="font-bold">{isHindi ? 'रसीद वाउचर' : 'Receipt Entry'}</div>
-                          <div className="text-xs text-slate-400 font-normal">{isHindi ? 'भुगतान प्राप्ति (F6)' : 'Customer Inflow (F6)'}</div>
+                          <div className="text-xs text-[var(--text-muted)] font-normal">{isHindi ? 'भुगतान प्राप्ति (F6)' : 'Customer Inflow (F6)'}</div>
                         </div>
                       </button>
                     </>
@@ -1384,12 +1384,12 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               type="button"
               onClick={onOpenConfigureModal}
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 hover:text-amber-200 border border-amber-400/40 rounded-xl text-xs lg:text-sm font-bold transition shadow-sm cursor-pointer whitespace-nowrap"
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 hv-pill-amber border rounded-xl text-xs lg:text-sm font-bold transition shadow-sm cursor-pointer whitespace-nowrap hover:brightness-95"
               title={isHindi ? 'F12 मास्टर कॉन्फ़िगरेशन सेटिंग्स (F12 दबाएं)' : 'F12 Master Configuration (Press F12)'}
             >
-              <Settings className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <Settings className="w-3.5 h-3.5 shrink-0" />
               <span>{isHindi ? 'कॉन्फ़िगर' : 'Configure'}</span>
-              <span className="px-1 py-0.2 bg-amber-400/30 text-amber-200 rounded text-[10px] font-mono font-bold hidden lg:inline">
+              <span className="px-1 py-0.2 bg-black/10 rounded text-[10px] font-mono font-bold hidden lg:inline">
                 F12
               </span>
             </button>
@@ -1400,10 +1400,10 @@ export const Header: React.FC<HeaderProps> = ({
             <button
               type="button"
               onClick={onOpenLicenseModal}
-              className={`hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-[11px] lg:text-xs font-extrabold transition shadow-sm cursor-pointer whitespace-nowrap shrink-0 ${
+              className={`hidden md:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-[11px] lg:text-xs font-extrabold transition shadow-sm cursor-pointer whitespace-nowrap shrink-0 hover:brightness-95 ${
                 trialStatus.isTrialExpired || trialStatus.clockTampered || trialStatus.vaultTampered || trialStatus.machineMismatch
-                  ? 'bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border-rose-400/50'
-                  : 'bg-amber-500/15 hover:bg-amber-500/25 text-amber-200 border-amber-400/40'
+                  ? 'hv-pill-rose'
+                  : 'hv-pill-amber'
               }`}
               title={
                 trialStatus.isTrialExpired
@@ -1413,7 +1413,7 @@ export const Header: React.FC<HeaderProps> = ({
                       : `Free Trial: ${trialStatus.daysRemaining} ${trialStatus.daysRemaining === 1 ? 'Day' : 'Days'} Left — Activate License`)
               }
             >
-              <KeyRound className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+              <KeyRound className="w-3.5 h-3.5 shrink-0" />
               <span className="hidden xl:inline">
                 {trialStatus.isTrialExpired
                   ? (isHindi ? 'ट्रायल समाप्त — लाइसेंस एक्टिवेट करें' : 'Trial Expired — Activate License')
@@ -1433,12 +1433,12 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             type="button"
             onClick={onOpenCloudSyncModal || onRefreshData}
-            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border transition cursor-pointer text-xs lg:text-sm font-bold shadow-sm whitespace-nowrap ${
+            className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border transition cursor-pointer text-xs lg:text-sm font-bold shadow-sm whitespace-nowrap hover:brightness-95 ${
               cloudSyncStatus === 'local'
-                ? 'bg-amber-950/60 hover:bg-amber-900/80 text-amber-300 hover:text-white border-amber-500/40'
+                ? 'hv-pill-amber'
                 : cloudSyncStatus === 'error'
-                  ? 'bg-rose-950/60 hover:bg-rose-900/80 text-rose-300 hover:text-white border-rose-500/40'
-                  : 'bg-emerald-950/60 hover:bg-emerald-900/80 text-emerald-300 hover:text-white border-emerald-500/40'
+                  ? 'hv-pill-rose'
+                  : 'hv-pill-emerald'
             }`}
             title={
               cloudSyncStatus === 'local'
@@ -1446,7 +1446,7 @@ export const Header: React.FC<HeaderProps> = ({
                 : (isHindi ? 'मल्टी-सिस्टम क्लाउड लाइव सिंक (क्लिक करके मोड बदलें)' : 'Multi-System Cloud Live Sync (Click to configure)')
             }
           >
-            <Cloud className={`w-4 h-4 shrink-0 ${cloudSyncStatus === 'local' ? 'text-amber-400' : cloudSyncStatus === 'error' ? 'text-rose-400' : 'text-emerald-400'}`} />
+            <Cloud className="w-4 h-4 shrink-0" />
             <span className="hidden 2xl:inline">
               {cloudSyncStatus === 'local'
                 ? (isHindi ? 'डिवाइस मोड' : 'Local Only')
@@ -1454,30 +1454,30 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
             <span className={`w-2 h-2 rounded-full shrink-0 ${
               cloudSyncStatus === 'local'
-                ? 'bg-amber-400 ring-2 ring-amber-400/25'
+                ? 'bg-amber-500 ring-2 ring-amber-400/35'
                 : cloudSyncStatus === 'error'
-                  ? 'bg-rose-400 ring-2 ring-rose-400/25'
-                  : 'bg-emerald-400 ring-2 ring-emerald-400/30 animate-pulse'
+                  ? 'bg-rose-500 ring-2 ring-rose-400/35'
+                  : 'bg-emerald-500 ring-2 ring-emerald-400/35 animate-pulse'
             }`} />
           </button>
 
           {/* 3.4 LANGUAGE SWITCHER */}
           <button
             onClick={onToggleHindi}
-            className="flex items-center gap-1 text-xs lg:text-sm text-indigo-300 hover:text-white px-2.5 py-1.5 rounded-xl hover:bg-slate-800/80 border border-slate-700/60 transition cursor-pointer font-bold whitespace-nowrap shrink-0"
+            className="flex items-center gap-1 text-xs lg:text-sm hv-pill-indigo px-2.5 py-1.5 rounded-xl border transition cursor-pointer font-bold whitespace-nowrap shrink-0 hover:brightness-95"
             title={isHindi ? 'Switch to English' : 'हिंदी भाषा में बदलें'}
           >
-            <Globe2 className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+            <Globe2 className="w-3.5 h-3.5 shrink-0" />
             <span>{isHindi ? 'Eng' : 'हिंदी'}</span>
           </button>
 
           {/* 3.6 USER PROFILE PILL */}
           <button
             onClick={onOpenUserModal}
-            className="px-2.5 py-1.5 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 rounded-xl font-bold text-xs lg:text-sm flex items-center gap-1.5 text-slate-200 hover:text-white transition cursor-pointer shadow-sm whitespace-nowrap shrink-0"
+            className="px-2.5 py-1.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] rounded-xl font-bold text-xs lg:text-sm flex items-center gap-1.5 text-[var(--text-primary)] transition cursor-pointer shadow-sm whitespace-nowrap shrink-0"
             title={isHindi ? `सक्रिय भूमिका: ${roleMeta.labelHi}` : `Active Role: ${roleMeta.labelEn}`}
           >
-            <div className="w-5 h-5 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs font-bold shrink-0">
+            <div className="w-5 h-5 rounded-lg bg-indigo-600 text-white hv-keep-white flex items-center justify-center text-xs font-bold shrink-0">
               {activeUser ? activeUser.name.charAt(0).toUpperCase() : 'A'}
             </div>
             <span className="hidden xl:inline font-semibold max-w-[90px] truncate">{activeUser ? activeUser.name.split(' ')[0] : 'Admin'}</span>
@@ -1500,12 +1500,12 @@ export const Header: React.FC<HeaderProps> = ({
               }}
               className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border font-bold text-xs lg:text-sm transition cursor-pointer shadow-sm whitespace-nowrap ${
                 showMoreMenu 
-                  ? 'bg-indigo-600 text-white border-indigo-500 shadow-indigo-600/30' 
-                  : 'bg-slate-800/90 hover:bg-slate-800 text-slate-200 hover:text-white border-slate-700/80'
+                  ? 'bg-indigo-600 text-white hv-keep-white border-indigo-500 shadow-indigo-600/30' 
+                  : 'bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border-[var(--border-subtle)]'
               }`}
               title={isHindi ? 'सभी सेटिंग्स व अन्य विकल्प (Display Zoom, Guide, Shortcuts, Backup, PIN, License)' : 'All Settings & Tools (Display Zoom, Guide, Shortcuts, Backup, PIN, License)'}
             >
-              <SlidersHorizontal className="w-4 h-4 text-indigo-400 shrink-0" />
+              <SlidersHorizontal className={`w-4 h-4 shrink-0 ${showMoreMenu ? 'text-white' : 'text-indigo-500'}`} />
               <span>{isHindi ? 'विकल्प' : 'More'}</span>
               <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${showMoreMenu ? 'rotate-180' : ''}`} />
             </button>
@@ -1527,17 +1527,17 @@ export const Header: React.FC<HeaderProps> = ({
 
           <div
             ref={morePanelRef}
-            className="absolute top-full left-3 right-3 mt-2 md:left-auto md:right-5 md:w-96 bg-slate-900/98 backdrop-blur-2xl border border-slate-700/90 rounded-3xl shadow-2xl z-50 p-4 space-y-4 animate-fadeIn text-sm max-h-[calc(100dvh-5.5rem)] overflow-y-auto"
+            className="absolute top-full left-3 right-3 mt-2 md:left-auto md:right-5 md:w-96 bg-[var(--bg-surface)] backdrop-blur-2xl border border-[var(--border-subtle)] rounded-3xl shadow-2xl z-50 p-4 space-y-4 animate-fadeIn text-sm max-h-[calc(100dvh-5.5rem)] overflow-y-auto text-[var(--text-primary)]"
           >
                 {/* Header */}
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
                   <div className="flex items-center gap-2">
-                    <SlidersHorizontal className="w-4.5 h-4.5 text-indigo-400" />
+                    <SlidersHorizontal className="w-4.5 h-4.5 text-indigo-500" />
                     <div>
-                      <h3 className="font-extrabold text-sm text-white">
+                      <h3 className="font-extrabold text-sm text-[var(--text-primary)]">
                         {isHindi ? 'सॉफ्टवेयर टूल्स एवं सेटिंग्स' : 'ERP Settings & Control Center'}
                       </h3>
-                      <p className="text-xs text-slate-400">
+                      <p className="text-xs text-[var(--text-muted)]">
                         {isHindi ? 'स्क्रीन, सुरक्षा, बैकअप और टूल्स' : 'Display, Security & Utilities'}
                       </p>
                     </div>
@@ -1545,25 +1545,25 @@ export const Header: React.FC<HeaderProps> = ({
                   <button
                     type="button"
                     onClick={() => setShowMoreMenu(false)}
-                    className="p-1 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg cursor-pointer"
+                    className="p-1 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)] rounded-lg cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 </div>
 
                 {/* 1. DISPLAY & SCALE CONTROLS */}
-                <div className="space-y-2 bg-slate-950/60 p-3 rounded-2xl border border-slate-800/80">
-                  <div className="flex items-center justify-between text-xs font-bold text-slate-300">
-                    <span className="flex items-center gap-1.5 text-indigo-400">
+                <div className="space-y-2 bg-[var(--bg-elevated)] p-3 rounded-2xl border border-[var(--border-primary)]">
+                  <div className="flex items-center justify-between text-xs font-bold text-[var(--text-secondary)]">
+                    <span className="flex items-center gap-1.5 text-indigo-500">
                       <Eye className="w-4 h-4" />
                       <span>{isHindi ? 'स्क्रीन ज़ूम एवं व्यू (Display Scale)' : 'Display & Screen Scale'}</span>
                     </span>
-                    <span className="font-mono text-amber-400 text-xs font-bold">{zoomLevel}%</span>
+                    <span className="font-mono text-amber-500 text-xs font-bold">{zoomLevel}%</span>
                   </div>
 
                   {onUpdateZoom && (
                     <div className="space-y-2 pt-1">
-                      <div className="flex items-center justify-between bg-slate-900 p-1.5 rounded-xl border border-slate-800">
+                      <div className="flex items-center justify-between bg-[var(--bg-surface)] p-1.5 rounded-xl border border-[var(--border-primary)]">
                         <button
                           type="button"
                           onClick={() => {
@@ -1571,19 +1571,19 @@ export const Header: React.FC<HeaderProps> = ({
                             if (idx > 0) onUpdateZoom(zoomOptions[idx - 1]);
                             else if (zoomLevel > 25) onUpdateZoom(Math.max(25, zoomLevel - 10));
                           }}
-                          className="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg transition font-bold"
+                          className="p-1.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] rounded-lg border border-[var(--border-primary)] transition font-bold cursor-pointer"
                           title={isHindi ? 'छोटा करें (-)' : 'Zoom Out (-)'}
                         >
-                          <ZoomOut className="w-4 h-4 text-amber-400" />
+                          <ZoomOut className="w-4 h-4 text-amber-500" />
                         </button>
 
                         <select
                           value={zoomLevel}
                           onChange={(e) => onUpdateZoom(Number(e.target.value))}
-                          className="bg-transparent text-amber-300 font-mono font-bold focus:outline-none cursor-pointer text-xs"
+                          className="bg-transparent text-amber-500 font-mono font-bold focus:outline-none cursor-pointer text-xs"
                         >
                           {zoomOptions.map((z) => (
-                            <option key={z} value={z} className="bg-slate-900 text-white">
+                            <option key={z} value={z} className="bg-[var(--bg-surface)] text-[var(--text-primary)]">
                               {z}% View
                             </option>
                           ))}
@@ -1596,10 +1596,10 @@ export const Header: React.FC<HeaderProps> = ({
                             if (idx >= 0 && idx < zoomOptions.length - 1) onUpdateZoom(zoomOptions[idx + 1]);
                             else if (zoomLevel < 200) onUpdateZoom(Math.min(200, zoomLevel + 10));
                           }}
-                          className="p-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg transition font-bold"
+                          className="p-1.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] rounded-lg border border-[var(--border-primary)] transition font-bold cursor-pointer"
                           title={isHindi ? 'बड़ा करें (+)' : 'Zoom In (+)'}
                         >
-                          <ZoomIn className="w-4 h-4 text-amber-400" />
+                          <ZoomIn className="w-4 h-4 text-amber-500" />
                         </button>
                       </div>
 
@@ -1610,8 +1610,8 @@ export const Header: React.FC<HeaderProps> = ({
                           onClick={() => onUpdateZoom(100)}
                           className={`py-1.5 rounded-xl text-xs font-bold border transition cursor-pointer ${
                             zoomLevel === 100 
-                              ? 'bg-indigo-600 text-white border-indigo-400 shadow' 
-                              : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'
+                              ? 'bg-indigo-600 text-white hv-keep-white border-indigo-400 shadow' 
+                              : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-primary)] hover:bg-[var(--hover-surface)]'
                           }`}
                         >
                           100% Normal
@@ -1621,8 +1621,8 @@ export const Header: React.FC<HeaderProps> = ({
                           onClick={() => onUpdateZoom(115)}
                           className={`py-1.5 rounded-xl text-xs font-bold border transition cursor-pointer ${
                             zoomLevel === 115 
-                              ? 'bg-indigo-600 text-white border-indigo-400 shadow' 
-                              : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'
+                              ? 'bg-indigo-600 text-white hv-keep-white border-indigo-400 shadow' 
+                              : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-primary)] hover:bg-[var(--hover-surface)]'
                           }`}
                         >
                           115% Medium
@@ -1632,8 +1632,8 @@ export const Header: React.FC<HeaderProps> = ({
                           onClick={() => onUpdateZoom(130)}
                           className={`py-1.5 rounded-xl text-xs font-bold border transition cursor-pointer ${
                             zoomLevel === 130 
-                              ? 'bg-indigo-600 text-white border-indigo-400 shadow' 
-                              : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'
+                              ? 'bg-indigo-600 text-white hv-keep-white border-indigo-400 shadow' 
+                              : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-primary)] hover:bg-[var(--hover-surface)]'
                           }`}
                         >
                           130% Large
@@ -1650,49 +1650,49 @@ export const Header: React.FC<HeaderProps> = ({
                         toggleFullscreen();
                         setShowMoreMenu(false);
                       }}
-                      className="w-full flex items-center justify-between p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs text-slate-200 font-semibold transition cursor-pointer"
+                      className="w-full flex items-center justify-between p-2.5 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-primary)] text-xs text-[var(--text-primary)] font-semibold transition cursor-pointer"
                     >
                       <span className="flex items-center gap-2">
-                        {isFullscreen ? <Minimize className="w-4 h-4 text-amber-400" /> : <Maximize className="w-4 h-4 text-indigo-400" />}
+                        {isFullscreen ? <Minimize className="w-4 h-4 text-amber-500" /> : <Maximize className="w-4 h-4 text-indigo-500" />}
                         <span>{isFullscreen ? (isHindi ? 'फुलस्क्रीन बंद करें' : 'Exit Fullscreen') : (isHindi ? 'फुलस्क्रीन मोड चालू करें' : 'Enter Fullscreen Mode')}</span>
                       </span>
-                      <span className="text-[11px] font-mono text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded">F11</span>
+                      <span className="text-[11px] font-mono text-[var(--text-muted)] bg-[var(--bg-elevated)] px-1.5 py-0.5 rounded border border-[var(--border-primary)]">F11</span>
                     </button>
                   </div>
 
                   {/* Theme Color Switcher */}
                   {onUpdateTheme && (
-                    <div className="pt-2 border-t border-slate-800/80 space-y-1">
-                      <label className="text-xs text-slate-400 font-semibold flex items-center gap-1.5">
-                        <Palette className="w-3.5 h-3.5 text-indigo-400" />
+                    <div className="pt-2 border-t border-[var(--border-primary)] space-y-1">
+                      <label className="text-xs text-[var(--text-secondary)] font-semibold flex items-center gap-1.5">
+                        <Palette className="w-3.5 h-3.5 text-indigo-500" />
                         <span>{isHindi ? 'थीम रंग (Theme Mode):' : 'Color Theme:'}</span>
                       </label>
                       <select
                         value={theme}
                         onChange={(e) => onUpdateTheme(e.target.value as AppTheme)}
-                        className="w-full bg-slate-900 text-slate-200 font-bold border border-slate-800 rounded-xl p-2 text-xs focus:outline-none cursor-pointer"
+                        className="w-full bg-[var(--bg-input)] text-[var(--text-primary)] font-bold border border-[var(--border-subtle)] rounded-xl p-2 text-xs focus:outline-none focus:border-indigo-500 cursor-pointer"
                       >
-                        <option value="slate">🌑 Dark Slate (डार्क स्लेट - मानक)</option>
-                        <option value="navy">🌌 Midnight Navy (मिडनाइट नेवी)</option>
-                        <option value="emerald">🌲 Forest Emerald (फॉरेस्ट एमराल्ड)</option>
-                        <option value="purple">🔮 Cyber Purple (साइबर पर्पल)</option>
-                        <option value="light">☀️ Classic Light ERP (क्लासिक लाइट)</option>
+                        <option value="slate">Dark Slate (डार्क स्लेट - मानक)</option>
+                        <option value="navy">Midnight Navy (मिडनाइट नेवी)</option>
+                        <option value="emerald">Forest Emerald (फॉरेस्ट एमराल्ड)</option>
+                        <option value="purple">Cyber Purple (साइबर पर्पल)</option>
+                        <option value="light">Classic Light ERP (क्लासिक लाइट)</option>
                       </select>
                     </div>
                   )}
                 </div>
 
                 {/* 2. CURRENCY & DATA BACKUP */}
-                <div className="space-y-2 bg-slate-950/60 p-3 rounded-2xl border border-slate-800/80">
-                  <div className="text-xs font-bold text-amber-400 flex items-center gap-1.5">
+                <div className="space-y-2 bg-[var(--bg-elevated)] p-3 rounded-2xl border border-[var(--border-primary)]">
+                  <div className="text-xs font-bold text-amber-500 flex items-center gap-1.5">
                     <Coins className="w-4 h-4" />
                     <span>{isHindi ? 'मुद्रा व बैकअप प्रबंधन' : 'Currency & Data Management'}</span>
                   </div>
 
                   <div className="grid grid-cols-2 gap-2 pt-1">
                     {/* Currency Dropdown */}
-                    <div className="bg-slate-900 p-2 rounded-xl border border-slate-800">
-                      <span className="text-[11px] text-slate-400 block mb-1 font-semibold">
+                    <div className="bg-[var(--bg-surface)] p-2 rounded-xl border border-[var(--border-primary)]">
+                      <span className="text-[11px] text-[var(--text-muted)] block mb-1 font-semibold">
                         {isHindi ? 'मुद्रा (Currency):' : 'Currency:'}
                       </span>
                       <select
@@ -1701,13 +1701,13 @@ export const Header: React.FC<HeaderProps> = ({
                         onChange={(e) => {
                           if (rbac.canEditCompanySettings) onUpdateCurrency(e.target.value as Currency);
                         }}
-                        className="w-full bg-transparent text-amber-300 font-bold focus:outline-none cursor-pointer text-xs disabled:opacity-60 disabled:cursor-not-allowed"
+                        className="w-full bg-transparent text-amber-500 font-bold focus:outline-none cursor-pointer text-xs disabled:opacity-60 disabled:cursor-not-allowed"
                       >
-                        <option value="INR" className="bg-slate-900 text-white">INR (₹)</option>
-                        <option value="USD" className="bg-slate-900 text-white">USD ($)</option>
-                        <option value="AED" className="bg-slate-900 text-white">AED (د.إ)</option>
-                        <option value="EUR" className="bg-slate-900 text-white">EUR (€)</option>
-                        <option value="GBP" className="bg-slate-900 text-white">GBP (£)</option>
+                        <option value="INR" className="bg-[var(--bg-surface)] text-[var(--text-primary)]">INR (₹)</option>
+                        <option value="USD" className="bg-[var(--bg-surface)] text-[var(--text-primary)]">USD ($)</option>
+                        <option value="AED" className="bg-[var(--bg-surface)] text-[var(--text-primary)]">AED (د.إ)</option>
+                        <option value="EUR" className="bg-[var(--bg-surface)] text-[var(--text-primary)]">EUR (€)</option>
+                        <option value="GBP" className="bg-[var(--bg-surface)] text-[var(--text-primary)]">GBP (£)</option>
                       </select>
                     </div>
 
@@ -1719,10 +1719,10 @@ export const Header: React.FC<HeaderProps> = ({
                           onRefreshData();
                           setShowMoreMenu(false);
                         }}
-                        className="flex flex-col items-start justify-center bg-slate-900 hover:bg-slate-800 p-2 rounded-xl border border-slate-800 transition text-left cursor-pointer"
+                        className="flex flex-col items-start justify-center bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] p-2 rounded-xl border border-[var(--border-primary)] transition text-left cursor-pointer"
                       >
-                        <span className="text-[11px] text-slate-400 font-semibold">{isHindi ? 'डेटा रिफ्रेश' : 'Refresh Data'}</span>
-                        <span className="text-xs font-bold text-indigo-300 flex items-center gap-1 mt-0.5">
+                        <span className="text-[11px] text-[var(--text-muted)] font-semibold">{isHindi ? 'डेटा रिफ्रेश' : 'Refresh Data'}</span>
+                        <span className="text-xs font-bold text-indigo-500 flex items-center gap-1 mt-0.5">
                           <RefreshCw className="w-3.5 h-3.5" />
                           <span>{isHindi ? 'सिंक करें' : 'Sync Now'}</span>
                         </span>
@@ -1738,21 +1738,21 @@ export const Header: React.FC<HeaderProps> = ({
                         onOpenBackupModal();
                         setShowMoreMenu(false);
                       }}
-                      className="w-full flex items-center justify-between p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-bold text-slate-200 transition cursor-pointer"
+                      className="w-full flex items-center justify-between p-2.5 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-primary)] text-xs font-bold text-[var(--text-primary)] transition cursor-pointer"
                     >
                       <span className="flex items-center gap-2">
-                        <Download className="w-4 h-4 text-emerald-400" />
+                        <Download className="w-4 h-4 text-emerald-500" />
                         <span>{isHindi ? 'डेटा सुरक्षित बैकअप व रिस्टोर' : 'Backup & Restore Database'}</span>
                       </span>
-                      <span className="text-[11px] text-emerald-400 font-mono">.json / zip</span>
+                      <span className="text-[11px] text-emerald-500 font-mono">.json / zip</span>
                     </button>
                   )}
                 </div>
 
                 {/* 3. SECURITY & LICENSING */}
                 {rbac.canManageUsersAndPin && (
-                  <div className="space-y-2 bg-slate-950/60 p-3 rounded-2xl border border-slate-800/80">
-                    <div className="text-xs font-bold text-emerald-400 flex items-center gap-1.5">
+                  <div className="space-y-2 bg-[var(--bg-elevated)] p-3 rounded-2xl border border-[var(--border-primary)]">
+                    <div className="text-xs font-bold text-emerald-500 flex items-center gap-1.5">
                       <ShieldCheck className="w-4 h-4" />
                       <span>{isHindi ? 'सुरक्षा एवं लाइसेंस स्थिति' : 'Security & License Status'}</span>
                     </div>
@@ -1765,13 +1765,13 @@ export const Header: React.FC<HeaderProps> = ({
                           onOpenLicenseModal();
                           setShowMoreMenu(false);
                         }}
-                        className={`p-2.5 rounded-xl border flex flex-col items-start justify-center transition cursor-pointer ${
+                        className={`p-2.5 rounded-xl border flex flex-col items-start justify-center transition cursor-pointer hover:brightness-95 ${
                           data.license?.isLicensed
-                            ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300'
-                            : 'bg-amber-500/15 border-amber-500/40 text-amber-300'
+                            ? 'hv-pill-emerald'
+                            : 'hv-pill-amber'
                         }`}
                       >
-                        <span className="text-[11px] opacity-80">{isHindi ? 'लाइसेंस स्टेटस:' : 'License:'}</span>
+                        <span className="text-[11px] font-semibold">{isHindi ? 'लाइसेंस स्टेटस:' : 'License:'}</span>
                         <span className="text-xs font-extrabold flex items-center gap-1 mt-0.5">
                           <ShieldCheck className="w-3.5 h-3.5" />
                           <span>
@@ -1792,11 +1792,11 @@ export const Header: React.FC<HeaderProps> = ({
                           else onOpenSecurityModal();
                           setShowMoreMenu(false);
                         }}
-                        className="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 flex flex-col items-start justify-center text-slate-200 transition cursor-pointer"
+                        className="p-2.5 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-primary)] flex flex-col items-start justify-center text-[var(--text-primary)] transition cursor-pointer"
                       >
-                        <span className="text-[11px] text-slate-400">{isHindi ? 'मास्टर पिन:' : 'Master PIN:'}</span>
-                        <span className="text-xs font-bold text-amber-300 flex items-center gap-1 mt-0.5">
-                          <KeyRound className="w-3.5 h-3.5 text-amber-400" />
+                        <span className="text-[11px] text-[var(--text-muted)] font-semibold">{isHindi ? 'मास्टर पिन:' : 'Master PIN:'}</span>
+                        <span className="text-xs font-bold text-amber-500 flex items-center gap-1 mt-0.5">
+                          <KeyRound className="w-3.5 h-3.5" />
                           <span>{isHindi ? 'पिन बदलें' : 'Change PIN'}</span>
                         </span>
                       </button>
@@ -1814,13 +1814,13 @@ export const Header: React.FC<HeaderProps> = ({
                         else if (onOpenConfigureModal) onOpenConfigureModal();
                         setShowMoreMenu(false);
                       }}
-                      className="w-full flex items-center justify-between p-2.5 rounded-xl bg-cyan-950/50 hover:bg-cyan-900/70 border border-cyan-500/35 text-xs font-bold text-cyan-200 transition cursor-pointer"
+                      className="w-full flex items-center justify-between p-2.5 rounded-xl hv-pill-cyan border text-xs font-bold transition cursor-pointer hover:brightness-95"
                     >
                       <span className="flex items-center gap-2">
-                        <ToggleRight className="w-4 h-4 text-cyan-400" />
+                        <ToggleRight className="w-4 h-4" />
                         <span>{isHindi ? '⚡ सॉफ्टवेयर फीचर्स ऑन/ऑफ (POS, No-Inventory)' : '⚡ Enable / Disable Features (POS, Accounts-Only)'}</span>
                       </span>
-                      <span className="text-[10px] font-mono bg-cyan-950 px-2 py-0.5 rounded border border-cyan-700 text-amber-300">
+                      <span className="text-[10px] font-mono bg-black/10 px-2 py-0.5 rounded border border-current/25">
                         {effectiveConfig.accountingWithoutInventory ? 'ACC ONLY' : 'F12'}
                       </span>
                     </button>
@@ -1833,13 +1833,13 @@ export const Header: React.FC<HeaderProps> = ({
                         onOpenUserManual();
                         setShowMoreMenu(false);
                       }}
-                      className="w-full flex items-center justify-between p-2.5 rounded-xl bg-sky-950/50 hover:bg-sky-900/70 border border-sky-500/35 text-xs font-bold text-sky-200 transition cursor-pointer"
+                      className="w-full flex items-center justify-between p-2.5 rounded-xl hv-pill-sky border text-xs font-bold transition cursor-pointer hover:brightness-95"
                     >
                       <span className="flex items-center gap-2">
-                        <HelpCircle className="w-4 h-4 text-sky-400" />
+                        <HelpCircle className="w-4 h-4" />
                         <span>{isHindi ? 'उपयोगकर्ता गाइड (User Manual / How-To)' : 'User Manual & Step-by-Step Guide'}</span>
                       </span>
-                      <span className="text-[11px] font-mono bg-sky-950 px-2 py-0.5 rounded border border-sky-700 text-sky-300">
+                      <span className="text-[11px] font-mono bg-black/10 px-2 py-0.5 rounded border border-current/25">
                         {isHindi ? 'गाइड' : 'Help'}
                       </span>
                     </button>
@@ -1852,13 +1852,13 @@ export const Header: React.FC<HeaderProps> = ({
                         onOpenShortcutsModal();
                         setShowMoreMenu(false);
                       }}
-                      className="w-full flex items-center justify-between p-2.5 rounded-xl bg-indigo-950/50 hover:bg-indigo-900/70 border border-indigo-500/35 text-xs font-bold text-indigo-200 transition cursor-pointer"
+                      className="w-full flex items-center justify-between p-2.5 rounded-xl hv-pill-indigo border text-xs font-bold transition cursor-pointer hover:brightness-95"
                     >
                       <span className="flex items-center gap-2">
-                        <Keyboard className="w-4 h-4 text-indigo-400" />
+                        <Keyboard className="w-4 h-4" />
                         <span>{isHindi ? '⌨️ कीबोर्ड शॉर्टकट गाइड (Alt+K / ?)' : 'Keyboard Shortcuts Guide (Alt+K / ?)'}</span>
                       </span>
-                      <span className="text-[11px] font-mono bg-indigo-950 px-2 py-0.5 rounded border border-indigo-700 text-amber-300">
+                      <span className="text-[11px] font-mono bg-black/10 px-2 py-0.5 rounded border border-current/25">
                         Alt+K
                       </span>
                     </button>
@@ -1871,10 +1871,10 @@ export const Header: React.FC<HeaderProps> = ({
                         onOpenMobileModal();
                         setShowMoreMenu(false);
                       }}
-                      className="w-full flex items-center justify-between p-2.5 rounded-xl bg-emerald-950/40 hover:bg-emerald-950/80 border border-emerald-500/30 text-xs font-bold text-emerald-300 transition cursor-pointer"
+                      className="w-full flex items-center justify-between p-2.5 rounded-xl hv-pill-emerald border text-xs font-bold transition cursor-pointer hover:brightness-95"
                     >
                       <span className="flex items-center gap-2">
-                        <Smartphone className="w-4 h-4 text-emerald-400" />
+                        <Smartphone className="w-4 h-4" />
                         <span>{isHindi ? '🖥️📱 डेस्कटॉप व मोबाइल ऐप इंस्टॉल (Logo Shortcut)' : 'Install App (Desktop Shortcut & Mobile)'}</span>
                       </span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -1883,7 +1883,7 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
 
                 {/* 5. SYSTEM ACTIONS & LOGOUT */}
-                <div className="pt-2 border-t border-slate-800 flex items-center justify-between gap-2">
+                <div className="pt-2 border-t border-[var(--border-primary)] flex items-center justify-between gap-2">
                   {rbac.canResetWorkspace ? (
                     <button
                       type="button"
@@ -1891,10 +1891,10 @@ export const Header: React.FC<HeaderProps> = ({
                         onResetSampleData();
                         setShowMoreMenu(false);
                       }}
-                      className="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 rounded-xl transition text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
+                      className="p-2 text-[var(--text-secondary)] hover:text-rose-500 hover:bg-rose-500/10 rounded-xl transition text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
                       title={isHindi ? 'डेमो डेटा रीसेट करें' : 'Reset Sample Data'}
                     >
-                      <RotateCcw className="w-3.5 h-3.5 text-rose-400" />
+                      <RotateCcw className="w-3.5 h-3.5 text-rose-500" />
                       <span>{isHindi ? 'डेमो रीसेट' : 'Reset Demo'}</span>
                     </button>
                   ) : (
@@ -1910,7 +1910,7 @@ export const Header: React.FC<HeaderProps> = ({
                       if (onLogout) onLogout();
                       else onLockSession();
                     }}
-                    className="px-3 py-1.5 bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white rounded-xl border border-rose-500/40 text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
+                    className="px-3 py-1.5 hv-pill-rose hover:!bg-rose-600 hover:!text-white rounded-xl border text-xs font-bold flex items-center gap-1.5 transition cursor-pointer"
                   >
                     <LogOut className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'लॉगआउट' : 'Logout Session'}</span>
@@ -1924,9 +1924,9 @@ export const Header: React.FC<HeaderProps> = ({
           5. MOBILE SEARCH OVERLAY (When search icon clicked on mobile)
           ============================================================ */}
       {showMobileSearch && (
-        <div ref={mobileSearchContainerRef} className="md:hidden mt-2 pt-2 border-t border-slate-800">
+        <div ref={mobileSearchContainerRef} className="md:hidden mt-2 pt-2 border-t border-[var(--border-primary)]">
           <div className="relative flex items-center">
-            <Search className="w-4 h-4 absolute left-3 text-slate-400 pointer-events-none" />
+            <Search className="w-4 h-4 absolute left-3 text-[var(--text-muted)] pointer-events-none" />
             <input
               ref={mobileSearchInputRef}
               type="text"
@@ -1937,7 +1937,7 @@ export const Header: React.FC<HeaderProps> = ({
                 setIsSearchFocused(true);
               }}
               placeholder={isHindi ? 'इनवॉइस, पार्टी, सामग्री, खाता खोजें...' : 'Search Invoices, Parties, Items, Ledgers...'}
-              className="w-full bg-slate-800/90 text-slate-100 placeholder-slate-400 text-sm rounded-xl pl-9 pr-9 py-2 border border-slate-700 focus:outline-none focus:border-indigo-500"
+              className="w-full bg-[var(--bg-input)] text-[var(--text-primary)] text-sm rounded-xl pl-9 pr-9 py-2 border border-[var(--border-subtle)] focus:outline-none focus:border-indigo-500"
               autoFocus
             />
             {searchQuery && (
@@ -1947,7 +1947,7 @@ export const Header: React.FC<HeaderProps> = ({
                   onSearchChange('');
                   mobileSearchInputRef.current?.focus();
                 }}
-                className="absolute right-2.5 text-slate-400 hover:text-white p-1"
+                className="absolute right-2.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -1964,23 +1964,23 @@ export const Header: React.FC<HeaderProps> = ({
           ============================================================ */}
       {showMobileTxSheet && (
         <div className="fixed inset-0 z-[70] bg-slate-950/85 backdrop-blur-md flex items-end sm:items-center justify-center p-3 sm:p-4 animate-fadeIn">
-          <div className="bg-slate-900 border border-slate-700/80 rounded-3xl p-5 w-full max-w-sm shadow-2xl space-y-3.5 text-slate-100">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div className="bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-3xl p-5 w-full max-w-sm shadow-2xl space-y-3.5 text-[var(--text-primary)]">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-xl bg-indigo-600/20 text-indigo-400">
+                <div className="p-2 rounded-xl hv-pill-indigo border">
                   <Plus className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white">{isHindi ? 'त्वरित नया लेन-देन दर्ज करें' : 'Quick Create Transaction'}</h3>
-                  <p className="text-xs text-slate-400">{isHindi ? 'वाउचर या इनवॉइस चुनें' : 'Select Voucher or Invoice'}</p>
+                  <h3 className="text-sm font-bold text-[var(--text-primary)]">{isHindi ? 'त्वरित नया लेन-देन दर्ज करें' : 'Quick Create Transaction'}</h3>
+                  <p className="text-xs text-[var(--text-muted)]">{isHindi ? 'वाउचर या इनवॉइस चुनें' : 'Select Voucher or Invoice'}</p>
                 </div>
               </div>
               <button
                 type="button"
                 onClick={() => setShowMobileTxSheet(false)}
-                className="p-1.5 text-slate-400 hover:text-white rounded-xl hover:bg-slate-800 cursor-pointer"
+                className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] rounded-xl hover:bg-[var(--hover-surface)] cursor-pointer"
               >
-                <X className="w-5 h-5 text-rose-400" />
+                <X className="w-5 h-5 text-rose-500" />
               </button>
             </div>
 
@@ -1992,14 +1992,14 @@ export const Header: React.FC<HeaderProps> = ({
                     onOpenQuickModal('invoice');
                     setShowMobileTxSheet(false);
                   }}
-                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 text-left transition cursor-pointer"
+                  className="w-full flex items-center gap-3 p-3 rounded-2xl bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-left transition cursor-pointer"
                 >
-                  <div className="p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400 shrink-0">
+                  <div className="p-2.5 rounded-xl hv-pill-emerald border shrink-0">
                     <FileText className="w-5 h-5" />
                   </div>
                   <div>
-                    <div className="font-bold text-sm text-white">{isHindi ? 'सेल इनवॉइस (Sales Invoice)' : 'Sales Invoice (F8)'}</div>
-                    <div className="text-xs text-slate-400">{isHindi ? 'नया जीएसटी टैक्स इनवॉइस बनाएँ' : 'Create Tax Invoice & e-Way Bill'}</div>
+                    <div className="font-bold text-sm text-[var(--text-primary)]">{isHindi ? 'सेल इनवॉइस (Sales Invoice)' : 'Sales Invoice (F8)'}</div>
+                    <div className="text-xs text-[var(--text-muted)]">{isHindi ? 'नया जीएसटी टैक्स इनवॉइस बनाएँ' : 'Create Tax Invoice & e-Way Bill'}</div>
                   </div>
                 </button>
               )}
@@ -2012,14 +2012,14 @@ export const Header: React.FC<HeaderProps> = ({
                       onOpenQuickModal('journal');
                       setShowMobileTxSheet(false);
                     }}
-                    className="w-full flex items-center gap-3 p-3 rounded-2xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 text-left transition cursor-pointer"
+                    className="w-full flex items-center gap-3 p-3 rounded-2xl bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-left transition cursor-pointer"
                   >
-                    <div className="p-2.5 rounded-xl bg-amber-500/20 text-amber-400 shrink-0">
+                    <div className="p-2.5 rounded-xl hv-pill-amber border shrink-0">
                       <BookOpen className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="font-bold text-sm text-white">{isHindi ? 'जर्नल एंट्री (Journal Entry)' : 'Journal Entry (F7)'}</div>
-                      <div className="text-xs text-slate-400">{isHindi ? 'डेबिट / क्रेडिट समायोजन वाउचर' : 'Adjustment & Non-Cash Entries'}</div>
+                      <div className="font-bold text-sm text-[var(--text-primary)]">{isHindi ? 'जर्नल एंट्री (Journal Entry)' : 'Journal Entry (F7)'}</div>
+                      <div className="text-xs text-[var(--text-muted)]">{isHindi ? 'डेबिट / क्रेडिट समायोजन वाउचर' : 'Adjustment & Non-Cash Entries'}</div>
                     </div>
                   </button>
 
@@ -2029,14 +2029,14 @@ export const Header: React.FC<HeaderProps> = ({
                       onOpenQuickModal('payment');
                       setShowMobileTxSheet(false);
                     }}
-                    className="w-full flex items-center gap-3 p-3 rounded-2xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 text-left transition cursor-pointer"
+                    className="w-full flex items-center gap-3 p-3 rounded-2xl bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-left transition cursor-pointer"
                   >
-                    <div className="p-2.5 rounded-xl bg-rose-500/20 text-rose-400 shrink-0">
+                    <div className="p-2.5 rounded-xl hv-pill-rose border shrink-0">
                       <CreditCard className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="font-bold text-sm text-white">{isHindi ? 'पेमेंट वाउचर (Payment Entry)' : 'Payment Entry (F5)'}</div>
-                      <div className="text-xs text-slate-400">{isHindi ? 'सप्लायर या खर्चों का भुगतान' : 'Supplier & Expense Payouts'}</div>
+                      <div className="font-bold text-sm text-[var(--text-primary)]">{isHindi ? 'पेमेंट वाउचर (Payment Entry)' : 'Payment Entry (F5)'}</div>
+                      <div className="text-xs text-[var(--text-muted)]">{isHindi ? 'सप्लायर या खर्चों का भुगतान' : 'Supplier & Expense Payouts'}</div>
                     </div>
                   </button>
 
@@ -2046,14 +2046,14 @@ export const Header: React.FC<HeaderProps> = ({
                       onOpenQuickModal('receipt');
                       setShowMobileTxSheet(false);
                     }}
-                    className="w-full flex items-center gap-3 p-3 rounded-2xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700/80 text-left transition cursor-pointer"
+                    className="w-full flex items-center gap-3 p-3 rounded-2xl bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-left transition cursor-pointer"
                   >
-                    <div className="p-2.5 rounded-xl bg-sky-500/20 text-sky-400 shrink-0">
+                    <div className="p-2.5 rounded-xl hv-pill-sky border shrink-0">
                       <Receipt className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="font-bold text-sm text-white">{isHindi ? 'रसीद वाउचर (Receipt Entry)' : 'Receipt Entry (F6)'}</div>
-                      <div className="text-xs text-slate-400">{isHindi ? 'ग्राहकों से भुगतान वसूली' : 'Customer Payment Collection'}</div>
+                      <div className="font-bold text-sm text-[var(--text-primary)]">{isHindi ? 'रसीद वाउचर (Receipt Entry)' : 'Receipt Entry (F6)'}</div>
+                      <div className="text-xs text-[var(--text-muted)]">{isHindi ? 'ग्राहकों से भुगतान वसूली' : 'Customer Payment Collection'}</div>
                     </div>
                   </button>
                 </>
@@ -2064,7 +2064,7 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 type="button"
                 onClick={() => setShowMobileTxSheet(false)}
-                className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-bold cursor-pointer"
+                className="w-full py-2.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] rounded-xl text-xs font-bold cursor-pointer"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>

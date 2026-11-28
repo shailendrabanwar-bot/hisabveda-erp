@@ -6,7 +6,7 @@
   "main": "electron/main.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/hisabveda/hisabveda-erp.git"
+    "url": "https://github.com/shailendrabanwar-bot/hisabveda-erp.git"
   },
   "build": {
     "appId": "com.hisabveda.erp",
@@ -14,8 +14,8 @@
     "asar": true,
     "publish": {
       "provider": "github",
-      "owner": "hisabveda",
-      "repo": "hisabveda-erp"
+      "owner": "shailendrabanwar-bot",
+      "repo": "hisabveda-erp-releases"
     },
     "files": [
       "dist/**/*",

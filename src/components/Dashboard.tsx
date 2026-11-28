@@ -181,18 +181,18 @@ export const Dashboard: React.FC<DashboardProps> = ({
     <div className="p-3 sm:p-4 md:p-6 space-y-5 md:space-y-6 max-w-7xl mx-auto w-full max-w-full overflow-x-hidden">
       {/* Clean Onboarding Banner for Brand-New Workspaces */}
       {isFreshWorkspace && (
-        <div className="bg-gradient-to-r from-indigo-950/90 via-slate-900 to-emerald-950/80 border border-indigo-500/40 rounded-2xl p-5 shadow-xl flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-5 shadow-md flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="space-y-1.5">
-            <div className="inline-flex items-center gap-2 text-xs font-extrabold text-emerald-300 uppercase tracking-wider">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <div className="inline-flex items-center gap-2 text-xs font-extrabold hv-pill-emerald border px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+              <CheckCircle2 className="w-4 h-4" />
               <span>{isHindi ? 'आपका नया अकाउंटिंग कार्यक्षेत्र तैयार है' : 'Your Clean Accounting Workspace is Ready'}</span>
             </div>
-            <h3 className="text-base sm:text-lg font-extrabold text-white">
+            <h3 className="text-base sm:text-lg font-extrabold text-[var(--text-primary)]">
               {isHindi
                 ? 'शुरुआत करने के लिए अपनी कंपनी का नाम, राज्य और लोगो सेट करें'
                 : 'Complete Your Business Profile to Start Billing & Accounting'}
             </h3>
-            <p className="text-xs text-slate-300 max-w-2xl leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] max-w-2xl leading-relaxed">
               {isHindi
                 ? 'डिफ़ॉल्ट लेजर (Cash, Bank, Sales, Purchase, CGST, SGST, IGST) 0 बैलेंस के साथ तैयार हैं। प्रैक्टिस करने के लिए आप Settings में "Load Sample Demo Data" भी चला सकते हैं।'
                 : 'Standard Chart of Accounts ledgers (Cash, Bank, Sales, Purchase, CGST, SGST, IGST) are pre-configured with 0 opening balance. Want to practice first? You can load sample demo data inside Settings.'}
@@ -203,7 +203,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               <button
                 type="button"
                 onClick={() => onNavigateTab('settings')}
-                className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-extrabold px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 transition cursor-pointer"
+                className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white text-xs font-extrabold px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 transition cursor-pointer"
               >
                 <span>{isHindi ? 'कंपनी प्रोफ़ाइल सेट करें' : 'Setup Company Profile'}</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -214,17 +214,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 <button
                   type="button"
                   onClick={() => onNavigateTab('parties')}
-                  className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700 text-xs font-bold px-3.5 py-2.5 rounded-xl transition cursor-pointer"
+                  className="flex items-center gap-1.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] text-xs font-bold px-3.5 py-2.5 rounded-xl transition cursor-pointer"
                 >
-                  <Plus className="w-3.5 h-3.5 text-emerald-400" />
+                  <Plus className="w-3.5 h-3.5 text-emerald-500" />
                   <span>{isHindi ? 'पार्टी जोड़ें' : 'Add Party'}</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => onNavigateTab('items')}
-                  className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700 text-xs font-bold px-3.5 py-2.5 rounded-xl transition cursor-pointer"
+                  className="flex items-center gap-1.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] text-xs font-bold px-3.5 py-2.5 rounded-xl transition cursor-pointer"
                 >
-                  <Plus className="w-3.5 h-3.5 text-cyan-400" />
+                  <Plus className="w-3.5 h-3.5 text-cyan-500" />
                   <span>{isHindi ? 'आइटम जोड़ें' : 'Add Item'}</span>
                 </button>
               </>
@@ -234,24 +234,24 @@ export const Dashboard: React.FC<DashboardProps> = ({
       )}
 
       {/* Top Banner & Quick Voucher Shortcuts */}
-      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-slate-100">
+      <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-5 shadow-md flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-[var(--text-primary)]">
         <div>
-          <h2 className="text-xl font-bold tracking-tight text-white flex items-center gap-2 flex-wrap">
+          <h2 className="text-xl font-bold tracking-tight text-[var(--text-primary)] flex items-center gap-2 flex-wrap">
             <span>{isHindi ? 'वित्तीय डैशबोर्ड एवं सेल्स रिपोर्ट' : 'Real-time Financial & Sales Dashboard'}</span>
-            <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs px-2 py-0.5 rounded-full font-medium flex items-center gap-1">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="hv-pill-emerald border text-xs px-2 py-0.5 rounded-full font-bold flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               Live
             </span>
-            <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs px-2.5 py-0.5 rounded-full font-bold font-mono">
+            <span className="hv-pill-indigo border text-xs px-2.5 py-0.5 rounded-full font-bold font-mono">
               {fyRange.label} ({fyRange.displayRange})
             </span>
             {effectiveConfig.accountingWithoutInventory && (
-              <span className="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs px-2.5 py-0.5 rounded-full font-bold">
+              <span className="hv-pill-amber border text-xs px-2.5 py-0.5 rounded-full font-bold">
                 {isHindi ? 'केवल अकाउंटिंग (No Inventory)' : 'Accounts-Only Mode'}
               </span>
             )}
           </h2>
-          <p className="text-xs text-slate-300 mt-1">
+          <p className="text-xs text-[var(--text-muted)] mt-1">
             {isHindi 
               ? 'बिक्री, खाता बही, बैंक रिकॉन्सिलेशन और टैक्स देनदारियों का वास्तविक समय अवलोकन'
               : 'Real-time overview of Sales, Ledger, Bank Reconciliation, and Tax Liabilities'}
@@ -263,7 +263,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           {perms.canCreateEditTransactions && (
             <button
               onClick={() => onOpenQuickModal('invoice')}
-              className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-3.5 py-2 rounded-xl shadow-lg shadow-indigo-600/30 transition transform active:scale-95"
+              className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white text-xs font-semibold px-3.5 py-2 rounded-xl shadow-lg shadow-indigo-600/25 transition transform active:scale-95 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>{isHindi ? 'नया इनवॉइस' : '+ New Invoice'}</span>
@@ -275,7 +275,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               {isNavTabEnabled('purchases', effectiveConfig) && (
                 <button
                   onClick={() => onNavigateTab('purchases')}
-                  className="flex items-center gap-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold px-3.5 py-2 rounded-xl shadow-lg shadow-amber-600/20 transition transform active:scale-95"
+                  className="flex items-center gap-1.5 bg-amber-600 hover:bg-amber-500 text-white hv-keep-white text-xs font-semibold px-3.5 py-2 rounded-xl shadow-lg shadow-amber-600/20 transition transform active:scale-95 cursor-pointer"
                 >
                   <ShoppingBag className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'परचेज बिल' : '+ Purchase Bill'}</span>
@@ -284,25 +284,25 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
               <button
                 onClick={() => onOpenQuickModal('journal')}
-                className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold px-3 py-2 rounded-xl transition"
+                className="flex items-center gap-1.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] text-xs font-semibold px-3 py-2 rounded-xl transition cursor-pointer"
               >
-                <ArrowUpRight className="w-3.5 h-3.5 text-indigo-400" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-indigo-500" />
                 <span>{isHindi ? 'जर्नल वाउचर' : 'Journal'}</span>
               </button>
 
               <button
                 onClick={() => onOpenQuickModal('payment')}
-                className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold px-3 py-2 rounded-xl transition"
+                className="flex items-center gap-1.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] text-xs font-semibold px-3 py-2 rounded-xl transition cursor-pointer"
               >
-                <ArrowDownLeft className="w-3.5 h-3.5 text-rose-400" />
+                <ArrowDownLeft className="w-3.5 h-3.5 text-rose-500" />
                 <span>{isHindi ? 'पेमेंट वाउचर' : 'Payment'}</span>
               </button>
 
               <button
                 onClick={() => onOpenQuickModal('receipt')}
-                className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold px-3 py-2 rounded-xl transition"
+                className="flex items-center gap-1.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] text-xs font-semibold px-3 py-2 rounded-xl transition cursor-pointer"
               >
-                <ArrowUpRight className="w-3.5 h-3.5 text-emerald-400" />
+                <ArrowUpRight className="w-3.5 h-3.5 text-emerald-500" />
                 <span>{isHindi ? 'रसीद वाउचर' : 'Receipt'}</span>
               </button>
             </>
@@ -314,9 +314,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
       {(summary.unreconciledBankCount > 0 || summary.totalReceivables > 0 || summary.totalPayables > 0) && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {summary.unreconciledBankCount > 0 && (
-            <div className="bg-rose-950/30 border border-rose-800/50 rounded-xl p-3.5 flex items-center justify-between gap-2 text-xs text-rose-200">
+            <div className="hv-pill-rose border rounded-xl p-3.5 flex items-center justify-between gap-2 text-xs">
               <div className="flex items-center gap-2.5">
-                <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+                <AlertTriangle className="w-4 h-4 shrink-0" />
                 <span>
                   <strong>{summary.unreconciledBankCount}</strong> {isHindi ? 'बैंक स्टेटमेंट एंट्रीज़ रिकॉन्साइल होना बाक़ी हैं।' : 'unreconciled bank statement entries found.'}
                 </span>
@@ -324,7 +324,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               {perms.canReconcileBank && isNavTabEnabled('reconciliation', effectiveConfig) && (
                 <button
                   onClick={() => onNavigateTab('reconciliation')}
-                  className="bg-rose-600 hover:bg-rose-500 text-white font-semibold px-2.5 py-1 rounded-lg transition shrink-0"
+                  className="bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-semibold px-2.5 py-1 rounded-lg transition shrink-0 cursor-pointer"
                 >
                   {isHindi ? 'अभी रिकॉन्साइल करें' : 'Reconcile Now'}
                 </button>
@@ -333,9 +333,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
           )}
 
           {summary.totalReceivables > 0 && (
-            <div className="bg-amber-950/30 border border-amber-800/50 rounded-xl p-3.5 flex items-center justify-between gap-2 text-xs text-amber-200">
+            <div className="hv-pill-amber border rounded-xl p-3.5 flex items-center justify-between gap-2 text-xs">
               <div className="flex items-center gap-2.5">
-                <Clock className="w-4 h-4 text-amber-400 shrink-0" />
+                <Clock className="w-4 h-4 shrink-0" />
                 <span>
                   {isHindi ? 'कुल बकाया ग्राहक भुगतान:' : 'Pending Customer Receivables:'} <strong>{formatCurrency(summary.totalReceivables, currency)}</strong>
                 </span>
@@ -343,7 +343,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               {canAccessTab(effectiveRole, 'invoices') && (
                 <button
                   onClick={() => onNavigateTab('invoices')}
-                  className="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-2.5 py-1 rounded-lg transition shrink-0"
+                  className="bg-amber-600 hover:bg-amber-500 text-white hv-keep-white font-semibold px-2.5 py-1 rounded-lg transition shrink-0 cursor-pointer"
                 >
                   {isHindi ? 'इनवॉइस देखें' : 'View Invoices'}
                 </button>
@@ -352,9 +352,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
           )}
 
           {summary.totalPayables > 0 && isNavTabEnabled('purchases', effectiveConfig) && (
-            <div className="bg-indigo-950/30 border border-indigo-800/50 rounded-xl p-3.5 flex items-center justify-between gap-2 text-xs text-indigo-200">
+            <div className="hv-pill-indigo border rounded-xl p-3.5 flex items-center justify-between gap-2 text-xs">
               <div className="flex items-center gap-2.5">
-                <ShoppingBag className="w-4 h-4 text-indigo-400 shrink-0" />
+                <ShoppingBag className="w-4 h-4 shrink-0" />
                 <span>
                   {isHindi ? 'सप्लायर बकाया देनदारी:' : 'Pending Vendor Payables:'} <strong>{formatCurrency(summary.totalPayables, currency)}</strong>
                 </span>
@@ -362,7 +362,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               {canAccessTab(effectiveRole, 'purchases') && (
                 <button
                   onClick={() => onNavigateTab('purchases')}
-                  className="bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-2.5 py-1 rounded-lg transition shrink-0"
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-semibold px-2.5 py-1 rounded-lg transition shrink-0 cursor-pointer"
                 >
                   {isHindi ? 'परचेज देखें' : 'View Purchases'}
                 </button>
@@ -380,21 +380,21 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Card 1: Total Sales */}
         <div 
           onClick={() => onNavigateTab('invoices')}
-          className="bg-slate-900 border border-slate-800 hover:border-indigo-500 cursor-pointer rounded-2xl p-4 shadow-md relative overflow-hidden group transition transform hover:-translate-y-0.5"
+          className="bg-[var(--bg-surface)] border border-[var(--border-primary)] hover:border-indigo-500 cursor-pointer rounded-2xl p-4 shadow-md relative overflow-hidden group transition transform hover:-translate-y-0.5"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            <span className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider">
               {isHindi ? 'कुल बिक्री (Total Sales)' : 'Total Sales (Revenue)'}
             </span>
-            <div className="w-9 h-9 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center border border-indigo-500/20 group-hover:bg-indigo-600 group-hover:text-white transition">
+            <div className="w-9 h-9 rounded-xl hv-pill-indigo border flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition">
               <TrendingUp className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-slate-100 tracking-tight">
+            <div className="text-2xl font-bold text-[var(--text-primary)] tracking-tight tabular-nums">
               {formatCurrency(summary.totalSales, currency)}
             </div>
-            <div className="flex items-center gap-1 mt-1 text-xs text-emerald-400 font-medium">
+            <div className="flex items-center gap-1 mt-1 text-xs text-emerald-500 font-semibold">
               <ArrowUpRight className="w-3.5 h-3.5" />
               <span>{isHindi ? 'क्लिक करें इनवॉइस देखने के लिए' : 'Click to view all invoices'}</span>
             </div>
@@ -404,21 +404,21 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Card 2: Net Profit / Loss */}
         <div 
           onClick={() => onNavigateTab('statements')}
-          className="bg-slate-900 border border-slate-800 hover:border-emerald-500 cursor-pointer rounded-2xl p-4 shadow-md relative overflow-hidden group transition transform hover:-translate-y-0.5"
+          className="bg-[var(--bg-surface)] border border-[var(--border-primary)] hover:border-emerald-500 cursor-pointer rounded-2xl p-4 shadow-md relative overflow-hidden group transition transform hover:-translate-y-0.5"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            <span className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider">
               {isHindi ? 'शुद्ध लाभ (Net Profit)' : 'Net Profit'}
             </span>
-            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20 group-hover:bg-emerald-600 group-hover:text-white transition">
+            <div className="w-9 h-9 rounded-xl hv-pill-emerald border flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition">
               <DollarSign className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-3">
-            <div className={`text-2xl font-bold tracking-tight ${summary.netProfit >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+            <div className={`text-2xl font-bold tracking-tight tabular-nums ${summary.netProfit >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
               {formatCurrency(summary.netProfit, currency)}
             </div>
-            <div className="flex items-center gap-1 mt-1 text-xs text-emerald-400 font-medium">
+            <div className="flex items-center gap-1 mt-1 text-xs text-emerald-500 font-semibold">
               <ArrowUpRight className="w-3.5 h-3.5" />
               <span>{isHindi ? 'P&L वित्तीय लाभ-हानि रिपोर्ट देखें' : 'Click to view P&L Statement'}</span>
             </div>
@@ -428,21 +428,21 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Card 3: Cash & Bank Balance */}
         <div 
           onClick={() => setShowCashBankModal(true)}
-          className="bg-slate-900 border border-slate-800 hover:border-blue-500 cursor-pointer rounded-2xl p-4 shadow-md relative overflow-hidden group transition transform hover:-translate-y-0.5"
+          className="bg-[var(--bg-surface)] border border-[var(--border-primary)] hover:border-blue-500 cursor-pointer rounded-2xl p-4 shadow-md relative overflow-hidden group transition transform hover:-translate-y-0.5"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            <span className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider">
               {isHindi ? 'कैश एवं बैंक बैलेंस' : 'Cash & Bank Balance'}
             </span>
-            <div className="w-9 h-9 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center border border-blue-500/20 group-hover:bg-blue-600 group-hover:text-white transition">
+            <div className="w-9 h-9 rounded-xl hv-pill-blue border flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition">
               <Landmark className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-slate-100 tracking-tight">
+            <div className="text-2xl font-bold text-[var(--text-primary)] tracking-tight tabular-nums">
               {formatCurrency(summary.cashAndBankBalance, currency)}
             </div>
-            <div className="flex items-center justify-between mt-1 text-[11px] text-blue-400 font-medium">
+            <div className="flex items-center justify-between mt-1 text-[11px] text-blue-500 font-semibold">
               <span>{isHindi ? 'विवरण देखने के लिए क्लिक करें' : 'Click to view breakdown & details'}</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </div>
@@ -452,21 +452,21 @@ export const Dashboard: React.FC<DashboardProps> = ({
         {/* Card 4: Tax Liabilities (GST/VAT & TDS) */}
         <div 
           onClick={() => onNavigateTab('tax')}
-          className="bg-slate-900 border border-slate-800 hover:border-amber-500 cursor-pointer rounded-2xl p-4 shadow-md relative overflow-hidden group transition transform hover:-translate-y-0.5"
+          className="bg-[var(--bg-surface)] border border-[var(--border-primary)] hover:border-amber-500 cursor-pointer rounded-2xl p-4 shadow-md relative overflow-hidden group transition transform hover:-translate-y-0.5"
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+            <span className="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider">
               {isHindi ? 'जीएसटी / टीडीएस कुल देयता' : 'Pending Tax Payable'}
             </span>
-            <div className="w-9 h-9 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center border border-amber-500/20 group-hover:bg-amber-600 group-hover:text-white transition">
+            <div className="w-9 h-9 rounded-xl hv-pill-amber border flex items-center justify-center group-hover:bg-amber-600 group-hover:text-white transition">
               <FileCheck2 className="w-5 h-5" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-bold text-amber-400 tracking-tight">
+            <div className="text-2xl font-bold text-amber-500 tracking-tight tabular-nums">
               {formatCurrency(summary.totalTaxPayable, currency)}
             </div>
-            <div className="flex items-center justify-between mt-1 text-[11px] text-amber-300/80 font-medium">
+            <div className="flex items-center justify-between mt-1 text-[11px] text-amber-500 font-semibold">
               <span>{isHindi ? 'जीएसटी एवं टीडीएस रिपोर्ट प्रबंधित करें' : 'Manage GST & TDS Tax Compliance'}</span>
             </div>
           </div>
@@ -476,18 +476,18 @@ export const Dashboard: React.FC<DashboardProps> = ({
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Sales & Revenue Trend Chart (2 columns) */}
-        <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex flex-col">
+        <div className="lg:col-span-2 bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-5 shadow-md flex flex-col">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
-                <BarChart2 className="w-4 h-4 text-indigo-400" />
+              <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <BarChart2 className="w-4 h-4 text-indigo-500" />
                 {isHindi ? 'मासिक बिक्री, खरीद और खर्च रुझान' : 'Monthly Sales, Purchases & Expense Trend'}
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--text-muted)]">
                 {isHindi ? 'वित्तीय वर्ष 2026-27 के लिए वास्तविक समय आय, खरीद व व्यय ग्राफ' : 'Real-time sales, purchases & operational cost analytics'}
               </p>
             </div>
-            <div className="flex items-center gap-3 text-xs text-slate-300 flex-wrap">
+            <div className="flex items-center gap-3 text-xs text-[var(--text-secondary)] flex-wrap">
               <span className="flex items-center gap-1">
                 <span className="w-2.5 h-2.5 rounded-full bg-indigo-500"></span> Sales
               </span>
@@ -517,11 +517,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
                     <stop offset="95%" stopColor="#f43f5e" stopOpacity={0}/>
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.5} />
-                <XAxis dataKey="month" stroke="#94a3b8" fontSize={11} tickLine={false} />
-                <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" opacity={0.65} />
+                <XAxis dataKey="month" stroke="var(--chart-axis)" fontSize={11} tickLine={false} />
+                <YAxis stroke="var(--chart-axis)" fontSize={11} tickLine={false} />
                 <Tooltip
-                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '0.75rem', color: '#f8fafc', fontSize: '12px' }}
+                  contentStyle={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)', borderRadius: '0.75rem', color: 'var(--text-primary)', fontSize: '12px' }}
                   formatter={(val: any) => formatCurrency(Number(val), currency)}
                 />
                 <Area type="monotone" dataKey="sales" stroke="#6366f1" strokeWidth={2} fillOpacity={1} fill="url(#colorSales)" name="Sales" />
@@ -533,23 +533,23 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* Collection & Purchases Breakdown (1 column) */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg flex flex-col justify-between">
+        <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-5 shadow-md flex flex-col justify-between">
           <div>
-            <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2 mb-1">
-              <PieChartIcon className="w-4 h-4 text-emerald-400" />
+            <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2 mb-1">
+              <PieChartIcon className="w-4 h-4 text-emerald-500" />
               {isHindi ? 'भुगतान व खरीद स्थिति ब्रेकडाउन' : 'Invoicing, Purchases & Payables'}
             </h3>
-            <p className="text-xs text-slate-400 mb-4">
+            <p className="text-xs text-[var(--text-muted)] mb-4">
               {isHindi ? 'प्राप्त राशि, बकाया और कुल खरीद विवरण' : 'Collected revenue, receivables & vendor purchases'}
             </p>
 
             <div className="space-y-3">
-              <div className="bg-slate-800/80 rounded-xl p-3 border border-slate-700/60">
+              <div className="bg-[var(--bg-elevated)] rounded-xl p-3 border border-[var(--border-subtle)]">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-slate-300 font-medium">{isHindi ? 'कुल प्राप्त राशि (Collected)' : 'Total Collected Revenue'}</span>
-                  <span className="text-emerald-400 font-bold">{formatCurrency(summary.totalCollected, currency)}</span>
+                  <span className="text-[var(--text-secondary)] font-medium">{isHindi ? 'कुल प्राप्त राशि (Collected)' : 'Total Collected Revenue'}</span>
+                  <span className="text-emerald-500 font-bold tabular-nums">{formatCurrency(summary.totalCollected, currency)}</span>
                 </div>
-                <div className="w-full bg-slate-700 h-2 rounded-full mt-2 overflow-hidden">
+                <div className="w-full hv-progress-track h-2 rounded-full mt-2 overflow-hidden">
                   <div 
                     className="bg-emerald-500 h-full rounded-full transition-all duration-500" 
                     style={{ width: `${summary.totalSales > 0 ? Math.min(100, (summary.totalCollected / summary.totalSales) * 100) : 0}%` }}
@@ -557,12 +557,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 </div>
               </div>
 
-              <div className="bg-slate-800/80 rounded-xl p-3 border border-slate-700/60">
+              <div className="bg-[var(--bg-elevated)] rounded-xl p-3 border border-[var(--border-subtle)]">
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-slate-300 font-medium">{isHindi ? 'बकाया लेनदारी (Outstanding)' : 'Customer Outstanding'}</span>
-                  <span className="text-amber-400 font-bold">{formatCurrency(summary.totalReceivables, currency)}</span>
+                  <span className="text-[var(--text-secondary)] font-medium">{isHindi ? 'बकाया लेनदारी (Outstanding)' : 'Customer Outstanding'}</span>
+                  <span className="text-amber-500 font-bold tabular-nums">{formatCurrency(summary.totalReceivables, currency)}</span>
                 </div>
-                <div className="w-full bg-slate-700 h-2 rounded-full mt-2 overflow-hidden">
+                <div className="w-full hv-progress-track h-2 rounded-full mt-2 overflow-hidden">
                   <div 
                     className="bg-amber-500 h-full rounded-full transition-all duration-500" 
                     style={{ width: `${summary.totalSales > 0 ? Math.min(100, (summary.totalReceivables / summary.totalSales) * 100) : 0}%` }}
@@ -572,31 +572,31 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
               <div
                 onClick={() => onNavigateTab('purchases')}
-                className="bg-slate-800/80 hover:border-amber-500/50 cursor-pointer rounded-xl p-3 border border-slate-700/60 transition"
+                className="bg-[var(--bg-elevated)] hover:border-amber-500 cursor-pointer rounded-xl p-3 border border-[var(--border-subtle)] transition"
               >
                 <div className="flex justify-between items-center text-xs">
-                  <span className="text-slate-300 font-medium">{isHindi ? 'कुल खरीद (Total Purchases)' : 'Total Purchases'}</span>
-                  <span className="text-amber-300 font-bold">{formatCurrency(summary.totalPurchases, currency)}</span>
+                  <span className="text-[var(--text-secondary)] font-medium">{isHindi ? 'कुल खरीद (Total Purchases)' : 'Total Purchases'}</span>
+                  <span className="text-amber-500 font-bold tabular-nums">{formatCurrency(summary.totalPurchases, currency)}</span>
                 </div>
-                <div className="flex justify-between items-center text-[11px] mt-1.5 pt-1.5 border-t border-slate-700/60">
-                  <span className="text-slate-400">{isHindi ? 'विक्रेता देनदारी (Payables)' : 'Vendor Payables'}</span>
-                  <span className="text-rose-400 font-bold">{formatCurrency(summary.totalPayables, currency)}</span>
+                <div className="flex justify-between items-center text-[11px] mt-1.5 pt-1.5 border-t border-[var(--border-subtle)]">
+                  <span className="text-[var(--text-muted)]">{isHindi ? 'विक्रेता देनदारी (Payables)' : 'Vendor Payables'}</span>
+                  <span className="text-rose-500 font-bold tabular-nums">{formatCurrency(summary.totalPayables, currency)}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-800 grid grid-cols-2 gap-2 text-center">
+          <div className="mt-4 pt-3 border-t border-[var(--border-primary)] grid grid-cols-2 gap-2 text-center">
             <button
               onClick={() => onNavigateTab('invoices')}
-              className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold flex items-center justify-center gap-1 py-1.5 bg-slate-800/50 rounded-lg"
+              className="text-xs text-indigo-500 hover:underline font-semibold flex items-center justify-center gap-1 py-1.5 bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg cursor-pointer"
             >
               <span>{isHindi ? 'बिक्री इनवॉइस' : 'Sales Invoices'}</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => onNavigateTab('purchases')}
-              className="text-xs text-amber-400 hover:text-amber-300 font-semibold flex items-center justify-center gap-1 py-1.5 bg-slate-800/50 rounded-lg"
+              className="text-xs text-amber-500 hover:underline font-semibold flex items-center justify-center gap-1 py-1.5 bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-lg cursor-pointer"
             >
               <span>{isHindi ? 'परचेज बिल' : 'Purchase Bills'}</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
@@ -608,23 +608,23 @@ export const Dashboard: React.FC<DashboardProps> = ({
       {/* Recent Entries Grid: Sales Invoices + Purchase Bills */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Invoices Table */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+        <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-5 shadow-md">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
-              <Receipt className="w-4 h-4 text-indigo-400" />
+            <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+              <Receipt className="w-4 h-4 text-indigo-500" />
               {isHindi ? 'हाल ही के बिक्री इनवॉइस (Recent Sales)' : 'Recent Sales Invoices'}
             </h3>
             <button
               onClick={() => onNavigateTab('invoices')}
-              className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold"
+              className="text-xs text-indigo-500 hover:underline font-semibold cursor-pointer"
             >
               {isHindi ? 'सभी देखें →' : 'View All →'}
             </button>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-800/80 text-slate-400 text-[11px] uppercase tracking-wider">
+            <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+              <thead className="bg-[var(--bg-elevated)] text-[var(--text-muted)] text-[11px] uppercase tracking-wider">
                 <tr>
                   <th className="p-2.5 rounded-l-lg">Invoice #</th>
                   <th className="p-2.5">Party Name</th>
@@ -634,27 +634,27 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <th className="p-2.5 rounded-r-lg text-right">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-[var(--border-primary)]">
                 {recentInvoices.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="p-6 text-center text-slate-500">
+                    <td colSpan={6} className="p-6 text-center text-[var(--text-muted)]">
                       {isHindi ? 'अभी तक कोई बिक्री इनवॉइस दर्ज नहीं है।' : 'No sales invoices recorded yet.'}
                     </td>
                   </tr>
                 ) : (
                   recentInvoices.map((inv) => (
-                    <tr key={inv.id} className="hover:bg-slate-800/40 transition">
-                      <td className="p-2.5 font-bold text-indigo-300">{inv.invoiceNumber}</td>
-                      <td className="p-2.5 max-w-[140px] truncate text-slate-200">{inv.partyName}</td>
-                      <td className="p-2.5 text-slate-400">{inv.date}</td>
-                      <td className="p-2.5 text-right font-semibold text-slate-100">
+                    <tr key={inv.id} className="hover:bg-[var(--hover-surface)] transition">
+                      <td className="p-2.5 font-bold text-indigo-500">{inv.invoiceNumber}</td>
+                      <td className="p-2.5 max-w-[140px] truncate text-[var(--text-primary)] font-medium">{inv.partyName}</td>
+                      <td className="p-2.5 text-[var(--text-muted)]">{inv.date}</td>
+                      <td className="p-2.5 text-right font-semibold text-[var(--text-primary)] tabular-nums">
                         {formatCurrency(inv.grandTotal, currency)}
                       </td>
                       <td className="p-2.5 text-center">
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${
-                          inv.status === 'PAID' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' :
-                          inv.status === 'UNPAID' ? 'bg-rose-500/10 text-rose-400 border-rose-500/30' :
-                          'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                          inv.status === 'PAID' ? 'hv-pill-emerald' :
+                          inv.status === 'UNPAID' ? 'hv-pill-rose' :
+                          'hv-pill-amber'
                         }`}>
                           {inv.status}
                         </span>
@@ -663,13 +663,13 @@ export const Dashboard: React.FC<DashboardProps> = ({
                         {perms.canExportData ? (
                           <button
                             onClick={() => onPrintInvoice(inv)}
-                            className="p-1 hover:bg-slate-700 text-slate-300 rounded transition"
+                            className="p-1 hover:bg-[var(--bg-elevated)] text-[var(--text-secondary)] rounded transition cursor-pointer"
                             title={isHindi ? 'प्रिंट इनवॉइस' : 'Print Invoice'}
                           >
                             <FileText className="w-3.5 h-3.5" />
                           </button>
                         ) : (
-                          <span className="text-[10px] text-slate-500">—</span>
+                          <span className="text-[10px] text-[var(--text-muted)]">—</span>
                         )}
                       </td>
                     </tr>
@@ -681,23 +681,23 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* Recent Purchase Bills Table */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+        <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-5 shadow-md">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
-              <ShoppingBag className="w-4 h-4 text-amber-400" />
+            <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+              <ShoppingBag className="w-4 h-4 text-amber-500" />
               {isHindi ? 'हाल ही के परचेज बिल (Recent Purchases)' : 'Recent Purchase Bills'}
             </h3>
             <button
               onClick={() => onNavigateTab('purchases')}
-              className="text-xs text-amber-400 hover:text-amber-300 font-semibold"
+              className="text-xs text-amber-500 hover:underline font-semibold cursor-pointer"
             >
               {isHindi ? 'सभी देखें →' : 'View All →'}
             </button>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-800/80 text-slate-400 text-[11px] uppercase tracking-wider">
+            <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+              <thead className="bg-[var(--bg-elevated)] text-[var(--text-muted)] text-[11px] uppercase tracking-wider">
                 <tr>
                   <th className="p-2.5 rounded-l-lg">Bill #</th>
                   <th className="p-2.5">Vendor Name</th>
@@ -706,16 +706,16 @@ export const Dashboard: React.FC<DashboardProps> = ({
                   <th className="p-2.5 rounded-r-lg text-center">Status</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60">
+              <tbody className="divide-y divide-[var(--border-primary)]">
                 {recentPurchases.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="p-6 text-center text-slate-500">
+                    <td colSpan={5} className="p-6 text-center text-[var(--text-muted)]">
                       <div className="space-y-2">
                         <p>{isHindi ? 'अभी तक कोई परचेज बिल दर्ज नहीं है।' : 'No purchase bills recorded yet.'}</p>
                         {perms.canCreateEditVouchers && (
                           <button
                             onClick={() => onNavigateTab('purchases')}
-                            className="inline-flex items-center gap-1 px-3 py-1 bg-amber-600/20 hover:bg-amber-600/30 text-amber-300 border border-amber-500/30 rounded-lg text-[11px] font-semibold transition"
+                            className="inline-flex items-center gap-1 px-3 py-1 hv-pill-amber border rounded-lg text-[11px] font-semibold transition cursor-pointer"
                           >
                             <Plus className="w-3 h-3" />
                             <span>{isHindi ? 'नया परचेज बिल डालें' : 'Add Purchase Bill'}</span>
@@ -729,24 +729,24 @@ export const Dashboard: React.FC<DashboardProps> = ({
                     <tr
                       key={bill.id}
                       onClick={() => onNavigateTab('purchases')}
-                      className="hover:bg-slate-800/40 cursor-pointer transition"
+                      className="hover:bg-[var(--hover-surface)] cursor-pointer transition"
                     >
-                      <td className="p-2.5 font-bold text-amber-300">
+                      <td className="p-2.5 font-bold text-amber-500">
                         <div>{bill.billNumber}</div>
                         {bill.supplierInvoiceNo && (
-                          <div className="text-[10px] font-normal text-slate-500">{bill.supplierInvoiceNo}</div>
+                          <div className="text-[10px] font-normal text-[var(--text-muted)]">{bill.supplierInvoiceNo}</div>
                         )}
                       </td>
-                      <td className="p-2.5 max-w-[140px] truncate text-slate-200">{bill.partyName}</td>
-                      <td className="p-2.5 text-slate-400">{bill.date}</td>
-                      <td className="p-2.5 text-right font-semibold text-slate-100">
+                      <td className="p-2.5 max-w-[140px] truncate text-[var(--text-primary)] font-medium">{bill.partyName}</td>
+                      <td className="p-2.5 text-[var(--text-muted)]">{bill.date}</td>
+                      <td className="p-2.5 text-right font-semibold text-[var(--text-primary)] tabular-nums">
                         {formatCurrency(bill.grandTotal, currency)}
                       </td>
                       <td className="p-2.5 text-center">
                         <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${
-                          bill.status === 'PAID' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30' :
-                          bill.status === 'UNPAID' ? 'bg-rose-500/10 text-rose-400 border-rose-500/30' :
-                          'bg-amber-500/10 text-amber-400 border-amber-500/30'
+                          bill.status === 'PAID' ? 'hv-pill-emerald' :
+                          bill.status === 'UNPAID' ? 'hv-pill-rose' :
+                          'hv-pill-amber'
                         }`}>
                           {bill.status}
                         </span>
@@ -761,23 +761,23 @@ export const Dashboard: React.FC<DashboardProps> = ({
       </div>
 
       {/* Recent Vouchers Table */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-lg">
+      <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-5 shadow-md">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-sm font-bold text-slate-100 flex items-center gap-2">
-            <ArrowUpRight className="w-4 h-4 text-emerald-400" />
+          <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+            <ArrowUpRight className="w-4 h-4 text-emerald-500" />
             {isHindi ? 'हाल ही की वाउचर प्रविष्टियाँ (Journal/Pay/Rec)' : 'Recent Voucher Entries (Journal/Pay/Rec)'}
           </h3>
           <button
             onClick={() => onNavigateTab('vouchers')}
-            className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold"
+            className="text-xs text-indigo-500 hover:underline font-semibold cursor-pointer"
           >
             {isHindi ? 'सभी देखें →' : 'View All →'}
           </button>
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-slate-300">
-            <thead className="bg-slate-800/80 text-slate-400 text-[11px] uppercase tracking-wider">
+          <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+            <thead className="bg-[var(--bg-elevated)] text-[var(--text-muted)] text-[11px] uppercase tracking-wider">
               <tr>
                 <th className="p-2.5 rounded-l-lg">Voucher #</th>
                 <th className="p-2.5">Type</th>
@@ -786,31 +786,31 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 <th className="p-2.5 rounded-r-lg">Narration</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-[var(--border-primary)]">
               {recentVouchers.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="p-6 text-center text-slate-500">
+                  <td colSpan={5} className="p-6 text-center text-[var(--text-muted)]">
                     {isHindi ? 'अभी तक कोई वाउचर प्रविष्टि दर्ज नहीं है।' : 'No voucher entries recorded yet.'}
                   </td>
                 </tr>
               ) : (
                 recentVouchers.map((vch) => (
-                  <tr key={vch.id} className="hover:bg-slate-800/40 transition">
-                    <td className="p-2.5 font-bold text-emerald-300">{vch.voucherNumber}</td>
+                  <tr key={vch.id} className="hover:bg-[var(--hover-surface)] transition">
+                    <td className="p-2.5 font-bold text-emerald-500">{vch.voucherNumber}</td>
                     <td className="p-2.5">
                       <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold border ${
-                        vch.type === 'JOURNAL' ? 'bg-indigo-500/10 text-indigo-400 border-indigo-500/30' :
-                        vch.type === 'PAYMENT' ? 'bg-rose-500/10 text-rose-400 border-rose-500/30' :
-                        'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                        vch.type === 'JOURNAL' ? 'hv-pill-indigo' :
+                        vch.type === 'PAYMENT' ? 'hv-pill-rose' :
+                        'hv-pill-emerald'
                       }`}>
                         {vch.type}
                       </span>
                     </td>
-                    <td className="p-2.5 text-slate-400">{vch.date}</td>
-                    <td className="p-2.5 text-right font-semibold text-slate-100">
+                    <td className="p-2.5 text-[var(--text-muted)]">{vch.date}</td>
+                    <td className="p-2.5 text-right font-semibold text-[var(--text-primary)] tabular-nums">
                       {formatCurrency(vch.totalAmount, currency)}
                     </td>
-                    <td className="p-2.5 max-w-[260px] truncate text-slate-400 italic">
+                    <td className="p-2.5 max-w-[260px] truncate text-[var(--text-muted)] italic">
                       {vch.narration}
                     </td>
                   </tr>
@@ -823,38 +823,38 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
       {/* Cash & Bank Account Details Modal */}
       {showCashBankModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm animate-fade-in">
+          <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden flex flex-col">
             {/* Modal Header */}
-            <div className="p-4 bg-slate-800/80 border-b border-slate-700 flex items-center justify-between">
+            <div className="p-4 bg-[var(--bg-elevated)] border-b border-[var(--border-primary)] flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 border border-blue-500/30 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl hv-pill-blue border flex items-center justify-center">
                   <Landmark className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-base text-slate-100">
+                  <h3 className="font-bold text-base text-[var(--text-primary)]">
                     {isHindi ? 'कैश एवं बैंक खाते विवरण' : 'Cash & Bank Accounts Detail Breakdown'}
                   </h3>
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-[var(--text-muted)]">
                     {isHindi ? 'सभी एक्टिव बैंक लेज़र एवं कैश बैलेंस की वास्तविक स्थिति' : 'Live balance breakdown across all bank and cash ledgers'}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setShowCashBankModal(false)}
-                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-slate-700 transition"
+                className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] rounded-lg hover:bg-[var(--hover-surface)] transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Total Summary Banner */}
-            <div className="bg-blue-950/40 border-b border-blue-900/50 p-4 flex items-center justify-between">
+            <div className="hv-pill-blue border-b p-4 flex items-center justify-between">
               <div>
-                <span className="text-xs text-blue-300 font-semibold uppercase tracking-wider">
+                <span className="text-xs font-semibold uppercase tracking-wider">
                   {isHindi ? 'कुल कैश एवं बैंक बैलेंस' : 'Total Net Cash & Bank Balance'}
                 </span>
-                <div className="text-2xl font-black text-blue-400 tracking-tight">
+                <div className="text-2xl font-black tracking-tight tabular-nums">
                   {formatCurrency(summary.cashAndBankBalance, currency)}
                 </div>
               </div>
@@ -865,7 +865,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                       setShowCashBankModal(false);
                       onNavigateTab('reconciliation');
                     }}
-                    className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md"
+                    className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md cursor-pointer"
                   >
                     <FileCheck2 className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'बैंक रिकॉन्सिलेशन' : 'Bank Reconciliation'}</span>
@@ -877,7 +877,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                       setShowCashBankModal(false);
                       onNavigateTab('ledger');
                     }}
-                    className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 rounded-xl text-xs font-semibold transition flex items-center gap-1"
+                    className="px-3 py-1.5 bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] rounded-xl text-xs font-semibold transition flex items-center gap-1 cursor-pointer"
                   >
                     <FileText className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'खाता बही (Ledger)' : 'Chart of Accounts'}</span>
@@ -889,27 +889,27 @@ export const Dashboard: React.FC<DashboardProps> = ({
             {/* Account List Table */}
             <div className="p-4 max-h-[350px] overflow-y-auto space-y-2">
               {cashBankAccounts.length === 0 ? (
-                <div className="text-center py-8 text-slate-400 text-xs">
+                <div className="text-center py-8 text-[var(--text-muted)] text-xs">
                   {isHindi ? 'कोई कैश या बैंक खाता उपलब्ध नहीं है।' : 'No Cash or Bank accounts found.'}
                 </div>
               ) : (
                 cashBankAccounts.map(({ account, balance, debit, credit }) => (
                   <div 
                     key={account.id}
-                    className="bg-slate-800/60 border border-slate-700/60 hover:border-blue-500/50 rounded-xl p-3 flex items-center justify-between transition"
+                    className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] hover:border-blue-500 rounded-xl p-3 flex items-center justify-between transition"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-slate-700 text-blue-400 flex items-center justify-center font-bold text-xs">
+                      <div className="w-8 h-8 rounded-lg hv-pill-blue border flex items-center justify-center font-bold text-xs">
                         {account.code.slice(0, 4)}
                       </div>
                       <div>
-                        <div className="font-bold text-sm text-slate-100 flex items-center gap-2">
+                        <div className="font-bold text-sm text-[var(--text-primary)] flex items-center gap-2">
                           <span>{account.name}</span>
-                          <span className="text-[10px] bg-slate-700 text-slate-300 px-2 py-0.5 rounded-md font-mono">
+                          <span className="text-[10px] hv-pill-slate border px-2 py-0.5 rounded-md font-mono">
                             {account.subCategory || 'Cash & Bank'}
                           </span>
                         </div>
-                        <div className="text-[11px] text-slate-400 flex items-center gap-3 mt-0.5">
+                        <div className="text-[11px] text-[var(--text-muted)] flex items-center gap-3 mt-0.5 tabular-nums">
                           <span>Opening: {formatCurrency(account.openingBalance, currency)}</span>
                           <span>Dr: {formatCurrency(debit, currency)}</span>
                           <span>Cr: {formatCurrency(credit, currency)}</span>
@@ -918,7 +918,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                     </div>
 
                     <div className="text-right">
-                      <div className={`font-extrabold text-base ${balance >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                      <div className={`font-extrabold text-base tabular-nums ${balance >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
                         {formatCurrency(Math.abs(balance), currency)} {balance >= 0 ? 'Dr' : 'Cr'}
                       </div>
                       <button
@@ -926,7 +926,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
                           setShowCashBankModal(false);
                           onNavigateTab('ledger', account.id);
                         }}
-                        className="text-[10px] text-indigo-400 hover:underline font-semibold"
+                        className="text-[10px] text-indigo-500 hover:underline font-semibold cursor-pointer"
                       >
                         {isHindi ? 'लेज़र विवरण देखें →' : 'View Ledger →'}
                       </button>
@@ -937,10 +937,10 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </div>
 
             {/* Modal Footer */}
-            <div className="p-3 bg-slate-800/80 border-t border-slate-700 text-right">
+            <div className="p-3 bg-[var(--bg-elevated)] border-t border-[var(--border-primary)] text-right">
               <button
                 onClick={() => setShowCashBankModal(false)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-semibold transition"
+                className="px-4 py-2 bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] rounded-xl text-xs font-semibold transition cursor-pointer"
               >
                 {isHindi ? 'बंद करें' : 'Close'}
               </button>

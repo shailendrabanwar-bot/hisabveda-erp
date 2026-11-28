@@ -910,24 +910,24 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-2 md:p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-700 w-full max-w-6xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md p-2 md:p-4 overflow-y-auto">
+      <div className="hv-surface border border-[var(--border-primary)] text-[var(--text-primary)] w-full max-w-6xl rounded-2xl shadow-2xl flex flex-col max-h-[95vh] overflow-hidden">
         
         {/* Modal Header */}
-        <div className="bg-slate-800/90 border-b border-slate-700/80 px-6 py-4 flex items-center justify-between">
+        <div className="hv-elevated border-b border-[var(--border-primary)] px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-500 flex items-center justify-center text-white hv-keep-white shadow-lg shadow-emerald-500/20">
               <Landmark className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-white flex items-center gap-2">
+              <h2 className="text-lg font-bold text-[var(--text-primary)] flex items-center gap-2 flex-wrap">
                 <span>{isHindi ? 'बैंक स्टेटमेंट ऑटो-इम्पोर्ट एवं सत्यापन' : 'Bank Statement Auto-Import & Audit'}</span>
-                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full hv-pill-emerald border flex items-center gap-1">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   {isHindi ? '100% सटीक डेबिट/क्रेडिट' : '100% Exact Dr/Cr Shield'}
                 </span>
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--text-muted)]">
                 {isHindi 
                   ? 'HDFC, SBI, ICICI, Axis, Kotak, BOB आदि सभी भारतीय बैंकों के PDF/Excel/CSV स्टेटमेंट्स को सीधे इम्पोर्ट करें।' 
                   : 'Import, verify, and post transactions from all Indian Bank PDFs, Excel, or CSV files.'}
@@ -937,7 +937,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
 
           <button 
             onClick={onClose}
-            className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-700/60 transition"
+            className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-2 rounded-xl hover:bg-[var(--hover-surface)] transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -947,18 +947,18 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           
           {/* Target Bank Account Selection + Ledger Ownership Guard */}
-          <div className="bg-slate-800/60 border border-slate-700/70 p-4 rounded-xl space-y-3">
+          <div className="hv-elevated border border-[var(--border-subtle)] p-4 rounded-xl space-y-3">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <Landmark className="w-5 h-5 text-indigo-400 shrink-0" />
+                <Landmark className="w-5 h-5 text-indigo-500 shrink-0" />
                 <div>
-                  <label className="text-xs font-semibold text-slate-300 flex items-center gap-2">
+                  <label className="text-xs font-semibold text-[var(--text-secondary)] flex items-center gap-2 flex-wrap">
                     <span>{isHindi ? 'लक्ष्य कंपनी बैंक खाता (Company Bank Ledger):' : 'Target Company Bank Ledger:'}</span>
-                    <span className="text-[10px] font-mono bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded border border-indigo-500/30">
+                    <span className="text-[10px] font-mono hv-pill-indigo px-2 py-0.5 rounded border">
                       {fyRange.label}
                     </span>
                   </label>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-[var(--text-muted)]">
                     {isHindi
                       ? 'सिर्फ आपकी कंपनी के रजिस्टर्ड बैंक लेजर और खाता संख्या से मेल खाने वाला स्टेटमेंट ही अपलोड होगा।'
                       : 'Statement is cross-verified against this Company Bank Ledger (Bank Name, A/c No, IFSC, Holder Name).'}
@@ -974,7 +974,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                       setTargetBankAccountId(e.target.value);
                       setErrorMessage(null);
                     }}
-                    className="bg-slate-900 border border-slate-700 text-white text-xs font-semibold rounded-xl px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none min-w-[230px]"
+                    className="hv-input border border-[var(--border-subtle)] text-xs font-semibold rounded-xl px-3 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none min-w-[230px]"
                   >
                     {bankAccounts.map(acc => (
                       <option key={acc.id} value={acc.id}>
@@ -983,7 +983,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                     ))}
                   </select>
                 ) : (
-                  <span className="text-xs font-bold text-rose-300 bg-rose-950/60 border border-rose-500/40 px-3 py-2 rounded-xl">
+                  <span className="text-xs font-bold hv-pill-rose border px-3 py-2 rounded-xl">
                     {isHindi ? 'कोई बैंक लेजर नहीं है' : 'No Bank Ledger Found'}
                   </span>
                 )}
@@ -994,7 +994,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                     setBankQuickErr(null);
                     setShowAddBankModal(true);
                   }}
-                  className="bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 text-indigo-200 px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition shrink-0"
+                  className="hv-pill-indigo border px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition shrink-0 hover:opacity-90"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>{isHindi ? '+ नया बैंक' : '+ New Bank'}</span>
@@ -1003,8 +1003,8 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
             </div>
 
             {bankAccounts.length === 0 && (
-              <div className="bg-rose-950/50 border border-rose-500/40 rounded-xl p-3 text-xs text-rose-200 flex items-center gap-2">
-                <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0" />
+              <div className="hv-pill-rose border rounded-xl p-3 text-xs flex items-center gap-2">
+                <AlertTriangle className="w-4 h-4 text-rose-500 shrink-0" />
                 <span>
                   {isHindi
                     ? 'पहले "+ नया बैंक" बटन दबाकर अपनी कंपनी का बैंक खाता लेजर और खाता संख्या जोड़ें — उसके बाद ही स्टेटमेंट अपलोड किया जा सकेगा।'
@@ -1015,13 +1015,13 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
           </div>
 
           {/* Source Tabs (PDF / Excel / Paste) */}
-          <div className="flex border-b border-slate-800 gap-2">
+          <div className="flex border-b border-[var(--border-primary)] gap-2 overflow-x-auto">
             <button
               onClick={() => setActiveSourceTab('PDF')}
-              className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold border-b-2 transition ${
+              className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold border-b-2 transition whitespace-nowrap ${
                 activeSourceTab === 'PDF' 
-                  ? 'border-emerald-500 text-emerald-400 bg-emerald-500/10 rounded-t-lg' 
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'border-emerald-500 text-emerald-500 bg-emerald-500/10 rounded-t-lg' 
+                  : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
             >
               <FileText className="w-4 h-4" />
@@ -1030,10 +1030,10 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
 
             <button
               onClick={() => setActiveSourceTab('EXCEL')}
-              className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold border-b-2 transition ${
+              className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold border-b-2 transition whitespace-nowrap ${
                 activeSourceTab === 'EXCEL' 
-                  ? 'border-emerald-500 text-emerald-400 bg-emerald-500/10 rounded-t-lg' 
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'border-emerald-500 text-emerald-500 bg-emerald-500/10 rounded-t-lg' 
+                  : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
             >
               <FileSpreadsheet className="w-4 h-4" />
@@ -1042,10 +1042,10 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
 
             <button
               onClick={() => setActiveSourceTab('PASTE')}
-              className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold border-b-2 transition ${
+              className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold border-b-2 transition whitespace-nowrap ${
                 activeSourceTab === 'PASTE' 
-                  ? 'border-emerald-500 text-emerald-400 bg-emerald-500/10 rounded-t-lg' 
-                  : 'border-transparent text-slate-400 hover:text-slate-200'
+                  ? 'border-emerald-500 text-emerald-500 bg-emerald-500/10 rounded-t-lg' 
+                  : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
             >
               <ClipboardPaste className="w-4 h-4" />
@@ -1060,7 +1060,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                 onDragOver={(e) => e.preventDefault()}
                 onDrop={handleFileDrop}
                 onClick={() => fileInputRef.current?.click()}
-                className="border-2 border-dashed border-slate-700 hover:border-emerald-500/80 bg-slate-800/40 hover:bg-slate-800/70 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition group"
+                className="border-2 border-dashed border-[var(--border-subtle)] hover:border-emerald-500/80 hv-elevated hover:bg-[var(--hover-surface)] rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition group"
               >
                 <input 
                   type="file" 
@@ -1073,13 +1073,13 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                     }
                   }}
                 />
-                <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3 group-hover:scale-110 transition">
+                <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center mb-3 group-hover:scale-110 transition">
                   <Upload className="w-7 h-7" />
                 </div>
-                <h4 className="text-sm font-bold text-white mb-1">
+                <h4 className="text-sm font-bold text-[var(--text-primary)] mb-1">
                   {selectedFile?.name || (isHindi ? 'बैंक स्टेटमेंट PDF यहाँ ड्रैग करें या क्लिक करके चुनें' : 'Drag and drop Bank Statement PDF here or click to browse')}
                 </h4>
-                <p className="text-xs text-slate-400 max-w-md">
+                <p className="text-xs text-[var(--text-muted)] max-w-md">
                   {isHindi 
                     ? 'HDFC, SBI, ICICI, Axis, Kotak, BOB, PNB, Canara आदि सभी बैंकों के आधिकारिक PDF स्टेटमेंट समर्थित हैं।' 
                     : 'Supports e-statements from all major Indian Banks with multi-page tabular layout.'}
@@ -1088,16 +1088,16 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
 
               {/* Password Unlock Panel (if PDF is encrypted) */}
               {isPasswordRequired && (
-                <div className="bg-amber-950/40 border border-amber-500/50 p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-fadeIn">
+                <div className="hv-pill-amber border p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-fadeIn">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 rounded-lg bg-amber-500/20 text-amber-400">
+                    <div className="p-2 rounded-lg bg-amber-500/20 text-amber-500">
                       <Lock className="w-5 h-5" />
                     </div>
                     <div>
-                      <h5 className="text-xs font-bold text-amber-300">
+                      <h5 className="text-xs font-bold">
                         {isHindi ? 'यह PDF पासवर्ड से सुरक्षित है (Password Protected PDF)' : 'Password Protected PDF Detected'}
                       </h5>
-                      <p className="text-[11px] text-amber-200/80">
+                      <p className="text-[11px] opacity-90">
                         {isHindi ? 'कृपया स्टेटमेंट खोलने का पासवर्ड दर्ज करें (उदा. PAN नंबर, जन्मतिथि या खाता संख्या):' : 'Enter the PDF password (e.g., PAN, DOB DDMMYYYY, or Account No):'}
                       </p>
                     </div>
@@ -1115,12 +1115,12 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                           }
                         }}
                         placeholder={isHindi ? 'पासवर्ड दर्ज करें...' : 'Enter PDF password...'}
-                        className="w-full bg-slate-900 border border-amber-500/60 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:ring-2 focus:ring-amber-500 pr-9"
+                        className="w-full hv-input border border-amber-500/60 rounded-xl px-3 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-amber-500 pr-9"
                       />
                       <button 
                         type="button" 
                         onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-2.5 top-2.5 text-slate-400 hover:text-white"
+                        className="absolute right-2.5 top-2.5 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                       >
                         {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
@@ -1146,7 +1146,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleFileDrop}
               onClick={() => fileInputRef.current?.click()}
-              className="border-2 border-dashed border-slate-700 hover:border-emerald-500/80 bg-slate-800/40 hover:bg-slate-800/70 rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition group"
+              className="border-2 border-dashed border-[var(--border-subtle)] hover:border-emerald-500/80 hv-elevated hover:bg-[var(--hover-surface)] rounded-2xl p-8 flex flex-col items-center justify-center text-center cursor-pointer transition group"
             >
               <input 
                 type="file" 
@@ -1159,13 +1159,13 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                   }
                 }}
               />
-              <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3 group-hover:scale-110 transition">
+              <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center mb-3 group-hover:scale-110 transition">
                 <FileSpreadsheet className="w-7 h-7" />
               </div>
-              <h4 className="text-sm font-bold text-white mb-1">
+              <h4 className="text-sm font-bold text-[var(--text-primary)] mb-1">
                 {selectedFile?.name || (isHindi ? 'एक्सेल (.xlsx) या CSV फाइल यहाँ अपलोड करें' : 'Upload Excel (.xlsx, .xls) or CSV statement')}
               </h4>
-              <p className="text-xs text-slate-400 max-w-md">
+              <p className="text-xs text-[var(--text-muted)] max-w-md">
                 {isHindi 
                   ? 'नेट बैंकिंग से डाउनलोड की गई एक्सेल या CSV फाइल को सीधे लोड करें।' 
                   : 'Fast deterministic parsing from net banking spreadsheet exports.'}
@@ -1181,13 +1181,13 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                 onChange={(e) => setRawPastedText(e.target.value)}
                 placeholder={isHindi ? "नेट-बैंकिंग पेज से कॉपी की गई टेबल को यहाँ पेस्ट करें (Date, Narration, Withdrawal, Deposit, Balance)..." : "Paste statement table rows copied directly from your online banking portal..."}
                 rows={5}
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs text-slate-200 font-mono focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-3 text-xs font-mono focus:ring-2 focus:ring-emerald-500 focus:outline-none"
               />
               <button
                 type="button"
                 onClick={handleProcessPastedText}
                 disabled={isProcessing || !rawPastedText.trim()}
-                className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-2 transition"
+                className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white hv-keep-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-2 transition"
               >
                 <Sparkles className="w-4 h-4" />
                 <span>{isHindi ? 'पेस्ट किया गया डेटा पार्स करें' : 'Parse Pasted Statement'}</span>
@@ -1197,22 +1197,22 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
 
           {/* Status & Alerts */}
           {isProcessing && (
-            <div className="bg-indigo-950/50 border border-indigo-500/40 p-4 rounded-xl flex items-center gap-3 text-indigo-300 animate-pulse">
-              <RefreshCw className="w-5 h-5 animate-spin text-indigo-400" />
+            <div className="hv-pill-indigo border p-4 rounded-xl flex items-center gap-3 animate-pulse">
+              <RefreshCw className="w-5 h-5 animate-spin text-indigo-500" />
               <span className="text-xs font-semibold">{processingStatus}</span>
             </div>
           )}
 
           {errorMessage && (
-            <div className="bg-rose-950/40 border border-rose-500/50 p-4 rounded-xl flex items-center gap-3 text-rose-300">
-              <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0" />
+            <div className="hv-pill-rose border p-4 rounded-xl flex items-center gap-3">
+              <AlertTriangle className="w-5 h-5 text-rose-500 shrink-0" />
               <span className="text-xs font-semibold">{errorMessage}</span>
             </div>
           )}
 
           {successMessage && (
-            <div className="bg-emerald-950/40 border border-emerald-500/50 p-4 rounded-xl flex items-center gap-3 text-emerald-300">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+            <div className="hv-pill-emerald border p-4 rounded-xl flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
               <span className="text-xs font-semibold">{successMessage}</span>
             </div>
           )}
@@ -1223,62 +1223,62 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 
                 {/* Total Deposits (Credits) */}
-                <div className="bg-slate-800/80 border border-emerald-500/30 p-3.5 rounded-xl">
-                  <div className="flex items-center justify-between text-emerald-400 text-xs font-bold mb-1">
+                <div className="hv-elevated border border-emerald-500/30 p-3.5 rounded-xl">
+                  <div className="flex items-center justify-between text-emerald-500 text-xs font-bold mb-1">
                     <span className="flex items-center gap-1.5">
                       <TrendingUp className="w-3.5 h-3.5" />
                       {isHindi ? 'कुल क्रेडिट / इनफ्लो' : 'Total Deposits (Cr)'}
                     </span>
-                    <span className="bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded text-[10px]">
+                    <span className="hv-pill-emerald border px-2 py-0.5 rounded text-[10px]">
                       {statementSummary.creditCount} {isHindi ? 'प्रविष्टियां' : 'txns'}
                     </span>
                   </div>
-                  <div className="text-base font-extrabold text-emerald-300 font-mono">
+                  <div className="text-base font-extrabold text-emerald-500 font-mono">
                     {formatCurrency(statementSummary.totalCredits, data.company.currency)}
                   </div>
                 </div>
 
                 {/* Total Withdrawals (Debits) */}
-                <div className="bg-slate-800/80 border border-rose-500/30 p-3.5 rounded-xl">
-                  <div className="flex items-center justify-between text-rose-400 text-xs font-bold mb-1">
+                <div className="hv-elevated border border-rose-500/30 p-3.5 rounded-xl">
+                  <div className="flex items-center justify-between text-rose-500 text-xs font-bold mb-1">
                     <span className="flex items-center gap-1.5">
                       <TrendingDown className="w-3.5 h-3.5" />
                       {isHindi ? 'कुल डेबिट / आउटफ्लो' : 'Total Withdrawals (Dr)'}
                     </span>
-                    <span className="bg-rose-500/20 text-rose-300 px-2 py-0.5 rounded text-[10px]">
+                    <span className="hv-pill-rose border px-2 py-0.5 rounded text-[10px]">
                       {statementSummary.debitCount} {isHindi ? 'प्रविष्टियां' : 'txns'}
                     </span>
                   </div>
-                  <div className="text-base font-extrabold text-rose-300 font-mono">
+                  <div className="text-base font-extrabold text-rose-500 font-mono">
                     {formatCurrency(statementSummary.totalDebits, data.company.currency)}
                   </div>
                 </div>
 
                 {/* Net Statement Movement */}
-                <div className="bg-slate-800/80 border border-blue-500/30 p-3.5 rounded-xl">
-                  <div className="flex items-center justify-between text-blue-400 text-xs font-bold mb-1">
+                <div className="hv-elevated border border-blue-500/30 p-3.5 rounded-xl">
+                  <div className="flex items-center justify-between text-blue-500 text-xs font-bold mb-1">
                     <span className="flex items-center gap-1.5">
                       <Layers className="w-3.5 h-3.5" />
                       {isHindi ? 'शुद्ध अंतर (Net Flow)' : 'Net Movement'}
                     </span>
                   </div>
-                  <div className={`text-base font-extrabold font-mono ${statementSummary.netMovement >= 0 ? 'text-emerald-300' : 'text-rose-300'}`}>
+                  <div className={`text-base font-extrabold font-mono ${statementSummary.netMovement >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
                     {statementSummary.netMovement >= 0 ? '+' : ''}{formatCurrency(statementSummary.netMovement, data.company.currency)}
                   </div>
                 </div>
 
                 {/* Total Extracted Entries */}
-                <div className="bg-slate-800/80 border border-indigo-500/30 p-3.5 rounded-xl">
-                  <div className="flex items-center justify-between text-indigo-400 text-xs font-bold mb-1">
+                <div className="hv-elevated border border-indigo-500/30 p-3.5 rounded-xl">
+                  <div className="flex items-center justify-between text-indigo-500 text-xs font-bold mb-1">
                     <span className="flex items-center gap-1.5">
-                      <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
+                      <ShieldCheck className="w-3.5 h-3.5 text-indigo-500" />
                       {isHindi ? 'कुल ट्रांजैक्शन' : 'Verified Rows'}
                     </span>
-                    <span className="text-[10px] text-slate-400 font-mono">
+                    <span className="text-[10px] text-[var(--text-muted)] font-mono">
                       {statementSummary.dateRange.start || 'N/A'}
                     </span>
                   </div>
-                  <div className="text-base font-extrabold text-white font-mono">
+                  <div className="text-base font-extrabold text-[var(--text-primary)] font-mono">
                     {statementSummary.totalTransactions} {isHindi ? 'सत्यापित' : 'Rows'}
                   </div>
                 </div>
@@ -1286,35 +1286,35 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
               </div>
 
               {/* Table Filter & Search Controls */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-slate-800/40 p-2.5 rounded-xl border border-slate-700/60">
-                <div className="flex items-center gap-2 w-full sm:w-auto">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 hv-elevated p-2.5 rounded-xl border border-[var(--border-subtle)]">
+                <div className="flex items-center gap-2 w-full sm:w-auto flex-wrap">
                   <div className="relative flex-1 sm:w-64">
-                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+                    <Search className="w-3.5 h-3.5 text-[var(--text-muted)] absolute left-3 top-2.5" />
                     <input
                       type="text"
                       value={searchFilter}
                       onChange={(e) => setSearchFilter(e.target.value)}
                       placeholder={isHindi ? 'विवरण, राशि या Ref No से खोजें...' : 'Search narration, amount, ref...'}
-                      className="bg-slate-900 border border-slate-700 text-white text-xs rounded-lg pl-8 pr-3 py-1.5 w-full focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                      className="hv-input border border-[var(--border-subtle)] text-xs rounded-lg pl-8 pr-3 py-1.5 w-full focus:outline-none focus:ring-1 focus:ring-emerald-500"
                     />
                   </div>
 
-                  <div className="flex rounded-lg bg-slate-900 p-0.5 border border-slate-700 text-[11px] font-bold">
+                  <div className="flex rounded-lg hv-surface p-0.5 border border-[var(--border-subtle)] text-[11px] font-bold">
                     <button
                       onClick={() => setTypeFilter('ALL')}
-                      className={`px-2.5 py-1 rounded ${typeFilter === 'ALL' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                      className={`px-2.5 py-1 rounded ${typeFilter === 'ALL' ? 'bg-indigo-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                     >
                       {isHindi ? 'सभी' : 'All'}
                     </button>
                     <button
                       onClick={() => setTypeFilter('DEBIT')}
-                      className={`px-2.5 py-1 rounded ${typeFilter === 'DEBIT' ? 'bg-rose-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                      className={`px-2.5 py-1 rounded ${typeFilter === 'DEBIT' ? 'bg-rose-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                     >
                       {isHindi ? 'डेबिट (Dr)' : 'Debits'}
                     </button>
                     <button
                       onClick={() => setTypeFilter('CREDIT')}
-                      className={`px-2.5 py-1 rounded ${typeFilter === 'CREDIT' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                      className={`px-2.5 py-1 rounded ${typeFilter === 'CREDIT' ? 'bg-emerald-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                     >
                       {isHindi ? 'क्रेडिट (Cr)' : 'Credits'}
                     </button>
@@ -1325,7 +1325,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                     type="button"
                     onClick={handleSwapAllDebitCredit}
                     title={isHindi ? "यदि बैंक प्रारूप में डेबिट व क्रेडिट उल्टे लोड हुए हों, तो उन्हें तुरंत एक क्लिक में आपस में बदलें" : "Invert/Swap all Debits and Credits with one click"}
-                    className="flex items-center gap-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 font-bold px-2.5 py-1 rounded-lg text-[11px] transition shadow-sm"
+                    className="flex items-center gap-1.5 hv-pill-amber border font-bold px-2.5 py-1 rounded-lg text-[11px] transition shadow-sm hover:opacity-90"
                   >
                     <ArrowRightLeft className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'Dr ⇄ Cr आपस में बदलें' : 'Swap All Dr ⇄ Cr'}</span>
@@ -1336,20 +1336,20 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                     type="button"
                     onClick={handleAutoAlignWithMath}
                     title={isHindi ? "रनिंग बैलेंस अंतर (Δ Balance) के आधार पर सभी डेबिट/क्रेडिट को स्वतः 100% सही करें" : "Automatically calculate and align Debit/Credit types & amounts from running balance difference"}
-                    className="flex items-center gap-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-300 font-bold px-2.5 py-1 rounded-lg text-[11px] transition shadow-sm"
+                    className="flex items-center gap-1.5 hv-pill-emerald border font-bold px-2.5 py-1 rounded-lg text-[11px] transition shadow-sm hover:opacity-90"
                   >
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
                     <span>{isHindi ? '📐 बैलेंस गणित से मिलान करें' : 'Auto-Align Math'}</span>
                   </button>
                 </div>
 
-                <div className="flex items-center gap-3 text-xs text-slate-300">
+                <div className="flex items-center gap-3 text-xs text-[var(--text-secondary)]">
                   <label className="flex items-center gap-1.5 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={visibleLines.length > 0 && visibleLines.every(l => selectedLineIds.has(l.id))}
                       onChange={(e) => handleSelectAll(e.target.checked)}
-                      className="rounded border-slate-700 text-emerald-600 focus:ring-emerald-500"
+                      className="rounded border-[var(--border-subtle)] text-emerald-600 focus:ring-emerald-500"
                     />
                     <span className="font-semibold">{isHindi ? 'सभी चुनें' : 'Select All'} ({selectedLineIds.size}/{parsedLines.length})</span>
                   </label>
@@ -1357,30 +1357,30 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
               </div>
 
               {/* STATEMENT REVIEW & EDIT TABLE */}
-              <div className="border border-slate-700 rounded-xl overflow-x-auto overflow-y-auto bg-slate-900/60 max-h-96">
+              <div className="border border-[var(--border-primary)] rounded-xl overflow-x-auto overflow-y-auto hv-surface max-h-96">
                 <table className="w-full text-left text-xs min-w-[960px]">
-                  <thead className="bg-slate-800 text-slate-300 uppercase text-[10px] font-bold sticky top-0 z-10 border-b border-slate-700">
+                  <thead className="hv-elevated text-[var(--text-secondary)] uppercase text-[10px] font-bold sticky top-0 z-10 border-b border-[var(--border-primary)]">
                     <tr>
                       <th className="p-2.5 w-10 text-center whitespace-nowrap">
                         <input
                           type="checkbox"
                           checked={visibleLines.length > 0 && visibleLines.every(l => selectedLineIds.has(l.id))}
                           onChange={(e) => handleSelectAll(e.target.checked)}
-                          className="rounded border-slate-700 text-emerald-600"
+                          className="rounded border-[var(--border-subtle)] text-emerald-600"
                         />
                       </th>
                       <th className="p-2.5 w-28 whitespace-nowrap">{isHindi ? 'दिनांक' : 'Date'}</th>
                       <th className="p-2.5 min-w-[200px]">{isHindi ? 'विवरण / नरेशन' : 'Narration / Particulars'}</th>
                       <th className="p-2.5 w-24 whitespace-nowrap">{isHindi ? 'Ref / UTR' : 'Ref / Chq No'}</th>
                       <th className="p-2.5 w-28 text-center whitespace-nowrap">{isHindi ? 'प्रकार (Type)' : 'Type'}</th>
-                      <th className="p-2.5 w-32 text-right text-rose-400 whitespace-nowrap">{isHindi ? 'डेबिट / निकासी (Dr ₹)' : 'Withdrawal (Dr ₹)'}</th>
-                      <th className="p-2.5 w-32 text-right text-emerald-400 whitespace-nowrap">{isHindi ? 'क्रेडिट / जमा (Cr ₹)' : 'Deposit (Cr ₹)'}</th>
-                      <th className="p-2.5 w-28 text-right text-slate-400 whitespace-nowrap">{isHindi ? 'शेष (Balance ₹)' : 'Balance (₹)'}</th>
+                      <th className="p-2.5 w-32 text-right text-rose-500 whitespace-nowrap">{isHindi ? 'डेबिट / निकासी (Dr ₹)' : 'Withdrawal (Dr ₹)'}</th>
+                      <th className="p-2.5 w-32 text-right text-emerald-500 whitespace-nowrap">{isHindi ? 'क्रेडिट / जमा (Cr ₹)' : 'Deposit (Cr ₹)'}</th>
+                      <th className="p-2.5 w-28 text-right text-[var(--text-muted)] whitespace-nowrap">{isHindi ? 'शेष (Balance ₹)' : 'Balance (₹)'}</th>
                       <th className="p-2.5 w-36 whitespace-nowrap">{isHindi ? 'खाता (Counter A/c)' : 'Counter Ledger'}</th>
                       <th className="p-2.5 w-10 text-center whitespace-nowrap">{isHindi ? 'हटाएं' : 'Del'}</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800">
+                  <tbody className="divide-y divide-[var(--border-primary)]">
                     {visibleLines.map((line) => {
                       const isSelected = selectedLineIds.has(line.id);
                       const isDebit = line.type === 'DEBIT';
@@ -1391,14 +1391,14 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                       return (
                         <tr 
                           key={line.id}
-                          className={`hover:bg-slate-800/40 transition ${isSelected ? 'bg-emerald-950/15' : ''}`}
+                          className={`hover:bg-[var(--hover-surface)] transition ${isSelected ? 'bg-emerald-500/10' : ''}`}
                         >
                           <td className="p-2.5 text-center">
                             <input
                               type="checkbox"
                               checked={isSelected}
                               onChange={() => handleToggleSelectLine(line.id)}
-                              className="rounded border-slate-700 text-emerald-600"
+                              className="rounded border-[var(--border-subtle)] text-emerald-600"
                             />
                           </td>
 
@@ -1408,7 +1408,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                               type="date"
                               value={line.date}
                               onChange={(e) => handleUpdateLine(line.id, { date: e.target.value })}
-                              className="bg-transparent border-b border-transparent hover:border-slate-600 focus:border-emerald-500 text-slate-200 text-xs font-mono focus:outline-none"
+                              className="bg-transparent border-b border-transparent hover:border-[var(--border-subtle)] focus:border-emerald-500 text-[var(--text-primary)] text-xs font-mono focus:outline-none"
                             />
                           </td>
 
@@ -1418,7 +1418,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                               type="text"
                               value={line.description}
                               onChange={(e) => handleUpdateLine(line.id, { description: e.target.value })}
-                              className="w-full bg-transparent border-b border-transparent hover:border-slate-600 focus:border-emerald-500 text-slate-200 text-xs focus:outline-none"
+                              className="w-full bg-transparent border-b border-transparent hover:border-[var(--border-subtle)] focus:border-emerald-500 text-[var(--text-primary)] text-xs focus:outline-none"
                             />
                           </td>
 
@@ -1429,7 +1429,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                               value={line.referenceNo || ''}
                               onChange={(e) => handleUpdateLine(line.id, { referenceNo: e.target.value })}
                               placeholder="-"
-                              className="w-full bg-transparent border-b border-transparent hover:border-slate-600 focus:border-emerald-500 text-slate-400 font-mono text-[11px] focus:outline-none"
+                              className="w-full bg-transparent border-b border-transparent hover:border-[var(--border-subtle)] focus:border-emerald-500 text-[var(--text-muted)] font-mono text-[11px] focus:outline-none"
                             />
                           </td>
 
@@ -1439,10 +1439,10 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                               type="button"
                               onClick={() => handleUpdateLine(line.id, { type: isDebit ? 'CREDIT' : 'DEBIT' })}
                               title={isHindi ? "प्रकार बदलने हेतु क्लिक करें (Dr ⇄ Cr)" : "Click to toggle between Debit and Credit"}
-                              className={`px-2 py-0.5 rounded text-[10px] font-extrabold transition flex items-center justify-center gap-1 mx-auto ${
+                              className={`px-2 py-0.5 rounded text-[10px] font-extrabold transition flex items-center justify-center gap-1 mx-auto border ${
                                 isCredit 
-                                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 hover:bg-emerald-500/30' 
-                                  : 'bg-rose-500/20 text-rose-400 border border-rose-500/40 hover:bg-rose-500/30'
+                                  ? 'hv-pill-emerald hover:opacity-90' 
+                                  : 'hv-pill-rose hover:opacity-90'
                               }`}
                             >
                               <span>{isCredit ? 'CREDIT (Cr)' : 'DEBIT (Dr)'}</span>
@@ -1458,7 +1458,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                                   });
                                 }}
                                 title={`Running balance delta indicates ${mathProof.expectedType} ₹${mathProof.expectedAmount}`}
-                                className="mt-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-500/20 text-amber-300 border border-amber-500/50 hover:bg-amber-500/30 flex items-center justify-center gap-0.5 mx-auto"
+                                className="mt-1 px-1.5 py-0.5 rounded text-[9px] font-bold hv-pill-amber border hover:opacity-90 flex items-center justify-center gap-0.5 mx-auto"
                               >
                                 ⚡ Fix {mathProof.expectedType === 'CREDIT' ? 'Cr' : 'Dr'} ₹{mathProof.expectedAmount}
                               </button>
@@ -1479,8 +1479,8 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                                   amount: val 
                                 });
                               }}
-                              className={`w-28 text-right bg-transparent border-b border-transparent hover:border-slate-600 focus:border-rose-500 font-mono text-xs focus:outline-none ${
-                                isDebit ? 'text-rose-300 font-bold' : 'text-slate-600 placeholder-slate-700'
+                              className={`w-28 text-right bg-transparent border-b border-transparent hover:border-[var(--border-subtle)] focus:border-rose-500 font-mono text-xs focus:outline-none ${
+                                isDebit ? 'text-rose-500 font-bold' : 'text-[var(--text-muted)] opacity-50'
                               }`}
                             />
                           </td>
@@ -1499,18 +1499,18 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                                   amount: val 
                                 });
                               }}
-                              className={`w-28 text-right bg-transparent border-b border-transparent hover:border-slate-600 focus:border-emerald-500 font-mono text-xs focus:outline-none ${
-                                isCredit ? 'text-emerald-300 font-bold' : 'text-slate-600 placeholder-slate-700'
+                              className={`w-28 text-right bg-transparent border-b border-transparent hover:border-[var(--border-subtle)] focus:border-emerald-500 font-mono text-xs focus:outline-none ${
+                                isCredit ? 'text-emerald-500 font-bold' : 'text-[var(--text-muted)] opacity-50'
                               }`}
                             />
                           </td>
 
                           {/* Running Balance Column */}
-                          <td className="p-2.5 text-right font-mono text-xs text-slate-300">
+                          <td className="p-2.5 text-right font-mono text-xs text-[var(--text-secondary)]">
                             {line.runningBalance !== undefined ? (
                               <span>{formatCurrency(line.runningBalance, data.company.currency)}</span>
                             ) : (
-                              <span className="text-slate-600">-</span>
+                              <span className="text-[var(--text-muted)]">-</span>
                             )}
                           </td>
 
@@ -1525,7 +1525,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                                   allocatedAccountName: acc?.name 
                                 });
                               }}
-                              className="w-full bg-slate-900 border border-slate-700 text-slate-300 text-[11px] rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                              className="w-full hv-input border border-[var(--border-subtle)] text-[11px] rounded px-2 py-1 focus:outline-none focus:ring-1 focus:ring-emerald-500"
                             >
                               {data.accounts.filter(a => !a.isGroup && a.id !== selectedBankLedger?.id).map(a => (
                                 <option key={a.id} value={a.id}>{a.name}</option>
@@ -1538,7 +1538,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                             <button
                               type="button"
                               onClick={() => handleDeleteLine(line.id)}
-                              className="text-slate-500 hover:text-rose-400 p-1 transition"
+                              className="text-[var(--text-muted)] hover:text-rose-500 p-1 transition"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -1555,11 +1555,11 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
         </div>
 
         {/* Modal Footer (Action Buttons) */}
-        <div className="bg-slate-800/90 border-t border-slate-700 px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-xs text-slate-400">
+        <div className="hv-elevated border-t border-[var(--border-primary)] px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="text-xs text-[var(--text-muted)]">
             {parsedLines.length > 0 ? (
               <span>
-                {isHindi ? 'चयनित प्रविष्टियां:' : 'Selected entries:'} <strong className="text-white">{selectedLineIds.size}</strong> of {parsedLines.length}
+                {isHindi ? 'चयनित प्रविष्टियां:' : 'Selected entries:'} <strong className="text-[var(--text-primary)]">{selectedLineIds.size}</strong> of {parsedLines.length}
               </span>
             ) : (
               <span>{isHindi ? 'कोई फाइल चुनी नहीं गई।' : 'Ready to import statement.'}</span>
@@ -1570,7 +1570,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
             <button
               type="button"
               onClick={onClose}
-              className="bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold px-4 py-2 rounded-xl text-xs transition"
+              className="bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-primary)] font-bold px-4 py-2 rounded-xl text-xs transition"
             >
               {isHindi ? 'रद्द करें' : 'Cancel'}
             </button>
@@ -1581,7 +1581,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                   type="button"
                   onClick={handleCommitImportReconciliation}
                   disabled={selectedLineIds.size === 0}
-                  className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow-lg shadow-indigo-600/20"
+                  className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white hv-keep-white font-bold px-4 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow-lg shadow-indigo-600/20"
                 >
                   <FileText className="w-4 h-4" />
                   <span>{isHindi ? 'BRS मैच हेतु इम्पोर्ट करें' : 'Import for BRS Matching'}</span>
@@ -1591,7 +1591,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                   type="button"
                   onClick={handleCommitPostVouchers}
                   disabled={selectedLineIds.size === 0}
-                  className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white font-extrabold px-5 py-2 rounded-xl text-xs flex items-center gap-2 transition shadow-lg shadow-emerald-600/30"
+                  className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white hv-keep-white font-extrabold px-5 py-2 rounded-xl text-xs flex items-center gap-2 transition shadow-lg shadow-emerald-600/30"
                 >
                   <Check className="w-4 h-4" />
                   <span>{isHindi ? 'खाते में सीधे वाउचर पोस्ट करें' : 'Post Direct Bank Vouchers'}</span>
@@ -1606,38 +1606,38 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
 
       {/* Quick Add Bank Account Modal */}
       {showAddBankModal && (
-        <div className="fixed inset-0 z-60 flex items-center justify-center bg-black/75 p-4">
-          <div className="bg-slate-900 border border-slate-700 w-full max-w-md rounded-xl p-5 shadow-2xl space-y-4">
-            <h4 className="text-sm font-bold text-white flex items-center gap-2">
-              <Landmark className="w-4 h-4 text-emerald-400" />
+        <div className="fixed inset-0 z-60 flex items-center justify-center bg-slate-950/80 p-4">
+          <div className="hv-surface border border-[var(--border-primary)] text-[var(--text-primary)] w-full max-w-md rounded-xl p-5 shadow-2xl space-y-4">
+            <h4 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+              <Landmark className="w-4 h-4 text-emerald-500" />
               <span>{isHindi ? 'नया बैंक खाता लेजर जोड़ें' : 'Create Bank Account Ledger'}</span>
             </h4>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="text-slate-300 font-semibold mb-1 block">{isHindi ? 'बैंक का नाम (उदा. HDFC Bank, SBI)' : 'Bank Name (e.g. HDFC Bank, SBI)'}</label>
+                <label className="text-[var(--text-secondary)] font-semibold mb-1 block">{isHindi ? 'बैंक का नाम (उदा. HDFC Bank, SBI)' : 'Bank Name (e.g. HDFC Bank, SBI)'}</label>
                 <input
                   type="text"
                   value={newBankName}
                   onChange={(e) => setNewBankName(e.target.value)}
                   placeholder="e.g. HDFC Bank Current A/c"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-lg px-3 py-2 focus:ring-1 focus:ring-emerald-500 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="text-slate-300 font-semibold mb-1 block">{isHindi ? 'खाता संख्या (A/c No. अनिवार्य) *' : 'Company Bank Account Number *'}</label>
+                <label className="text-[var(--text-secondary)] font-semibold mb-1 block">{isHindi ? 'खाता संख्या (A/c No. अनिवार्य) *' : 'Company Bank Account Number *'}</label>
                 <input
                   type="text"
                   value={newBankAccNo}
                   onChange={(e) => setNewBankAccNo(e.target.value)}
                   placeholder="e.g. 50200012345678"
-                  className="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-mono focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-lg px-3 py-2 font-mono focus:ring-1 focus:ring-emerald-500 focus:outline-none"
                 />
               </div>
 
               {bankQuickErr && (
-                <div className="p-2.5 bg-rose-950/60 border border-rose-500/40 rounded-lg text-[11px] text-rose-300 font-semibold">
+                <div className="p-2.5 hv-pill-rose border rounded-lg text-[11px] font-semibold">
                   {bankQuickErr}
                 </div>
               )}
@@ -1647,7 +1647,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
               <button
                 type="button"
                 onClick={() => setShowAddBankModal(false)}
-                className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-bold transition"
+                className="bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] px-3 py-1.5 rounded-lg text-xs font-bold transition"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>
@@ -1655,7 +1655,7 @@ export const BankStatementImportUtility: React.FC<BankStatementImportUtilityProp
                 type="button"
                 onClick={handleCreateNewBankQuick}
                 disabled={!newBankName.trim() || !newBankAccNo.trim()}
-                className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white px-4 py-1.5 rounded-lg text-xs font-bold transition"
+                className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white hv-keep-white px-4 py-1.5 rounded-lg text-xs font-bold transition"
               >
                 {isHindi ? 'खाता बनाएं' : 'Create Ledger'}
               </button>

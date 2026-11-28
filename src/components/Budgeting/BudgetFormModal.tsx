@@ -77,27 +77,27 @@ export const BudgetFormModal: React.FC<BudgetFormModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden text-slate-100 animate-in fade-in zoom-in duration-200">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden text-[var(--text-primary)] animate-in fade-in zoom-in duration-200">
         {/* Header */}
-        <div className="bg-gradient-to-r from-indigo-950 via-slate-900 to-slate-900 px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+        <div className="hv-elevated px-6 py-4 border-b border-[var(--border-primary)] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-indigo-600/30 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
+            <div className="w-9 h-9 rounded-xl hv-pill-indigo border flex items-center justify-center">
               <PiggyBank className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-base text-white">
+              <h3 className="font-bold text-base text-[var(--text-primary)]">
                 {budgetToEdit 
                   ? (isHindi ? 'बजट सीमा अपडेट करें' : 'Update Spending Limit') 
                   : (isHindi ? 'नया बजट सीमा निर्धारित करें' : 'Set New Spending Limit')}
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--text-muted)]">
                 {isHindi ? `माह: ${selectedMonth}` : `Period: ${selectedMonth}`}
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+            className="p-1.5 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)] transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -106,21 +106,21 @@ export const BudgetFormModal: React.FC<BudgetFormModalProps> = ({
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           {formError && (
-            <div className="bg-rose-500/15 border border-rose-500/40 text-rose-200 px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+            <div className="hv-pill-rose border px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{formError}</span>
             </div>
           )}
           {/* Account Selection */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-              {isHindi ? 'खर्च खाता चुनें (Expense Account)' : 'Expense Account'} <span className="text-rose-400">*</span>
+            <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1.5">
+              {isHindi ? 'खर्च खाता चुनें (Expense Account)' : 'Expense Account'} <span className="text-rose-500">*</span>
             </label>
             <select
               value={accountId}
               onChange={(e) => setAccountId(e.target.value)}
               disabled={!!budgetToEdit}
-              className="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl px-3 py-2 text-xs focus:border-indigo-500 focus:outline-none disabled:opacity-60"
+              className="w-full hv-input border rounded-xl px-3 py-2 text-xs focus:border-indigo-500 focus:outline-none disabled:opacity-60"
             >
               <option value="">{isHindi ? '-- खर्च खाता चुनें --' : '-- Select Expense Account --'}</option>
               {expenseAccounts.map((acc) => (
@@ -133,12 +133,12 @@ export const BudgetFormModal: React.FC<BudgetFormModalProps> = ({
 
           {/* Current Spent Reference Box */}
           {selectedAccount && (
-            <div className="bg-slate-800/60 border border-slate-700/80 p-3 rounded-xl flex items-center justify-between text-xs">
-              <div className="flex items-center gap-2 text-slate-300">
-                <Info className="w-4 h-4 text-indigo-400 shrink-0" />
+            <div className="hv-elevated border border-[var(--border-subtle)] p-3 rounded-xl flex items-center justify-between text-xs">
+              <div className="flex items-center gap-2 text-[var(--text-secondary)]">
+                <Info className="w-4 h-4 text-indigo-500 shrink-0" />
                 <span>{isHindi ? 'इस माह अब तक हुआ वास्तविक खर्च:' : 'Actual spent so far this month:'}</span>
               </div>
-              <span className="font-mono font-bold text-indigo-300">
+              <span className="font-mono font-bold text-indigo-500">
                 {formatCurrency(currentSpent, data.company.currency)}
               </span>
             </div>
@@ -146,8 +146,8 @@ export const BudgetFormModal: React.FC<BudgetFormModalProps> = ({
 
           {/* Monthly Limit Field */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
-              {isHindi ? 'मासिक बजट खर्च सीमा (Monthly Spending Limit)' : 'Monthly Spending Limit'} ({data.company.currency}) <span className="text-rose-400">*</span>
+            <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1.5">
+              {isHindi ? 'मासिक बजट खर्च सीमा (Monthly Spending Limit)' : 'Monthly Spending Limit'} ({data.company.currency}) <span className="text-rose-500">*</span>
             </label>
             <div className="relative">
               <input
@@ -157,12 +157,12 @@ export const BudgetFormModal: React.FC<BudgetFormModalProps> = ({
                 value={monthlyLimit || ''}
                 onChange={(e) => setMonthlyLimit(Number(e.target.value) || 0)}
                 placeholder="0"
-                className="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl px-3 py-2.5 text-sm font-mono focus:border-indigo-500 focus:outline-none"
+                className="w-full hv-input border rounded-xl px-3 py-2.5 text-sm font-mono focus:border-indigo-500 focus:outline-none"
                 required
               />
             </div>
             {monthlyLimit > 0 && currentSpent > monthlyLimit && (
-              <p className="text-[11px] text-amber-400 mt-1 flex items-center gap-1 font-medium">
+              <p className="text-[11px] text-amber-500 mt-1 flex items-center gap-1 font-medium">
                 <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                 {isHindi 
                   ? 'ध्यान दें: वर्तमान खर्च निर्धारित सीमा से अधिक है!' 
@@ -173,7 +173,7 @@ export const BudgetFormModal: React.FC<BudgetFormModalProps> = ({
 
           {/* Quick Presets */}
           <div>
-            <label className="block text-[11px] font-semibold text-slate-400 mb-1">
+            <label className="block text-[11px] font-semibold text-[var(--text-muted)] mb-1">
               {isHindi ? 'त्वरित बजट राशि चुनें:' : 'Quick Presets:'}
             </label>
             <div className="flex items-center gap-2 flex-wrap">
@@ -184,8 +184,8 @@ export const BudgetFormModal: React.FC<BudgetFormModalProps> = ({
                   onClick={() => setMonthlyLimit(preset)}
                   className={`text-[11px] px-2.5 py-1 rounded-lg border transition font-mono ${
                     monthlyLimit === preset
-                      ? 'bg-indigo-600 text-white border-indigo-500 font-bold'
-                      : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
+                      ? 'bg-indigo-600 text-white hv-keep-white border-indigo-500 font-bold'
+                      : 'hv-elevated text-[var(--text-secondary)] border-[var(--border-subtle)] hover:bg-[var(--hover-surface)]'
                   }`}
                 >
                   {formatCurrency(preset, data.company.currency)}
@@ -196,7 +196,7 @@ export const BudgetFormModal: React.FC<BudgetFormModalProps> = ({
 
           {/* Notes */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1.5">
               {isHindi ? 'टिप्पणी / विवरण (Notes)' : 'Notes / Remarks'}
             </label>
             <input
@@ -204,22 +204,22 @@ export const BudgetFormModal: React.FC<BudgetFormModalProps> = ({
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder={isHindi ? 'उदाहरण: प्रबंधन स्वीकृति...' : 'e.g., Approved budget for Q3 IT infrastructure...'}
-              className="w-full bg-slate-800 text-slate-100 border border-slate-700 rounded-xl px-3 py-2 text-xs focus:border-indigo-500 focus:outline-none"
+              className="w-full hv-input border rounded-xl px-3 py-2 text-xs focus:border-indigo-500 focus:outline-none"
             />
           </div>
 
           {/* Buttons */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[var(--border-primary)]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-300 hover:bg-slate-800 transition"
+              className="px-4 py-2 rounded-xl text-xs font-semibold hv-elevated border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] transition"
             >
               {isHindi ? 'रद्द करें' : 'Cancel'}
             </button>
             <button
               type="submit"
-              className="px-5 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 transition transform active:scale-95"
+              className="px-5 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white shadow-lg transition transform active:scale-95"
             >
               {budgetToEdit ? (isHindi ? 'अपडेट करें' : 'Update Limit') : (isHindi ? 'बजट सहेजें' : 'Save Budget Limit')}
             </button>

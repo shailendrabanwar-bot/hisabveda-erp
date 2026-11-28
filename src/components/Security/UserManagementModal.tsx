@@ -172,18 +172,18 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto animate-fadeIn">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl p-6 text-slate-200 space-y-6 shadow-2xl">
+      <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl w-full max-w-2xl p-6 text-[var(--text-primary)] space-y-6 shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-xl">
+            <div className="p-2.5 hv-pill-indigo border rounded-xl">
               <Users className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-[var(--text-primary)]">
                 {isHindi ? 'मल्टी-यूज़र लॉगिन एवं उपयोगकर्ता स्विच केंद्र' : 'Multi-User Authentication & User Switching'}
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--text-muted)]">
                 {isHindi 
                   ? 'सुरक्षित उपयोगकर्ता प्रोफाइल बदलें या अन्य स्टाफ/ऑपरेटर लॉगिन जोड़ें' 
                   : 'Switch logged-in operator account or add new staff logins'}
@@ -193,7 +193,7 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
 
           <button
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white bg-slate-800 rounded-xl hover:bg-slate-700 transition"
+            className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-xl transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -201,27 +201,27 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
 
         {/* Inline Feedback Banner */}
         {feedbackMsg && (
-          <div className="bg-emerald-500/20 border border-emerald-500/40 text-emerald-200 px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-between gap-2">
+          <div className="hv-pill-emerald border px-4 py-2.5 rounded-xl text-xs font-semibold flex items-center justify-between gap-2">
             <span className="flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>{feedbackMsg}</span>
             </span>
-            <button type="button" onClick={() => setFeedbackMsg(null)} className="text-emerald-300 hover:text-white cursor-pointer">
+            <button type="button" onClick={() => setFeedbackMsg(null)} className="cursor-pointer">
               <X className="w-3.5 h-3.5" />
             </button>
           </div>
         )}
 
         {/* Current Active User Banner */}
-        <div className="bg-gradient-to-r from-indigo-900/40 via-slate-800 to-slate-900 border border-indigo-500/30 p-4 rounded-xl space-y-2">
+        <div className="hv-pill-indigo border p-4 rounded-xl space-y-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-indigo-600 text-white font-extrabold flex items-center justify-center text-sm shadow">
+              <div className="w-10 h-10 rounded-full bg-indigo-600 text-white hv-keep-white font-extrabold flex items-center justify-center text-sm shadow">
                 {currentActiveUser?.name ? currentActiveUser.name.charAt(0) : 'U'}
               </div>
               <div>
-                <div className="text-xs text-indigo-300 font-semibold">{isHindi ? 'वर्तमान में लॉग-इन उपयोगकर्ता:' : 'Currently Logged In As:'}</div>
-                <div className="text-sm font-bold text-white flex items-center gap-2">
+                <div className="text-xs font-semibold">{isHindi ? 'वर्तमान में लॉग-इन उपयोगकर्ता:' : 'Currently Logged In As:'}</div>
+                <div className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
                   <span>{currentActiveUser?.name || 'User'}</span>
                   <span className={`border text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${currentRoleMeta.badgeColor}`}>
                     {actorRole}
@@ -231,13 +231,13 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
             </div>
 
             <div className="text-right">
-              <span className="text-[11px] text-slate-400 block">{currentActiveUser?.email || ''}</span>
-              <span className="text-[10px] text-emerald-400 font-semibold flex items-center justify-end gap-1">
+              <span className="text-[11px] text-[var(--text-muted)] block">{currentActiveUser?.email || ''}</span>
+              <span className="text-[10px] text-emerald-500 font-semibold flex items-center justify-end gap-1">
                 <UserCheck className="w-3.5 h-3.5" /> Session Active
               </span>
             </div>
           </div>
-          <p className="text-[11px] text-slate-300 bg-slate-950/60 border border-slate-800 rounded-lg px-3 py-1.5">
+          <p className="text-[11px] text-[var(--text-secondary)] bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-lg px-3 py-1.5">
             {isHindi ? currentRoleMeta.summaryHi : currentRoleMeta.summaryEn}
           </p>
         </div>
@@ -246,7 +246,7 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
         {!selectedUserToSwitch ? (
           <div className="space-y-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <h4 className="text-xs font-bold text-slate-200 uppercase tracking-wider">
+              <h4 className="text-xs font-bold text-[var(--text-primary)] uppercase tracking-wider">
                 {isHindi ? 'अन्य उपयोगकर्ता के रूप में लॉगिन करें (Select Account to Switch):' : 'Select User Account to Switch Login:'}
               </h4>
 
@@ -258,18 +258,18 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
                         onClose();
                         onOpenMasterPinModal();
                       }}
-                      className="flex items-center gap-1.5 text-xs font-bold text-amber-300 hover:text-amber-200 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 px-3 py-1.5 rounded-xl transition cursor-pointer"
+                      className="flex items-center gap-1.5 text-xs font-bold hv-pill-amber border px-3 py-1.5 rounded-xl transition cursor-pointer"
                     >
-                      <KeyRound className="w-3.5 h-3.5 text-amber-400" />
+                      <KeyRound className="w-3.5 h-3.5" />
                       <span>{isHindi ? '🔑 मास्टर पिन बदलें' : '🔑 Change Master PIN'}</span>
                     </button>
                   )}
 
                   <button
                     onClick={() => setShowAddUserForm(!showAddUserForm)}
-                    className="flex items-center gap-1.5 text-xs font-bold text-indigo-300 hover:text-indigo-200 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 px-3 py-1.5 rounded-xl transition cursor-pointer"
+                    className="flex items-center gap-1.5 text-xs font-bold hv-pill-indigo border px-3 py-1.5 rounded-xl transition cursor-pointer"
                   >
-                    <UserPlus className="w-3.5 h-3.5 text-indigo-400" />
+                    <UserPlus className="w-3.5 h-3.5" />
                     <span>{showAddUserForm ? 'Cancel' : (isHindi ? '+ नया यूज़र बनाएं' : '+ Add New User')}</span>
                   </button>
                 </div>
@@ -278,30 +278,30 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
 
             {/* Add User Form */}
             {showAddUserForm && rbac.canManageUsersAndPin && (
-              <form onSubmit={handleCreateUser} className="bg-slate-800/80 p-4 rounded-xl border border-amber-500/30 space-y-3 text-xs animate-fadeIn">
-                <h5 className="font-bold text-amber-300 flex items-center gap-1.5">
+              <form onSubmit={handleCreateUser} className="bg-[var(--bg-elevated)] p-4 rounded-xl border border-amber-500/40 space-y-3 text-xs animate-fadeIn">
+                <h5 className="font-bold text-amber-500 flex items-center gap-1.5">
                   <UserPlus className="w-4 h-4" /> Register New Operator / Staff Account
                 </h5>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-slate-300 font-semibold mb-1">Full Name *</label>
+                    <label className="block text-[var(--text-secondary)] font-semibold mb-1">Full Name *</label>
                     <input
                       type="text"
                       value={newName}
                       onChange={(e) => setNewName(e.target.value)}
                       placeholder="e.g. Ramesh Kumar"
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-white"
+                      className="w-full hv-input border rounded-xl p-2"
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 font-semibold mb-1">Role & Privilege *</label>
+                    <label className="block text-[var(--text-secondary)] font-semibold mb-1">Role & Privilege *</label>
                     <select
                       value={newRole}
                       onChange={(e) => setNewRole(e.target.value as UserRole)}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-white"
+                      className="w-full hv-input border rounded-xl p-2"
                     >
                       {ALL_USER_ROLES.map((r) => (
                         <option key={r} value={r}>
@@ -312,31 +312,31 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
                   </div>
                 </div>
 
-                <p className="text-[11px] text-slate-300 bg-slate-900/80 border border-slate-700/80 rounded-lg px-2.5 py-1.5">
+                <p className="text-[11px] text-[var(--text-secondary)] bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-lg px-2.5 py-1.5">
                   {isHindi ? ROLE_METADATA[newRole].summaryHi : ROLE_METADATA[newRole].summaryEn}
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-slate-300 font-semibold mb-1">Email Address</label>
+                    <label className="block text-[var(--text-secondary)] font-semibold mb-1">Email Address</label>
                     <input
                       type="email"
                       value={newEmail}
                       onChange={(e) => setNewEmail(e.target.value)}
                       placeholder="ramesh@company.com"
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-white"
+                      className="w-full hv-input border rounded-xl p-2"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 font-semibold mb-1">4-Digit Access PIN Code *</label>
+                    <label className="block text-[var(--text-secondary)] font-semibold mb-1">4-Digit Access PIN Code *</label>
                     <input
                       type="password"
                       maxLength={4}
                       value={newPin}
                       onChange={(e) => setNewPin(e.target.value)}
                       placeholder="e.g. 1234"
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-white font-mono"
+                      className="w-full hv-input border rounded-xl p-2 font-mono"
                     />
                   </div>
                 </div>
@@ -344,7 +344,7 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
                 <div className="flex justify-end gap-2 pt-1">
                   <button
                     type="submit"
-                    className="bg-amber-600 hover:bg-amber-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition shadow cursor-pointer"
+                    className="bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs px-4 py-2 rounded-xl transition shadow cursor-pointer"
                   >
                     Save & Register User
                   </button>
@@ -375,21 +375,21 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
                     }}
                     className={`p-3.5 rounded-xl border transition cursor-pointer space-y-2 ${
                       isCurrent 
-                        ? 'bg-indigo-950/30 border-indigo-500/40 opacity-90' 
-                        : 'bg-slate-800/80 hover:bg-slate-800 border-slate-700 hover:border-indigo-500/50 shadow'
+                        ? 'hv-pill-indigo shadow-sm' 
+                        : 'bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border-[var(--border-primary)] hover:border-indigo-500/50 shadow'
                     }`}
                   >
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-9 h-9 rounded-xl bg-slate-700 text-indigo-300 font-bold flex items-center justify-center text-xs border border-slate-600 shrink-0">
+                        <div className="w-9 h-9 rounded-xl bg-[var(--bg-surface)] text-indigo-500 font-bold flex items-center justify-center text-xs border border-[var(--border-subtle)] shrink-0">
                           {user.name ? user.name.charAt(0) : 'U'}
                         </div>
                         <div className="min-w-0">
-                          <div className="text-xs font-bold text-white flex items-center gap-1.5 truncate">
+                          <div className="text-xs font-bold text-[var(--text-primary)] flex items-center gap-1.5 truncate">
                             <span className="truncate">{user.name}</span>
-                            {isCurrent && <span className="text-[9px] bg-indigo-600 text-white px-1.5 py-0.2 rounded shrink-0">(Active)</span>}
+                            {isCurrent && <span className="text-[9px] bg-indigo-600 text-white hv-keep-white px-1.5 py-0.2 rounded shrink-0">(Active)</span>}
                           </div>
-                          <div className="text-[10px] text-slate-400 truncate">{user.email}</div>
+                          <div className="text-[10px] text-[var(--text-muted)] truncate">{user.email}</div>
                         </div>
                       </div>
 
@@ -398,10 +398,10 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
                           value={userRole}
                           onClick={(e) => e.stopPropagation()}
                           onChange={(e) => handleRoleSelectChange(user, e.target.value as UserRole)}
-                          className={`text-[10px] font-mono border px-2 py-1 rounded-lg bg-slate-900 cursor-pointer ${meta.badgeColor}`}
+                          className={`text-[10px] font-mono border px-2 py-1 rounded-lg cursor-pointer ${meta.badgeColor}`}
                         >
                           {ALL_USER_ROLES.map((r) => (
-                            <option key={r} value={r} className="bg-slate-900 text-slate-100">
+                            <option key={r} value={r}>
                               {r}
                             </option>
                           ))}
@@ -419,24 +419,24 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
           </div>
         ) : (
           /* PIN Verification prompt when switching user */
-          <form onSubmit={handleSwitchSubmit} className="bg-slate-800 p-5 rounded-2xl border border-indigo-500/40 space-y-4 animate-fadeIn">
+          <form onSubmit={handleSwitchSubmit} className="bg-[var(--bg-elevated)] p-5 rounded-2xl border border-indigo-500/40 space-y-4 animate-fadeIn">
             <div className="flex items-center justify-between">
-              <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                <Lock className="w-4 h-4 text-indigo-400" />
-                <span>Switching User to: <strong className="text-indigo-300">{selectedUserToSwitch.name}</strong></span>
+              <h4 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <Lock className="w-4 h-4 text-indigo-500" />
+                <span>Switching User to: <strong className="text-indigo-500">{selectedUserToSwitch.name}</strong></span>
               </h4>
 
               <button
                 type="button"
                 onClick={() => setSelectedUserToSwitch(null)}
-                className="text-xs text-slate-400 hover:text-white"
+                className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
               >
                 ← Back to User List
               </button>
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold text-xs mb-1">
+              <label className="block text-[var(--text-secondary)] font-semibold text-xs mb-1">
                 Enter 4-Digit Security PIN for {selectedUserToSwitch.name}:
               </label>
               <input
@@ -449,22 +449,22 @@ export const UserManagementModal: React.FC<UserManagementModalProps> = ({
                   setPinError('');
                 }}
                 placeholder="Enter Security PIN"
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-center text-lg font-mono tracking-widest text-white focus:border-indigo-500 focus:outline-none"
+                className="w-full hv-input border rounded-xl p-3 text-center text-lg font-mono tracking-widest focus:border-indigo-500 focus:outline-none"
               />
-              {pinError && <p className="text-xs text-rose-400 mt-1 font-semibold">{pinError}</p>}
+              {pinError && <p className="text-xs text-rose-500 mt-1 font-semibold">{pinError}</p>}
             </div>
 
             <div className="flex justify-end gap-2 pt-2">
               <button
                 type="button"
                 onClick={() => setSelectedUserToSwitch(null)}
-                className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-semibold rounded-xl"
+                className="px-4 py-2 bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] text-xs font-semibold rounded-xl cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 flex items-center gap-1.5"
+                className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white text-xs font-bold rounded-xl shadow-lg shadow-indigo-600/30 flex items-center gap-1.5 cursor-pointer"
               >
                 <LogIn className="w-4 h-4" />
                 <span>Switch Active Login</span>

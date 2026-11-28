@@ -108,12 +108,12 @@ export const SalarySlipModal: React.FC<SalarySlipModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-      <div className={`print-preview-dialog bg-slate-900 border border-slate-800 rounded-2xl w-full ${printConfig.printOrientation === 'landscape' ? 'max-w-4xl' : 'max-w-3xl'} max-h-[92vh] flex flex-col shadow-2xl overflow-hidden my-auto`}>
+      <div className={`print-preview-dialog hv-surface border border-[var(--border-primary)] rounded-2xl w-full ${printConfig.printOrientation === 'landscape' ? 'max-w-4xl' : 'max-w-3xl'} max-h-[92vh] flex flex-col shadow-2xl overflow-hidden my-auto`}>
         {/* Modal Top Actions */}
-        <div className="bg-slate-950 px-4 sm:px-6 py-3.5 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2 shrink-0 no-print">
+        <div className="hv-elevated px-4 sm:px-6 py-3.5 border-b border-[var(--border-primary)] flex flex-wrap items-center justify-between gap-2 shrink-0 no-print">
           <div className="flex items-center gap-2">
-            <FileCheck className="w-5 h-5 text-indigo-400" />
-            <h3 className="font-bold text-sm text-slate-100">
+            <FileCheck className="w-5 h-5 text-indigo-500" />
+            <h3 className="font-bold text-sm text-[var(--text-primary)]">
               {isHindi ? `कर्मचारी वेतन पर्ची - ${monthInfo.hindi}` : `Employee Salary Pay Slip - ${monthInfo.eng}`}
             </h3>
           </div>
@@ -124,8 +124,8 @@ export const SalarySlipModal: React.FC<SalarySlipModalProps> = ({
               onClick={() => setShowConfigPanel((prev) => !prev)}
               className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl border transition cursor-pointer ${
                 showConfigPanel
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                  : 'bg-slate-900 hover:bg-slate-700 text-slate-200 border-slate-600'
+                  ? 'hv-pill-amber'
+                  : 'hv-surface hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border-[var(--border-subtle)]'
               }`}
             >
               <Sliders className="w-3.5 h-3.5" />
@@ -136,7 +136,7 @@ export const SalarySlipModal: React.FC<SalarySlipModalProps> = ({
               type="button"
               onClick={handleDownloadPdf}
               disabled={isDownloadingPdf}
-              className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition shadow cursor-pointer disabled:opacity-60"
+              className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-bold text-xs px-3.5 py-2 rounded-xl transition shadow cursor-pointer disabled:opacity-60"
             >
               {isDownloadingPdf ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
               <span>{isDownloadingPdf ? (isHindi ? 'PDF बन रहा है...' : 'Saving PDF...') : (isHindi ? 'PDF डाउनलोड' : 'Download PDF')}</span>
@@ -145,7 +145,7 @@ export const SalarySlipModal: React.FC<SalarySlipModalProps> = ({
             <button
               type="button"
               onClick={handlePrint}
-              className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition shadow cursor-pointer"
+              className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs px-4 py-2 rounded-xl transition shadow cursor-pointer"
             >
               <Printer className="w-4 h-4" />
               <span>{isHindi ? 'प्रिंट करें' : 'Print'}</span>
@@ -154,7 +154,7 @@ export const SalarySlipModal: React.FC<SalarySlipModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="text-slate-400 hover:text-white p-1.5 hover:bg-slate-800 rounded-xl transition cursor-pointer"
+              className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1.5 hover:bg-[var(--hover-surface)] rounded-xl transition cursor-pointer"
               title={isHindi ? 'बंद करें' : 'Close'}
             >
               <X className="w-5 h-5" />
@@ -172,14 +172,14 @@ export const SalarySlipModal: React.FC<SalarySlipModalProps> = ({
         )}
 
         {pdfNotice && (
-          <div className="bg-emerald-600 text-white px-4 py-2 text-xs font-bold flex items-center gap-2 shrink-0 no-print">
+          <div className="bg-emerald-600 text-white hv-keep-white px-4 py-2 text-xs font-bold flex items-center gap-2 shrink-0 no-print">
             <CheckCircle2 className="w-4 h-4" />
             <span>{pdfNotice}</span>
           </div>
         )}
 
         {/* Printable Salary Slip Document Container */}
-        <div className="overflow-y-auto flex-1 bg-slate-950/60">
+        <div className="overflow-y-auto flex-1 bg-[var(--bg-canvas)] p-3 sm:p-5">
           <div
             className={`bg-white text-slate-900 font-sans text-xs space-y-6 print:p-0 print:m-0 ${getPaperPaddingClass(printConfig.printMargins)} ${getPaperWidthClass(printConfig.defaultPaperSize, printConfig.printOrientation)}`}
             style={fontScaleStyle}

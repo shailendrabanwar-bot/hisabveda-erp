@@ -575,36 +575,36 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
 
   return (
     <div className="financial-print-modal-overlay fixed inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-      <div className="print-preview-dialog bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-6xl max-h-[96vh] flex flex-col shadow-2xl overflow-hidden">
+      <div className="print-preview-dialog hv-surface border rounded-2xl w-full max-w-6xl max-h-[96vh] flex flex-col shadow-2xl overflow-hidden">
         
         {/* Top Control Bar (Hidden when printed) */}
-        <div className="p-3.5 sm:p-4 bg-slate-900 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3 shrink-0 no-print">
+        <div className="p-3.5 sm:p-4 hv-surface border-b flex flex-wrap items-center justify-between gap-3 shrink-0 no-print">
           
           {/* Left: Title & Report Selector Tabs */}
           <div className="flex items-center gap-2 flex-wrap">
             <div className="flex items-center gap-2 mr-2">
-              <span className="p-1.5 bg-indigo-600/20 text-indigo-400 rounded-lg border border-indigo-500/30">
+              <span className="p-1.5 hv-pill-indigo rounded-lg border">
                 <Printer className="w-4 h-4" />
               </span>
               <div>
-                <h3 className="text-sm font-black text-white leading-tight">
+                <h3 className="text-sm font-black text-[var(--text-primary)] leading-tight">
                   {isHindi ? 'A4 वित्तीय रिपोर्ट प्रिंटर' : 'A4 Financial Report Print & PDF'}
                 </h3>
-                <span className="text-[10px] text-slate-400 font-mono">
+                <span className="text-[10px] text-[var(--text-muted)] font-mono">
                   Standard A4 (210 × 297 mm)
                 </span>
               </div>
             </div>
 
             {/* In-Modal Report Switcher Tabs */}
-            <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800">
+            <div className="flex items-center hv-canvas p-1 rounded-xl border">
               <button
                 type="button"
                 onClick={() => setCurrentReport('TRADING_PL')}
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition ${
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer ${
                   currentReport === 'TRADING_PL'
-                    ? 'bg-indigo-600 text-white shadow'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 {isHindi ? 'Trading & P&L' : 'Trading & P&L'}
@@ -612,10 +612,10 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
               <button
                 type="button"
                 onClick={() => setCurrentReport('BS')}
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition ${
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer ${
                   currentReport === 'BS'
-                    ? 'bg-indigo-600 text-white shadow'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 {isHindi ? 'Balance Sheet' : 'Balance Sheet'}
@@ -623,10 +623,10 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
               <button
                 type="button"
                 onClick={() => setCurrentReport('TB')}
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition ${
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer ${
                   currentReport === 'TB'
-                    ? 'bg-indigo-600 text-white shadow'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 {isHindi ? 'Trial Balance' : 'Trial Balance'}
@@ -634,10 +634,10 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
               <button
                 type="button"
                 onClick={() => setCurrentReport('SCH34')}
-                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition ${
+                className={`px-3 py-1.5 text-xs font-bold rounded-lg transition cursor-pointer ${
                   currentReport === 'SCH34'
-                    ? 'bg-indigo-600 text-white shadow'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 {isHindi ? 'Schedule III' : 'Schedule III'}
@@ -645,12 +645,12 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
             </div>
 
             {/* View Mode Toggle: Condensed vs Detailed */}
-            <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-[11px]">
+            <div className="flex items-center hv-canvas p-1 rounded-xl border text-[11px]">
               <button
                 type="button"
                 onClick={() => setViewMode('condensed')}
                 className={`px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1 cursor-pointer ${
-                  viewMode === 'condensed' ? 'bg-indigo-600 text-white shadow' : 'text-slate-400 hover:text-white'
+                  viewMode === 'condensed' ? 'bg-indigo-600 text-white hv-keep-white shadow' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
                 title="Condensed Group Summary"
               >
@@ -660,7 +660,7 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
                 type="button"
                 onClick={() => setViewMode('detailed')}
                 className={`px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1 cursor-pointer ${
-                  viewMode === 'detailed' ? 'bg-indigo-600 text-white shadow' : 'text-slate-400 hover:text-white'
+                  viewMode === 'detailed' ? 'bg-indigo-600 text-white hv-keep-white shadow' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
                 title="Detailed All Ledgers"
               >
@@ -669,8 +669,8 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
             </div>
 
             {currentReport === 'TB' && (
-              <div className="flex items-center gap-2 bg-slate-950 px-2.5 py-1 rounded-xl border border-slate-800 text-[11px]">
-                <label className="flex items-center gap-1 text-slate-300 cursor-pointer select-none">
+              <div className="flex items-center gap-2 hv-canvas px-2.5 py-1 rounded-xl border text-[11px]">
+                <label className="flex items-center gap-1 text-[var(--text-secondary)] cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={tbShowOpening}
@@ -679,7 +679,7 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
                   />
                   <span>{isHindi ? 'ओपनिंग' : 'Opening'}</span>
                 </label>
-                <label className="flex items-center gap-1 text-slate-300 cursor-pointer select-none">
+                <label className="flex items-center gap-1 text-[var(--text-secondary)] cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={tbShowTransactions}
@@ -688,7 +688,7 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
                   />
                   <span>{isHindi ? 'लेनदेन' : 'Txns'}</span>
                 </label>
-                <label className="flex items-center gap-1 text-slate-300 cursor-pointer select-none">
+                <label className="flex items-center gap-1 text-[var(--text-secondary)] cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={tbShowClosing}
@@ -705,12 +705,12 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
           <div className="flex flex-wrap items-center gap-2">
             
             {/* Orientation Toggle */}
-            <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-[11px]">
+            <div className="flex items-center hv-canvas p-1 rounded-xl border text-[11px]">
               <button
                 type="button"
                 onClick={() => setOrientation('portrait')}
-                className={`px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1 ${
-                  orientation === 'portrait' ? 'bg-slate-800 text-amber-300' : 'text-slate-400 hover:text-white'
+                className={`px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1 cursor-pointer ${
+                  orientation === 'portrait' ? 'hv-pill-amber border' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
                 title="A4 Portrait (210mm x 297mm)"
               >
@@ -719,8 +719,8 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
               <button
                 type="button"
                 onClick={() => setOrientation('landscape')}
-                className={`px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1 ${
-                  orientation === 'landscape' ? 'bg-slate-800 text-amber-300' : 'text-slate-400 hover:text-white'
+                className={`px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1 cursor-pointer ${
+                  orientation === 'landscape' ? 'hv-pill-amber border' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
                 title="A4 Landscape (297mm x 210mm)"
               >
@@ -729,20 +729,20 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
             </div>
 
             {/* Zoom Controls */}
-            <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-[11px] font-mono text-slate-300">
+            <div className="flex items-center hv-canvas p-1 rounded-xl border text-[11px] font-mono text-[var(--text-secondary)]">
               <button
                 type="button"
                 onClick={() => setZoomScale(prev => Math.max(50, prev - 10))}
-                className="px-1.5 py-1 text-slate-400 hover:text-white"
+                className="px-1.5 py-1 text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
                 title="Zoom Out"
               >
                 -
               </button>
-              <span className="px-1 font-bold">{zoomScale}%</span>
+              <span className="px-1 font-bold text-[var(--text-primary)]">{zoomScale}%</span>
               <button
                 type="button"
                 onClick={() => setZoomScale(prev => Math.min(130, prev + 10))}
-                className="px-1.5 py-1 text-slate-400 hover:text-white"
+                className="px-1.5 py-1 text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
                 title="Zoom In"
               >
                 +
@@ -750,7 +750,7 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
               <button
                 type="button"
                 onClick={() => setZoomScale(100)}
-                className="ml-1 px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 text-[10px] rounded text-slate-300"
+                className="ml-1 px-1.5 py-0.5 hv-elevated hover:bg-[var(--hover-surface)] text-[10px] rounded text-[var(--text-secondary)] border cursor-pointer"
                 title="Reset to 100% Actual A4 Size"
               >
                 100%
@@ -763,8 +763,8 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
               onClick={() => setShowConfigPanel(prev => !prev)}
               className={`flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl border transition cursor-pointer ${
                 showConfigPanel
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                  : 'bg-slate-950 hover:bg-slate-800 text-slate-200 border-slate-700'
+                  ? 'hv-pill-amber'
+                  : 'hv-elevated hover:bg-[var(--hover-surface)] text-[var(--text-primary)]'
               }`}
             >
               <Sliders className="w-3.5 h-3.5" />
@@ -776,7 +776,7 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
               type="button"
               onClick={handleDownloadDirectA4Pdf}
               disabled={isGeneratingPdf}
-              className="flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs px-3.5 py-2 rounded-xl shadow-lg transition transform active:scale-95 cursor-pointer disabled:opacity-60"
+              className="flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white hv-keep-white font-extrabold text-xs px-3.5 py-2 rounded-xl shadow-lg transition transform active:scale-95 cursor-pointer disabled:opacity-60"
               title={isHindi ? 'वास्तविक PDF फाइल सीधे डाउनलोड करें' : 'Download real PDF file directly to device'}
             >
               {isGeneratingPdf ? (
@@ -796,7 +796,7 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
             <button
               type="button"
               onClick={handlePrint}
-              className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold px-3 py-2 rounded-xl shadow transition cursor-pointer"
+              className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white text-xs font-bold px-3 py-2 rounded-xl shadow transition cursor-pointer"
               title={isHindi ? 'सिस्टम प्रिंटर या ब्राउज़र प्रिंट डायलॉग खोलें' : 'Open system print dialog'}
             >
               <Printer className="w-3.5 h-3.5" />
@@ -807,7 +807,7 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
             <button
               type="button"
               onClick={handleExportCsv}
-              className="p-2 bg-slate-800 hover:bg-slate-700 text-emerald-400 rounded-xl border border-slate-700 transition"
+              className="p-2 hv-elevated hover:bg-[var(--hover-surface)] text-emerald-500 rounded-xl border transition cursor-pointer"
               title="Export to Excel / CSV"
             >
               <FileSpreadsheet className="w-4 h-4" />
@@ -816,7 +816,7 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
             <button
               type="button"
               onClick={handleDownloadHtml}
-              className="p-2 bg-slate-800 hover:bg-slate-700 text-sky-400 rounded-xl border border-slate-700 transition"
+              className="p-2 hv-elevated hover:bg-[var(--hover-surface)] text-sky-500 rounded-xl border transition cursor-pointer"
               title="Download Standalone HTML"
             >
               <FileText className="w-4 h-4" />
@@ -826,7 +826,7 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl transition cursor-pointer"
+              className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hv-elevated hover:bg-[var(--hover-surface)] rounded-xl border transition cursor-pointer"
               title="Close"
             >
               <X className="w-5 h-5" />
@@ -846,19 +846,19 @@ export const FinancialPrintModal: React.FC<FinancialPrintModalProps> = ({
 
         {/* Toast Notification */}
         {toastMsg && (
-          <div className="bg-emerald-600 text-white px-4 py-2 text-xs font-bold flex items-center justify-between shadow animate-fadeIn">
+          <div className="bg-emerald-600 text-white hv-keep-white px-4 py-2 text-xs font-bold flex items-center justify-between shadow animate-fadeIn">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4" />
               <span>{toastMsg}</span>
             </div>
-            <button onClick={() => setToastMsg(null)} className="p-1 hover:bg-emerald-700 rounded">
+            <button onClick={() => setToastMsg(null)} className="p-1 hover:bg-emerald-700 rounded cursor-pointer">
               ✕
             </button>
           </div>
         )}
 
         {/* Paper Canvas Work Area - Authentic Physical A4 Sheet */}
-        <div className="a4-sheet-container flex-1 overflow-auto bg-slate-950 p-4 sm:p-8 flex justify-center items-start">
+        <div className="a4-sheet-container flex-1 overflow-auto bg-[var(--bg-canvas)] p-4 sm:p-8 flex justify-center items-start">
           
           <div 
             style={{ 

@@ -191,19 +191,19 @@ export const PurchaseOrderModal: React.FC<PurchaseOrderModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-3 md:p-6 overflow-y-auto animate-fadeIn">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-4xl p-5 md:p-6 text-slate-200 space-y-5 shadow-2xl my-auto">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+      <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl w-full max-w-4xl p-5 md:p-6 text-[var(--text-primary)] space-y-5 shadow-2xl my-auto">
+        <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-xl">
+            <div className="p-2.5 hv-pill-indigo border rounded-xl">
               <FileText className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-[var(--text-primary)]">
                 {editingPO 
                   ? (isHindi ? `परचेज ऑर्डर अपडेट करें (${editingPO.poNumber})` : `Edit Purchase Order #${editingPO.poNumber}`)
                   : (isHindi ? 'नया परचेज ऑर्डर जारी करें (Issue Purchase Order)' : 'Create New Purchase Order')}
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--text-muted)]">
                 {isHindi ? 'विक्रेता को सामग्री/सामान का औपचारिक आदेश भेजें' : 'Issue official Purchase Order to suppliers before material delivery'}
               </p>
             </div>
@@ -214,9 +214,9 @@ export const PurchaseOrderModal: React.FC<PurchaseOrderModalProps> = ({
               <button
                 type="button"
                 onClick={() => setShowPdfImporter(true)}
-                className="flex items-center gap-1.5 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-bold text-xs px-3 py-2 rounded-xl shadow transition"
+                className="flex items-center gap-1.5 bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white hv-keep-white font-bold text-xs px-3 py-2 rounded-xl shadow transition"
               >
-                <Sparkles className="w-4 h-4 text-indigo-200" />
+                <Sparkles className="w-4 h-4 text-indigo-100" />
                 <span>{isHindi ? '📄 PDF से PO बनाएं (AI)' : '📄 Import PDF for PO'}</span>
               </button>
             )}
@@ -224,7 +224,7 @@ export const PurchaseOrderModal: React.FC<PurchaseOrderModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-white bg-slate-800 rounded-xl hover:bg-slate-700 transition"
+              className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-elevated)] border border-[var(--border-primary)] rounded-xl hover:bg-[var(--hover-surface)] transition"
             >
               <X className="w-5 h-5" />
             </button>
@@ -232,12 +232,12 @@ export const PurchaseOrderModal: React.FC<PurchaseOrderModalProps> = ({
         </div>
 
         {importNotice && (
-          <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-xs font-bold text-emerald-300 flex items-center justify-between shadow animate-fadeIn">
+          <div className="p-3 hv-pill-emerald border rounded-xl text-xs font-bold flex items-center justify-between shadow animate-fadeIn">
             <span>{importNotice}</span>
             <button
               type="button"
               onClick={() => setImportNotice(null)}
-              className="p-1 hover:bg-emerald-500/20 rounded-lg text-emerald-400"
+              className="p-1 hover:opacity-80 rounded-lg"
             >
               <X className="w-4 h-4" />
             </button>
@@ -270,45 +270,45 @@ export const PurchaseOrderModal: React.FC<PurchaseOrderModalProps> = ({
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4 text-xs">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 bg-slate-800/60 p-4 rounded-xl border border-slate-700/60">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 hv-elevated p-4 rounded-xl border border-[var(--border-primary)]">
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">PO Number *</label>
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">PO Number *</label>
               <input
                 type="text"
                 value={poNumber}
                 onChange={(e) => setPoNumber(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 font-mono text-indigo-400 font-bold"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono text-indigo-500 font-bold"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">PO Issue Date *</label>
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">PO Issue Date *</label>
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">Expected Delivery Date</label>
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">Expected Delivery Date</label>
               <input
                 type="date"
                 value={expectedDeliveryDate}
                 onChange={(e) => setExpectedDeliveryDate(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5"
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">Status</label>
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">Status</label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as any)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-semibold"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-semibold"
               >
                 <option value="PENDING">PENDING (लंबित)</option>
                 <option value="APPROVED">APPROVED (स्वीकृत)</option>
@@ -319,11 +319,11 @@ export const PurchaseOrderModal: React.FC<PurchaseOrderModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-slate-300 font-semibold mb-1">Select Vendor / Supplier *</label>
+            <label className="block text-[var(--text-secondary)] font-semibold mb-1">Select Vendor / Supplier *</label>
             <select
               value={partyId}
               onChange={(e) => setPartyId(e.target.value)}
-              className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-semibold"
+              className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-semibold"
               required
             >
               <option value="">-- Choose Vendor --</option>
@@ -337,24 +337,24 @@ export const PurchaseOrderModal: React.FC<PurchaseOrderModalProps> = ({
 
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <h4 className="font-bold text-white uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                <Calculator className="w-4 h-4 text-indigo-400" />
+              <h4 className="font-bold text-[var(--text-primary)] uppercase tracking-wider text-[11px] flex items-center gap-1.5">
+                <Calculator className="w-4 h-4 text-indigo-500" />
                 <span>PO Items & Quantities</span>
               </h4>
 
               <button
                 type="button"
                 onClick={addItemRow}
-                className="flex items-center gap-1.5 text-xs font-bold text-indigo-400 hover:text-indigo-300 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 px-3 py-1.5 rounded-xl transition"
+                className="flex items-center gap-1.5 text-xs font-bold hv-pill-indigo border px-3 py-1.5 rounded-xl transition hover:opacity-90"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>+ Add Line Item</span>
               </button>
             </div>
 
-            <div className="overflow-x-auto rounded-xl border border-slate-800">
+            <div className="overflow-x-auto rounded-xl border border-[var(--border-primary)]">
               <table className="w-full text-left border-collapse">
-                <thead className="bg-slate-950 text-slate-400 font-bold uppercase text-[10px] border-b border-slate-800">
+                <thead className="bg-[var(--bg-elevated)] text-[var(--text-secondary)] font-bold uppercase text-[10px] border-b border-[var(--border-subtle)]">
                   <tr>
                     <th className="p-3">Item Name</th>
                     <th className="p-3 w-20">Qty</th>
@@ -364,7 +364,7 @@ export const PurchaseOrderModal: React.FC<PurchaseOrderModalProps> = ({
                     <th className="p-3 w-10"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800 bg-slate-900/60">
+                <tbody className="divide-y divide-[var(--border-primary)] bg-[var(--bg-surface)]">
                   {items.map((item, idx) => (
                     <tr key={item.id || idx}>
                       <td className="p-2 min-w-[220px]">
@@ -386,7 +386,7 @@ export const PurchaseOrderModal: React.FC<PurchaseOrderModalProps> = ({
                           min={1}
                           value={item.quantity}
                           onChange={(e) => updateItemRow(idx, 'quantity', Number(e.target.value))}
-                          className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-center text-white font-bold"
+                          className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 text-center font-bold"
                         />
                       </td>
                       <td className="p-2">
@@ -396,7 +396,7 @@ export const PurchaseOrderModal: React.FC<PurchaseOrderModalProps> = ({
                           value={item.rate || ''}
                           placeholder="0"
                           onChange={(e) => updateItemRow(idx, 'rate', Number(e.target.value))}
-                          className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-right text-indigo-300 font-mono font-bold"
+                          className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 text-right text-indigo-500 font-mono font-bold"
                         />
                       </td>
                       <td className="p-2">
@@ -405,17 +405,17 @@ export const PurchaseOrderModal: React.FC<PurchaseOrderModalProps> = ({
                           min={0}
                           value={item.taxRate}
                           onChange={(e) => updateItemRow(idx, 'taxRate', Number(e.target.value))}
-                          className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-center text-slate-300"
+                          className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 text-center"
                         />
                       </td>
-                      <td className="p-2 text-right font-mono font-bold text-indigo-300">
+                      <td className="p-2 text-right font-mono font-bold text-indigo-500">
                         {formatCurrency(item.totalAmount, currency)}
                       </td>
                       <td className="p-2 text-center">
                         <button
                           type="button"
                           onClick={() => removeItemRow(idx)}
-                          className="p-1 text-slate-500 hover:text-rose-400 transition"
+                          className="p-1 text-[var(--text-muted)] hover:text-rose-500 transition"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -427,36 +427,36 @@ export const PurchaseOrderModal: React.FC<PurchaseOrderModalProps> = ({
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-950 p-4 rounded-xl border border-slate-800">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 hv-elevated p-4 rounded-xl border border-[var(--border-primary)]">
             <div className="w-full sm:w-1/2">
-              <label className="block text-slate-300 font-semibold mb-1">PO Notes / Special Delivery Instructions</label>
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">PO Notes / Special Delivery Instructions</label>
               <input
                 type="text"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 placeholder="e.g. Deliver to Warehouse B..."
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2 text-white"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2"
               />
             </div>
 
             <div className="text-right font-mono space-y-1">
-              <div className="text-xs text-slate-400">Subtotal: {formatCurrency(subtotal, currency)}</div>
-              <div className="text-xs text-slate-400">Tax: {formatCurrency(totalTax, currency)}</div>
-              <div className="text-base font-bold text-indigo-300">Total PO Value: {formatCurrency(grandTotal, currency)}</div>
+              <div className="text-xs text-[var(--text-muted)]">Subtotal: {formatCurrency(subtotal, currency)}</div>
+              <div className="text-xs text-[var(--text-muted)]">Tax: {formatCurrency(totalTax, currency)}</div>
+              <div className="text-base font-bold text-indigo-500">Total PO Value: {formatCurrency(grandTotal, currency)}</div>
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+          <div className="flex items-center justify-end gap-3 pt-3 border-t border-[var(--border-primary)]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold rounded-xl transition"
+              className="px-4 py-2.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-semibold rounded-xl transition"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 flex items-center gap-2 transition"
+              className="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 flex items-center gap-2 transition"
             >
               <CheckCircle2 className="w-4 h-4" />
               <span>{isHindi ? 'परचेज ऑर्डर सेव करें' : 'Save Purchase Order'}</span>

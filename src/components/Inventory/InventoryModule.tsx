@@ -966,17 +966,17 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
   return (
     <div className="md:h-full md:min-h-0 flex flex-col p-4 md:p-5 gap-3.5 w-full md:overflow-hidden font-sans">
       {/* Top Header & Overview Bar */}
-      <div className="shrink-0 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 bg-slate-900 p-4 rounded-3xl border border-slate-800 shadow-xl">
+      <div className="shrink-0 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 hv-surface p-4 rounded-3xl border border-[var(--border-primary)] shadow-xl">
         <div className="space-y-1">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400 shadow-inner">
+            <div className="w-10 h-10 rounded-2xl hv-pill-indigo border flex items-center justify-center shadow-inner">
               <Boxes className="w-5 h-5" />
             </div>
             <div>
-              <h1 className="text-xl font-black text-white tracking-tight flex flex-wrap items-center gap-2">
+              <h1 className="text-xl font-black text-[var(--text-primary)] tracking-tight flex flex-wrap items-center gap-2">
                 <span>{isHindi ? 'इन्वेंटरी, बैच एवं मल्टी-गोदाम' : 'Inventory, Batch & Multi-Godown'}</span>
                 {valuationReport.lowStockCount > 0 && (
-                  <span className="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
+                  <span className="hv-pill-amber border text-xs font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1">
                     <AlertTriangle className="w-3 h-3" />
                     <span>{valuationReport.lowStockCount} {isHindi ? 'रीऑर्डर' : 'Reorder'}</span>
                   </span>
@@ -985,7 +985,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                   <button
                     type="button"
                     onClick={() => setActiveSubTab('batches')}
-                    className="bg-rose-500/20 text-rose-300 border border-rose-500/30 text-xs font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 hover:bg-rose-500/30 transition"
+                    className="hv-pill-rose border text-xs font-bold px-2.5 py-0.5 rounded-full flex items-center gap-1 hover:brightness-110 transition"
                   >
                     <Clock className="w-3 h-3" />
                     <span>
@@ -996,7 +996,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                   </button>
                 )}
               </h1>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-[var(--text-muted)]">
                 {isHindi 
                   ? 'रियल-टाइम स्टॉक, बारकोड लेबल, FEFO बैच/एक्सपायरी एवं मल्टी-गोदाम ट्रांसफर' 
                   : 'Real-time stock, barcode stickers, FEFO batch/expiry alerts & multi-godown transfers'}
@@ -1010,7 +1010,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           {onOpenBarcodePos && (
             <button
               onClick={onOpenBarcodePos}
-              className="bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white font-bold px-3.5 py-2.5 rounded-xl shadow-lg shadow-cyan-600/25 flex items-center gap-1.5 text-xs transition"
+              className="bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white hv-keep-white font-bold px-3.5 py-2.5 rounded-xl shadow-lg shadow-cyan-600/25 flex items-center gap-1.5 text-xs transition"
             >
               <ScanBarcode className="w-4 h-4" />
               <span>{isHindi ? 'बारकोड POS' : 'Barcode POS'}</span>
@@ -1020,7 +1020,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
             <>
               <button
                 onClick={openAddModal}
-                className="flex-1 sm:flex-initial bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white font-bold px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 text-xs transition"
+                className="flex-1 sm:flex-initial bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 text-white hv-keep-white font-bold px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 text-xs transition"
               >
                 <Plus className="w-4 h-4" />
                 <span>{isHindi ? 'नया आइटम जोड़ें' : 'Add New Item'}</span>
@@ -1031,15 +1031,15 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 onClick={() => setActiveSubTab('adjustments')}
                 className={`px-3.5 py-2.5 rounded-xl font-bold flex items-center gap-1.5 text-xs transition cursor-pointer border ${
                   negativeStockItems.length > 0
-                    ? 'bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border-rose-500/40 shadow'
-                    : 'bg-slate-800 hover:bg-slate-700 text-amber-300 border-slate-700'
+                    ? 'hv-pill-rose shadow'
+                    : 'bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-amber-500 border-[var(--border-subtle)]'
                 }`}
                 title={isHindi ? 'नेगेटिव स्टॉक सुधार व स्टॉक एडजस्टमेंट (F2)' : 'Stock Adjustment & Negative Stock Clearance (F2)'}
               >
                 <SlidersHorizontal className="w-3.5 h-3.5" />
                 <span>{isHindi ? 'स्टॉक एडजस्टमेंट' : 'Stock Adjustment'}</span>
                 {negativeStockItems.length > 0 && (
-                  <span className="bg-rose-500 text-white font-black text-[10px] px-1.5 py-0.2 rounded-full">
+                  <span className="bg-rose-500 text-white hv-keep-white font-black text-[10px] px-1.5 py-0.2 rounded-full">
                     {negativeStockItems.length} -ve
                   </span>
                 )}
@@ -1051,18 +1051,18 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
             <>
               <button
                 onClick={() => printInventoryValuationReport(data, valuationMethod, isHindi)}
-                className="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3.5 py-2.5 rounded-xl font-bold flex items-center gap-1.5 text-xs transition"
+                className="bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] px-3.5 py-2.5 rounded-xl font-bold flex items-center gap-1.5 text-xs transition"
               >
-                <Printer className="w-3.5 h-3.5 text-indigo-400" />
+                <Printer className="w-3.5 h-3.5 text-indigo-500" />
                 <span>{isHindi ? 'रिपोर्ट प्रिंट' : 'Print Statement'}</span>
               </button>
 
               <button
                 onClick={() => exportInventoryValuationCSV(data, valuationMethod)}
-                className="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-2.5 rounded-xl font-bold flex items-center gap-1.5 text-xs transition"
+                className="bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] px-3 py-2.5 rounded-xl font-bold flex items-center gap-1.5 text-xs transition"
                 title="Download Inventory Valuation CSV"
               >
-                <Download className="w-3.5 h-3.5 text-emerald-400" />
+                <Download className="w-3.5 h-3.5 text-emerald-500" />
                 <span>{isHindi ? 'CSV' : 'Export'}</span>
               </button>
             </>
@@ -1073,31 +1073,31 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {/* KPI Metric Cards */}
       <div className="shrink-0 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* Card 1: Total Valuation (Cost Basis) */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-lg space-y-1 relative overflow-hidden">
-          <div className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-3.5 shadow-lg space-y-1 relative overflow-hidden">
+          <div className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] flex items-center justify-between">
             <span>{isHindi ? 'कुल स्टॉक लागत मूल्य' : 'Total Inventory Valuation (Cost)'}</span>
-            <Tag className="w-4 h-4 text-indigo-400" />
+            <Tag className="w-4 h-4 text-indigo-500" />
           </div>
-          <div className="text-xl sm:text-2xl font-black text-white font-mono tabular-nums tracking-tight">
+          <div className="text-xl sm:text-2xl font-black text-[var(--text-primary)] font-mono tabular-nums tracking-tight">
             {formatCurrency(valuationReport.totalCostValuation, currency)}
           </div>
-          <div className="text-xs text-slate-400 flex items-center gap-1.5 pt-0.5">
-            <span className="text-indigo-400 font-bold tabular-nums">{valuationReport.totalStockUnits}</span>
+          <div className="text-xs text-[var(--text-muted)] flex items-center gap-1.5 pt-0.5">
+            <span className="text-indigo-500 font-bold tabular-nums">{valuationReport.totalStockUnits}</span>
             <span>{isHindi ? 'कुल भौतिक इकाइयां (Units on Hand)' : 'Total Physical Units'}</span>
           </div>
         </div>
 
         {/* Card 2: Retail Realizable Sales Value */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-lg space-y-1 relative overflow-hidden">
-          <div className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-3.5 shadow-lg space-y-1 relative overflow-hidden">
+          <div className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] flex items-center justify-between">
             <span>{isHindi ? 'बिक्री मूल्य (Realizable Value)' : 'Retail Realizable Value'}</span>
-            <TrendingUp className="w-4 h-4 text-emerald-400" />
+            <TrendingUp className="w-4 h-4 text-emerald-500" />
           </div>
-          <div className="text-xl sm:text-2xl font-black text-emerald-400 font-mono tabular-nums tracking-tight">
+          <div className="text-xl sm:text-2xl font-black text-emerald-500 font-mono tabular-nums tracking-tight">
             {formatCurrency(valuationReport.totalSalesValuation, currency)}
           </div>
-          <div className="text-xs text-slate-400 flex items-center gap-1.5 pt-0.5">
-            <span className="text-emerald-400 font-bold tabular-nums">+{formatCurrency(valuationReport.totalPotentialProfit, currency)}</span>
+          <div className="text-xs text-[var(--text-muted)] flex items-center gap-1.5 pt-0.5">
+            <span className="text-emerald-500 font-bold tabular-nums">+{formatCurrency(valuationReport.totalPotentialProfit, currency)}</span>
             <span>({valuationReport.overallProfitMarginPercent.toFixed(1)}% {isHindi ? 'मार्जिन' : 'Margin'})</span>
           </div>
         </div>
@@ -1107,21 +1107,21 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           onClick={() => setActiveSubTab('reorder')}
           className={`border rounded-2xl p-3.5 shadow-lg space-y-1 cursor-pointer transition ${
             valuationReport.lowStockCount > 0 
-              ? 'bg-amber-500/10 border-amber-500/30 hover:bg-amber-500/20' 
-              : 'bg-slate-900 border-slate-800'
+              ? 'hv-pill-amber hover:brightness-105' 
+              : 'hv-surface border-[var(--border-primary)]'
           }`}
         >
-          <div className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
+          <div className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] flex items-center justify-between">
             <span>{isHindi ? 'रीऑर्डर एवं न्यूनतम स्तर' : 'Reorder Point Alerts'}</span>
-            <AlertTriangle className={`w-4 h-4 ${valuationReport.lowStockCount > 0 ? 'text-amber-400 animate-pulse' : 'text-slate-500'}`} />
+            <AlertTriangle className={`w-4 h-4 ${valuationReport.lowStockCount > 0 ? 'text-amber-500 animate-pulse' : 'text-[var(--text-muted)]'}`} />
           </div>
-          <div className="text-xl sm:text-2xl font-black text-amber-400 font-mono tabular-nums tracking-tight flex items-center gap-2">
+          <div className="text-xl sm:text-2xl font-black text-amber-500 font-mono tabular-nums tracking-tight flex items-center gap-2">
             <span>{valuationReport.lowStockCount}</span>
-            <span className="text-xs font-sans text-slate-300 font-medium">
+            <span className="text-xs font-sans text-[var(--text-secondary)] font-medium">
               {isHindi ? 'आइटम तुरंत मंगवाएं' : 'Items to Reorder'}
             </span>
           </div>
-          <div className="text-xs text-amber-300 font-medium pt-0.5 truncate">
+          <div className="text-xs text-amber-500 font-medium pt-0.5 truncate">
             {valuationReport.lowStockCount > 0 
               ? `${isHindi ? 'अनुमानित लागत:' : 'Est. Restock:'} ${formatCurrency(valuationReport.totalRestockCostRequired, currency)}`
               : (isHindi ? '✅ सभी आइटम पर्याप्त स्टॉक में हैं' : '✅ All stock levels adequate')}
@@ -1129,42 +1129,42 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
         </div>
 
         {/* Card 4: Total Items & Categories */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-lg space-y-1 relative overflow-hidden">
-          <div className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-3.5 shadow-lg space-y-1 relative overflow-hidden">
+          <div className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] flex items-center justify-between">
             <span>{isHindi ? 'सक्रिय मास्टर्स एवं श्रेणियां' : 'Master Items & Categories'}</span>
-            <Layers className="w-4 h-4 text-indigo-400" />
+            <Layers className="w-4 h-4 text-indigo-500" />
           </div>
-          <div className="text-xl sm:text-2xl font-black text-white font-mono tabular-nums tracking-tight">
-            {valuationReport.totalItems} <span className="text-xs font-normal text-slate-400 font-sans">{isHindi ? 'आइटम' : 'Items'}</span>
+          <div className="text-xl sm:text-2xl font-black text-[var(--text-primary)] font-mono tabular-nums tracking-tight">
+            {valuationReport.totalItems} <span className="text-xs font-normal text-[var(--text-muted)] font-sans">{isHindi ? 'आइटम' : 'Items'}</span>
           </div>
-          <div className="text-xs text-slate-400 flex items-center gap-1.5 pt-0.5">
-            <span className="text-indigo-400 font-bold tabular-nums">{distinctCategories.length}</span>
+          <div className="text-xs text-[var(--text-muted)] flex items-center gap-1.5 pt-0.5">
+            <span className="text-indigo-500 font-bold tabular-nums">{distinctCategories.length}</span>
             <span>{isHindi ? 'श्रेणियां (Categories) पंजीकृत' : 'Categories Registered'}</span>
           </div>
         </div>
       </div>
 
       {/* Sub-Tabs Navigation */}
-      <div className="shrink-0 flex border-b border-slate-800 overflow-x-auto gap-2 text-xs font-bold scrollbar-none">
+      <div className="shrink-0 flex border-b border-[var(--border-primary)] overflow-x-auto gap-2 text-xs font-bold scrollbar-none">
         <button
           onClick={() => setActiveSubTab('items')}
           className={`pb-3 px-3.5 border-b-2 transition flex items-center gap-2 shrink-0 ${
             activeSubTab === 'items'
-              ? 'border-indigo-500 text-indigo-400'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-indigo-500 text-indigo-500'
+              : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
           <Package className="w-4 h-4" />
           <span>{isHindi ? 'स्टॉक आइटम मास्टर (All Items)' : 'Stock Items Master'}</span>
-          <span className="bg-slate-800 text-slate-300 text-[10px] px-1.5 py-0.5 rounded-full">{data.items.length}</span>
+          <span className="hv-pill-slate border text-[10px] px-1.5 py-0.5 rounded-full">{data.items.length}</span>
         </button>
 
         <button
           onClick={() => setActiveSubTab('reorder')}
           className={`pb-3 px-3.5 border-b-2 transition flex items-center gap-2 shrink-0 ${
             activeSubTab === 'reorder'
-              ? 'border-amber-500 text-amber-400'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-amber-500 text-amber-500'
+              : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
           <AlertTriangle className="w-4 h-4" />
@@ -1180,8 +1180,8 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           onClick={() => setActiveSubTab('valuation')}
           className={`pb-3 px-3.5 border-b-2 transition flex items-center gap-2 shrink-0 ${
             activeSubTab === 'valuation'
-              ? 'border-emerald-500 text-emerald-400'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-emerald-500 text-emerald-500'
+              : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
           <TrendingUp className="w-4 h-4" />
@@ -1192,8 +1192,8 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           onClick={() => setActiveSubTab('movements')}
           className={`pb-3 px-3.5 border-b-2 transition flex items-center gap-2 shrink-0 ${
             activeSubTab === 'movements'
-              ? 'border-indigo-500 text-indigo-400'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-indigo-500 text-indigo-500'
+              : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
           <History className="w-4 h-4" />
@@ -1204,14 +1204,14 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           onClick={() => setActiveSubTab('batches')}
           className={`pb-3 px-3.5 border-b-2 transition flex items-center gap-2 shrink-0 ${
             activeSubTab === 'batches'
-              ? 'border-rose-500 text-rose-400'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-rose-500 text-rose-500'
+              : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
           <Calendar className="w-4 h-4" />
           <span>{isHindi ? 'बैच एवं एक्सपायरी (FEFO)' : 'Batch & Expiry Tracker'}</span>
           {(batchStats.expiredBatchesCount + batchStats.expiringSoonCount) > 0 && (
-            <span className="bg-rose-500 text-white font-black text-[10px] px-1.5 py-0.5 rounded-full">
+            <span className="bg-rose-500 text-white hv-keep-white font-black text-[10px] px-1.5 py-0.5 rounded-full">
               {batchStats.expiredBatchesCount + batchStats.expiringSoonCount}
             </span>
           )}
@@ -1222,13 +1222,13 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           onClick={() => setActiveSubTab('godowns')}
           className={`pb-3 px-3.5 border-b-2 transition flex items-center gap-2 shrink-0 cursor-pointer ${
             activeSubTab === 'godowns'
-              ? 'border-cyan-500 text-cyan-400'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-cyan-500 text-cyan-500'
+              : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
           <Warehouse className="w-4 h-4" />
           <span>{isHindi ? 'मल्टी-गोदाम एवं ट्रांसफर' : 'Multi-Godown & Transfers'}</span>
-          <span className="bg-slate-800 text-slate-300 text-[10px] px-1.5 py-0.5 rounded-full">{godowns.length}</span>
+          <span className="hv-pill-slate border text-[10px] px-1.5 py-0.5 rounded-full">{godowns.length}</span>
         </button>
 
         <button
@@ -1236,18 +1236,18 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           onClick={() => setActiveSubTab('adjustments')}
           className={`pb-3 px-3.5 border-b-2 transition flex items-center gap-2 shrink-0 cursor-pointer ${
             activeSubTab === 'adjustments'
-              ? 'border-rose-500 text-rose-400'
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-rose-500 text-rose-500'
+              : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
           <SlidersHorizontal className="w-4 h-4" />
           <span>{isHindi ? 'स्टॉक एडजस्टमेंट (Negative Stock Fix)' : 'Stock Adjustment'}</span>
           {negativeStockItems.length > 0 ? (
-            <span className="bg-rose-500 text-white font-black text-[10px] px-1.5 py-0.5 rounded-full">
+            <span className="bg-rose-500 text-white hv-keep-white font-black text-[10px] px-1.5 py-0.5 rounded-full">
               {negativeStockItems.length}
             </span>
           ) : (
-            <span className="bg-slate-800 text-slate-300 text-[10px] px-1.5 py-0.5 rounded-full">
+            <span className="hv-pill-slate border text-[10px] px-1.5 py-0.5 rounded-full">
               {(data.stockAdjustments || []).length}
             </span>
           )}
@@ -1258,21 +1258,21 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {activeSubTab === 'items' && (
         <div className="flex-1 min-h-0 flex flex-col gap-3 md:overflow-hidden">
           {/* Search & Filter Bar */}
-          <div className="shrink-0 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 bg-slate-900/90 p-3 rounded-2xl border border-slate-800">
+          <div className="shrink-0 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 hv-surface p-3 rounded-2xl border border-[var(--border-primary)]">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" />
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={isHindi ? 'नाम, कोड, एचएसएन या वेयरहाउस लोकेशन से खोजें...' : 'Search by name, code, HSN, location...'}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-4 py-2 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-indigo-500"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl pl-9 pr-4 py-2 text-sm focus:outline-none focus:border-indigo-500"
               />
               {search && (
                 <button 
                   type="button"
                   onClick={() => setSearch('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text-primary)] text-xs cursor-pointer"
                 >
                   ✕
                 </button>
@@ -1284,7 +1284,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
-                className="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none cursor-pointer"
+                className="hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 text-sm focus:outline-none cursor-pointer"
               >
                 <option value="ALL">{isHindi ? 'सभी श्रेणियां (All Categories)' : 'All Categories'}</option>
                 {distinctCategories.map(cat => (
@@ -1296,7 +1296,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
               <select
                 value={stockStatusFilter}
                 onChange={(e) => setStockStatusFilter(e.target.value as any)}
-                className="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white focus:outline-none cursor-pointer"
+                className="hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 text-sm focus:outline-none cursor-pointer"
               >
                 <option value="ALL">{isHindi ? 'सभी स्टॉक स्थिति' : 'All Stock Status'}</option>
                 <option value="NEGATIVE_STOCK">{isHindi ? `नेगेटिव स्टॉक (< 0 Qty) (${negativeStockItems.length})` : `Negative Stock (< 0 Qty) (${negativeStockItems.length})`}</option>
@@ -1308,11 +1308,11 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           </div>
 
           {/* Items Table */}
-          <div className="flex-1 min-h-0 flex flex-col bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl">
+          <div className="flex-1 min-h-0 flex flex-col hv-surface border border-[var(--border-primary)] rounded-3xl overflow-hidden shadow-2xl">
             <div className="flex-1 min-h-0 overflow-auto">
-              <table className="w-full text-left border-collapse text-sm text-slate-200">
-                <thead className="sticky top-0 z-10 bg-slate-800">
-                  <tr className="border-b border-slate-700 text-slate-300 font-bold uppercase tracking-wider text-xs">
+              <table className="w-full text-left border-collapse text-sm text-[var(--text-secondary)]">
+                <thead className="sticky top-0 z-10 hv-elevated">
+                  <tr className="border-b border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold uppercase tracking-wider text-xs">
                     <th className="py-3.5 px-4 w-12 text-center">#</th>
                     <th className="py-3.5 px-4">{isHindi ? 'आइटम विवरण' : 'Item Details'}</th>
                     <th className="py-3.5 px-3 text-center">{isHindi ? 'इकाई' : 'Unit'}</th>
@@ -1324,10 +1324,10 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     <th className="py-3.5 px-4 text-center">{isHindi ? 'कार्रवाई' : 'Actions'}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-[var(--border-primary)]">
                   {filteredItems.length === 0 ? (
                     <tr>
-                      <td colSpan={9} className="py-12 text-center text-slate-400">
+                      <td colSpan={9} className="py-12 text-center text-[var(--text-muted)]">
                         <Package className="w-8 h-8 mx-auto mb-2 opacity-40" />
                         <p>{isHindi ? 'कोई आइटम नहीं मिला।' : 'No inventory items match your search or filter.'}</p>
                       </td>
@@ -1342,57 +1342,57 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       const salesValuation = stock * (Number(item.salesPrice || item.sellingPrice) || 0);
 
                       return (
-                        <tr key={item.id} className="hover:bg-slate-800/40 transition">
-                          <td className="py-3 px-4 text-center text-slate-400 font-mono text-xs tabular-nums">
+                        <tr key={item.id} className="hover:bg-[var(--hover-surface)] transition">
+                          <td className="py-3 px-4 text-center text-[var(--text-muted)] font-mono text-xs tabular-nums">
                             {idx + 1}
                           </td>
                           <td className="py-3 px-4">
-                            <div className="font-bold text-white flex items-center gap-2">
+                            <div className="font-bold text-[var(--text-primary)] flex items-center gap-2">
                               <span>{item.name}</span>
                               {isOut ? (
-                                <span className="bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                <span className="hv-pill-rose border text-[10px] font-bold px-1.5 py-0.5 rounded">
                                   {isHindi ? 'आउट ऑफ स्टॉक' : 'OUT OF STOCK'}
                                 </span>
                               ) : isLow ? (
-                                <span className="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-bold px-1.5 py-0.5 rounded animate-pulse">
+                                <span className="hv-pill-amber border text-[10px] font-bold px-1.5 py-0.5 rounded animate-pulse">
                                   {isHindi ? 'कम स्टॉक' : 'LOW STOCK'}
                                 </span>
                               ) : null}
                             </div>
-                            <div className="text-xs text-slate-400 flex flex-wrap items-center gap-2 mt-0.5">
-                              {item.code && <span className="font-mono text-indigo-400">{item.code}</span>}
+                            <div className="text-xs text-[var(--text-muted)] flex flex-wrap items-center gap-2 mt-0.5">
+                              {item.code && <span className="font-mono text-indigo-500 font-semibold">{item.code}</span>}
                               {item.barcode && (
-                                <span className="font-mono text-cyan-300 bg-cyan-500/10 border border-cyan-500/20 px-1.5 rounded flex items-center gap-1">
+                                <span className="font-mono hv-pill-cyan border px-1.5 rounded flex items-center gap-1">
                                   <Barcode className="w-3 h-3" />
                                   {item.barcode}
                                 </span>
                               )}
                               {item.hsnSacCode && <span>• HSN: {item.hsnSacCode}</span>}
-                              <span className="bg-slate-800 px-1.5 py-0.5 rounded text-slate-200 font-medium">
+                              <span className="hv-pill-slate border px-1.5 py-0.5 rounded font-medium">
                                 {item.category || 'General Goods'}
                               </span>
                               {(item.location || godowns.length > 0) && (
-                                <span className="text-slate-400 flex items-center gap-0.5">
+                                <span className="text-[var(--text-muted)] flex items-center gap-0.5">
                                   <Warehouse className="w-3 h-3" />
                                   <span>{godowns.find(g => g.id === item.defaultGodownId)?.name || item.location || 'Main Godown'}</span>
                                 </span>
                               )}
                             </div>
                           </td>
-                          <td className="py-3 px-3 text-center font-bold text-slate-200">
+                          <td className="py-3 px-3 text-center font-bold text-[var(--text-secondary)]">
                             {item.unit || 'PCS'}
                           </td>
-                          <td className="py-3 px-3 text-right font-mono tabular-nums font-medium text-slate-200">
+                          <td className="py-3 px-3 text-right font-mono tabular-nums font-medium text-[var(--text-secondary)]">
                             {formatCurrency(item.purchasePrice || 0, currency)}
                           </td>
                           <td className="py-3 px-3 text-right font-mono tabular-nums">
-                            <div className="font-bold text-emerald-400">
+                            <div className="font-bold text-emerald-500">
                               {formatCurrency(item.salesPrice || item.sellingPrice || 0, currency)}
                             </div>
                             {(item.wholesalePrice || item.mrp) && (
-                              <div className="text-[10px] text-slate-400 mt-0.5 space-x-1.5">
+                              <div className="text-[10px] text-[var(--text-muted)] mt-0.5 space-x-1.5">
                                 {item.wholesalePrice && item.wholesalePrice > 0 && (
-                                  <span className="text-cyan-300">W: {formatCurrency(item.wholesalePrice, currency)}</span>
+                                  <span className="text-cyan-500 font-semibold">W: {formatCurrency(item.wholesalePrice, currency)}</span>
                                 )}
                                 {item.mrp && item.mrp > 0 && (
                                   <span>MRP: {formatCurrency(item.mrp, currency)}</span>
@@ -1403,12 +1403,12 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                           <td className="py-3 px-4 text-center">
                             <div className="inline-flex flex-col items-center">
                               <span className={`font-mono tabular-nums font-bold text-sm ${
-                                isOut ? 'text-rose-400' : (isLow ? 'text-amber-400' : 'text-white')
+                                isOut ? 'text-rose-500' : (isLow ? 'text-amber-500' : 'text-[var(--text-primary)]')
                               }`}>
-                                {stock} <span className="text-xs text-slate-400 font-normal">{item.unit || 'PCS'}</span>
+                                {stock} <span className="text-xs text-[var(--text-muted)] font-normal">{item.unit || 'PCS'}</span>
                               </span>
                               {/* Stock Health Bar */}
-                              <div className="w-20 bg-slate-800 h-1.5 rounded-full overflow-hidden mt-1">
+                              <div className="w-20 hv-progress-track h-1.5 rounded-full overflow-hidden mt-1">
                                 <div 
                                   className={`h-full rounded-full ${
                                     isOut ? 'bg-rose-500' : (isLow ? 'bg-amber-500' : 'bg-emerald-500')
@@ -1418,10 +1418,10 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                               </div>
                             </div>
                           </td>
-                          <td className="py-3 px-3 text-right font-mono tabular-nums text-slate-300 font-medium">
+                          <td className="py-3 px-3 text-right font-mono tabular-nums text-[var(--text-secondary)] font-medium">
                             {reorderPoint} {item.unit || 'PCS'}
                           </td>
-                          <td className="py-3 px-4 text-right font-mono tabular-nums font-bold text-slate-100">
+                          <td className="py-3 px-4 text-right font-mono tabular-nums font-bold text-[var(--text-primary)]">
                             {formatCurrency(costValuation, currency)}
                           </td>
                           <td className="py-3 px-4 text-center">
@@ -1432,7 +1432,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                                   setSelectedLedgerItemId(item.id);
                                   setShowItemLedgerModal(item);
                                 }}
-                                className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-indigo-400 transition"
+                                className="p-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-indigo-500 transition"
                                 title={isHindi ? 'स्टॉक लेजर देखें' : 'View Stock Ledger'}
                               >
                                 <History className="w-3.5 h-3.5" />
@@ -1452,7 +1452,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                                     godownName: godowns.find(g => g.id === item.defaultGodownId)?.name || item.location,
                                   })
                                 }
-                                className="p-1.5 rounded-lg bg-slate-800 hover:bg-cyan-500/20 text-cyan-400 transition"
+                                className="p-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-cyan-500/20 border border-[var(--border-subtle)] text-cyan-500 transition"
                                 title={isHindi ? 'बारकोड लेबल प्रिंट' : 'Print Barcode Stickers'}
                               >
                                 <Barcode className="w-3.5 h-3.5" />
@@ -1468,7 +1468,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                                     setAdjustReason('Physical Count Discrepancy');
                                     setAdjustNotes('');
                                   }}
-                                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 transition"
+                                  className="p-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-amber-500 transition"
                                   title={isHindi ? 'त्वरित स्टॉक समायोजन' : 'Adjust Stock'}
                                 >
                                   <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -1479,7 +1479,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                               {perms.canCreateEditMasters && (
                                 <button
                                   onClick={() => openEditModal(item)}
-                                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition"
+                                  className="p-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition"
                                   title={isHindi ? 'आइटम संपादित करें' : 'Edit Item'}
                                 >
                                   <Edit3 className="w-3.5 h-3.5" />
@@ -1490,7 +1490,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                               {perms.canDeleteRecords && (
                                 <button
                                   onClick={() => setDeleteConfirmItem(item)}
-                                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400 transition"
+                                  className="p-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-rose-500/20 border border-[var(--border-subtle)] text-[var(--text-muted)] hover:text-rose-500 transition"
                                   title={isHindi ? 'आइटम हटाएं' : 'Delete Item'}
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
@@ -1512,16 +1512,16 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {/* VIEW 2: Reorder Point & Low Stock Alerts */}
       {activeSubTab === 'reorder' && (
         <div className="flex-1 min-h-0 flex flex-col gap-3 md:overflow-hidden">
-          <div className="shrink-0 bg-amber-500/10 border border-amber-500/30 p-4 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="shrink-0 hv-pill-amber border p-4 rounded-3xl flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
+              <div className="w-9 h-9 rounded-2xl hv-pill-amber border flex items-center justify-center shrink-0">
                 <AlertTriangle className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-white text-sm">
+                <h3 className="font-bold text-[var(--text-primary)] text-sm">
                   {isHindi ? 'रीऑर्डर एवं न्यूनतम स्टॉक अलर्ट प्रणाली' : 'Automated Reorder Point Alerts'}
                 </h3>
-                <p className="text-xs text-slate-300">
+                <p className="text-xs text-[var(--text-secondary)]">
                   {isHindi 
                     ? `कुल ${lowStockItems.length} आइटम न्यूनतम स्तर (Reorder Point) से नीचे हैं। उत्पादन या बिक्री न रुके, इसलिए समय पर खरीद ऑर्डर जारी करें।`
                     : `${lowStockItems.length} items have reached or fallen below their reorder points. Place purchase orders to prevent stock-outs.`}
@@ -1532,7 +1532,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
             {onNavigateToPurchases && (
               <button
                 onClick={onNavigateToPurchases}
-                className="bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-1.5 text-xs transition shrink-0"
+                className="bg-amber-600 hover:bg-amber-500 text-white hv-keep-white font-bold px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-1.5 text-xs transition shrink-0"
               >
                 <ShoppingBag className="w-4 h-4" />
                 <span>{isHindi ? 'खरीद बिल / PO बनाएं' : 'Create Purchase Order / Bill'}</span>
@@ -1541,23 +1541,23 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           </div>
 
           {lowStockItems.length === 0 ? (
-            <div className="flex-1 min-h-0 bg-slate-900 border border-slate-800 rounded-3xl p-12 text-center text-slate-400 space-y-2 flex flex-col items-center justify-center">
-              <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
-              <div className="text-base font-bold text-white">
+            <div className="flex-1 min-h-0 hv-surface border border-[var(--border-primary)] rounded-3xl p-12 text-center text-[var(--text-muted)] space-y-2 flex flex-col items-center justify-center">
+              <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto" />
+              <div className="text-base font-bold text-[var(--text-primary)]">
                 {isHindi ? 'शानदार! कोई भी आइटम रीऑर्डर स्तर से नीचे नहीं है।' : 'Great! All inventory levels are above reorder points.'}
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--text-muted)]">
                 {isHindi 
                   ? 'सभी स्टॉक पर्याप्त मात्रा में उपलब्ध हैं। जब भी कोई आइटम अपने न्यूनतम स्तर पर पहुँचेगा, वह यहाँ तुरंत अलर्ट होगा।' 
                   : 'All stock levels are optimal. As soon as an item touches its reorder threshold, it will appear here.'}
               </p>
             </div>
           ) : (
-            <div className="flex-1 min-h-0 flex flex-col bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl">
+            <div className="flex-1 min-h-0 flex flex-col hv-surface border border-[var(--border-primary)] rounded-3xl overflow-hidden shadow-2xl">
               <div className="flex-1 min-h-0 overflow-auto">
-                <table className="w-full text-left border-collapse text-sm text-slate-200">
-                  <thead className="sticky top-0 z-10 bg-slate-800">
-                    <tr className="border-b border-slate-700 text-slate-300 font-bold uppercase tracking-wider text-xs">
+                <table className="w-full text-left border-collapse text-sm text-[var(--text-primary)]">
+                  <thead className="sticky top-0 z-10 bg-[var(--bg-elevated)]">
+                    <tr className="border-b border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold uppercase tracking-wider text-xs">
                       <th className="py-3.5 px-4 w-12 text-center">#</th>
                       <th className="py-3.5 px-4">{isHindi ? 'आइटम नाम एवं कोड' : 'Item Name & Code'}</th>
                       <th className="py-3.5 px-3 text-center">{isHindi ? 'वर्तमान स्टॉक' : 'Current Stock'}</th>
@@ -1569,7 +1569,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       <th className="py-3.5 px-4 text-center">{isHindi ? 'त्वरित कार्रवाई' : 'Action'}</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60">
+                  <tbody className="divide-y divide-[var(--border-primary)]">
                     {lowStockItems.map((row, idx) => {
                       const item = row.item;
                       const shortage = Math.max(0, row.reorderPoint - row.currentStock);
@@ -1577,41 +1577,41 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       const restockCost = (shortage + suggestedBatch) * row.costRate;
 
                       return (
-                        <tr key={item.id} className="hover:bg-slate-800/40 transition">
-                          <td className="py-3 px-4 text-center font-mono text-slate-400 tabular-nums">{idx + 1}</td>
+                        <tr key={item.id} className="hover:bg-[var(--hover-surface)] transition">
+                          <td className="py-3 px-4 text-center font-mono text-[var(--text-muted)] tabular-nums">{idx + 1}</td>
                           <td className="py-3 px-4">
-                            <div className="font-bold text-white flex items-center gap-2">
+                            <div className="font-bold text-[var(--text-primary)] flex items-center gap-2">
                               <span>{item.name}</span>
                               {row.isOutOfStock ? (
-                                <span className="bg-rose-500/20 text-rose-400 border border-rose-500/30 text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                <span className="hv-pill-rose border text-[10px] font-bold px-1.5 py-0.5 rounded">
                                   {isHindi ? 'शून्य स्टॉक' : 'NIL STOCK'}
                                 </span>
                               ) : (
-                                <span className="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[10px] font-bold px-1.5 py-0.5 rounded">
+                                <span className="hv-pill-amber border text-[10px] font-bold px-1.5 py-0.5 rounded">
                                   {isHindi ? 'न्यूनतम स्तर पर' : 'BELOW MIN'}
                                 </span>
                               )}
                             </div>
-                            <div className="text-xs text-slate-400 font-mono mt-0.5">
+                            <div className="text-xs text-[var(--text-muted)] font-mono mt-0.5">
                               {item.code} • {item.category} • Location: {item.location || 'Godown'}
                             </div>
                           </td>
-                          <td className="py-3 px-3 text-center font-mono tabular-nums font-bold text-rose-400">
+                          <td className="py-3 px-3 text-center font-mono tabular-nums font-bold text-rose-500">
                             {row.currentStock} {row.unit}
                           </td>
-                          <td className="py-3 px-3 text-center font-mono tabular-nums font-bold text-slate-200">
+                          <td className="py-3 px-3 text-center font-mono tabular-nums font-bold text-[var(--text-primary)]">
                             {row.reorderPoint} {row.unit}
                           </td>
-                          <td className="py-3 px-3 text-center font-mono tabular-nums font-bold text-amber-400">
+                          <td className="py-3 px-3 text-center font-mono tabular-nums font-bold text-amber-500">
                             -{shortage} {row.unit}
                           </td>
-                          <td className="py-3 px-3 text-center font-mono tabular-nums font-bold text-indigo-400">
+                          <td className="py-3 px-3 text-center font-mono tabular-nums font-bold text-indigo-500">
                             +{suggestedBatch} {row.unit}
                           </td>
-                          <td className="py-3 px-3 text-right font-mono tabular-nums font-medium text-slate-200">
+                          <td className="py-3 px-3 text-right font-mono tabular-nums font-medium text-[var(--text-primary)]">
                             {formatCurrency(row.costRate, currency)}
                           </td>
-                          <td className="py-3 px-4 text-right font-mono tabular-nums font-bold text-amber-300">
+                          <td className="py-3 px-4 text-right font-mono tabular-nums font-bold text-amber-500">
                             {formatCurrency(restockCost, currency)}
                           </td>
                           <td className="py-3 px-4 text-center">
@@ -1623,12 +1623,12 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                                   setAdjustReason('Restock Inflow');
                                   setAdjustNotes('Quick Restock');
                                 }}
-                                className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs transition"
+                                className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-3 py-1.5 rounded-lg text-xs transition"
                               >
                                 {isHindi ? 'त्वरित स्टॉक जोड़ें' : 'Restock Now'}
                               </button>
                             ) : (
-                              <span className="text-[10px] text-slate-500">—</span>
+                              <span className="text-[10px] text-[var(--text-muted)]">—</span>
                             )}
                           </td>
                         </tr>
@@ -1646,26 +1646,26 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {activeSubTab === 'valuation' && (
         <div className="flex-1 min-h-0 flex flex-col gap-3 md:overflow-hidden">
           {/* Valuation Method Switcher & Control Bar */}
-          <div className="shrink-0 bg-slate-900 p-4 rounded-3xl border border-slate-800 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="shrink-0 hv-surface p-4 rounded-3xl border border-[var(--border-primary)] shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
             <div className="space-y-1">
-              <div className="text-sm font-bold text-slate-200 flex items-center gap-2">
-                <Tag className="w-4 h-4 text-indigo-400" />
+              <div className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <Tag className="w-4 h-4 text-indigo-500" />
                 <span>{isHindi ? 'मूल्यांकन पद्धति चुनें (Inventory Valuation Method):' : 'Select Inventory Valuation Method:'}</span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--text-muted)]">
                 {isHindi 
                   ? 'वित्तीय विवरणों, बैलेंस शीट एवं टैक्स ऑडिट के लिए मान्य सभी प्रमुख मूल्यांकन विधियों का समर्थन'
                   : 'Supported for official balance sheets, income tax returns, and GST audits'}
               </p>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 bg-slate-950 p-1 rounded-2xl border border-slate-800 text-xs font-bold gap-1 w-full md:w-auto">
+            <div className="grid grid-cols-2 sm:grid-cols-4 hv-elevated p-1 rounded-2xl border border-[var(--border-primary)] text-xs font-bold gap-1 w-full md:w-auto">
               <button
                 onClick={() => setValuationMethod('COST')}
                 className={`py-2 px-3 rounded-xl transition text-center ${
                   valuationMethod === 'COST'
-                    ? 'bg-indigo-600 text-white shadow'
-                    : 'text-slate-300 hover:text-white'
+                    ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)]'
                 }`}
               >
                 {isHindi ? 'लागत दर (Cost Price)' : 'Cost Price'}
@@ -1675,8 +1675,8 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 onClick={() => setValuationMethod('SALES')}
                 className={`py-2 px-3 rounded-xl transition text-center ${
                   valuationMethod === 'SALES'
-                    ? 'bg-emerald-600 text-white shadow'
-                    : 'text-slate-300 hover:text-white'
+                    ? 'bg-emerald-600 text-white hv-keep-white shadow'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)]'
                 }`}
               >
                 {isHindi ? 'बिक्री दर (Sales Value)' : 'Sales Value'}
@@ -1686,8 +1686,8 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 onClick={() => setValuationMethod('WAC')}
                 className={`py-2 px-3 rounded-xl transition text-center ${
                   valuationMethod === 'WAC'
-                    ? 'bg-amber-600 text-white shadow'
-                    : 'text-slate-300 hover:text-white'
+                    ? 'bg-amber-600 text-white hv-keep-white shadow'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)]'
                 }`}
               >
                 {isHindi ? 'भारित औसत (WAC)' : 'Weighted Avg (WAC)'}
@@ -1697,8 +1697,8 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 onClick={() => setValuationMethod('FIFO')}
                 className={`py-2 px-3 rounded-xl transition text-center ${
                   valuationMethod === 'FIFO'
-                    ? 'bg-purple-600 text-white shadow'
-                    : 'text-slate-300 hover:text-white'
+                    ? 'bg-purple-600 text-white hv-keep-white shadow'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)]'
                 }`}
               >
                 {isHindi ? 'फीफो (FIFO)' : 'FIFO Method'}
@@ -1707,30 +1707,30 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           </div>
 
           {/* Category-Wise Valuation Breakdown */}
-          <div className="shrink-0 max-h-44 overflow-y-auto bg-slate-900 border border-slate-800 rounded-3xl p-4 shadow-xl space-y-3">
-            <h3 className="font-bold text-white text-sm flex items-center justify-between">
+          <div className="shrink-0 max-h-44 overflow-y-auto hv-surface border border-[var(--border-primary)] rounded-3xl p-4 shadow-xl space-y-3">
+            <h3 className="font-bold text-[var(--text-primary)] text-sm flex items-center justify-between">
               <span>{isHindi ? 'श्रेणी-वार स्टॉक मूल्यांकन सारांश (Category Breakdown)' : 'Category-wise Stock Valuation Breakdown'}</span>
-              <span className="text-xs font-mono tabular-nums text-indigo-400 font-bold">
+              <span className="text-xs font-mono tabular-nums text-indigo-500 font-bold">
                 {isHindi ? 'कुल योग: ' : 'Total: '} {formatCurrency(valuationReport.totalCostValuation, currency)}
               </span>
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
               {valuationReport.categories.map(cat => (
-                <div key={cat.category} className="bg-slate-950 p-3 rounded-2xl border border-slate-800 space-y-1.5">
+                <div key={cat.category} className="hv-elevated p-3 rounded-2xl border border-[var(--border-primary)] space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-white text-xs">{cat.category}</span>
-                    <span className="text-xs font-mono text-slate-400">{cat.itemsCount} {isHindi ? 'आइटम' : 'Items'}</span>
+                    <span className="font-bold text-[var(--text-primary)] text-xs">{cat.category}</span>
+                    <span className="text-xs font-mono text-[var(--text-muted)]">{cat.itemsCount} {isHindi ? 'आइटम' : 'Items'}</span>
                   </div>
                   <div className="flex items-baseline justify-between">
-                    <span className="text-base font-black font-mono tabular-nums text-indigo-400">
+                    <span className="text-base font-black font-mono tabular-nums text-indigo-500">
                       {formatCurrency(cat.totalCostValuation, currency)}
                     </span>
-                    <span className="text-xs font-mono tabular-nums font-bold text-emerald-400">
+                    <span className="text-xs font-mono tabular-nums font-bold text-emerald-500">
                       {cat.sharePercent.toFixed(1)}% Share
                     </span>
                   </div>
-                  <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                  <div className="w-full hv-progress-track h-1.5 rounded-full overflow-hidden">
                     <div 
                       className="bg-indigo-500 h-full rounded-full" 
                       style={{ width: `${Math.min(100, Math.max(3, cat.sharePercent))}%` }}
@@ -1742,13 +1742,13 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           </div>
 
           {/* Detailed Valuation Table */}
-          <div className="flex-1 min-h-0 flex flex-col bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl">
-            <div className="shrink-0 p-3.5 px-4 border-b border-slate-800 flex items-center justify-between">
+          <div className="flex-1 min-h-0 flex flex-col hv-surface border border-[var(--border-primary)] rounded-3xl overflow-hidden shadow-2xl">
+            <div className="shrink-0 p-3.5 px-4 border-b border-[var(--border-primary)] flex items-center justify-between">
               <div>
-                <h4 className="font-bold text-white text-sm">
+                <h4 className="font-bold text-[var(--text-primary)] text-sm">
                   {isHindi ? 'विस्तृत इन्वेंटरी मूल्यांकन तालिका' : 'Comprehensive Inventory Valuation Register'}
                 </h4>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-[var(--text-muted)]">
                   {isHindi 
                     ? `पद्धति: ${valuationMethod} अनुसार कुल ${valuationReport.items.length} आइटम` 
                     : `Evaluated using ${valuationMethod} for ${valuationReport.items.length} items`}
@@ -1759,7 +1759,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => printInventoryValuationReport(data, valuationMethod, isHindi)}
-                    className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow"
+                    className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow"
                   >
                     <Printer className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'विवरण प्रिंट करें' : 'Print Statement'}</span>
@@ -1769,9 +1769,9 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
             </div>
 
             <div className="flex-1 min-h-0 overflow-auto">
-              <table className="w-full text-left border-collapse text-sm text-slate-200">
-                <thead className="sticky top-0 z-10 bg-slate-800">
-                  <tr className="border-b border-slate-700 text-slate-300 font-bold uppercase tracking-wider text-xs">
+              <table className="w-full text-left border-collapse text-sm text-[var(--text-primary)]">
+                <thead className="sticky top-0 z-10 bg-[var(--bg-elevated)]">
+                  <tr className="border-b border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold uppercase tracking-wider text-xs">
                     <th className="py-3 px-4 w-12 text-center">#</th>
                     <th className="py-3 px-4">{isHindi ? 'आइटम नाम & कोड' : 'Item Name & Code'}</th>
                     <th className="py-3 px-3 text-center">{isHindi ? 'श्रेणी' : 'Category'}</th>
@@ -1783,52 +1783,52 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     <th className="py-3 px-3 text-right">{isHindi ? 'मार्जिन %' : 'Margin %'}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-[var(--border-primary)]">
                   {valuationReport.items.map((row, idx) => (
-                    <tr key={row.item.id} className="hover:bg-slate-800/40 transition">
-                      <td className="py-2.5 px-4 text-center font-mono text-slate-400 tabular-nums">{idx + 1}</td>
+                    <tr key={row.item.id} className="hover:bg-[var(--hover-surface)] transition">
+                      <td className="py-2.5 px-4 text-center font-mono text-[var(--text-muted)] tabular-nums">{idx + 1}</td>
                       <td className="py-2.5 px-4">
-                        <div className="font-bold text-white">{row.item.name}</div>
-                        <div className="text-xs text-slate-400 font-mono">{row.item.code || '-'} • HSN: {row.item.hsnSacCode || '-'}</div>
+                        <div className="font-bold text-[var(--text-primary)]">{row.item.name}</div>
+                        <div className="text-xs text-[var(--text-muted)] font-mono">{row.item.code || '-'} • HSN: {row.item.hsnSacCode || '-'}</div>
                       </td>
-                      <td className="py-2.5 px-3 text-center text-slate-300">{row.category}</td>
-                      <td className="py-2.5 px-3 text-center font-mono tabular-nums font-bold text-white">
+                      <td className="py-2.5 px-3 text-center text-[var(--text-secondary)]">{row.category}</td>
+                      <td className="py-2.5 px-3 text-center font-mono tabular-nums font-bold text-[var(--text-primary)]">
                         {row.currentStock} {row.unit}
                       </td>
-                      <td className="py-2.5 px-3 text-right font-mono tabular-nums text-slate-200">
+                      <td className="py-2.5 px-3 text-right font-mono tabular-nums text-[var(--text-primary)]">
                         {formatCurrency(row.effectiveRate, currency)}
                       </td>
-                      <td className="py-2.5 px-4 text-right font-mono tabular-nums font-bold text-indigo-400">
+                      <td className="py-2.5 px-4 text-right font-mono tabular-nums font-bold text-indigo-500">
                         {formatCurrency(row.valuationAmount, currency)}
                       </td>
-                      <td className="py-2.5 px-3 text-right font-mono tabular-nums text-slate-300">
+                      <td className="py-2.5 px-3 text-right font-mono tabular-nums text-[var(--text-secondary)]">
                         {formatCurrency(row.salesRate, currency)}
                       </td>
-                      <td className="py-2.5 px-4 text-right font-mono tabular-nums font-bold text-emerald-400">
+                      <td className="py-2.5 px-4 text-right font-mono tabular-nums font-bold text-emerald-500">
                         {formatCurrency(row.salesValuationAmount, currency)}
                       </td>
-                      <td className="py-2.5 px-3 text-right font-mono tabular-nums text-emerald-400 font-bold">
+                      <td className="py-2.5 px-3 text-right font-mono tabular-nums text-emerald-500 font-bold">
                         {row.profitMarginPercent.toFixed(1)}%
                       </td>
                     </tr>
                   ))}
                   {/* Total Summary Row */}
-                  <tr className="sticky bottom-0 z-10 bg-slate-950 font-bold text-white border-t-2 border-slate-700">
+                  <tr className="sticky bottom-0 z-10 bg-[var(--bg-elevated)] font-bold text-[var(--text-primary)] border-t-2 border-[var(--border-subtle)]">
                     <td colSpan={3} className="py-3.5 px-4 text-right uppercase tracking-wider text-xs">
                       {isHindi ? 'कुल योग (Total):' : 'Grand Total:'}
                     </td>
-                    <td className="py-3.5 px-3 text-center font-mono tabular-nums text-indigo-400">
+                    <td className="py-3.5 px-3 text-center font-mono tabular-nums text-indigo-500">
                       {valuationReport.totalStockUnits}
                     </td>
                     <td></td>
-                    <td className="py-3.5 px-4 text-right font-mono tabular-nums text-indigo-400 text-sm">
+                    <td className="py-3.5 px-4 text-right font-mono tabular-nums text-indigo-500 text-sm">
                       {formatCurrency(valuationReport.totalCostValuation, currency)}
                     </td>
                     <td></td>
-                    <td className="py-3.5 px-4 text-right font-mono tabular-nums text-emerald-400 text-sm">
+                    <td className="py-3.5 px-4 text-right font-mono tabular-nums text-emerald-500 text-sm">
                       {formatCurrency(valuationReport.totalSalesValuation, currency)}
                     </td>
-                    <td className="py-3.5 px-3 text-right font-mono tabular-nums text-emerald-400">
+                    <td className="py-3.5 px-3 text-right font-mono tabular-nums text-emerald-500">
                       {valuationReport.overallProfitMarginPercent.toFixed(1)}%
                     </td>
                   </tr>
@@ -1843,17 +1843,17 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {activeSubTab === 'movements' && (
         <div className="flex-1 min-h-0 flex flex-col gap-3 md:overflow-hidden">
           {/* Item Selector Header */}
-          <div className="shrink-0 bg-slate-900 p-4 rounded-3xl border border-slate-800 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+          <div className="shrink-0 hv-surface p-4 rounded-3xl border border-[var(--border-primary)] shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
             <div className="flex items-center gap-3 w-full md:w-auto">
-              <History className="w-5 h-5 text-indigo-400" />
+              <History className="w-5 h-5 text-indigo-500" />
               <div className="flex-1">
-                <label className="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">
+                <label className="block text-xs font-bold text-[var(--text-secondary)] uppercase tracking-wider mb-1">
                   {isHindi ? 'स्टॉक आइटम चुनें (Select Stock Item):' : 'Select Item to View Movements:'}
                 </label>
                 <select
                   value={selectedLedgerItemId}
                   onChange={(e) => setSelectedLedgerItemId(e.target.value)}
-                  className="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white font-bold focus:outline-none min-w-[260px]"
+                  className="hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 text-sm font-bold focus:outline-none min-w-[260px]"
                 >
                   {data.items.map(item => (
                     <option key={item.id} value={item.id}>
@@ -1868,7 +1868,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => printStockLedger(selectedLedgerItem, data, isHindi)}
-                  className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow"
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow"
                 >
                   <Printer className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'स्टॉक लेजर प्रिंट' : 'Print Stock Ledger'}</span>
@@ -1879,22 +1879,22 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
 
           {/* Movement Ledger Table */}
           {selectedLedgerItem && (
-            <div className="flex-1 min-h-0 flex flex-col bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl">
-              <div className="shrink-0 p-3.5 px-4 bg-slate-950/60 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2">
+            <div className="flex-1 min-h-0 flex flex-col hv-surface border border-[var(--border-primary)] rounded-3xl overflow-hidden shadow-2xl">
+              <div className="shrink-0 p-3.5 px-4 hv-elevated border-b border-[var(--border-primary)] flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <h3 className="font-bold text-white text-sm">{selectedLedgerItem.name}</h3>
-                  <p className="text-xs text-slate-400 font-mono">
+                  <h3 className="font-bold text-[var(--text-primary)] text-sm">{selectedLedgerItem.name}</h3>
+                  <p className="text-xs text-[var(--text-muted)] font-mono">
                     Code: {selectedLedgerItem.code || '-'} • HSN: {selectedLedgerItem.hsnSacCode || '-'} • Category: {selectedLedgerItem.category}
                   </p>
                 </div>
                 <div className="flex items-center gap-4 text-sm font-mono tabular-nums">
                   <div>
-                    <span className="text-slate-400">{isHindi ? 'वर्तमान स्टॉक: ' : 'Closing Stock: '}</span>
-                    <span className="text-white font-bold">{selectedLedgerItem.currentStock || 0} {selectedLedgerItem.unit || 'PCS'}</span>
+                    <span className="text-[var(--text-muted)]">{isHindi ? 'वर्तमान स्टॉक: ' : 'Closing Stock: '}</span>
+                    <span className="text-[var(--text-primary)] font-bold">{selectedLedgerItem.currentStock || 0} {selectedLedgerItem.unit || 'PCS'}</span>
                   </div>
                   <div>
-                    <span className="text-slate-400">{isHindi ? 'मूल्यांकन: ' : 'Valuation: '}</span>
-                    <span className="text-indigo-400 font-bold">
+                    <span className="text-[var(--text-muted)]">{isHindi ? 'मूल्यांकन: ' : 'Valuation: '}</span>
+                    <span className="text-indigo-500 font-bold">
                       {formatCurrency((selectedLedgerItem.currentStock || 0) * (selectedLedgerItem.purchasePrice || 0), currency)}
                     </span>
                   </div>
@@ -1902,9 +1902,9 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
               </div>
 
               <div className="flex-1 min-h-0 overflow-auto">
-                <table className="w-full text-left border-collapse text-sm text-slate-200">
-                  <thead className="sticky top-0 z-10 bg-slate-800">
-                    <tr className="border-b border-slate-700 text-slate-300 font-bold uppercase tracking-wider text-xs">
+                <table className="w-full text-left border-collapse text-sm text-[var(--text-primary)]">
+                  <thead className="sticky top-0 z-10 bg-[var(--bg-elevated)]">
+                    <tr className="border-b border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold uppercase tracking-wider text-xs">
                       <th className="py-3 px-4">{isHindi ? 'दिनांक' : 'Date'}</th>
                       <th className="py-3 px-3">{isHindi ? 'प्रकार (Type)' : 'Voucher Type'}</th>
                       <th className="py-3 px-3">{isHindi ? 'संदर्भ क्रमांक' : 'Ref / Invoice #'}</th>
@@ -1916,43 +1916,43 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       <th className="py-3 px-4 text-right">{isHindi ? 'अंतिम शेष' : 'Running Balance'}</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60">
+                  <tbody className="divide-y divide-[var(--border-primary)]">
                     {selectedItemMovements.length === 0 ? (
                       <tr>
-                        <td colSpan={9} className="py-8 text-center text-slate-400">
+                        <td colSpan={9} className="py-8 text-center text-[var(--text-muted)]">
                           {isHindi ? 'इस आइटम के लिए अभी कोई लेनदेन दर्ज नहीं हुआ है।' : 'No transactions recorded for this item yet.'}
                         </td>
                       </tr>
                     ) : (
                       selectedItemMovements.map(m => (
-                        <tr key={m.id} className="hover:bg-slate-800/40 transition">
-                          <td className="py-2.5 px-4 font-mono text-slate-300 whitespace-nowrap">{m.date}</td>
+                        <tr key={m.id} className="hover:bg-[var(--hover-surface)] transition">
+                          <td className="py-2.5 px-4 font-mono text-[var(--text-secondary)] whitespace-nowrap">{m.date}</td>
                           <td className="py-2.5 px-3">
-                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
-                              m.type === 'PURCHASE' ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' :
-                              m.type === 'SALE' ? 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30' :
-                              m.type === 'OPENING' ? 'bg-purple-500/20 text-purple-400 border border-purple-500/30' :
-                              m.type === 'SALES_RETURN' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
-                              'bg-slate-800 text-slate-200'
+                            <span className={`text-xs font-bold px-2 py-0.5 rounded-full border ${
+                              m.type === 'PURCHASE' ? 'hv-pill-emerald' :
+                              m.type === 'SALE' ? 'hv-pill-indigo' :
+                              m.type === 'OPENING' ? 'hv-pill-purple' :
+                              m.type === 'SALES_RETURN' ? 'hv-pill-amber' :
+                              'hv-pill-slate'
                             }`}>
                               {m.type}
                             </span>
                           </td>
-                          <td className="py-2.5 px-3 font-mono text-white font-bold">{m.refNumber}</td>
-                          <td className="py-2.5 px-4 text-slate-200">{m.partyName || '-'}</td>
-                          <td className="py-2.5 px-3 text-right font-mono tabular-nums font-bold text-emerald-400">
+                          <td className="py-2.5 px-3 font-mono text-[var(--text-primary)] font-bold">{m.refNumber}</td>
+                          <td className="py-2.5 px-4 text-[var(--text-primary)]">{m.partyName || '-'}</td>
+                          <td className="py-2.5 px-3 text-right font-mono tabular-nums font-bold text-emerald-500">
                             {m.inflow > 0 ? `+${m.inflow}` : '-'}
                           </td>
-                          <td className="py-2.5 px-3 text-right font-mono tabular-nums font-bold text-rose-400">
+                          <td className="py-2.5 px-3 text-right font-mono tabular-nums font-bold text-rose-500">
                             {m.outflow > 0 ? `-${m.outflow}` : '-'}
                           </td>
-                          <td className="py-2.5 px-3 text-right font-mono tabular-nums text-slate-200">
+                          <td className="py-2.5 px-3 text-right font-mono tabular-nums text-[var(--text-primary)]">
                             {m.rate > 0 ? formatCurrency(m.rate, currency) : '-'}
                           </td>
-                          <td className="py-2.5 px-4 text-right font-mono tabular-nums text-slate-100">
+                          <td className="py-2.5 px-4 text-right font-mono tabular-nums text-[var(--text-primary)]">
                             {m.amount > 0 ? formatCurrency(m.amount, currency) : '-'}
                           </td>
-                          <td className="py-2.5 px-4 text-right font-mono tabular-nums font-black text-indigo-300">
+                          <td className="py-2.5 px-4 text-right font-mono tabular-nums font-black text-indigo-500">
                             {m.runningBalance} {selectedLedgerItem.unit || 'PCS'}
                           </td>
                         </tr>
@@ -1970,64 +1970,64 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {activeSubTab === 'batches' && (
         <div className="flex-1 min-h-0 flex flex-col gap-3 md:overflow-hidden">
           <div className="shrink-0 grid grid-cols-2 lg:grid-cols-4 gap-3">
-            <div className="bg-rose-500/10 border border-rose-500/30 rounded-2xl p-3.5 space-y-1">
-              <div className="text-xs font-bold uppercase tracking-wider text-rose-300">
+            <div className="hv-pill-rose border rounded-2xl p-3.5 space-y-1">
+              <div className="text-xs font-bold uppercase tracking-wider text-rose-500">
                 {isHindi ? 'एक्सपायर हो चुके बैच' : 'Expired Stock'}
               </div>
-              <div className="text-2xl font-black text-rose-400 font-mono tabular-nums">
+              <div className="text-2xl font-black text-rose-500 font-mono tabular-nums">
                 {batchStats.expiredBatchesCount}
               </div>
-              <div className="text-xs text-rose-200/80 font-mono tabular-nums">
+              <div className="text-xs text-[var(--text-secondary)] font-mono tabular-nums">
                 Qty: {batchStats.expiredQty} • Loss Val: {formatCurrency(batchStats.expiredStockValue, currency)}
               </div>
             </div>
 
-            <div className="bg-amber-500/10 border border-amber-500/30 rounded-2xl p-3.5 space-y-1">
-              <div className="text-xs font-bold uppercase tracking-wider text-amber-300">
+            <div className="hv-pill-amber border rounded-2xl p-3.5 space-y-1">
+              <div className="text-xs font-bold uppercase tracking-wider text-amber-500">
                 {isHindi ? '≤ 30 दिन में समाप्ति' : 'Expiring <= 30 Days'}
               </div>
-              <div className="text-2xl font-black text-amber-400 font-mono tabular-nums">
+              <div className="text-2xl font-black text-amber-500 font-mono tabular-nums">
                 {batchStats.expiringSoonCount}
               </div>
-              <div className="text-xs text-amber-200/80 font-mono tabular-nums">
+              <div className="text-xs text-[var(--text-secondary)] font-mono tabular-nums">
                 Units at risk: {batchStats.expiringSoonQty}
               </div>
             </div>
 
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-1">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
+            <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-3.5 space-y-1">
+              <div className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
                 {isHindi ? '31–90 दिन निगरानी' : '31–90 Day Watch'}
               </div>
-              <div className="text-2xl font-black text-cyan-400 font-mono tabular-nums">
+              <div className="text-2xl font-black text-cyan-500 font-mono tabular-nums">
                 {batchStats.watchCount}
               </div>
-              <div className="text-xs text-slate-400">
+              <div className="text-xs text-[var(--text-muted)]">
                 {isHindi ? 'FEFO में प्राथमिकता' : 'Prioritized in FEFO'}
               </div>
             </div>
 
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 space-y-1">
-              <div className="text-xs font-bold uppercase tracking-wider text-slate-400">
+            <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-3.5 space-y-1">
+              <div className="text-xs font-bold uppercase tracking-wider text-[var(--text-muted)]">
                 {isHindi ? 'सक्रिय स्वस्थ बैच' : 'Healthy Active Batches'}
               </div>
-              <div className="text-2xl font-black text-emerald-400 font-mono tabular-nums">
+              <div className="text-2xl font-black text-emerald-500 font-mono tabular-nums">
                 {batchStats.healthyCount}
               </div>
-              <div className="text-xs text-slate-400">
+              <div className="text-xs text-[var(--text-muted)]">
                 {isHindi ? `कुल बैच: ${batches.length}` : `Total registered: ${batches.length}`}
               </div>
             </div>
           </div>
 
-          <div className="shrink-0 bg-slate-900/90 border border-slate-800 rounded-2xl p-3 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
+          <div className="shrink-0 hv-surface border border-[var(--border-primary)] rounded-2xl p-3 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3">
             <div className="relative flex-1">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)]" />
               <input
                 type="text"
                 value={batchSearch}
                 onChange={(e) => setBatchSearch(e.target.value)}
                 placeholder={isHindi ? 'आइटम, बैच नंबर, बारकोड या गोदाम खोजें...' : 'Search item, batch no., barcode, or godown...'}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-9 pr-4 py-2 text-sm text-white placeholder-slate-400 focus:border-rose-500 focus:outline-none"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl pl-9 pr-4 py-2 text-sm focus:border-rose-500 focus:outline-none"
               />
             </div>
 
@@ -2035,7 +2035,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
               <select
                 value={batchBucketFilter}
                 onChange={(e) => setBatchBucketFilter(e.target.value as any)}
-                className="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white"
+                className="hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 text-sm"
               >
                 <option value="ALL">{isHindi ? 'सभी एक्सपायरी स्थिति' : 'All Expiry Buckets'}</option>
                 <option value="EXPIRED">{isHindi ? 'केवल एक्सपायर्ड' : 'Expired Only'}</option>
@@ -2048,7 +2048,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
               <select
                 value={batchGodownFilter}
                 onChange={(e) => setBatchGodownFilter(e.target.value)}
-                className="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-sm text-white"
+                className="hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 text-sm"
               >
                 <option value="ALL">{isHindi ? 'सभी गोदाम' : 'All Godowns'}</option>
                 {godowns.map((g) => (
@@ -2060,7 +2060,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 <button
                   type="button"
                   onClick={() => openAddBatchModal()}
-                  className="bg-rose-600 hover:bg-rose-500 text-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow"
+                  className="bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 transition shadow"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'नया बैच जोड़ें' : 'Add Batch'}</span>
@@ -2069,11 +2069,11 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
             </div>
           </div>
 
-          <div className="flex-1 min-h-0 flex flex-col bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl">
+          <div className="flex-1 min-h-0 flex flex-col hv-surface border border-[var(--border-primary)] rounded-3xl overflow-hidden shadow-2xl">
             <div className="flex-1 min-h-0 overflow-auto">
-              <table className="w-full text-left border-collapse text-sm text-slate-200">
-                <thead className="sticky top-0 z-10 bg-slate-800">
-                  <tr className="border-b border-slate-700 text-slate-300 font-bold uppercase tracking-wider text-xs">
+              <table className="w-full text-left border-collapse text-sm text-[var(--text-primary)]">
+                <thead className="sticky top-0 z-10 bg-[var(--bg-elevated)]">
+                  <tr className="border-b border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold uppercase tracking-wider text-xs">
                     <th className="py-3 px-4">{isHindi ? 'आइटम / बारकोड' : 'Item & Barcode'}</th>
                     <th className="py-3 px-3">{isHindi ? 'बैच नंबर' : 'Batch No.'}</th>
                     <th className="py-3 px-3">{isHindi ? 'गोदाम' : 'Godown'}</th>
@@ -2083,10 +2083,10 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     <th className="py-3 px-4 text-center">{isHindi ? 'कार्रवाई' : 'Actions'}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-[var(--border-primary)]">
                   {filteredBatches.length === 0 ? (
                     <tr>
-                      <td colSpan={7} className="py-12 text-center text-slate-400">
+                      <td colSpan={7} className="py-12 text-center text-[var(--text-muted)]">
                         <Calendar className="w-8 h-8 mx-auto mb-2 opacity-40" />
                         <p>{isHindi ? 'कोई बैच रिकॉर्ड नहीं मिला। परचेज बिल या "Add Batch" से बैच दर्ज करें।' : 'No batches recorded yet. Record via Purchase Bill or "Add Batch".'}</p>
                       </td>
@@ -2096,31 +2096,31 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       const exp = getExpiryStatus(b.expiryDate);
                       const isWrittenOff = b.status === 'WRITTEN_OFF';
                       return (
-                        <tr key={b.id} className="hover:bg-slate-800/40 transition">
+                        <tr key={b.id} className="hover:bg-[var(--hover-surface)] transition">
                           <td className="py-3 px-4">
-                            <div className="font-bold text-white">{b.itemName}</div>
-                            <div className="text-xs text-cyan-400 font-mono">{b.barcode || b.itemCode || '-'}</div>
+                            <div className="font-bold text-[var(--text-primary)]">{b.itemName}</div>
+                            <div className="text-xs text-cyan-500 font-mono">{b.barcode || b.itemCode || '-'}</div>
                           </td>
-                          <td className="py-3 px-3 font-mono font-bold text-indigo-300">{b.batchNumber}</td>
-                          <td className="py-3 px-3 text-slate-200">{b.godownName || godowns.find(g => g.id === b.godownId)?.name || 'Main Godown'}</td>
+                          <td className="py-3 px-3 font-mono font-bold text-indigo-500">{b.batchNumber}</td>
+                          <td className="py-3 px-3 text-[var(--text-secondary)]">{b.godownName || godowns.find(g => g.id === b.godownId)?.name || 'Main Godown'}</td>
                           <td className="py-3 px-3 text-center">
-                            <div className="font-mono text-slate-200">{b.expiryDate || '—'}</div>
-                            <span className={`inline-block mt-0.5 text-xs font-bold px-2 py-0.5 rounded-full ${
-                              isWrittenOff ? 'bg-slate-800 text-slate-400' :
-                              exp.bucket === 'EXPIRED' ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30' :
-                              exp.bucket === 'EXPIRING_SOON' ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30' :
-                              exp.bucket === 'WATCH' ? 'bg-cyan-500/15 text-cyan-300' :
-                              'bg-emerald-500/15 text-emerald-300'
+                            <div className="font-mono text-[var(--text-primary)]">{b.expiryDate || '—'}</div>
+                            <span className={`inline-block mt-0.5 text-xs font-bold px-2 py-0.5 rounded-full border ${
+                              isWrittenOff ? 'hv-pill-slate' :
+                              exp.bucket === 'EXPIRED' ? 'hv-pill-rose' :
+                              exp.bucket === 'EXPIRING_SOON' ? 'hv-pill-amber' :
+                              exp.bucket === 'WATCH' ? 'hv-pill-cyan' :
+                              'hv-pill-emerald'
                             }`}>
                               {isWrittenOff ? 'WRITTEN OFF' : (isHindi ? exp.labelHi : exp.labelEn)}
                             </span>
                           </td>
                           <td className="py-3 px-3 text-right font-mono tabular-nums">
-                            <div className="text-white font-bold">{b.mrp ? formatCurrency(b.mrp, currency) : '—'}</div>
-                            <div className="text-xs text-emerald-400">{formatCurrency(b.salesRate || 0, currency)}</div>
+                            <div className="text-[var(--text-primary)] font-bold">{b.mrp ? formatCurrency(b.mrp, currency) : '—'}</div>
+                            <div className="text-xs text-emerald-500">{formatCurrency(b.salesRate || 0, currency)}</div>
                           </td>
-                          <td className="py-3 px-3 text-right font-mono font-black text-white tabular-nums">
-                            {b.availableQty} <span className="text-xs text-slate-400 font-normal">/ {b.initialQty}</span>
+                          <td className="py-3 px-3 text-right font-mono font-black text-[var(--text-primary)] tabular-nums">
+                            {b.availableQty} <span className="text-xs text-[var(--text-muted)] font-normal">/ {b.initialQty}</span>
                           </td>
                           <td className="py-3 px-4 text-center">
                             <div className="flex items-center justify-center gap-1.5">
@@ -2138,7 +2138,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                                     godownName: b.godownName,
                                   })
                                 }
-                                className="p-1.5 rounded-lg bg-slate-800 hover:bg-cyan-500/20 text-cyan-400"
+                                className="p-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-cyan-500 border border-[var(--border-primary)]"
                                 title={isHindi ? 'बैच बारकोड प्रिंट' : 'Print Batch Barcode'}
                               >
                                 <Barcode className="w-3.5 h-3.5" />
@@ -2147,7 +2147,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                                 <button
                                   type="button"
                                   onClick={() => openEditBatchModal(b)}
-                                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300"
+                                  className="p-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-primary)]"
                                   title={isHindi ? 'बैच संपादित करें' : 'Edit Batch'}
                                 >
                                   <Edit3 className="w-3.5 h-3.5" />
@@ -2161,7 +2161,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                                       onWriteOffBatch(b.id);
                                       setConfirmWriteOffBatchId(null);
                                     }}
-                                    className="px-2 py-1 rounded-lg bg-rose-600 text-white font-bold text-[10px]"
+                                    className="px-2 py-1 rounded-lg bg-rose-600 text-white hv-keep-white font-bold text-[10px]"
                                   >
                                     {isHindi ? 'पुष्टि करें' : 'Confirm'}
                                   </button>
@@ -2169,7 +2169,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                                   <button
                                     type="button"
                                     onClick={() => setConfirmWriteOffBatchId(b.id)}
-                                    className="px-2 py-1 rounded-lg bg-amber-500/15 hover:bg-rose-500/20 text-amber-300 hover:text-rose-300 font-bold text-[10px]"
+                                    className="px-2 py-1 rounded-lg hv-pill-amber border hover:opacity-85 font-bold text-[10px]"
                                     title={isHindi ? 'एक्सपायर्ड स्टॉक राइट-ऑफ करें' : 'Write Off Expired Batch'}
                                   >
                                     {isHindi ? 'राइट-ऑफ' : 'Write-Off'}
@@ -2180,7 +2180,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                                 <button
                                   type="button"
                                   onClick={() => onDeleteBatch(b.id)}
-                                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400"
+                                  className="p-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-rose-500/15 text-[var(--text-muted)] hover:text-rose-500 border border-[var(--border-primary)]"
                                   title={isHindi ? 'बैच हटाएं' : 'Delete Batch'}
                                 >
                                   <Trash2 className="w-3.5 h-3.5" />
@@ -2202,13 +2202,13 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {/* VIEW 6: Multi-Godown & Inter-Godown Transfers */}
       {activeSubTab === 'godowns' && (
         <div className="flex-1 min-h-0 overflow-y-auto space-y-5 pr-1">
-          <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900 p-4 rounded-3xl border border-slate-800">
+          <div className="flex flex-wrap items-center justify-between gap-3 hv-surface p-4 rounded-3xl border border-[var(--border-primary)]">
             <div>
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Warehouse className="w-4 h-4 text-cyan-400" />
+              <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <Warehouse className="w-4 h-4 text-cyan-500" />
                 <span>{isHindi ? 'सक्रिय गोदाम, शोरूम व POS काउंटर' : 'Warehouses, Godowns & POS Counters'}</span>
               </h3>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[var(--text-muted)]">
                 {isHindi ? 'प्रत्येक लोकेशन का अलग स्टॉक बैलेंस एवं इंटर-गोदाम स्टॉक ट्रांसफर' : 'Location-wise inventory tracking & audited inter-godown transfers'}
               </p>
             </div>
@@ -2219,7 +2219,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     type="button"
                     onClick={handleOpenTransferModal}
                     disabled={godowns.length < 2}
-                    className="bg-cyan-600 hover:bg-cyan-500 disabled:opacity-40 text-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 transition"
+                    className="bg-cyan-600 hover:bg-cyan-500 disabled:opacity-40 text-white hv-keep-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 transition"
                   >
                     <ArrowRightLeft className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'नया स्टॉक ट्रांसफर' : 'New Stock Transfer'}</span>
@@ -2227,7 +2227,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                   <button
                     type="button"
                     onClick={openAddGodownModal}
-                    className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 transition"
+                    className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-3.5 py-2 rounded-xl text-xs flex items-center gap-1.5 transition"
                   >
                     <Plus className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'नया गोदाम जोड़ें' : 'Add Godown'}</span>
@@ -2249,23 +2249,23 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 0
               );
               return (
-                <div key={g.id} className="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-3 shadow-lg">
+                <div key={g.id} className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4 space-y-3 shadow-lg">
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <div className="flex items-center gap-2 flex-wrap">
-                        <span className="font-bold text-white text-sm">{g.name}</span>
+                        <span className="font-bold text-[var(--text-primary)] text-sm">{g.name}</span>
                         {g.isDefault && (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full hv-pill-indigo border">
                             DEFAULT
                           </span>
                         )}
                         {g.isPosCounter && (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full hv-pill-cyan border">
                             POS COUNTER
                           </span>
                         )}
                       </div>
-                      <div className="text-[11px] font-mono text-slate-400 mt-0.5">
+                      <div className="text-[11px] font-mono text-[var(--text-muted)] mt-0.5">
                         {g.code} • {g.godownType.replace('_', ' ')}
                       </div>
                     </div>
@@ -2274,7 +2274,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                         <button
                           type="button"
                           onClick={() => openEditGodownModal(g)}
-                          className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300"
+                          className="p-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-primary)]"
                           title={isHindi ? 'संपादित करें' : 'Edit'}
                         >
                           <Edit3 className="w-3.5 h-3.5" />
@@ -2283,7 +2283,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                           <button
                             type="button"
                             onClick={() => onSaveGodowns(godowns.filter((x) => x.id !== g.id))}
-                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-500/20 text-slate-400 hover:text-rose-400"
+                            className="p-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-rose-500/15 text-[var(--text-muted)] hover:text-rose-500 border border-[var(--border-primary)]"
                             title={isHindi ? 'गोदाम हटाएं' : 'Delete Godown'}
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -2293,17 +2293,17 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     )}
                   </div>
                   {g.address && (
-                    <div className="text-[11px] text-slate-400 flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-slate-500 shrink-0" />
+                    <div className="text-[11px] text-[var(--text-muted)] flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-[var(--text-muted)] shrink-0" />
                       <span className="truncate">{g.address}</span>
                     </div>
                   )}
-                  <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-xs font-mono">
+                  <div className="pt-2 border-t border-[var(--border-primary)] flex items-center justify-between text-xs font-mono">
                     <div>
-                      <span className="text-slate-400">{isHindi ? 'इकाइयाँ: ' : 'Stock Qty: '}</span>
-                      <span className="text-white font-bold tabular-nums">{totalUnitsInGodown}</span>
+                      <span className="text-[var(--text-muted)]">{isHindi ? 'इकाइयाँ: ' : 'Stock Qty: '}</span>
+                      <span className="text-[var(--text-primary)] font-bold tabular-nums">{totalUnitsInGodown}</span>
                     </div>
-                    <div className="text-emerald-400 font-bold tabular-nums">
+                    <div className="text-emerald-500 font-bold tabular-nums">
                       {formatCurrency(totalCostInGodown, currency)}
                     </div>
                   </div>
@@ -2313,16 +2313,16 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           </div>
 
           {/* Item x Godown Matrix */}
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
-            <div className="px-4 py-3 border-b border-slate-800 bg-slate-950/60 flex items-center justify-between">
-              <h4 className="font-bold text-white text-xs">
+          <div className="hv-surface border border-[var(--border-primary)] rounded-3xl overflow-hidden shadow-xl">
+            <div className="px-4 py-3 border-b border-[var(--border-primary)] hv-elevated flex items-center justify-between">
+              <h4 className="font-bold text-[var(--text-primary)] text-xs">
                 {isHindi ? 'आइटम × गोदाम स्टॉक वितरण मैट्रिक्स' : 'Item × Godown Stock Distribution Matrix'}
               </h4>
             </div>
             <div className="overflow-x-auto max-h-[45vh]">
-              <table className="w-full text-left border-collapse text-sm text-slate-200">
-                <thead className="sticky top-0 z-10 bg-slate-800">
-                  <tr className="border-b border-slate-700 text-slate-300 font-bold uppercase text-xs">
+              <table className="w-full text-left border-collapse text-sm text-[var(--text-primary)]">
+                <thead className="sticky top-0 z-10 bg-[var(--bg-elevated)]">
+                  <tr className="border-b border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold uppercase text-xs">
                     <th className="py-3 px-4">{isHindi ? 'आइटम' : 'Item'}</th>
                     {godowns.map((g) => (
                       <th key={g.id} className="py-3 px-3 text-right">{g.name}</th>
@@ -2330,19 +2330,19 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     <th className="py-3 px-4 text-right">{isHindi ? 'कुल स्टॉक' : 'Company Total'}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-[var(--border-primary)]">
                   {data.items.slice(0, 50).map((it) => (
-                    <tr key={it.id} className="hover:bg-slate-800/40">
-                      <td className="py-2.5 px-4 font-bold text-white">{it.name}</td>
+                    <tr key={it.id} className="hover:bg-[var(--hover-surface)]">
+                      <td className="py-2.5 px-4 font-bold text-[var(--text-primary)]">{it.name}</td>
                       {godowns.map((g) => {
                         const qty = getItemStockInGodown(it, g.id, godowns);
                         return (
-                          <td key={g.id} className={`py-2.5 px-3 text-right font-mono tabular-nums ${qty > 0 ? 'text-slate-100 font-bold' : 'text-slate-500'}`}>
+                          <td key={g.id} className={`py-2.5 px-3 text-right font-mono tabular-nums ${qty > 0 ? 'text-[var(--text-primary)] font-bold' : 'text-[var(--text-muted)]'}`}>
                             {qty}
                           </td>
                         );
                       })}
-                      <td className="py-2.5 px-4 text-right font-mono font-black text-cyan-300 tabular-nums">
+                      <td className="py-2.5 px-4 text-right font-mono font-black text-cyan-500 tabular-nums">
                         {it.currentStock || 0} {it.unit || 'PCS'}
                       </td>
                     </tr>
@@ -2353,16 +2353,16 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           </div>
 
           {/* Transfer Register */}
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-xl">
-            <div className="px-4 py-3 border-b border-slate-800 bg-slate-950/60 flex items-center justify-between">
-              <h4 className="font-bold text-white text-sm">
+          <div className="hv-surface border border-[var(--border-primary)] rounded-3xl overflow-hidden shadow-xl">
+            <div className="px-4 py-3 border-b border-[var(--border-primary)] hv-elevated flex items-center justify-between">
+              <h4 className="font-bold text-[var(--text-primary)] text-sm">
                 {isHindi ? 'स्टॉक ट्रांसफर रजिस्टर (Stock Transfer Slips)' : 'Inter-Godown Transfer History'}
               </h4>
             </div>
             <div className="overflow-x-auto max-h-[45vh]">
-              <table className="w-full text-left border-collapse text-sm text-slate-200">
-                <thead className="sticky top-0 z-10 bg-slate-800">
-                  <tr className="border-b border-slate-700 text-slate-300 font-bold uppercase text-xs">
+              <table className="w-full text-left border-collapse text-sm text-[var(--text-primary)]">
+                <thead className="sticky top-0 z-10 bg-[var(--bg-elevated)]">
+                  <tr className="border-b border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold uppercase text-xs">
                     <th className="py-3 px-4">{isHindi ? 'ट्रांसफर #' : 'Transfer #'}</th>
                     <th className="py-3 px-3">{isHindi ? 'दिनांक' : 'Date'}</th>
                     <th className="py-3 px-3">{isHindi ? 'कहाँ से' : 'From Godown'}</th>
@@ -2371,26 +2371,26 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     <th className="py-3 px-4 text-center">{isHindi ? 'स्लिप प्रिंट' : 'Slip'}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-[var(--border-primary)]">
                   {transfers.length === 0 ? (
                     <tr>
-                      <td colSpan={6} className="py-8 text-center text-slate-400">
+                      <td colSpan={6} className="py-8 text-center text-[var(--text-muted)]">
                         {isHindi ? 'अभी तक कोई गोदाम ट्रांसफर नहीं हुआ है।' : 'No inter-godown transfers recorded yet.'}
                       </td>
                     </tr>
                   ) : (
                     transfers.map((tr) => (
-                      <tr key={tr.id} className="hover:bg-slate-800/40">
-                        <td className="py-2.5 px-4 font-mono font-bold text-cyan-300">{tr.transferNumber}</td>
-                        <td className="py-2.5 px-3 font-mono text-slate-300">{tr.date}</td>
-                        <td className="py-2.5 px-3 text-rose-300">{tr.fromGodownName}</td>
-                        <td className="py-2.5 px-3 text-emerald-300">{tr.toGodownName}</td>
-                        <td className="py-2.5 px-3 text-right font-mono tabular-nums font-bold text-white">{tr.totalQuantity}</td>
+                      <tr key={tr.id} className="hover:bg-[var(--hover-surface)]">
+                        <td className="py-2.5 px-4 font-mono font-bold text-cyan-500">{tr.transferNumber}</td>
+                        <td className="py-2.5 px-3 font-mono text-[var(--text-secondary)]">{tr.date}</td>
+                        <td className="py-2.5 px-3 text-rose-500 font-semibold">{tr.fromGodownName}</td>
+                        <td className="py-2.5 px-3 text-emerald-500 font-semibold">{tr.toGodownName}</td>
+                        <td className="py-2.5 px-3 text-right font-mono tabular-nums font-bold text-[var(--text-primary)]">{tr.totalQuantity}</td>
                         <td className="py-2.5 px-4 text-center">
                           <button
                             type="button"
                             onClick={() => setPrintTransferSlip(tr)}
-                            className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-indigo-400"
+                            className="p-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-indigo-500 border border-[var(--border-primary)]"
                             title={isHindi ? 'ट्रांसफर स्लिप प्रिंट' : 'Print Transfer Slip'}
                           >
                             <Printer className="w-3.5 h-3.5" />
@@ -2410,24 +2410,24 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {activeSubTab === 'adjustments' && (
         <div className="flex-1 min-h-0 overflow-y-auto space-y-6 pr-1 animate-fadeIn">
           {/* SECTION A: Negative Stock Reconciliation & Bulk Clearance */}
-          <div className="bg-slate-900 border border-rose-500/30 rounded-3xl p-5 shadow-xl space-y-4">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div className="hv-surface border border-rose-500/30 rounded-3xl p-5 shadow-xl space-y-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-[var(--border-primary)] pb-3">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400 shrink-0">
+                <div className="w-10 h-10 rounded-2xl hv-pill-rose border flex items-center justify-center shrink-0">
                   <ShieldAlert className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-extrabold text-white flex items-center gap-2 flex-wrap">
+                  <h3 className="text-sm font-extrabold text-[var(--text-primary)] flex items-center gap-2 flex-wrap">
                     <span>{isHindi ? 'नेगेटिव स्टॉक एडजस्टमेंट व क्लियरेंस (Negative Stock Reconciliation)' : 'Negative Stock Clearance & Reconciliation'}</span>
                     <span className={`text-[11px] font-mono px-2.5 py-0.5 rounded-full border ${
                       negativeStockItems.length > 0
-                        ? 'bg-rose-500/20 text-rose-300 border-rose-500/40'
-                        : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                        ? 'hv-pill-rose'
+                        : 'hv-pill-emerald'
                     }`}>
                       {negativeStockItems.length} {isHindi ? 'नेगेटिव आइटम' : 'Negative Items'}
                     </span>
                   </h3>
-                  <p className="text-xs text-slate-400 mt-0.5">
+                  <p className="text-xs text-[var(--text-muted)] mt-0.5">
                     {isHindi
                       ? 'जिन आइटम्स का स्टॉक माइनस (-) में चला गया है, उन्हें कारण व कमेंट के साथ एक साथ 0 या वास्तविक भौतिक मात्रा पर समायोजित करें।'
                       : 'Reconcile items with negative stock balances to zero or verified physical counts, complete with audit reason and comments.'}
@@ -2445,7 +2445,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       negativeStockItems.forEach((it) => { next[it.id] = !allSelected; });
                       setNegSelectedIds(next);
                     }}
-                    className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold cursor-pointer"
+                    className="px-3 py-1.5 rounded-xl bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] text-xs font-bold cursor-pointer transition"
                   >
                     {negativeStockItems.every((it) => negSelectedIds[it.id])
                       ? (isHindi ? 'सभी अचयनित करें' : 'Unselect All')
@@ -2458,7 +2458,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       negativeStockItems.forEach((it) => { next[it.id] = 0; });
                       setNegTargetQtys(next);
                     }}
-                    className="px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-bold cursor-pointer"
+                    className="px-3 py-1.5 rounded-xl hv-pill-amber border hover:opacity-90 text-xs font-bold cursor-pointer transition"
                   >
                     {isHindi ? 'सभी को 0 (Nil) सेट करें' : 'Set All Target Qty = 0'}
                   </button>
@@ -2469,20 +2469,20 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
             {negBatchNotice && (
               <div className={`px-4 py-2.5 rounded-2xl border text-xs font-bold ${
                 negBatchNotice.type === 'ok'
-                  ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300'
-                  : 'bg-rose-500/15 border-rose-500/40 text-rose-300'
+                  ? 'hv-pill-emerald'
+                  : 'hv-pill-rose'
               }`}>
                 {negBatchNotice.text}
               </div>
             )}
 
             {negativeStockItems.length === 0 ? (
-              <div className="bg-slate-950/70 border border-slate-800 rounded-2xl p-6 text-center space-y-1.5">
-                <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
-                <div className="text-sm font-bold text-white">
+              <div className="hv-elevated border border-[var(--border-primary)] rounded-2xl p-6 text-center space-y-1.5">
+                <CheckCircle2 className="w-8 h-8 text-emerald-500 mx-auto" />
+                <div className="text-sm font-bold text-[var(--text-primary)]">
                   {isHindi ? 'बहुत बढ़िया! अभी कोई भी आइटम नेगेटिव स्टॉक में नहीं है।' : 'Clean Inventory! Zero items currently have negative stock.'}
                 </div>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-[var(--text-muted)]">
                   {isHindi
                     ? 'आप नीचे दिए गए फॉर्म से किसी भी सिंगल पर्टिकुलर स्टॉक आइटम का एडजस्टमेंट कर सकते हैं।'
                     : 'You can still adjust any single particular stock item below with reason & comments.'}
@@ -2490,10 +2490,10 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
               </div>
             ) : (
               <form onSubmit={handleApplyBatchNegativeClearance} className="space-y-4">
-                <div className="overflow-x-auto max-h-[45vh] bg-slate-950/70 rounded-2xl border border-slate-800">
-                  <table className="w-full text-left border-collapse text-sm text-slate-200">
-                    <thead className="sticky top-0 z-10 bg-slate-800">
-                      <tr className="border-b border-slate-700 text-slate-300 font-bold uppercase tracking-wider text-xs">
+                <div className="overflow-x-auto max-h-[45vh] hv-elevated rounded-2xl border border-[var(--border-primary)]">
+                  <table className="w-full text-left border-collapse text-sm text-[var(--text-primary)]">
+                    <thead className="sticky top-0 z-10 bg-[var(--bg-elevated)]">
+                      <tr className="border-b border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold uppercase tracking-wider text-xs">
                         <th className="py-3 px-3 w-10 text-center">{isHindi ? 'चुनें' : 'Pick'}</th>
                         <th className="py-3 px-3">{isHindi ? 'स्टॉक आइटम व कोड' : 'Stock Item & Code'}</th>
                         <th className="py-3 px-3 text-center">{isHindi ? 'गोदाम' : 'Godown'}</th>
@@ -2503,7 +2503,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                         <th className="py-3 px-3 text-center">{isHindi ? 'सिंगल एडजस्ट' : 'Single'}</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/70">
+                    <tbody className="divide-y divide-[var(--border-primary)]">
                       {negativeStockItems.map((item) => {
                         const checked = Boolean(negSelectedIds[item.id]);
                         const oldQty = Number(item.currentStock || 0);
@@ -2511,7 +2511,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                         const diff = Math.round((targetQty - oldQty) * 1000) / 1000;
                         const gObj = godowns.find((g) => g.id === item.defaultGodownId) || godowns[0];
                         return (
-                          <tr key={item.id} className={`hover:bg-slate-800/40 transition ${checked ? 'bg-rose-950/10' : ''}`}>
+                          <tr key={item.id} className={`hover:bg-[var(--hover-surface)] transition ${checked ? 'bg-rose-500/5' : ''}`}>
                             <td className="py-2.5 px-3 text-center">
                               <input
                                 type="checkbox"
@@ -2521,15 +2521,15 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                               />
                             </td>
                             <td className="py-2.5 px-3">
-                              <div className="font-bold text-white">{item.name}</div>
-                              <div className="text-[10px] font-mono text-slate-400">
+                              <div className="font-bold text-[var(--text-primary)]">{item.name}</div>
+                              <div className="text-[10px] font-mono text-[var(--text-muted)]">
                                 {item.code || '-'} • {item.category} • Unit: {item.unit || 'PCS'}
                               </div>
                             </td>
-                            <td className="py-2.5 px-3 text-center text-slate-300 text-[11px]">
+                            <td className="py-2.5 px-3 text-center text-[var(--text-secondary)] text-[11px]">
                               {gObj?.name || item.location || 'Main Godown'}
                             </td>
-                            <td className="py-2.5 px-3 text-right font-mono font-black text-rose-400">
+                            <td className="py-2.5 px-3 text-right font-mono font-black text-rose-500">
                               {oldQty} {item.unit || 'PCS'}
                             </td>
                             <td className="py-2.5 px-3 text-center">
@@ -2543,10 +2543,10 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                                     [item.id]: parseFloat(e.target.value) || 0
                                   }))
                                 }
-                                className="w-24 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-center text-white font-mono font-bold focus:border-emerald-400 focus:outline-none"
+                                className="w-24 hv-input border border-[var(--border-subtle)] rounded-lg px-2 py-1 text-center font-mono font-bold focus:border-emerald-500 focus:outline-none"
                               />
                             </td>
-                            <td className="py-2.5 px-3 text-right font-mono font-bold text-emerald-400">
+                            <td className="py-2.5 px-3 text-right font-mono font-bold text-emerald-500">
                               {diff >= 0 ? `+${diff}` : diff} {item.unit || 'PCS'}
                             </td>
                             <td className="py-2.5 px-3 text-center">
@@ -2564,7 +2564,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                                       : `Cleared negative stock balance (${oldQty} ${item.unit || 'PCS'})`
                                   );
                                 }}
-                                className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-indigo-600 text-indigo-300 hover:text-white text-[11px] font-bold transition cursor-pointer"
+                                className="px-2.5 py-1 rounded-lg hv-pill-indigo border hover:bg-indigo-600 hover:text-white text-[11px] font-bold transition cursor-pointer"
                               >
                                 {isHindi ? 'सिर्फ इसे चुनें' : 'Focus Single'}
                               </button>
@@ -2577,15 +2577,15 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 </div>
 
                 {perms.canCreateEditMasters && (
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-3 bg-slate-950/80 p-4 rounded-2xl border border-slate-800 items-end text-xs">
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-3 hv-elevated p-4 rounded-2xl border border-[var(--border-primary)] items-end text-xs">
                     <div className="md:col-span-4">
-                      <label className="block text-slate-300 font-bold mb-1">
+                      <label className="block text-[var(--text-secondary)] font-bold mb-1">
                         {isHindi ? 'नेगेटिव स्टॉक समायोजन का कारण *' : 'Adjustment Reason *'}
                       </label>
                       <select
                         value={negBatchReason}
                         onChange={(e) => setNegBatchReason(e.target.value)}
-                        className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white focus:border-rose-400 focus:outline-none cursor-pointer"
+                        className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2.5 focus:border-rose-500 focus:outline-none cursor-pointer"
                       >
                         <option value="Negative Stock Clearance">Negative Stock Clearance (नेगेटिव स्टॉक समायोजन)</option>
                         <option value="Opening Stock Reconciliation">Opening Stock Reconciliation (आरंभिक स्टॉक मिलान)</option>
@@ -2595,7 +2595,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     </div>
 
                     <div className="md:col-span-5">
-                      <label className="block text-amber-300 font-bold mb-1">
+                      <label className="block text-amber-500 font-bold mb-1">
                         {isHindi ? 'विस्तृत कमेंट (किस स्टॉक व क्यों एडजस्टमेंट हो रहा है) *' : 'Detailed Comments (Which stock & why) *'}
                       </label>
                       <input
@@ -2603,7 +2603,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                         value={negBatchComment}
                         onChange={(e) => setNegBatchComment(e.target.value)}
                         placeholder={isHindi ? 'जैसे: मार्च माह भौतिक मिलान के बाद नेगेटिव स्टॉक को शून्य किया गया...' : 'e.g. Month-end physical verification reconciliation to clear negative balances...'}
-                        className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2.5 text-white placeholder-slate-500 focus:border-amber-400 focus:outline-none"
+                        className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2.5 placeholder-[var(--text-placeholder)] focus:border-amber-500 focus:outline-none"
                         required
                       />
                     </div>
@@ -2611,7 +2611,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     <div className="md:col-span-3">
                       <button
                         type="submit"
-                        className="w-full bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-extrabold py-2.5 px-4 rounded-xl shadow-lg transition cursor-pointer flex items-center justify-center gap-1.5"
+                        className="w-full bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white hv-keep-white font-extrabold py-2.5 px-4 rounded-xl shadow-lg transition cursor-pointer flex items-center justify-center gap-1.5"
                       >
                         <CheckCircle2 className="w-4 h-4" />
                         <span>{isHindi ? 'चुने गए नेगेटिव स्टॉक क्लियर करें' : 'Clear Selected Negative Stock'}</span>
@@ -2624,17 +2624,17 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           </div>
 
           {/* SECTION B: Single Particular Stock Adjustment Form */}
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-5 shadow-xl space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+          <div className="hv-surface border border-[var(--border-primary)] rounded-3xl p-5 shadow-xl space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[var(--border-primary)] pb-3">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400">
+                <div className="w-9 h-9 rounded-xl hv-pill-amber border flex items-center justify-center">
                   <SlidersHorizontal className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-extrabold text-white">
+                  <h3 className="text-sm font-extrabold text-[var(--text-primary)]">
                     {isHindi ? 'सिंगल पर्टिकुलर स्टॉक एडजस्टमेंट (Particular Stock Item)' : 'Single Particular Stock Item Adjustment'}
                   </h3>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-[var(--text-muted)]">
                     {isHindi
                       ? 'किसी भी एक विशेष आइटम को चुनकर उसकी मात्रा बढ़ाएं, घटाएं या भौतिक स्टॉक सेट करें — पूर्ण कमेंट व कारण सहित'
                       : 'Select any specific item to set its exact physical quantity or add/subtract units with full audit comments'}
@@ -2646,8 +2646,8 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
             {singleAdjNotice && (
               <div className={`px-4 py-2.5 rounded-2xl border text-xs font-bold ${
                 singleAdjNotice.type === 'ok'
-                  ? 'bg-emerald-500/15 border-emerald-500/40 text-emerald-300'
-                  : 'bg-rose-500/15 border-rose-500/40 text-rose-300'
+                  ? 'hv-pill-emerald'
+                  : 'hv-pill-rose'
               }`}>
                 {singleAdjNotice.text}
               </div>
@@ -2656,23 +2656,23 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
             <form onSubmit={handleApplySingleStockAdjustment} className="space-y-4 text-xs">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-bold mb-1">
                     {isHindi ? 'आइटम खोजें (Filter Item)' : 'Quick Filter Item'}
                   </label>
                   <div className="relative">
-                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <Search className="w-3.5 h-3.5 text-[var(--text-muted)] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                     <input
                       type="text"
                       value={singleAdjSearch}
                       onChange={(e) => setSingleAdjSearch(e.target.value)}
                       placeholder={isHindi ? 'नाम या कोड लिखें...' : 'Filter by name or code...'}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-3 py-2.5 text-white focus:border-indigo-500 focus:outline-none"
+                      className="w-full hv-input border border-[var(--border-subtle)] rounded-xl pl-8 pr-3 py-2.5 focus:border-indigo-500 focus:outline-none"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-bold mb-1">
                     {isHindi ? 'पर्टिकुलर स्टॉक आइटम चुनें *' : 'Select Particular Item *'}
                   </label>
                   <select
@@ -2686,7 +2686,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                         setSingleAdjQtyInput(singleAdjMode === 'SET_FINAL' ? (Number(found.currentStock || 0) < 0 ? 0 : Number(found.currentStock || 0)) : 0);
                       }
                     }}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-white font-bold focus:border-amber-400 focus:outline-none cursor-pointer"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2.5 font-bold focus:border-amber-500 focus:outline-none cursor-pointer"
                   >
                     {singleAdjSelectableItems.map((it) => (
                       <option key={it.id} value={it.id}>
@@ -2697,13 +2697,13 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-bold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-bold mb-1">
                     {isHindi ? 'गोदाम (Target Godown)' : 'Target Godown'}
                   </label>
                   <select
                     value={singleAdjGodownId}
                     onChange={(e) => setSingleAdjGodownId(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-white focus:border-amber-400 focus:outline-none cursor-pointer"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2.5 focus:border-amber-500 focus:outline-none cursor-pointer"
                   >
                     {godowns.map((g) => (
                       <option key={g.id} value={g.id}>{g.name}</option>
@@ -2713,31 +2713,31 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
               </div>
 
               {selectedSingleAdjItem && (
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-3 bg-slate-950/70 p-3.5 rounded-2xl border border-slate-800">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-3 hv-elevated p-3.5 rounded-2xl border border-[var(--border-primary)]">
                   <div>
-                    <div className="text-[10px] uppercase font-bold text-slate-400">
+                    <div className="text-[10px] uppercase font-bold text-[var(--text-muted)]">
                       {isHindi ? 'वर्तमान सिस्टम स्टॉक' : 'Current System Stock'}
                     </div>
                     <div className={`text-lg font-black font-mono mt-0.5 ${
-                      (selectedSingleAdjItem.currentStock || 0) < 0 ? 'text-rose-400' : 'text-white'
+                      (selectedSingleAdjItem.currentStock || 0) < 0 ? 'text-rose-500' : 'text-[var(--text-primary)]'
                     }`}>
                       {selectedSingleAdjItem.currentStock || 0} {selectedSingleAdjItem.unit || 'PCS'}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 font-bold mb-1">
+                    <label className="block text-[var(--text-secondary)] font-bold mb-1">
                       {isHindi ? 'एडजस्टमेंट मोड' : 'Adjustment Mode'}
                     </label>
-                    <div className="grid grid-cols-2 gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+                    <div className="grid grid-cols-2 gap-1 hv-surface p-1 rounded-xl border border-[var(--border-primary)]">
                       <button
                         type="button"
                         onClick={() => {
                           setSingleAdjMode('SET_FINAL');
                           setSingleAdjQtyInput(Number(selectedSingleAdjItem.currentStock || 0) < 0 ? 0 : Number(selectedSingleAdjItem.currentStock || 0));
                         }}
-                        className={`py-1.5 rounded-lg font-bold text-[11px] cursor-pointer ${
-                          singleAdjMode === 'SET_FINAL' ? 'bg-amber-500 text-slate-950' : 'text-slate-400 hover:text-white'
+                        className={`py-1.5 rounded-lg font-bold text-[11px] cursor-pointer transition ${
+                          singleAdjMode === 'SET_FINAL' ? 'bg-amber-500 text-slate-950 font-extrabold' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                         }`}
                       >
                         {isHindi ? 'अंतिम स्टॉक सेट' : 'Final Qty'}
@@ -2748,8 +2748,8 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                           setSingleAdjMode('DELTA');
                           setSingleAdjQtyInput(0);
                         }}
-                        className={`py-1.5 rounded-lg font-bold text-[11px] cursor-pointer ${
-                          singleAdjMode === 'DELTA' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'
+                        className={`py-1.5 rounded-lg font-bold text-[11px] cursor-pointer transition ${
+                          singleAdjMode === 'DELTA' ? 'bg-indigo-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                         }`}
                       >
                         {isHindi ? '+ / - अंतर जोड़ें' : '+ / - Delta'}
@@ -2758,7 +2758,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 font-bold mb-1">
+                    <label className="block text-[var(--text-secondary)] font-bold mb-1">
                       {singleAdjMode === 'SET_FINAL'
                         ? (isHindi ? 'नया भौतिक स्टॉक *' : 'New Physical Qty *')
                         : (isHindi ? 'जोड़ें (+) या घटाएं (-) *' : 'Add (+) or Deduct (-) *')}
@@ -2768,7 +2768,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       step="any"
                       value={singleAdjQtyInput}
                       onChange={(e) => setSingleAdjQtyInput(parseFloat(e.target.value) || 0)}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-center font-mono font-bold text-base text-white focus:border-amber-400 focus:outline-none"
+                      className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 text-center font-mono font-bold text-base focus:border-amber-500 focus:outline-none"
                       required
                     />
                   </div>
@@ -2781,16 +2781,16 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       const valImpact = diffQ * Number(selectedSingleAdjItem.purchasePrice || 0);
                       return (
                         <div className="space-y-0.5 text-right md:text-left">
-                          <div className="text-[10px] uppercase font-bold text-slate-400">
+                          <div className="text-[10px] uppercase font-bold text-[var(--text-muted)]">
                             {isHindi ? 'परिणाम (Result Preview)' : 'Resulting Stock & Impact'}
                           </div>
-                          <div className="font-mono font-black text-sm text-indigo-300">
+                          <div className="font-mono font-black text-sm text-indigo-500">
                             {oldQ} → {Math.round(newQ * 1000) / 1000} {selectedSingleAdjItem.unit || 'PCS'}{' '}
-                            <span className={diffQ >= 0 ? 'text-emerald-400' : 'text-rose-400'}>
+                            <span className={diffQ >= 0 ? 'text-emerald-500' : 'text-rose-500'}>
                               ({diffQ >= 0 ? `+${diffQ}` : diffQ})
                             </span>
                           </div>
-                          <div className="text-[11px] font-mono text-slate-400">
+                          <div className="text-[11px] font-mono text-[var(--text-muted)]">
                             Value: {valImpact >= 0 ? '+' : ''}{formatCurrency(valImpact, currency)}
                           </div>
                         </div>
@@ -2802,13 +2802,13 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
 
               <div className="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
                 <div className="md:col-span-4">
-                  <label className="block text-slate-300 font-bold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-bold mb-1">
                     {isHindi ? 'समायोजन का कारण (Reason) *' : 'Adjustment Reason *'}
                   </label>
                   <select
                     value={singleAdjReason}
                     onChange={(e) => setSingleAdjReason(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-white focus:border-amber-400 focus:outline-none cursor-pointer"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2.5 focus:border-amber-500 focus:outline-none cursor-pointer"
                   >
                     <option value="Negative Stock Clearance">Negative Stock Clearance (नेगेटिव स्टॉक क्लियरेंस)</option>
                     <option value="Physical Count Discrepancy">Physical Count Discrepancy (भौतिक सत्यापन अंतर)</option>
@@ -2822,7 +2822,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 </div>
 
                 <div className="md:col-span-5">
-                  <label className="block text-amber-300 font-bold mb-1">
+                  <label className="block text-amber-500 font-bold mb-1">
                     {isHindi ? 'कमेंट / विवरण (किस स्टॉक के साथ और क्यों) *' : 'Comments (Which stock & why) *'}
                   </label>
                   <input
@@ -2830,7 +2830,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     value={singleAdjComment}
                     onChange={(e) => setSingleAdjComment(e.target.value)}
                     placeholder={isHindi ? 'लिखें: किस गोदाम/आइटम का स्टॉक किस कारण से एडजस्ट किया जा रहा है...' : 'Describe which item/godown is adjusted and the exact reason...'}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-white placeholder-slate-500 focus:border-amber-400 focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2.5 placeholder-[var(--text-placeholder)] focus:border-amber-500 focus:outline-none"
                     required
                   />
                 </div>
@@ -2845,7 +2845,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       <span>{isHindi ? 'स्टॉक एडजस्टमेंट लागू करें' : 'Apply Stock Adjustment'}</span>
                     </button>
                   ) : (
-                    <div className="text-[11px] text-slate-500 text-center py-2">
+                    <div className="text-[11px] text-[var(--text-muted)] text-center py-2">
                       {isHindi ? 'केवल एडमिन/मैनेजर अनुमति' : 'Admin/Manager only'}
                     </div>
                   )}
@@ -2855,17 +2855,17 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
           </div>
 
           {/* SECTION C: Stock Adjustment Register & Comments Audit History */}
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl">
-            <div className="p-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="hv-surface border border-[var(--border-primary)] rounded-3xl overflow-hidden shadow-2xl">
+            <div className="p-4 border-b border-[var(--border-primary)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <h3 className="font-bold text-white text-sm flex items-center gap-2">
-                  <History className="w-4 h-4 text-indigo-400" />
+                <h3 className="font-bold text-[var(--text-primary)] text-sm flex items-center gap-2">
+                  <History className="w-4 h-4 text-indigo-500" />
                   <span>{isHindi ? 'स्टॉक एडजस्टमेंट रजिस्टर व कमैंट्स लॉग' : 'Stock Adjustment Register & Comments Log'}</span>
-                  <span className="text-[11px] font-mono bg-slate-800 text-indigo-300 px-2 py-0.5 rounded-full">
+                  <span className="text-[11px] font-mono hv-pill-indigo border px-2 py-0.5 rounded-full">
                     {filteredAdjustmentHistory.length}
                   </span>
                 </h3>
-                <p className="text-[11px] text-slate-400">
+                <p className="text-[11px] text-[var(--text-muted)]">
                   {isHindi
                     ? 'प्रत्येक स्टॉक एडजस्टमेंट का पूरा इतिहास — कौन सा आइटम, पुराना/नया स्टॉक, कारण और टिप्पणियाँ'
                     : 'Complete audit register showing every adjusted item, before/after quantities, reason, and detailed comments'}
@@ -2874,20 +2874,20 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
 
               <div className="flex flex-wrap items-center gap-2">
                 <div className="relative">
-                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <Search className="w-3.5 h-3.5 text-[var(--text-muted)] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
                     type="text"
                     value={adjHistorySearch}
                     onChange={(e) => setAdjHistorySearch(e.target.value)}
                     placeholder={isHindi ? 'इतिहास / कमेंट खोजें...' : 'Search item, reason, comment...'}
-                    className="bg-slate-950 border border-slate-800 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white focus:border-indigo-500 focus:outline-none"
+                    className="hv-input border border-[var(--border-subtle)] rounded-xl pl-8 pr-3 py-1.5 text-xs focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
                 {perms.canExportData && filteredAdjustmentHistory.length > 0 && (
                   <button
                     type="button"
                     onClick={exportAdjustmentRegisterCsv}
-                    className="bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-extrabold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 cursor-pointer transition"
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1.5 cursor-pointer transition"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'रजिस्टर CSV' : 'Export CSV'}</span>
@@ -2897,9 +2897,9 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
             </div>
 
             <div className="overflow-x-auto max-h-[45vh]">
-              <table className="w-full text-left border-collapse text-sm text-slate-200">
-                <thead className="sticky top-0 z-10 bg-slate-800">
-                  <tr className="border-b border-slate-700 text-slate-300 font-bold uppercase tracking-wider text-xs">
+              <table className="w-full text-left border-collapse text-sm text-[var(--text-primary)]">
+                <thead className="sticky top-0 z-10 bg-[var(--bg-elevated)]">
+                  <tr className="border-b border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold uppercase tracking-wider text-xs">
                     <th className="py-3 px-4">{isHindi ? 'दिनांक' : 'Date'}</th>
                     <th className="py-3 px-3">{isHindi ? 'आइटम नाम व कोड' : 'Item Name & Code'}</th>
                     <th className="py-3 px-3">{isHindi ? 'गोदाम' : 'Godown'}</th>
@@ -2911,10 +2911,10 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     <th className="py-3 px-3">{isHindi ? 'उपयोगकर्ता' : 'By'}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-[var(--border-primary)]">
                   {filteredAdjustmentHistory.length === 0 ? (
                     <tr>
-                      <td colSpan={9} className="py-8 text-center text-slate-400">
+                      <td colSpan={9} className="py-8 text-center text-[var(--text-muted)]">
                         {isHindi
                           ? 'अभी तक कोई स्टॉक एडजस्टमेंट दर्ज नहीं हुआ है।'
                           : 'No stock adjustments recorded yet.'}
@@ -2922,27 +2922,27 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     </tr>
                   ) : (
                     filteredAdjustmentHistory.map((adj) => (
-                      <tr key={adj.id} className="hover:bg-slate-800/40 transition">
-                        <td className="py-2.5 px-4 font-mono text-slate-300 whitespace-nowrap">{adj.date}</td>
+                      <tr key={adj.id} className="hover:bg-[var(--hover-surface)] transition">
+                        <td className="py-2.5 px-4 font-mono text-[var(--text-secondary)] whitespace-nowrap">{adj.date}</td>
                         <td className="py-2.5 px-3">
-                          <div className="font-bold text-white">{adj.itemName}</div>
-                          <div className="text-xs font-mono text-slate-400">{adj.itemCode || '-'}</div>
+                          <div className="font-bold text-[var(--text-primary)]">{adj.itemName}</div>
+                          <div className="text-xs font-mono text-[var(--text-muted)]">{adj.itemCode || '-'}</div>
                         </td>
-                        <td className="py-2.5 px-3 text-slate-200 text-xs">{adj.godownName || 'Main Godown'}</td>
-                        <td className={`py-2.5 px-3 text-right font-mono tabular-nums font-bold ${adj.previousStock < 0 ? 'text-rose-400' : 'text-slate-200'}`}>
+                        <td className="py-2.5 px-3 text-[var(--text-secondary)] text-xs">{adj.godownName || 'Main Godown'}</td>
+                        <td className={`py-2.5 px-3 text-right font-mono tabular-nums font-bold ${adj.previousStock < 0 ? 'text-rose-500' : 'text-[var(--text-secondary)]'}`}>
                           {adj.previousStock}
                         </td>
-                        <td className="py-2.5 px-3 text-right font-mono tabular-nums font-bold text-white">{adj.newStock}</td>
-                        <td className={`py-2.5 px-3 text-right font-mono tabular-nums font-black ${adj.difference >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        <td className="py-2.5 px-3 text-right font-mono tabular-nums font-bold text-[var(--text-primary)]">{adj.newStock}</td>
+                        <td className={`py-2.5 px-3 text-right font-mono tabular-nums font-black ${adj.difference >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
                           {adj.difference >= 0 ? `+${adj.difference}` : adj.difference}
                         </td>
                         <td className="py-2.5 px-3">
-                          <span className="bg-amber-500/15 text-amber-300 border border-amber-500/30 text-xs font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
+                          <span className="hv-pill-amber border text-xs font-bold px-2 py-0.5 rounded-full whitespace-nowrap">
                             {adj.reason}
                           </span>
                         </td>
-                        <td className="py-2.5 px-4 text-slate-200 max-w-xs">{adj.notes || adj.reason}</td>
-                        <td className="py-2.5 px-3 text-slate-300 text-xs whitespace-nowrap">{adj.adjustedBy || 'Admin'}</td>
+                        <td className="py-2.5 px-4 text-[var(--text-secondary)] max-w-xs">{adj.notes || adj.reason}</td>
+                        <td className="py-2.5 px-3 text-[var(--text-muted)] text-xs whitespace-nowrap">{adj.adjustedBy || 'Admin'}</td>
                       </tr>
                     ))
                   )}
@@ -2958,26 +2958,26 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {/* MODAL 1: Add or Edit Item Modal */}
       {showAddEditModal && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-2xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden my-auto animate-fadeIn">
-            <div className="bg-slate-950 px-6 py-4 border-b border-slate-800 flex items-center justify-between shrink-0">
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-3xl w-full max-w-2xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden my-auto animate-fadeIn">
+            <div className="hv-elevated px-6 py-4 border-b border-[var(--border-primary)] flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
+                <div className="w-8 h-8 rounded-xl hv-pill-indigo border flex items-center justify-center">
                   <Package className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white">
+                  <h3 className="text-base font-bold text-[var(--text-primary)]">
                     {editingItem 
                       ? (isHindi ? 'आइटम विवरण संपादित करें' : 'Edit Inventory Item') 
                       : (isHindi ? 'नया इन्वेंटरी स्टॉक आइटम जोड़ें' : 'Add New Inventory Item')}
                   </h3>
-                  <p className="text-[11px] text-slate-400">
+                  <p className="text-[11px] text-[var(--text-muted)]">
                     {isHindi ? 'स्टॉक स्तर, रीऑर्डर पॉइंट्स और टैक्स दरें निर्धारित करें' : 'Define stock levels, reorder threshold, and taxation rates'}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setShowAddEditModal(false)}
-                className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800"
+                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 rounded-lg hover:bg-[var(--hover-surface)] transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -2985,15 +2985,15 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
 
             <form onSubmit={handleSaveItem} className="p-6 space-y-4 overflow-y-auto text-xs">
               {itemFormError && (
-                <div className="bg-rose-500/15 border border-rose-500/40 text-rose-300 px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-between gap-2">
+                <div className="hv-pill-rose border px-3 py-2 rounded-xl text-xs font-semibold flex items-center justify-between gap-2">
                   <span>{itemFormError}</span>
-                  <button type="button" onClick={() => setItemFormError(null)} className="text-rose-200 hover:text-white">✕</button>
+                  <button type="button" onClick={() => setItemFormError(null)} className="opacity-80 hover:opacity-100 cursor-pointer">✕</button>
                 </div>
               )}
               {/* Row 1: Item Name, Code & Barcode */}
               <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
                 <div className="md:col-span-2">
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'आइटम का नाम *' : 'Item Name *'}
                   </label>
                   <input
@@ -3001,32 +3001,32 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="e.g. Dell Core i7 Business Laptop"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-medium focus:border-indigo-500 focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-medium focus:border-indigo-500 focus:outline-none"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1 flex items-center justify-between">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1 flex items-center justify-between">
                     <span>{isHindi ? 'आइटम कोड' : 'Item Code'}</span>
-                    <span className="text-[10px] text-indigo-400 font-normal">{isHindi ? 'स्वतः' : 'Auto'}</span>
+                    <span className="text-[10px] text-indigo-500 font-normal">{isHindi ? 'स्वतः' : 'Auto'}</span>
                   </label>
                   <input
                     type="text"
                     value={code}
                     onChange={(e) => setCode(e.target.value)}
                     placeholder="ITM-101"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-mono focus:border-indigo-500 focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1 flex items-center justify-between gap-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1 flex items-center justify-between gap-1">
                     <span>{isHindi ? 'बारकोड (EAN-13)' : 'Barcode (EAN-13)'}</span>
                     <button
                       type="button"
                       onClick={() => setBarcode(generateEan13Barcode(code || name || Date.now()))}
-                      className="text-[10px] bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/35 text-cyan-300 font-bold px-2 py-0.5 rounded cursor-pointer transition"
+                      className="text-[10px] hv-pill-cyan border font-bold px-2 py-0.5 rounded cursor-pointer transition hover:opacity-90"
                     >
                       {isHindi ? 'ऑटो बारकोड बनाएं' : 'Auto-Generate Barcode'}
                     </button>
@@ -3036,12 +3036,12 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     value={barcode}
                     onChange={(e) => setBarcode(e.target.value)}
                     placeholder="890..."
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-cyan-300 font-mono focus:border-cyan-500 focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-cyan-500 font-mono focus:border-cyan-500 focus:outline-none"
                   />
                 </div>
               </div>
               {barcode && (
-                <div className="bg-white rounded-xl p-2.5 flex items-center justify-between gap-3">
+                <div className="bg-white rounded-xl p-2.5 flex items-center justify-between gap-3 border border-slate-300">
                   <BarcodeSvg value={barcode} height={28} />
                   <div className="flex items-center gap-2 shrink-0">
                     <span className="text-[10px] font-mono text-slate-700 font-bold">POS READY</span>
@@ -3058,7 +3058,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                           unit: unit || 'PCS',
                         })
                       }
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-white text-[11px] font-bold cursor-pointer transition"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-700 hover:bg-indigo-600 text-white hv-keep-white text-[11px] font-bold cursor-pointer transition shadow-sm"
                     >
                       <Printer className="w-3 h-3 text-cyan-400" />
                       <span>{isHindi ? 'स्टिकर प्रिंट' : 'Print Stickers'}</span>
@@ -3070,14 +3070,14 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
               {/* Row 2: Category, Unit, HSN */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'श्रेणी (Category) *' : 'Category *'}
                   </label>
                   <div className="space-y-1.5">
                     <select
                       value={category}
                       onChange={(e) => setCategory(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-indigo-500 focus:outline-none"
+                      className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 focus:border-indigo-500 focus:outline-none"
                     >
                       <option value="">{isHindi ? '-- श्रेणी चुनें --' : '-- Select Category --'}</option>
                       <option value="General Goods">General Goods</option>
@@ -3096,19 +3096,19 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                         value={customCategoryInput}
                         onChange={(e) => setCustomCategoryInput(e.target.value)}
                         placeholder="Type new category..."
-                        className="w-full bg-slate-950 border border-indigo-500/50 rounded-xl p-2 text-white text-xs"
+                        className="w-full hv-input border border-indigo-500/50 rounded-xl p-2 text-xs"
                       />
                     )}
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1 flex items-center justify-between">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1 flex items-center justify-between">
                     <span>{isHindi ? 'माप की इकाई (Unit) *' : 'Unit of Measure *'}</span>
                     <button
                       type="button"
                       onClick={() => setShowAddUnitInput(!showAddUnitInput)}
-                      className="text-[10px] text-indigo-400 hover:text-indigo-300 font-bold underline"
+                      className="text-[10px] text-indigo-500 hover:underline font-bold cursor-pointer"
                     >
                       + {isHindi ? 'नई इकाई' : 'New Unit'}
                     </button>
@@ -3120,12 +3120,12 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                         value={newUnitName}
                         onChange={(e) => setNewUnitName(e.target.value)}
                         placeholder="LTR, MTR, PKT"
-                        className="w-full bg-slate-950 border border-indigo-500 rounded-xl p-2 text-white font-mono text-xs uppercase"
+                        className="w-full hv-input border border-indigo-500 rounded-xl p-2 font-mono text-xs uppercase"
                       />
                       <button
                         type="button"
                         onClick={handleAddNewCustomUnit}
-                        className="bg-indigo-600 text-white font-bold px-2 rounded-xl text-xs shrink-0"
+                        className="bg-indigo-600 text-white hv-keep-white font-bold px-2 rounded-xl text-xs shrink-0 cursor-pointer"
                       >
                         ✓
                       </button>
@@ -3134,7 +3134,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     <select
                       value={unit}
                       onChange={(e) => setUnit(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-mono focus:border-indigo-500 focus:outline-none"
+                      className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono focus:border-indigo-500 focus:outline-none"
                     >
                       <option value="">{isHindi ? '-- इकाई चुनें --' : '-- Select Unit --'}</option>
                       {allAvailableUnits.map(u => (
@@ -3145,7 +3145,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {taxProfile.gstEnabled
                       ? (isHindi ? 'HSN / SAC कोड' : 'HSN / SAC Code')
                       : (isHindi ? 'SKU / श्रेणी कोड (वैकल्पिक)' : 'HSN / SKU Code (Optional)')}
@@ -3155,15 +3155,15 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     value={hsnSacCode}
                     onChange={(e) => setHsnSacCode(e.target.value)}
                     placeholder="e.g. 8471"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-mono focus:border-indigo-500 focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
               </div>
 
               {/* Row 3: Multi-Tier Pricing, MRP & Tax */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-3.5 bg-slate-950/60 rounded-2xl border border-slate-800">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 p-3.5 hv-elevated rounded-2xl border border-[var(--border-primary)]">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? `खरीद दर (Purchase ${currencySymbol})` : `Purchase Price (${currencySymbol})`}
                   </label>
                   <input
@@ -3172,12 +3172,12 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     value={purchasePrice || ''}
                     onChange={(e) => setPurchasePrice(parseFloat(e.target.value) || 0)}
                     placeholder="0.00"
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-mono font-bold focus:border-indigo-500 focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono font-bold focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? `रिटेल बिक्री मूल्य (Retail ${currencySymbol})` : `Retail Sale Price (${currencySymbol})`}
                   </label>
                   <input
@@ -3186,12 +3186,12 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     value={salesPrice || ''}
                     onChange={(e) => setSalesPrice(parseFloat(e.target.value) || 0)}
                     placeholder="0.00"
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-emerald-400 font-mono font-bold focus:border-indigo-500 focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-emerald-500 font-mono font-bold focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? `थोक मूल्य (Wholesale ${currencySymbol})` : `Wholesale Price (${currencySymbol})`}
                   </label>
                   <input
@@ -3200,12 +3200,12 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     value={wholesalePrice || ''}
                     onChange={(e) => setWholesalePrice(parseFloat(e.target.value) || 0)}
                     placeholder="0.00"
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-amber-300 font-mono font-bold focus:border-indigo-500 focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-amber-500 font-mono font-bold focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? `MRP (${currencySymbol} Optional)` : `MRP (${currencySymbol} Optional)`}
                   </label>
                   <input
@@ -3214,19 +3214,19 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     value={mrp || ''}
                     onChange={(e) => setMrp(parseFloat(e.target.value) || 0)}
                     placeholder="0.00"
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-cyan-300 font-mono font-bold focus:border-indigo-500 focus:outline-none"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-cyan-500 font-mono font-bold focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
 
                 {taxProfile.gstEnabled && (
                   <div>
-                    <label className="block text-slate-300 font-semibold mb-1">
+                    <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                       {isHindi ? 'जीएसटी दर (%)' : 'GST Rate (%)'}
                     </label>
                     <select
                       value={taxRate}
                       onChange={(e) => setTaxRate(parseFloat(e.target.value) || 0)}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-mono focus:border-indigo-500 focus:outline-none"
+                      className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono focus:border-indigo-500 focus:outline-none"
                     >
                       <option value="0">0% (Nil / Exempted)</option>
                       <option value="5">5% GST</option>
@@ -3239,7 +3239,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
 
                 {showCessCol && (
                   <div>
-                    <label className="block text-amber-300 font-semibold mb-1">
+                    <label className="block text-amber-500 font-semibold mb-1">
                       {isHindi ? 'सेस दर (%)' : 'Cess Rate (%)'}
                     </label>
                     <input
@@ -3249,22 +3249,22 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       value={cessRate || ''}
                       onChange={(e) => setCessRate(Math.max(0, parseFloat(e.target.value) || 0))}
                       placeholder="0"
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-amber-300 font-mono font-bold focus:border-amber-500 focus:outline-none"
+                      className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-amber-500 font-mono font-bold focus:border-amber-500 focus:outline-none"
                     />
                   </div>
                 )}
               </div>
 
               {/* Row 4: Stock Tracking & Reorder Point Setup */}
-              <div className="p-3.5 bg-amber-500/10 border border-amber-500/20 rounded-2xl space-y-3">
-                <div className="font-bold text-amber-300 flex items-center gap-1.5 text-xs">
-                  <AlertTriangle className="w-4 h-4 text-amber-400" />
+              <div className="p-3.5 hv-pill-amber border rounded-2xl space-y-3">
+                <div className="font-bold flex items-center gap-1.5 text-xs">
+                  <AlertTriangle className="w-4 h-4 shrink-0" />
                   <span>{isHindi ? 'स्टॉक मात्रा एवं रीऑर्डर पॉइंट (Stock & Reorder Thresholds):' : 'Stock Quantities & Reorder Points:'}</span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
                   <div>
-                    <label className="block text-slate-300 font-semibold mb-1">
+                    <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                       {isHindi ? 'वर्तमान स्टॉक मात्रा' : 'Current Stock Qty'}
                     </label>
                     <input
@@ -3272,12 +3272,12 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       value={currentStock || ''}
                       onChange={(e) => setCurrentStock(parseFloat(e.target.value) || 0)}
                       placeholder="0"
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-mono font-bold focus:border-amber-500 focus:outline-none"
+                      className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono font-bold focus:border-amber-500 focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-amber-300 font-semibold mb-1">
+                    <label className="block text-amber-500 font-semibold mb-1">
                       {isHindi ? 'रीऑर्डर पॉइंट (न्यूनतम)' : 'Reorder Point (Min Level)'}
                     </label>
                     <input
@@ -3285,13 +3285,13 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       value={minStockLevel || ''}
                       onChange={(e) => setMinStockLevel(parseFloat(e.target.value) || 0)}
                       placeholder="0"
-                      className="w-full bg-slate-950 border border-amber-500/60 rounded-xl p-2.5 text-amber-300 font-mono font-bold focus:border-amber-400 focus:outline-none"
+                      className="w-full hv-input border border-amber-500/60 rounded-xl p-2.5 text-amber-500 font-mono font-bold focus:border-amber-500 focus:outline-none"
                       title="When stock reaches this level or below, reorder alerts will trigger"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 font-semibold mb-1">
+                    <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                       {isHindi ? 'सुझाई गई रीऑर्डर मात्रा' : 'Reorder Batch Size'}
                     </label>
                     <input
@@ -3299,12 +3299,12 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       value={reorderQuantity || ''}
                       onChange={(e) => setReorderQuantity(parseFloat(e.target.value) || 0)}
                       placeholder="0"
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-mono focus:border-amber-500 focus:outline-none"
+                      className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono focus:border-amber-500 focus:outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 font-semibold mb-1">
+                    <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                       {isHindi ? 'डिफ़ॉल्ट गोदाम (Default Godown)' : 'Default Godown / Rack'}
                     </label>
                     <select
@@ -3314,7 +3314,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                         const gObj = godowns.find(g => g.id === e.target.value);
                         setLocation(gObj?.name || '');
                       }}
-                      className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 focus:outline-none"
+                      className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 focus:border-amber-500 focus:outline-none"
                     >
                       <option value="">{isHindi ? '-- गोदाम चुनें --' : '-- Select Godown --'}</option>
                       {godowns.map(g => (
@@ -3324,7 +3324,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                   </div>
                 </div>
 
-                <label className="flex items-center gap-2 pt-1 text-slate-200 cursor-pointer font-semibold">
+                <label className="flex items-center gap-2 pt-1 text-[var(--text-primary)] cursor-pointer font-semibold">
                   <input
                     type="checkbox"
                     checked={trackBatchExpiry}
@@ -3339,7 +3339,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
 
               {/* Row 5: Description */}
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'विवरण या तकनीकी विवरण (Optional)' : 'Description / Notes'}
                 </label>
                 <input
@@ -3347,21 +3347,21 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Optional item details or notes"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-indigo-500 focus:outline-none"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 focus:border-indigo-500 focus:outline-none"
                 />
               </div>
 
-              <div className="pt-3 border-t border-slate-800 flex items-center justify-end gap-3">
+              <div className="pt-3 border-t border-[var(--border-primary)] flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setShowAddEditModal(false)}
-                  className="px-4 py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 font-bold text-xs transition"
+                  className="px-4 py-2.5 rounded-xl bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold text-xs transition cursor-pointer"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
-                  className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-6 py-2.5 rounded-xl text-xs transition shadow-lg shadow-indigo-600/30"
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-6 py-2.5 rounded-xl text-xs transition shadow-lg shadow-indigo-600/30 cursor-pointer"
                 >
                   {editingItem ? (isHindi ? 'आइटम अपडेट करें' : 'Update Item') : (isHindi ? 'आइटम सहेजें' : 'Save Item')}
                 </button>
@@ -3374,37 +3374,37 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {/* MODAL 2: Quick Stock Adjustment Modal */}
       {quickAdjustItem && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-md p-6 shadow-2xl space-y-4 text-xs my-auto animate-fadeIn">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-3xl w-full max-w-md p-6 shadow-2xl space-y-4 text-xs my-auto animate-fadeIn">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
               <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-amber-400" />
-                <h3 className="font-bold text-white text-sm">
+                <SlidersHorizontal className="w-4 h-4 text-amber-500" />
+                <h3 className="font-bold text-[var(--text-primary)] text-sm">
                   {isHindi ? 'त्वरित स्टॉक एडजस्टमेंट / ऑडिट' : 'Physical Stock Audit & Adjustment'}
                 </h3>
               </div>
               <button 
                 type="button"
                 onClick={() => setQuickAdjustItem(null)}
-                className="text-slate-400 hover:text-white p-1 cursor-pointer"
+                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            <div className="p-3 bg-slate-950 rounded-2xl border border-slate-800 space-y-1">
-              <div className="font-bold text-white text-sm">{quickAdjustItem.name}</div>
-              <div className="text-[11px] text-slate-400 font-mono">
+            <div className="p-3 hv-elevated rounded-2xl border border-[var(--border-primary)] space-y-1">
+              <div className="font-bold text-[var(--text-primary)] text-sm">{quickAdjustItem.name}</div>
+              <div className="text-[11px] text-[var(--text-muted)] font-mono">
                 Code: {quickAdjustItem.code || '-'} • Unit: {quickAdjustItem.unit || 'PCS'}
               </div>
               <div className="text-xs pt-1 flex items-center justify-between">
-                <span className="text-slate-400">{isHindi ? 'वर्तमान सिस्टम स्टॉक:' : 'Current System Stock:'}</span>
-                <span className={`font-mono font-bold text-sm ${(quickAdjustItem.currentStock || 0) < 0 ? 'text-rose-400' : 'text-white'}`}>
+                <span className="text-[var(--text-muted)]">{isHindi ? 'वर्तमान सिस्टम स्टॉक:' : 'Current System Stock:'}</span>
+                <span className={`font-mono font-bold text-sm ${(quickAdjustItem.currentStock || 0) < 0 ? 'text-rose-500' : 'text-[var(--text-primary)]'}`}>
                   {quickAdjustItem.currentStock || 0} {quickAdjustItem.unit || 'PCS'}
                 </span>
               </div>
               {(quickAdjustItem.currentStock || 0) < 0 && (
                 <div className="pt-1.5 flex items-center justify-between gap-2">
-                  <span className="text-[11px] text-rose-300 font-semibold">
+                  <span className="text-[11px] text-rose-500 font-semibold">
                     {isHindi ? 'नेगेटिव स्टॉक अलर्ट!' : 'Negative stock detected!'}
                   </span>
                   <button
@@ -3416,7 +3416,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                         setAdjustNotes(isHindi ? 'नेगेटिव स्टॉक को शून्य (0) पर समायोजित किया' : 'Cleared negative stock to 0');
                       }
                     }}
-                    className="px-2.5 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/40 text-[11px] font-bold cursor-pointer"
+                    className="px-2.5 py-1 rounded-lg hv-pill-rose border hover:opacity-90 text-[11px] font-bold cursor-pointer"
                   >
                     {isHindi ? '0 (Nil) सेट करें' : 'Set 0 to Clear'}
                   </button>
@@ -3426,13 +3426,13 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
 
             <form onSubmit={handlePerformStockAdjustment} className="space-y-3">
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'लक्ष्य गोदाम (Godown)' : 'Target Godown'}
                 </label>
                 <select
                   value={adjustGodownId}
                   onChange={(e) => setAdjustGodownId(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 focus:outline-none cursor-pointer"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 focus:border-amber-500 focus:outline-none cursor-pointer"
                 >
                   {godowns.map((g) => (
                     <option key={g.id} value={g.id}>{g.name}</option>
@@ -3441,7 +3441,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'भौतिक गणना अनुसार नया स्टॉक (Physical Counted Stock) *' : 'New Actual Physical Stock Count *'}
                 </label>
                 <input
@@ -3449,13 +3449,13 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                   step="any"
                   value={adjustNewQty}
                   onChange={(e) => setAdjustNewQty(parseFloat(e.target.value) || 0)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-center text-white font-mono text-lg font-bold focus:border-amber-500 focus:outline-none"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-3 text-center font-mono text-lg font-bold focus:border-amber-500 focus:outline-none"
                   required
                 />
-                <div className="text-[11px] text-slate-400 flex items-center justify-between mt-1 px-1">
+                <div className="text-[11px] text-[var(--text-muted)] flex items-center justify-between mt-1 px-1">
                   <span>{isHindi ? 'अंतर (Variance):' : 'Variance:'}</span>
                   <span className={`font-mono font-bold ${
-                    adjustNewQty - (quickAdjustItem.currentStock || 0) >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                    adjustNewQty - (quickAdjustItem.currentStock || 0) >= 0 ? 'text-emerald-500' : 'text-rose-500'
                   }`}>
                     {adjustNewQty - (quickAdjustItem.currentStock || 0) >= 0 ? '+' : ''}
                     {Math.round((adjustNewQty - (quickAdjustItem.currentStock || 0)) * 1000) / 1000} {quickAdjustItem.unit || 'PCS'}
@@ -3464,13 +3464,13 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'समायोजन का कारण (Reason) *' : 'Adjustment Reason *'}
                 </label>
                 <select
                   value={adjustReason}
                   onChange={(e) => setAdjustReason(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 focus:outline-none cursor-pointer"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 focus:border-amber-500 focus:outline-none cursor-pointer"
                 >
                   <option value="Negative Stock Clearance">Negative Stock Clearance (नेगेटिव स्टॉक समायोजन)</option>
                   <option value="Physical Count Discrepancy">Physical Count Discrepancy (भौतिक ऑडिट अंतर)</option>
@@ -3484,7 +3484,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
               </div>
 
               <div>
-                <label className="block text-amber-300 font-semibold mb-1">
+                <label className="block text-amber-500 font-semibold mb-1">
                   {isHindi ? 'कमेंट / टिप्पणी (किस स्टॉक व क्यों एडजस्ट हो रहा है) *' : 'Comments / Audit Note (Which stock & why) *'}
                 </label>
                 <input
@@ -3492,7 +3492,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                   value={adjustNotes}
                   onChange={(e) => setAdjustNotes(e.target.value)}
                   placeholder={isHindi ? 'जैसे: भौतिक सत्यापन के आधार पर स्टॉक सुधारा गया' : 'e.g. Month-end physical verification adjustment'}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white focus:border-amber-500 focus:outline-none"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 focus:border-amber-500 focus:outline-none"
                   required
                 />
               </div>
@@ -3501,13 +3501,13 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 <button
                   type="button"
                   onClick={() => setQuickAdjustItem(null)}
-                  className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 font-bold cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold cursor-pointer transition"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
-                  className="bg-amber-600 hover:bg-amber-500 text-slate-950 font-bold px-5 py-2 rounded-xl transition shadow cursor-pointer"
+                  className="bg-amber-600 hover:bg-amber-500 text-white hv-keep-white font-bold px-5 py-2 rounded-xl transition shadow cursor-pointer"
                 >
                   {isHindi ? 'स्टॉक अपडेट करें' : 'Apply Adjustment'}
                 </button>
@@ -3524,35 +3524,35 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
 
         return (
           <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-            <div className="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-md p-6 shadow-2xl space-y-4 text-xs my-auto animate-fadeIn">
+            <div className="hv-surface border border-[var(--border-subtle)] rounded-3xl w-full max-w-md p-6 shadow-2xl space-y-4 text-xs my-auto animate-fadeIn">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400 shrink-0">
+                <div className="w-10 h-10 rounded-2xl hv-pill-rose border flex items-center justify-center shrink-0">
                   <Trash2 className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-white text-sm">
+                  <h3 className="font-bold text-[var(--text-primary)] text-sm">
                     {isHindi ? 'आइटम हटाने की पुष्टि करें' : 'Confirm Item Deletion'}
                   </h3>
-                  <p className="text-[11px] text-slate-400 font-mono">
+                  <p className="text-[11px] text-[var(--text-muted)] font-mono">
                     {deleteConfirmItem.name} ({deleteConfirmItem.code || 'NO-CODE'})
                   </p>
                 </div>
               </div>
 
               {hasTransactions ? (
-                <div className="p-3 bg-amber-500/10 border border-amber-500/30 rounded-2xl text-amber-300 space-y-1.5">
+                <div className="p-3 hv-pill-amber border rounded-2xl space-y-1.5">
                   <div className="font-bold flex items-center gap-1.5">
-                    <AlertTriangle className="w-4 h-4 text-amber-400" />
+                    <AlertTriangle className="w-4 h-4 shrink-0" />
                     <span>{isHindi ? 'चेतावनी: यह आइटम लेनदेनों में उपयोग हुआ है!' : 'Notice: Item has linked transactions!'}</span>
                   </div>
-                  <p className="text-[11px] text-slate-300">
+                  <p className="text-[11px] text-[var(--text-secondary)]">
                     {isHindi 
                       ? `यह आइटम ${usage.inSales} बिक्री इनवॉइस और ${usage.inPurchases} खरीद बिल में दर्ज है। इसे हटाने से पिछले इनवॉइस के नाम तो सुरक्षित रहेंगे, पर मास्टर लिस्ट से यह स्थायी रूप से हट जाएगा।`
                       : `This item is referenced in ${usage.inSales} sales invoices and ${usage.inPurchases} purchase bills. Deleting it will permanently remove it from master catalog.`}
                   </p>
                 </div>
               ) : (
-                <p className="text-slate-300">
+                <p className="text-[var(--text-secondary)]">
                   {isHindi 
                     ? `क्या आप वाकई "${deleteConfirmItem.name}" को हटाना चाहते हैं? यह क्रिया पूर्ववत नहीं की जा सकती।`
                     : `Are you sure you want to permanently delete "${deleteConfirmItem.name}"? This action cannot be undone.`}
@@ -3563,7 +3563,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 <button
                   type="button"
                   onClick={() => setDeleteConfirmItem(null)}
-                  className="px-4 py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 font-bold"
+                  className="px-4 py-2.5 rounded-xl bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold cursor-pointer transition"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
@@ -3573,7 +3573,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     onDeleteItem(deleteConfirmItem.id);
                     setDeleteConfirmItem(null);
                   }}
-                  className="bg-rose-600 hover:bg-rose-500 text-white font-bold px-5 py-2.5 rounded-xl transition shadow"
+                  className="bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-bold px-5 py-2.5 rounded-xl transition shadow cursor-pointer"
                 >
                   {isHindi ? 'हाँ, हटाएं' : 'Yes, Delete'}
                 </button>
@@ -3586,15 +3586,15 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {/* MODAL 4: Quick Item Stock Ledger Modal */}
       {showItemLedgerModal && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto animate-fadeIn">
-            <div className="bg-slate-950 px-6 py-4 border-b border-slate-800 flex items-center justify-between shrink-0">
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-3xl w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto animate-fadeIn">
+            <div className="hv-elevated px-6 py-4 border-b border-[var(--border-primary)] flex items-center justify-between shrink-0">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-xl bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
+                <div className="w-8 h-8 rounded-xl hv-pill-indigo border flex items-center justify-center">
                   <History className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white">{showItemLedgerModal.name}</h3>
-                  <p className="text-[11px] text-slate-400 font-mono">
+                  <h3 className="text-base font-bold text-[var(--text-primary)]">{showItemLedgerModal.name}</h3>
+                  <p className="text-[11px] text-[var(--text-muted)] font-mono">
                     Stock Ledger Register • In-Stock: {showItemLedgerModal.currentStock || 0} {showItemLedgerModal.unit || 'PCS'}
                   </p>
                 </div>
@@ -3604,7 +3604,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 {perms.canExportData && (
                   <button
                     onClick={() => printStockLedger(showItemLedgerModal, data, isHindi)}
-                    className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1"
+                    className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1 cursor-pointer transition"
                   >
                     <Printer className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'प्रिंट' : 'Print'}</span>
@@ -3612,7 +3612,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 )}
                 <button
                   onClick={() => setShowItemLedgerModal(null)}
-                  className="text-slate-400 hover:text-white p-1 rounded-lg"
+                  className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 rounded-lg cursor-pointer"
                 >
                   ✕
                 </button>
@@ -3620,10 +3620,10 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
             </div>
 
             <div className="p-4 overflow-y-auto text-xs">
-              <div className="overflow-x-auto">
+              <div className="overflow-x-auto rounded-xl border border-[var(--border-primary)]">
                 <table className="w-full text-left border-collapse">
                   <thead>
-                    <tr className="bg-slate-950/80 border-b border-slate-800 text-slate-400 font-bold uppercase tracking-wider text-[10px]">
+                    <tr className="bg-[var(--bg-elevated)] border-b border-[var(--border-primary)] text-[var(--text-secondary)] font-bold uppercase tracking-wider text-[10px]">
                       <th className="py-2.5 px-3">Date</th>
                       <th className="py-2.5 px-2">Type</th>
                       <th className="py-2.5 px-3">Ref #</th>
@@ -3634,25 +3634,25 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       <th className="py-2.5 px-3 text-right">Running Balance</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/60 font-mono text-[11px]">
+                  <tbody className="divide-y divide-[var(--border-primary)] font-mono text-[11px]">
                     {getItemStockMovements(showItemLedgerModal, data).map(m => (
-                      <tr key={m.id} className="hover:bg-slate-800/40">
-                        <td className="py-2 px-3 text-slate-400">{m.date}</td>
+                      <tr key={m.id} className="hover:bg-[var(--hover-surface)] transition">
+                        <td className="py-2 px-3 text-[var(--text-muted)]">{m.date}</td>
                         <td className="py-2 px-2">
-                          <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
-                            m.type === 'PURCHASE' ? 'bg-emerald-500/20 text-emerald-400' :
-                            m.type === 'SALE' ? 'bg-indigo-500/20 text-indigo-400' :
-                            'bg-slate-800 text-slate-300'
+                          <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold border ${
+                            m.type === 'PURCHASE' ? 'hv-pill-emerald' :
+                            m.type === 'SALE' ? 'hv-pill-indigo' :
+                            'hv-pill-slate'
                           }`}>
                             {m.type}
                           </span>
                         </td>
-                        <td className="py-2 px-3 text-white font-bold">{m.refNumber}</td>
-                        <td className="py-2 px-3 font-sans text-slate-300">{m.partyName}</td>
-                        <td className="py-2 px-2 text-right text-emerald-400 font-bold">{m.inflow > 0 ? `+${m.inflow}` : '-'}</td>
-                        <td className="py-2 px-2 text-right text-rose-400 font-bold">{m.outflow > 0 ? `-${m.outflow}` : '-'}</td>
-                        <td className="py-2 px-3 text-right text-slate-400">{m.rate > 0 ? formatCurrency(m.rate, currency) : '-'}</td>
-                        <td className="py-2 px-3 text-right text-indigo-300 font-bold">{m.runningBalance}</td>
+                        <td className="py-2 px-3 text-[var(--text-primary)] font-bold">{m.refNumber}</td>
+                        <td className="py-2 px-3 font-sans text-[var(--text-secondary)]">{m.partyName}</td>
+                        <td className="py-2 px-2 text-right text-emerald-500 font-bold">{m.inflow > 0 ? `+${m.inflow}` : '-'}</td>
+                        <td className="py-2 px-2 text-right text-rose-500 font-bold">{m.outflow > 0 ? `-${m.outflow}` : '-'}</td>
+                        <td className="py-2 px-3 text-right text-[var(--text-muted)]">{m.rate > 0 ? formatCurrency(m.rate, currency) : '-'}</td>
+                        <td className="py-2 px-3 text-right text-indigo-500 font-bold">{m.runningBalance}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -3677,27 +3677,27 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {/* MODAL 6: Add / Edit Batch Modal */}
       {showBatchModal && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-lg p-6 shadow-2xl space-y-4 text-xs my-auto animate-fadeIn">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-3xl w-full max-w-lg p-6 shadow-2xl space-y-4 text-xs my-auto animate-fadeIn">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
               <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-rose-400" />
-                <h3 className="font-bold text-white text-sm">
+                <Calendar className="w-4 h-4 text-rose-500" />
+                <h3 className="font-bold text-[var(--text-primary)] text-sm">
                   {editingBatch ? (isHindi ? 'बैच संपादित करें' : 'Edit Item Batch') : (isHindi ? 'नया बैच जोड़ें' : 'Register New Item Batch')}
                 </h3>
               </div>
-              <button type="button" onClick={() => setShowBatchModal(false)} className="text-slate-400 hover:text-white p-1">
+              <button type="button" onClick={() => setShowBatchModal(false)} className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 cursor-pointer">
                 ✕
               </button>
             </div>
             {batchFormError && (
-              <div className="bg-rose-500/15 border border-rose-500/40 text-rose-300 px-3 py-2 rounded-xl font-semibold">
+              <div className="hv-pill-rose border px-3 py-2 rounded-xl font-semibold">
                 {batchFormError}
               </div>
             )}
             <form onSubmit={handleSubmitBatch} className="space-y-3">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'आइटम *' : 'Item *'}</label>
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'आइटम *' : 'Item *'}</label>
                   <select
                     value={bItemId}
                     onChange={(e) => {
@@ -3709,7 +3709,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                         setBSalesRate(itm.salesPrice || 0);
                       }
                     }}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5"
                   >
                     <option value="">{isHindi ? '-- आइटम चुनें --' : '-- Select Item --'}</option>
                     {data.items.map(i => (
@@ -3718,11 +3718,11 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                   </select>
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'गोदाम *' : 'Godown *'}</label>
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'गोदाम *' : 'Godown *'}</label>
                   <select
                     value={bGodownId}
                     onChange={(e) => setBGodownId(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5"
                   >
                     <option value="">{isHindi ? '-- गोदाम चुनें --' : '-- Select Godown --'}</option>
                     {godowns.map(g => (
@@ -3731,18 +3731,18 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                   </select>
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'बैच नंबर *' : 'Batch No. *'}</label>
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'बैच नंबर *' : 'Batch No. *'}</label>
                   <input
                     type="text"
                     value={bBatchNumber}
                     onChange={(e) => setBBatchNumber(e.target.value)}
                     placeholder="e.g. B-2601-01"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-mono"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'उपलब्ध मात्रा *' : 'Available Qty *'}</label>
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'उपलब्ध मात्रा *' : 'Available Qty *'}</label>
                   <input
                     type="number"
                     min={0}
@@ -3750,66 +3750,66 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                     value={bQty || ''}
                     onChange={(e) => setBQty(parseFloat(e.target.value) || 0)}
                     placeholder="0"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-mono font-bold"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono font-bold"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'निर्माण तिथि (Mfg)' : 'Mfg Date'}</label>
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'निर्माण तिथि (Mfg)' : 'Mfg Date'}</label>
                   <input
                     type="date"
                     value={bMfgDate}
                     onChange={(e) => setBMfgDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'एक्सपायरी दिनांक (Exp)' : 'Expiry Date'}</label>
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'एक्सपायरी दिनांक (Exp)' : 'Expiry Date'}</label>
                   <input
                     type="date"
                     value={bExpiryDate}
                     onChange={(e) => setBExpiryDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-rose-300"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-rose-500 font-semibold"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">MRP ({currencySymbol})</label>
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">MRP ({currencySymbol})</label>
                   <input
                     type="number"
                     step="0.01"
                     value={bMrp || ''}
                     onChange={(e) => setBMrp(parseFloat(e.target.value) || 0)}
                     placeholder="0.00"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-cyan-300 font-mono"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-cyan-500 font-mono"
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'बिक्री दर' : 'Sale Rate'}</label>
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'बिक्री दर' : 'Sale Rate'}</label>
                   <input
                     type="number"
                     step="0.01"
                     value={bSalesRate || ''}
                     onChange={(e) => setBSalesRate(parseFloat(e.target.value) || 0)}
                     placeholder="0.00"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-emerald-300 font-mono"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-emerald-500 font-mono"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'बैच बारकोड' : 'Batch Barcode'}</label>
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'बैच बारकोड' : 'Batch Barcode'}</label>
                 <input
                   type="text"
                   value={bBarcode}
                   onChange={(e) => setBBarcode(e.target.value)}
                   placeholder="Optional (auto-generated if empty)"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-cyan-300 font-mono"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-cyan-500 font-mono"
                 />
               </div>
               <div className="pt-2 flex justify-end gap-2">
-                <button type="button" onClick={() => setShowBatchModal(false)} className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 font-bold">
+                <button type="button" onClick={() => setShowBatchModal(false)} className="px-4 py-2 rounded-xl bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold cursor-pointer transition">
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
-                <button type="submit" className="bg-rose-600 hover:bg-rose-500 text-white font-bold px-5 py-2 rounded-xl">
+                <button type="submit" className="bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-bold px-5 py-2 rounded-xl cursor-pointer transition">
                   {isHindi ? 'बैच सेव करें' : 'Save Batch'}
                 </button>
               </div>
@@ -3821,50 +3821,50 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {/* MODAL 7: Add / Edit Godown Modal */}
       {showGodownModal && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-md p-6 shadow-2xl space-y-4 text-xs my-auto animate-fadeIn">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-3xl w-full max-w-md p-6 shadow-2xl space-y-4 text-xs my-auto animate-fadeIn">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
               <div className="flex items-center gap-2">
-                <Warehouse className="w-4 h-4 text-cyan-400" />
-                <h3 className="font-bold text-white text-sm">
+                <Warehouse className="w-4 h-4 text-cyan-500" />
+                <h3 className="font-bold text-[var(--text-primary)] text-sm">
                   {editingGodown ? (isHindi ? 'गोदाम अपडेट करें' : 'Edit Godown') : (isHindi ? 'नया गोदाम / काउंटर जोड़ें' : 'Add Godown / Counter')}
                 </h3>
               </div>
-              <button type="button" onClick={() => setShowGodownModal(false)} className="text-slate-400 hover:text-white p-1">✕</button>
+              <button type="button" onClick={() => setShowGodownModal(false)} className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 cursor-pointer">✕</button>
             </div>
             {godownFormError && (
-              <div className="bg-rose-500/15 border border-rose-500/40 text-rose-300 px-3 py-2 rounded-xl font-semibold">
+              <div className="hv-pill-rose border px-3 py-2 rounded-xl font-semibold">
                 {godownFormError}
               </div>
             )}
             <form onSubmit={handleSubmitGodown} className="space-y-3">
               <div className="grid grid-cols-3 gap-2">
                 <div className="col-span-2">
-                  <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'गोदाम का नाम *' : 'Godown Name *'}</label>
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'गोदाम का नाम *' : 'Godown Name *'}</label>
                   <input
                     type="text"
                     value={gName}
                     onChange={(e) => setGName(e.target.value)}
                     placeholder="e.g. City Showroom Counter 1"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'कोड' : 'Code'}</label>
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'कोड' : 'Code'}</label>
                   <input
                     type="text"
                     value={gCode}
                     onChange={(e) => setGCode(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-mono"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'प्रकार' : 'Location Type'}</label>
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'प्रकार' : 'Location Type'}</label>
                 <select
                   value={gType}
                   onChange={(e) => setGType(e.target.value as GodownType)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5"
                 >
                   <option value="MAIN_WAREHOUSE">Main Warehouse (मुख्य गोदाम)</option>
                   <option value="BRANCH_STORE">Branch / Showroom (शाखा / शोरूम)</option>
@@ -3873,29 +3873,29 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 </select>
               </div>
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'पता' : 'Address / Location Note'}</label>
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'पता' : 'Address / Location Note'}</label>
                 <input
                   type="text"
                   value={gAddress}
                   onChange={(e) => setGAddress(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5"
                 />
               </div>
               <div className="flex flex-col gap-2 pt-1">
-                <label className="flex items-center gap-2 text-slate-200 cursor-pointer">
+                <label className="flex items-center gap-2 text-[var(--text-primary)] cursor-pointer">
                   <input type="checkbox" checked={gIsPosCounter} onChange={(e) => setGIsPosCounter(e.target.checked)} className="accent-cyan-500" />
                   <span>{isHindi ? 'POS काउंटर के लिए उपलब्ध रखें' : 'Enable for Barcode POS Counter billing'}</span>
                 </label>
-                <label className="flex items-center gap-2 text-slate-200 cursor-pointer">
+                <label className="flex items-center gap-2 text-[var(--text-primary)] cursor-pointer">
                   <input type="checkbox" checked={gIsDefault} onChange={(e) => setGIsDefault(e.target.checked)} className="accent-indigo-500" />
                   <span>{isHindi ? 'डिफ़ॉल्ट गोदाम सेट करें' : 'Set as Company Default Godown'}</span>
                 </label>
               </div>
               <div className="pt-2 flex justify-end gap-2">
-                <button type="button" onClick={() => setShowGodownModal(false)} className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 font-bold">
+                <button type="button" onClick={() => setShowGodownModal(false)} className="px-4 py-2 rounded-xl bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold cursor-pointer transition">
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
-                <button type="submit" className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-5 py-2 rounded-xl">
+                <button type="submit" className="bg-cyan-600 hover:bg-cyan-500 text-white hv-keep-white font-bold px-5 py-2 rounded-xl cursor-pointer transition">
                   {isHindi ? 'सेव करें' : 'Save Godown'}
                 </button>
               </div>
@@ -3907,41 +3907,41 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {/* MODAL 8: Inter-Godown Stock Transfer Modal */}
       {showTransferModal && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto animate-fadeIn text-xs">
-            <div className="px-5 py-4 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto animate-fadeIn text-xs">
+            <div className="px-5 py-4 hv-elevated border-b border-[var(--border-primary)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <ArrowRightLeft className="w-4 h-4 text-cyan-400" />
-                <h3 className="font-bold text-white text-sm">
+                <ArrowRightLeft className="w-4 h-4 text-cyan-500" />
+                <h3 className="font-bold text-[var(--text-primary)] text-sm">
                   {isHindi ? 'इंटर-गोदाम स्टॉक ट्रांसफर वाउचर' : 'Inter-Godown Stock Transfer Voucher'}
                 </h3>
               </div>
-              <button type="button" onClick={() => setShowTransferModal(false)} className="text-slate-400 hover:text-white p-1">✕</button>
+              <button type="button" onClick={() => setShowTransferModal(false)} className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 cursor-pointer">✕</button>
             </div>
             <form onSubmit={handleSubmitStockTransfer} className="p-5 overflow-y-auto space-y-4">
               {transferError && (
-                <div className="bg-rose-500/15 border border-rose-500/40 text-rose-300 px-3 py-2 rounded-xl font-semibold">
+                <div className="hv-pill-rose border px-3 py-2 rounded-xl font-semibold">
                   {transferError}
                 </div>
               )}
               <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'ट्रांसफर #' : 'Transfer #'}</label>
-                  <input type="text" value={trRefNo} onChange={(e) => setTrRefNo(e.target.value)} placeholder="Auto (e.g. ST-101)" className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-cyan-300 font-mono font-bold" />
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'ट्रांसफर #' : 'Transfer #'}</label>
+                  <input type="text" value={trRefNo} onChange={(e) => setTrRefNo(e.target.value)} placeholder="Auto (e.g. ST-101)" className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2 text-cyan-500 font-mono font-bold" />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'दिनांक' : 'Date'}</label>
-                  <input type="date" value={trDate} onChange={(e) => setTrDate(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-white" />
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'दिनांक' : 'Date'}</label>
+                  <input type="date" value={trDate} onChange={(e) => setTrDate(e.target.value)} className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2" />
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'कहाँ से (Source)' : 'From Godown'}</label>
-                  <select value={trFromGodownId} onChange={(e) => setTrFromGodownId(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-rose-300">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'कहाँ से (Source)' : 'From Godown'}</label>
+                  <select value={trFromGodownId} onChange={(e) => setTrFromGodownId(e.target.value)} className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2 text-rose-500 font-semibold">
                     <option value="">{isHindi ? '-- स्रोत गोदाम चुनें --' : '-- Select Source Godown --'}</option>
                     {godowns.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">{isHindi ? 'कहाँ को (Dest)' : 'To Godown'}</label>
-                  <select value={trToGodownId} onChange={(e) => setTrToGodownId(e.target.value)} className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2 text-emerald-300">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">{isHindi ? 'कहाँ को (Dest)' : 'To Godown'}</label>
+                  <select value={trToGodownId} onChange={(e) => setTrToGodownId(e.target.value)} className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2 text-emerald-500 font-semibold">
                     <option value="">{isHindi ? '-- गंतव्य गोदाम चुनें --' : '-- Select Dest Godown --'}</option>
                     {godowns.map(g => <option key={g.id} value={g.id}>{g.name}</option>)}
                   </select>
@@ -3950,11 +3950,11 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-slate-300">{isHindi ? 'स्थानांतरित आइटम:' : 'Items to Transfer:'}</span>
+                  <span className="font-bold text-[var(--text-secondary)]">{isHindi ? 'स्थानांतरित आइटम:' : 'Items to Transfer:'}</span>
                   <button
                     type="button"
                     onClick={() => setTrLines(prev => [...prev, { id: `trl_${Date.now()}`, itemId: '', batchId: '', quantity: 0 }])}
-                    className="text-cyan-400 font-bold hover:underline"
+                    className="text-cyan-500 font-bold hover:underline cursor-pointer"
                   >
                     + {isHindi ? 'पंक्ति जोड़ें' : 'Add Line'}
                   </button>
@@ -3964,11 +3964,11 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                   const srcAvail = itm ? getItemStockInGodown(itm, trFromGodownId, godowns) : 0;
                   const srcBatches = line.itemId ? getSortedItemBatchesFefo(batches, line.itemId, trFromGodownId, { includeExpired: true }) : [];
                   return (
-                    <div key={line.id} className="grid grid-cols-12 gap-2 items-center bg-slate-950 p-2 rounded-xl border border-slate-800">
+                    <div key={line.id} className="grid grid-cols-12 gap-2 items-center hv-elevated p-2 rounded-xl border border-[var(--border-primary)]">
                       <select
                         value={line.itemId}
                         onChange={(e) => setTrLines(prev => prev.map((x, idx) => idx === i ? { ...x, itemId: e.target.value, batchId: '' } : x))}
-                        className="col-span-5 bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-white"
+                        className="col-span-5 hv-input border border-[var(--border-subtle)] rounded-lg p-1.5"
                       >
                         <option value="">{isHindi ? '-- आइटम चुनें --' : '-- Select Item --'}</option>
                         {data.items.map(x => <option key={x.id} value={x.id}>{x.name}</option>)}
@@ -3976,7 +3976,7 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                       <select
                         value={line.batchId}
                         onChange={(e) => setTrLines(prev => prev.map((x, idx) => idx === i ? { ...x, batchId: e.target.value } : x))}
-                        className="col-span-4 bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-indigo-300"
+                        className="col-span-4 hv-input border border-[var(--border-subtle)] rounded-lg p-1.5 text-indigo-500 font-semibold"
                       >
                         <option value="">{isHindi ? `कोई बैच नहीं (उपलब्ध: ${srcAvail})` : `No Batch (Avail: ${srcAvail})`}</option>
                         {srcBatches.map(b => (
@@ -3990,12 +3990,12 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                         value={line.quantity || ''}
                         onChange={(e) => setTrLines(prev => prev.map((x, idx) => idx === i ? { ...x, quantity: parseFloat(e.target.value) || 0 } : x))}
                         placeholder="0"
-                        className="col-span-2 bg-slate-900 border border-slate-700 rounded-lg p-1.5 text-white text-center font-mono font-bold"
+                        className="col-span-2 hv-input border border-[var(--border-subtle)] rounded-lg p-1.5 text-center font-mono font-bold"
                       />
                       <button
                         type="button"
                         onClick={() => trLines.length > 1 && setTrLines(prev => prev.filter((_, idx) => idx !== i))}
-                        className="col-span-1 text-slate-400 hover:text-rose-400 flex justify-center"
+                        className="col-span-1 text-[var(--text-muted)] hover:text-rose-500 flex justify-center cursor-pointer"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -4004,11 +4004,11 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
                 })}
               </div>
 
-              <div className="pt-2 flex justify-end gap-2 border-t border-slate-800">
-                <button type="button" onClick={() => setShowTransferModal(false)} className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 font-bold">
+              <div className="pt-2 flex justify-end gap-2 border-t border-[var(--border-primary)]">
+                <button type="button" onClick={() => setShowTransferModal(false)} className="px-4 py-2 rounded-xl bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold cursor-pointer transition">
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
-                <button type="submit" className="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-5 py-2 rounded-xl">
+                <button type="submit" className="bg-cyan-600 hover:bg-cyan-500 text-white hv-keep-white font-bold px-5 py-2 rounded-xl cursor-pointer transition">
                   {isHindi ? 'स्टॉक ट्रांसफर करें' : 'Execute Transfer'}
                 </button>
               </div>
@@ -4020,19 +4020,19 @@ export const InventoryModule: React.FC<InventoryModuleProps> = ({
       {/* MODAL 9: Transfer Slip Print Preview */}
       {printTransferSlip && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl">
-            <div className="px-5 py-3 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
-              <span className="font-bold text-white text-sm">Transfer Slip #{printTransferSlip.transferNumber}</span>
+          <div className="hv-surface border border-[var(--border-subtle)] rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl">
+            <div className="px-5 py-3 hv-elevated border-b border-[var(--border-primary)] flex items-center justify-between">
+              <span className="font-bold text-[var(--text-primary)] text-sm">Transfer Slip #{printTransferSlip.transferNumber}</span>
               <div className="flex items-center gap-2">
                 <button
                   type="button"
                   onClick={() => printDomElement('hv-transfer-slip-print', { paperSize: 'A4', title: `Transfer-${printTransferSlip.transferNumber}` })}
-                  className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1"
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-3 py-1.5 rounded-xl text-xs flex items-center gap-1 cursor-pointer transition"
                 >
                   <Printer className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'प्रिंट' : 'Print'}</span>
                 </button>
-                <button type="button" onClick={() => setPrintTransferSlip(null)} className="text-slate-400 hover:text-white p-1">✕</button>
+                <button type="button" onClick={() => setPrintTransferSlip(null)} className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 cursor-pointer">✕</button>
               </div>
             </div>
             <div className="p-5 bg-white text-slate-900 text-xs" id="hv-transfer-slip-print">

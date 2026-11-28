@@ -157,26 +157,26 @@ export const SearchableItemSelect: React.FC<SearchableItemSelectProps> = ({
         type="button"
         onClick={handleOpen}
         onKeyDown={handleKeyDown}
-        className="w-full text-left bg-slate-900 hover:bg-slate-800/80 border border-slate-700 focus:border-indigo-500 rounded-lg p-2 text-xs text-slate-100 flex items-center justify-between gap-1 transition shadow-sm cursor-pointer"
+        className="w-full text-left hv-input hover:bg-[var(--hover-surface)] border focus:border-indigo-500 rounded-lg p-2 text-xs text-[var(--text-primary)] flex items-center justify-between gap-1 transition shadow-sm cursor-pointer"
         title={displayText || (placeholder || (isHindi ? 'सामग्री / आइटम चुनें या खोजें' : 'Select or search item'))}
       >
         <div className="truncate flex-1 font-medium">
           {displayText ? (
-            <span className="text-white font-semibold flex items-center gap-1.5">
+            <span className="text-[var(--text-primary)] font-semibold flex items-center gap-1.5">
               <span className="truncate">{selectedItem?.name || displayText}</span>
               {selectedItem?.code && (
-                <span className="text-[10px] bg-slate-800 text-indigo-300 px-1.5 py-0.5 rounded border border-slate-700 font-mono shrink-0">
+                <span className="text-[10px] hv-pill-indigo px-1.5 py-0.5 rounded border font-mono shrink-0">
                   {selectedItem.code}
                 </span>
               )}
             </span>
           ) : (
-            <span className="text-slate-400">
+            <span className="text-[var(--text-muted)]">
               {placeholder || (isHindi ? '🔍 सामग्री खोजें या चुनें...' : '🔍 Search or select item...')}
             </span>
           )}
         </div>
-        <ChevronDown className={`w-3.5 h-3.5 text-slate-400 shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-3.5 h-3.5 text-[var(--text-muted)] shrink-0 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {/* Floating Dropdown Overlay */}
@@ -191,11 +191,11 @@ export const SearchableItemSelect: React.FC<SearchableItemSelectProps> = ({
             maxHeight: `${coords.maxHeight}px`,
             zIndex: 9999
           }}
-          className="bg-slate-900 border border-slate-700 rounded-xl shadow-2xl overflow-hidden flex flex-col animate-fadeIn text-xs"
+          className="hv-surface border rounded-xl shadow-2xl overflow-hidden flex flex-col animate-fadeIn text-xs"
         >
           {/* Search Input Box */}
-          <div className="p-2 border-b border-slate-800 bg-slate-950 flex items-center gap-2">
-            <Search className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+          <div className="p-2 border-b hv-canvas flex items-center gap-2">
+            <Search className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
             <input
               ref={inputRef}
               type="text"
@@ -206,13 +206,13 @@ export const SearchableItemSelect: React.FC<SearchableItemSelectProps> = ({
               }}
               onKeyDown={handleKeyDown}
               placeholder={isHindi ? 'नाम, कोड, HSN या श्रेणी टाइप करें...' : 'Type name, code, HSN, or category...'}
-              className="w-full bg-transparent text-white text-xs placeholder-slate-400 focus:outline-none"
+              className="w-full bg-transparent text-[var(--text-primary)] text-xs placeholder:text-[var(--text-muted)] focus:outline-none"
             />
             {search && (
               <button
                 type="button"
                 onClick={() => setSearch('')}
-                className="text-slate-400 hover:text-white p-0.5"
+                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-0.5 cursor-pointer"
               >
                 <X className="w-3 h-3" />
               </button>
@@ -221,8 +221,8 @@ export const SearchableItemSelect: React.FC<SearchableItemSelectProps> = ({
 
           {/* Quick Add Button Header if needed */}
           {onAddNewItem && (
-            <div className="px-2.5 py-1.5 bg-slate-800/40 border-b border-slate-800 flex items-center justify-between">
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+            <div className="px-2.5 py-1.5 hv-elevated border-b flex items-center justify-between">
+              <span className="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-wider">
                 {filteredItems.length} {isHindi ? 'सामग्री मिली' : 'Items Found'}
               </span>
               <button
@@ -231,7 +231,7 @@ export const SearchableItemSelect: React.FC<SearchableItemSelectProps> = ({
                   setIsOpen(false);
                   onAddNewItem();
                 }}
-                className="text-[11px] text-emerald-400 hover:text-emerald-300 font-bold flex items-center gap-1 hover:underline cursor-pointer"
+                className="text-[11px] text-emerald-500 hover:underline font-bold flex items-center gap-1 cursor-pointer"
               >
                 <PackagePlus className="w-3 h-3" />
                 <span>{isHindi ? '+ नया आइटम जोड़ें' : '+ Create New Item'}</span>
@@ -240,11 +240,11 @@ export const SearchableItemSelect: React.FC<SearchableItemSelectProps> = ({
           )}
 
           {/* Items List */}
-          <div className="overflow-y-auto flex-1 divide-y divide-slate-800/70 p-1">
+          <div className="overflow-y-auto flex-1 divide-y divide-[var(--border-primary)] p-1">
             {filteredItems.length === 0 ? (
               <div className="p-4 text-center space-y-2">
-                <AlertCircle className="w-5 h-5 text-amber-400 mx-auto opacity-70" />
-                <p className="text-slate-400 text-xs">
+                <AlertCircle className="w-5 h-5 text-amber-500 mx-auto opacity-80" />
+                <p className="text-[var(--text-muted)] text-xs">
                   {isHindi ? `"${search}" से संबंधित कोई आइटम नहीं मिला` : `No item matching "${search}"`}
                 </p>
                 {onAddNewItem && (
@@ -254,7 +254,7 @@ export const SearchableItemSelect: React.FC<SearchableItemSelectProps> = ({
                       setIsOpen(false);
                       onAddNewItem();
                     }}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600/20 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-600/30 rounded-lg font-bold text-xs transition cursor-pointer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 hv-pill-emerald border rounded-lg font-bold text-xs transition cursor-pointer"
                   >
                     <PackagePlus className="w-3.5 h-3.5" />
                     <span>{isHindi ? `"${search}" को नया स्टॉक आइटम बनाएँ` : `Create "${search}" as New Item`}</span>
@@ -278,28 +278,28 @@ export const SearchableItemSelect: React.FC<SearchableItemSelectProps> = ({
                     onClick={() => handleSelect(item)}
                     onMouseEnter={() => setHighlightedIndex(idx)}
                     className={`p-2 rounded-lg cursor-pointer transition flex items-center justify-between gap-2 ${
-                      isHighlighted ? 'bg-indigo-600/20 border border-indigo-500/30 text-white' : 'hover:bg-slate-800/60 text-slate-200'
-                    } ${isSelected ? 'bg-indigo-950/40 font-semibold text-indigo-200' : ''}`}
+                      isHighlighted ? 'hv-pill-indigo border' : 'hover:bg-[var(--hover-surface)] text-[var(--text-primary)]'
+                    } ${isSelected ? 'hv-pill-indigo border font-semibold' : ''}`}
                   >
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-1.5 flex-wrap">
-                        <span className="font-bold text-slate-100 truncate">
+                        <span className="font-bold text-[var(--text-primary)] truncate">
                           {item.name}
                         </span>
-                        <span className="text-[10px] bg-slate-800 text-indigo-300 px-1.5 py-0.2 rounded font-mono border border-slate-700 shrink-0">
+                        <span className="text-[10px] hv-pill-indigo px-1.5 py-0.2 rounded font-mono border shrink-0">
                           {item.code}
                         </span>
                         {item.hsnSacCode && (
-                          <span className="text-[10px] bg-slate-800 text-slate-400 px-1 py-0.2 rounded font-mono shrink-0">
+                          <span className="text-[10px] hv-elevated text-[var(--text-secondary)] px-1 py-0.2 rounded font-mono border shrink-0">
                             HSN: {item.hsnSacCode}
                           </span>
                         )}
-                        <span className="text-[10px] bg-emerald-500/10 text-emerald-400 px-1 rounded font-semibold shrink-0">
+                        <span className="text-[10px] hv-pill-emerald px-1 rounded font-semibold shrink-0">
                           {item.taxRate || 18}% GST
                         </span>
                       </div>
                       
-                      <div className="flex items-center gap-3 mt-1 text-[11px] text-slate-400 flex-wrap">
+                      <div className="flex items-center gap-3 mt-1 text-[11px] text-[var(--text-muted)] flex-wrap">
                         <span>
                           {priceType === 'purchase'
                             ? (isHindi ? 'क्रय मूल्य:' : 'Cost:')
@@ -308,21 +308,21 @@ export const SearchableItemSelect: React.FC<SearchableItemSelectProps> = ({
                             : priceTier === 'MRP'
                             ? 'MRP:'
                             : (isHindi ? 'रिटेल मूल्य:' : 'Retail:')}{' '}
-                          <strong className="text-amber-300 font-mono">{formatCurrency(price, (currency as Currency) || 'INR')}</strong>
-                          <span className="text-slate-500 text-[10px]"> /{item.unit || 'Unit'}</span>
+                          <strong className="text-amber-500 font-mono">{formatCurrency(price, (currency as Currency) || 'INR')}</strong>
+                          <span className="text-[var(--text-muted)] text-[10px]"> /{item.unit || 'Unit'}</span>
                         </span>
                         {priceType === 'sales' && item.wholesalePrice && item.wholesalePrice > 0 && priceTier !== 'WHOLESALE' && (
-                          <span className="text-[10px] font-mono text-cyan-300">
+                          <span className="text-[10px] font-mono text-cyan-500">
                             W:{formatCurrency(item.wholesalePrice, (currency as Currency) || 'INR')}
                           </span>
                         )}
 
-                        <span className={`flex items-center gap-1 ${
+                        <span className={`flex items-center gap-1 font-semibold ${
                           stock <= 0 
-                            ? 'text-rose-400 font-bold' 
+                            ? 'text-rose-500 font-bold' 
                             : isLowStock 
-                              ? 'text-amber-400' 
-                              : 'text-emerald-400'
+                              ? 'text-amber-500' 
+                              : 'text-emerald-500'
                         }`}>
                           • {isHindi ? 'स्टॉक:' : 'Stock:'} {stock} {item.unit || 'Pcs'}
                           {stock <= 0 && <span className="text-[9px] uppercase tracking-wider">(Out)</span>}
@@ -331,7 +331,7 @@ export const SearchableItemSelect: React.FC<SearchableItemSelectProps> = ({
                     </div>
 
                     {isSelected && (
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <Check className="w-4 h-4 text-emerald-500 shrink-0" />
                     )}
                   </div>
                 );

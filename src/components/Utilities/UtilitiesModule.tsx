@@ -147,15 +147,15 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
   };
 
   return (
-    <div className="p-4 md:p-6 space-y-6 max-w-7xl mx-auto text-slate-200">
+    <div className="p-4 md:p-6 space-y-6 max-w-7xl mx-auto text-[var(--text-primary)]">
       {/* Header Banner */}
-      <div className="bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div className="hv-surface p-5 rounded-2xl shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-extrabold text-white flex items-center gap-2.5">
+          <h2 className="text-xl font-extrabold text-[var(--text-primary)] flex items-center gap-2.5">
             <Database className="w-6 h-6 text-indigo-400" />
             <span>{isHindi ? 'डेटा उपयोगिताएँ, बैकअप एवं रिस्टोर केंद्र' : 'Utilities & Full System Backup/Restore'}</span>
           </h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-[var(--text-secondary)] mt-1">
             {isHindi
               ? 'बैकअप लें, बैकअप फ़ाइल से संपूर्ण डेटा रिस्टोर करें, CSV डेटा इम्पोर्ट/एक्सपोर्ट करें।'
               : 'Take instant system JSON backups, restore complete accounting databases, import/export CSV masters.'}
@@ -165,7 +165,7 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
         {canExportBackup && (
           <button
             onClick={() => exportBackupJSON(data)}
-            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-extrabold px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 transition transform active:scale-95 shrink-0"
+            className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white text-xs font-extrabold px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 transition transform active:scale-95 shrink-0 cursor-pointer"
           >
             <Download className="w-4 h-4" />
             <span>{isHindi ? '1-क्लिक बैकअप फ़ाइल डाउनलोड करें (JSON)' : 'Download Full Backup (JSON)'}</span>
@@ -174,7 +174,7 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
       </div>
 
       {restoreSuccess && (
-        <div className="bg-emerald-950/50 border border-emerald-500/40 rounded-2xl p-4 text-xs text-emerald-200 flex items-center justify-between gap-3">
+        <div className="hv-pill-emerald border rounded-2xl p-4 text-xs flex items-center justify-between gap-3">
           <div className="flex items-center gap-2 font-bold">
             <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
             <span>{isHindi ? 'डेटा सफलतापूर्वक बैकअप से रिस्टोर कर दिया गया है!' : 'System backup restored successfully!'}</span>
@@ -182,7 +182,7 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
           <button
             type="button"
             onClick={() => setRestoreSuccess(false)}
-            className="text-emerald-300 hover:text-white font-bold px-2 py-1 rounded-lg bg-emerald-900/40"
+            className="text-emerald-400 hover:opacity-80 font-bold px-2.5 py-1 rounded-lg hv-elevated cursor-pointer"
           >
             {isHindi ? 'बंद करें' : 'Dismiss'}
           </button>
@@ -192,27 +192,27 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
       {/* Grid Section: Backup & Restore */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Section 1: Take Backup (Export) */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl flex flex-col justify-between">
+        <div className="hv-surface rounded-2xl p-5 space-y-4 shadow-xl flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
+              <h3 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2">
                 <ArrowDownToLine className="w-5 h-5 text-emerald-400" />
                 <span>{isHindi ? '1. संपूर्ण सिस्टम डेटाबेस बैकअप डाउनलोड करें' : '1. Export System JSON Backup'}</span>
               </h3>
-              <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full">
+              <span className="hv-pill-emerald border text-[10px] font-bold px-2 py-0.5 rounded-full">
                 JSON DB
               </span>
             </div>
 
-            <p className="text-xs text-slate-400 mt-3 leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] mt-3 leading-relaxed">
               {isHindi
                 ? 'यह फ़ंक्शन आपकी कंपनी के सभी इनवॉइस, वाउचर, ग्राहक मास्टर्स, आइटम मास्टर्स और सेटिंग्स को एक ही `.json` बैकअप फ़ाइल में डाउनलोड करता है। इस फ़ाइल को पेनड्राइव या गूगल ड्राइव में सुरक्षित रखें।'
                 : 'This exports all company invoices, vouchers, party accounts, inventory items, and audit logs into a standalone `.json` file for offline safety and device transfer.'}
             </p>
 
-            <div className="mt-4 p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs font-mono space-y-1.5 text-slate-300">
-              <p className="text-indigo-300 font-bold">📊 {isHindi ? 'वर्तमान बैकअप स्नैपशॉट विवरण:' : 'Current Backup Snapshot Summary:'}</p>
-              <p>• {isHindi ? 'कंपनी का नाम:' : 'Company Name:'} <strong className="text-white">{data.company.name}</strong></p>
+            <div className="mt-4 p-3 hv-elevated rounded-xl text-xs font-mono space-y-1.5 text-[var(--text-secondary)]">
+              <p className="text-indigo-400 font-bold">📊 {isHindi ? 'वर्तमान बैकअप स्नैपशॉट विवरण:' : 'Current Backup Snapshot Summary:'}</p>
+              <p>• {isHindi ? 'कंपनी का नाम:' : 'Company Name:'} <strong className="text-[var(--text-primary)]">{data.company.name}</strong></p>
               <p>• {isHindi ? 'कुल इनवॉइस:' : 'Total Sales Invoices:'} <strong className="text-emerald-400">{data.invoices.length}</strong></p>
               <p>• {isHindi ? 'कुल वाउचर एंट्रीज़:' : 'Total Vouchers:'} <strong className="text-cyan-400">{data.vouchers.length}</strong></p>
               <p>• {isHindi ? 'रजिस्टर्ड पार्टीज़:' : 'Master Parties:'} <strong className="text-amber-400">{data.parties.length}</strong></p>
@@ -221,10 +221,10 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
           </div>
 
           {canExportBackup && (
-            <div className="pt-4 border-t border-slate-800">
+            <div className="pt-4 border-t border-[var(--border-primary)]">
               <button
                 onClick={() => exportBackupJSON(data)}
-                className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-3 rounded-xl shadow-lg transition"
+                className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white text-xs font-bold py-3 rounded-xl shadow-lg transition cursor-pointer"
               >
                 <Download className="w-4 h-4" />
                 <span>{isHindi ? 'JSON बैकअप फ़ाइल सहेजें (.JSON)' : 'Download Backup File (.JSON)'}</span>
@@ -234,19 +234,19 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
         </div>
 
         {/* Section 2: Restore / Import Backup */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl flex flex-col justify-between">
+        <div className="hv-surface rounded-2xl p-5 space-y-4 shadow-xl flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-base font-bold text-slate-100 flex items-center gap-2">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
+              <h3 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2">
                 <ArrowUpFromLine className="w-5 h-5 text-indigo-400" />
                 <span>{isHindi ? '2. पुराना बैकअप रिस्टोर / इंपोर्ट करें (Restore Data)' : '2. Restore System Data from Backup'}</span>
               </h3>
-              <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full">
+              <span className="hv-pill-indigo border text-[10px] font-bold px-2 py-0.5 rounded-full">
                 JSON Import
               </span>
             </div>
 
-            <p className="text-xs text-slate-400 mt-3 leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] mt-3 leading-relaxed">
               {isHindi
                 ? 'यदि आपने पहले बैकअप लिया था, तो उस `.json` फ़ाइल को यहाँ अपलोड करके अपना पूरा एकाउंटिंग डेटा और इनवॉइस वापस प्राप्त करें।'
                 : 'Upload a previously saved `.json` backup file to restore all your invoices, vouchers, party master accounts, and configuration.'}
@@ -255,9 +255,9 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
             {canRestoreOrReset ? (
               <>
                 {/* File Dropzone */}
-                <div className="mt-4 border-2 border-dashed border-slate-700 hover:border-indigo-500 bg-slate-950/60 rounded-xl p-4 text-center transition">
+                <div className="mt-4 border-2 border-dashed border-[var(--border-subtle)] hover:border-indigo-500 hv-elevated rounded-xl p-4 text-center transition">
                   <Upload className="w-8 h-8 text-indigo-400 mx-auto mb-2" />
-                  <label className="cursor-pointer font-bold text-xs text-indigo-300 hover:text-indigo-200 block">
+                  <label className="cursor-pointer font-bold text-xs text-indigo-400 hover:underline block">
                     <span>{isHindi ? 'यहाँ क्लिक करके JSON बैकअप फ़ाइल चुनें' : 'Click to Select Backup JSON File'}</span>
                     <input
                       type="file"
@@ -266,12 +266,12 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
                       className="hidden"
                     />
                   </label>
-                  <span className="text-[11px] text-slate-500 block mt-1">(.json format only)</span>
+                  <span className="text-[11px] text-[var(--text-muted)] block mt-1">(.json format only)</span>
                 </div>
 
                 {/* Error Message */}
                 {fileError && (
-                  <div className="mt-3 bg-rose-950/40 border border-rose-800/60 rounded-xl p-3 text-xs text-rose-300 flex items-center gap-2">
+                  <div className="mt-3 hv-pill-rose border rounded-xl p-3 text-xs flex items-center gap-2">
                     <AlertTriangle className="w-4 h-4 shrink-0 text-rose-400" />
                     <span>{fileError}</span>
                   </div>
@@ -279,8 +279,8 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
 
                 {/* Preview of Parsed Data */}
                 {parsedBackupData && (
-                  <div className="mt-3 bg-indigo-950/40 border border-indigo-500/40 rounded-xl p-3 text-xs space-y-1.5 text-indigo-200">
-                    <p className="font-bold text-white flex items-center gap-1.5">
+                  <div className="mt-3 hv-pill-indigo border rounded-xl p-3 text-xs space-y-1.5">
+                    <p className="font-bold text-[var(--text-primary)] flex items-center gap-1.5">
                       <CheckCircle2 className="w-4 h-4 text-emerald-400" />
                       <span>{isHindi ? 'वैध बैकअप फ़ाइल पाई गई!' : 'Valid Backup File Ready to Restore!'}</span>
                     </p>
@@ -294,7 +294,7 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
                 )}
               </>
             ) : (
-              <div className="mt-4 bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs text-slate-400 flex items-center gap-2">
+              <div className="mt-4 hv-elevated rounded-xl p-4 text-xs text-[var(--text-secondary)] flex items-center gap-2">
                 <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
                 <span>{isHindi ? 'डेटा रिस्टोर करने की अनुमति केवल ADMIN भूमिका को है।' : 'Only ADMIN role can restore system backup archives.'}</span>
               </div>
@@ -302,14 +302,14 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
           </div>
 
           {canRestoreOrReset && (
-            <div className="pt-4 border-t border-slate-800">
+            <div className="pt-4 border-t border-[var(--border-primary)]">
               <button
                 onClick={handleRequestRestore}
                 disabled={!parsedBackupData}
                 className={`w-full flex items-center justify-center gap-2 text-xs font-extrabold py-3 rounded-xl transition shadow-lg ${
                   parsedBackupData
-                    ? 'bg-indigo-600 hover:bg-indigo-500 text-white active:scale-95 cursor-pointer'
-                    : 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                    ? 'bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white active:scale-95 cursor-pointer'
+                    : 'hv-elevated text-[var(--text-muted)] opacity-60 cursor-not-allowed'
                 }`}
               >
                 <RefreshCw className="w-4 h-4" />
@@ -350,15 +350,15 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
       )}
 
       {!perms.canImportData && (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 text-xs text-slate-400 flex items-center gap-2">
+        <div className="hv-surface rounded-2xl p-4 text-xs text-[var(--text-secondary)] flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-amber-400 shrink-0" />
           <span>{isHindi ? 'ERP XML एवं बाहरी डेटा इम्पोर्ट केवल Admin/Manager/Accountant द्वारा किया जा सकता है।' : 'ERP XML and external software imports require Admin, Manager, or Accountant role.'}</span>
         </div>
       )}
 
       {/* Section 3: Master Data CSV Import & Export Utilities */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl">
-        <h3 className="text-base font-bold text-slate-100 flex items-center gap-2 border-b border-slate-800 pb-3">
+      <div className="hv-surface rounded-2xl p-5 space-y-4 shadow-xl">
+        <h3 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2 border-b border-[var(--border-primary)] pb-3">
           <FileSpreadsheet className="w-5 h-5 text-emerald-400" />
           <span>{isHindi ? '3. एक्सेल / CSV मास्टर्स एक्सपोर्ट एवं एक्सेल बैकअप' : '3. CSV Excel Masters Export & Quick Utilities'}</span>
         </h3>
@@ -366,17 +366,17 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs">
           {/* Parties CSV Export */}
           {perms.canExportData && (
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
-              <h4 className="font-bold text-white flex items-center gap-2">
+            <div className="hv-elevated p-4 rounded-xl space-y-3">
+              <h4 className="font-bold text-[var(--text-primary)] flex items-center gap-2">
                 <FileText className="w-4 h-4 text-amber-400" />
                 <span>{isHindi ? 'पार्टी मास्टर्स CSV' : 'Parties Directory CSV'}</span>
               </h4>
-              <p className="text-slate-400 text-[11px]">
+              <p className="text-[var(--text-secondary)] text-[11px]">
                 {isHindi ? 'सभी ग्राहकों और विक्रेताओं की सूची CSV एक्सेल फ़ाइल में एक्सपोर्ट करें।' : 'Export all customers and vendor directories into Excel CSV.'}
               </p>
               <button
                 onClick={exportPartiesCSV}
-                className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold py-2 rounded-lg transition flex items-center justify-center gap-1.5"
+                className="w-full hv-surface hover:bg-[var(--hover-surface)] text-[var(--text-primary)] font-semibold py-2 rounded-lg transition flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5 text-amber-400" />
                 <span>{isHindi ? 'पार्टी CSV डाउनलोड करें' : 'Export Parties CSV'}</span>
@@ -386,17 +386,17 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
 
           {/* Items CSV Export */}
           {perms.canExportData && (
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
-              <h4 className="font-bold text-white flex items-center gap-2">
+            <div className="hv-elevated p-4 rounded-xl space-y-3">
+              <h4 className="font-bold text-[var(--text-primary)] flex items-center gap-2">
                 <FileText className="w-4 h-4 text-purple-400" />
                 <span>{isHindi ? 'सामग्री / स्टॉक मास्टर्स CSV' : 'Stock Items CSV'}</span>
               </h4>
-              <p className="text-slate-400 text-[11px]">
+              <p className="text-[var(--text-secondary)] text-[11px]">
                 {isHindi ? 'आइटम कोड, HSN/SAC, दर और स्टॉक मात्रा की CSV डाउनलोड करें।' : 'Export inventory catalogue, rates, HSN codes into Excel CSV.'}
               </p>
               <button
                 onClick={exportItemsCSV}
-                className="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold py-2 rounded-lg transition flex items-center justify-center gap-1.5"
+                className="w-full hv-surface hover:bg-[var(--hover-surface)] text-[var(--text-primary)] font-semibold py-2 rounded-lg transition flex items-center justify-center gap-1.5 cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5 text-purple-400" />
                 <span>{isHindi ? 'आइटम CSV डाउनलोड करें' : 'Export Items CSV'}</span>
@@ -406,19 +406,19 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
 
           {/* Reset / Sample Data Utility */}
           {canRestoreOrReset && (
-            <div className="bg-rose-950/20 p-4 rounded-xl border border-rose-800/40 space-y-3">
-              <h4 className="font-bold text-rose-300 flex items-center gap-2">
+            <div className="hv-pill-rose border p-4 rounded-xl space-y-3">
+              <h4 className="font-bold text-rose-400 flex items-center gap-2">
                 <RefreshCw className="w-4 h-4 text-rose-400" />
                 <span>{isHindi ? 'सैंपल डेटा रीसेट (Reset)' : 'Reset Sample Data'}</span>
               </h4>
-              <p className="text-slate-400 text-[11px]">
+              <p className="text-[var(--text-secondary)] text-[11px]">
                 {isHindi ? 'डेमो या टेस्टिंग के लिए डिफ़ॉल्ट सैंपल इनवॉइस लोड करें।' : 'Reset system back to default sample ledger database.'}
               </p>
               <button
                 onClick={() => setShowResetSampleConfirm(true)}
-                className="w-full bg-rose-900/40 hover:bg-rose-800/60 text-rose-200 border border-rose-700/60 font-semibold py-2 rounded-lg transition flex items-center justify-center gap-1.5"
+                className="w-full bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-semibold py-2 rounded-lg transition flex items-center justify-center gap-1.5 cursor-pointer"
               >
-                <RefreshCw className="w-3.5 h-3.5 text-rose-300" />
+                <RefreshCw className="w-3.5 h-3.5" />
                 <span>{isHindi ? 'सैंपल डेटा रीसेट करें' : 'Reset to Sample Data'}</span>
               </button>
             </div>
@@ -428,7 +428,7 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
 
       {/* Video & Media Upload Center */}
       {onUpdateData && !isCustomerView && perms.canEditCompanySettings && (
-        <div className="pt-4 border-t border-slate-800">
+        <div className="pt-4 border-t border-[var(--border-primary)]">
           <VideoMediaUploader
             data={data}
             onUpdateData={onUpdateData}
@@ -440,32 +440,32 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
       {/* Restore Confirmation Modal */}
       {showRestoreConfirm && parsedBackupData && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-700 rounded-2xl max-w-md w-full p-5 space-y-4 shadow-2xl">
+          <div className="hv-surface rounded-2xl max-w-md w-full p-5 space-y-4 shadow-2xl">
             <div className="flex items-start gap-3">
               <AlertTriangle className="w-6 h-6 text-amber-400 shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <h4 className="text-sm font-extrabold text-white">
+                <h4 className="text-sm font-extrabold text-[var(--text-primary)]">
                   {isHindi ? 'बैकअप रिस्टोर की पुष्टि करें' : 'Confirm System Backup Restore'}
                 </h4>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
                   {isHindi
                     ? `वर्तमान डेटा रिप्लेस हो जाएगा और कंपनी "${parsedBackupData.company.name}" का बैकअप लोड हो जाएगा।`
                     : `Existing workspace state will be overwritten by the backup for "${parsedBackupData.company.name}".`}
                 </p>
               </div>
             </div>
-            <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+            <div className="flex justify-end gap-2 pt-2 border-t border-[var(--border-primary)]">
               <button
                 type="button"
                 onClick={() => setShowRestoreConfirm(false)}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200"
+                className="px-4 py-2 rounded-xl hv-elevated hover:bg-[var(--hover-surface)] text-xs font-bold text-[var(--text-primary)] cursor-pointer"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>
               <button
                 type="button"
                 onClick={handleConfirmRestore}
-                className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-extrabold text-white"
+                className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs font-extrabold text-white hv-keep-white cursor-pointer"
               >
                 {isHindi ? 'हाँ, रिस्टोर करें' : 'Yes, Restore Data'}
               </button>
@@ -477,25 +477,25 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
       {/* Reset Sample Data Confirmation Modal */}
       {showResetSampleConfirm && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-rose-700/60 rounded-2xl max-w-md w-full p-5 space-y-4 shadow-2xl">
+          <div className="hv-surface border-rose-500/50 rounded-2xl max-w-md w-full p-5 space-y-4 shadow-2xl">
             <div className="flex items-start gap-3">
               <AlertTriangle className="w-6 h-6 text-rose-400 shrink-0 mt-0.5" />
               <div className="space-y-1">
-                <h4 className="text-sm font-extrabold text-white">
+                <h4 className="text-sm font-extrabold text-[var(--text-primary)]">
                   {isHindi ? 'सैंपल डेटा रीसेट की पुष्टि करें' : 'Confirm Reset to Sample Data'}
                 </h4>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
                   {isHindi
                     ? 'यह कार्रवाई वर्तमान डेटा को हटाकर डिफ़ॉल्ट सैंपल डेटासेट लोड कर देगी।'
                     : 'This will replace current records with the default sample dataset.'}
                 </p>
               </div>
             </div>
-            <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+            <div className="flex justify-end gap-2 pt-2 border-t border-[var(--border-primary)]">
               <button
                 type="button"
                 onClick={() => setShowResetSampleConfirm(false)}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-slate-200"
+                className="px-4 py-2 rounded-xl hv-elevated hover:bg-[var(--hover-surface)] text-xs font-bold text-[var(--text-primary)] cursor-pointer"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>
@@ -505,7 +505,7 @@ export const UtilitiesModule: React.FC<UtilitiesModuleProps> = ({
                   setShowResetSampleConfirm(false);
                   onResetSampleData();
                 }}
-                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-xs font-extrabold text-white"
+                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-xs font-extrabold text-white hv-keep-white cursor-pointer"
               >
                 {isHindi ? 'हाँ, रीसेट करें' : 'Yes, Reset Sample'}
               </button>

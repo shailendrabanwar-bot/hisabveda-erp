@@ -174,23 +174,23 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-md p-4 animate-fadeIn">
-      <div className="bg-slate-900 border border-emerald-500/30 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div className="hv-surface border-emerald-500/30 rounded-3xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="p-5 border-b border-slate-800 flex items-center justify-between bg-gradient-to-r from-emerald-950/60 via-slate-900 to-indigo-950/60">
+        <div className="p-5 border-b border-[var(--border-primary)] flex items-center justify-between hv-elevated">
           <div className="flex items-center gap-3">
             <SnaLogo size="md" showText={false} />
             <div>
-              <h2 className="text-base font-extrabold text-white flex items-center gap-2 flex-wrap">
+              <h2 className="text-base font-extrabold text-[var(--text-primary)] flex items-center gap-2 flex-wrap">
                 <span>
                   {isHindi
                     ? '🖥️📱 डेस्कटॉप व मोबाइल ऐप इंस्टॉलेशन'
                     : '🖥️📱 Desktop & Mobile App Setup'}
                 </span>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full font-mono">
+                <span className="text-[10px] hv-pill-emerald border px-2 py-0.5 rounded-full font-mono font-bold">
                   Windows • Android • iOS
                 </span>
               </h2>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--text-secondary)]">
                 {isHindi
                   ? 'ऑफ़िशियल HisabVeda लोगो के साथ Desktop शॉर्टकट और मोबाइल ऐप इंस्टॉल करें'
                   : 'Install Hisabveda ERP with official logo icon on Desktop & smartphones'}
@@ -199,14 +199,14 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition cursor-pointer"
+            className="p-2 rounded-xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)] transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Selection */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-3 bg-slate-950 border-b border-slate-800">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 p-3 hv-elevated border-b border-[var(--border-primary)]">
           <button
             onClick={() => {
               setActiveTab('desktop');
@@ -214,8 +214,8 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
             }}
             className={`py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
               activeTab === 'desktop'
-                ? 'bg-emerald-600 text-slate-950 shadow-md'
-                : 'bg-slate-900 text-slate-400 hover:text-slate-200'
+                ? 'bg-emerald-600 text-white hv-keep-white shadow-md'
+                : 'hv-surface text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
             <Monitor className="w-3.5 h-3.5" />
@@ -229,8 +229,8 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
             }}
             className={`py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
               activeTab === 'pwa'
-                ? 'bg-emerald-600 text-slate-950 shadow-md'
-                : 'bg-slate-900 text-slate-400 hover:text-slate-200'
+                ? 'bg-emerald-600 text-white hv-keep-white shadow-md'
+                : 'hv-surface text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
             <Smartphone className="w-3.5 h-3.5" />
@@ -244,8 +244,8 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
             }}
             className={`py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
               activeTab === 'qr'
-                ? 'bg-emerald-600 text-slate-950 shadow-md'
-                : 'bg-slate-900 text-slate-400 hover:text-slate-200'
+                ? 'bg-emerald-600 text-white hv-keep-white shadow-md'
+                : 'hv-surface text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
             <QrCode className="w-3.5 h-3.5" />
@@ -259,8 +259,8 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
             }}
             className={`py-2 px-3 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 cursor-pointer ${
               activeTab === 'apk'
-                ? 'bg-emerald-600 text-slate-950 shadow-md'
-                : 'bg-slate-900 text-slate-400 hover:text-slate-200'
+                ? 'bg-emerald-600 text-white hv-keep-white shadow-md'
+                : 'hv-surface text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
             <Terminal className="w-3.5 h-3.5" />
@@ -271,7 +271,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
         {/* Tab Contents */}
         <div className="p-6 overflow-y-auto space-y-5 flex-1">
           {downloadStatus && (
-            <div className="p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-xs text-emerald-200 font-semibold leading-relaxed animate-fadeIn">
+            <div className="p-3.5 rounded-xl hv-pill-emerald border text-xs font-semibold leading-relaxed animate-fadeIn">
               {downloadStatus}
             </div>
           )}
@@ -280,10 +280,10 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
           {activeTab === 'desktop' && (
             <div className="space-y-4">
               {/* Method 1: Windows 1-Click Desktop Shortcut ZIP (Guaranteed Logo Icon) */}
-              <div className="bg-gradient-to-br from-emerald-950/40 via-slate-900 to-slate-950 border border-emerald-500/40 rounded-2xl p-4 space-y-3">
+              <div className="hv-elevated border-emerald-500/40 rounded-2xl p-4 space-y-3">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h3 className="font-extrabold text-sm text-white flex items-center gap-2">
+                    <h3 className="font-extrabold text-sm text-[var(--text-primary)] flex items-center gap-2">
                       <Monitor className="w-4 h-4 text-emerald-400" />
                       <span>
                         {isHindi
@@ -291,7 +291,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                           : '1. Windows Desktop Shortcut Installer (with Official Logo)'}
                       </span>
                     </h3>
-                    <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                    <p className="text-xs text-[var(--text-secondary)] mt-1 leading-relaxed">
                       {isHindi
                         ? 'अन्य सॉफ्टवेयर की तरह सीधे Windows Desktop और Start Menu में HisabVeda लोगो वाला ऐप आइकन बनाने के लिए यह पैकेज डाउनलोड करें (Node.js की ज़रूरत नहीं):'
                         : 'Creates a native "HisabVeda ERP" shortcut with the official HisabVeda .ico logo directly on your Windows Desktop & Start Menu (no Node.js needed).'}
@@ -304,7 +304,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                   />
                 </div>
 
-                <div className="bg-slate-950/90 p-3 rounded-xl border border-slate-800 text-[11px] text-slate-300 space-y-1">
+                <div className="hv-surface p-3 rounded-xl text-[11px] text-[var(--text-secondary)] space-y-1">
                   <p>
                     <strong className="text-emerald-400">Step 1:</strong>{' '}
                     {isHindi
@@ -329,7 +329,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                   type="button"
                   onClick={handleDownloadDesktopShortcut}
                   disabled={isDownloadingZip}
-                  className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60 text-slate-950 font-extrabold text-xs py-3 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60 text-white hv-keep-white font-extrabold text-xs py-3 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {isDownloadingZip ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -345,8 +345,8 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
               </div>
 
               {/* Method 2: Chrome / Edge Direct PWA Install */}
-              <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 space-y-3">
-                <h4 className="font-bold text-xs text-sky-300 flex items-center gap-2">
+              <div className="hv-elevated rounded-2xl p-4 space-y-3">
+                <h4 className="font-bold text-xs text-sky-400 flex items-center gap-2">
                   <Sparkles className="w-4 h-4 text-sky-400" />
                   <span>
                     {isHindi
@@ -356,7 +356,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                 </h4>
 
                 {isInstalled ? (
-                  <div className="py-2.5 px-4 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded-xl text-xs font-bold flex items-center gap-2">
+                  <div className="py-2.5 px-4 hv-pill-emerald border rounded-xl text-xs font-bold flex items-center gap-2">
                     <CheckCircle2 className="w-4 h-4 shrink-0" />
                     <span>
                       {isHindi
@@ -368,7 +368,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                   <button
                     type="button"
                     onClick={install}
-                    className="w-full bg-sky-600 hover:bg-sky-500 text-slate-950 font-extrabold text-xs py-3 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full bg-sky-600 hover:bg-sky-500 text-white hv-keep-white font-extrabold text-xs py-3 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Download className="w-4 h-4" />
                     <span>
@@ -378,7 +378,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                     </span>
                   </button>
                 ) : (
-                  <div className="space-y-2.5 text-[11px] text-slate-300">
+                  <div className="space-y-2.5 text-[11px] text-[var(--text-secondary)]">
                     <p>
                       {inIframe
                         ? isHindi
@@ -392,7 +392,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                       href={resolvedBaseUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs py-2.5 px-4 rounded-xl transition shadow cursor-pointer"
+                      className="w-full inline-flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs py-2.5 px-4 rounded-xl transition shadow cursor-pointer"
                     >
                       <ExternalLink className="w-3.5 h-3.5" />
                       <span>
@@ -410,10 +410,10 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
           {/* TAB 1: 1-Click PWA Mobile App */}
           {activeTab === 'pwa' && (
             <div className="space-y-4">
-              <div className="bg-gradient-to-br from-emerald-950/40 via-slate-900 to-slate-950 border border-emerald-500/30 rounded-2xl p-4 space-y-3">
+              <div className="hv-elevated border-emerald-500/30 rounded-2xl p-4 space-y-3">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <h3 className="font-extrabold text-sm text-white flex items-center gap-2">
+                    <h3 className="font-extrabold text-sm text-[var(--text-primary)] flex items-center gap-2">
                       <Sparkles className="w-4 h-4 text-emerald-400" />
                       <span>
                         {isHindi
@@ -421,7 +421,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                           : 'Instant Install directly without Play Store!'}
                       </span>
                     </h3>
-                    <p className="text-xs text-slate-300 mt-1 leading-relaxed">
+                    <p className="text-xs text-[var(--text-secondary)] mt-1 leading-relaxed">
                       {isHindi
                         ? 'इस सॉफ़्टवेयर में नया ऑफ़िशियल HisabVeda लोगो मोबाइल आइकन (/hv-app-192.png) सेट कर दिया गया है।'
                         : 'Updated with the fresh official HisabVeda logo mobile app icon and full-screen offline PWA support.'}
@@ -435,13 +435,13 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                 </div>
 
                 {/* Cache Refresh Notice for Users Replacing Old Circle Icon */}
-                <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-[11px] text-amber-200 flex items-start gap-2">
+                <div className="p-3 rounded-xl hv-pill-amber border text-[11px] flex items-start gap-2">
                   <RefreshCw className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
                   <div>
-                    <strong className="text-amber-300">
+                    <strong className="font-bold">
                       {isHindi ? 'यदि फ़ोन होम स्क्रीन पर पुराना गोल लोगो दिख रहा है:' : 'Seeing an older icon on your phone home screen?'}
                     </strong>
-                    <p className="mt-0.5 text-slate-300">
+                    <p className="mt-0.5 text-[var(--text-secondary)]">
                       {isHindi
                         ? 'Android/iPhone पुराना शॉर्टकट आइकन कैश कर लेते हैं। बस पुराने होम-स्क्रीन आइकन को Uninstall/Remove करें, इस पेज को एक बार Reload (रीफ्रेश) करें, और दोबारा "Install App / Add to Home Screen" दबाएँ — नया HisabVeda लोगो तुरंत आ जाएगा!'
                         : 'Mobile OS locks the home-screen icon when first installed. Remove/uninstall the old home-screen shortcut once, reload this page, and tap "Install App / Add to Home Screen" again to get the new HisabVeda logo.'}
@@ -451,12 +451,12 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
                   {/* Android Card */}
-                  <div className="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                  <div className="hv-surface p-3.5 rounded-xl space-y-2">
                     <span className="text-[11px] font-bold text-emerald-400 flex items-center gap-1.5">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       <span>Android (Chrome / Edge)</span>
                     </span>
-                    <p className="text-[11px] text-slate-300">
+                    <p className="text-[11px] text-[var(--text-secondary)]">
                       {isHindi
                         ? 'क्रोम में लिंक खोलें ➔ 3 डॉट्स (⋮) दबाएँ ➔ "Install App" या "होम स्क्रीन में जोड़ें" पर टैप करें।'
                         : 'Open in Chrome ➔ Tap 3 dots (⋮) ➔ Tap "Install App" or "Add to Home screen".'}
@@ -464,12 +464,12 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                   </div>
 
                   {/* iOS Card */}
-                  <div className="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800 space-y-2">
+                  <div className="hv-surface p-3.5 rounded-xl space-y-2">
                     <span className="text-[11px] font-bold text-sky-400 flex items-center gap-1.5">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       <span>iPhone / iPad (Safari)</span>
                     </span>
-                    <p className="text-[11px] text-slate-300">
+                    <p className="text-[11px] text-[var(--text-secondary)]">
                       {isHindi
                         ? 'सफ़ारी में लिंक खोलें ➔ शेयर बटन (⎋) दबाएँ ➔ "Add to Home Screen" (+) पर टैप करें।'
                         : 'Open in Safari ➔ Tap Share icon (⎋) ➔ Tap "Add to Home Screen" (+).'}
@@ -482,7 +482,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                   {isInstallable && !isInstalled && (
                     <button
                       onClick={install}
-                      className="w-full sm:w-auto flex-1 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-extrabold text-xs py-3 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
+                      className="w-full sm:w-auto flex-1 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold text-xs py-3 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <Download className="w-4 h-4" />
                       <span>{isHindi ? 'अभी इस डिवाइस पर इंस्टॉल करें' : 'Install on this Device Now'}</span>
@@ -490,7 +490,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                   )}
 
                   {isInstalled && (
-                    <div className="w-full py-2.5 px-4 bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 rounded-xl text-xs font-bold flex items-center justify-center gap-2">
+                    <div className="w-full py-2.5 px-4 hv-pill-emerald border rounded-xl text-xs font-bold flex items-center justify-center gap-2">
                       <CheckCircle2 className="w-4 h-4" />
                       <span>{isHindi ? 'यह ऐप पहले से आपके डिवाइस पर इंस्टॉल है!' : 'App is already installed on this device!'}</span>
                     </div>
@@ -499,7 +499,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                   {isIOS && !isInstalled && (
                     <button
                       onClick={() => setShowIOSSteps(!showIOSSteps)}
-                      className="w-full sm:w-auto flex-1 bg-sky-600 hover:bg-sky-500 text-slate-950 font-extrabold text-xs py-3 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
+                      className="w-full sm:w-auto flex-1 bg-sky-600 hover:bg-sky-500 text-white hv-keep-white font-extrabold text-xs py-3 px-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <Smartphone className="w-4 h-4" />
                       <span>{isHindi ? 'iPhone में इंस्टॉल करने की विधि' : 'How to install on iPhone'}</span>
@@ -508,7 +508,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
 
                   <button
                     onClick={handleCopy}
-                    className="w-full sm:w-auto flex items-center justify-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-3 px-4 rounded-xl transition border border-slate-700 cursor-pointer"
+                    className="w-full sm:w-auto flex items-center justify-center gap-1.5 hv-surface hover:bg-[var(--hover-surface)] text-[var(--text-primary)] font-bold text-xs py-3 px-4 rounded-xl transition cursor-pointer"
                   >
                     {copiedLink ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4" />}
                     <span>{copiedLink ? (isHindi ? 'लिंक कॉपी हुआ!' : 'Copied!') : (isHindi ? 'मोबाइल लिंक कॉपी करें' : 'Copy Mobile Link')}</span>
@@ -516,8 +516,8 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                 </div>
 
                 {showIOSSteps && (
-                  <div className="p-3 bg-slate-950 rounded-xl border border-sky-500/40 text-xs text-slate-300 space-y-1 animate-fadeIn">
-                    <p className="font-bold text-sky-300">{isHindi ? 'iPhone Safari में इंस्टॉलेशन स्टेप्स:' : 'iPhone Installation Steps:'}</p>
+                  <div className="p-3 hv-surface rounded-xl border-sky-500/40 text-xs text-[var(--text-secondary)] space-y-1 animate-fadeIn">
+                    <p className="font-bold text-sky-400">{isHindi ? 'iPhone Safari में इंस्टॉलेशन स्टेप्स:' : 'iPhone Installation Steps:'}</p>
                     <p>1. Safari में नीचे दिया गया <strong>Share</strong> (शेयर) बटन दबाएँ।</p>
                     <p>2. नीचे स्क्रॉल करके <strong>"Add to Home Screen" (+)</strong> पर टैप करें।</p>
                     <p>3. ऊपर दाएँ कोने में <strong>"Add"</strong> दबाएँ — नया Hisabveda ERP लोगो आपके फोन पर आ जाएगा!</p>
@@ -527,17 +527,17 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
 
               {/* Mobile Features Highlights */}
               <div className="grid grid-cols-3 gap-2.5 text-center text-xs">
-                <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+                <div className="hv-elevated p-3 rounded-xl">
                   <p className="text-emerald-400 font-bold text-sm">100%</p>
-                  <p className="text-slate-400 text-[10px]">{isHindi ? 'फुल-स्क्रीन व्यू' : 'Full Screen Standalone'}</p>
+                  <p className="text-[var(--text-secondary)] text-[10px]">{isHindi ? 'फुल-स्क्रीन व्यू' : 'Full Screen Standalone'}</p>
                 </div>
-                <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+                <div className="hv-elevated p-3 rounded-xl">
                   <p className="text-amber-400 font-bold text-sm">0 MB</p>
-                  <p className="text-slate-400 text-[10px]">{isHindi ? 'फोन स्टोरेज की बचत' : 'Zero Device Bloat'}</p>
+                  <p className="text-[var(--text-secondary)] text-[10px]">{isHindi ? 'फोन स्टोरेज की बचत' : 'Zero Device Bloat'}</p>
                 </div>
-                <div className="bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+                <div className="hv-elevated p-3 rounded-xl">
                   <p className="text-sky-400 font-bold text-sm">ऑफ़लाइन</p>
-                  <p className="text-slate-400 text-[10px]">{isHindi ? 'कैश डेटा सपोर्ट' : 'Offline Cached Data'}</p>
+                  <p className="text-[var(--text-secondary)] text-[10px]">{isHindi ? 'कैश डेटा सपोर्ट' : 'Offline Cached Data'}</p>
                 </div>
               </div>
             </div>
@@ -547,21 +547,21 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
           {activeTab === 'qr' && (
             <div className="space-y-4">
               {/* LAN IP & Pairing Status Card */}
-              <div className="bg-gradient-to-br from-indigo-950/50 via-slate-900 to-slate-950 border border-indigo-500/30 rounded-2xl p-4 space-y-3 text-left">
+              <div className="hv-elevated border-indigo-500/30 rounded-2xl p-4 space-y-3 text-left">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
                     <Wifi className="w-4 h-4 text-emerald-400" />
-                    <span className="font-extrabold text-xs text-white">
+                    <span className="font-extrabold text-xs text-[var(--text-primary)]">
                       {isHindi
                         ? 'लोकल Wi-Fi / LAN लाइव व्यू (2nd PC व मोबाइल)'
                         : 'Local Wi-Fi / LAN Multi-PC & Mobile Live View'}
                     </span>
                   </div>
                   {lanInfo?.pairCode && (
-                    <div className="inline-flex items-center gap-1.5 bg-slate-950 border border-emerald-500/40 px-2.5 py-1 rounded-lg">
+                    <div className="inline-flex items-center gap-1.5 hv-surface border-emerald-500/40 px-2.5 py-1 rounded-lg">
                       <KeyRound className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-[10px] text-slate-400 font-bold uppercase">Code:</span>
-                      <span className="font-mono font-black text-xs text-emerald-300 tracking-widest">
+                      <span className="text-[10px] text-[var(--text-secondary)] font-bold uppercase">Code:</span>
+                      <span className="font-mono font-black text-xs text-emerald-400 tracking-widest">
                         {lanInfo.pairCode}
                       </span>
                     </div>
@@ -569,7 +569,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                 </div>
 
                 <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
-                  <div className="inline-flex bg-slate-950 px-3 py-1.5 rounded-xl border border-emerald-500/40 text-emerald-300 font-bold">
+                  <div className="inline-flex hv-pill-emerald border px-3 py-1.5 rounded-xl font-bold">
                     {isHindi ? 'Wi-Fi / LAN लाइव व्यू सक्रिय' : 'Wi-Fi / LAN Live View Active'}
                   </div>
 
@@ -577,7 +577,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                     <select
                       value={selectedLanIp}
                       onChange={(e) => setSelectedLanIp(e.target.value)}
-                      className="bg-slate-950 border border-slate-700 text-indigo-300 font-mono text-xs rounded-lg px-2.5 py-1.5 outline-none"
+                      className="hv-input text-indigo-400 font-mono text-xs rounded-lg px-2.5 py-1.5 outline-none"
                     >
                       {lanInfo.interfaces.map((iface) => (
                         <option key={iface.address} value={iface.address}>
@@ -592,7 +592,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                       type="button"
                       onClick={() => loadLanInfoAndSync(true)}
                       disabled={isSyncingLan}
-                      className="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-emerald-300 border border-emerald-500/30 px-3 py-1.5 rounded-lg font-bold transition cursor-pointer disabled:opacity-60"
+                      className="inline-flex items-center gap-1.5 hv-surface hover:bg-[var(--hover-surface)] text-emerald-400 border-emerald-500/30 px-3 py-1.5 rounded-lg font-bold transition cursor-pointer disabled:opacity-60"
                     >
                       <RefreshCw className={`w-3.5 h-3.5 ${isSyncingLan ? 'animate-spin' : ''}`} />
                       <span>{isHindi ? 'डेटा अभी सिंक करें' : 'Sync Live Data Now'}</span>
@@ -601,14 +601,14 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                 </div>
 
                 {lanSyncNote && (
-                  <p className="text-[11px] font-bold text-emerald-300">{lanSyncNote}</p>
+                  <p className="text-[11px] font-bold text-emerald-400">{lanSyncNote}</p>
                 )}
               </div>
 
               {/* QR Display */}
               <div className="text-center space-y-3">
-                <div className="bg-slate-950 p-5 rounded-2xl border border-slate-800 inline-block mx-auto shadow-2xl">
-                  <div className="bg-white p-3 rounded-xl inline-block">
+                <div className="hv-elevated p-5 rounded-2xl inline-block mx-auto shadow-2xl">
+                  <div className="bg-white p-3 rounded-xl inline-block border border-slate-200">
                     <QRCodeSVG
                       value={mobileUrl}
                       size={190}
@@ -621,19 +621,19 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                       ? 'उसी दुकान के Wi-Fi से जुड़े फोन या दूसरे PC से स्कैन करें'
                       : 'Scan on Mobile or Open on 2nd PC on same Shop Wi-Fi'}
                   </p>
-                  <p className="text-[11px] text-slate-400 mt-1 max-w-sm mx-auto">
+                  <p className="text-[11px] text-[var(--text-secondary)] mt-1 max-w-sm mx-auto">
                     {isHindi
                       ? 'बिक्री, कैश/बैंक बैलेंस और पार्टी बकाया बिना क्लाउड लॉगिन के लाइव देखें (Read-Only)।'
                       : 'View Live Sales, Cash/Bank Balances & Party Outstandings on Wi-Fi without cloud login (Read-Only).'}
                   </p>
                 </div>
 
-                <div className="bg-slate-950 p-3 rounded-xl border border-slate-800 flex items-center justify-between gap-2 text-xs font-mono text-emerald-300">
+                <div className="hv-elevated p-3 rounded-xl flex items-center justify-between gap-2 text-xs font-mono text-emerald-400">
                   <span className="break-all select-all text-left">{mobileUrl}</span>
                   <button
                     type="button"
                     onClick={() => handleCopy(mobileUrl)}
-                    className="shrink-0 px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white rounded-lg font-sans font-bold flex items-center gap-1 cursor-pointer"
+                    className="shrink-0 px-3 py-1.5 hv-surface hover:bg-[var(--hover-surface)] text-[var(--text-primary)] rounded-lg font-sans font-bold flex items-center gap-1 cursor-pointer"
                   >
                     {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedLink ? (isHindi ? 'कॉपी!' : 'Copied') : (isHindi ? 'कॉपी' : 'Copy')}</span>
@@ -646,24 +646,24 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
           {/* TAB 3: Native Android APK Script */}
           {activeTab === 'apk' && (
             <div className="space-y-4">
-              <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3 text-xs">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                  <span className="font-bold text-white flex items-center gap-2">
+              <div className="hv-elevated p-4 rounded-2xl space-y-3 text-xs">
+                <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-2">
+                  <span className="font-bold text-[var(--text-primary)] flex items-center gap-2">
                     <Terminal className="w-4 h-4 text-amber-400" />
                     <span>{isHindi ? 'Android APK / Google Play Store पैकेज टूल' : 'Native Android APK & Play Store Builder'}</span>
                   </span>
-                  <span className="text-[10px] bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded font-mono">
+                  <span className="text-[10px] hv-pill-amber border px-2 py-0.5 rounded font-mono font-bold">
                     .APK / .AAB
                   </span>
                 </div>
 
-                <p className="text-slate-300 text-[11px] leading-relaxed">
+                <p className="text-[var(--text-secondary)] text-[11px] leading-relaxed">
                   {isHindi
                     ? 'यदि आप अपने सॉफ़्टवेयर की असली Android APK (.apk) फ़ाइल बनाकर ग्राहकों को WhatsApp से भेजना चाहते हैं या Google Play Store पर डालना चाहते हैं, तो यह ZIP पैकेज डाउनलोड करें:'
                     : 'Download the Capacitor Android APK Builder ZIP package to wrap the full source project into a native Android APK.'}
                 </p>
 
-                <div className="bg-slate-900 p-3 rounded-xl border border-slate-800 font-mono text-[11px] text-amber-200 space-y-1">
+                <div className="hv-surface p-3 rounded-xl font-mono text-[11px] text-amber-400 space-y-1">
                   <p>1. पूरा सोर्स कोड ZIP (package.json सहित) कंप्यूटर पर Extract करें।</p>
                   <p>2. <strong>Build_Hisabveda_Android_APK.bat</strong> को प्रोजेक्ट रूट फ़ोल्डर में रखकर चलाएँ।</p>
                   <p>3. Android Studio में <strong>Build APK</strong> दबाएँ — APK फ़ाइल तैयार हो जाएगी!</p>
@@ -672,7 +672,7 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
                 <button
                   onClick={handleDownloadApkScript}
                   disabled={isDownloadingZip}
-                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-amber-600 to-emerald-600 hover:from-amber-500 hover:to-emerald-500 disabled:opacity-60 text-slate-950 font-extrabold py-3 px-4 rounded-xl shadow-lg transition cursor-pointer"
+                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-amber-600 to-emerald-600 hover:from-amber-500 hover:to-emerald-500 disabled:opacity-60 text-white hv-keep-white font-extrabold py-3 px-4 rounded-xl shadow-lg transition cursor-pointer"
                 >
                   {isDownloadingZip ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
                   <span>{isHindi ? 'Android APK बिल्डर पैकेज डाउनलोड करें (.ZIP)' : 'Download Android APK Builder (.ZIP)'}</span>
@@ -683,14 +683,14 @@ export const MobileAppModal: React.FC<MobileAppModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="p-4 border-t border-slate-800 bg-slate-950 flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2 text-slate-400">
+        <div className="p-4 border-t border-[var(--border-primary)] hv-elevated flex items-center justify-between text-xs">
+          <div className="flex items-center gap-2 text-[var(--text-secondary)]">
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
             <span>{isHindi ? 'सुरक्षित, तेज़ एवं 100% रिस्पॉन्सिव इंटरफेस' : 'Secure, fast & responsive Desktop/Mobile interface'}</span>
           </div>
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition cursor-pointer"
+            className="px-4 py-2 hv-surface hover:bg-[var(--hover-surface)] text-[var(--text-primary)] font-bold rounded-xl transition cursor-pointer"
           >
             {isHindi ? 'बंद करें' : 'Close'}
           </button>

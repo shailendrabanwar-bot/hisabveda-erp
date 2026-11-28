@@ -197,41 +197,41 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden text-slate-200">
-        <div className="p-4 bg-slate-800 border-b border-slate-700 flex items-center justify-between shrink-0">
+      <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl w-full max-w-xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden text-[var(--text-primary)]">
+        <div className="p-4 hv-elevated border-b border-[var(--border-primary)] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
-            <ArrowDownLeft className="w-5 h-5 text-rose-400" />
-            <h3 className="text-base font-bold text-white">
+            <ArrowDownLeft className="w-5 h-5 text-rose-500" />
+            <h3 className="text-base font-bold text-[var(--text-primary)]">
               {editingVoucher
                 ? (isHindi ? `भुगतान वाउचर संपादित करें (${editingVoucher.voucherNumber})` : `Edit Payment Voucher (${editingVoucher.voucherNumber})`)
                 : (isHindi ? 'नया भुगतान वाउचर (Payment Voucher - F5)' : 'Record Payment Voucher (Outflow - F5)')}
             </h3>
           </div>
-          <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-white bg-slate-800 rounded-lg">
+          <button onClick={onClose} className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-primary)] rounded-lg">
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-5 overflow-y-auto space-y-4 text-xs">
           {validationError && (
-            <div className="p-3 bg-rose-500/15 border border-rose-500/50 rounded-xl text-rose-200 font-bold flex items-center justify-between gap-2">
+            <div className="p-3 hv-pill-rose border rounded-xl font-bold flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{validationError}</span>
               </div>
-              <button type="button" onClick={() => setValidationError(null)} className="text-rose-300 hover:text-white">
+              <button type="button" onClick={() => setValidationError(null)} className="opacity-80 hover:opacity-100">
                 <X className="w-4 h-4" />
               </button>
             </div>
           )}
 
           {budgetOverrunAlerts.length > 0 && (
-            <div className="p-3 bg-amber-500/15 border border-amber-500/40 rounded-xl text-amber-200 space-y-1">
+            <div className="p-3 hv-pill-amber border rounded-xl space-y-1">
               {budgetOverrunAlerts.map((alert) => (
                 <div key={alert.accountId} className="flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
                   <div className="text-[11px] leading-relaxed">
-                    <span className="font-bold text-amber-300">
+                    <span className="font-bold">
                       {isHindi
                         ? `बजट सीमा चेतावनी (${alert.accountName}): `
                         : `Budget Overrun Alert (${alert.accountName}): `}
@@ -245,28 +245,28 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-3 bg-slate-800/60 p-3 rounded-xl border border-slate-700">
+          <div className="grid grid-cols-2 gap-3 hv-elevated p-3 rounded-xl border border-[var(--border-primary)]">
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                 {isHindi ? 'वाउचर नंबर' : 'Voucher Number'}
               </label>
               <input
                 type="text"
                 value={voucherNumber}
                 onChange={(e) => setVoucherNumber(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 font-mono"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 font-mono"
                 required
               />
             </div>
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                 {isHindi ? 'भुगतान तिथि' : 'Payment Date'}
               </label>
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2"
                 required
               />
             </div>
@@ -274,13 +274,13 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                 {isHindi ? 'विक्रेता / प्राप्तकर्ता पार्टी (Optional)' : 'Vendor / Party Paid (Optional)'}
               </label>
               <select
                 value={partyId}
                 onChange={(e) => handlePartyChange(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2"
               >
                 <option value="">-- No Specific Party (Direct Expense) --</option>
                 {data.parties.map((p) => (
@@ -291,14 +291,14 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
 
             <div>
               <div className="flex items-center justify-between gap-2 mb-1">
-                <label className="block text-slate-300 font-semibold">
+                <label className="block text-[var(--text-secondary)] font-semibold">
                   {isHindi ? 'खर्च / लेजर नामे (Debit Account) *' : 'Debit Ledger (Expense/Payable) *'}
                 </label>
                 {onAddAccount && (
                   <button
                     type="button"
                     onClick={() => setQuickLedgerContext('PAYMENT_DEBIT')}
-                    className="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-300 hover:text-indigo-200 bg-indigo-500/15 hover:bg-indigo-500/25 border border-indigo-500/40 px-2 py-0.5 rounded-md transition"
+                    className="inline-flex items-center gap-1 text-[11px] font-bold hv-pill-indigo border px-2 py-0.5 rounded-md transition"
                   >
                     <PlusCircle className="w-3 h-3" />
                     <span>{isHindi ? '+ नया लेजर' : '+ New Ledger'}</span>
@@ -314,7 +314,7 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
                   }
                   setExpenseAccountId(e.target.value);
                 }}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2"
                 required
               >
                 <option value="">{isHindi ? '-- लेजर खाता चुनें --' : '-- Select Debit Ledger --'}</option>
@@ -322,12 +322,12 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
                   <option key={acc.id} value={acc.id}>[{acc.code}] {acc.name} ({acc.category})</option>
                 ))}
                 {onAddAccount && (
-                  <option value="__CREATE_NEW__" className="text-indigo-300 font-bold">
+                  <option value="__CREATE_NEW__" className="text-indigo-500 font-bold">
                     {isHindi ? '➕ + नया खर्च / लेजर खाता बनाएँ...' : '➕ + Create New Expense / Ledger...'}
                   </option>
                 )}
               </select>
-              <p className="text-[10px] text-slate-400 mt-1">
+              <p className="text-[10px] text-[var(--text-muted)] mt-1">
                 {isHindi ? 'नोट: कैश ↔ बैंक ट्रांसफर के लिए Contra (F4) का उपयोग करें।' : 'Note: Use Contra (F4) for Cash ↔ Bank transfers.'}
               </p>
             </div>
@@ -335,13 +335,13 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                 {isHindi ? 'भुगतान माध्यम' : 'Payment Mode'}
               </label>
               <select
                 value={paymentMode}
                 onChange={(e) => handlePaymentModeChange(e.target.value as any)}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2"
               >
                 <option value="BANK_TRANSFER">Bank Transfer (IMPS/NEFT)</option>
                 <option value="UPI">UPI Payment</option>
@@ -353,14 +353,14 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
 
             <div>
               <div className="flex items-center justify-between gap-2 mb-1">
-                <label className="block text-slate-300 font-semibold">
+                <label className="block text-[var(--text-secondary)] font-semibold">
                   {isHindi ? 'बैंक या कैश खाता (Paid From) *' : 'Paid From Account (Cash/Bank) *'}
                 </label>
                 {onAddAccount && (
                   <button
                     type="button"
                     onClick={() => setQuickLedgerContext('PAYMENT_SOURCE')}
-                    className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-300 hover:text-emerald-200 bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 px-2 py-0.5 rounded-md transition"
+                    className="inline-flex items-center gap-1 text-[11px] font-bold hv-pill-emerald border px-2 py-0.5 rounded-md transition"
                   >
                     <PlusCircle className="w-3 h-3" />
                     <span>{isHindi ? '+ नया बैंक/कैश' : '+ New Bank/Cash'}</span>
@@ -376,7 +376,7 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
                   }
                   setBankAccountId(e.target.value);
                 }}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2"
                 required
               >
                 <option value="">{isHindi ? '-- बैंक / कैश खाता चुनें --' : '-- Select Bank / Cash Account --'}</option>
@@ -384,13 +384,13 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
                   <option key={acc.id} value={acc.id}>[{acc.code}] {acc.name}</option>
                 ))}
                 {onAddAccount && (
-                  <option value="__CREATE_NEW__" className="text-emerald-300 font-bold">
+                  <option value="__CREATE_NEW__" className="text-emerald-500 font-bold">
                     {isHindi ? '➕ + नया बैंक / कैश खाता जोड़ें...' : '➕ + Add New Bank / Cash Account...'}
                   </option>
                 )}
               </select>
               {sourceBalance && (
-                <p className={`text-[11px] font-mono mt-1 ${isCashDeficit ? 'text-rose-400 font-bold' : 'text-slate-400'}`}>
+                <p className={`text-[11px] font-mono mt-1 ${isCashDeficit ? 'text-rose-500 font-bold' : 'text-[var(--text-muted)]'}`}>
                   {isHindi ? 'उपलब्ध शेष: ' : 'Available: '}
                   {formatCurrency(sourceBalance.netBalance, currency)} {sourceBalance.balanceType}
                   {isCashDeficit && (isHindi ? ' — अपर्याप्त नकद!' : ' — Insufficient Cash!')}
@@ -401,7 +401,7 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                 {isHindi ? `कुल भुगतान राशि (${currency})` : `Total Paid Amount (${currency}) *`}
               </label>
               <input
@@ -411,13 +411,13 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
                 value={amount || ''}
                 placeholder="0.00"
                 onChange={(e) => setAmount(Number(e.target.value))}
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2.5 font-mono text-sm text-rose-400 font-bold"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2.5 font-mono text-sm text-rose-500 font-bold"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                 {isHindi ? 'ट्रांजैक्शन / यूटीआर नंबर' : 'Transaction Ref / UTR No'}
               </label>
               <input
@@ -425,13 +425,13 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
                 value={referenceNo}
                 onChange={(e) => setReferenceNo(e.target.value)}
                 placeholder="UTR/99881122"
-                className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 font-mono"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 font-mono"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-slate-300 font-semibold mb-1">
+            <label className="block text-[var(--text-secondary)] font-semibold mb-1">
               {isHindi ? 'नारेशन / टिप्पणी' : 'Narration'}
             </label>
             <input
@@ -439,21 +439,21 @@ export const PaymentVoucherModal: React.FC<PaymentVoucherModalProps> = ({
               value={narration}
               onChange={(e) => setNarration(e.target.value)}
               placeholder="Rent paid for July 2026..."
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2"
+              className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2"
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-[var(--border-primary)]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl"
+              className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-semibold rounded-xl"
             >
               {isHindi ? 'रद्द करें' : 'Cancel'}
             </button>
             <button
               type="submit"
-              className="px-5 py-2 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl shadow-lg shadow-rose-600/30 transition"
+              className="px-5 py-2 bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-bold rounded-xl shadow-lg shadow-rose-600/30 transition"
             >
               {editingVoucher ? (isHindi ? 'भुगतान अपडेट करें' : 'Update Payment') : (isHindi ? 'भुगतान दर्ज करें' : 'Record Payment')}
             </button>

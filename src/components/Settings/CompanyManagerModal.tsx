@@ -279,15 +279,15 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
     <label
       className={`flex items-start justify-between gap-3 p-3 rounded-xl border transition ${
         disabled
-          ? 'bg-slate-950/40 border-slate-800/60 opacity-50 cursor-not-allowed'
+          ? 'bg-[var(--bg-elevated)] border-[var(--border-primary)] opacity-55 cursor-not-allowed'
           : checked
-          ? 'bg-indigo-950/40 border-indigo-500/40 cursor-pointer'
-          : 'bg-slate-950 border-slate-800 hover:border-slate-700 cursor-pointer'
+          ? 'hv-pill-indigo cursor-pointer'
+          : 'bg-[var(--bg-elevated)] border-[var(--border-primary)] hover:border-[var(--border-subtle)] cursor-pointer'
       }`}
     >
       <div className="min-w-0">
-        <div className="font-bold text-slate-100 text-xs">{title}</div>
-        <div className="text-[11px] text-slate-400 mt-0.5 leading-snug">{desc}</div>
+        <div className="font-bold text-[var(--text-primary)] text-xs">{title}</div>
+        <div className="text-[11px] text-[var(--text-muted)] mt-0.5 leading-snug">{desc}</div>
       </div>
       <input
         type="checkbox"
@@ -301,18 +301,18 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-3 md:p-6 overflow-y-auto animate-fadeIn">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-4xl max-h-[92vh] overflow-y-auto p-5 md:p-6 text-slate-200 space-y-5 shadow-2xl my-auto">
+      <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl w-full max-w-4xl max-h-[92vh] overflow-y-auto p-5 md:p-6 text-[var(--text-primary)] space-y-5 shadow-2xl my-auto">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+        <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-xl">
+            <div className="p-2.5 hv-pill-indigo border rounded-xl">
               <Building2 className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-[var(--text-primary)]">
                 {isHindi ? 'कंपनी एवं वित्तीय वर्ष प्रबंधन (Multi-Company & FY)' : 'Company & Financial Year Management'}
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--text-muted)]">
                 {isHindi
                   ? 'GST Regular, Composition, Non-GST या International कंपनियाँ अलग-अलग मुद्रा व नियमों के साथ बनाएं'
                   : 'Create GST Regular, Composition, Non-GST, or International companies with custom currency & features'}
@@ -323,21 +323,21 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white bg-slate-800 rounded-xl hover:bg-slate-700 transition cursor-pointer"
+            className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-xl transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Tab Switcher */}
-        <div className={`grid ${rbac.canManageCompanies ? 'grid-cols-3' : 'grid-cols-1'} bg-slate-950 p-1 rounded-2xl border border-slate-800 text-xs font-bold`}>
+        <div className={`grid ${rbac.canManageCompanies ? 'grid-cols-3' : 'grid-cols-1'} bg-[var(--bg-elevated)] p-1 rounded-2xl border border-[var(--border-primary)] text-xs font-bold`}>
           <button
             type="button"
             onClick={() => setActiveTab('LIST')}
             className={`py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer ${
               activeTab === 'LIST'
-                ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-indigo-600 text-white hv-keep-white shadow-md shadow-indigo-600/30'
+                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
             <Building2 className="w-3.5 h-3.5 shrink-0" />
@@ -351,8 +351,8 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                 onClick={() => setActiveTab('CREATE')}
                 className={`py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer ${
                   activeTab === 'CREATE'
-                    ? 'bg-amber-600 text-white shadow-md shadow-amber-600/30'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-amber-600 text-white hv-keep-white shadow-md shadow-amber-600/30'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 <Plus className="w-3.5 h-3.5 shrink-0" />
@@ -364,11 +364,11 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                 onClick={() => setActiveTab('SHIFT_FY')}
                 className={`py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 whitespace-nowrap cursor-pointer ${
                   activeTab === 'SHIFT_FY'
-                    ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-emerald-600 text-white hv-keep-white shadow-md shadow-emerald-600/30'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
-                <Repeat className="w-3.5 h-3.5 text-emerald-300 shrink-0" />
+                <Repeat className="w-3.5 h-3.5 shrink-0" />
                 <span>{isHindi ? 'नया वित्तीय वर्ष (Shift FY)' : 'Shift FY / Carry Forward'}</span>
               </button>
             </>
@@ -378,7 +378,7 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
         {/* TAB 1: Existing Companies */}
         {activeTab === 'LIST' && (
           <div className="space-y-3">
-            <div className="text-xs text-slate-400">
+            <div className="text-xs text-[var(--text-muted)]">
               {isHindi
                 ? 'जिस कंपनी में कार्य करना चाहते हैं, उसे चुनें या पुरानी कंपनी हटाएं:'
                 : 'Select active company profile to work on or delete unused old profiles:'}
@@ -397,23 +397,23 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                     key={cmpKey}
                     className={`p-4 rounded-xl border transition space-y-3 ${
                       isActive
-                        ? 'bg-indigo-950/60 border-indigo-500/60 shadow-lg shadow-indigo-600/10'
-                        : 'bg-slate-800/60 border-slate-700/60 hover:bg-slate-800'
+                        ? 'hv-pill-indigo shadow-md'
+                        : 'bg-[var(--bg-elevated)] border-[var(--border-primary)] hover:bg-[var(--hover-surface)]'
                     }`}
                   >
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                       <div className="space-y-1">
                         <div className="flex flex-wrap items-center gap-2">
-                          <h4 className="font-bold text-white text-sm">
+                          <h4 className="font-bold text-[var(--text-primary)] text-sm">
                             {cmp.name || (isHindi ? 'नाम रहित कंपनी' : 'Unnamed Company')}
                           </h4>
                           {isActive && (
-                            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1">
+                            <span className="hv-pill-emerald border text-[11px] font-bold px-2 py-0.5 rounded-md flex items-center gap-1">
                               <CheckCircle2 className="w-3 h-3" />
                               <span>Active</span>
                             </span>
                           )}
-                          <span className="text-[11px] font-mono text-amber-300 font-semibold">
+                          <span className="text-[11px] font-mono text-amber-500 font-semibold">
                             {cmpProfile.country} • {cmpProfile.currency} •{' '}
                             {cmpProfile.isNonGst
                               ? 'Non-GST'
@@ -425,18 +425,18 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                           </span>
                         </div>
 
-                        <div className="text-xs text-slate-400 flex flex-wrap gap-x-4 gap-y-1 font-mono">
-                          <span>Tax ID / GSTIN: <span className="text-slate-200">{cmp.gstin || 'Unregistered / Optional'}</span></span>
-                          <span>State / Region: <span className="text-slate-200">{cmp.state || 'N/A'}</span></span>
+                        <div className="text-xs text-[var(--text-muted)] flex flex-wrap gap-x-4 gap-y-1 font-mono">
+                          <span>Tax ID / GSTIN: <span className="text-[var(--text-primary)]">{cmp.gstin || 'Unregistered / Optional'}</span></span>
+                          <span>State / Region: <span className="text-[var(--text-primary)]">{cmp.state || 'N/A'}</span></span>
                         </div>
 
-                        <div className="text-[11px] text-amber-300/90 font-mono flex items-center gap-3 pt-1">
+                        <div className="text-[11px] text-amber-500 font-mono flex items-center gap-3 pt-1">
                           <span className="flex items-center gap-1">
-                            <Calendar className="w-3.5 h-3.5 text-amber-400" />
-                            FY Start: <strong className="text-white">{cmp.financialYearStart || '2026-04-01'}</strong>
+                            <Calendar className="w-3.5 h-3.5" />
+                            FY Start: <strong className="text-[var(--text-primary)]">{cmp.financialYearStart || '2026-04-01'}</strong>
                           </span>
                           <span className="flex items-center gap-1">
-                            Books Start: <strong className="text-white">{cmp.booksBeginningFrom || '2026-04-01'}</strong>
+                            Books Start: <strong className="text-[var(--text-primary)]">{cmp.booksBeginningFrom || '2026-04-01'}</strong>
                           </span>
                         </div>
                       </div>
@@ -449,7 +449,7 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                               onSwitchCompany(cmp);
                               onClose();
                             }}
-                            className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 shadow cursor-pointer whitespace-nowrap"
+                            className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs rounded-xl transition flex items-center gap-1.5 shadow cursor-pointer whitespace-nowrap"
                           >
                             <ArrowRightLeft className="w-3.5 h-3.5" />
                             <span>{isHindi ? 'स्विच करें' : 'Switch Active'}</span>
@@ -460,7 +460,7 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                           <button
                             type="button"
                             onClick={() => setConfirmDeleteId(cmpKey)}
-                            className="px-3 py-2 bg-rose-600/20 hover:bg-rose-600/40 text-rose-300 border border-rose-500/30 rounded-xl transition text-xs font-bold flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+                            className="px-3 py-2 hv-pill-rose border rounded-xl transition text-xs font-bold flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
                             title={isHindi ? 'कंपनी डिलीट करें' : 'Delete Company Profile'}
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -475,8 +475,8 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                     </div>
 
                     {rbac.canManageCompanies && isConfirming && (onDeleteCompany || onResetSoleCompany) && (
-                      <div className="bg-rose-950/60 border border-rose-500/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-                        <span className="text-rose-200">
+                      <div className="hv-pill-rose border rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+                        <span>
                           {currentCompanies.length > 1
                             ? isHindi
                               ? `क्या आप "${cmp.name}" और इसका सारा डेटा स्थायी रूप से हटाना चाहते हैं?`
@@ -489,7 +489,7 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                           <button
                             type="button"
                             onClick={() => setConfirmDeleteId(null)}
-                            className="px-3 py-1 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 font-semibold cursor-pointer"
+                            className="px-3 py-1 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-surface)] text-[var(--text-primary)] font-semibold cursor-pointer"
                           >
                             {isHindi ? 'रद्द करें' : 'Cancel'}
                           </button>
@@ -504,7 +504,7 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                                 onClose();
                               }
                             }}
-                            className="px-3.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-extrabold cursor-pointer"
+                            className="px-3.5 py-1 rounded-lg bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-extrabold cursor-pointer"
                           >
                             {currentCompanies.length > 1
                               ? (isHindi ? 'हाँ, कंपनी डिलीट करें' : 'Yes, Delete Company')
@@ -524,17 +524,17 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
         {activeTab === 'CREATE' && rbac.canManageCompanies && (
           <form onSubmit={handleCreateSubmit} className="space-y-4 text-xs animate-fadeIn">
             {/* 1. Country, Currency & Number Formatting */}
-            <div className="p-4 bg-indigo-950/30 border border-indigo-500/30 rounded-xl space-y-3">
+            <div className="p-4 hv-pill-indigo border rounded-xl space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <h4 className="font-bold text-indigo-300 flex items-center gap-2 text-xs uppercase tracking-wider">
-                  <Globe className="w-4 h-4 text-indigo-400" />
+                <h4 className="font-bold flex items-center gap-2 text-xs uppercase tracking-wider">
+                  <Globe className="w-4 h-4" />
                   <span>
                     {isHindi
                       ? 'देश, मुद्रा एवं संख्या प्रारूप (Country, Currency & Formatting)'
                       : 'Country, Currency & Number Format'}
                   </span>
                 </h4>
-                <span className="font-mono text-xs text-emerald-300 tabular-nums">
+                <span className="font-mono text-xs text-emerald-500 tabular-nums">
                   {isHindi ? 'प्रीव्यू: ' : 'Preview: '}
                   <strong>{formatCurrency(1234567.5, currency, numberFormat)}</strong>
                 </span>
@@ -542,13 +542,13 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-slate-200 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'देश (Country)' : 'Country'}
                   </label>
                   <select
                     value={country}
                     onChange={(e) => handleCountryChange(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-semibold focus:border-indigo-500 outline-none"
+                    className="w-full hv-input border rounded-xl p-2.5 font-semibold focus:border-indigo-500 outline-none"
                   >
                     {COUNTRY_PRESETS.map((p) => (
                       <option key={p.country} value={p.country}>
@@ -559,13 +559,13 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-slate-200 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'मुद्रा (Currency)' : 'Currency'}
                   </label>
                   <select
                     value={currency}
                     onChange={(e) => setCurrency(e.target.value as Currency)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-amber-300 font-bold focus:border-indigo-500 outline-none"
+                    className="w-full hv-input border rounded-xl p-2.5 text-amber-500 font-bold focus:border-indigo-500 outline-none"
                   >
                     {CURRENCY_OPTIONS.map((c) => (
                       <option key={c.code} value={c.code}>
@@ -576,13 +576,13 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-slate-200 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'नंबर फॉर्मेट (Number System)' : 'Number Format System'}
                   </label>
                   <select
                     value={numberFormat}
                     onChange={(e) => setNumberFormat(e.target.value as NumberFormatMode)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-semibold focus:border-indigo-500 outline-none"
+                    className="w-full hv-input border rounded-xl p-2.5 font-semibold focus:border-indigo-500 outline-none"
                   >
                     <option value="INDIAN">Indian Lakhs / Crores (12,34,567.50)</option>
                     <option value="INTERNATIONAL">International Millions (1,234,567.50)</option>
@@ -592,10 +592,10 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
             </div>
 
             {/* 2. Tax Registration Type & Statutory Toggles */}
-            <div className="p-4 bg-slate-950/90 border border-slate-800 rounded-xl space-y-3">
+            <div className="p-4 bg-[var(--bg-elevated)] border border-[var(--border-primary)] rounded-xl space-y-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
-                <h4 className="font-bold text-slate-200 flex items-center gap-2 text-xs uppercase tracking-wider">
-                  <SlidersHorizontal className="w-4 h-4 text-amber-400" />
+                <h4 className="font-bold text-[var(--text-primary)] flex items-center gap-2 text-xs uppercase tracking-wider">
+                  <SlidersHorizontal className="w-4 h-4 text-amber-500" />
                   <span>
                     {isHindi
                       ? 'GST पंजीकरण प्रकार एवं वैधानिक विकल्प (Statutory & Feature Toggles)'
@@ -606,15 +606,15 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'जीएसटी सक्षम करें (Enable GST)' : 'Enable GST'}
                   </label>
-                  <div className="grid grid-cols-2 gap-1 bg-slate-900 p-1 rounded-xl border border-slate-800">
+                  <div className="grid grid-cols-2 gap-1 bg-[var(--bg-surface)] p-1 rounded-xl border border-[var(--border-primary)]">
                     <button
                       type="button"
                       onClick={() => handleToggleGst(true)}
                       className={`py-2 rounded-lg font-bold transition cursor-pointer ${
-                        gstEnabled ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'
+                        gstEnabled ? 'bg-emerald-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                       }`}
                     >
                       {isHindi ? 'हाँ (Yes)' : 'Yes (GST On)'}
@@ -623,7 +623,7 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                       type="button"
                       onClick={() => handleToggleGst(false)}
                       className={`py-2 rounded-lg font-bold transition cursor-pointer ${
-                        !gstEnabled ? 'bg-amber-600 text-slate-950' : 'text-slate-400 hover:text-white'
+                        !gstEnabled ? 'bg-amber-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                       }`}
                     >
                       {isHindi ? 'नहीं (Non-GST)' : 'No (Non-GST)'}
@@ -632,13 +632,13 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'पंजीकरण प्रकार (Registration Type)' : 'Registration Type'}
                   </label>
                   <select
                     value={gstRegistrationType}
                     onChange={(e) => handleRegTypeChange(e.target.value as CompanyGstRegistrationType)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-semibold focus:border-indigo-500 outline-none"
+                    className="w-full hv-input border rounded-xl p-2.5 font-semibold focus:border-indigo-500 outline-none"
                   >
                     <option value="UNREGISTERED">Unregistered / Non-GST</option>
                     <option value="REGULAR">Regular (Tax Invoice)</option>
@@ -649,7 +649,7 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
 
                 {gstEnabled && gstRegistrationType === 'COMPOSITION' ? (
                   <div>
-                    <label className="block text-amber-300 font-semibold mb-1">
+                    <label className="block text-amber-500 font-semibold mb-1">
                       {isHindi ? 'कंपोज़िशन टैक्स दर (%)' : 'Composition Turnover Tax Rate (%)'}
                     </label>
                     <input
@@ -659,12 +659,12 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                       max="10"
                       value={compositionTaxRate}
                       onChange={(e) => setCompositionTaxRate(parseFloat(e.target.value) || 0)}
-                      className="w-full bg-slate-900 border border-amber-500/50 rounded-xl p-2.5 text-amber-300 font-mono font-bold focus:border-amber-400 outline-none"
+                      className="w-full hv-input border border-amber-500/50 rounded-xl p-2.5 font-mono font-bold focus:border-amber-400 outline-none"
                     />
                   </div>
                 ) : (
                   <div>
-                    <label className="block text-slate-300 font-semibold mb-1">
+                    <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                       {gstEnabled
                         ? (isHindi ? 'GSTIN / Tax ID (वैकल्पिक)' : 'GSTIN / Tax ID (Optional)')
                         : (isHindi ? 'Tax ID (आवश्यक नहीं)' : 'Tax ID (Not Required)')}
@@ -674,7 +674,7 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                       value={gstin}
                       onChange={(e) => setGstin(e.target.value.toUpperCase())}
                       placeholder={gstEnabled ? 'e.g. 07AAAAA0000A1Z5' : 'Leave blank for Non-GST'}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 font-mono text-slate-200 uppercase"
+                      className="w-full hv-input border rounded-xl p-2.5 font-mono uppercase"
                     />
                   </div>
                 )}
@@ -682,7 +682,7 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
 
               {gstEnabled && gstRegistrationType === 'COMPOSITION' && (
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'कंपोज़िशन GSTIN (वैकल्पिक)' : 'Composition GSTIN (Optional)'}
                   </label>
                   <input
@@ -690,7 +690,7 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                     value={gstin}
                     onChange={(e) => setGstin(e.target.value.toUpperCase())}
                     placeholder="e.g. 07AAAAA0000A1Z5"
-                    className="w-full sm:w-1/2 bg-slate-900 border border-slate-700 rounded-xl p-2.5 font-mono text-slate-200 uppercase"
+                    className="w-full sm:w-1/2 hv-input border rounded-xl p-2.5 font-mono uppercase"
                   />
                 </div>
               )}
@@ -726,9 +726,9 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
             </div>
 
             {/* 3. Financial Year & Books Start Dates */}
-            <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-xl space-y-3">
-              <h4 className="font-bold text-amber-300 flex items-center gap-2 text-xs uppercase tracking-wider">
-                <Calendar className="w-4 h-4 text-amber-400" />
+            <div className="p-4 hv-pill-amber border rounded-xl space-y-3">
+              <h4 className="font-bold flex items-center gap-2 text-xs uppercase tracking-wider">
+                <Calendar className="w-4 h-4" />
                 <span>
                   {isHindi
                     ? 'वित्तीय वर्ष एवं खाता प्रारंभ तिथि (FY & Books Beginning)'
@@ -738,27 +738,27 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-slate-200 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'वित्तीय वर्ष प्रारंभ तिथि (FY From) *' : 'Financial Year From *'}
                   </label>
                   <input
                     type="date"
                     value={financialYearStart}
                     onChange={(e) => setFinancialYearStart(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-mono font-bold"
+                    className="w-full hv-input border rounded-xl p-2.5 font-mono font-bold"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-slate-200 font-semibold mb-1">
+                  <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                     {isHindi ? 'खाते प्रारंभ तिथि (Books Beginning From) *' : 'Books Beginning From *'}
                   </label>
                   <input
                     type="date"
                     value={booksBeginningFrom}
                     onChange={(e) => setBooksBeginningFrom(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl p-2.5 text-white font-mono font-bold"
+                    className="w-full hv-input border rounded-xl p-2.5 font-mono font-bold"
                     required
                   />
                 </div>
@@ -768,7 +768,7 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
             {/* 4. Basic Company Profile */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'कंपनी / व्यापार का नाम (Company Name) *' : 'Company / Business Name *'}
                 </label>
                 <input
@@ -776,24 +776,24 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="e.g. Acme Global Traders / Sharma General Store"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-bold"
+                  className="w-full hv-input border rounded-xl p-2.5 font-bold"
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Business Tagline</label>
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">Business Tagline</label>
                 <input
                   type="text"
                   value={tagline}
                   onChange={(e) => setTagline(e.target.value)}
                   placeholder="e.g. Wholesale & Retail Distribution"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                  className="w-full hv-input border rounded-xl p-2.5"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isIndia
                     ? isHindi
                       ? 'राज्य एवं राज्य कोड (वैकल्पिक यदि Non-GST)'
@@ -811,7 +811,7 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                       setStateCode(code);
                       setState(stName);
                     }}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white font-semibold outline-none focus:border-indigo-500"
+                    className="w-full hv-input border rounded-xl p-2.5 font-semibold outline-none focus:border-indigo-500"
                   >
                     <option value="">{isHindi ? '-- राज्य चुनें (वैकल्पिक) --' : '-- Select State (Optional) --'}</option>
                     {Object.entries(INDIAN_STATE_CODES).map(([code, stName]) => (
@@ -826,13 +826,13 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                     value={state}
                     onChange={(e) => setState(e.target.value)}
                     placeholder="e.g. Dubai, California, London"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                    className="w-full hv-input border rounded-xl p-2.5"
                   />
                 )}
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isIndia ? 'PAN Number (Optional)' : 'Tax / Company Reg. No. (Optional)'}
                 </label>
                 <input
@@ -840,47 +840,47 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                   value={pan}
                   onChange={(e) => setPan(e.target.value.toUpperCase())}
                   placeholder={isIndia ? 'e.g. AAAAA0000A' : 'Registration / License Ref'}
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 font-mono text-slate-200 uppercase"
+                  className="w-full hv-input border rounded-xl p-2.5 font-mono uppercase"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Email & Phone</label>
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">Email & Phone</label>
                 <div className="grid grid-cols-2 gap-2">
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="info@company.com"
-                    className="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                    className="hv-input border rounded-xl p-2.5"
                   />
                   <input
                     type="text"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+91 9876543210"
-                    className="bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                    className="hv-input border rounded-xl p-2.5"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Registered Address</label>
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">Registered Address</label>
                 <input
                   type="text"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   placeholder="Complete business street address..."
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-white"
+                  className="w-full hv-input border rounded-xl p-2.5"
                 />
               </div>
             </div>
 
             {/* 5. Default Bank / UPI & Branding (Logo + Digital Signature) */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-              <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3">
-                <h4 className="font-bold text-emerald-300 flex items-center gap-2 text-xs uppercase tracking-wider">
-                  <Landmark className="w-4 h-4 text-emerald-400" />
+              <div className="p-4 bg-[var(--bg-elevated)] border border-[var(--border-primary)] rounded-xl space-y-3">
+                <h4 className="font-bold text-emerald-500 flex items-center gap-2 text-xs uppercase tracking-wider">
+                  <Landmark className="w-4 h-4" />
                   <span>{isHindi ? 'बैंक एवं UPI विवरण (वैकल्पिक)' : 'Default Bank & UPI Details (Optional)'}</span>
                 </h4>
                 <div className="grid grid-cols-2 gap-2.5">
@@ -889,28 +889,28 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                     value={bankName}
                     onChange={(e) => setBankName(e.target.value)}
                     placeholder="Bank Name"
-                    className="bg-slate-900 border border-slate-800 rounded-xl p-2 text-white"
+                    className="hv-input border rounded-xl p-2"
                   />
                   <input
                     type="text"
                     value={accountNumber}
                     onChange={(e) => setAccountNumber(e.target.value)}
                     placeholder="Account Number"
-                    className="bg-slate-900 border border-slate-800 rounded-xl p-2 font-mono text-white"
+                    className="hv-input border rounded-xl p-2 font-mono"
                   />
                   <input
                     type="text"
                     value={ifscCode}
                     onChange={(e) => setIfscCode(e.target.value.toUpperCase())}
                     placeholder={isIndia ? 'IFSC Code' : 'SWIFT / IBAN / Routing'}
-                    className="bg-slate-900 border border-slate-800 rounded-xl p-2 font-mono text-white uppercase"
+                    className="hv-input border rounded-xl p-2 font-mono uppercase"
                   />
                   <input
                     type="text"
                     value={branch}
                     onChange={(e) => setBranch(e.target.value)}
                     placeholder="Branch"
-                    className="bg-slate-900 border border-slate-800 rounded-xl p-2 text-white"
+                    className="hv-input border rounded-xl p-2"
                   />
                 </div>
                 {currency === 'INR' && (
@@ -919,30 +919,30 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                     value={upiId}
                     onChange={(e) => setUpiId(e.target.value)}
                     placeholder="UPI ID (e.g. business@upi)"
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 font-mono text-emerald-300"
+                    className="w-full hv-input border rounded-xl p-2 font-mono text-emerald-500"
                   />
                 )}
               </div>
 
-              <div className="p-4 bg-slate-950 border border-slate-800 rounded-xl space-y-3">
-                <h4 className="font-bold text-indigo-300 flex items-center gap-2 text-xs uppercase tracking-wider">
-                  <ImageIcon className="w-4 h-4 text-indigo-400" />
+              <div className="p-4 bg-[var(--bg-elevated)] border border-[var(--border-primary)] rounded-xl space-y-3">
+                <h4 className="font-bold text-indigo-500 flex items-center gap-2 text-xs uppercase tracking-wider">
+                  <ImageIcon className="w-4 h-4" />
                   <span>{isHindi ? 'लोगो एवं डिजिटल हस्ताक्षर (Branding & Signature)' : 'Logo & Authorized Signature (Optional)'}</span>
                 </h4>
 
                 {uploadError && (
-                  <div className="text-rose-300 bg-rose-950/60 border border-rose-500/40 rounded-lg px-2.5 py-1.5 text-[11px]">
+                  <div className="hv-pill-rose border rounded-lg px-2.5 py-1.5 text-[11px]">
                     {uploadError}
                   </div>
                 )}
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1.5">
-                    <label className="block text-[11px] font-semibold text-slate-300">
+                    <label className="block text-[11px] font-semibold text-[var(--text-secondary)]">
                       {isHindi ? 'कंपनी लोगो (Logo)' : 'Company Logo'}
                     </label>
                     <div className="flex items-center gap-2">
-                      <label className="cursor-pointer px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-lg flex items-center gap-1.5 text-[11px]">
+                      <label className="cursor-pointer px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold rounded-lg flex items-center gap-1.5 text-[11px]">
                         <Upload className="w-3.5 h-3.5" />
                         <span>{logoUrl ? 'Change Logo' : 'Upload Logo'}</span>
                         <input
@@ -956,24 +956,24 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                         <button
                           type="button"
                           onClick={() => setLogoUrl('')}
-                          className="text-rose-400 hover:text-rose-300 text-[11px] font-bold"
+                          className="text-rose-500 text-[11px] font-bold cursor-pointer"
                         >
                           Remove
                         </button>
                       )}
                     </div>
                     {logoUrl && (
-                      <img src={logoUrl} alt="Logo Preview" className="h-10 rounded bg-white p-1 object-contain border border-slate-700" />
+                      <img src={logoUrl} alt="Logo Preview" className="h-10 rounded bg-white p-1 object-contain border border-[var(--border-subtle)]" />
                     )}
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="block text-[11px] font-semibold text-slate-300">
+                    <label className="block text-[11px] font-semibold text-[var(--text-secondary)]">
                       {isHindi ? 'हस्ताक्षर छवि (Signature)' : 'Digital Signature Image'}
                     </label>
                     <div className="flex items-center gap-2">
-                      <label className="cursor-pointer px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-100 border border-slate-700 font-bold rounded-lg flex items-center gap-1.5 text-[11px]">
-                        <PenTool className="w-3.5 h-3.5 text-amber-400" />
+                      <label className="cursor-pointer px-3 py-1.5 bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] font-bold rounded-lg flex items-center gap-1.5 text-[11px]">
+                        <PenTool className="w-3.5 h-3.5 text-amber-500" />
                         <span>{signatureUrl ? 'Change Sign' : 'Upload Sign'}</span>
                         <input
                           type="file"
@@ -986,14 +986,14 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                         <button
                           type="button"
                           onClick={() => setSignatureUrl('')}
-                          className="text-rose-400 hover:text-rose-300 text-[11px] font-bold"
+                          className="text-rose-500 text-[11px] font-bold cursor-pointer"
                         >
                           Remove
                         </button>
                       )}
                     </div>
                     {signatureUrl && (
-                      <img src={signatureUrl} alt="Signature Preview" className="h-10 rounded bg-white p-1 object-contain border border-slate-700" />
+                      <img src={signatureUrl} alt="Signature Preview" className="h-10 rounded bg-white p-1 object-contain border border-[var(--border-subtle)]" />
                     )}
                   </div>
                 </div>
@@ -1003,22 +1003,22 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                   value={authorizedSignatory}
                   onChange={(e) => setAuthorizedSignatory(e.target.value)}
                   placeholder={isHindi ? 'अधिकृत हस्ताक्षरकर्ता का नाम (e.g. Proprietor / Director)' : 'Authorized Signatory Name (e.g. Proprietor / Director)'}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl p-2 text-white"
+                  className="w-full hv-input border rounded-xl p-2"
                 />
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-[var(--border-primary)]">
               <button
                 type="button"
                 onClick={() => setActiveTab('LIST')}
-                className="px-4 py-2.5 bg-slate-800 text-slate-200 rounded-xl transition cursor-pointer"
+                className="px-4 py-2.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] rounded-xl transition cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white font-bold rounded-xl shadow-lg shadow-amber-600/30 flex items-center gap-2 transition cursor-pointer"
+                className="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 text-white hv-keep-white font-bold rounded-xl shadow-lg shadow-amber-600/30 flex items-center gap-2 transition cursor-pointer"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>{isHindi ? 'नई कंपनी बनाएं एवं स्विच करें' : 'Create Company & Start Accounting'}</span>
@@ -1030,9 +1030,9 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
         {/* TAB 3: Shift Financial Year (Carry Forward Balances) */}
         {activeTab === 'SHIFT_FY' && rbac.canManageCompanies && (
           <div className="space-y-4 text-xs animate-fadeIn">
-            <div className="p-4 bg-emerald-500/10 border border-emerald-500/30 rounded-xl space-y-3">
-              <h4 className="font-bold text-emerald-300 flex items-center gap-2 text-sm">
-                <Repeat className="w-5 h-5 text-emerald-400" />
+            <div className="p-4 hv-pill-emerald border rounded-xl space-y-3">
+              <h4 className="font-bold flex items-center gap-2 text-sm">
+                <Repeat className="w-5 h-5" />
                 <span>
                   {isHindi
                     ? 'नया वित्तीय वर्ष रोल-ओवर एवं ओपनिंग बैलेंस कैरी-फॉरवर्ड'
@@ -1040,42 +1040,42 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                 </span>
               </h4>
 
-              <p className="text-slate-300 leading-relaxed">
+              <p className="text-[var(--text-secondary)] leading-relaxed">
                 {isHindi
                   ? 'वर्तमान कंपनी के सभी खाता बही (Parties, Sundry Debtors/Creditors, Accounts) एवं स्टॉक आइटम्स को नए वित्तीय वर्ष में स्वचालित रूप से ट्रांसफर किया जाएगा। वर्तमान वर्ष का अंतिम शेष (Closing Balance) नए वर्ष का प्रारंभिक शेष (Opening Balance) बन जाएगा। पुरानी कंपनी डेटा सुरक्षित रहेगी और आप कभी भी पिछले वर्ष के लेजर देख व प्रिंट कर सकते हैं।'
                   : 'All Parties, Ledgers, Accounts, and Stock Items will be carried forward. Current closing balances will automatically become opening balances for the new year. Your previous financial year data remains fully preserved and accessible anytime.'}
               </p>
 
               <div className="pt-2">
-                <label className="block text-slate-200 font-bold mb-1.5">
+                <label className="block text-[var(--text-primary)] font-bold mb-1.5">
                   {isHindi ? 'नया वित्तीय वर्ष प्रारंभ तिथि (New FY Start Date) *' : 'New Financial Year Start Date *'}
                 </label>
                 <input
                   type="date"
                   value={shiftFyStart}
                   onChange={(e) => setShiftFyStart(e.target.value)}
-                  className="w-full sm:w-64 bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-mono font-bold text-sm focus:border-emerald-500"
+                  className="w-full sm:w-64 hv-input border rounded-xl p-2.5 font-mono font-bold text-sm focus:border-emerald-500"
                   required
                 />
               </div>
 
-              <div className="bg-slate-950/60 p-3 rounded-lg border border-slate-800 space-y-1 text-slate-300 text-[11px] font-mono">
-                <div className="flex items-center gap-2 text-emerald-400 font-bold">
+              <div className="bg-[var(--bg-surface)] p-3 rounded-lg border border-[var(--border-primary)] space-y-1 text-[var(--text-secondary)] text-[11px] font-mono">
+                <div className="flex items-center gap-2 text-emerald-500 font-bold">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'स्वचालित क्लोजिंग → ओपनिंग बैलेंस ट्रांसफर' : 'Automatic Closing → Opening Balance Carry Forward'}</span>
                 </div>
-                <div className="flex items-center gap-2 text-indigo-300">
+                <div className="flex items-center gap-2 text-indigo-500">
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'पुराना वित्तीय वर्ष डेटा सुरक्षित रहेगा' : 'Previous Year Company Data Retained & Retrievable'}</span>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-[var(--border-primary)]">
               <button
                 type="button"
                 onClick={() => setActiveTab('LIST')}
-                className="px-4 py-2.5 bg-slate-800 text-slate-200 rounded-xl transition cursor-pointer"
+                className="px-4 py-2.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] rounded-xl transition cursor-pointer"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>
@@ -1087,7 +1087,7 @@ export const CompanyManagerModal: React.FC<CompanyManagerModalProps> = ({
                     onClose();
                   }
                 }}
-                className="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white font-bold rounded-xl shadow-lg shadow-emerald-600/30 flex items-center gap-2 transition cursor-pointer"
+                className="px-6 py-2.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white hv-keep-white font-bold rounded-xl shadow-lg shadow-emerald-600/30 flex items-center gap-2 transition cursor-pointer"
               >
                 <Repeat className="w-4 h-4" />
                 <span>{isHindi ? 'ओपनिंग बैलेंस कैरी-फॉरवर्ड करें एवं नया FY शुरू करें' : 'Carry Forward Balances & Shift FY'}</span>

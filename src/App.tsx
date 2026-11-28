@@ -4267,9 +4267,9 @@ export default function App() {
   };
 
   const routeSuspenseFallback = (
-    <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 text-slate-300 gap-3 font-sans">
+    <div className="hv-app-shell min-h-screen bg-[var(--bg-canvas)] flex flex-col items-center justify-center p-4 text-[var(--text-secondary)] gap-3 font-sans">
       <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
-      <p className="text-xs font-semibold tracking-wide text-slate-400">
+      <p className="text-xs font-semibold tracking-wide text-[var(--text-muted)]">
         {isHindi ? 'इंटरफ़ेस लोड हो रहा है...' : 'Loading HisabVeda ERP...'}
       </p>
     </div>
@@ -4287,9 +4287,9 @@ export default function App() {
   // Wait for Firebase Auth verification before deciding session validity
   if (!authChecked) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center p-4 text-slate-300 gap-3 font-sans">
+      <div className="hv-app-shell min-h-screen bg-[var(--bg-canvas)] flex flex-col items-center justify-center p-4 text-[var(--text-secondary)] gap-3 font-sans">
         <div className="w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
-        <p className="text-xs font-semibold tracking-wide text-slate-400">
+        <p className="text-xs font-semibold tracking-wide text-[var(--text-muted)]">
           {isHindi ? 'सुरक्षित लॉगिन सत्र जाँचा जा रहा है...' : 'Verifying secure session...'}
         </p>
       </div>
@@ -4366,21 +4366,6 @@ export default function App() {
   const pendingInvoicesCount = fyData.invoices.filter(i => i.status !== 'PAID').length;
   const lowStockCount = (fyData.items || []).filter(i => Number(i.currentStock || 0) <= Number(i.minStockLevel || i.minStockAlert || 5)).length;
 
-  const getThemeClass = (t: AppTheme) => {
-    switch (t) {
-      case 'navy':
-        return 'bg-slate-950 text-blue-50';
-      case 'emerald':
-        return 'bg-stone-950 text-emerald-50';
-      case 'purple':
-        return 'bg-zinc-950 text-purple-50';
-      case 'light':
-        return 'bg-slate-100 text-slate-900';
-      default:
-        return 'bg-slate-950 text-slate-100';
-    }
-  };
-
   const isTableLockedView =
     activeTab === 'invoices' ||
     activeTab === 'purchases' ||
@@ -4397,7 +4382,7 @@ export default function App() {
   return (
     <React.Suspense fallback={routeSuspenseFallback}>
     <div 
-      className={`h-screen h-[100dvh] max-h-[100dvh] overflow-hidden ${getThemeClass(theme)} flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-300 w-full max-w-full`}
+      className="hv-app-shell hv-canvas h-screen h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-300 w-full max-w-full"
     >
       {/* Top Header */}
       <Header
@@ -4478,12 +4463,12 @@ export default function App() {
 
       {/* GitHub Releases Auto-Update Notification Banner */}
       {desktopUpdateState.available && !dismissedUpdateBanner && (
-        <div className="bg-indigo-950/90 text-indigo-100 px-4 py-2 text-xs font-semibold flex flex-wrap items-center justify-between gap-3 z-40 border-b border-indigo-500/40 shrink-0 shadow-lg">
+        <div className="hv-pill-indigo px-4 py-2 text-xs font-semibold flex flex-wrap items-center justify-between gap-3 z-40 border-b shrink-0 shadow-sm">
           <div className="flex items-center gap-2.5 min-w-0">
             {desktopUpdateState.downloaded ? (
-              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 shrink-0" />
             ) : (
-              <Download className="w-4 h-4 text-amber-400 animate-bounce shrink-0" />
+              <Download className="w-4 h-4 animate-bounce shrink-0" />
             )}
             <span className="font-bold truncate">
               {desktopUpdateState.downloaded
@@ -4496,15 +4481,15 @@ export default function App() {
             </span>
             {!desktopUpdateState.downloaded && desktopUpdateState.progress && (
               <div className="flex items-center gap-2">
-                <div className="w-28 bg-slate-900 rounded-full h-2 overflow-hidden border border-indigo-500/40">
+                <div className="w-28 hv-progress-track rounded-full h-2 overflow-hidden border border-[var(--border-subtle)]">
                   <div
-                    className="bg-emerald-400 h-full transition-all duration-300"
+                    className="bg-emerald-500 h-full transition-all duration-300"
                     style={{
                       width: `${Math.min(100, Math.max(0, Math.round(desktopUpdateState.progress.percent || 0)))}%`,
                     }}
                   />
                 </div>
-                <span className="font-mono text-[11px] text-indigo-200">
+                <span className="font-mono text-[11px] font-bold">
                   {Math.min(100, Math.max(0, Math.round(desktopUpdateState.progress.percent || 0)))}%
                 </span>
               </div>
@@ -4515,7 +4500,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => window.hisabvedaDesktop?.installUpdate?.()}
-                className="px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-[11px] transition cursor-pointer shadow"
+                className="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold text-[11px] transition cursor-pointer shadow"
               >
                 {isHindi ? 'अपडेट और रीस्टार्ट करें' : 'Update & Restart Now'}
               </button>
@@ -4523,7 +4508,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setShowSoftwareUpdateModal(true)}
-                className="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[11px] transition cursor-pointer"
+                className="px-3 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-[11px] transition cursor-pointer"
               >
                 {isHindi ? 'प्रगति देखें' : 'View Progress'}
               </button>
@@ -4531,7 +4516,7 @@ export default function App() {
             <button
               type="button"
               onClick={() => setDismissedUpdateBanner(true)}
-              className="p-1 rounded-lg text-indigo-300 hover:text-white hover:bg-indigo-500/20 transition cursor-pointer"
+              className="p-1 rounded-lg hover:bg-indigo-500/20 transition cursor-pointer"
               title={isHindi ? 'बंद करें' : 'Dismiss'}
             >
               <X className="w-3.5 h-3.5" />
@@ -4542,9 +4527,9 @@ export default function App() {
 
       {/* Email Verification Pending Banner for Email/Password Accounts */}
       {firebaseUser && !isEmailVerified && storageMode !== 'local' && !dismissedEmailVerifyBanner && (
-        <div className="bg-amber-500/15 text-amber-200 px-4 py-2 text-xs font-semibold flex flex-wrap items-center justify-between gap-2 z-40 border-b border-amber-500/30 shrink-0">
+        <div className="hv-pill-amber px-4 py-2 text-xs font-semibold flex flex-wrap items-center justify-between gap-2 z-40 border-b shrink-0">
           <div className="flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
+            <AlertTriangle className="w-4 h-4 shrink-0" />
             <span>
               {isHindi
                 ? `ईमेल सत्यापन लंबित (${firebaseUser.email}) — आपका डेटा अभी लोकल डिवाइस मोड में सुरक्षित है। क्लाउड सिंक चालू करने के लिए ईमेल सत्यापित करें।`
@@ -4555,7 +4540,7 @@ export default function App() {
             <button
               type="button"
               onClick={handleResendVerificationEmail}
-              className="px-2.5 py-1 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] transition cursor-pointer"
+              className="px-2.5 py-1 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-[11px] transition cursor-pointer"
             >
               {isHindi ? 'सत्यापन ईमेल भेजें' : 'Resend Link'}
             </button>
@@ -4563,7 +4548,7 @@ export default function App() {
               type="button"
               onClick={handleRefreshEmailVerification}
               disabled={isCheckingVerification}
-              className="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold text-[11px] border border-slate-600 transition cursor-pointer disabled:opacity-50"
+              className="px-2.5 py-1 rounded-lg bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] font-bold text-[11px] border border-[var(--border-subtle)] transition cursor-pointer disabled:opacity-50"
             >
               {isCheckingVerification
                 ? (isHindi ? 'जाँच हो रही है...' : 'Checking...')
@@ -4572,7 +4557,7 @@ export default function App() {
             <button
               type="button"
               onClick={() => setDismissedEmailVerifyBanner(true)}
-              className="p-1 rounded-lg text-amber-300 hover:text-white hover:bg-amber-500/20 transition cursor-pointer"
+              className="p-1 rounded-lg hover:bg-amber-500/20 transition cursor-pointer"
               title={isHindi ? 'बंद करें' : 'Dismiss'}
             >
               <X className="w-3.5 h-3.5" />
@@ -4586,8 +4571,8 @@ export default function App() {
         <div
           className={`px-4 py-2 text-xs font-bold flex flex-wrap items-center justify-between gap-2 shadow-xl z-40 border-b shrink-0 ${
             activeFyRange.isCustomPeriod || selectedFYStart === ALL_FINANCIAL_YEARS
-              ? 'bg-emerald-600/95 text-white border-emerald-400'
-              : 'bg-amber-500/95 text-slate-950 border-amber-400'
+              ? 'bg-emerald-600 text-white hv-keep-white border-emerald-400'
+              : 'bg-amber-400 text-slate-950 border-amber-500'
           }`}
         >
           <div className="flex items-center gap-2">
@@ -4609,7 +4594,7 @@ export default function App() {
           <button
             type="button"
             onClick={() => handleChangeFinancialYear(currentFYStart)}
-            className="bg-slate-950 hover:bg-slate-900 text-amber-300 px-3 py-1 rounded-xl text-[11px] font-extrabold transition shadow cursor-pointer"
+            className="bg-indigo-700 hover:bg-indigo-600 text-white hv-keep-white px-3 py-1 rounded-xl text-[11px] font-extrabold transition shadow cursor-pointer"
           >
             {isHindi
               ? `वापस वर्तमान वर्ष (${getFinancialYearRange(currentFYStart).label})`
@@ -4620,9 +4605,9 @@ export default function App() {
 
       {/* Validation / Rejection Error Banner */}
       {errorToastMessage && (
-        <div className="bg-rose-600 text-white px-4 py-2.5 text-xs font-bold flex items-center justify-between shadow-2xl animate-fadeIn border-b border-rose-400 z-40 shrink-0">
+        <div className="bg-rose-600 text-white hv-keep-white px-4 py-2.5 text-xs font-bold flex items-center justify-between shadow-2xl animate-fadeIn border-b border-rose-400 z-40 shrink-0">
           <div className="flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-amber-200 shrink-0" />
+            <AlertTriangle className="w-4 h-4 shrink-0" />
             <span>{errorToastMessage}</span>
           </div>
           <button onClick={() => setErrorToastMessage(null)} className="p-1 hover:bg-rose-700 rounded-lg transition">
@@ -4633,9 +4618,9 @@ export default function App() {
 
       {/* Toast Notification Banner */}
       {toastMessage && (
-        <div className="bg-indigo-600 text-white px-4 py-2.5 text-xs font-bold flex items-center justify-between shadow-2xl animate-fadeIn border-b border-indigo-400 z-40 shrink-0">
+        <div className="bg-indigo-600 text-white hv-keep-white px-4 py-2.5 text-xs font-bold flex items-center justify-between shadow-2xl animate-fadeIn border-b border-indigo-400 z-40 shrink-0">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
+            <Sparkles className="w-4 h-4 animate-pulse shrink-0" />
             <span>{toastMessage}</span>
           </div>
           <button onClick={() => setToastMessage(null)} className="p-1 hover:bg-indigo-700 rounded-lg transition">
@@ -4644,10 +4629,10 @@ export default function App() {
         </div>
       )}
 
-      {/* Forced-Lock Alert Banner (only shown when trial expires or tamper/mismatch is detected; active 7-day trial uses non-intrusive Header badge) */}
+      {/* Forced-Lock Alert Banner */}
       {isLicenseHardLocked && (
         <div
-          className="bg-gradient-to-r from-rose-700 to-rose-800 text-white px-4 py-2 text-xs font-bold flex items-center justify-between gap-2 shadow shrink-0"
+          className="bg-rose-700 text-white hv-keep-white px-4 py-2 text-xs font-bold flex items-center justify-between gap-2 shadow shrink-0"
         >
           <span>
             {trialStatus.vaultTampered
@@ -4681,7 +4666,7 @@ export default function App() {
 
       {/* Auto Invoice Notice Toast */}
       {autoInvoiceNotice && (
-        <div className="bg-emerald-600 text-white px-4 py-2 text-xs font-bold flex items-center justify-between shadow-lg animate-fadeIn shrink-0">
+        <div className="bg-emerald-600 text-white hv-keep-white px-4 py-2 text-xs font-bold flex items-center justify-between shadow-lg animate-fadeIn shrink-0">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-4 h-4" />
             <span>{autoInvoiceNotice}</span>
@@ -4717,7 +4702,7 @@ export default function App() {
 
         {/* Main Content Area */}
         <main 
-          className={`flex-1 min-h-0 flex flex-col overscroll-contain bg-slate-950 touch-pan-y ${
+          className={`flex-1 min-h-0 flex flex-col overscroll-contain bg-[var(--bg-canvas)] touch-pan-y ${
             isTableLockedView
               ? 'overflow-y-auto md:overflow-hidden pb-24 md:pb-0'
               : 'overflow-y-auto pb-28 md:pb-16'
@@ -4725,7 +4710,7 @@ export default function App() {
           style={{ WebkitOverflowScrolling: 'touch' }}
         >
           {activeTab !== 'dashboard' && (
-            <div className="bg-slate-900 backdrop-blur-md border-b border-slate-800 px-4 py-2 flex items-center justify-between sticky top-0 z-20 shadow-md shrink-0">
+            <div className="bg-[var(--bg-header)] backdrop-blur-md border-b border-[var(--border-primary)] px-4 py-2 flex items-center justify-between sticky top-0 z-20 shadow-sm shrink-0">
               <button
                 onClick={() => {
                   if (selectedLedgerAccountId) {
@@ -4734,19 +4719,19 @@ export default function App() {
                     setActiveTab('dashboard');
                   }
                 }}
-                className="flex items-center gap-2 text-indigo-300 hover:text-indigo-200 bg-indigo-950/60 hover:bg-indigo-900/80 border border-indigo-500/30 px-3 py-1.5 rounded-xl font-bold text-xs transition shadow shrink-0"
+                className="hv-pill-indigo border flex items-center gap-2 px-3 py-1.5 rounded-xl font-bold text-xs transition shadow-sm shrink-0 cursor-pointer"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>{isHindi ? '❮ मुख्य डैशबोर्ड पर वापस जाएं (Back)' : '❮ Back to Dashboard'}</span>
               </button>
 
-              <div className="flex items-center gap-2 text-xs text-slate-400 font-mono">
-                <span className="bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700 font-bold uppercase text-amber-300">
+              <div className="flex items-center gap-2 text-xs text-[var(--text-muted)] font-mono">
+                <span className="hv-pill-amber px-2.5 py-1 rounded-lg border font-bold uppercase">
                   {activeTab}
                 </span>
                 {selectedLedgerAccountId && (
-                  <span className="text-slate-300 font-sans">
-                    / Account Ledger: <strong className="text-white">{data.accounts.find(a => a.id === selectedLedgerAccountId)?.name}</strong>
+                  <span className="text-[var(--text-secondary)] font-sans">
+                    / Account Ledger: <strong className="text-[var(--text-primary)]">{data.accounts.find(a => a.id === selectedLedgerAccountId)?.name}</strong>
                   </span>
                 )}
               </div>
@@ -5442,26 +5427,26 @@ export default function App() {
 
       {/* Reset Confirmation Modal */}
       {showResetModal && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 text-slate-200 space-y-4 shadow-2xl">
-            <div className="flex items-center gap-3 text-rose-400">
-              <div className="p-2.5 bg-rose-500/10 border border-rose-500/20 rounded-xl">
+        <div className="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl max-w-md w-full p-6 text-[var(--text-primary)] space-y-4 shadow-2xl">
+            <div className="flex items-center gap-3 text-rose-500">
+              <div className="p-2.5 hv-pill-rose border rounded-xl">
                 <RotateCcw className="w-6 h-6" />
               </div>
-              <h3 className="text-base font-bold text-white">
+              <h3 className="text-base font-bold text-[var(--text-primary)]">
                 {isHindi ? 'क्या आप सभी डेटा रीसेट करना चाहते हैं?' : 'Confirm Full System Data Reset?'}
               </h3>
             </div>
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
               {isHindi
                 ? 'ध्यान दें: यह क्रिया सभी पुराने इनवॉइस, परचेज बिल, वाउचर, पार्टी, स्टॉक आइटम, डेमो डेटा और अतिरिक्त कंपनियाँ साफ़ करके कार्यक्षेत्र को 100% खाली (0 बैलेंस) स्थिति में ला देगी ताकि आप नई कंपनी या XML डेटा इम्पोर्ट कर सकें।'
                 : 'Warning: This action will clear all invoices, purchase bills, vouchers, parties, items, demo records, and extra companies, resetting your workspace to a 100% clean empty state ready for fresh setup or ERP XML import.'}
             </p>
-            <div className="flex items-center justify-end gap-3 pt-2 border-t border-slate-800">
+            <div className="flex items-center justify-end gap-3 pt-2 border-t border-[var(--border-primary)]">
               <button
                 type="button"
                 onClick={() => setShowResetModal(false)}
-                className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 text-xs font-semibold"
+                className="px-4 py-2 rounded-xl border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] text-xs font-semibold cursor-pointer"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>
@@ -5470,7 +5455,7 @@ export default function App() {
                 onClick={() => {
                   confirmResetDataNow();
                 }}
-                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white text-xs font-extrabold shadow-lg shadow-rose-600/30 transition"
+                className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white hv-keep-white text-xs font-extrabold shadow-lg shadow-rose-600/30 transition cursor-pointer"
               >
                 {isHindi ? 'हाँ, रीसेट करें' : 'Yes, Reset Data Now'}
               </button>
@@ -5480,13 +5465,13 @@ export default function App() {
       )}
 
       {/* Mobile Quick Action Bottom Navigation Bar (Native App Dock, RBAC Filtered) */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-slate-900/95 backdrop-blur-xl border-t border-slate-800 px-2 py-1.5 flex items-center justify-between shadow-2xl safe-area-pb">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-[var(--bg-header)] backdrop-blur-xl border-t border-[var(--border-primary)] px-2 py-1.5 flex items-center justify-between shadow-2xl safe-area-pb">
         {/* 1. Dashboard */}
         <button
           type="button"
           onClick={() => navigateToTab('dashboard')}
           className={`flex-1 flex flex-col items-center justify-center py-1 rounded-xl transition cursor-pointer ${
-            activeTab === 'dashboard' ? 'text-indigo-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+            activeTab === 'dashboard' ? 'text-indigo-500 font-bold' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
           <LayoutDashboard className="w-5 h-5 mb-0.5" />
@@ -5499,7 +5484,7 @@ export default function App() {
             type="button"
             onClick={() => navigateToTab('invoices')}
             className={`flex-1 flex flex-col items-center justify-center py-1 rounded-xl transition cursor-pointer relative ${
-              activeTab === 'invoices' ? 'text-indigo-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+              activeTab === 'invoices' ? 'text-indigo-500 font-bold' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
             <Receipt className="w-5 h-5 mb-0.5" />
@@ -5516,7 +5501,7 @@ export default function App() {
             type="button"
             onClick={() => navigateToTab('purchases')}
             className={`flex-1 flex flex-col items-center justify-center py-1 rounded-xl transition cursor-pointer ${
-              activeTab === 'purchases' ? 'text-indigo-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+              activeTab === 'purchases' ? 'text-indigo-500 font-bold' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
             <ShoppingBag className="w-5 h-5 mb-0.5" />
@@ -5530,7 +5515,7 @@ export default function App() {
             type="button"
             onClick={() => navigateToTab('items')}
             className={`flex-1 flex flex-col items-center justify-center py-1 rounded-xl transition cursor-pointer relative ${
-              activeTab === 'items' ? 'text-indigo-400 font-bold' : 'text-slate-400 hover:text-slate-200'
+              activeTab === 'items' ? 'text-indigo-500 font-bold' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
             <Package className="w-5 h-5 mb-0.5" />
@@ -5545,10 +5530,10 @@ export default function App() {
         <button
           type="button"
           onClick={() => setIsMobileDrawerOpen(true)}
-          className="flex-1 flex flex-col items-center justify-center py-1 rounded-xl transition cursor-pointer text-slate-400 hover:text-slate-200 relative"
+          className="flex-1 flex flex-col items-center justify-center py-1 rounded-xl transition cursor-pointer text-[var(--text-muted)] hover:text-[var(--text-primary)] relative"
         >
-          <Menu className="w-5 h-5 mb-0.5 text-indigo-400" />
-          <span className="text-[10px] font-semibold text-slate-200">{isHindi ? 'मेनू' : 'Menu'}</span>
+          <Menu className="w-5 h-5 mb-0.5 text-indigo-500" />
+          <span className="text-[10px] font-semibold text-[var(--text-primary)]">{isHindi ? 'मेनू' : 'Menu'}</span>
           {(unreconciledCount > 0 || lowStockCount > 0) && (
             <span className="absolute top-0 right-3 w-2 h-2 rounded-full bg-rose-500" />
           )}

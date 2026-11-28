@@ -89,6 +89,7 @@ export interface HisabVedaDesktopBridge {
   flushSync: (payload: { storageKey?: string; data?: any; settings?: any }) => boolean;
   getAppVersion?: () => string;
   checkForUpdates?: () => Promise<{ updateAvailable?: boolean; currentVersion?: string; version?: string; releaseNotes?: string; error?: string; message?: string }>;
+  downloadUpdate?: () => Promise<{ started: boolean; error?: string }>;
   installUpdate?: () => Promise<void>;
   onUpdateAvailable?: (callback: (info: any) => void) => (() => void) | void;
   onUpdateProgress?: (callback: (progress: any) => void) => (() => void) | void;

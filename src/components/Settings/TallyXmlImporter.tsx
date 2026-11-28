@@ -254,25 +254,25 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
     : 0;
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-5">
+    <div className="hv-surface border rounded-2xl p-5 space-y-5">
       {/* Header Banner */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-[var(--border-primary)] pb-4">
         <div className="flex items-start gap-3">
-          <div className="w-11 h-11 rounded-xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 shrink-0">
+          <div className="w-11 h-11 rounded-xl hv-pill-amber border flex items-center justify-center shrink-0">
             <FileCode2 className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="font-extrabold text-base text-white flex flex-wrap items-center gap-2">
+            <h3 className="font-extrabold text-base text-[var(--text-primary)] flex flex-wrap items-center gap-2">
               <span>
                 {isHindi
                   ? 'Accounting ERP XML डेटा इम्पोर्टर'
                   : 'Accounting ERP XML Data Importer'}
               </span>
-              <span className="bg-amber-500/15 text-amber-300 border border-amber-500/30 text-[10px] font-bold px-2 py-0.5 rounded">
+              <span className="hv-pill-amber border text-[10px] font-bold px-2 py-0.5 rounded">
                 ERP XML Migration Ready
               </span>
             </h3>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs text-[var(--text-muted)] mt-1">
               {isHindi
                 ? 'अकाउंटिंग सॉफ़्टवेयर से एक्सपोर्ट की गई XML फ़ाइल (Masters + Day Book) से लेज़र, पार्टी GSTIN, स्टॉक आइटम, सेल्स/परचेज बिल और वाउचर 1-क्लिक में इम्पोर्ट करें।'
                 : 'One-click migration of Ledgers, Parties (with GSTIN & Opening Balance), Stock Items, Sales/Purchase Bills & Vouchers directly from Accounting XML exports.'}
@@ -284,7 +284,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
           <button
             type="button"
             onClick={() => setShowGuide((v) => !v)}
-            className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-semibold px-3 py-2 rounded-xl transition cursor-pointer"
+            className="flex items-center gap-1.5 hv-elevated hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] text-xs font-semibold px-3 py-2 rounded-xl transition cursor-pointer"
           >
             <HelpCircle className="w-3.5 h-3.5 text-sky-400" />
             <span>{isHindi ? 'XML कैसे एक्सपोर्ट करें?' : 'How to Export XML'}</span>
@@ -294,7 +294,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
           <button
             type="button"
             onClick={handleDownloadSampleXml}
-            className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-emerald-400 text-xs font-semibold px-3 py-2 rounded-xl transition cursor-pointer"
+            className="flex items-center gap-1.5 hv-pill-emerald border hover:opacity-90 text-xs font-semibold px-3 py-2 rounded-xl transition cursor-pointer"
           >
             <Download className="w-3.5 h-3.5" />
             <span>{isHindi ? 'सैंपल XML डाउनलोड' : 'Sample XML'}</span>
@@ -303,7 +303,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
           <button
             type="button"
             onClick={handleLoadSampleInPreview}
-            className="flex items-center gap-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-bold px-3 py-2 rounded-xl transition cursor-pointer"
+            className="flex items-center gap-1.5 hv-pill-amber border hover:opacity-90 text-xs font-bold px-3 py-2 rounded-xl transition cursor-pointer"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>{isHindi ? 'सैंपल प्रीव्यू टेस्ट करें' : 'Test Sample Import'}</span>
@@ -313,17 +313,17 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
 
       {/* Smart Duplicate Ledger Check Banner */}
       {onMergeDuplicateLedgers && dupAudit.totalDuplicateRecords > 0 && (
-        <div className="bg-amber-950/35 border border-amber-500/40 rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="hv-pill-amber border rounded-2xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="space-y-1">
-            <p className="text-xs font-extrabold text-amber-200 flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+            <p className="text-xs font-extrabold flex items-center gap-2">
+              <Sparkles className="w-4 h-4 shrink-0" />
               <span>
                 {isHindi
                   ? `स्मार्ट डुप्लीकेट जाँच: ${dupAudit.totalDuplicateRecords} डुप्लीकेट लेज़र/पार्टी मिलीं!`
                   : `Smart Duplicate Inspector: ${dupAudit.totalDuplicateRecords} duplicate ledger/party entries detected!`}
               </span>
             </p>
-            <p className="text-[11px] text-slate-300">
+            <p className="text-[11px] text-[var(--text-secondary)]">
               {isHindi
                 ? 'मल्टी-ईयर (2022–2027) XML इम्पोर्ट में एक जैसे नाम वाले लेज़र/पार्टियाँ मर्ज करके सभी बिल और वाउचर स्वतः जोड़ें।'
                 : 'Merge matching ledger & party names across multi-year XML imports and auto-link all their vouchers and invoices seamlessly.'}
@@ -342,18 +342,18 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
 
       {/* Existing Imported XML Data Removal / Pre-Import Snapshot Undo Panel */}
       {(lastBatchTotal > 0 || tallyImportedCounts.total > 0 || Boolean(preImportSnapshot && onRestorePreImportSnapshot)) && (
-        <div className="bg-rose-950/25 border border-rose-500/30 rounded-2xl p-4 space-y-3">
+        <div className="hv-pill-rose border rounded-2xl p-4 space-y-3">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div className="space-y-1">
-              <p className="text-xs font-extrabold text-rose-200 flex items-center gap-2">
-                <RotateCcw className="w-4 h-4 text-rose-400" />
+              <p className="text-xs font-extrabold flex items-center gap-2">
+                <RotateCcw className="w-4 h-4" />
                 <span>
                   {isHindi
                     ? 'गलत XML इम्पोर्ट हटाएं / स्नैपशॉट रीस्टोर करें (Undo or Restore Snapshot)'
                     : 'Rollback XML Import or Restore Pre-Import Snapshot'}
                 </span>
               </p>
-              <p className="text-[11px] text-slate-300">
+              <p className="text-[11px] text-[var(--text-secondary)]">
                 {tallyImportedCounts.total > 0
                   ? (isHindi
                       ? `वर्तमान कंपनी में Accounting XML से आए कुल ${tallyImportedCounts.total} रिकॉर्ड मौजूद हैं (${tallyImportedCounts.parties} पार्टी, ${tallyImportedCounts.accounts} लेज़र, ${tallyImportedCounts.items} आइटम, ${tallyImportedCounts.invoices} सेल्स, ${tallyImportedCounts.purchases} परचेज, ${tallyImportedCounts.vouchers} वाउचर)।`
@@ -373,7 +373,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                     setConfirmRemoveAll(false);
                     setConfirmRestoreSnapshot(true);
                   }}
-                  className="flex items-center gap-1.5 bg-indigo-500/20 hover:bg-indigo-500/35 border border-indigo-400/50 text-indigo-200 text-xs font-bold px-3.5 py-2 rounded-xl transition cursor-pointer"
+                  className="flex items-center gap-1.5 hv-pill-indigo border hover:opacity-90 text-xs font-bold px-3.5 py-2 rounded-xl transition cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>
@@ -390,7 +390,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                     setConfirmRestoreSnapshot(false);
                     setConfirmUndoLast(true);
                   }}
-                  className="flex items-center gap-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 text-xs font-bold px-3.5 py-2 rounded-xl transition cursor-pointer"
+                  className="flex items-center gap-1.5 hv-pill-amber border hover:opacity-90 text-xs font-bold px-3.5 py-2 rounded-xl transition cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>
@@ -409,7 +409,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                     setConfirmRestoreSnapshot(false);
                     setConfirmRemoveAll(true);
                   }}
-                  className="flex items-center gap-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-extrabold px-3.5 py-2 rounded-xl shadow transition cursor-pointer"
+                  className="flex items-center gap-1.5 bg-rose-600 hover:bg-rose-500 text-white hv-keep-white text-xs font-extrabold px-3.5 py-2 rounded-xl shadow transition cursor-pointer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>
@@ -423,8 +423,8 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
           </div>
 
           {confirmRestoreSnapshot && onRestorePreImportSnapshot && preImportSnapshot && (
-            <div className="bg-indigo-950/60 border border-indigo-500/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-              <span className="text-indigo-200">
+            <div className="hv-pill-indigo border rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+              <span>
                 {isHindi
                   ? `इम्पोर्ट से पहले की स्थिति (${preImportSnapshot.label} • ${new Date(preImportSnapshot.createdAt).toLocaleString()}) पर वापस लौटें?`
                   : `Restore exact workspace state from before import (${preImportSnapshot.label} • ${new Date(preImportSnapshot.createdAt).toLocaleString()})?`}
@@ -433,7 +433,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                 <button
                   type="button"
                   onClick={() => setConfirmRestoreSnapshot(false)}
-                  className="px-3 py-1.5 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 font-semibold cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] hv-surface text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] font-semibold cursor-pointer"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
@@ -443,7 +443,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                     setConfirmRestoreSnapshot(false);
                     onRestorePreImportSnapshot();
                   }}
-                  className="px-3.5 py-1.5 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white font-extrabold cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-extrabold cursor-pointer"
                 >
                   {isHindi ? 'हाँ, स्नैपशॉट रीस्टोर करें' : 'Yes, Restore Snapshot'}
                 </button>
@@ -452,8 +452,8 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
           )}
 
           {confirmUndoLast && onUndoLastTallyImport && lastTallyImportBatch && (
-            <div className="bg-amber-950/60 border border-amber-500/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-              <span className="text-amber-200">
+            <div className="hv-pill-amber border rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+              <span>
                 {isHindi
                   ? `फ़ाइल "${lastTallyImportBatch.fileName}" से इम्पोर्ट हुए ${lastBatchTotal} रिकॉर्ड तुरंत हटाए जाएँ?`
                   : `Remove all ${lastBatchTotal} records imported from "${lastTallyImportBatch.fileName}"?`}
@@ -462,7 +462,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                 <button
                   type="button"
                   onClick={() => setConfirmUndoLast(false)}
-                  className="px-3 py-1.5 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 font-semibold cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] hv-surface text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] font-semibold cursor-pointer"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
@@ -481,8 +481,8 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
           )}
 
           {confirmRemoveAll && onRemoveAllTallyData && (
-            <div className="bg-rose-950/70 border border-rose-500/50 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-              <span className="text-rose-200">
+            <div className="hv-pill-rose border rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+              <span>
                 {isHindi
                   ? `सावधान: Accounting XML से इम्पोर्ट किए गए सभी ${tallyImportedCounts.total} रिकॉर्ड इस कंपनी से हट जाएँगे (आपके हाथ से बनाए गए बिल सुरक्षित रहेंगे)। जारी रखें?`
                   : `Remove all ${tallyImportedCounts.total} XML-imported records from this company (your manual entries stay untouched)?`}
@@ -491,7 +491,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                 <button
                   type="button"
                   onClick={() => setConfirmRemoveAll(false)}
-                  className="px-3 py-1.5 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 font-semibold cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] hv-surface text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] font-semibold cursor-pointer"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
@@ -501,7 +501,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                     setConfirmRemoveAll(false);
                     onRemoveAllTallyData();
                   }}
-                  className="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-extrabold cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-extrabold cursor-pointer"
                 >
                   {isHindi ? 'हाँ, सभी XML डेटा हटाएं' : 'Yes, Delete All Imported XML'}
                 </button>
@@ -513,13 +513,13 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
 
       {/* Step-by-step ERP XML Export Guide */}
       {showGuide && (
-        <div className="bg-slate-950/80 border border-sky-500/30 rounded-xl p-4 text-xs space-y-2">
-          <p className="font-bold text-sky-300">
+        <div className="hv-pill-sky border rounded-xl p-4 text-xs space-y-2">
+          <p className="font-bold">
             {isHindi
               ? 'अपने पिछले अकाउंटिंग सॉफ़्टवेयर से XML फ़ाइल एक्सपोर्ट करने के आसान चरण:'
               : 'Quick Steps to Export XML from Your Legacy Accounting ERP:'}
           </p>
-          <ol className="list-decimal pl-5 space-y-1.5 text-slate-300">
+          <ol className="list-decimal pl-5 space-y-1.5 text-[var(--text-secondary)]">
             <li>
               <strong>{isHindi ? 'मास्टर्स (लेज़र व स्टॉक) के लिए:' : 'For Masters (Ledgers, Parties & Stock Items):'}</strong>{' '}
               {isHindi
@@ -544,15 +544,15 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
 
       {/* Success Banner */}
       {importSuccessMsg && (
-        <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4 flex items-start justify-between gap-3 text-emerald-300 text-xs font-semibold">
+        <div className="hv-pill-emerald border rounded-xl p-4 flex items-start justify-between gap-3 text-xs font-semibold">
           <div className="flex items-start gap-2.5">
-            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+            <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
             <span>{importSuccessMsg}</span>
           </div>
           <button
             type="button"
             onClick={() => setImportSuccessMsg(null)}
-            className="p-1 hover:bg-emerald-500/20 rounded-lg text-emerald-300 cursor-pointer"
+            className="p-1 hover:opacity-80 rounded-lg cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -562,7 +562,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
       {/* File Dropzone + Options */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         <div className="lg:col-span-7">
-          <div className="border-2 border-dashed border-slate-700 hover:border-amber-500/70 bg-slate-950/60 rounded-2xl p-6 text-center transition h-full flex flex-col items-center justify-center relative">
+          <div className="border-2 border-dashed border-[var(--border-subtle)] hover:border-amber-500/70 hv-elevated rounded-2xl p-6 text-center transition h-full flex flex-col items-center justify-center relative">
             <input
               ref={fileInputRef}
               type="file"
@@ -575,13 +575,13 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
               htmlFor="tally-xml-upload-input"
               className="cursor-pointer flex flex-col items-center justify-center space-y-2.5 w-full"
             >
-              <div className="w-12 h-12 rounded-2xl bg-amber-500/15 border border-amber-500/30 text-amber-400 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-2xl hv-pill-amber border flex items-center justify-center">
                 <UploadCloud className="w-6 h-6" />
               </div>
               <div className="space-y-1">
-                <p className="text-xs font-bold text-slate-100">
+                <p className="text-xs font-bold text-[var(--text-primary)]">
                   {fileName ? (
-                    <span className="text-amber-300 inline-flex items-center gap-1.5">
+                    <span className="text-amber-400 inline-flex items-center gap-1.5">
                       <FileText className="w-4 h-4" />
                       {fileName}
                     </span>
@@ -593,7 +593,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                     </span>
                   )}
                 </p>
-                <p className="text-[11px] text-slate-500">
+                <p className="text-[11px] text-[var(--text-muted)]">
                   {isHindi
                     ? 'UTF-8 और UTF-16LE दोनों XML फॉर्मेट स्वतः समर्थित हैं (Masters & DayBook)'
                     : 'Supports both UTF-8 & UTF-16LE Accounting XML exports (Masters & DayBook)'}
@@ -604,14 +604,14 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
               <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
                 <label
                   htmlFor="tally-xml-upload-input"
-                  className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-[11px] font-bold cursor-pointer transition"
+                  className="px-3 py-1.5 rounded-lg hv-surface hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] text-[11px] font-bold cursor-pointer transition"
                 >
                   {isHindi ? 'दूसरी XML फ़ाइल चुनें' : 'Change XML File'}
                 </label>
                 <button
                   type="button"
                   onClick={handleClear}
-                  className="px-3 py-1.5 rounded-lg bg-rose-600/20 hover:bg-rose-600/35 border border-rose-500/40 text-rose-300 text-[11px] font-bold flex items-center gap-1 cursor-pointer transition"
+                  className="px-3 py-1.5 rounded-lg hv-pill-rose border text-[11px] font-bold flex items-center gap-1 cursor-pointer transition hover:opacity-90"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'गलत फ़ाइल हटाएँ' : 'Remove XML File'}</span>
@@ -622,8 +622,8 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
         </div>
 
         {/* Import Options & Toggles */}
-        <div className="lg:col-span-5 bg-slate-950/70 border border-slate-800 rounded-2xl p-4 space-y-3 text-xs">
-          <p className="font-bold text-slate-200 border-b border-slate-800 pb-2">
+        <div className="lg:col-span-5 hv-elevated border border-[var(--border-primary)] rounded-2xl p-4 space-y-3 text-xs">
+          <p className="font-bold text-[var(--text-primary)] border-b border-[var(--border-primary)] pb-2">
             {isHindi ? 'इम्पोर्ट सेटिंग्स व श्रेणियाँ (Import Filters)' : 'Import Filters & Deduplication'}
           </p>
 
@@ -642,7 +642,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
               return (
                 <label
                   key={item.key}
-                  className="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-2.5 py-1.5 cursor-pointer hover:border-slate-700"
+                  className="flex items-center gap-2 hv-surface border border-[var(--border-primary)] rounded-lg px-2.5 py-1.5 cursor-pointer hover:border-[var(--border-subtle)]"
                 >
                   <input
                     type="checkbox"
@@ -650,13 +650,13 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                     onChange={(e) => setOptions((prev) => ({ ...prev, [k]: e.target.checked }))}
                     className="accent-amber-500 rounded cursor-pointer"
                   />
-                  <span className="text-slate-300 truncate">{isHindi ? item.labelHi : item.labelEn}</span>
+                  <span className="text-[var(--text-secondary)] truncate">{isHindi ? item.labelHi : item.labelEn}</span>
                 </label>
               );
             })}
           </div>
 
-          <label className="flex items-center gap-2 bg-indigo-950/40 border border-indigo-500/30 rounded-xl px-3 py-2 cursor-pointer text-[11px] text-indigo-200 font-semibold">
+          <label className="flex items-center gap-2 hv-pill-indigo border rounded-xl px-3 py-2 cursor-pointer text-[11px] font-semibold">
             <input
               type="checkbox"
               checked={options.skipDuplicates}
@@ -674,18 +674,18 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
 
       {/* Parsing Error */}
       {parsedResult && !parsedResult.success && (
-        <div className="bg-rose-500/10 border border-rose-500/30 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-rose-300 text-xs">
+        <div className="hv-pill-rose border rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
           <div className="flex items-start gap-3">
-            <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+            <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
             <div>
               <p className="font-bold">{isHindi ? 'XML फ़ाइल पढ़ने में त्रुटि' : 'XML Parse Error'}</p>
-              <p className="text-rose-200/80 mt-0.5">{parsedResult.error}</p>
+              <p className="mt-0.5">{parsedResult.error}</p>
             </div>
           </div>
           <button
             type="button"
             onClick={handleClear}
-            className="shrink-0 flex items-center gap-1.5 bg-rose-600 hover:bg-rose-500 text-white font-bold px-3.5 py-2 rounded-xl cursor-pointer transition"
+            className="shrink-0 flex items-center gap-1.5 bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-bold px-3.5 py-2 rounded-xl cursor-pointer transition"
           >
             <Trash2 className="w-3.5 h-3.5" />
             <span>{isHindi ? 'गलत फ़ाइल हटाएँ' : 'Remove Wrong File'}</span>
@@ -695,7 +695,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
 
       {/* Parsed Results Preview */}
       {parsedResult && parsedResult.success && (
-        <div className="space-y-4 pt-2 border-t border-slate-800">
+        <div className="space-y-4 pt-2 border-t border-[var(--border-primary)]">
           {/* Summary KPI Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
             {[
@@ -746,15 +746,15 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
               return (
                 <div
                   key={card.label}
-                  className="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-1"
+                  className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3 space-y-1"
                 >
-                  <div className="flex items-center justify-between text-[11px] text-slate-400">
+                  <div className="flex items-center justify-between text-[11px] text-[var(--text-muted)]">
                     <span>{card.label}</span>
                     <Icon className={`w-3.5 h-3.5 ${card.color}`} />
                   </div>
-                  <p className="text-xl font-extrabold text-white tabular-nums">{card.count}</p>
+                  <p className="text-xl font-extrabold text-[var(--text-primary)] tabular-nums">{card.count}</p>
                   {card.dup > 0 && (
-                    <p className="text-[10px] text-slate-500 tabular-nums">
+                    <p className="text-[10px] text-[var(--text-muted)] tabular-nums">
                       {card.dup} {isHindi ? 'डुप्लीकेट स्किप' : 'duplicates skipped'}
                     </p>
                   )}
@@ -765,16 +765,16 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
 
           {/* FY Notice + Multi-Year Auto Carry-Forward Assurance */}
           {detectedFyHint && (
-            <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl px-4 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs text-amber-200">
+            <div className="hv-pill-amber border rounded-xl px-4 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
               <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-amber-400 shrink-0" />
+                <Calendar className="w-4 h-4 shrink-0" />
                 <span>
                   {isHindi
                     ? `इस XML में ${parsedResult.stats.minDate} से ${parsedResult.stats.maxDate} (${detectedFyHint}) तक के ट्रांज़ैक्शन हैं।`
                     : `XML contains transactions from ${parsedResult.stats.minDate} to ${parsedResult.stats.maxDate} (${detectedFyHint}).`}
                 </span>
               </div>
-              <span className="text-[11px] text-emerald-300 font-semibold">
+              <span className="text-[11px] text-emerald-400 font-semibold">
                 {isHindi
                   ? '✓ यदि इस XML में Opening Balance नहीं भी है, तो पिछले वर्षों (2022–26) का क्लोज़िंग बैलेंस स्वतः कैरी फॉरवर्ड हो जाएगा।'
                   : '✓ Multi-Year Carry-Forward Ready: Prior FY closing balances automatically carry forward if this XML has no Opening Balances.'}
@@ -783,14 +783,14 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
           )}
 
           {parsedResult.warnings.length > 0 && (
-            <div className="bg-slate-950 border border-amber-500/30 rounded-xl p-3 text-[11px] text-amber-300 space-y-1 max-h-28 overflow-y-auto">
+            <div className="hv-pill-amber border rounded-xl p-3 text-[11px] space-y-1 max-h-28 overflow-y-auto">
               <p className="font-bold flex items-center gap-1.5">
-                <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
+                <AlertTriangle className="w-3.5 h-3.5" />
                 <span>
                   {isHindi ? 'पार्सिंग नोट्स / चेतावनियाँ:' : 'Import Warnings / Mapping Notes:'} ({parsedResult.warnings.length})
                 </span>
               </p>
-              <ul className="list-disc pl-5 space-y-0.5 text-slate-300">
+              <ul className="list-disc pl-5 space-y-0.5 text-[var(--text-secondary)]">
                 {parsedResult.warnings.slice(0, 12).map((w, idx) => (
                   <li key={idx}>{w}</li>
                 ))}
@@ -824,7 +824,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                   className={`px-3 py-1.5 rounded-lg text-xs font-bold transition cursor-pointer ${
                     previewTab === t.id
                       ? 'bg-amber-500 text-slate-950'
-                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                      : 'hv-elevated border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--hover-surface)]'
                   }`}
                 >
                   {t.label}
@@ -836,7 +836,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
               <button
                 type="button"
                 onClick={handleClear}
-                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-rose-600/20 hover:bg-rose-600/35 border border-rose-500/40 text-rose-300 text-xs font-bold cursor-pointer transition"
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl hv-pill-rose border text-xs font-bold cursor-pointer transition hover:opacity-90"
               >
                 <Trash2 className="w-4 h-4" />
                 <span>{isHindi ? 'फ़ाइल हटाएं (Cancel)' : 'Remove / Cancel'}</span>
@@ -848,8 +848,8 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                 onClick={handleConfirmImport}
                 className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-extrabold transition shadow-lg ${
                   totalToImport > 0 || hasCompanyUpdate || totalUpdatesCount > 0
-                    ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 cursor-pointer active:scale-95'
-                    : 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                    ? 'bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white cursor-pointer active:scale-95'
+                    : 'hv-elevated text-[var(--text-muted)] border border-[var(--border-primary)] cursor-not-allowed'
                 }`}
               >
                 <CheckCircle2 className="w-4 h-4" />
@@ -864,21 +864,21 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
 
           {/* Detailed Preview Tables */}
           {previewTab === 'SUMMARY' && (
-            <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 text-xs text-slate-300 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-4 text-xs text-[var(--text-secondary)] grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <p className="font-bold text-white mb-1.5">
+                <p className="font-bold text-[var(--text-primary)] mb-1.5">
                   {isHindi ? 'XML फ़ाइल संरचना विवरण' : 'XML Structure Breakdown'}
                 </p>
                 <ul className="space-y-1 text-[11px] font-mono">
-                  <li>Groups Found: <strong className="text-slate-100">{parsedResult.stats.rawGroups}</strong></li>
-                  <li>Ledgers Found: <strong className="text-slate-100">{parsedResult.stats.rawLedgers}</strong></li>
-                  <li>Stock Items Found: <strong className="text-slate-100">{parsedResult.stats.rawStockItems}</strong></li>
-                  <li>Vouchers Found: <strong className="text-slate-100">{parsedResult.stats.rawVouchers}</strong></li>
+                  <li>Groups Found: <strong className="text-[var(--text-primary)]">{parsedResult.stats.rawGroups}</strong></li>
+                  <li>Ledgers Found: <strong className="text-[var(--text-primary)]">{parsedResult.stats.rawLedgers}</strong></li>
+                  <li>Stock Items Found: <strong className="text-[var(--text-primary)]">{parsedResult.stats.rawStockItems}</strong></li>
+                  <li>Vouchers Found: <strong className="text-[var(--text-primary)]">{parsedResult.stats.rawVouchers}</strong></li>
                   <li>Cancelled / Optional Skipped: <strong className="text-amber-400">{parsedResult.stats.skippedCancelledOrOptional}</strong></li>
                   {previewOpeningStockValue > 0 && (
                     <li>
                       Opening Stock Value:{' '}
-                      <strong className="text-sky-300 tabular-nums">
+                      <strong className="text-sky-400 tabular-nums">
                         ₹{previewOpeningStockValue.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </strong>
                     </li>
@@ -886,7 +886,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                   {previewInventoryValue > 0 && (
                     <li>
                       Closing Stock Value:{' '}
-                      <strong className="text-emerald-300 tabular-nums">
+                      <strong className="text-emerald-400 tabular-nums">
                         ₹{previewInventoryValue.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                       </strong>
                     </li>
@@ -894,7 +894,7 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                   {previewSalesDiscount > 0 && (
                     <li>
                       Customer Discounts:{' '}
-                      <strong className="text-emerald-300 tabular-nums">
+                      <strong className="text-emerald-400 tabular-nums">
                         ₹{Math.round(previewSalesDiscount).toLocaleString('en-IN')}
                       </strong>
                     </li>
@@ -902,19 +902,19 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                   {totalUpdatesCount > 0 && (
                     <li>
                       Existing Stock/Ledger Updates:{' '}
-                      <strong className="text-sky-300 tabular-nums">{totalUpdatesCount}</strong>
+                      <strong className="text-sky-400 tabular-nums">{totalUpdatesCount}</strong>
                     </li>
                   )}
                 </ul>
               </div>
               <div>
-                <p className="font-bold text-white mb-1.5 flex items-center justify-between gap-2">
+                <p className="font-bold text-[var(--text-primary)] mb-1.5 flex items-center justify-between gap-2">
                   <span>{isHindi ? 'कंपनी पहचान (XML Header)' : 'Detected Company Profile'}</span>
                   {parsedResult.companyInfo && Object.keys(parsedResult.companyInfo).length > 0 && (
-                    <span className={`text-[10px] px-2 py-0.5 rounded font-bold ${
+                    <span className={`text-[10px] px-2 py-0.5 rounded border font-bold ${
                       options.updateCompanyInfo
-                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/40'
-                        : 'bg-slate-800 text-slate-400 border border-slate-700'
+                        ? 'hv-pill-emerald'
+                        : 'hv-pill-slate'
                     }`}>
                       {options.updateCompanyInfo
                         ? (isHindi ? 'प्रोफ़ाइल ऑटो-अपडेट चालू' : 'Will Auto-Update Company')
@@ -924,9 +924,9 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                 </p>
                 {parsedResult.companyInfo && Object.keys(parsedResult.companyInfo).length > 0 ? (
                   <ul className="space-y-1 text-[11px]">
-                    <li>Name: <strong className="text-emerald-300">{parsedResult.companyInfo.name || data.company.name}</strong></li>
-                    <li>GSTIN: <strong className="font-mono text-indigo-300">{parsedResult.companyInfo.gstin || 'Not in XML'}</strong></li>
-                    <li>PAN: <strong className="font-mono text-amber-300">{parsedResult.companyInfo.pan || 'Not in XML'}</strong></li>
+                    <li>Name: <strong className="text-emerald-400">{parsedResult.companyInfo.name || data.company.name}</strong></li>
+                    <li>GSTIN: <strong className="font-mono text-indigo-400">{parsedResult.companyInfo.gstin || 'Not in XML'}</strong></li>
+                    <li>PAN: <strong className="font-mono text-amber-400">{parsedResult.companyInfo.pan || 'Not in XML'}</strong></li>
                     <li>State: <strong>{parsedResult.companyInfo.state || 'N/A'}{parsedResult.companyInfo.stateCode ? ` (${parsedResult.companyInfo.stateCode})` : ''}</strong></li>
                     {parsedResult.companyInfo.phone && (
                       <li>Phone: <strong className="font-mono">{parsedResult.companyInfo.phone}</strong></li>
@@ -935,11 +935,11 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                       <li>Email: <strong className="font-mono">{parsedResult.companyInfo.email}</strong></li>
                     )}
                     {parsedResult.companyInfo.address && (
-                      <li>Address: <strong className="text-slate-200">{parsedResult.companyInfo.address}</strong></li>
+                      <li>Address: <strong className="text-[var(--text-primary)]">{parsedResult.companyInfo.address}</strong></li>
                     )}
                   </ul>
                 ) : (
-                  <p className="text-[11px] text-slate-500">
+                  <p className="text-[11px] text-[var(--text-muted)]">
                     {isHindi
                       ? 'इस XML फ़ाइल में <COMPANY> या <SVCURRENTCOMPANY> विवरण नहीं मिला (केवल Master/DayBook बिना कंपनी टैग) — सभी डेटा सक्रिय कंपनी में सुरक्षित इम्पोर्ट होगा।'
                       : 'No <COMPANY> / <SVCURRENTCOMPANY> metadata found in this XML — all records will import cleanly into your active company.'}
@@ -950,10 +950,10 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
           )}
 
           {previewTab === 'PARTIES_ACCOUNTS' && (
-            <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-x-auto max-h-72">
+            <div className="hv-elevated border border-[var(--border-primary)] rounded-xl overflow-x-auto max-h-72">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="bg-slate-900 border-b border-slate-800 text-slate-400 font-bold text-[11px] uppercase">
+                  <tr className="hv-surface border-b border-[var(--border-primary)] text-[var(--text-muted)] font-bold text-[11px] uppercase">
                     <th className="p-2.5">Kind</th>
                     <th className="p-2.5">Name</th>
                     <th className="p-2.5">Group / Type</th>
@@ -961,35 +961,35 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                     <th className="p-2.5 text-right">Opening Bal</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-[11px]">
+                <tbody className="divide-y divide-[var(--border-primary)] text-[11px]">
                   {parsedResult.parties.map((p) => (
-                    <tr key={p.id} className="hover:bg-slate-900/60">
+                    <tr key={p.id} className="hover:bg-[var(--hover-surface)]">
                       <td className="p-2.5">
-                        <span className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 font-bold">
+                        <span className="px-1.5 py-0.5 rounded border hv-pill-emerald font-bold">
                           PARTY
                         </span>
                       </td>
-                      <td className="p-2.5 font-semibold text-white">{p.name}</td>
-                      <td className="p-2.5 text-slate-300">{p.type}</td>
-                      <td className="p-2.5 font-mono text-indigo-300">{p.gstin || '-'}</td>
-                      <td className="p-2.5 text-right font-mono tabular-nums text-slate-200">
+                      <td className="p-2.5 font-semibold text-[var(--text-primary)]">{p.name}</td>
+                      <td className="p-2.5 text-[var(--text-secondary)]">{p.type}</td>
+                      <td className="p-2.5 font-mono text-indigo-400">{p.gstin || '-'}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums text-[var(--text-primary)]">
                         ₹{p.openingBalance.toLocaleString('en-IN')} {p.balanceType}
                       </td>
                     </tr>
                   ))}
                   {parsedResult.accounts.map((a) => (
-                    <tr key={a.id} className="hover:bg-slate-900/60">
+                    <tr key={a.id} className="hover:bg-[var(--hover-surface)]">
                       <td className="p-2.5">
-                        <span className="px-1.5 py-0.5 rounded bg-indigo-500/15 text-indigo-300 font-bold">
+                        <span className="px-1.5 py-0.5 rounded border hv-pill-indigo font-bold">
                           LEDGER
                         </span>
                       </td>
-                      <td className="p-2.5 font-semibold text-white">{a.name}</td>
-                      <td className="p-2.5 text-slate-300">
+                      <td className="p-2.5 font-semibold text-[var(--text-primary)]">{a.name}</td>
+                      <td className="p-2.5 text-[var(--text-secondary)]">
                         {a.category} / {a.mainGroup || a.subCategory}
                       </td>
-                      <td className="p-2.5 font-mono text-slate-500">{a.code}</td>
-                      <td className="p-2.5 text-right font-mono tabular-nums text-slate-200">
+                      <td className="p-2.5 font-mono text-[var(--text-muted)]">{a.code}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums text-[var(--text-primary)]">
                         ₹{a.openingBalance.toLocaleString('en-IN')} {a.balanceType}
                       </td>
                     </tr>
@@ -1000,10 +1000,10 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
           )}
 
           {previewTab === 'ITEMS' && (
-            <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-x-auto max-h-72">
+            <div className="hv-elevated border border-[var(--border-primary)] rounded-xl overflow-x-auto max-h-72">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="bg-slate-900 border-b border-slate-800 text-slate-400 font-bold text-[11px] uppercase">
+                  <tr className="hv-surface border-b border-[var(--border-primary)] text-[var(--text-muted)] font-bold text-[11px] uppercase">
                     <th className="p-2.5">Item Name</th>
                     <th className="p-2.5">Category</th>
                     <th className="p-2.5">HSN</th>
@@ -1014,19 +1014,19 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                     <th className="p-2.5 text-right">Stock Value</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-[11px]">
+                <tbody className="divide-y divide-[var(--border-primary)] text-[11px]">
                   {parsedResult.items.map((it) => {
                     const stockVal = Math.round(getItemClosingStockValue(it) * 100) / 100;
                     return (
-                      <tr key={it.id} className="hover:bg-slate-900/60">
-                        <td className="p-2.5 font-semibold text-white">{it.name}</td>
-                        <td className="p-2.5 text-slate-400">{it.category}</td>
-                        <td className="p-2.5 font-mono text-indigo-300">{it.hsnSacCode}</td>
-                        <td className="p-2.5">{it.unit}</td>
-                        <td className="p-2.5 text-right font-mono tabular-nums">{it.taxRate}%</td>
-                        <td className="p-2.5 text-right font-mono tabular-nums text-emerald-300">{it.currentStock}</td>
-                        <td className="p-2.5 text-right font-mono tabular-nums">₹{it.purchasePrice.toLocaleString('en-IN')}</td>
-                        <td className="p-2.5 text-right font-mono tabular-nums font-semibold text-amber-300">
+                      <tr key={it.id} className="hover:bg-[var(--hover-surface)]">
+                        <td className="p-2.5 font-semibold text-[var(--text-primary)]">{it.name}</td>
+                        <td className="p-2.5 text-[var(--text-muted)]">{it.category}</td>
+                        <td className="p-2.5 font-mono text-indigo-400">{it.hsnSacCode}</td>
+                        <td className="p-2.5 text-[var(--text-secondary)]">{it.unit}</td>
+                        <td className="p-2.5 text-right font-mono tabular-nums text-[var(--text-secondary)]">{it.taxRate}%</td>
+                        <td className="p-2.5 text-right font-mono tabular-nums text-emerald-400">{it.currentStock}</td>
+                        <td className="p-2.5 text-right font-mono tabular-nums text-[var(--text-secondary)]">₹{it.purchasePrice.toLocaleString('en-IN')}</td>
+                        <td className="p-2.5 text-right font-mono tabular-nums font-semibold text-amber-400">
                           ₹{stockVal.toLocaleString('en-IN')}
                         </td>
                       </tr>
@@ -1038,10 +1038,10 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
           )}
 
           {previewTab === 'INVOICES' && (
-            <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-x-auto max-h-72">
+            <div className="hv-elevated border border-[var(--border-primary)] rounded-xl overflow-x-auto max-h-72">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="bg-slate-900 border-b border-slate-800 text-slate-400 font-bold text-[11px] uppercase">
+                  <tr className="hv-surface border-b border-[var(--border-primary)] text-[var(--text-muted)] font-bold text-[11px] uppercase">
                     <th className="p-2.5">Type</th>
                     <th className="p-2.5">Date</th>
                     <th className="p-2.5">Invoice / Bill No</th>
@@ -1052,37 +1052,37 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                     <th className="p-2.5 text-right">Grand Total</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-[11px]">
+                <tbody className="divide-y divide-[var(--border-primary)] text-[11px]">
                   {parsedResult.invoices.map((inv) => (
-                    <tr key={inv.id} className="hover:bg-slate-900/60">
+                    <tr key={inv.id} className="hover:bg-[var(--hover-surface)]">
                       <td className="p-2.5">
-                        <span className="px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-300 font-bold">SALES</span>
+                        <span className="px-1.5 py-0.5 rounded border hv-pill-sky font-bold">SALES</span>
                       </td>
-                      <td className="p-2.5 font-mono tabular-nums">{inv.date}</td>
-                      <td className="p-2.5 font-mono text-white font-bold">{inv.invoiceNumber}</td>
-                      <td className="p-2.5 text-slate-200">{inv.partyName}</td>
-                      <td className="p-2.5 text-right font-mono tabular-nums">₹{inv.subtotal.toLocaleString('en-IN')}</td>
+                      <td className="p-2.5 font-mono tabular-nums text-[var(--text-secondary)]">{inv.date}</td>
+                      <td className="p-2.5 font-mono text-[var(--text-primary)] font-bold">{inv.invoiceNumber}</td>
+                      <td className="p-2.5 text-[var(--text-secondary)]">{inv.partyName}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums text-[var(--text-secondary)]">₹{inv.subtotal.toLocaleString('en-IN')}</td>
                       <td className="p-2.5 text-right font-mono tabular-nums text-emerald-400">
                         {inv.totalDiscount > 0 ? `-₹${inv.totalDiscount.toLocaleString('en-IN')}` : '-'}
                       </td>
-                      <td className="p-2.5 text-right font-mono tabular-nums text-amber-300">₹{inv.totalTax.toLocaleString('en-IN')}</td>
-                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-emerald-300">₹{inv.grandTotal.toLocaleString('en-IN')}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums text-amber-400">₹{inv.totalTax.toLocaleString('en-IN')}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-emerald-400">₹{inv.grandTotal.toLocaleString('en-IN')}</td>
                     </tr>
                   ))}
                   {parsedResult.purchaseInvoices.map((pur) => (
-                    <tr key={pur.id} className="hover:bg-slate-900/60">
+                    <tr key={pur.id} className="hover:bg-[var(--hover-surface)]">
                       <td className="p-2.5">
-                        <span className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300 font-bold">PURCHASE</span>
+                        <span className="px-1.5 py-0.5 rounded border hv-pill-amber font-bold">PURCHASE</span>
                       </td>
-                      <td className="p-2.5 font-mono tabular-nums">{pur.date}</td>
-                      <td className="p-2.5 font-mono text-white font-bold">{pur.supplierInvoiceNo}</td>
-                      <td className="p-2.5 text-slate-200">{pur.partyName}</td>
-                      <td className="p-2.5 text-right font-mono tabular-nums">₹{pur.subtotal.toLocaleString('en-IN')}</td>
+                      <td className="p-2.5 font-mono tabular-nums text-[var(--text-secondary)]">{pur.date}</td>
+                      <td className="p-2.5 font-mono text-[var(--text-primary)] font-bold">{pur.supplierInvoiceNo}</td>
+                      <td className="p-2.5 text-[var(--text-secondary)]">{pur.partyName}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums text-[var(--text-secondary)]">₹{pur.subtotal.toLocaleString('en-IN')}</td>
                       <td className="p-2.5 text-right font-mono tabular-nums text-emerald-400">
                         {pur.totalDiscount && pur.totalDiscount > 0 ? `-₹${pur.totalDiscount.toLocaleString('en-IN')}` : '-'}
                       </td>
-                      <td className="p-2.5 text-right font-mono tabular-nums text-amber-300">₹{pur.totalTax.toLocaleString('en-IN')}</td>
-                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-emerald-300">₹{pur.grandTotal.toLocaleString('en-IN')}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums text-amber-400">₹{pur.totalTax.toLocaleString('en-IN')}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-emerald-400">₹{pur.grandTotal.toLocaleString('en-IN')}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -1091,10 +1091,10 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
           )}
 
           {previewTab === 'VOUCHERS' && (
-            <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-x-auto max-h-72">
+            <div className="hv-elevated border border-[var(--border-primary)] rounded-xl overflow-x-auto max-h-72">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="bg-slate-900 border-b border-slate-800 text-slate-400 font-bold text-[11px] uppercase">
+                  <tr className="hv-surface border-b border-[var(--border-primary)] text-[var(--text-muted)] font-bold text-[11px] uppercase">
                     <th className="p-2.5">Type</th>
                     <th className="p-2.5">Date</th>
                     <th className="p-2.5">Voucher No</th>
@@ -1102,31 +1102,31 @@ export const TallyXmlImporter: React.FC<TallyXmlImporterProps> = ({
                     <th className="p-2.5 text-right">Amount</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-[11px]">
+                <tbody className="divide-y divide-[var(--border-primary)] text-[11px]">
                   {parsedResult.vouchers.map((v) => (
-                    <tr key={v.id} className="hover:bg-slate-900/60">
+                    <tr key={v.id} className="hover:bg-[var(--hover-surface)]">
                       <td className="p-2.5">
-                        <span className="px-1.5 py-0.5 rounded bg-teal-500/15 text-teal-300 font-bold">{v.type}</span>
+                        <span className="px-1.5 py-0.5 rounded border hv-pill-cyan font-bold">{v.type}</span>
                       </td>
-                      <td className="p-2.5 font-mono tabular-nums">{v.date}</td>
-                      <td className="p-2.5 font-mono text-white font-bold">{v.voucherNumber}</td>
-                      <td className="p-2.5 text-slate-300 truncate max-w-xs">
+                      <td className="p-2.5 font-mono tabular-nums text-[var(--text-secondary)]">{v.date}</td>
+                      <td className="p-2.5 font-mono text-[var(--text-primary)] font-bold">{v.voucherNumber}</td>
+                      <td className="p-2.5 text-[var(--text-secondary)] truncate max-w-xs">
                         {v.entries.map((e) => `${e.accountName} (${e.debit > 0 ? 'Dr' : 'Cr'})`).join(' ↔ ')}
                       </td>
-                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-white">
+                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-[var(--text-primary)]">
                         ₹{v.totalAmount.toLocaleString('en-IN')}
                       </td>
                     </tr>
                   ))}
                   {parsedResult.debitCreditNotes.map((n) => (
-                    <tr key={n.id} className="hover:bg-slate-900/60">
+                    <tr key={n.id} className="hover:bg-[var(--hover-surface)]">
                       <td className="p-2.5">
-                        <span className="px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-300 font-bold">{n.type}</span>
+                        <span className="px-1.5 py-0.5 rounded border hv-pill-purple font-bold">{n.type}</span>
                       </td>
-                      <td className="p-2.5 font-mono tabular-nums">{n.date}</td>
-                      <td className="p-2.5 font-mono text-white font-bold">{n.noteNumber}</td>
-                      <td className="p-2.5 text-slate-300">{n.partyName}</td>
-                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-white">
+                      <td className="p-2.5 font-mono tabular-nums text-[var(--text-secondary)]">{n.date}</td>
+                      <td className="p-2.5 font-mono text-[var(--text-primary)] font-bold">{n.noteNumber}</td>
+                      <td className="p-2.5 text-[var(--text-secondary)]">{n.partyName}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-[var(--text-primary)]">
                         ₹{n.grandTotal.toLocaleString('en-IN')}
                       </td>
                     </tr>

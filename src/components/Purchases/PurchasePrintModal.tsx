@@ -88,12 +88,12 @@ export const PurchasePrintModal: React.FC<PurchasePrintModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-      <div className={`print-preview-dialog bg-slate-900 border border-slate-800 rounded-2xl w-full ${printConfig.printOrientation === 'landscape' ? 'max-w-5xl' : 'max-w-4xl'} max-h-[92vh] flex flex-col overflow-hidden shadow-2xl`}>
+      <div className={`print-preview-dialog hv-surface border rounded-2xl w-full ${printConfig.printOrientation === 'landscape' ? 'max-w-5xl' : 'max-w-4xl'} max-h-[92vh] flex flex-col overflow-hidden shadow-2xl`}>
         {/* Modal Top Actions */}
-        <div className="flex flex-wrap items-center justify-between gap-2 p-4 bg-slate-800 border-b border-slate-700 shrink-0 no-print">
-          <div className="flex items-center gap-2 text-slate-200 font-bold text-sm">
+        <div className="flex flex-wrap items-center justify-between gap-2 p-4 hv-elevated border-b shrink-0 no-print">
+          <div className="flex items-center gap-2 text-[var(--text-primary)] font-bold text-sm">
             <span>{isHindi ? 'खरीद बिल वाउचर प्रिंट' : 'Official Purchase Voucher Print'}</span>
-            <span className="text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full font-semibold border border-indigo-500/30">
+            <span className="text-xs hv-pill-indigo px-2 py-0.5 rounded-full font-semibold border">
               {billNo}
             </span>
           </div>
@@ -103,8 +103,8 @@ export const PurchasePrintModal: React.FC<PurchasePrintModalProps> = ({
               onClick={() => setShowConfigPanel((prev) => !prev)}
               className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl border transition cursor-pointer ${
                 showConfigPanel
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                  : 'bg-slate-900 hover:bg-slate-700 text-slate-200 border-slate-600'
+                  ? 'hv-pill-amber'
+                  : 'hv-surface hover:bg-[var(--hover-surface)] text-[var(--text-primary)]'
               }`}
             >
               <Sliders className="w-3.5 h-3.5" />
@@ -115,7 +115,7 @@ export const PurchasePrintModal: React.FC<PurchasePrintModalProps> = ({
               type="button"
               onClick={handleDownloadPdf}
               disabled={isDownloadingPdf}
-              className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition cursor-pointer disabled:opacity-60"
+              className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-bold text-xs px-3.5 py-2 rounded-xl transition cursor-pointer disabled:opacity-60"
             >
               {isDownloadingPdf ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
               <span>{isDownloadingPdf ? (isHindi ? 'PDF बन रहा है...' : 'Saving PDF...') : (isHindi ? 'PDF डाउनलोड' : 'Download PDF')}</span>
@@ -124,7 +124,7 @@ export const PurchasePrintModal: React.FC<PurchasePrintModalProps> = ({
             <button
               type="button"
               onClick={handlePrint}
-              className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-4 py-2 rounded-xl transition cursor-pointer"
+              className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs px-4 py-2 rounded-xl transition cursor-pointer"
             >
               <Printer className="w-4 h-4" />
               <span>{isHindi ? 'प्रिंट करें' : 'Print'}</span>
@@ -133,7 +133,7 @@ export const PurchasePrintModal: React.FC<PurchasePrintModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-white hover:bg-slate-700 rounded-xl transition cursor-pointer"
+              className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hv-surface hover:bg-[var(--hover-surface)] rounded-xl border transition cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -150,14 +150,14 @@ export const PurchasePrintModal: React.FC<PurchasePrintModalProps> = ({
         )}
 
         {pdfNotice && (
-          <div className="bg-emerald-600 text-white px-4 py-2 text-xs font-bold flex items-center gap-2 shrink-0 no-print">
+          <div className="bg-emerald-600 text-white hv-keep-white px-4 py-2 text-xs font-bold flex items-center gap-2 shrink-0 no-print">
             <CheckCircle2 className="w-4 h-4" />
             <span>{pdfNotice}</span>
           </div>
         )}
 
         {/* Printable Paper Canvas */}
-        <div className="overflow-y-auto flex-1 bg-slate-950/60">
+        <div className="overflow-y-auto flex-1 bg-[var(--bg-canvas)] py-3">
           <div
             className={`bg-white text-slate-900 font-sans print:p-0 print:m-0 ${getPaperPaddingClass(printConfig.printMargins)} ${getPaperWidthClass(printConfig.defaultPaperSize, printConfig.printOrientation)}`}
             style={fontScaleStyle}

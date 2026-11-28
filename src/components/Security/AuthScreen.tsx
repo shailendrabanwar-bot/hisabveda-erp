@@ -303,17 +303,17 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
   };
 
   return (
-    <div className="min-h-[100dvh] w-full bg-slate-950 flex flex-col items-center justify-center p-4 text-slate-100 font-sans relative overflow-x-hidden overflow-y-auto">
+    <div className="hv-app-shell hv-canvas min-h-[100dvh] w-full flex flex-col items-center justify-center p-4 font-sans relative overflow-x-hidden overflow-y-auto">
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-amber-600/20 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-5 relative z-10 backdrop-blur-xl my-4">
+      <div className="w-full max-w-md bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-3xl p-6 sm:p-8 shadow-2xl space-y-5 relative z-10 backdrop-blur-xl my-4">
         {onBackToWebsite && (
           <div className="flex justify-start">
             <button
               type="button"
               onClick={onBackToWebsite}
-              className="text-xs font-semibold text-indigo-300 hover:text-indigo-200 hover:underline transition cursor-pointer"
+              className="text-xs font-semibold text-indigo-500 hover:underline transition cursor-pointer"
             >
               ← {isHindi ? 'hisabveda.com वेबसाइट पर वापस जाएं' : 'Back to hisabveda.com'}
             </button>
@@ -323,8 +323,8 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
           <div className="flex justify-center mb-1">
             <SnaLogo size="xl" variant="full" showText={false} />
           </div>
-          <h1 className="text-xl font-black text-white tracking-tight">HisabVeda ERP</h1>
-          <p className="text-xs text-slate-400">
+          <h1 className="text-xl font-black text-[var(--text-primary)] tracking-tight">HisabVeda ERP</h1>
+          <p className="text-xs text-[var(--text-muted)]">
             {isHindi ? 'सुरक्षित मल्टी-यूजर क्लाउड अकाउंटिंग पोर्टल' : 'Secure Multi-Tenant Cloud Accounting Portal'}
           </p>
         </div>
@@ -334,12 +334,12 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
           type="button"
           onClick={handleGoogleSignIn}
           disabled={isGoogleLoading || isLoading}
-          className="w-full bg-white hover:bg-slate-100 disabled:opacity-60 text-slate-900 font-bold py-3 px-4 rounded-xl shadow-lg flex items-center justify-center gap-2.5 transition text-sm cursor-pointer border border-slate-200"
+          className="w-full bg-white hover:bg-slate-100 disabled:opacity-60 text-slate-900 font-bold py-3 px-4 rounded-xl shadow-lg flex items-center justify-center gap-2.5 transition text-sm cursor-pointer border border-slate-300"
         >
           {isGoogleLoading ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin text-indigo-600" />
-              <span>{isHindi ? 'Google से जुड़ रहा है...' : 'Connecting with Google...'}</span>
+              <span className="text-slate-900">{isHindi ? 'Google से जुड़ रहा है...' : 'Connecting with Google...'}</span>
             </>
           ) : (
             <>
@@ -349,25 +349,25 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
               </svg>
-              <span>{isHindi ? 'Google से तुरंत लॉगिन करें (Gmail)' : 'Continue with Google'}</span>
+              <span className="text-slate-900">{isHindi ? 'Google से तुरंत लॉगिन करें (Gmail)' : 'Continue with Google'}</span>
             </>
           )}
         </button>
 
         <div className="relative flex items-center py-0.5">
-          <div className="flex-grow border-t border-slate-800"></div>
-          <span className="flex-shrink mx-3 text-[11px] font-semibold uppercase text-slate-500">
+          <div className="flex-grow border-t border-[var(--border-primary)]"></div>
+          <span className="flex-shrink mx-3 text-[11px] font-semibold uppercase text-[var(--text-muted)]">
             {isHindi ? 'या ईमेल से लॉगिन करें' : 'or with email & password'}
           </span>
-          <div className="flex-grow border-t border-slate-800"></div>
+          <div className="flex-grow border-t border-[var(--border-primary)]"></div>
         </div>
 
-        <div className="grid grid-cols-2 bg-slate-950 p-1 rounded-2xl border border-slate-800 text-xs font-bold">
+        <div className="grid grid-cols-2 bg-[var(--bg-elevated)] p-1 rounded-2xl border border-[var(--border-primary)] text-xs font-bold">
           <button
             type="button"
             onClick={() => { setActiveTab('LOGIN'); setErrorMsg(''); setSuccessMsg(''); setProviderDisabledNotice(false); }}
             className={`py-2 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer ${
-              activeTab === 'LOGIN' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-white'
+              activeTab === 'LOGIN' ? 'bg-indigo-600 text-white hv-keep-white shadow-md' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
             <LogIn className="w-3.5 h-3.5" />
@@ -377,7 +377,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
             type="button"
             onClick={() => { setActiveTab('SIGNUP'); setErrorMsg(''); setSuccessMsg(''); setProviderDisabledNotice(false); }}
             className={`py-2 rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer ${
-              activeTab === 'SIGNUP' ? 'bg-amber-600 text-white shadow-md' : 'text-slate-400 hover:text-white'
+              activeTab === 'SIGNUP' ? 'bg-amber-600 text-white hv-keep-white shadow-md' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
             <UserPlus className="w-3.5 h-3.5" />
@@ -386,14 +386,14 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
         </div>
 
         {errorMsg && (
-          <div className="bg-rose-500/20 border border-rose-500/40 text-rose-200 p-3 rounded-xl text-xs font-semibold space-y-2">
+          <div className="hv-pill-rose border p-3 rounded-xl text-xs font-semibold space-y-2">
             <div className="flex items-start gap-2">
-              <AlertTriangle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+              <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
               <span>{errorMsg}</span>
             </div>
             {providerDisabledNotice && (
-              <div className="text-[11px] bg-slate-950/70 border border-slate-800 rounded-lg p-2.5 text-slate-300 space-y-1">
-                <p className="font-bold text-amber-300">
+              <div className="text-[11px] bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-lg p-2.5 text-[var(--text-secondary)] space-y-1">
+                <p className="font-bold text-amber-500">
                   {isHindi ? 'Email/Password कैसे चालू करें:' : 'How to enable Email/Password:'}
                 </p>
                 <p>
@@ -405,8 +405,8 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
         )}
 
         {successMsg && (
-          <div className="bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 p-3 rounded-xl text-xs font-semibold flex items-center gap-2">
-            <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+          <div className="hv-pill-emerald border p-3 rounded-xl text-xs font-semibold flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 shrink-0" />
             <span>{successMsg}</span>
           </div>
         )}
@@ -415,8 +415,8 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
         {activeTab === 'LOGIN' && (
           <form onSubmit={handleLoginSubmit} className="space-y-4 text-xs">
             <div>
-              <label className="block text-slate-300 font-semibold mb-1.5 flex items-center gap-1.5">
-                <Mail className="w-3.5 h-3.5 text-indigo-400" />
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1.5 flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-indigo-500" />
                 <span>{isHindi ? 'ईमेल आईडी *' : 'Email Address *'}</span>
               </label>
               <input
@@ -424,21 +424,21 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="name@company.com"
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white font-medium focus:border-indigo-500 focus:outline-none"
+                className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-xl p-3 text-[var(--text-primary)] font-medium focus:border-indigo-500 focus:outline-none"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1.5 flex items-center justify-between">
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1.5 flex items-center justify-between">
                 <span className="flex items-center gap-1.5">
-                  <Key className="w-3.5 h-3.5 text-indigo-400" />
+                  <Key className="w-3.5 h-3.5 text-indigo-500" />
                   <span>{isHindi ? 'पासवर्ड *' : 'Password *'}</span>
                 </span>
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="text-slate-400 hover:text-slate-200 text-[11px] flex items-center gap-1 cursor-pointer"
+                  className="text-[var(--text-muted)] hover:text-[var(--text-primary)] text-[11px] flex items-center gap-1 cursor-pointer"
                 >
                   {showPassword ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
                   <span>{showPassword ? (isHindi ? 'छुपाएं' : 'Hide') : (isHindi ? 'दिखाएं' : 'Show')}</span>
@@ -449,7 +449,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white font-mono focus:border-indigo-500 focus:outline-none"
+                className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-xl p-3 text-[var(--text-primary)] font-mono focus:border-indigo-500 focus:outline-none"
                 required
               />
               <div className="flex justify-between items-center mt-2 text-[11px]">
@@ -459,7 +459,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                     setResetEmail(email || '');
                     setShowForgot(true);
                   }}
-                  className="text-amber-400 hover:text-amber-300 font-bold underline transition flex items-center gap-1 cursor-pointer"
+                  className="text-amber-500 hover:underline font-bold transition flex items-center gap-1 cursor-pointer"
                 >
                   <KeyRound className="w-3.5 h-3.5" />
                   <span>{isHindi ? 'पासवर्ड भूल गए? (Reset)' : 'Forgot Password?'}</span>
@@ -470,7 +470,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
             <button
               type="submit"
               disabled={isLoading || isGoogleLoading}
-              className="w-full bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-500 hover:to-indigo-600 disabled:opacity-50 text-white font-bold py-3 rounded-xl shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 transition text-sm cursor-pointer"
+              className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white hv-keep-white font-bold py-3 rounded-xl shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 transition text-sm cursor-pointer"
             >
               {isLoading ? (
                 <>
@@ -491,8 +491,8 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
         {activeTab === 'SIGNUP' && (
           <form onSubmit={handleSignupSubmit} className="space-y-4 text-xs">
             <div>
-              <label className="block text-slate-300 font-semibold mb-1 flex items-center gap-1.5">
-                <User className="w-3.5 h-3.5 text-amber-400" />
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1 flex items-center gap-1.5">
+                <User className="w-3.5 h-3.5 text-amber-500" />
                 <span>{isHindi ? 'पूरा नाम *' : 'Full Name *'}</span>
               </label>
               <input
@@ -500,14 +500,14 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 value={signupName}
                 onChange={(e) => setSignupName(e.target.value)}
                 placeholder="e.g. Ramesh Kumar"
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white font-medium focus:border-amber-500 focus:outline-none"
+                className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-xl p-3 text-[var(--text-primary)] font-medium focus:border-amber-500 focus:outline-none"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1 flex items-center gap-1.5">
-                <Mail className="w-3.5 h-3.5 text-amber-400" />
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1 flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-amber-500" />
                 <span>{isHindi ? 'ईमेल आईडी *' : 'Email Address *'}</span>
               </label>
               <input
@@ -515,14 +515,14 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 value={signupEmail}
                 onChange={(e) => setSignupEmail(e.target.value)}
                 placeholder="name@company.com"
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white font-medium focus:border-amber-500 focus:outline-none"
+                className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-xl p-3 text-[var(--text-primary)] font-medium focus:border-amber-500 focus:outline-none"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1 flex items-center gap-1.5">
-                <Key className="w-3.5 h-3.5 text-amber-400" />
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1 flex items-center gap-1.5">
+                <Key className="w-3.5 h-3.5 text-amber-500" />
                 <span>{isHindi ? 'पासवर्ड (कम से कम 6 अक्षर) *' : 'Password (min 6 chars) *'}</span>
               </label>
               <input
@@ -530,19 +530,19 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 value={signupPassword}
                 onChange={(e) => setSignupPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white font-mono focus:border-amber-500 focus:outline-none"
+                className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-xl p-3 text-[var(--text-primary)] font-mono focus:border-amber-500 focus:outline-none"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                 {isHindi ? 'यूजर भूमिका (User Role) *' : 'Account Privilege Role *'}
               </label>
               <select
                 value={signupRole}
                 onChange={(e) => setSignupRole(e.target.value as UserRole)}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white font-medium focus:border-amber-500 focus:outline-none"
+                className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-xl p-3 text-[var(--text-primary)] font-medium focus:border-amber-500 focus:outline-none"
               >
                 {ALL_USER_ROLES.map((roleOpt) => {
                   const meta = ROLE_METADATA[roleOpt];
@@ -553,7 +553,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                   );
                 })}
               </select>
-              <p className="text-[10px] text-slate-400 mt-1">
+              <p className="text-[10px] text-[var(--text-muted)] mt-1">
                 {isHindi ? ROLE_METADATA[signupRole].summaryHi : ROLE_METADATA[signupRole].summaryEn}
               </p>
             </div>
@@ -561,7 +561,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
             <button
               type="submit"
               disabled={isLoading || isGoogleLoading}
-              className="w-full bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-500 hover:to-amber-600 disabled:opacity-50 text-white font-bold py-3 rounded-xl shadow-lg shadow-amber-600/30 flex items-center justify-center gap-2 transition text-sm cursor-pointer"
+              className="w-full bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white hv-keep-white font-bold py-3 rounded-xl shadow-lg shadow-amber-600/30 flex items-center justify-center gap-2 transition text-sm cursor-pointer"
             >
               {isLoading ? (
                 <>
@@ -581,17 +581,17 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
 
       {/* Forgot Password Modal */}
       {showForgot && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 w-full max-w-md shadow-2xl space-y-4 text-slate-100 relative">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-sm font-bold flex items-center gap-2 text-white">
-                <KeyRound className="w-4 h-4 text-amber-400" />
+        <div className="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-3xl p-6 w-full max-w-md shadow-2xl space-y-4 text-[var(--text-primary)] relative">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
+              <h3 className="text-sm font-bold flex items-center gap-2 text-[var(--text-primary)]">
+                <KeyRound className="w-4 h-4 text-amber-500" />
                 <span>{isHindi ? 'पासवर्ड रीसेट लिंक भेजें' : 'Send Password Reset Link'}</span>
               </h3>
               <button
                 type="button"
                 onClick={() => setShowForgot(false)}
-                className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 text-xs cursor-pointer"
+                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 rounded-lg hover:bg-[var(--hover-surface)] text-xs cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -599,7 +599,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
 
             <form onSubmit={handleSendEmailReset} className="space-y-4 text-xs">
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">
+                <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                   {isHindi ? 'पंजीकृत ईमेल आईडी दर्ज करें:' : 'Registered Email Address:'}
                 </label>
                 <input
@@ -607,7 +607,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                   value={resetEmail}
                   onChange={(e) => setResetEmail(e.target.value)}
                   placeholder="name@company.com"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-white font-medium focus:border-amber-500 focus:outline-none"
+                  className="w-full bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-xl p-3 text-[var(--text-primary)] font-medium focus:border-amber-500 focus:outline-none"
                   required
                 />
               </div>
@@ -616,14 +616,14 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowForgot(false)}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs font-semibold cursor-pointer"
+                  className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] rounded-xl text-xs font-semibold cursor-pointer"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
                 <button
                   type="submit"
                   disabled={isSendingEmail}
-                  className="px-4 py-2 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow"
+                  className="px-4 py-2 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white hv-keep-white rounded-xl text-xs font-bold flex items-center gap-1.5 cursor-pointer shadow"
                 >
                   {isSendingEmail ? (
                     <>

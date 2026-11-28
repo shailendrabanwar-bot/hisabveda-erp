@@ -355,13 +355,13 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
   return (
     <div className="p-4 md:p-6 space-y-6 max-w-7xl mx-auto">
       {/* Top Banner */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-slate-900 p-5 rounded-2xl border border-slate-800 shadow-xl">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hv-surface p-5 rounded-2xl shadow-xl">
         <div>
-          <h2 className="text-lg font-bold text-slate-100 flex items-center gap-2">
+          <h2 className="text-lg font-bold text-[var(--text-primary)] flex items-center gap-2">
             <Briefcase className="w-5 h-5 text-indigo-400" />
             <span>{isHindi ? 'पेरोल एवं कर्मचारी वेतन प्रबंधन' : 'Payroll Management & Salary Slip Engine'}</span>
           </h2>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-[var(--text-secondary)] mt-1">
             {isHindi 
               ? 'कर्मचारियों का रिकॉर्ड, स्वचालित वेतन गणना, ईपीएफ/ईएसआई/टीडीएस कटौती एवं वेतन पर्ची प्रिंट करें'
               : 'Complete employee master, automated monthly payroll calculations, statutory deductions & printable pay slips'}
@@ -372,7 +372,7 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
           {perms.canManagePayroll && (
             <button
               onClick={() => handleOpenAddEmp()}
-              className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-lg transition"
+              className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-lg transition cursor-pointer"
             >
               <UserPlus className="w-4 h-4" />
               <span>{isHindi ? '+ नया कर्मचारी जोड़ें' : '+ Add New Employee'}</span>
@@ -382,13 +382,13 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 border-b border-slate-800 pb-2">
+      <div className="flex flex-wrap items-center gap-2 border-b border-[var(--border-primary)] pb-2">
         <button
           onClick={() => setActiveTab('PROCESSING')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
             activeTab === 'PROCESSING'
-              ? 'bg-indigo-600 text-white shadow-lg'
-              : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
+              ? 'bg-indigo-600 text-white hv-keep-white shadow-lg'
+              : 'hv-surface text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)]'
           }`}
         >
           <Calendar className="w-4 h-4" />
@@ -397,10 +397,10 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
 
         <button
           onClick={() => setActiveTab('SLIPS')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
             activeTab === 'SLIPS'
-              ? 'bg-indigo-600 text-white shadow-lg'
-              : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
+              ? 'bg-indigo-600 text-white hv-keep-white shadow-lg'
+              : 'hv-surface text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)]'
           }`}
         >
           <FileCheck2 className="w-4 h-4" />
@@ -409,10 +409,10 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
 
         <button
           onClick={() => setActiveTab('EMPLOYEES')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer ${
             activeTab === 'EMPLOYEES'
-              ? 'bg-indigo-600 text-white shadow-lg'
-              : 'bg-slate-900 text-slate-400 hover:text-white border border-slate-800'
+              ? 'bg-indigo-600 text-white hv-keep-white shadow-lg'
+              : 'hv-surface text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)]'
           }`}
         >
           <Users className="w-4 h-4" />
@@ -424,31 +424,31 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
       {activeTab === 'PROCESSING' && (
         <div className="space-y-4">
           {/* Month, Statutory Switches & Settlement Controls */}
-          <div className="bg-slate-900 p-4 rounded-2xl border border-slate-800 space-y-4">
+          <div className="hv-surface p-4 rounded-2xl space-y-4">
             <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
               <div className="flex flex-wrap items-center gap-3">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-xs text-slate-300">
+                  <span className="font-bold text-xs text-[var(--text-secondary)]">
                     {isHindi ? 'पेरोल माह:' : 'Payroll Month:'}
                   </span>
                   <input
                     type="month"
                     value={selectedMonth}
                     onChange={(e) => setSelectedMonth(e.target.value)}
-                    className="bg-slate-950 border border-slate-700 text-indigo-300 font-mono font-bold text-xs rounded-xl px-3 py-1.5 outline-none"
+                    className="hv-input text-indigo-300 font-mono font-bold text-xs rounded-xl px-3 py-1.5 outline-none"
                   />
                 </div>
 
                 {/* Settlement Mode & Bank/Cash Picker */}
-                <div className="flex flex-wrap items-center gap-2 bg-slate-950/70 border border-slate-800 px-3 py-1.5 rounded-xl">
+                <div className="flex flex-wrap items-center gap-2 hv-elevated px-3 py-1.5 rounded-xl">
                   <Landmark className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                  <span className="text-[11px] font-bold text-slate-400">
+                  <span className="text-[11px] font-bold text-[var(--text-secondary)]">
                     {isHindi ? 'भुगतान खाता:' : 'Settle Via:'}
                   </span>
                   <select
                     value={settlementMode}
                     onChange={(e) => handleSettlementModeChange(e.target.value as 'PAYABLE' | 'BANK' | 'CASH')}
-                    className="bg-slate-900 border border-slate-700 text-slate-100 text-xs font-bold rounded-lg px-2 py-1 outline-none"
+                    className="hv-input text-xs font-bold rounded-lg px-2 py-1 outline-none"
                   >
                     <option value="BANK">{isHindi ? 'बैंक से भुगतान (Bank Payment)' : 'Bank Account Payout'}</option>
                     <option value="CASH">{isHindi ? 'नकद भुगतान (Cash in Hand)' : 'Cash Payout'}</option>
@@ -459,7 +459,7 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                     <select
                       value={settlementAccountId}
                       onChange={(e) => setSettlementAccountId(e.target.value)}
-                      className="bg-slate-900 border border-emerald-600/40 text-emerald-300 text-xs font-bold rounded-lg px-2 py-1 outline-none max-w-[200px]"
+                      className="hv-input border-emerald-500/40 text-emerald-300 text-xs font-bold rounded-lg px-2 py-1 outline-none max-w-[200px]"
                     >
                       {(settlementMode === 'CASH' ? cashLedgers : bankLedgers).map((acc) => (
                         <option key={acc.id} value={acc.id}>
@@ -474,7 +474,7 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
               <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-between lg:justify-end">
                 <div className="flex items-center gap-4 text-right">
                   <div>
-                    <span className="text-[10px] text-slate-400 block font-bold uppercase">
+                    <span className="text-[10px] text-[var(--text-secondary)] block font-bold uppercase">
                       {isHindi ? 'वैधानिक व एडवांस कटौती' : 'Statutory & Adv.'}
                     </span>
                     <span className="text-sm font-bold text-rose-400 font-mono">
@@ -482,7 +482,7 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                     </span>
                   </div>
                   <div>
-                    <span className="text-[10px] text-slate-400 block font-bold uppercase">
+                    <span className="text-[10px] text-[var(--text-secondary)] block font-bold uppercase">
                       {isHindi ? 'कुल शुद्ध वेतन देय' : 'Total Net Payout'}
                     </span>
                     <span className="text-lg font-extrabold text-emerald-400 font-mono">
@@ -496,14 +496,14 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                     <button
                       type="button"
                       onClick={handleSaveDraftOnly}
-                      className="px-3 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs rounded-xl transition cursor-pointer"
+                      className="px-3 py-2.5 hv-elevated hover:bg-[var(--hover-surface)] text-[var(--text-primary)] font-bold text-xs rounded-xl transition cursor-pointer"
                     >
                       {isHindi ? 'केवल ड्राफ्ट सेव' : 'Save Draft'}
                     </button>
                     <button
                       type="button"
                       onClick={handleExecutePayrollBatch}
-                      className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-extrabold text-xs px-4 py-2.5 rounded-xl shadow-lg transition active:scale-95 cursor-pointer"
+                      className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold text-xs px-4 py-2.5 rounded-xl shadow-lg transition active:scale-95 cursor-pointer"
                     >
                       <BookCheck className="w-4 h-4" />
                       <span>{isHindi ? 'खातों में पेरोल पोस्ट करें' : 'Post Payroll to Accounts'}</span>
@@ -514,13 +514,13 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
             </div>
 
             {/* Automatic Indian Statutory Deduction Switches */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-800/80 text-xs">
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[var(--border-primary)] text-xs">
               <div className="flex flex-wrap items-center gap-4">
                 <span className="text-[11px] font-bold uppercase tracking-wider text-indigo-300">
                   {isHindi ? 'स्वचालित भारतीय कटौती:' : 'Auto Indian Statutory Rules:'}
                 </span>
 
-                <label className="flex items-center gap-1.5 cursor-pointer text-slate-200 select-none">
+                <label className="flex items-center gap-1.5 cursor-pointer text-[var(--text-primary)] font-medium select-none">
                   <input
                     type="checkbox"
                     checked={applyAutoPf12}
@@ -531,7 +531,7 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                 </label>
 
                 {applyAutoPf12 && (
-                  <label className="flex items-center gap-1.5 cursor-pointer text-slate-300 select-none">
+                  <label className="flex items-center gap-1.5 cursor-pointer text-[var(--text-secondary)] font-medium select-none">
                     <input
                       type="checkbox"
                       checked={capPfAt15k}
@@ -542,7 +542,7 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                   </label>
                 )}
 
-                <label className="flex items-center gap-1.5 cursor-pointer text-slate-200 select-none">
+                <label className="flex items-center gap-1.5 cursor-pointer text-[var(--text-primary)] font-medium select-none">
                   <input
                     type="checkbox"
                     checked={applyAutoEsic}
@@ -552,7 +552,7 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                   <span>ESIC 0.75% / 3.25% (≤ ₹21k)</span>
                 </label>
 
-                <label className="flex items-center gap-1.5 cursor-pointer text-slate-200 select-none">
+                <label className="flex items-center gap-1.5 cursor-pointer text-[var(--text-primary)] font-medium select-none">
                   <input
                     type="checkbox"
                     checked={applyAutoPt}
@@ -564,7 +564,7 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
               </div>
 
               {monthPostedCount > 0 && (
-                <span className="text-[11px] font-bold text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-1 rounded-lg">
+                <span className="text-[11px] font-bold hv-pill-emerald border px-2.5 py-1 rounded-lg">
                   {isHindi
                     ? `${monthPostedCount} कर्मचारी खातों में पोस्टेड`
                     : `${monthPostedCount} Posted to Accounts`}
@@ -574,11 +574,11 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
           </div>
 
           {/* Table */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+          <div className="hv-surface rounded-2xl overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="bg-slate-950 border-b border-slate-800 text-slate-400 font-bold uppercase text-[11px]">
+                  <tr className="hv-elevated border-b border-[var(--border-primary)] text-[var(--text-secondary)] font-bold uppercase text-[11px]">
                     <th className="p-3">Employee</th>
                     <th className="p-3 text-center">Working / LOP Days</th>
                     <th className="p-3 text-right">Earned Gross</th>
@@ -589,7 +589,7 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                     <th className="p-3 text-center">Salary Slip</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-200">
+                <tbody className="divide-y divide-[var(--border-subtle)] text-[var(--text-primary)]">
                   {monthPayrolls.map((pay) => {
                     const draft = draftPayrolls[pay.employeeId];
                     const curWorkingDays = draft?.workingDays ?? pay.workingDays ?? 26;
@@ -611,14 +611,14 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                     };
 
                     return (
-                      <tr key={pay.id} className="hover:bg-slate-800/40 font-mono">
+                      <tr key={pay.id} className="hover:bg-[var(--hover-surface)] font-mono">
                         <td className="p-3 font-sans">
-                          <strong className="text-slate-100 block font-bold">{pay.employeeName}</strong>
-                          <span className="text-[10px] text-indigo-400 block">
+                          <strong className="text-[var(--text-primary)] block font-bold">{pay.employeeName}</strong>
+                          <span className="text-[10px] text-indigo-400 font-semibold block">
                             {pay.employeeCode} • {pay.designation}
                           </span>
                           {(pay.postedVoucherNo || pay.paymentVoucherNo) && (
-                            <span className="text-[10px] text-emerald-400 font-mono block mt-0.5">
+                            <span className="text-[10px] text-emerald-400 font-mono font-semibold block mt-0.5">
                               GL: {pay.postedVoucherNo || ''}{pay.paymentVoucherNo ? ` • ${pay.paymentVoucherNo}` : ''}
                             </span>
                           )}
@@ -638,9 +638,9 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                                 })
                               }
                               title="Working Days"
-                              className="w-12 bg-slate-950 border border-slate-700 text-center font-bold text-slate-200 rounded px-1 py-1 outline-none disabled:opacity-60"
+                              className="w-12 hv-input text-center font-bold rounded px-1 py-1 outline-none disabled:opacity-60"
                             />
-                            <span className="text-[10px] text-slate-500">LOP:</span>
+                            <span className="text-[10px] text-[var(--text-secondary)] font-semibold">LOP:</span>
                             <input
                               type="number"
                               min="0"
@@ -654,17 +654,17 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                                 })
                               }
                               title="Unpaid Leave / LOP Days"
-                              className="w-12 bg-slate-950 border border-amber-600/50 text-center font-bold text-amber-300 rounded px-1 py-1 outline-none disabled:opacity-60"
+                              className="w-12 hv-input border-amber-500/50 text-center font-bold text-amber-300 rounded px-1 py-1 outline-none disabled:opacity-60"
                             />
                           </div>
                           {(pay.leaveDeduction || 0) > 0 && (
-                            <span className="text-[10px] text-amber-400 block mt-0.5 font-mono">
+                            <span className="text-[10px] text-amber-400 block mt-0.5 font-mono font-semibold">
                               -{currency} {(pay.leaveDeduction || 0).toLocaleString('en-IN')} LOP
                             </span>
                           )}
                         </td>
 
-                        <td className="p-3 text-right font-bold text-slate-100">
+                        <td className="p-3 text-right font-bold text-[var(--text-primary)]">
                           ₹{pay.grossSalary.toLocaleString('en-IN')}
                         </td>
 
@@ -672,11 +672,11 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                           <div className="font-bold text-rose-300">
                             -₹{(pay.pfDeduction + pay.esiDeduction).toLocaleString('en-IN')}
                           </div>
-                          <div className="text-[10px] text-slate-400">
+                          <div className="text-[10px] text-[var(--text-secondary)]">
                             PF: ₹{pay.pfDeduction.toLocaleString('en-IN')} | ESI: ₹{pay.esiDeduction.toLocaleString('en-IN')}
                           </div>
                           {(pay.esicEmployerContribution || 0) > 0 && (
-                            <div className="text-[10px] text-indigo-300">
+                            <div className="text-[10px] text-indigo-300 font-semibold">
                               Er ESIC (3.25%): ₹{(pay.esicEmployerContribution || 0).toLocaleString('en-IN')}
                             </div>
                           )}
@@ -684,9 +684,9 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
 
                         <td className="p-3 text-right">
                           <div className="inline-flex items-center justify-end gap-1">
-                            <span className="text-[10px] text-slate-400">PT: ₹{pay.professionalTax || 0}</span>
-                            <span className="text-slate-600">|</span>
-                            <span className="text-[10px] text-slate-400">TDS:</span>
+                            <span className="text-[10px] text-[var(--text-secondary)]">PT: ₹{pay.professionalTax || 0}</span>
+                            <span className="text-[var(--text-muted)]">|</span>
+                            <span className="text-[10px] text-[var(--text-secondary)]">TDS:</span>
                             <input
                               type="number"
                               min="0"
@@ -696,7 +696,7 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                               onChange={(e) =>
                                 updateDraft({ tdsOverride: Math.max(0, Number(e.target.value) || 0) })
                               }
-                              className="w-16 bg-slate-950 border border-slate-700 text-right font-bold text-rose-300 rounded px-1.5 py-0.5 outline-none"
+                              className="w-16 hv-input text-right font-bold text-rose-300 rounded px-1.5 py-0.5 outline-none"
                             />
                           </div>
                         </td>
@@ -711,7 +711,7 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                             onChange={(e) =>
                               updateDraft({ advanceDeduction: Math.max(0, Number(e.target.value) || 0) })
                             }
-                            className="w-20 bg-slate-950 border border-slate-700 text-right font-bold text-rose-300 rounded px-2 py-1 outline-none disabled:opacity-60"
+                            className="w-20 hv-input text-right font-bold text-rose-300 rounded px-2 py-1 outline-none disabled:opacity-60"
                           />
                         </td>
 
@@ -723,13 +723,13 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                           {perms.canExportData ? (
                             <button
                               onClick={() => setSelectedSlipPayroll(pay)}
-                              className="bg-indigo-950 hover:bg-indigo-900 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1 mx-auto cursor-pointer"
+                              className="hv-pill-indigo hover:opacity-90 border px-3 py-1 rounded-lg text-[11px] font-bold transition flex items-center gap-1 mx-auto cursor-pointer"
                             >
                               <Printer className="w-3.5 h-3.5" />
                               <span>View Slip</span>
                             </button>
                           ) : (
-                            <span className="text-[10px] text-slate-500">-</span>
+                            <span className="text-[10px] text-[var(--text-muted)]">-</span>
                           )}
                         </td>
                       </tr>
@@ -747,22 +747,22 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
         <div className="space-y-4">
           <div className="flex items-center justify-between gap-4">
             <div className="relative flex-1 max-w-md">
-              <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+              <Search className="w-4 h-4 text-[var(--text-muted)] absolute left-3 top-2.5" />
               <input
                 type="text"
                 placeholder="Search salary slips by employee name or month..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-xl pl-9 pr-4 py-2 outline-none focus:border-indigo-500"
+                className="w-full hv-input text-xs rounded-xl pl-9 pr-4 py-2 outline-none focus:border-indigo-500"
               />
             </div>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+          <div className="hv-surface rounded-2xl overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse text-xs">
                 <thead>
-                  <tr className="bg-slate-950 border-b border-slate-800 text-slate-400 font-bold uppercase text-[11px]">
+                  <tr className="hv-elevated border-b border-[var(--border-primary)] text-[var(--text-secondary)] font-bold uppercase text-[11px]">
                     <th className="p-3">Month</th>
                     <th className="p-3">Employee Name</th>
                     <th className="p-3">Code</th>
@@ -774,34 +774,34 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                     <th className="p-3 text-center">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60 text-slate-200 font-mono">
+                <tbody className="divide-y divide-[var(--border-subtle)] text-[var(--text-primary)] font-mono">
                   {filteredPayrolls.length > 0 ? (
                     filteredPayrolls.map((p) => (
-                      <tr key={p.id} className="hover:bg-slate-800/40">
+                      <tr key={p.id} className="hover:bg-[var(--hover-surface)]">
                         <td className="p-3 font-bold text-indigo-300">{p.payrollMonth}</td>
-                        <td className="p-3 font-sans font-bold text-slate-100">
+                        <td className="p-3 font-sans font-bold text-[var(--text-primary)]">
                           <div>{p.employeeName}</div>
-                          <span className="text-[10px] text-slate-400 font-normal">{p.designation}</span>
+                          <span className="text-[10px] text-[var(--text-secondary)] font-normal">{p.designation}</span>
                         </td>
-                        <td className="p-3 text-slate-400">{p.employeeCode}</td>
+                        <td className="p-3 text-[var(--text-secondary)]">{p.employeeCode}</td>
                         <td className="p-3 text-[11px]">
                           {p.postedVoucherNo || p.paymentVoucherNo ? (
-                            <div className="text-emerald-300 space-y-0.5">
+                            <div className="text-emerald-400 font-semibold space-y-0.5">
                               {p.postedVoucherNo && <div>{p.postedVoucherNo}</div>}
-                              {p.paymentVoucherNo && <div className="text-sky-300">{p.paymentVoucherNo}</div>}
+                              {p.paymentVoucherNo && <div className="text-sky-400">{p.paymentVoucherNo}</div>}
                             </div>
                           ) : (
-                            <span className="text-slate-500 font-sans">Draft Only</span>
+                            <span className="text-[var(--text-muted)] font-sans">Draft Only</span>
                           )}
                         </td>
-                        <td className="p-3 text-right font-bold text-slate-100">₹{p.grossSalary.toLocaleString('en-IN')}</td>
-                        <td className="p-3 text-right text-rose-400">-₹{p.totalDeductions.toLocaleString('en-IN')}</td>
+                        <td className="p-3 text-right font-bold text-[var(--text-primary)]">₹{p.grossSalary.toLocaleString('en-IN')}</td>
+                        <td className="p-3 text-right text-rose-400 font-semibold">-₹{p.totalDeductions.toLocaleString('en-IN')}</td>
                         <td className="p-3 text-right font-extrabold text-emerald-400">₹{p.netSalary.toLocaleString('en-IN')}</td>
                         <td className="p-3 text-center font-sans">
                           <span className={`border text-[10px] font-bold px-2 py-0.5 rounded ${
                             p.paymentStatus === 'PAID'
-                              ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
-                              : 'bg-amber-500/20 text-amber-300 border-amber-500/30'
+                              ? 'hv-pill-emerald'
+                              : 'hv-pill-amber'
                           }`}>
                             {p.paymentStatus}
                           </span>
@@ -810,20 +810,20 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                           {perms.canExportData ? (
                             <button
                               onClick={() => setSelectedSlipPayroll(p)}
-                              className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-3 py-1.5 rounded-xl shadow transition flex items-center gap-1.5 mx-auto cursor-pointer"
+                              className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs px-3 py-1.5 rounded-xl shadow transition flex items-center gap-1.5 mx-auto cursor-pointer"
                             >
                               <Printer className="w-3.5 h-3.5" />
                               <span>Print Salary Slip</span>
                             </button>
                           ) : (
-                            <span className="text-[10px] text-slate-500">-</span>
+                            <span className="text-[10px] text-[var(--text-muted)]">-</span>
                           )}
                         </td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={9} className="p-8 text-center text-slate-500 font-sans">
+                      <td colSpan={9} className="p-8 text-center text-[var(--text-muted)] font-sans">
                         No processed payroll slips found for selected filters.
                       </td>
                     </tr>
@@ -840,32 +840,32 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
         <div className="space-y-4">
           <div className="flex items-center justify-between gap-4">
             <div className="relative flex-1 max-w-md">
-              <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+              <Search className="w-4 h-4 text-[var(--text-muted)] absolute left-3 top-2.5" />
               <input
                 type="text"
                 placeholder="Search staff directory..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-slate-900 border border-slate-800 text-slate-200 text-xs rounded-xl pl-9 pr-4 py-2 outline-none focus:border-indigo-500"
+                className="w-full hv-input text-xs rounded-xl pl-9 pr-4 py-2 outline-none focus:border-indigo-500"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredEmployees.map((emp) => (
-              <div key={emp.id} className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-lg hover:border-slate-700 transition">
+              <div key={emp.id} className="hv-surface rounded-2xl p-5 space-y-4 shadow-lg hover:border-[var(--border-subtle)] transition">
                 <div className="flex items-start justify-between">
                   <div>
-                    <h4 className="font-bold text-sm text-slate-100">{emp.name}</h4>
+                    <h4 className="font-bold text-sm text-[var(--text-primary)]">{emp.name}</h4>
                     <p className="text-xs text-indigo-400 font-mono font-semibold">{emp.employeeCode} • {emp.designation}</p>
-                    <p className="text-[11px] text-slate-400 mt-0.5">{emp.department}</p>
+                    <p className="text-[11px] text-[var(--text-secondary)] mt-0.5">{emp.department}</p>
                   </div>
 
                   <div className="flex items-center gap-1.5">
                     {perms.canManagePayroll && (
                       <button
                         onClick={() => handleOpenAddEmp(emp)}
-                        className="p-1.5 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition"
+                        className="p-1.5 hv-elevated hover:bg-[var(--hover-surface)] rounded-lg transition cursor-pointer"
                         title={isHindi ? 'कर्मचारी विवरण बदलें' : 'Edit Employee'}
                       >
                         <Edit className="w-4 h-4 text-amber-400" />
@@ -877,7 +877,7 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                         onClick={() => {
                           onDeleteEmployee(emp.id);
                         }}
-                        className="p-1.5 text-slate-400 hover:text-rose-400 bg-slate-800 hover:bg-rose-950/60 rounded-lg transition"
+                        className="p-1.5 hv-elevated text-[var(--text-secondary)] hover:text-rose-400 hover:bg-rose-500/15 rounded-lg transition cursor-pointer"
                         title={isHindi ? 'कर्मचारी हटाएँ' : 'Delete Employee'}
                       >
                         <Trash2 className="w-4 h-4" />
@@ -886,34 +886,34 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                   </div>
                 </div>
 
-                <div className="bg-slate-950 p-3 rounded-xl border border-slate-800/80 grid grid-cols-2 gap-2 text-[11px]">
+                <div className="hv-elevated p-3 rounded-xl grid grid-cols-2 gap-2 text-[11px]">
                   <div>
-                    <span className="text-slate-500 block">Basic Pay:</span>
-                    <strong className="text-slate-200 font-mono">₹{emp.basicSalary.toLocaleString('en-IN')}</strong>
+                    <span className="text-[var(--text-muted)] block font-semibold">Basic Pay:</span>
+                    <strong className="text-[var(--text-primary)] font-mono">₹{emp.basicSalary.toLocaleString('en-IN')}</strong>
                   </div>
 
                   <div>
-                    <span className="text-slate-500 block">HRA Allowance:</span>
-                    <strong className="text-slate-200 font-mono">₹{emp.hra.toLocaleString('en-IN')}</strong>
+                    <span className="text-[var(--text-muted)] block font-semibold">HRA Allowance:</span>
+                    <strong className="text-[var(--text-primary)] font-mono">₹{emp.hra.toLocaleString('en-IN')}</strong>
                   </div>
 
                   <div>
-                    <span className="text-slate-500 block">PAN Number:</span>
-                    <strong className="text-indigo-300 font-mono">{emp.pan || 'N/A'}</strong>
+                    <span className="text-[var(--text-muted)] block font-semibold">PAN Number:</span>
+                    <strong className="text-indigo-400 font-mono">{emp.pan || 'N/A'}</strong>
                   </div>
 
                   <div>
-                    <span className="text-slate-500 block">Aadhaar Number:</span>
-                    <strong className="text-amber-300 font-mono">{emp.aadhaar || 'N/A'}</strong>
+                    <span className="text-[var(--text-muted)] block font-semibold">Aadhaar Number:</span>
+                    <strong className="text-amber-400 font-mono">{emp.aadhaar || 'N/A'}</strong>
                   </div>
 
                   <div>
-                    <span className="text-slate-500 block">Bank Account:</span>
-                    <strong className="text-slate-300 font-mono">{emp.bankAccountNo ? '••••' + emp.bankAccountNo.slice(-4) : 'N/A'}</strong>
+                    <span className="text-[var(--text-muted)] block font-semibold">Bank Account:</span>
+                    <strong className="text-[var(--text-secondary)] font-mono">{emp.bankAccountNo ? '••••' + emp.bankAccountNo.slice(-4) : 'N/A'}</strong>
                   </div>
 
                   <div>
-                    <span className="text-slate-500 block">PF Deduction:</span>
+                    <span className="text-[var(--text-muted)] block font-semibold">PF Deduction:</span>
                     <strong className="text-rose-400 font-mono">₹{emp.pfDeduction.toLocaleString('en-IN')}</strong>
                   </div>
                 </div>
@@ -926,14 +926,14 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
       {/* Add / Edit Employee Modal */}
       {showAddEmpModal && (
         <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto">
-            <div className="bg-slate-950 px-4 sm:px-6 py-4 border-b border-slate-800 flex items-center justify-between shrink-0">
-              <h3 className="font-bold text-sm text-slate-100 flex items-center gap-2">
+          <div className="hv-surface rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden my-auto">
+            <div className="hv-elevated px-4 sm:px-6 py-4 border-b border-[var(--border-primary)] flex items-center justify-between shrink-0">
+              <h3 className="font-bold text-sm text-[var(--text-primary)] flex items-center gap-2">
                 <UserPlus className="w-4 h-4 text-indigo-400" />
                 <span>{editingEmp ? (isHindi ? 'कर्मचारी विवरण बदलें (Edit Employee)' : 'Edit Employee Details') : (isHindi ? 'नया कर्मचारी मास्टर जोड़ें (Add Employee)' : 'Add New Employee Master')}</span>
               </h3>
 
-              <button onClick={() => setShowAddEmpModal(false)} className="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 transition">
+              <button onClick={() => setShowAddEmpModal(false)} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] p-1 rounded-lg hover:bg-[var(--hover-surface)] transition cursor-pointer">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -941,50 +941,50 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
             <form onSubmit={handleSaveEmployeeForm} className="p-4 sm:p-6 space-y-5 text-xs overflow-y-auto flex-1">
               {/* Section 1: Basic & Position Info */}
               <div>
-                <h4 className="text-xs font-extrabold text-indigo-400 uppercase tracking-wider mb-2 pb-1 border-b border-slate-800 flex items-center justify-between">
+                <h4 className="text-xs font-extrabold text-indigo-400 uppercase tracking-wider mb-2 pb-1 border-b border-[var(--border-primary)] flex items-center justify-between">
                   <span>1. Employee Information (कर्मचारी प्राथमिक जानकारी)</span>
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-slate-300 mb-1 font-bold">Full Employee Name *</label>
+                    <label className="block text-[var(--text-secondary)] mb-1 font-bold">Full Employee Name *</label>
                     <input
                       type="text"
                       required
                       value={empName}
                       onChange={(e) => setEmpName(e.target.value)}
                       placeholder="e.g. Ramesh Kumar"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white outline-none focus:border-indigo-500"
+                      className="w-full hv-input rounded-xl px-3 py-2 outline-none focus:border-indigo-500"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 mb-1 font-bold">Employee Code</label>
+                    <label className="block text-[var(--text-secondary)] mb-1 font-bold">Employee Code</label>
                     <input
                       type="text"
                       value={empCode}
                       onChange={(e) => setEmpCode(e.target.value)}
                       placeholder="Auto / e.g. EMP-001"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-indigo-300 font-mono font-bold outline-none"
+                      className="w-full hv-input rounded-xl px-3 py-2 text-indigo-400 font-mono font-bold outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 mb-1 font-bold">Designation</label>
+                    <label className="block text-[var(--text-secondary)] mb-1 font-bold">Designation</label>
                     <input
                       type="text"
                       value={empDesignation}
                       onChange={(e) => setEmpDesignation(e.target.value)}
                       placeholder="e.g. Senior Accountant"
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white outline-none"
+                      className="w-full hv-input rounded-xl px-3 py-2 outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 mb-1 font-bold">Department</label>
+                    <label className="block text-[var(--text-secondary)] mb-1 font-bold">Department</label>
                     <select
                       value={empDepartment}
                       onChange={(e) => setEmpDepartment(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white outline-none"
+                      className="w-full hv-input rounded-xl px-3 py-2 outline-none"
                     >
                       <option value="">-- Select Department --</option>
                       <option value="Finance & Accounts">Finance & Accounts</option>
@@ -999,82 +999,82 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
 
               {/* Section 2: Bank & Identification */}
               <div>
-                <h4 className="text-xs font-extrabold text-indigo-400 uppercase tracking-wider mb-2 pb-1 border-b border-slate-800">
+                <h4 className="text-xs font-extrabold text-indigo-400 uppercase tracking-wider mb-2 pb-1 border-b border-[var(--border-primary)]">
                   2. Bank & ID Registration (बैंक व पहचान संख्या)
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-slate-300 mb-1 font-bold">Bank Name & IFSC Code</label>
+                    <label className="block text-[var(--text-secondary)] mb-1 font-bold">Bank Name & IFSC Code</label>
                     <div className="flex gap-2">
                       <input
                         type="text"
                         placeholder="Bank Name"
                         value={empBankName}
                         onChange={(e) => setEmpBankName(e.target.value)}
-                        className="w-1/2 bg-slate-950 border border-slate-700 rounded-xl px-2.5 py-2 text-white outline-none"
+                        className="w-1/2 hv-input rounded-xl px-2.5 py-2 outline-none"
                       />
                       <input
                         type="text"
                         placeholder="IFSC Code"
                         value={empIfsc}
                         onChange={(e) => setEmpIfsc(e.target.value.toUpperCase())}
-                        className="w-1/2 bg-slate-950 border border-slate-700 rounded-xl px-2.5 py-2 text-indigo-300 font-mono outline-none uppercase"
+                        className="w-1/2 hv-input rounded-xl px-2.5 py-2 text-indigo-400 font-mono outline-none uppercase"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 mb-1 font-bold">Bank Account Number</label>
+                    <label className="block text-[var(--text-secondary)] mb-1 font-bold">Bank Account Number</label>
                     <input
                       type="text"
                       placeholder="Account Number"
                       value={empAccountNo}
                       onChange={(e) => setEmpAccountNo(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono outline-none"
+                      className="w-full hv-input rounded-xl px-3 py-2 font-mono outline-none"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 mb-1 font-bold">PAN Number (पैन कार्ड)</label>
+                    <label className="block text-[var(--text-secondary)] mb-1 font-bold">PAN Number (पैन कार्ड)</label>
                     <input
                       type="text"
                       value={empPan}
                       onChange={(e) => setEmpPan(e.target.value.toUpperCase())}
                       placeholder="e.g. ABCDE1234F"
                       maxLength={10}
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-indigo-300 font-mono font-bold outline-none uppercase placeholder:normal-case"
+                      className="w-full hv-input rounded-xl px-3 py-2 text-indigo-400 font-mono font-bold outline-none uppercase placeholder:normal-case"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 mb-1 font-bold">Aadhaar Number (आधार नंबर)</label>
+                    <label className="block text-[var(--text-secondary)] mb-1 font-bold">Aadhaar Number (आधार नंबर)</label>
                     <input
                       type="text"
                       value={empAadhaar}
                       onChange={(e) => setEmpAadhaar(e.target.value)}
                       placeholder="e.g. 1234 5678 9012"
                       maxLength={14}
-                      className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-amber-300 font-mono font-bold outline-none"
+                      className="w-full hv-input rounded-xl px-3 py-2 text-amber-400 font-mono font-bold outline-none"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Section 3: Earnings Breakdown (Fully Customizable) */}
-              <div className="bg-emerald-950/20 border border-emerald-900/50 p-3.5 rounded-xl space-y-3">
-                <div className="flex items-center justify-between border-b border-emerald-900/60 pb-1.5">
+              <div className="hv-pill-emerald border p-3.5 rounded-xl space-y-3">
+                <div className="flex items-center justify-between border-b border-emerald-500/30 pb-1.5">
                   <h4 className="text-xs font-extrabold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
                     <TrendingUp className="w-3.5 h-3.5" />
                     <span>3. Earnings Structure / भत्ते व कमाई (Full Options)</span>
                   </h4>
-                  <span className="text-[10px] text-emerald-300 font-mono font-bold">
+                  <span className="text-[10px] text-emerald-400 font-mono font-bold">
                     Gross: ₹{(empBasic + empHra + empConveyance + empSpecial).toLocaleString('en-IN')}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-emerald-200 mb-1 font-bold">Basic Monthly Salary (बेसिक वेतन) ₹ *</label>
+                    <label className="block text-[var(--text-primary)] mb-1 font-bold">Basic Monthly Salary (बेसिक वेतन) ₹ *</label>
                     <input
                       type="number"
                       min="0"
@@ -1082,129 +1082,129 @@ export const PayrollManagement: React.FC<PayrollManagementProps> = ({
                       value={empBasic || ''}
                       placeholder="0"
                       onChange={(e) => setEmpBasic(Number(e.target.value))}
-                      className="w-full bg-slate-950 border border-emerald-700/80 rounded-xl px-3 py-2 text-emerald-300 font-mono font-bold outline-none focus:border-emerald-400"
+                      className="w-full hv-input border-emerald-500/50 rounded-xl px-3 py-2 text-emerald-400 font-mono font-bold outline-none focus:border-emerald-400"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-emerald-200 mb-1 font-bold">HRA Allowance (घर का किराया भत्ता) ₹</label>
+                    <label className="block text-[var(--text-primary)] mb-1 font-bold">HRA Allowance (घर का किराया भत्ता) ₹</label>
                     <input
                       type="number"
                       min="0"
                       value={empHra || ''}
                       onChange={(e) => setEmpHra(Number(e.target.value))}
                       placeholder="0"
-                      className="w-full bg-slate-950 border border-emerald-700/80 rounded-xl px-3 py-2 text-emerald-300 font-mono font-bold outline-none focus:border-emerald-400"
+                      className="w-full hv-input border-emerald-500/50 rounded-xl px-3 py-2 text-emerald-400 font-mono font-bold outline-none focus:border-emerald-400"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-emerald-200 mb-1 font-bold">Conveyance Allowance (यात्रा भत्ता) ₹</label>
+                    <label className="block text-[var(--text-primary)] mb-1 font-bold">Conveyance Allowance (यात्रा भत्ता) ₹</label>
                     <input
                       type="number"
                       min="0"
                       value={empConveyance || ''}
                       onChange={(e) => setEmpConveyance(Number(e.target.value))}
                       placeholder="0"
-                      className="w-full bg-slate-950 border border-emerald-700/80 rounded-xl px-3 py-2 text-emerald-300 font-mono font-bold outline-none focus:border-emerald-400"
+                      className="w-full hv-input border-emerald-500/50 rounded-xl px-3 py-2 text-emerald-400 font-mono font-bold outline-none focus:border-emerald-400"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-emerald-200 mb-1 font-bold">Special / Other Allowance (विशेष भत्ता) ₹</label>
+                    <label className="block text-[var(--text-primary)] mb-1 font-bold">Special / Other Allowance (विशेष भत्ता) ₹</label>
                     <input
                       type="number"
                       min="0"
                       value={empSpecial || ''}
                       onChange={(e) => setEmpSpecial(Number(e.target.value))}
                       placeholder="0"
-                      className="w-full bg-slate-950 border border-emerald-700/80 rounded-xl px-3 py-2 text-emerald-300 font-mono font-bold outline-none focus:border-emerald-400"
+                      className="w-full hv-input border-emerald-500/50 rounded-xl px-3 py-2 text-emerald-400 font-mono font-bold outline-none focus:border-emerald-400"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Section 4: Deductions Breakdown (Fully Customizable - TDS, PF, ESI) */}
-              <div className="bg-rose-950/20 border border-rose-900/50 p-3.5 rounded-xl space-y-3">
-                <div className="flex items-center justify-between border-b border-rose-900/60 pb-1.5">
+              <div className="hv-pill-rose border p-3.5 rounded-xl space-y-3">
+                <div className="flex items-center justify-between border-b border-rose-500/30 pb-1.5">
                   <h4 className="text-xs font-extrabold text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
                     <ShieldCheck className="w-3.5 h-3.5" />
                     <span>4. Deductions Structure / कटौती विवरण (0 if No Deduction)</span>
                   </h4>
-                  <span className="text-[10px] text-rose-300 font-mono font-bold">
+                  <span className="text-[10px] text-rose-400 font-mono font-bold">
                     Total Deductions: ₹{(empPf + empEsi + empTds).toLocaleString('en-IN')}
                   </span>
                 </div>
 
-                <p className="text-[10px] text-slate-400 italic">
+                <p className="text-[10px] text-[var(--text-secondary)] italic">
                   नोट: यदि आप कर्मचारी से TDS, PF या ESI नहीं काटना चाहते हैं, तो मान 0 रखें। बिना किसी कटौती के पूरा बेसिक वेतन पे किया जा सकता है।
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-rose-200 mb-1 font-bold">PF Deduction (पीएफ कटौती) ₹</label>
+                    <label className="block text-[var(--text-primary)] mb-1 font-bold">PF Deduction (पीएफ कटौती) ₹</label>
                     <input
                       type="number"
                       min="0"
                       value={empPf || ''}
                       onChange={(e) => setEmpPf(Number(e.target.value))}
                       placeholder="0"
-                      className="w-full bg-slate-950 border border-rose-700/80 rounded-xl px-3 py-2 text-rose-300 font-mono font-bold outline-none focus:border-rose-400"
+                      className="w-full hv-input border-rose-500/50 rounded-xl px-3 py-2 text-rose-400 font-mono font-bold outline-none focus:border-rose-400"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-rose-200 mb-1 font-bold">ESI Deduction (ईएसआई कटौती) ₹</label>
+                    <label className="block text-[var(--text-primary)] mb-1 font-bold">ESI Deduction (ईएसआई कटौती) ₹</label>
                     <input
                       type="number"
                       min="0"
                       value={empEsi || ''}
                       onChange={(e) => setEmpEsi(Number(e.target.value))}
                       placeholder="0"
-                      className="w-full bg-slate-950 border border-rose-700/80 rounded-xl px-3 py-2 text-rose-300 font-mono font-bold outline-none focus:border-rose-400"
+                      className="w-full hv-input border-rose-500/50 rounded-xl px-3 py-2 text-rose-400 font-mono font-bold outline-none focus:border-rose-400"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-rose-200 mb-1 font-bold">TDS / Income Tax Deduction ₹</label>
+                    <label className="block text-[var(--text-primary)] mb-1 font-bold">TDS / Income Tax Deduction ₹</label>
                     <input
                       type="number"
                       min="0"
                       value={empTds || ''}
                       onChange={(e) => setEmpTds(Number(e.target.value))}
                       placeholder="0"
-                      className="w-full bg-slate-950 border border-rose-700/80 rounded-xl px-3 py-2 text-rose-300 font-mono font-bold outline-none focus:border-rose-400"
+                      className="w-full hv-input border-rose-500/50 rounded-xl px-3 py-2 text-rose-400 font-mono font-bold outline-none focus:border-rose-400"
                     />
                   </div>
                 </div>
               </div>
 
               {/* Calculated Summary Bar */}
-              <div className="bg-slate-950 border border-slate-800 p-3 rounded-xl flex items-center justify-between text-xs">
+              <div className="hv-elevated p-3 rounded-xl flex items-center justify-between text-xs">
                 <div>
-                  <span className="text-slate-400 text-[10px] block font-bold uppercase">Resulting Monthly Net Salary</span>
+                  <span className="text-[var(--text-secondary)] text-[10px] block font-bold uppercase">Resulting Monthly Net Salary</span>
                   <span className="text-emerald-400 font-mono font-extrabold text-base">
                     ₹{((empBasic + empHra + empConveyance + empSpecial) - (empPf + empEsi + empTds)).toLocaleString('en-IN')}
                   </span>
                 </div>
-                <div className="text-right text-[10px] text-slate-400">
+                <div className="text-right text-[10px] text-[var(--text-secondary)]">
                   <span>Gross: ₹{(empBasic + empHra + empConveyance + empSpecial).toLocaleString('en-IN')}</span>
-                  <span className="mx-1 text-slate-600">|</span>
-                  <span className="text-rose-400">Deductions: ₹{(empPf + empEsi + empTds).toLocaleString('en-IN')}</span>
+                  <span className="mx-1 text-[var(--text-muted)]">|</span>
+                  <span className="text-rose-400 font-semibold">Deductions: ₹{(empPf + empEsi + empTds).toLocaleString('en-IN')}</span>
                 </div>
               </div>
 
-              <div className="pt-2 flex justify-end gap-3 border-t border-slate-800">
+              <div className="pt-2 flex justify-end gap-3 border-t border-[var(--border-primary)]">
                 <button
                   type="button"
                   onClick={() => setShowAddEmpModal(false)}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl transition"
+                  className="px-4 py-2 hv-elevated hover:bg-[var(--hover-surface)] text-[var(--text-primary)] font-bold rounded-xl transition cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-extrabold rounded-xl shadow-lg transition"
+                  className="px-6 py-2 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold rounded-xl shadow-lg transition cursor-pointer"
                 >
                   Save Employee Record
                 </button>

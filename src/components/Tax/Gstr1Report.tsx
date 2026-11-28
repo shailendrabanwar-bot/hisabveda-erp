@@ -467,15 +467,15 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
   };
 
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-100 font-sans text-xs flex flex-col selection:bg-amber-400 selection:text-slate-900 space-y-4 p-4 md:p-6">
+    <div className="hv-canvas min-h-screen text-[var(--text-primary)] font-sans text-xs flex flex-col selection:bg-amber-400 selection:text-slate-900 space-y-4 p-4 md:p-6">
       
       {/* Top Header Bar */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 md:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4 md:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
         <div className="flex items-center gap-3">
           {onBack && (
             <button 
               onClick={onBack}
-              className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl border border-slate-700 flex items-center gap-1.5 font-bold text-xs transition cursor-pointer"
+              className="px-3 py-1.5 hv-elevated hover:bg-[var(--bg-hover)] text-[var(--text-primary)] rounded-xl border border-[var(--border-primary)] flex items-center gap-1.5 font-bold text-xs transition cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>{isHindi ? 'पीछे जाएँ' : 'Back'}</span>
@@ -484,12 +484,12 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
           
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-black text-amber-400 text-lg uppercase tracking-wider">HisabVeda ERP</span>
-              <span className="bg-emerald-500/20 text-emerald-300 font-extrabold px-2 py-0.5 text-[10px] rounded-full border border-emerald-500/30 uppercase">
+              <span className="font-black text-amber-500 text-lg uppercase tracking-wider">HisabVeda ERP</span>
+              <span className="hv-pill-emerald font-extrabold px-2 py-0.5 text-[10px] rounded-full border uppercase">
                 GSTR-1 Module
               </span>
             </div>
-            <p className="text-slate-400 text-xs mt-0.5">
+            <p className="text-[var(--text-muted)] text-xs mt-0.5">
               {isHindi ? 'जीएसटी आर-1 बिक्री विवरणी एवं गवर्नमेंट यूटिलिटी रिपोर्ट' : 'Outward Supply Return & Official Govt Utility Format'}
             </p>
           </div>
@@ -501,7 +501,7 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
             href="https://www.gst.gov.in"
             target="_blank"
             rel="noreferrer"
-            className="px-3.5 py-2 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black rounded-xl shadow text-xs flex items-center gap-2 transition active:scale-95 cursor-pointer"
+            className="px-3.5 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-black rounded-xl shadow text-xs flex items-center gap-2 transition active:scale-95 cursor-pointer"
           >
             <Globe className="w-4 h-4 text-slate-950" />
             <span>{isHindi ? 'जीएसटी पोर्टल (www.gst.gov.in)' : 'Open GST Portal (www.gst.gov.in)'}</span>
@@ -509,7 +509,7 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
 
           <button 
             onClick={handleExportJson}
-            className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-xl shadow text-xs flex items-center gap-2 transition active:scale-95 cursor-pointer"
+            className="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold rounded-xl shadow text-xs flex items-center gap-2 transition active:scale-95 cursor-pointer"
           >
             <Download className="w-4 h-4" />
             <span>{isHindi ? 'GSTR-1 JSON डाउनलोड (GST3.2.4)' : 'Export GSTR-1 JSON (GST3.2.4)'}</span>
@@ -517,7 +517,7 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
 
           <button 
             onClick={handleExportExcel}
-            className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold rounded-xl shadow text-xs flex items-center gap-2 transition active:scale-95 cursor-pointer"
+            className="px-3.5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-extrabold rounded-xl shadow text-xs flex items-center gap-2 transition active:scale-95 cursor-pointer"
           >
             <FileSpreadsheet className="w-4 h-4 text-amber-300" />
             <span>Export GSTR-1.xlsx Workbook</span>
@@ -527,49 +527,49 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
 
       {/* Overview Metadata Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-md">
-          <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Company GSTIN</span>
-          <div className="text-base font-bold text-amber-300 mt-1 font-mono">{data.company.gstin || '23AOZPD9829B1ZP'}</div>
-          <span className="text-[10px] text-slate-500">{data.company.name || 'Company Name'}</span>
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4 shadow-sm">
+          <span className="text-[11px] font-semibold text-[var(--text-muted)] uppercase tracking-wider block">Company GSTIN</span>
+          <div className="text-base font-bold text-amber-500 mt-1 font-mono">{data.company.gstin || '23AOZPD9829B1ZP'}</div>
+          <span className="text-[10px] text-[var(--text-muted)]">{data.company.name || 'Company Name'}</span>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-md flex justify-between items-center">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4 shadow-sm flex justify-between items-center">
           <div>
-            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Return Period</span>
-            <div className="text-sm font-bold text-amber-300 mt-1 font-mono">{getPeriodDisplayLabel()}</div>
+            <span className="text-[11px] font-semibold text-[var(--text-muted)] uppercase tracking-wider block">Return Period</span>
+            <div className="text-sm font-bold text-amber-500 mt-1 font-mono">{getPeriodDisplayLabel()}</div>
           </div>
           <button 
             onClick={() => setShowPeriodModal(true)}
-            className="p-2 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded-xl transition"
+            className="p-2 hv-elevated hover:bg-[var(--bg-hover)] text-amber-500 border border-[var(--border-primary)] rounded-xl transition cursor-pointer"
             title="Change Period"
           >
             <Filter className="w-4 h-4" />
           </button>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-md flex justify-between items-center">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4 shadow-sm flex justify-between items-center">
           <div>
-            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Filing Status</span>
-            <span className={`inline-block mt-1 font-bold px-2 py-0.5 rounded-lg text-xs ${returnStatus === 'Filed' ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'}`}>
+            <span className="text-[11px] font-semibold text-[var(--text-muted)] uppercase tracking-wider block">Filing Status</span>
+            <span className={`inline-block mt-1 font-bold px-2 py-0.5 rounded-lg text-xs border ${returnStatus === 'Filed' ? 'hv-pill-emerald' : 'hv-pill-rose'}`}>
               {returnStatus}
             </span>
           </div>
           <button 
             onClick={() => setReturnStatus(returnStatus === 'Not Filed' ? 'Filed' : 'Not Filed')}
-            className="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-bold rounded-xl border border-slate-700 transition"
+            className="px-2.5 py-1 hv-elevated hover:bg-[var(--bg-hover)] text-[var(--text-primary)] text-[10px] font-bold rounded-xl border border-[var(--border-primary)] transition cursor-pointer"
           >
             Toggle Status
           </button>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-md flex justify-between items-center">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4 shadow-sm flex justify-between items-center">
           <div>
-            <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">ARN Details</span>
-            <div className="text-xs font-bold text-indigo-300 mt-1 font-mono">{arnNumber || 'Not Updated'}</div>
+            <span className="text-[11px] font-semibold text-[var(--text-muted)] uppercase tracking-wider block">ARN Details</span>
+            <div className="text-xs font-bold text-indigo-500 mt-1 font-mono">{arnNumber || 'Not Updated'}</div>
           </div>
           <button 
             onClick={() => setShowArnModal(true)}
-            className="px-2.5 py-1 bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-300 border border-indigo-500/30 rounded-xl text-[10px] font-bold transition"
+            className="px-2.5 py-1 hv-pill-indigo border rounded-xl text-[10px] font-bold transition cursor-pointer hover:opacity-90"
           >
             Update ARN
           </button>
@@ -577,37 +577,37 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
       </div>
 
       {/* Main Table Breakdown */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-5 shadow-sm space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[var(--border-subtle)] pb-3">
           <div>
-            <h2 className="text-sm font-extrabold text-white flex items-center gap-2">
-              <ShieldCheck className="w-5 h-5 text-emerald-400" />
+            <h2 className="text-sm font-extrabold text-[var(--text-primary)] flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-emerald-500" />
               <span>GSTR-1 Outward Supplies Summary Tables</span>
             </h2>
-            <p className="text-[11px] text-slate-400">Click on any section below to view detailed invoice-level line items</p>
+            <p className="text-[11px] text-[var(--text-muted)]">Click on any section below to view detailed invoice-level line items</p>
           </div>
 
-          <span className="text-xs font-mono bg-slate-800 text-slate-300 px-3 py-1 rounded-xl border border-slate-700 font-bold self-start sm:self-auto">
-            Total Invoices: <strong className="text-amber-400">{activeInvoices.length}</strong>
+          <span className="text-xs font-mono hv-elevated text-[var(--text-secondary)] px-3 py-1 rounded-xl border border-[var(--border-primary)] font-bold self-start sm:self-auto">
+            Total Invoices: <strong className="text-amber-500">{activeInvoices.length}</strong>
           </span>
         </div>
 
         {/* Table View */}
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-slate-200 font-mono">
-            <thead className="bg-slate-800 text-slate-400 text-[11px] uppercase tracking-wider font-extrabold">
+          <table className="w-full text-left text-xs text-[var(--text-secondary)] font-mono">
+            <thead className="hv-elevated text-[var(--text-muted)] text-[11px] uppercase tracking-wider font-extrabold border-b border-[var(--border-primary)]">
               <tr>
                 <th className="p-3 font-sans">Table / Particulars</th>
                 <th className="p-3 text-center">Invoices Count</th>
                 <th className="p-3 text-right">Taxable Amount</th>
-                <th className="p-3 text-right text-indigo-300">IGST</th>
-                <th className="p-3 text-right text-indigo-300">CGST</th>
-                <th className="p-3 text-right text-indigo-300">SGST</th>
-                <th className="p-3 text-right text-emerald-400">Total Tax</th>
-                <th className="p-3 text-right text-amber-300 font-bold">Total Invoice Value</th>
+                <th className="p-3 text-right text-indigo-500">IGST</th>
+                <th className="p-3 text-right text-indigo-500">CGST</th>
+                <th className="p-3 text-right text-indigo-500">SGST</th>
+                <th className="p-3 text-right text-emerald-500">Total Tax</th>
+                <th className="p-3 text-right text-amber-500 font-bold">Total Invoice Value</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800">
+            <tbody className="divide-y divide-[var(--border-subtle)]">
               {tableRows.map((row) => {
                 const isSelected = selectedRowKey === row.key;
                 const hasData = row.totals.vchCount > 0 || row.totals.taxable > 0;
@@ -618,44 +618,44 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
                     onClick={() => setSelectedRowKey(row.key)}
                     className={`cursor-pointer transition ${
                       isSelected 
-                        ? 'bg-indigo-950/80 border-l-4 border-amber-400 text-white font-bold' 
-                        : 'hover:bg-slate-800/60 text-slate-300'
+                        ? 'bg-indigo-500/15 border-l-4 border-amber-500 text-[var(--text-primary)] font-bold' 
+                        : 'hover:bg-[var(--bg-hover)] text-[var(--text-secondary)]'
                     }`}
                   >
-                    <td className="p-3 font-sans font-semibold flex items-center justify-between">
+                    <td className="p-3 font-sans font-semibold flex items-center justify-between text-[var(--text-primary)]">
                       <span>{row.title}</span>
                       {hasData && (
-                        <span className="text-[9px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-mono">
+                        <span className="text-[9px] px-2 py-0.5 rounded-full hv-pill-emerald border font-mono">
                           ACTIVE
                         </span>
                       )}
                     </td>
 
-                    <td className="p-3 text-center font-bold">
+                    <td className="p-3 text-center font-bold text-[var(--text-primary)]">
                       {row.totals.vchCount > 0 ? row.totals.vchCount : '-'}
                     </td>
 
-                    <td className="p-3 text-right">
+                    <td className="p-3 text-right text-[var(--text-primary)]">
                       {row.totals.taxable > 0 ? formatCurrency(row.totals.taxable, currency) : '-'}
                     </td>
 
-                    <td className="p-3 text-right text-indigo-300">
+                    <td className="p-3 text-right text-indigo-500">
                       {row.totals.igst > 0 ? formatCurrency(row.totals.igst, currency) : '-'}
                     </td>
 
-                    <td className="p-3 text-right text-indigo-300">
+                    <td className="p-3 text-right text-indigo-500">
                       {row.totals.cgst > 0 ? formatCurrency(row.totals.cgst, currency) : '-'}
                     </td>
 
-                    <td className="p-3 text-right text-indigo-300">
+                    <td className="p-3 text-right text-indigo-500">
                       {row.totals.sgst > 0 ? formatCurrency(row.totals.sgst, currency) : '-'}
                     </td>
 
-                    <td className="p-3 text-right text-emerald-400 font-bold">
+                    <td className="p-3 text-right text-emerald-500 font-bold">
                       {row.totals.totalTax > 0 ? formatCurrency(row.totals.totalTax, currency) : '-'}
                     </td>
 
-                    <td className="p-3 text-right font-bold text-amber-300">
+                    <td className="p-3 text-right font-bold text-amber-500">
                       {row.totals.grandTotal > 0 ? formatCurrency(row.totals.grandTotal, currency) : '-'}
                     </td>
                   </tr>
@@ -663,15 +663,15 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
               })}
 
               {/* Grand Total Row */}
-              <tr className="bg-slate-950 text-amber-300 font-black text-xs border-t-2 border-amber-400">
+              <tr className="hv-elevated text-amber-500 font-black text-xs border-t-2 border-amber-500">
                 <td className="p-3 font-sans uppercase">Grand Total</td>
                 <td className="p-3 text-center font-mono">{totalReturnRow.vchCount}</td>
                 <td className="p-3 text-right font-mono">{formatCurrency(totalReturnRow.taxable, currency)}</td>
                 <td className="p-3 text-right font-mono">{formatCurrency(totalReturnRow.igst, currency)}</td>
                 <td className="p-3 text-right font-mono">{formatCurrency(totalReturnRow.cgst, currency)}</td>
                 <td className="p-3 text-right font-mono">{formatCurrency(totalReturnRow.sgst, currency)}</td>
-                <td className="p-3 text-right font-mono text-emerald-400">{formatCurrency(totalReturnRow.totalTax, currency)}</td>
-                <td className="p-3 text-right font-mono text-amber-300 text-sm">{formatCurrency(totalReturnRow.grandTotal, currency)}</td>
+                <td className="p-3 text-right font-mono text-emerald-500">{formatCurrency(totalReturnRow.totalTax, currency)}</td>
+                <td className="p-3 text-right font-mono text-amber-500 text-sm">{formatCurrency(totalReturnRow.grandTotal, currency)}</td>
               </tr>
             </tbody>
           </table>
@@ -679,51 +679,51 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
       </div>
 
       {/* Selected Table Section Drilldown */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
-        <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-          <h3 className="font-extrabold text-white text-sm flex items-center gap-2">
-            <FileText className="w-4 h-4 text-amber-400" />
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-5 shadow-sm space-y-3">
+        <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-3">
+          <h3 className="font-extrabold text-[var(--text-primary)] text-sm flex items-center gap-2">
+            <FileText className="w-4 h-4 text-amber-500" />
             <span>Section Drilldown: {currentRowObj.title}</span>
           </h3>
-          <span className="text-xs text-slate-400 font-mono">
-            Total Items: <strong className="text-white">{currentRowObj.totals.vchCount}</strong> | Value: <strong className="text-emerald-400">{formatCurrency(currentRowObj.totals.grandTotal, currency)}</strong>
+          <span className="text-xs text-[var(--text-muted)] font-mono">
+            Total Items: <strong className="text-[var(--text-primary)]">{currentRowObj.totals.vchCount}</strong> | Value: <strong className="text-emerald-500">{formatCurrency(currentRowObj.totals.grandTotal, currency)}</strong>
           </span>
         </div>
 
         {currentRowObj.isHsn ? (
           /* HSN Drilldown Table */
           <div className="space-y-3">
-            <div className="flex items-center justify-between bg-slate-900 p-2 rounded-xl border border-slate-800">
-              <span className="text-xs font-bold text-amber-300">
+            <div className="flex items-center justify-between hv-elevated p-2 rounded-xl border border-[var(--border-subtle)]">
+              <span className="text-xs font-bold text-amber-500">
                 {isHindi ? 'HSN / SAC रिपोर्ट वर्गीकरण:' : 'HSN Classification:'}
               </span>
-              <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-lg border border-slate-800">
+              <div className="flex items-center gap-1 hv-surface p-1 rounded-lg border border-[var(--border-primary)]">
                 <button
                   onClick={() => setHsnFilter('ALL')}
-                  className={`px-3 py-1 rounded-md text-xs font-bold transition ${
+                  className={`px-3 py-1 rounded-md text-xs font-bold transition cursor-pointer ${
                     hsnFilter === 'ALL'
                       ? 'bg-amber-500 text-slate-950 shadow'
-                      : 'text-slate-400 hover:text-slate-200'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   {isHindi ? 'सभी HSN (B2B + B2C)' : 'All HSN (B2B + B2C)'}
                 </button>
                 <button
                   onClick={() => setHsnFilter('B2B')}
-                  className={`px-3 py-1 rounded-md text-xs font-bold transition ${
+                  className={`px-3 py-1 rounded-md text-xs font-bold transition cursor-pointer ${
                     hsnFilter === 'B2B'
-                      ? 'bg-indigo-600 text-white shadow'
-                      : 'text-slate-400 hover:text-slate-200'
+                      ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   {isHindi ? 'B2B HSN विवरण' : 'B2B HSN Wise'} ({hsnB2bList.length})
                 </button>
                 <button
                   onClick={() => setHsnFilter('B2C')}
-                  className={`px-3 py-1 rounded-md text-xs font-bold transition ${
+                  className={`px-3 py-1 rounded-md text-xs font-bold transition cursor-pointer ${
                     hsnFilter === 'B2C'
-                      ? 'bg-emerald-600 text-white shadow'
-                      : 'text-slate-400 hover:text-slate-200'
+                      ? 'bg-emerald-600 text-white hv-keep-white shadow'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   {isHindi ? 'B2C HSN विवरण (उपभोक्ता)' : 'B2C HSN Wise (Consumer)'} ({hsnB2cList.length})
@@ -732,37 +732,37 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-slate-300 font-mono">
-                <thead className="bg-slate-800 text-slate-400 text-[10px] uppercase font-bold">
+              <table className="w-full text-left text-xs text-[var(--text-secondary)] font-mono">
+                <thead className="hv-elevated text-[var(--text-muted)] text-[10px] uppercase font-bold border-b border-[var(--border-primary)]">
                   <tr>
                     <th className="p-2">HSN / SAC</th>
                     <th className="p-2 font-sans">Description</th>
                     <th className="p-2 text-center">UQC</th>
                     <th className="p-2 text-right">Quantity</th>
                     <th className="p-2 text-right">Taxable Value</th>
-                    <th className="p-2 text-right text-indigo-300">CGST</th>
-                    <th className="p-2 text-right text-indigo-300">SGST</th>
-                    <th className="p-2 text-right text-indigo-300">IGST</th>
-                    <th className="p-2 text-right text-amber-300 font-bold">Total Amount</th>
+                    <th className="p-2 text-right text-indigo-500">CGST</th>
+                    <th className="p-2 text-right text-indigo-500">SGST</th>
+                    <th className="p-2 text-right text-indigo-500">IGST</th>
+                    <th className="p-2 text-right text-amber-500 font-bold">Total Amount</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+                <tbody className="divide-y divide-[var(--border-subtle)]">
                   {(hsnFilter === 'B2B' ? hsnB2bList : hsnFilter === 'B2C' ? hsnB2cList : hsnList).map((hsnItem) => (
-                    <tr key={hsnItem.hsn} className="hover:bg-slate-800/60">
-                      <td className="p-2 font-bold text-amber-300">{hsnItem.hsn}</td>
-                      <td className="p-2 font-sans text-slate-100">{hsnItem.desc}</td>
-                      <td className="p-2 text-center text-slate-400">{hsnItem.uqc}</td>
-                      <td className="p-2 text-right font-bold text-white">{hsnItem.qty}</td>
-                      <td className="p-2 text-right">{formatCurrency(hsnItem.taxable, currency)}</td>
-                      <td className="p-2 text-right text-indigo-300">{formatCurrency(hsnItem.cgst, currency)}</td>
-                      <td className="p-2 text-right text-indigo-300">{formatCurrency(hsnItem.sgst, currency)}</td>
-                      <td className="p-2 text-right text-indigo-300">{formatCurrency(hsnItem.igst, currency)}</td>
-                      <td className="p-2 text-right font-bold text-amber-300">{formatCurrency(hsnItem.totalVal, currency)}</td>
+                    <tr key={hsnItem.hsn} className="hover:bg-[var(--bg-hover)]">
+                      <td className="p-2 font-bold text-amber-500">{hsnItem.hsn}</td>
+                      <td className="p-2 font-sans text-[var(--text-primary)]">{hsnItem.desc}</td>
+                      <td className="p-2 text-center text-[var(--text-muted)]">{hsnItem.uqc}</td>
+                      <td className="p-2 text-right font-bold text-[var(--text-primary)]">{hsnItem.qty}</td>
+                      <td className="p-2 text-right text-[var(--text-primary)]">{formatCurrency(hsnItem.taxable, currency)}</td>
+                      <td className="p-2 text-right text-indigo-500">{formatCurrency(hsnItem.cgst, currency)}</td>
+                      <td className="p-2 text-right text-indigo-500">{formatCurrency(hsnItem.sgst, currency)}</td>
+                      <td className="p-2 text-right text-indigo-500">{formatCurrency(hsnItem.igst, currency)}</td>
+                      <td className="p-2 text-right font-bold text-amber-500">{formatCurrency(hsnItem.totalVal, currency)}</td>
                     </tr>
                   ))}
                   {(hsnFilter === 'B2B' ? hsnB2bList : hsnFilter === 'B2C' ? hsnB2cList : hsnList).length === 0 && (
                     <tr>
-                      <td colSpan={9} className="p-6 text-center text-slate-500 font-sans italic">
+                      <td colSpan={9} className="p-6 text-center text-[var(--text-muted)] font-sans italic">
                         {isHindi ? 'चुनी गई श्रेणी (B2B/B2C) के लिए कोई HSN रिकॉर्ड मौजूद नहीं है।' : 'No HSN records found for the selected classification.'}
                       </td>
                     </tr>
@@ -773,33 +773,33 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
           </div>
         ) : currentRowObj.isDoc ? (
           /* Document Summary Drilldown */
-          <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs space-y-3">
-            <div className="flex justify-between border-b border-slate-800 pb-2">
-              <span className="font-bold text-slate-300">Outward Invoices Range:</span>
-              <span className="font-mono text-emerald-400 font-bold">
+          <div className="p-4 hv-elevated rounded-xl border border-[var(--border-primary)] text-xs space-y-3">
+            <div className="flex justify-between border-b border-[var(--border-subtle)] pb-2">
+              <span className="font-bold text-[var(--text-secondary)]">Outward Invoices Range:</span>
+              <span className="font-mono text-emerald-500 font-bold">
                 {activeInvoices[0]?.invoiceNumber || 'INF/25-26/067'} to {activeInvoices[activeInvoices.length - 1]?.invoiceNumber || 'INF/25-26/081'}
               </span>
             </div>
             <div className="grid grid-cols-3 gap-3 text-center font-mono">
-              <div className="bg-slate-900 p-3 rounded-xl border border-slate-800">
-                <span className="text-[10px] text-slate-400 block">Total Issued</span>
-                <strong className="text-amber-300 text-base">{data.invoices.length}</strong>
+              <div className="hv-surface p-3 rounded-xl border border-[var(--border-primary)]">
+                <span className="text-[10px] text-[var(--text-muted)] block">Total Issued</span>
+                <strong className="text-amber-500 text-base">{data.invoices.length}</strong>
               </div>
-              <div className="bg-slate-900 p-3 rounded-xl border border-slate-800">
-                <span className="text-[10px] text-slate-400 block">Cancelled</span>
-                <strong className="text-rose-400 text-base">{cancelledInvoices.length}</strong>
+              <div className="hv-surface p-3 rounded-xl border border-[var(--border-primary)]">
+                <span className="text-[10px] text-[var(--text-muted)] block">Cancelled</span>
+                <strong className="text-rose-500 text-base">{cancelledInvoices.length}</strong>
               </div>
-              <div className="bg-slate-900 p-3 rounded-xl border border-slate-800">
-                <span className="text-[10px] text-slate-400 block">Net Issued</span>
-                <strong className="text-emerald-400 text-base">{activeInvoices.length}</strong>
+              <div className="hv-surface p-3 rounded-xl border border-[var(--border-primary)]">
+                <span className="text-[10px] text-[var(--text-muted)] block">Net Issued</span>
+                <strong className="text-emerald-500 text-base">{activeInvoices.length}</strong>
               </div>
             </div>
           </div>
         ) : currentRowObj.noteList ? (
           /* Credit / Debit Notes Drilldown */
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-300 font-mono">
-              <thead className="bg-slate-800 text-slate-400 text-[10px] uppercase font-bold">
+            <table className="w-full text-left text-xs text-[var(--text-secondary)] font-mono">
+              <thead className="hv-elevated text-[var(--text-muted)] text-[10px] uppercase font-bold border-b border-[var(--border-primary)]">
                 <tr>
                   <th className="p-2">Note #</th>
                   <th className="p-2">Type</th>
@@ -807,31 +807,31 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
                   <th className="p-2 font-sans">Party</th>
                   <th className="p-2">GSTIN</th>
                   <th className="p-2 text-right">Taxable</th>
-                  <th className="p-2 text-right text-indigo-300">CGST</th>
-                  <th className="p-2 text-right text-indigo-300">SGST</th>
-                  <th className="p-2 text-right text-indigo-300">IGST</th>
-                  <th className="p-2 text-right text-emerald-400 font-bold">Note Total</th>
+                  <th className="p-2 text-right text-indigo-500">CGST</th>
+                  <th className="p-2 text-right text-indigo-500">SGST</th>
+                  <th className="p-2 text-right text-indigo-500">IGST</th>
+                  <th className="p-2 text-right text-emerald-500 font-bold">Note Total</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800">
+              <tbody className="divide-y divide-[var(--border-subtle)]">
                 {currentRowObj.noteList.length > 0 ? (
                   currentRowObj.noteList.map((note) => (
-                    <tr key={note.id} className="hover:bg-slate-800/60">
-                      <td className="p-2 font-bold text-amber-300">{note.noteNumber}</td>
-                      <td className="p-2 text-slate-300 font-sans">{note.type === 'CREDIT_NOTE' ? 'Credit Note' : 'Debit Note'}</td>
-                      <td className="p-2 text-slate-400 font-sans">{note.date}</td>
-                      <td className="p-2 font-sans font-semibold text-slate-100">{note.partyName}</td>
-                      <td className="p-2 text-slate-400">{note.partyGstin || 'URP'}</td>
-                      <td className="p-2 text-right">{formatCurrency((note.subtotal || 0) - (note.totalDiscount || 0), currency)}</td>
-                      <td className="p-2 text-right text-indigo-300">{formatCurrency(note.cgstAmount || 0, currency)}</td>
-                      <td className="p-2 text-right text-indigo-300">{formatCurrency(note.sgstAmount || 0, currency)}</td>
-                      <td className="p-2 text-right text-indigo-300">{formatCurrency(note.igstAmount || 0, currency)}</td>
-                      <td className="p-2 text-right font-black text-emerald-400">{formatCurrency(note.grandTotal || 0, currency)}</td>
+                    <tr key={note.id} className="hover:bg-[var(--bg-hover)]">
+                      <td className="p-2 font-bold text-amber-500">{note.noteNumber}</td>
+                      <td className="p-2 text-[var(--text-secondary)] font-sans">{note.type === 'CREDIT_NOTE' ? 'Credit Note' : 'Debit Note'}</td>
+                      <td className="p-2 text-[var(--text-muted)] font-sans">{note.date}</td>
+                      <td className="p-2 font-sans font-semibold text-[var(--text-primary)]">{note.partyName}</td>
+                      <td className="p-2 text-[var(--text-muted)]">{note.partyGstin || 'URP'}</td>
+                      <td className="p-2 text-right text-[var(--text-primary)]">{formatCurrency((note.subtotal || 0) - (note.totalDiscount || 0), currency)}</td>
+                      <td className="p-2 text-right text-indigo-500">{formatCurrency(note.cgstAmount || 0, currency)}</td>
+                      <td className="p-2 text-right text-indigo-500">{formatCurrency(note.sgstAmount || 0, currency)}</td>
+                      <td className="p-2 text-right text-indigo-500">{formatCurrency(note.igstAmount || 0, currency)}</td>
+                      <td className="p-2 text-right font-black text-emerald-500">{formatCurrency(note.grandTotal || 0, currency)}</td>
                     </tr>
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={10} className="p-4 text-center text-slate-500 italic font-sans">
+                    <td colSpan={10} className="p-4 text-center text-[var(--text-muted)] italic font-sans">
                       No Credit / Debit Notes recorded under {currentRowObj.title} for this return period.
                     </td>
                   </tr>
@@ -842,38 +842,38 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
         ) : (
           /* Invoices List Drilldown */
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-300 font-mono">
-              <thead className="bg-slate-800 text-slate-400 text-[10px] uppercase font-bold">
+            <table className="w-full text-left text-xs text-[var(--text-secondary)] font-mono">
+              <thead className="hv-elevated text-[var(--text-muted)] text-[10px] uppercase font-bold border-b border-[var(--border-primary)]">
                 <tr>
                   <th className="p-2">Invoice #</th>
                   <th className="p-2">Date</th>
                   <th className="p-2 font-sans">Customer / Party</th>
                   <th className="p-2">GSTIN</th>
                   <th className="p-2 text-right">Taxable</th>
-                  <th className="p-2 text-right text-indigo-300">CGST</th>
-                  <th className="p-2 text-right text-indigo-300">SGST</th>
-                  <th className="p-2 text-right text-indigo-300">IGST</th>
-                  <th className="p-2 text-right text-emerald-400 font-bold">Grand Total</th>
+                  <th className="p-2 text-right text-indigo-500">CGST</th>
+                  <th className="p-2 text-right text-indigo-500">SGST</th>
+                  <th className="p-2 text-right text-indigo-500">IGST</th>
+                  <th className="p-2 text-right text-emerald-500 font-bold">Grand Total</th>
                   <th className="p-2 text-center font-sans">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800">
+              <tbody className="divide-y divide-[var(--border-subtle)]">
                 {currentRowObj.invList && currentRowObj.invList.length > 0 ? (
                   currentRowObj.invList.map((inv) => (
-                    <tr key={inv.id} className="hover:bg-slate-800/60 cursor-pointer" onClick={() => onSelectInvoice && onSelectInvoice(inv)}>
-                      <td className="p-2 font-bold text-amber-300">{inv.invoiceNumber}</td>
-                      <td className="p-2 text-slate-400 font-sans">{inv.date}</td>
-                      <td className="p-2 font-sans font-semibold text-slate-100">{inv.partyName}</td>
-                      <td className="p-2 text-slate-400">{inv.partyGstin || 'URP'}</td>
-                      <td className="p-2 text-right">{formatCurrency(inv.subtotal - inv.totalDiscount, currency)}</td>
-                      <td className="p-2 text-right text-indigo-300">{formatCurrency(inv.cgstAmount, currency)}</td>
-                      <td className="p-2 text-right text-indigo-300">{formatCurrency(inv.sgstAmount, currency)}</td>
-                      <td className="p-2 text-right text-indigo-300">{formatCurrency(inv.igstAmount, currency)}</td>
-                      <td className="p-2 text-right font-black text-emerald-400">{formatCurrency(inv.grandTotal, currency)}</td>
+                    <tr key={inv.id} className="hover:bg-[var(--bg-hover)] cursor-pointer" onClick={() => onSelectInvoice && onSelectInvoice(inv)}>
+                      <td className="p-2 font-bold text-amber-500">{inv.invoiceNumber}</td>
+                      <td className="p-2 text-[var(--text-muted)] font-sans">{inv.date}</td>
+                      <td className="p-2 font-sans font-semibold text-[var(--text-primary)]">{inv.partyName}</td>
+                      <td className="p-2 text-[var(--text-muted)]">{inv.partyGstin || 'URP'}</td>
+                      <td className="p-2 text-right text-[var(--text-primary)]">{formatCurrency(inv.subtotal - inv.totalDiscount, currency)}</td>
+                      <td className="p-2 text-right text-indigo-500">{formatCurrency(inv.cgstAmount, currency)}</td>
+                      <td className="p-2 text-right text-indigo-500">{formatCurrency(inv.sgstAmount, currency)}</td>
+                      <td className="p-2 text-right text-indigo-500">{formatCurrency(inv.igstAmount, currency)}</td>
+                      <td className="p-2 text-right font-black text-emerald-500">{formatCurrency(inv.grandTotal, currency)}</td>
                       <td className="p-2 text-center" onClick={(e) => e.stopPropagation()}>
                         <button
                           onClick={() => onSelectInvoice && onSelectInvoice(inv)}
-                          className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white font-sans font-bold text-[10px] rounded-lg transition"
+                          className="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-sans font-bold text-[10px] rounded-lg transition cursor-pointer"
                         >
                           View / Print
                         </button>
@@ -882,7 +882,7 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={10} className="p-4 text-center text-slate-500 italic font-sans">
+                    <td colSpan={10} className="p-4 text-center text-[var(--text-muted)] italic font-sans">
                       No invoices recorded under {currentRowObj.title} for this return period.
                     </td>
                   </tr>
@@ -894,12 +894,12 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
       </div>
 
       {/* Bottom Export Action Bar */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-xl">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-sm">
         <div>
-          <h4 className="font-bold text-slate-100 text-xs">
+          <h4 className="font-bold text-[var(--text-primary)] text-xs">
             {isHindi ? 'जीएसटी पोर्टल रिटर्न फाइलिंग डाउनलोड' : 'GST Portal Return Upload Downloads'}
           </h4>
-          <p className="text-[11px] text-slate-400">
+          <p className="text-[11px] text-[var(--text-muted)]">
             {isHindi ? 'आधिकारिक GST3.2.4 स्कीमा JSON या Excel में डाउनलोड करें' : 'Download official GST3.2.4 Schema JSON for direct upload on GST Portal'}
           </p>
         </div>
@@ -907,7 +907,7 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
         <div className="flex flex-wrap items-center gap-2">
           <button 
             onClick={handleExportJson}
-            className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-xl shadow text-xs flex items-center gap-2 transition active:scale-95 cursor-pointer"
+            className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold rounded-xl shadow text-xs flex items-center gap-2 transition active:scale-95 cursor-pointer"
           >
             <Download className="w-4 h-4" />
             <span>{isHindi ? 'GSTR-1 JSON डाउनलोड (GST3.2.4)' : 'Export GSTR-1 JSON (GST3.2.4)'}</span>
@@ -915,7 +915,7 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
 
           <button 
             onClick={handleExportExcel}
-            className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold rounded-xl shadow text-xs flex items-center gap-2 transition active:scale-95 cursor-pointer"
+            className="px-4 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-extrabold rounded-xl shadow text-xs flex items-center gap-2 transition active:scale-95 cursor-pointer"
           >
             <FileSpreadsheet className="w-4 h-4 text-amber-300" />
             <span>{isHindi ? 'GSTR-1 Excel / CSV वर्कबुक' : 'Export GSTR-1.xlsx Workbook'}</span>
@@ -926,31 +926,31 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
       {/* MODAL 1: ARN UPDATE MODAL */}
       {showArnModal && (
         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-5 space-y-4 text-slate-100 shadow-2xl">
-            <h3 className="font-bold text-sm text-amber-300 flex items-center gap-2">
+          <div className="hv-surface border border-[var(--border-primary)] rounded-2xl max-w-md w-full p-5 space-y-4 text-[var(--text-primary)] shadow-2xl">
+            <h3 className="font-bold text-sm text-amber-500 flex items-center gap-2">
               <Calendar className="w-4 h-4" />
               <span>Update ARN Filing Details</span>
             </h3>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="block text-slate-300 font-bold mb-1">ARN Number:</label>
+                <label className="block text-[var(--text-secondary)] font-bold mb-1">ARN Number:</label>
                 <input
                   type="text"
                   value={tempArn}
                   onChange={(e) => setTempArn(e.target.value)}
                   placeholder="e.g. AA2303260981240"
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono text-amber-300 outline-none"
+                  className="w-full hv-input border rounded-xl px-3 py-2 text-xs font-mono text-amber-500 outline-none font-bold"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-bold mb-1">ARN Filing Date:</label>
+                <label className="block text-[var(--text-secondary)] font-bold mb-1">ARN Filing Date:</label>
                 <input
                   type="date"
                   value={tempArnDate}
                   onChange={(e) => setTempArnDate(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white outline-none"
+                  className="w-full hv-input border rounded-xl px-3 py-2 text-xs outline-none"
                 />
               </div>
             </div>
@@ -958,13 +958,13 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
             <div className="flex justify-end gap-2 pt-2">
               <button
                 onClick={() => setShowArnModal(false)}
-                className="px-4 py-2 bg-slate-800 text-slate-300 font-bold rounded-xl text-xs"
+                className="px-4 py-2 hv-elevated hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] border border-[var(--border-primary)] font-bold rounded-xl text-xs cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSaveArn}
-                className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs"
+                className="px-4 py-2 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-xs cursor-pointer"
               >
                 Save Details
               </button>
@@ -976,29 +976,29 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
       {/* MODAL 2: PERIOD SELECTOR MODAL */}
       {showPeriodModal && (
         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-5 space-y-4 text-slate-100 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="font-bold text-sm text-amber-300 flex items-center gap-2">
+          <div className="hv-surface border border-[var(--border-primary)] rounded-2xl max-w-lg w-full p-5 space-y-4 text-[var(--text-primary)] shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[var(--border-subtle)] pb-3">
+              <h3 className="font-bold text-sm text-amber-500 flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
                 <span>{isHindi ? 'रिटर्न अवधि का चयन करें (GSTR-1 Period)' : 'Select GSTR-1 Return Filing Period'}</span>
               </h3>
               <button 
                 onClick={() => setShowPeriodModal(false)}
-                className="text-slate-400 hover:text-white p-1 rounded-lg"
+                className="text-[var(--text-muted)] hover:text-[var(--text-primary)] p-1 rounded-lg cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
             {/* Financial Year Selector */}
-            <div className="flex items-center justify-between bg-slate-950 p-2.5 rounded-xl border border-slate-800">
-              <span className="text-xs font-bold text-slate-300">
+            <div className="flex items-center justify-between hv-elevated p-2.5 rounded-xl border border-[var(--border-subtle)]">
+              <span className="text-xs font-bold text-[var(--text-secondary)]">
                 {isHindi ? 'वित्तीय वर्ष (Financial Year):' : 'Financial Year (FY):'}
               </span>
               <select
                 value={selectedFy}
                 onChange={(e) => setSelectedFy(e.target.value)}
-                className="bg-slate-900 border border-slate-700 text-amber-300 font-mono font-bold text-xs rounded-lg px-3 py-1.5 outline-none cursor-pointer"
+                className="hv-input border text-amber-500 font-mono font-bold text-xs rounded-lg px-3 py-1.5 outline-none cursor-pointer"
               >
                 <option value="ALL">{isHindi ? 'सभी वर्ष (All Years)' : 'All Financial Years'}</option>
                 {availableFys.map(fy => (
@@ -1008,13 +1008,13 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
             </div>
 
             {/* Frequency Selection Tabs */}
-            <div className="grid grid-cols-3 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+            <div className="grid grid-cols-3 gap-1 hv-elevated p-1 rounded-xl border border-[var(--border-primary)]">
               <button
                 onClick={() => setFilingFrequency('MONTHLY')}
                 className={`py-2 px-2 rounded-lg text-xs font-bold transition text-center cursor-pointer ${
                   filingFrequency === 'MONTHLY'
                     ? 'bg-amber-500 text-slate-950 shadow-md font-black'
-                    : 'text-slate-400 hover:text-slate-200'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 {isHindi ? 'मासिक (Monthly)' : 'Monthly Return'}
@@ -1024,7 +1024,7 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
                 className={`py-2 px-2 rounded-lg text-xs font-bold transition text-center cursor-pointer ${
                   filingFrequency === 'QUARTERLY'
                     ? 'bg-amber-500 text-slate-950 shadow-md font-black'
-                    : 'text-slate-400 hover:text-slate-200'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 {isHindi ? 'तिमाही (Quarterly)' : 'Quarterly (QRMP)'}
@@ -1034,7 +1034,7 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
                 className={`py-2 px-2 rounded-lg text-xs font-bold transition text-center cursor-pointer ${
                   filingFrequency === 'ALL'
                     ? 'bg-amber-500 text-slate-950 shadow-md font-black'
-                    : 'text-slate-400 hover:text-slate-200'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 {isHindi ? 'पूरा वर्ष (Full FY)' : 'All Records'}
@@ -1044,7 +1044,7 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
             {/* Tab 1: Monthly Return Selection */}
             {filingFrequency === 'MONTHLY' && (
               <div className="space-y-2">
-                <p className="text-[11px] text-slate-400 font-sans">
+                <p className="text-[11px] text-[var(--text-muted)] font-sans">
                   {isHindi ? 'महीने पर क्लिक करके उस महीने का GSTR-1 देखें व एक्सपोर्ट करें:' : 'Select a month to filter invoices & export monthly GSTR-1:'}
                 </p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-64 overflow-y-auto pr-1">
@@ -1064,20 +1064,20 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
                         }}
                         className={`p-2.5 rounded-xl border text-left flex flex-col justify-between transition cursor-pointer ${
                           isSelected
-                            ? 'bg-amber-500/20 border-amber-400 text-amber-300 font-bold shadow-lg ring-1 ring-amber-400'
-                            : 'bg-slate-950 border-slate-800 text-slate-200 hover:bg-slate-800'
+                            ? 'hv-pill-amber font-bold shadow-md ring-1 ring-amber-500'
+                            : 'hv-elevated border-[var(--border-primary)] text-[var(--text-primary)] hover:bg-[var(--bg-hover)]'
                         }`}
                       >
                         <div className="flex items-center justify-between">
                           <span className="font-bold text-xs">{m.en}</span>
-                          <span className="text-[10px] text-slate-400 font-mono">{calYear}</span>
+                          <span className="text-[10px] text-[var(--text-muted)] font-mono">{calYear}</span>
                         </div>
                         <div className="flex items-center justify-between mt-1.5">
-                          <span className="text-[10px] text-slate-400">{isHindi ? m.hi : m.q}</span>
-                          <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono font-bold ${
+                          <span className="text-[10px] text-[var(--text-muted)]">{isHindi ? m.hi : m.q}</span>
+                          <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-mono font-bold border ${
                             count > 0 
-                              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' 
-                              : 'bg-slate-800 text-slate-500'
+                              ? 'hv-pill-emerald' 
+                              : 'hv-pill-slate'
                           }`}>
                             {count} Inv
                           </span>
@@ -1092,7 +1092,7 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
             {/* Tab 2: Quarterly Return Selection */}
             {filingFrequency === 'QUARTERLY' && (
               <div className="space-y-2">
-                <p className="text-[11px] text-slate-400 font-sans">
+                <p className="text-[11px] text-[var(--text-muted)] font-sans">
                   {isHindi ? 'तिमाही (Quarter) का चयन करें (QRMP Scheme):' : 'Select return filing quarter (QRMP Scheme):'}
                 </p>
                 <div className="grid grid-cols-2 gap-2">
@@ -1115,21 +1115,21 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
                         }}
                         className={`p-3 rounded-xl border text-left flex flex-col justify-between transition cursor-pointer ${
                           isSelected
-                            ? 'bg-amber-500/20 border-amber-400 text-amber-300 font-bold shadow-lg ring-1 ring-amber-400'
-                            : 'bg-slate-950 border-slate-800 text-slate-200 hover:bg-slate-800'
+                            ? 'hv-pill-amber font-bold shadow-md ring-1 ring-amber-500'
+                            : 'hv-elevated border-[var(--border-primary)] text-[var(--text-primary)] hover:bg-[var(--bg-hover)]'
                         }`}
                       >
                         <div className="flex items-center justify-between">
                           <span className="font-bold text-xs">{q.label}</span>
-                          <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold ${
+                          <span className={`text-[10px] px-2 py-0.5 rounded-full font-mono font-bold border ${
                             count > 0 
-                              ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' 
-                              : 'bg-slate-800 text-slate-500'
+                              ? 'hv-pill-emerald' 
+                              : 'hv-pill-slate'
                           }`}>
                             {count} Invoices
                           </span>
                         </div>
-                        <span className="text-[10px] text-slate-400 mt-1">{q.desc}</span>
+                        <span className="text-[10px] text-[var(--text-muted)] mt-1">{q.desc}</span>
                       </button>
                     );
                   })}
@@ -1139,8 +1139,8 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
 
             {/* Tab 3: Full FY Selection */}
             {filingFrequency === 'ALL' && (
-              <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 text-center space-y-3">
-                <p className="text-xs text-slate-300">
+              <div className="hv-elevated p-4 rounded-xl border border-[var(--border-primary)] text-center space-y-3">
+                <p className="text-xs text-[var(--text-secondary)]">
                   {isHindi 
                     ? `वित्तीय वर्ष ${selectedFy} की सभी तिथियों के बिल एक साथ देखें व एक्सपोर्ट करें।` 
                     : `View and export all outward invoices across the entire financial year ${selectedFy}.`}
@@ -1158,13 +1158,13 @@ export const Gstr1Report: React.FC<Gstr1ReportProps> = ({
             )}
 
             {/* Modal Footer */}
-            <div className="flex items-center justify-between pt-2 border-t border-slate-800 text-xs">
-              <span className="text-[11px] text-slate-400 font-mono">
-                {isHindi ? 'चयनित:' : 'Selected:'} <strong className="text-amber-300">{getPeriodDisplayLabel()}</strong>
+            <div className="flex items-center justify-between pt-2 border-t border-[var(--border-subtle)] text-xs">
+              <span className="text-[11px] text-[var(--text-muted)] font-mono">
+                {isHindi ? 'चयनित:' : 'Selected:'} <strong className="text-amber-500">{getPeriodDisplayLabel()}</strong>
               </span>
               <button
                 onClick={() => setShowPeriodModal(false)}
-                className="px-4 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl transition cursor-pointer"
+                className="px-4 py-1.5 hv-elevated hover:bg-[var(--bg-hover)] text-[var(--text-primary)] border border-[var(--border-primary)] font-bold rounded-xl transition cursor-pointer"
               >
                 {isHindi ? 'बंद करें' : 'Close'}
               </button>

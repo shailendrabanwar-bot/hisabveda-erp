@@ -229,20 +229,20 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
   return (
     <div className="space-y-5">
       {/* Header Controls */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-white flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div className="space-y-1">
-          <div className="text-xs text-indigo-400 font-semibold">
+          <div className="text-xs text-indigo-500 font-semibold">
             {isHindi ? 'वार्षिक जीएसटी रिटर्न' : 'Annual GST Return'} · Form GSTR-9
           </div>
-          <h2 className="text-xl font-bold text-white flex items-center gap-2.5">
-            <FileCheck2 className="w-6 h-6 text-indigo-400 shrink-0" />
+          <h2 className="text-xl font-bold text-[var(--text-primary)] flex items-center gap-2.5">
+            <FileCheck2 className="w-6 h-6 text-indigo-500 shrink-0" />
             <span>
               {isHindi
                 ? `GSTR-9 वार्षिक रिटर्न तैयारी एवं फाइलिंग (FY ${selectedFy})`
                 : `GSTR-9 Annual Return Filing & Preparation (FY ${selectedFy})`}
             </span>
           </h2>
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-[var(--text-muted)]">
             {isHindi
               ? 'बिक्री रजिस्टर, परचेज ITC, GSTR-2A/2B, GSTR-3B, HSN (Table 17/18) और DRC-03 अंतर का पूर्ण ऑटो-संकलन।'
               : 'Auto-populated annual tables from Sales Register, Purchase Register, Portal 2A/2B, GSTR-3B, and HSN Summary.'}
@@ -253,7 +253,7 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
           <select
             value={selectedFy}
             onChange={(e) => setSelectedFy(e.target.value)}
-            className="bg-slate-950 border border-slate-700 text-amber-300 font-mono font-bold text-xs rounded-xl px-3 py-2.5 cursor-pointer outline-none"
+            className="hv-input border text-amber-500 font-mono font-bold text-xs rounded-xl px-3 py-2.5 cursor-pointer outline-none"
           >
             {availableFys.map((fy) => (
               <option key={fy} value={fy}>
@@ -265,7 +265,7 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
           <button
             type="button"
             onClick={handleExportGstr9Json}
-            className="px-3.5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+            className="px-3.5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
           >
             <Download className="w-4 h-4" />
             <span>{isHindi ? 'GSTR-9 JSON' : 'Export GSTR-9 JSON'}</span>
@@ -274,9 +274,9 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
           <button
             type="button"
             onClick={handleExportGstr9Excel}
-            className="px-3.5 py-2.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+            className="px-3.5 py-2.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] text-xs font-bold rounded-xl flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
           >
-            <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
+            <FileSpreadsheet className="w-4 h-4 text-emerald-500" />
             <span>{isHindi ? 'Excel' : 'Export Excel'}</span>
           </button>
 
@@ -293,63 +293,63 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
 
       {/* KPI Strip */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4">
-          <div className="text-xs text-slate-400">{isHindi ? 'वार्षिक कुल टर्नओवर (Table 5N)' : 'Annual Aggregate Turnover (5N)'}</div>
-          <div className="text-xl font-bold text-white font-mono tabular-nums mt-1">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4">
+          <div className="text-xs text-[var(--text-muted)]">{isHindi ? 'वार्षिक कुल टर्नओवर (Table 5N)' : 'Annual Aggregate Turnover (5N)'}</div>
+          <div className="text-xl font-bold text-[var(--text-primary)] font-mono tabular-nums mt-1">
             {formatCurrency(gstr9.table5.totalTurnoverIncludingExempt, currency)}
           </div>
-          <div className="text-[11px] text-slate-500 mt-1">
-            Output Tax: <span className="font-mono text-rose-300">{formatCurrency(gstr9.table4.totalTaxPayable, currency)}</span>
+          <div className="text-[11px] text-[var(--text-muted)] mt-1">
+            Output Tax: <span className="font-mono font-semibold text-rose-500">{formatCurrency(gstr9.table4.totalTaxPayable, currency)}</span>
           </div>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4">
-          <div className="text-xs text-slate-400">{isHindi ? 'शुद्ध पात्र ITC (Table 7J)' : 'Net Eligible ITC (Table 7J)'}</div>
-          <div className="text-xl font-bold text-emerald-400 font-mono tabular-nums mt-1">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4">
+          <div className="text-xs text-[var(--text-muted)]">{isHindi ? 'शुद्ध पात्र ITC (Table 7J)' : 'Net Eligible ITC (Table 7J)'}</div>
+          <div className="text-xl font-bold text-emerald-500 font-mono tabular-nums mt-1">
             {formatCurrency(gstr9.table7.netItcAvailableForUtilisation, currency)}
           </div>
-          <div className="text-[11px] text-slate-500 mt-1">
-            Reversed (Table 7): <span className="font-mono text-amber-300">{formatCurrency(gstr9.table7.totalReversed, currency)}</span>
+          <div className="text-[11px] text-[var(--text-muted)] mt-1">
+            Reversed (Table 7): <span className="font-mono font-semibold text-amber-500">{formatCurrency(gstr9.table7.totalReversed, currency)}</span>
           </div>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4">
-          <div className="text-xs text-slate-400">{isHindi ? 'Table 8D मिलान (2A/2B बनाम 3B)' : 'Table 8D Variance (2A/2B vs 3B)'}</div>
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4">
+          <div className="text-xs text-[var(--text-muted)]">{isHindi ? 'Table 8D मिलान (2A/2B बनाम 3B)' : 'Table 8D Variance (2A/2B vs 3B)'}</div>
           <div
             className={`text-xl font-bold font-mono tabular-nums mt-1 ${
-              gstr9.table8.difference8D < -5 ? 'text-rose-400' : 'text-emerald-400'
+              gstr9.table8.difference8D < -5 ? 'text-rose-500' : 'text-emerald-500'
             }`}
           >
             {formatCurrency(gstr9.table8.difference8D, currency)}
           </div>
-          <div className="text-[11px] text-slate-500 mt-1">
+          <div className="text-[11px] text-[var(--text-muted)] mt-1">
             {gstr9.table8.difference8D < -5
               ? isHindi ? 'चेतावनी: 3B में 2B से ज्यादा क्लेम!' : 'Alert: Excess ITC Claimed vs Portal'
               : isHindi ? 'पोर्टल 2A/2B सीमा के भीतर' : 'Within 2A/2B ceiling'}
           </div>
         </div>
 
-        <div className="bg-slate-900 border border-amber-500/40 rounded-2xl p-4">
-          <div className="text-xs text-amber-300 font-semibold">
+        <div className="hv-pill-amber border rounded-2xl p-4">
+          <div className="text-xs font-semibold">
             {isHindi ? 'अतिरिक्त देयता / DRC-03 बकाया' : 'Differential Liability (DRC-03)'}
           </div>
-          <div className="text-xl font-bold text-amber-400 font-mono tabular-nums mt-1">
+          <div className="text-xl font-bold font-mono tabular-nums mt-1">
             {formatCurrency(gstr9.table9.balancePayableDRC03, currency)}
           </div>
-          <div className="text-[11px] text-slate-400 mt-1">
-            Paid Cash + ITC: <span className="font-mono text-white">{formatCurrency(gstr9.table9.paidThroughCash + gstr9.table9.paidThroughItc, currency)}</span>
+          <div className="text-[11px] opacity-90 mt-1">
+            Paid Cash + ITC: <span className="font-mono font-bold">{formatCurrency(gstr9.table9.paidThroughCash + gstr9.table9.paidThroughItc, currency)}</span>
           </div>
         </div>
       </div>
 
       {/* Part II: Table 4 & 5 Outward */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
-        <h3 className="text-sm font-bold text-white border-b border-slate-800 pb-2.5">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-5 space-y-4">
+        <h3 className="text-sm font-bold text-[var(--text-primary)] border-b border-[var(--border-primary)] pb-2.5">
           Part II (Table 4 & Table 5): Outward & Zero-Rated Supplies Declared in FY {selectedFy}
         </h3>
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs text-slate-300">
-            <thead className="bg-slate-950 text-slate-400 uppercase text-[11px]">
+          <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+            <thead className="hv-elevated text-[var(--text-muted)] uppercase text-[11px] border-b border-[var(--border-primary)]">
               <tr>
                 <th className="p-3">Table</th>
                 <th className="p-3">Nature of Supplies</th>
@@ -359,46 +359,46 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
                 <th className="p-3 text-right">SGST</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800 font-mono tabular-nums">
+            <tbody className="divide-y divide-[var(--border-primary)] font-mono tabular-nums">
               <tr>
-                <td className="p-3 text-indigo-300 font-bold">4A</td>
+                <td className="p-3 text-indigo-500 font-bold">4A</td>
                 <td className="p-3 font-sans">Supplies to Unregistered Persons (B2C)</td>
-                <td className="p-3 text-right text-white">{formatCurrency(gstr9.table4.b2cTaxable, currency)}</td>
+                <td className="p-3 text-right text-[var(--text-primary)]">{formatCurrency(gstr9.table4.b2cTaxable, currency)}</td>
                 <td className="p-3 text-right">{formatCurrency(gstr9.table4.b2cIgst, currency)}</td>
                 <td className="p-3 text-right">{formatCurrency(gstr9.table4.b2cCgst, currency)}</td>
                 <td className="p-3 text-right">{formatCurrency(gstr9.table4.b2cSgst, currency)}</td>
               </tr>
               <tr>
-                <td className="p-3 text-indigo-300 font-bold">4B</td>
+                <td className="p-3 text-indigo-500 font-bold">4B</td>
                 <td className="p-3 font-sans">Supplies to Registered Persons (B2B)</td>
-                <td className="p-3 text-right text-white">{formatCurrency(gstr9.table4.b2bTaxable, currency)}</td>
+                <td className="p-3 text-right text-[var(--text-primary)]">{formatCurrency(gstr9.table4.b2bTaxable, currency)}</td>
                 <td className="p-3 text-right">{formatCurrency(gstr9.table4.b2bIgst, currency)}</td>
                 <td className="p-3 text-right">{formatCurrency(gstr9.table4.b2bCgst, currency)}</td>
                 <td className="p-3 text-right">{formatCurrency(gstr9.table4.b2bSgst, currency)}</td>
               </tr>
               <tr>
-                <td className="p-3 text-indigo-300 font-bold">4C-4E</td>
+                <td className="p-3 text-indigo-500 font-bold">4C-4E</td>
                 <td className="p-3 font-sans">Zero Rated / Exports / SEZ Supplies</td>
-                <td className="p-3 text-right text-white">{formatCurrency(gstr9.table4.exportZeroTaxable, currency)}</td>
+                <td className="p-3 text-right text-[var(--text-primary)]">{formatCurrency(gstr9.table4.exportZeroTaxable, currency)}</td>
                 <td className="p-3 text-right">{formatCurrency(gstr9.table4.exportZeroIgst, currency)}</td>
                 <td className="p-3 text-right">-</td>
                 <td className="p-3 text-right">-</td>
               </tr>
               <tr>
-                <td className="p-3 text-indigo-300 font-bold">4I-4J</td>
+                <td className="p-3 text-indigo-500 font-bold">4I-4J</td>
                 <td className="p-3 font-sans">Net Credit / Debit Notes Issued</td>
-                <td className="p-3 text-right text-white">{formatCurrency(gstr9.table4.creditDebitNoteNetTaxable, currency)}</td>
+                <td className="p-3 text-right text-[var(--text-primary)]">{formatCurrency(gstr9.table4.creditDebitNoteNetTaxable, currency)}</td>
                 <td className="p-3 text-right" colSpan={3}>{formatCurrency(gstr9.table4.creditDebitNoteNetTax, currency)}</td>
               </tr>
               <tr>
-                <td className="p-3 text-indigo-300 font-bold">5A-5F</td>
+                <td className="p-3 text-indigo-500 font-bold">5A-5F</td>
                 <td className="p-3 font-sans">Nil Rated / Exempted / Non-GST Supplies</td>
-                <td className="p-3 text-right text-slate-300">{formatCurrency(gstr9.table5.nilRatedExemptNonGst, currency)}</td>
+                <td className="p-3 text-right text-[var(--text-secondary)]">{formatCurrency(gstr9.table5.nilRatedExemptNonGst, currency)}</td>
                 <td className="p-3 text-right">-</td>
                 <td className="p-3 text-right">-</td>
                 <td className="p-3 text-right">-</td>
               </tr>
-              <tr className="bg-slate-950 font-bold text-amber-300">
+              <tr className="hv-elevated font-bold text-amber-500">
                 <td className="p-3">5N</td>
                 <td className="p-3 font-sans">Total Aggregate Turnover & Output Tax (FY {selectedFy})</td>
                 <td className="p-3 text-right">{formatCurrency(gstr9.table5.totalTurnoverIncludingExempt, currency)}</td>
@@ -411,41 +411,41 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
 
       {/* Part III: Table 6, 7, 8 & Editable Reversals / Amendments */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
-          <h3 className="text-sm font-bold text-white border-b border-slate-800 pb-2">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-5 space-y-3">
+          <h3 className="text-sm font-bold text-[var(--text-primary)] border-b border-[var(--border-primary)] pb-2">
             Part III (Table 6, 7 & 8): ITC Reconciliation Summary
           </h3>
           <div className="space-y-2 text-xs">
-            <div className="flex justify-between p-2.5 bg-slate-950 rounded-xl">
-              <span className="text-slate-300">6A. ITC Claimed in GSTR-3B Returns</span>
-              <span className="font-mono font-bold text-white tabular-nums">{formatCurrency(gstr9.table6.itcAsPer3bTotal, currency)}</span>
+            <div className="flex justify-between p-2.5 hv-elevated border border-[var(--border-subtle)] rounded-xl">
+              <span className="text-[var(--text-secondary)]">6A. ITC Claimed in GSTR-3B Returns</span>
+              <span className="font-mono font-bold text-[var(--text-primary)] tabular-nums">{formatCurrency(gstr9.table6.itcAsPer3bTotal, currency)}</span>
             </div>
-            <div className="flex justify-between p-2.5 bg-slate-950 rounded-xl">
-              <span className="text-slate-300">6B. Books Purchase ITC (IGST / CGST / SGST)</span>
-              <span className="font-mono font-bold text-emerald-400 tabular-nums">{formatCurrency(gstr9.table6.subtotal6O, currency)}</span>
+            <div className="flex justify-between p-2.5 hv-elevated border border-[var(--border-subtle)] rounded-xl">
+              <span className="text-[var(--text-secondary)]">6B. Books Purchase ITC (IGST / CGST / SGST)</span>
+              <span className="font-mono font-bold text-emerald-500 tabular-nums">{formatCurrency(gstr9.table6.subtotal6O, currency)}</span>
             </div>
-            <div className="flex justify-between p-2.5 bg-slate-950 rounded-xl">
-              <span className="text-slate-300">7H. Less: Reversed (Rule 37 + Rule 42/43 + Sec 17(5))</span>
-              <span className="font-mono font-bold text-amber-300 tabular-nums">-{formatCurrency(gstr9.table7.totalReversed, currency)}</span>
+            <div className="flex justify-between p-2.5 hv-elevated border border-[var(--border-subtle)] rounded-xl">
+              <span className="text-[var(--text-secondary)]">7H. Less: Reversed (Rule 37 + Rule 42/43 + Sec 17(5))</span>
+              <span className="font-mono font-bold text-amber-500 tabular-nums">-{formatCurrency(gstr9.table7.totalReversed, currency)}</span>
             </div>
-            <div className="flex justify-between p-2.5 bg-emerald-950/30 border border-emerald-500/30 rounded-xl font-bold">
-              <span className="text-emerald-300">7J. Net ITC Available for Utilisation</span>
-              <span className="font-mono text-emerald-300 tabular-nums">{formatCurrency(gstr9.table7.netItcAvailableForUtilisation, currency)}</span>
+            <div className="flex justify-between p-2.5 hv-pill-emerald border rounded-xl font-bold">
+              <span>7J. Net ITC Available for Utilisation</span>
+              <span className="font-mono tabular-nums">{formatCurrency(gstr9.table7.netItcAvailableForUtilisation, currency)}</span>
             </div>
-            <div className="flex justify-between p-2.5 bg-slate-950 rounded-xl">
-              <span className="text-slate-300">8A. Auto-Populated ITC as per GSTR-2A / 2B Portal</span>
-              <span className="font-mono font-bold text-indigo-300 tabular-nums">{formatCurrency(gstr9.table8.itcAsPer2BOr2A, currency)}</span>
+            <div className="flex justify-between p-2.5 hv-elevated border border-[var(--border-subtle)] rounded-xl">
+              <span className="text-[var(--text-secondary)]">8A. Auto-Populated ITC as per GSTR-2A / 2B Portal</span>
+              <span className="font-mono font-bold text-indigo-500 tabular-nums">{formatCurrency(gstr9.table8.itcAsPer2BOr2A, currency)}</span>
             </div>
-            <div className="flex justify-between p-2.5 bg-slate-950 border border-slate-800 rounded-xl font-bold">
-              <span className="text-slate-200">8D. Difference (8A - 8B - 8C)</span>
-              <span className={`font-mono tabular-nums ${gstr9.table8.difference8D < 0 ? 'text-rose-400' : 'text-emerald-400'}`}>
+            <div className="flex justify-between p-2.5 hv-elevated border border-[var(--border-subtle)] rounded-xl font-bold">
+              <span className="text-[var(--text-primary)]">8D. Difference (8A - 8B - 8C)</span>
+              <span className={`font-mono tabular-nums ${gstr9.table8.difference8D < 0 ? 'text-rose-500' : 'text-emerald-500'}`}>
                 {formatCurrency(gstr9.table8.difference8D, currency)}
               </span>
             </div>
           </div>
 
           {gstr9.table8.itcAsPer2BOr2A === 0 && (
-            <div className="text-[11px] text-amber-300 bg-amber-950/30 border border-amber-500/30 rounded-xl p-3 flex items-start gap-2">
+            <div className="text-[11px] hv-pill-amber border rounded-xl p-3 flex items-start gap-2">
               <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
               <span>
                 {isHindi
@@ -457,15 +457,15 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
         </div>
 
         {/* Editable GSTR-9 Reversals, Part V (Table 10-14) & Notes */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-            <h3 className="text-sm font-bold text-white">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-5 space-y-4">
+          <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-2">
+            <h3 className="text-sm font-bold text-[var(--text-primary)]">
               {isHindi ? 'Table 5, 7, 10–14 समायोजन एवं ऑडिट टिप्पणियां' : 'Table 5, 7 & Part V (Table 10–14) Adjustments'}
             </h3>
             <button
               type="button"
               onClick={handleSaveAdjustments}
-              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg flex items-center gap-1.5 cursor-pointer"
+              className="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white text-xs font-bold rounded-lg flex items-center gap-1.5 cursor-pointer"
             >
               <Save className="w-3.5 h-3.5" />
               <span>{isHindi ? 'सेव करें' : 'Save Inputs'}</span>
@@ -473,7 +473,7 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
           </div>
 
           {savedNotice && (
-            <div className="text-xs text-emerald-300 bg-emerald-950/40 border border-emerald-500/30 p-2 rounded-lg flex items-center gap-1.5">
+            <div className="text-xs hv-pill-emerald border p-2 rounded-lg flex items-center gap-1.5 font-semibold">
               <CheckCircle2 className="w-4 h-4" />
               <span>{isHindi ? 'GSTR-9 समायोजन सफलतापूर्वक सेव हुए!' : 'GSTR-9 adjustments saved to company workspace.'}</span>
             </div>
@@ -481,67 +481,67 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
 
           <div className="grid grid-cols-2 gap-3 text-xs">
             <div>
-              <label className="block text-slate-400 mb-1">Table 7A: Rule 37 (180-Day Unpaid) Reversal</label>
+              <label className="block text-[var(--text-muted)] font-medium mb-1">Table 7A: Rule 37 (180-Day Unpaid) Reversal</label>
               <input
                 type="number"
                 value={formAdj.itcReversedRule37 || ''}
                 onChange={(e) => setFormAdj({ ...formAdj, itcReversedRule37: Number(e.target.value) || 0 })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono"
+                className="w-full hv-input border rounded-xl px-3 py-2 font-mono"
               />
             </div>
             <div>
-              <label className="block text-slate-400 mb-1">Table 7E: Sec 17(5) Blocked Credit</label>
+              <label className="block text-[var(--text-muted)] font-medium mb-1">Table 7E: Sec 17(5) Blocked Credit</label>
               <input
                 type="number"
                 value={formAdj.itcBlockedSec17_5 || ''}
                 onChange={(e) => setFormAdj({ ...formAdj, itcBlockedSec17_5: Number(e.target.value) || 0 })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono"
+                className="w-full hv-input border rounded-xl px-3 py-2 font-mono"
               />
             </div>
             <div>
-              <label className="block text-slate-400 mb-1">Table 5: Additional Exempt/Nil Sales</label>
+              <label className="block text-[var(--text-muted)] font-medium mb-1">Table 5: Additional Exempt/Nil Sales</label>
               <input
                 type="number"
                 value={formAdj.outwardNilExemptNonGst || ''}
                 onChange={(e) => setFormAdj({ ...formAdj, outwardNilExemptNonGst: Number(e.target.value) || 0 })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono"
+                className="w-full hv-input border rounded-xl px-3 py-2 font-mono"
               />
             </div>
             <div>
-              <label className="block text-slate-400 mb-1">Table 8C: ITC of FY Claimed Next Year</label>
+              <label className="block text-[var(--text-muted)] font-medium mb-1">Table 8C: ITC of FY Claimed Next Year</label>
               <input
                 type="number"
                 value={formAdj.previousFyItcClaimedNextFy || ''}
                 onChange={(e) => setFormAdj({ ...formAdj, previousFyItcClaimedNextFy: Number(e.target.value) || 0 })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono"
+                className="w-full hv-input border rounded-xl px-3 py-2 font-mono"
               />
             </div>
             <div>
-              <label className="block text-slate-400 mb-1">Table 10/11: Next-FY Amendment Tax (+/-)</label>
+              <label className="block text-[var(--text-muted)] font-medium mb-1">Table 10/11: Next-FY Amendment Tax (+/-)</label>
               <input
                 type="number"
                 value={formAdj.previousFyTaxAdj || ''}
                 onChange={(e) => setFormAdj({ ...formAdj, previousFyTaxAdj: Number(e.target.value) || 0 })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono"
+                className="w-full hv-input border rounded-xl px-3 py-2 font-mono"
               />
             </div>
             <div>
-              <label className="block text-slate-400 mb-1">Table 9: Late Fee / Interest Paid</label>
+              <label className="block text-[var(--text-muted)] font-medium mb-1">Table 9: Late Fee / Interest Paid</label>
               <input
                 type="number"
                 value={formAdj.lateFeeInterestPaid || ''}
                 onChange={(e) => setFormAdj({ ...formAdj, lateFeeInterestPaid: Number(e.target.value) || 0 })}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white font-mono"
+                className="w-full hv-input border rounded-xl px-3 py-2 font-mono"
               />
             </div>
             <div className="col-span-2">
-              <label className="block text-slate-400 mb-1">CA / Annual Reconciliation Remarks</label>
+              <label className="block text-[var(--text-muted)] font-medium mb-1">CA / Annual Reconciliation Remarks</label>
               <input
                 type="text"
                 value={formAdj.auditorRemarks || ''}
                 onChange={(e) => setFormAdj({ ...formAdj, auditorRemarks: e.target.value })}
                 placeholder="Notes on spillover ITC, credit notes, or DRC-03 payment..."
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-white"
+                className="w-full hv-input border rounded-xl px-3 py-2"
               />
             </div>
           </div>
@@ -550,13 +550,13 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
 
       {/* Part VI: Table 17 & 18 HSN Summary */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
-          <h3 className="text-sm font-bold text-white border-b border-slate-800 pb-2">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-5 space-y-3">
+          <h3 className="text-sm font-bold text-[var(--text-primary)] border-b border-[var(--border-primary)] pb-2">
             Table 17: HSN Summary of Outward Supplies ({gstr9.hsnOutward.length})
           </h3>
           <div className="overflow-x-auto max-h-64">
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950 text-slate-400 uppercase text-[10px]">
+            <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+              <thead className="hv-elevated text-[var(--text-muted)] uppercase text-[10px] border-b border-[var(--border-primary)]">
                 <tr>
                   <th className="p-2.5">HSN</th>
                   <th className="p-2.5">UQC</th>
@@ -565,19 +565,19 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
                   <th className="p-2.5 text-right">Tax</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 font-mono tabular-nums">
+              <tbody className="divide-y divide-[var(--border-primary)] font-mono tabular-nums">
                 {gstr9.hsnOutward.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="p-4 text-center text-slate-500 font-sans">No outward HSN data for FY {selectedFy}</td>
+                    <td colSpan={5} className="p-4 text-center text-[var(--text-muted)] font-sans">No outward HSN data for FY {selectedFy}</td>
                   </tr>
                 ) : (
                   gstr9.hsnOutward.map((h, i) => (
                     <tr key={`${h.hsn}_${i}`}>
-                      <td className="p-2.5 text-white font-bold">{h.hsn}</td>
+                      <td className="p-2.5 text-[var(--text-primary)] font-bold">{h.hsn}</td>
                       <td className="p-2.5">{h.uqc} ({h.taxRate}%)</td>
                       <td className="p-2.5 text-right">{h.qty.toFixed(2)}</td>
-                      <td className="p-2.5 text-right text-white">{formatCurrency(h.taxable, currency)}</td>
-                      <td className="p-2.5 text-right text-indigo-300">{formatCurrency(h.igst + h.cgst + h.sgst, currency)}</td>
+                      <td className="p-2.5 text-right text-[var(--text-primary)]">{formatCurrency(h.taxable, currency)}</td>
+                      <td className="p-2.5 text-right text-indigo-500 font-semibold">{formatCurrency(h.igst + h.cgst + h.sgst, currency)}</td>
                     </tr>
                   ))
                 )}
@@ -586,13 +586,13 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
           </div>
         </div>
 
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
-          <h3 className="text-sm font-bold text-white border-b border-slate-800 pb-2">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-5 space-y-3">
+          <h3 className="text-sm font-bold text-[var(--text-primary)] border-b border-[var(--border-primary)] pb-2">
             Table 18: HSN Summary of Inward Supplies ({gstr9.hsnInward.length})
           </h3>
           <div className="overflow-x-auto max-h-64">
-            <table className="w-full text-left text-xs text-slate-300">
-              <thead className="bg-slate-950 text-slate-400 uppercase text-[10px]">
+            <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+              <thead className="hv-elevated text-[var(--text-muted)] uppercase text-[10px] border-b border-[var(--border-primary)]">
                 <tr>
                   <th className="p-2.5">HSN</th>
                   <th className="p-2.5">UQC</th>
@@ -601,19 +601,19 @@ export const Gstr9AnnualReturn: React.FC<Gstr9AnnualReturnProps> = ({
                   <th className="p-2.5 text-right">ITC</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800 font-mono tabular-nums">
+              <tbody className="divide-y divide-[var(--border-primary)] font-mono tabular-nums">
                 {gstr9.hsnInward.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="p-4 text-center text-slate-500 font-sans">No inward HSN data for FY {selectedFy}</td>
+                    <td colSpan={5} className="p-4 text-center text-[var(--text-muted)] font-sans">No inward HSN data for FY {selectedFy}</td>
                   </tr>
                 ) : (
                   gstr9.hsnInward.map((h, i) => (
                     <tr key={`${h.hsn}_${i}`}>
-                      <td className="p-2.5 text-white font-bold">{h.hsn}</td>
+                      <td className="p-2.5 text-[var(--text-primary)] font-bold">{h.hsn}</td>
                       <td className="p-2.5">{h.uqc} ({h.taxRate}%)</td>
                       <td className="p-2.5 text-right">{h.qty.toFixed(2)}</td>
-                      <td className="p-2.5 text-right text-white">{formatCurrency(h.taxable, currency)}</td>
-                      <td className="p-2.5 text-right text-emerald-300">{formatCurrency(h.igst + h.cgst + h.sgst, currency)}</td>
+                      <td className="p-2.5 text-right text-[var(--text-primary)]">{formatCurrency(h.taxable, currency)}</td>
+                      <td className="p-2.5 text-right text-emerald-500 font-semibold">{formatCurrency(h.igst + h.cgst + h.sgst, currency)}</td>
                     </tr>
                   ))
                 )}

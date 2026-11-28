@@ -172,24 +172,24 @@ export const AiComplianceCopilot: React.FC<AiComplianceCopilotProps> = ({ data, 
   };
 
   return (
-    <div className="bg-slate-900 border border-indigo-800/40 rounded-2xl p-4 shadow-xl text-white">
+    <div className="hv-surface border rounded-2xl p-4 shadow-xl text-[var(--text-primary)]">
       {/* Header Bar */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white shadow-lg shadow-indigo-900/40">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white hv-keep-white shadow-lg shadow-indigo-900/30">
             <Bot className="w-5 h-5" />
           </div>
           <div>
-            <div className="flex items-center gap-2">
-              <h3 className="text-sm font-black text-white tracking-wide">
+            <div className="flex items-center gap-2 flex-wrap">
+              <h3 className="text-sm font-black text-[var(--text-primary)] tracking-wide">
                 {title}
               </h3>
-              <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-indigo-400" />
+              <span className="hv-pill-indigo border text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                <Sparkles className="w-3 h-3" />
                 Live AI Agent
               </span>
             </div>
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-[var(--text-muted)]">
               {subtitle}
             </p>
           </div>
@@ -197,32 +197,32 @@ export const AiComplianceCopilot: React.FC<AiComplianceCopilotProps> = ({ data, 
 
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="text-slate-400 hover:text-white p-1.5 rounded-lg hover:bg-slate-800 transition"
+          className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] p-1.5 rounded-lg hover:bg-[var(--hover-surface)] transition cursor-pointer"
         >
           {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
         </button>
       </div>
 
       {isExpanded && (
-        <div className="mt-4 pt-4 border-t border-slate-800 space-y-4">
+        <div className="mt-4 pt-4 border-t border-[var(--border-primary)] space-y-4">
           {/* Insights List */}
           <div className="space-y-2">
             {displayInsights.map((item, idx) => (
               <div 
                 key={idx}
-                className="bg-slate-950 border border-slate-800 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
+                className="hv-canvas border p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs"
               >
                 <div className="flex items-start gap-2.5">
-                  <div className={`p-1.5 rounded-lg shrink-0 mt-0.5 ${
-                    item.severity === 'HIGH' ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30' :
-                    item.severity === 'MEDIUM' ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30' :
-                    'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
+                  <div className={`p-1.5 rounded-lg shrink-0 mt-0.5 border ${
+                    item.severity === 'HIGH' ? 'hv-pill-amber' :
+                    item.severity === 'MEDIUM' ? 'hv-pill-indigo' :
+                    'hv-pill-emerald'
                   }`}>
                     {item.severity === 'HIGH' ? <AlertTriangle className="w-4 h-4" /> : <ShieldCheck className="w-4 h-4" />}
                   </div>
                   <div>
-                    <h4 className="font-bold text-white">{isHindi ? item.titleHi : item.titleEn}</h4>
-                    <p className="text-slate-400 text-[11px] mt-0.5 leading-relaxed">
+                    <h4 className="font-bold text-[var(--text-primary)]">{isHindi ? item.titleHi : item.titleEn}</h4>
+                    <p className="text-[var(--text-muted)] text-[11px] mt-0.5 leading-relaxed">
                       {isHindi ? item.descHi : item.descEn}
                     </p>
                   </div>
@@ -231,7 +231,7 @@ export const AiComplianceCopilot: React.FC<AiComplianceCopilotProps> = ({ data, 
                 {item.actionTab && onNavigateTab && (
                   <button
                     onClick={() => onNavigateTab(item.actionTab!)}
-                    className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-xl text-[11px] flex items-center gap-1.5 transition shrink-0 self-end sm:self-center"
+                    className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-3 py-1.5 rounded-xl text-[11px] flex items-center gap-1.5 transition shrink-0 self-end sm:self-center cursor-pointer"
                   >
                     <span>{isHindi ? item.actionTextHi : item.actionTextEn}</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -248,12 +248,12 @@ export const AiComplianceCopilot: React.FC<AiComplianceCopilotProps> = ({ data, 
               value={userPrompt}
               onChange={(e) => setUserPrompt(e.target.value)}
               placeholder={placeholderText}
-              className="w-full bg-slate-950 border border-slate-800 text-white text-xs rounded-xl pl-4 pr-24 py-2.5 focus:outline-none focus:border-indigo-500 placeholder-slate-500"
+              className="w-full hv-input border text-xs rounded-xl pl-4 pr-24 py-2.5 focus:outline-none focus:border-indigo-500"
             />
             <button
               type="submit"
               disabled={isAnalyzing}
-              className="absolute right-1.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1 transition"
+              className="absolute right-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1 transition cursor-pointer"
             >
               {isAnalyzing ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Zap className="w-3.5 h-3.5 fill-current" />}
               <span>{isHindi ? 'पूछें' : 'Run'}</span>
@@ -262,8 +262,8 @@ export const AiComplianceCopilot: React.FC<AiComplianceCopilotProps> = ({ data, 
 
           {/* AI Response Output Box */}
           {aiResponse && (
-            <div className="bg-indigo-950/60 border border-indigo-500/40 p-3.5 rounded-xl text-xs text-indigo-100 flex items-start gap-2.5 animate-fade-in">
-              <Sparkles className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
+            <div className="hv-pill-indigo border p-3.5 rounded-xl text-xs flex items-start gap-2.5 animate-fade-in">
+              <Sparkles className="w-4 h-4 shrink-0 mt-0.5" />
               <div className="flex-1">
                 <p className="font-semibold">{aiResponse}</p>
               </div>

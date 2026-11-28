@@ -305,30 +305,30 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-3xl max-h-[92vh] text-slate-200 shadow-2xl relative flex flex-col overflow-hidden animate-fadeIn my-auto">
+      <div className="hv-surface border border-[var(--border-subtle)] rounded-3xl w-full max-w-3xl max-h-[92vh] text-[var(--text-primary)] shadow-2xl relative flex flex-col overflow-hidden animate-fadeIn my-auto">
         
         {/* Top Header */}
-        <div className="flex items-center justify-between border-b border-slate-800 px-6 py-4 bg-slate-950 shrink-0 flex-wrap gap-2">
+        <div className="flex items-center justify-between border-b border-[var(--border-primary)] px-6 py-4 hv-elevated shrink-0 flex-wrap gap-2">
           <div className="flex items-center gap-3">
-            <div className={`p-2.5 rounded-2xl ${
+            <div className={`p-2.5 rounded-2xl border ${
               trialStatus.isLicensed 
-                ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
+                ? 'hv-pill-emerald' 
                 : trialStatus.isTrialExpired 
-                  ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' 
-                  : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                  ? 'hv-pill-rose' 
+                  : 'hv-pill-amber'
             }`}>
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="text-sm md:text-base font-bold text-white flex items-center gap-2">
+              <h2 className="text-sm md:text-base font-bold text-[var(--text-primary)] flex items-center gap-2">
                 <span>{isHindi ? 'सॉफ्टवेयर लाइसेंस एवं सुरक्षा केंद्र' : 'Software Licensing & Commercial Security Center'}</span>
                 {trialStatus.isLicensed && (
-                  <span className="text-[11px] text-emerald-300 font-mono font-bold">
+                  <span className="text-[11px] text-emerald-500 font-mono font-bold">
                     · {trialStatus.daysRemaining >= 9000 ? 'PERPETUAL' : `${trialStatus.daysRemaining}D ACTIVE`}
                   </span>
                 )}
               </h2>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[var(--text-muted)]">
                 {isHindi 
                   ? '7-दिवसीय नि:शुल्क ट्रायल प्रबंधन, हार्डवेयर मशीन बाइंडिंग और लाइसेंस सुरक्षा' 
                   : '7-Day Free Trial, Strict Hardware Machine Binding & AES-256 Vault Security'}
@@ -341,7 +341,7 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="text-slate-400 hover:text-white text-xs font-bold px-3 py-1.5 bg-slate-800 hover:bg-slate-700 rounded-xl transition shadow shrink-0 flex items-center gap-1"
+                className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] text-xs font-bold px-3 py-1.5 hv-surface border border-[var(--border-subtle)] hover:bg-[var(--hover-surface)] rounded-xl transition shadow shrink-0 flex items-center gap-1 cursor-pointer"
                 title={isHindi ? 'बंद करें' : 'Close'}
               >
                 <X className="w-4 h-4" />
@@ -354,7 +354,7 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
         {/* Scrollable Modal Content */}
         <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-6">
         {/* Top Navigation Tabs: 1-Step Free Trial (when eligible) vs Activate Key vs Email Request */}
-        <div className={`grid gap-2 bg-slate-950 p-1.5 rounded-2xl border border-slate-800 ${
+        <div className={`grid gap-2 hv-elevated p-1.5 rounded-2xl border border-[var(--border-primary)] ${
           canStartFreeTrial ? 'grid-cols-1 sm:grid-cols-3' : 'grid-cols-2'
         }`}>
           {canStartFreeTrial && (
@@ -363,8 +363,8 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
               onClick={() => setActiveTab('trial')}
               className={`py-2.5 px-3 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 transition cursor-pointer ${
                 activeTab === 'trial'
-                  ? 'bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 shadow-lg shadow-emerald-500/20'
-                  : 'text-emerald-300 hover:text-white hover:bg-slate-900'
+                  ? 'bg-emerald-600 text-white hv-keep-white shadow-lg shadow-emerald-600/25'
+                  : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)]'
               }`}
             >
               <PlayCircle className="w-4 h-4 shrink-0" />
@@ -377,8 +377,8 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
             onClick={() => setActiveTab('activate')}
             className={`py-2.5 px-3 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 transition cursor-pointer ${
               activeTab === 'activate'
-                ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/25'
-                : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                ? 'bg-indigo-600 text-white hv-keep-white shadow-lg shadow-indigo-600/25'
+                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)]'
             }`}
           >
             <Key className="w-4 h-4 shrink-0" />
@@ -390,8 +390,8 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
             onClick={() => setActiveTab('request')}
             className={`py-2.5 px-3 rounded-xl text-xs font-extrabold flex items-center justify-center gap-2 transition cursor-pointer ${
               activeTab === 'request'
-                ? 'bg-emerald-600 text-white shadow-lg shadow-emerald-600/25'
-                : 'text-slate-400 hover:text-white hover:bg-slate-900'
+                ? 'bg-emerald-600 text-white hv-keep-white shadow-lg shadow-emerald-600/25'
+                : 'text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-[var(--hover-surface)]'
             }`}
           >
             <Mail className="w-4 h-4 shrink-0" />
@@ -403,29 +403,29 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
         {canStartFreeTrial && activeTab === 'trial' && (
           <form
             onSubmit={handleStartFreeTrial}
-            className="p-4 sm:p-5 rounded-2xl border border-emerald-500/40 bg-gradient-to-br from-emerald-950/60 via-slate-900 to-indigo-950/40 shadow-lg space-y-4"
+            className="p-4 sm:p-5 rounded-2xl border border-emerald-500/40 hv-elevated shadow-lg space-y-4"
           >
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <h3 className="text-sm sm:text-base font-extrabold text-white">
+                  <Sparkles className="w-4 h-4 text-emerald-500 shrink-0" />
+                  <h3 className="text-sm sm:text-base font-extrabold text-[var(--text-primary)]">
                     {isHindi ? '7-दिवसीय नि:शुल्क ट्रायल (बिना किसी कुंजी के तुरंत शुरू करें)' : 'Start 7-Day Free Trial (No Key Required)'}
                   </h3>
                 </div>
-                <p className="text-xs text-slate-300 mt-1">
+                <p className="text-xs text-[var(--text-secondary)] mt-1">
                   {isHindi
                     ? `पूर्ण GST बिलिंग, लेजर और बैकअप सुविधा 7 दिन (अधिकतम ${trialStatus.maxTrialVouchers} वाउचर) के लिए तुरंत शुरू करें। कोई लाइसेंस कुंजी या एक्टिवेशन कोड नहीं चाहिए।`
                     : `Get instant full access for 7 days (up to ${trialStatus.maxTrialVouchers} vouchers) with zero license key or activation code required today.`}
                 </p>
               </div>
-              <span className="text-[11px] font-mono font-bold px-2.5 py-1 rounded-lg bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 tabular-nums shrink-0">
+              <span className="text-[11px] font-mono font-bold px-2.5 py-1 rounded-lg hv-pill-emerald border tabular-nums shrink-0">
                 7 Days · 50 Vouchers Free
               </span>
             </div>
 
             {trialError && (
-              <div className="p-3 rounded-xl border border-rose-500/40 bg-rose-500/10 text-xs font-semibold text-rose-300 flex items-center gap-2">
+              <div className="p-3 rounded-xl border hv-pill-rose text-xs font-semibold flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4 shrink-0" />
                 <span>{trialError}</span>
               </div>
@@ -433,8 +433,8 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               <div>
-                <label className="block text-xs font-bold text-slate-200 mb-1 flex items-center gap-1.5">
-                  <Building2 className="w-3.5 h-3.5 text-emerald-400" />
+                <label className="block text-xs font-bold text-[var(--text-secondary)] mb-1 flex items-center gap-1.5">
+                  <Building2 className="w-3.5 h-3.5 text-emerald-500" />
                   <span>{isHindi ? 'नाम / व्यापार का नाम *' : 'Name / Business Name *'}</span>
                 </label>
                 <input
@@ -443,13 +443,13 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                   value={trialBusinessName}
                   onChange={(e) => setTrialBusinessName(e.target.value)}
                   placeholder={isHindi ? 'अपना नाम या कंपनी का नाम दर्ज करें' : 'Enter your name or business name'}
-                  className="w-full bg-slate-950 border border-slate-700 focus:border-emerald-400 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white outline-none"
+                  className="w-full hv-input border focus:border-emerald-500 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-200 mb-1 flex items-center gap-1.5">
-                  <Phone className="w-3.5 h-3.5 text-emerald-400" />
+                <label className="block text-xs font-bold text-[var(--text-secondary)] mb-1 flex items-center gap-1.5">
+                  <Phone className="w-3.5 h-3.5 text-emerald-500" />
                   <span>{isHindi ? 'मोबाइल नंबर *' : 'Mobile Number *'}</span>
                 </label>
                 <input
@@ -458,13 +458,13 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                   value={trialMobile}
                   onChange={(e) => setTrialMobile(e.target.value)}
                   placeholder={isHindi ? '10 अंकों का मोबाइल नंबर दर्ज करें' : 'Enter your 10-digit mobile number'}
-                  className="w-full bg-slate-950 border border-slate-700 focus:border-emerald-400 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white outline-none font-mono"
+                  className="w-full hv-input border focus:border-emerald-500 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm outline-none font-mono"
                 />
               </div>
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-              <span className="text-[11px] text-slate-400">
+              <span className="text-[11px] text-[var(--text-muted)]">
                 {isHindi
                   ? '* ट्रायल प्रारंभ तिथि व मशीन ID सुरक्षित रूप से डिस्क पर लॉक की जाती है।'
                   : `* Trial start date & machine ID (${machineId.slice(0, 18)}...) are stored securely on disk.`}
@@ -473,7 +473,7 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
               <button
                 type="submit"
                 disabled={isStartingTrial}
-                className="bg-gradient-to-r from-emerald-500 to-teal-400 hover:from-emerald-400 hover:to-teal-300 disabled:opacity-60 text-slate-950 font-extrabold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg shadow-emerald-500/20 transition transform active:scale-95 flex items-center justify-center gap-2 ml-auto cursor-pointer"
+                className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60 text-white hv-keep-white font-extrabold text-xs sm:text-sm px-6 py-3 rounded-xl shadow-lg shadow-emerald-600/25 transition transform active:scale-95 flex items-center justify-center gap-2 ml-auto cursor-pointer"
               >
                 <PlayCircle className="w-4 h-4 shrink-0" />
                 <span>
@@ -489,10 +489,10 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
             {/* Trial / License Status Card */}
             <div className={`p-4 rounded-2xl border ${
               trialStatus.isLicensed 
-                ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200' 
+                ? 'hv-pill-emerald' 
                 : trialStatus.isTrialExpired 
-                  ? 'bg-rose-950/40 border-rose-500/40 text-rose-200' 
-                  : 'bg-amber-950/30 border-amber-500/30 text-amber-200'
+                  ? 'hv-pill-rose' 
+                  : 'hv-pill-amber'
             } space-y-3`}>
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
@@ -519,7 +519,7 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                   </span>
                 </div>
 
-                <span className="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 tabular-nums">
+                <span className="text-[11px] font-mono px-2.5 py-1 rounded-lg hv-surface border border-[var(--border-primary)] text-[var(--text-primary)] tabular-nums">
                   {trialStatus.isLicensed
                     ? `${data.license?.licenseType || 'PRO'} · ${trialStatus.daysRemaining >= 9000 ? 'Lifetime' : `${trialStatus.daysRemaining} Days Left`}`
                     : `Day ${Math.min(7, trialStatus.daysElapsed + 1)}/7 · ${trialStatus.vouchersUsed}/${trialStatus.maxTrialVouchers} Vouchers`}
@@ -528,27 +528,27 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
 
               {trialStatus.isLicensed ? (
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1 text-xs">
-                  <div className="bg-slate-950/70 border border-emerald-500/20 rounded-xl p-2.5">
-                    <div className="text-[11px] text-slate-400">{isHindi ? 'सक्रिय तिथि' : 'Activated On'}</div>
-                    <div className="font-mono font-bold text-white mt-0.5 tabular-nums">
+                  <div className="hv-surface border border-emerald-500/30 rounded-xl p-2.5">
+                    <div className="text-[11px] text-[var(--text-muted)]">{isHindi ? 'सक्रिय तिथि' : 'Activated On'}</div>
+                    <div className="font-mono font-bold text-[var(--text-primary)] mt-0.5 tabular-nums">
                       {data.license?.activatedDate || (data.license?.activatedAtIso ? data.license.activatedAtIso.split('T')[0] : 'Today')}
                     </div>
                   </div>
-                  <div className="bg-slate-950/70 border border-emerald-500/20 rounded-xl p-2.5">
-                    <div className="text-[11px] text-slate-400">{isHindi ? 'समाप्ति तिथि' : 'Valid Until'}</div>
-                    <div className="font-mono font-bold text-emerald-300 mt-0.5 tabular-nums">
+                  <div className="hv-surface border border-emerald-500/30 rounded-xl p-2.5">
+                    <div className="text-[11px] text-[var(--text-muted)]">{isHindi ? 'समाप्ति तिथि' : 'Valid Until'}</div>
+                    <div className="font-mono font-bold text-emerald-500 mt-0.5 tabular-nums">
                       {trialStatus.daysRemaining >= 9000 ? 'Lifetime (No Expiry)' : (data.license?.expiryDate || 'Active')}
                     </div>
                   </div>
-                  <div className="bg-slate-950/70 border border-emerald-500/20 rounded-xl p-2.5">
-                    <div className="text-[11px] text-slate-400">{isHindi ? 'शेष समय' : 'Countdown Remaining'}</div>
-                    <div className="font-mono font-bold text-amber-300 mt-0.5 tabular-nums">
+                  <div className="hv-surface border border-emerald-500/30 rounded-xl p-2.5">
+                    <div className="text-[11px] text-[var(--text-muted)]">{isHindi ? 'शेष समय' : 'Countdown Remaining'}</div>
+                    <div className="font-mono font-bold text-amber-500 mt-0.5 tabular-nums">
                       {trialStatus.daysRemaining >= 9000 ? 'Unlimited' : `${trialStatus.daysRemaining} Days (${trialStatus.hoursRemaining || 0}h)`}
                     </div>
                   </div>
-                  <div className="bg-slate-950/70 border border-emerald-500/20 rounded-xl p-2.5">
-                    <div className="text-[11px] text-slate-400">{isHindi ? 'बाउंड मशीन ID' : 'Locked Machine'}</div>
-                    <div className="font-mono font-bold text-indigo-300 mt-0.5 truncate" title={trialStatus.boundMachineId || machineId}>
+                  <div className="hv-surface border border-emerald-500/30 rounded-xl p-2.5">
+                    <div className="text-[11px] text-[var(--text-muted)]">{isHindi ? 'बाउंड मशीन ID' : 'Locked Machine'}</div>
+                    <div className="font-mono font-bold text-indigo-500 mt-0.5 truncate" title={trialStatus.boundMachineId || machineId}>
                       {trialStatus.boundMachineId || machineId}
                     </div>
                   </div>
@@ -556,12 +556,12 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
               ) : (
                 <>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-                    <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5">
+                    <div className="hv-surface border border-[var(--border-primary)] rounded-xl p-2.5">
                       <div className="flex justify-between text-[11px] font-semibold mb-1">
-                        <span className="text-slate-400">{isHindi ? 'ट्रायल अवधि' : 'Trial Period'}</span>
-                        <span className="font-mono tabular-nums text-slate-200">{Math.min(trialStatus.daysElapsed, 7)} / {trialStatus.maxTrialDays} Days</span>
+                        <span className="text-[var(--text-muted)]">{isHindi ? 'ट्रायल अवधि' : 'Trial Period'}</span>
+                        <span className="font-mono tabular-nums text-[var(--text-primary)]">{Math.min(trialStatus.daysElapsed, 7)} / {trialStatus.maxTrialDays} Days</span>
                       </div>
-                      <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-1.5 hv-progress-track rounded-full overflow-hidden">
                         <div
                           className={`h-full transition-all ${trialStatus.daysElapsed >= 7 ? 'bg-rose-500' : 'bg-amber-400'}`}
                           style={{ width: `${Math.min(100, (trialStatus.daysElapsed / trialStatus.maxTrialDays) * 100)}%` }}
@@ -569,12 +569,12 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                       </div>
                     </div>
 
-                    <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-2.5">
+                    <div className="hv-surface border border-[var(--border-primary)] rounded-xl p-2.5">
                       <div className="flex justify-between text-[11px] font-semibold mb-1">
-                        <span className="text-slate-400">{isHindi ? 'वाउचर / बिल सीमा' : 'Trial Voucher Limit'}</span>
-                        <span className="font-mono tabular-nums text-slate-200">{trialStatus.vouchersUsed} / {trialStatus.maxTrialVouchers}</span>
+                        <span className="text-[var(--text-muted)]">{isHindi ? 'वाउचर / बिल सीमा' : 'Trial Voucher Limit'}</span>
+                        <span className="font-mono tabular-nums text-[var(--text-primary)]">{trialStatus.vouchersUsed} / {trialStatus.maxTrialVouchers}</span>
                       </div>
-                      <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                      <div className="h-1.5 hv-progress-track rounded-full overflow-hidden">
                         <div
                           className={`h-full transition-all ${trialStatus.vouchersUsed >= trialStatus.maxTrialVouchers ? 'bg-rose-500' : 'bg-emerald-400'}`}
                           style={{ width: `${Math.min(100, (trialStatus.vouchersUsed / trialStatus.maxTrialVouchers) * 100)}%` }}
@@ -583,7 +583,7 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                     </div>
                   </div>
 
-                  <p className="text-xs text-slate-300 leading-relaxed">
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
                     {trialStatus.vaultTampered
                       ? (isHindi
                           ? 'डिस्क पर मौजूद एन्क्रिप्टेड लाइसेंस वॉल्ट में अनधिकृत बदलाव पाया गया है। इस PC के Hardware Machine ID से बनी वैध लाइसेंस कुंजी पुनः दर्ज करें।'
@@ -614,35 +614,35 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
             </div>
 
         {/* Hardware Machine Binding (Anti-Copy Code Security) */}
-        <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+        <div className="hv-elevated p-4 rounded-2xl border border-[var(--border-primary)] space-y-2">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-              <Cpu className="w-4 h-4 text-indigo-400" />
+            <span className="text-xs font-bold text-[var(--text-secondary)] flex items-center gap-1.5">
+              <Cpu className="w-4 h-4 text-indigo-500" />
               <span>{isHindi ? 'पीसी हार्डवेयर मशीन आईडी (Machine Fingerprint ID):' : 'Hardware Machine ID (Strict PC Lock):'}</span>
             </span>
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 onClick={handleCopyHwid}
-                className="text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-200 px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition cursor-pointer font-semibold"
+                className="text-[11px] hv-surface hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] px-2.5 py-1.5 rounded-lg flex items-center gap-1 transition cursor-pointer font-semibold"
               >
-                {copiedHwid ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
+                {copiedHwid ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
                 <span>{copiedHwid ? (isHindi ? 'कॉपी हो गया' : 'Copied Machine ID') : (isHindi ? 'Machine ID कॉपी करें' : 'Copy Machine ID')}</span>
               </button>
 
               <button
                 type="button"
                 onClick={handleSendWhatsApp}
-                className="text-[11px] bg-emerald-600 hover:bg-emerald-500 text-white px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition cursor-pointer font-bold shadow-sm"
+                className="text-[11px] bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white px-3 py-1.5 rounded-lg flex items-center gap-1.5 transition cursor-pointer font-bold shadow-sm"
               >
                 <MessageCircle className="w-3.5 h-3.5 shrink-0" />
                 <span>{isHindi ? 'WhatsApp पर Machine ID भेजें' : 'Send Machine ID on WhatsApp'}</span>
               </button>
             </div>
           </div>
-          <div className="bg-slate-900 p-3 rounded-xl border border-slate-800 font-mono text-indigo-300 text-sm font-extrabold tracking-wider flex flex-wrap items-center justify-between gap-2 select-all">
+          <div className="hv-surface p-3 rounded-xl border border-[var(--border-primary)] font-mono text-indigo-500 text-sm font-extrabold tracking-wider flex flex-wrap items-center justify-between gap-2 select-all">
             <span>{machineId}</span>
-            <span className="text-[11px] text-emerald-400 font-semibold flex items-center gap-1 font-sans tracking-normal">
+            <span className="text-[11px] text-emerald-500 font-semibold flex items-center gap-1 font-sans tracking-normal">
               <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
               <span>
                 {hwInfo.isDesktopHardwareVerified
@@ -651,7 +651,7 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
               </span>
             </span>
           </div>
-          <p className="text-[11px] text-slate-400">
+          <p className="text-[11px] text-[var(--text-muted)]">
             {isHindi
               ? '* लाइसेंस कुंजी सीधे आपके CPU / मदरबोर्ड UUID और मशीन ID से लॉक होती है। डेटाबेस फ़ोल्डर किसी दूसरे PC पर कॉपी करने पर सॉफ्टवेयर स्वतः लॉक हो जाएगा।'
               : '* License validity is encrypted on disk and tied permanently to your CPU, motherboard/BIOS UUID, and hostname. Copying the folder to another PC triggers immediate mismatch lock.'}
@@ -661,9 +661,9 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
         {activeTab === 'activate' && (
           <>
             {/* License Mode Selector: Single User vs Multi User */}
-            <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-3">
-              <label className="block text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                <Cpu className="w-4 h-4 text-amber-400" />
+            <div className="hv-elevated p-4 rounded-2xl border border-[var(--border-primary)] space-y-3">
+              <label className="block text-xs font-bold text-[var(--text-secondary)] flex items-center gap-1.5">
+                <Cpu className="w-4 h-4 text-amber-500" />
                 <span>{isHindi ? 'लाइसेंस मोड चुनें (License Type):' : 'Select License User Mode:'}</span>
               </label>
 
@@ -674,20 +674,20 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                     setLicenseMode('SINGLE_USER');
                     setMaxSeats(1);
                   }}
-                  className={`p-3 rounded-xl border text-left transition flex items-start gap-3 ${
+                  className={`p-3 rounded-xl border text-left transition flex items-start gap-3 cursor-pointer ${
                     licenseMode === 'SINGLE_USER'
-                      ? 'bg-indigo-950/60 border-indigo-500 text-indigo-200'
-                      : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
+                      ? 'hv-pill-indigo'
+                      : 'hv-surface border-[var(--border-primary)] text-[var(--text-muted)] hover:border-[var(--border-subtle)]'
                   }`}
                 >
-                  <div className="p-2 bg-indigo-500/20 rounded-lg text-indigo-400 shrink-0 mt-0.5">
+                  <div className="p-2 hv-pill-indigo border rounded-lg shrink-0 mt-0.5">
                     💻
                   </div>
                   <div>
-                    <strong className="block text-xs font-bold text-white">
+                    <strong className="block text-xs font-bold text-[var(--text-primary)]">
                       {isHindi ? 'सिंगल यूजर लाइसेंस' : 'Single User License'}
                     </strong>
-                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                    <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">
                       {isHindi ? '1 PC / 1 यूजर के लिए वैधानिक एक्सेस' : 'Licensed for 1 PC / Standalone Desktop'}
                     </span>
                   </div>
@@ -699,20 +699,20 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                     setLicenseMode('MULTI_USER');
                     if (maxSeats < 2) setMaxSeats(5);
                   }}
-                  className={`p-3 rounded-xl border text-left transition flex items-start gap-3 ${
+                  className={`p-3 rounded-xl border text-left transition flex items-start gap-3 cursor-pointer ${
                     licenseMode === 'MULTI_USER'
-                      ? 'bg-emerald-950/60 border-emerald-500 text-emerald-200'
-                      : 'bg-slate-900 border-slate-800 text-slate-400 hover:border-slate-700'
+                      ? 'hv-pill-emerald'
+                      : 'hv-surface border-[var(--border-primary)] text-[var(--text-muted)] hover:border-[var(--border-subtle)]'
                   }`}
                 >
-                  <div className="p-2 bg-emerald-500/20 rounded-lg text-emerald-400 shrink-0 mt-0.5">
+                  <div className="p-2 hv-pill-emerald border rounded-lg shrink-0 mt-0.5">
                     🌐
                   </div>
                   <div>
-                    <strong className="block text-xs font-bold text-white">
+                    <strong className="block text-xs font-bold text-[var(--text-primary)]">
                       {isHindi ? 'मल्टी यूजर लाइसेंस (Multi-User)' : 'Multi-User License'}
                     </strong>
-                    <span className="text-[10px] text-slate-400 block mt-0.5">
+                    <span className="text-[10px] text-[var(--text-muted)] block mt-0.5">
                       {isHindi ? 'LAN / क्लाउड मल्टी-कंप्यूटर नेटवर्क' : 'Multi-PC Network & User Accounts'}
                     </span>
                   </div>
@@ -721,7 +721,7 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
 
               {licenseMode === 'MULTI_USER' && (
                 <div className="flex items-center gap-3 pt-1">
-                  <label className="text-xs text-slate-300 font-semibold">
+                  <label className="text-xs text-[var(--text-secondary)] font-semibold">
                     {isHindi ? 'अनुमत कंप्यूटर/यूजर संख्या (Max Seats):' : 'Max Allowed PC Seats:'}
                   </label>
                   <input
@@ -730,7 +730,7 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                     max={50}
                     value={maxSeats}
                     onChange={(e) => setMaxSeats(parseInt(e.target.value) || 2)}
-                    className="w-24 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1 text-xs text-amber-300 font-mono font-bold"
+                    className="w-24 hv-input border rounded-lg px-3 py-1 text-xs text-amber-500 font-mono font-bold"
                   />
                 </div>
               )}
@@ -740,8 +740,8 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
             {statusMessage && (
               <div className={`p-3.5 rounded-xl border text-xs font-semibold flex items-center gap-2 ${
                 statusMessage.type === 'success' 
-                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' 
-                  : 'bg-rose-500/10 border-rose-500/30 text-rose-300'
+                  ? 'hv-pill-emerald' 
+                  : 'hv-pill-rose'
               }`}>
                 {statusMessage.type === 'success' ? <CheckCircle2 className="w-4 h-4 shrink-0" /> : <AlertTriangle className="w-4 h-4 shrink-0" />}
                 <span>{statusMessage.text}</span>
@@ -750,13 +750,13 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
 
             {/* Link-activated Welcome Banner */}
             {initialKey && !statusMessage && (
-              <div className="p-3.5 rounded-xl border border-indigo-500/40 bg-indigo-950/40 text-xs font-semibold flex items-center gap-2.5 text-indigo-200">
-                <Sparkles className="w-4 h-4 text-amber-400 shrink-0 animate-pulse" />
+              <div className="p-3.5 rounded-xl border hv-pill-indigo text-xs font-semibold flex items-center gap-2.5">
+                <Sparkles className="w-4 h-4 text-amber-500 shrink-0 animate-pulse" />
                 <div>
-                  <span className="font-bold text-white block">
+                  <span className="font-bold text-[var(--text-primary)] block">
                     {isHindi ? 'लाइसेंस कुंजी लिंक से लोड हो गई है!' : 'License Key Loaded From Invitation Link!'}
                   </span>
-                  <span className="text-[11px] text-indigo-300">
+                  <span className="text-[11px]">
                     {isHindi 
                       ? `कुंजी: ${initialKey} — नीचे 'व्यावसायिक लाइसेंस एक्टिवेट करें' बटन पर क्लिक करके सॉफ्टवेयर अनलॉक करें।` 
                       : `Key: ${initialKey} — Click 'Activate Commercial License' below to start using full features.`}
@@ -769,8 +769,8 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
             <form onSubmit={handleActivate} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1">
-                    <Building2 className="w-3.5 h-3.5 text-indigo-400" />
+                  <label className="block text-xs font-bold text-[var(--text-secondary)] mb-1 flex items-center gap-1">
+                    <Building2 className="w-3.5 h-3.5 text-indigo-500" />
                     <span>{isHindi ? 'पंजीकृत कंपनी / स्वामी का नाम' : 'Registered Owner / Company Name'}</span>
                   </label>
                   <input
@@ -778,14 +778,14 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                     value={ownerName}
                     onChange={(e) => setOwnerName(e.target.value)}
                     required
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-indigo-500 outline-none"
+                    className="w-full hv-input border rounded-xl px-3.5 py-2.5 text-xs focus:border-indigo-500 outline-none"
                     placeholder="Enter Your Business / Company Name"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1">
-                    <Lock className="w-3.5 h-3.5 text-amber-400" />
+                  <label className="block text-xs font-bold text-[var(--text-secondary)] mb-1 flex items-center gap-1">
+                    <Lock className="w-3.5 h-3.5 text-amber-500" />
                     <span>{isHindi ? 'मास्टर ओनर सुरक्षा पिन (वैकल्पिक)' : 'Master Owner Security PIN (Optional)'}</span>
                   </label>
                   <input
@@ -793,7 +793,7 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                     maxLength={8}
                     value={ownerPin}
                     onChange={(e) => setOwnerPin(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-indigo-500 outline-none font-mono"
+                    className="w-full hv-input border rounded-xl px-3.5 py-2.5 text-xs focus:border-indigo-500 outline-none font-mono"
                     placeholder={isHindi ? 'कस्टम पिन दर्ज करें' : 'Enter custom PIN'}
                   />
                 </div>
@@ -801,8 +801,8 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
 
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="block text-xs font-bold text-slate-300 flex items-center gap-1">
-                    <Key className="w-3.5 h-3.5 text-amber-400" />
+                  <label className="block text-xs font-bold text-[var(--text-secondary)] flex items-center gap-1">
+                    <Key className="w-3.5 h-3.5 text-amber-500" />
                     <span>{isHindi ? '1) Ed25519 हस्ताक्षरित लाइसेंस सर्टिफिकेट (HV-LIC-V3)' : '1) Signed License Certificate (HV-LIC-V3)'}</span>
                   </label>
                 </div>
@@ -812,18 +812,18 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                   value={inputKey}
                   onChange={(e) => setInputKey(e.target.value.trim())}
                   required
-                  className="w-full bg-slate-950 border border-indigo-500/40 rounded-xl px-4 py-3 text-xs text-amber-300 font-mono font-bold tracking-wide focus:border-amber-400 outline-none resize-none"
+                  className="w-full hv-input border border-indigo-500/40 rounded-xl px-4 py-3 text-xs text-amber-500 font-mono font-bold tracking-wide focus:border-amber-500 outline-none resize-none"
                   placeholder="HV-LIC-V3.<signed-payload>.<ed25519-signature>"
                 />
               </div>
 
               <div>
                 <div className="flex items-center justify-between mb-1">
-                  <label className="block text-xs font-bold text-slate-300 flex items-center gap-1">
-                    <KeyRound className="w-3.5 h-3.5 text-emerald-400" />
+                  <label className="block text-xs font-bold text-[var(--text-secondary)] flex items-center gap-1">
+                    <KeyRound className="w-3.5 h-3.5 text-emerald-500" />
                     <span>{isHindi ? '2) एक-बारगी यूनिक एक्टिवेशन कोड (Unique Activation Code)' : '2) Unique Single-Use Activation Code (ACT-XXXX-XXXX)'}</span>
                   </label>
-                  <span className="text-[10px] text-emerald-400 font-semibold">
+                  <span className="text-[10px] text-emerald-500 font-semibold">
                     {isHindi ? 'मशीन ID व सर्टिफिकेट से क्रिप्टोग्राफ़िक बाइंड' : 'Single-Use · Machine-Bound'}
                   </span>
                 </div>
@@ -834,10 +834,10 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                   onChange={(e) => setActivationCode(e.target.value.toUpperCase().replace(/\s+/g, ''))}
                   required
                   maxLength={16}
-                  className="w-full bg-slate-950 border border-emerald-500/40 rounded-xl px-4 py-2.5 text-sm text-emerald-300 font-mono font-extrabold tracking-widest uppercase focus:border-emerald-400 outline-none"
+                  className="w-full hv-input border border-emerald-500/40 rounded-xl px-4 py-2.5 text-sm text-emerald-500 font-mono font-extrabold tracking-widest uppercase focus:border-emerald-500 outline-none"
                   placeholder="ACT-XXXX-XXXX"
                 />
-                <p className="text-[11px] text-slate-400 mt-1">
+                <p className="text-[11px] text-[var(--text-muted)] mt-1">
                   {isHindi
                     ? '* प्रत्येक सर्टिफिकेट के साथ जारी 8-अक्षरीय कोड (ACT-XXXX-XXXX) केवल एक बार ही उपयोग किया जा सकता है।'
                     : '* Both the HV-LIC-V3 Certificate and matching ACT-XXXX-XXXX Code are required. Each code is consumed once and cannot be reused.'}
@@ -845,17 +845,17 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
               </div>
 
               <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
-                <span className="text-[11px] text-slate-400 flex items-center gap-1.5">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span className="text-[11px] text-[var(--text-muted)] flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
                   <span>{isHindi ? 'लाइसेंस कुंजी के लिए सॉफ़्टवेयर प्रदाता से संपर्क करें या ईमेल से मंगवाएं' : 'Paste your HV-LIC-V3 certificate or request one via the Email tab'}</span>
                 </span>
 
                 <button
                   type="submit"
                   disabled={isActivating}
-                  className="bg-gradient-to-r from-amber-500 to-emerald-500 hover:from-amber-400 hover:to-emerald-400 disabled:opacity-60 text-slate-950 font-extrabold text-xs px-6 py-3 rounded-xl shadow-lg transition transform active:scale-95 flex items-center gap-2 ml-auto cursor-pointer"
+                  className="bg-emerald-600 hover:bg-emerald-500 disabled:opacity-60 text-white hv-keep-white font-extrabold text-xs px-6 py-3 rounded-xl shadow-lg shadow-emerald-600/25 transition transform active:scale-95 flex items-center gap-2 ml-auto cursor-pointer"
                 >
-                  <CheckCircle2 className="w-4 h-4 fill-current text-slate-950" />
+                  <CheckCircle2 className="w-4 h-4" />
                   <span>
                     {isActivating
                       ? (isHindi ? 'सत्यापित हो रहा है...' : 'Verifying Ed25519 Certificate...')
@@ -868,13 +868,13 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
         )}
         {activeTab === 'request' && (
           /* Customer "Request License Certificate on Email" Form */
-          <form onSubmit={handleRequestEmailLicense} className="bg-slate-950 p-4 sm:p-5 rounded-2xl border border-emerald-500/30 space-y-4">
+          <form onSubmit={handleRequestEmailLicense} className="hv-elevated p-4 sm:p-5 rounded-2xl border border-emerald-500/30 space-y-4">
             <div>
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Mail className="w-4 h-4 text-emerald-400" />
+              <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <Mail className="w-4 h-4 text-emerald-500" />
                 <span>{isHindi ? 'अपने ईमेल पर लाइसेंस सर्टिफिकेट प्राप्त करें' : 'Request Signed License Certificate via Email'}</span>
               </h3>
-              <p className="text-[11px] text-slate-400 mt-0.5">
+              <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
                 {isHindi
                   ? 'अपना विवरण भरें — इस PC की Machine ID के लिए वैध HV-LIC-V3 सर्टिफिकेट सीधे आपके ईमेल पर भेजा जाएगा।'
                   : 'Fill in your business details below to request a signed HV-LIC-V3 certificate bound to this PC Machine ID.'}
@@ -884,8 +884,8 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
             {requestStatus && (
               <div className={`p-3.5 rounded-xl border text-xs font-semibold flex items-center gap-2 ${
                 requestStatus.type === 'success'
-                  ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
-                  : 'bg-rose-500/10 border-rose-500/30 text-rose-300'
+                  ? 'hv-pill-emerald'
+                  : 'hv-pill-rose'
               }`}>
                 {requestStatus.type === 'success' ? <CheckCircle2 className="w-4 h-4 shrink-0" /> : <AlertTriangle className="w-4 h-4 shrink-0" />}
                 <span>{requestStatus.text}</span>
@@ -894,8 +894,8 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
               <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1">
-                  <User className="w-3.5 h-3.5 text-indigo-400" />
+                <label className="block text-xs font-bold text-[var(--text-secondary)] mb-1 flex items-center gap-1">
+                  <User className="w-3.5 h-3.5 text-indigo-500" />
                   <span>{isHindi ? 'पूरा नाम / व्यापार का नाम' : 'Full Name / Business Name'}</span>
                 </label>
                 <input
@@ -904,13 +904,13 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                   value={reqFullName}
                   onChange={(e) => setReqFullName(e.target.value)}
                   placeholder={isHindi ? 'अपना नाम या कंपनी का नाम दर्ज करें' : 'Enter your name or company name'}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-emerald-500 outline-none"
+                  className="w-full hv-input border rounded-xl px-3.5 py-2.5 text-xs focus:border-emerald-500 outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1">
-                  <Mail className="w-3.5 h-3.5 text-emerald-400" />
+                <label className="block text-xs font-bold text-[var(--text-secondary)] mb-1 flex items-center gap-1">
+                  <Mail className="w-3.5 h-3.5 text-emerald-500" />
                   <span>{isHindi ? 'ग्राहक ईमेल पता (Email)' : 'Customer Email Address'}</span>
                 </label>
                 <input
@@ -919,13 +919,13 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                   value={reqEmail}
                   onChange={(e) => setReqEmail(e.target.value)}
                   placeholder={isHindi ? 'अपना ईमेल पता दर्ज करें' : 'Enter your email address'}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-emerald-500 outline-none"
+                  className="w-full hv-input border rounded-xl px-3.5 py-2.5 text-xs focus:border-emerald-500 outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1">
-                  <Phone className="w-3.5 h-3.5 text-amber-400" />
+                <label className="block text-xs font-bold text-[var(--text-secondary)] mb-1 flex items-center gap-1">
+                  <Phone className="w-3.5 h-3.5 text-amber-500" />
                   <span>{isHindi ? 'मोबाइल नंबर (Mobile)' : 'Mobile Number'}</span>
                 </label>
                 <input
@@ -934,19 +934,19 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
                   value={reqMobile}
                   onChange={(e) => setReqMobile(e.target.value)}
                   placeholder={isHindi ? 'अपना मोबाइल नंबर दर्ज करें' : 'Enter your mobile number'}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:border-emerald-500 outline-none"
+                  className="w-full hv-input border rounded-xl px-3.5 py-2.5 text-xs focus:border-emerald-500 outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1">
-                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                <label className="block text-xs font-bold text-[var(--text-secondary)] mb-1 flex items-center gap-1">
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-500" />
                   <span>{isHindi ? 'प्लान चुनें (Plan Type)' : 'Plan Type'}</span>
                 </label>
                 <select
                   value={reqPlan}
                   onChange={(e) => setReqPlan(e.target.value as 'TRIAL' | 'STANDARD_ANNUAL' | 'PRO_PERPETUAL')}
-                  className="w-full bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white font-semibold focus:border-emerald-500 outline-none cursor-pointer"
+                  className="w-full hv-input border rounded-xl px-3.5 py-2.5 text-xs font-semibold focus:border-emerald-500 outline-none cursor-pointer"
                 >
                   <option value="TRIAL">{isHindi ? 'ट्रायल (7 Days Trial)' : 'Trial (7 Days)'}</option>
                   <option value="STANDARD_ANNUAL">{isHindi ? 'वार्षिक प्लान (Annual - 1 Year)' : 'Annual (1 Year Commercial)'}</option>
@@ -956,26 +956,26 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1 flex items-center gap-1">
-                <Cpu className="w-3.5 h-3.5 text-indigo-400" />
+              <label className="block text-xs font-bold text-[var(--text-secondary)] mb-1 flex items-center gap-1">
+                <Cpu className="w-3.5 h-3.5 text-indigo-500" />
                 <span>{isHindi ? 'हार्डवेयर मशीन आईडी (स्वतः लॉक)' : 'Hardware Machine ID (Auto-Filled Read-Only)'}</span>
               </label>
               <input
                 type="text"
                 readOnly
                 value={machineId}
-                className="w-full bg-slate-900/70 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-indigo-300 font-mono font-bold outline-none cursor-default select-all"
+                className="w-full hv-input border rounded-xl px-3.5 py-2.5 text-xs text-indigo-500 font-mono font-bold outline-none cursor-default select-all"
               />
             </div>
 
             <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-              <span className="text-[11px] text-slate-400">
+              <span className="text-[11px] text-[var(--text-muted)]">
                 {isHindi ? 'ईमेल मिलने के बाद "Activate License Key" टैब में पेस्ट करें।' : 'Once emailed, paste the certificate in the "Activate License Key" tab.'}
               </span>
 
               <button
                 type="submit"
-                className="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg transition flex items-center gap-2 ml-auto cursor-pointer"
+                className="bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg shadow-emerald-600/25 transition flex items-center gap-2 ml-auto cursor-pointer"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>
@@ -987,14 +987,14 @@ export const LicenseActivationModal: React.FC<LicenseActivationModalProps> = ({
         )}
 
         {/* Anti-Tamper Security Footer */}
-        <div className="border-t border-slate-800 pt-3 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-500">
+        <div className="border-t border-[var(--border-primary)] pt-3 flex flex-wrap items-center justify-between gap-2 text-[11px] text-[var(--text-muted)]">
           <div className="flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Data Integrity Token: <strong className="font-mono text-slate-400">{integrityHash}</strong></span>
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+            <span>Data Integrity Token: <strong className="font-mono text-[var(--text-secondary)]">{integrityHash}</strong></span>
           </div>
 
           <div className="flex items-center gap-1.5">
-            <Lock className="w-3.5 h-3.5 text-amber-400" />
+            <Lock className="w-3.5 h-3.5 text-amber-500" />
             <span>
               {isDesktop
                 ? 'Desktop Disk Vault + Daily Auto-Backup + Clock Anti-Tamper Active'

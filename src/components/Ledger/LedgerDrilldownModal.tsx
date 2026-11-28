@@ -425,14 +425,14 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
           isEditModalOpen ? 'hidden' : 'fixed'
         } inset-0 z-[100] bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto animate-fadeIn`}
       >
-        <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-5xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden my-auto">
+        <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl w-full max-w-5xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden my-auto">
           {/* Header */}
-          <div className="bg-slate-950 px-5 py-4 border-b border-slate-800 flex items-center justify-between shrink-0">
+          <div className="hv-elevated px-5 py-4 border-b border-[var(--border-primary)] flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3 min-w-0">
               <button
                 type="button"
                 onClick={stepBackOneLevel}
-                className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition cursor-pointer shrink-0"
+                className="p-2 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] transition cursor-pointer shrink-0"
                 title={
                   viewMode === 'VOUCHERS'
                     ? isHindi
@@ -445,26 +445,26 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
               >
                 <ArrowLeft className="w-4 h-4" />
               </button>
-              <div className="p-2.5 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 rounded-xl shrink-0">
+              <div className="p-2.5 hv-pill-indigo border rounded-xl shrink-0">
                 <FileText className="w-6 h-6" />
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h3 className="font-extrabold text-base text-white truncate">
+                  <h3 className="font-extrabold text-base text-[var(--text-primary)] truncate">
                     {ledgerTitle}
                   </h3>
                   {ledgerGstin && (
-                    <span className="font-mono text-[11px] text-amber-300 font-semibold">
+                    <span className="font-mono text-[11px] text-amber-500 font-semibold">
                       GSTIN: {ledgerGstin}
                     </span>
                   )}
                   {ledgerState && (
-                    <span className="text-[11px] text-slate-400">
+                    <span className="text-[11px] text-[var(--text-muted)]">
                       • {ledgerState}
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-slate-400 mt-0.5 truncate">
+                <p className="text-xs text-[var(--text-muted)] mt-0.5 truncate">
                   {viewMode === 'MONTHLY'
                     ? isHindi
                       ? 'स्तर 2: मासिक सारांश (अप्रैल–मार्च) • माह पर क्लिक करके वाउचर देखें'
@@ -478,22 +478,22 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
 
             <button
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl transition cursor-pointer"
+              className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] rounded-xl transition cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
           {/* Clickable Breadcrumb Bar */}
-          <div className="px-5 py-2 bg-slate-900 border-b border-slate-800 flex items-center flex-wrap gap-1.5 text-[11px] shrink-0">
+          <div className="px-5 py-2 hv-surface border-b border-[var(--border-primary)] flex items-center flex-wrap gap-1.5 text-[11px] shrink-0">
             <button
               type="button"
               onClick={onClose}
-              className="text-slate-400 hover:text-white cursor-pointer underline-offset-2 hover:underline font-medium"
+              className="text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer underline-offset-2 hover:underline font-medium"
             >
               {reportTitle || (isHindi ? 'वित्तीय रिपोर्ट' : 'Financial Report')}
             </button>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-600 shrink-0" />
+            <ChevronRight className="w-3.5 h-3.5 text-[var(--text-muted)] shrink-0" />
             <button
               type="button"
               disabled={viewMode === 'MONTHLY'}
@@ -506,16 +506,16 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
               }}
               className={`truncate max-w-[240px] ${
                 viewMode === 'MONTHLY'
-                  ? 'text-indigo-300 font-bold cursor-default'
-                  : 'text-slate-300 hover:text-white cursor-pointer underline-offset-2 hover:underline'
+                  ? 'text-indigo-500 font-bold cursor-default'
+                  : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] cursor-pointer underline-offset-2 hover:underline'
               }`}
             >
               {ledgerTitle} (Apr–Mar)
             </button>
             {viewMode === 'VOUCHERS' && (
               <>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-600 shrink-0" />
-                <span className="text-indigo-300 font-bold truncate max-w-[220px]">
+                <ChevronRight className="w-3.5 h-3.5 text-[var(--text-muted)] shrink-0" />
+                <span className="text-indigo-500 font-bold truncate max-w-[220px]">
                   {selectedMonthLabel ||
                     (startDate && endDate
                       ? `${startDate} → ${endDate}`
@@ -525,15 +525,15 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                 </span>
               </>
             )}
-            <span className="ml-auto text-[10px] text-slate-500 font-mono hidden sm:inline">
+            <span className="ml-auto text-[10px] text-[var(--text-muted)] font-mono hidden sm:inline">
               ↑↓ Move • Enter: Open • Esc: Step Back ({viewMode === 'VOUCHERS' ? 'Monthly Summary' : 'Close'})
             </span>
           </div>
 
           {/* Toolbar & View Mode + FY Selector */}
-          <div className="bg-slate-950/60 p-3.5 px-5 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs shrink-0">
+          <div className="hv-elevated p-3.5 px-5 border-b border-[var(--border-primary)] flex flex-wrap items-center justify-between gap-3 text-xs shrink-0">
             <div className="flex flex-wrap items-center gap-2">
-              <div className="flex items-center bg-slate-900 p-0.5 rounded-xl border border-slate-700">
+              <div className="flex items-center bg-[var(--bg-input)] p-0.5 rounded-xl border border-[var(--border-subtle)]">
                 <button
                   type="button"
                   onClick={() => {
@@ -545,8 +545,8 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                   }}
                   className={`px-3 py-1 rounded-lg font-bold flex items-center gap-1.5 transition cursor-pointer ${
                     viewMode === 'MONTHLY'
-                      ? 'bg-indigo-600 text-white'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-indigo-600 text-white hv-keep-white'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   <Calendar className="w-3.5 h-3.5" />
@@ -560,8 +560,8 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                   }}
                   className={`px-3 py-1 rounded-lg font-bold flex items-center gap-1.5 transition cursor-pointer ${
                     viewMode === 'VOUCHERS'
-                      ? 'bg-indigo-600 text-white'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-indigo-600 text-white hv-keep-white'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   <List className="w-3.5 h-3.5" />
@@ -569,15 +569,15 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                 </button>
               </div>
 
-              <span className="text-slate-500 font-bold flex items-center gap-1 ml-1">
-                <Filter className="w-3.5 h-3.5 text-indigo-400" />
+              <span className="text-[var(--text-muted)] font-bold flex items-center gap-1 ml-1">
+                <Filter className="w-3.5 h-3.5 text-indigo-500" />
               </span>
               <button
                 onClick={() => handleFyChange('CURRENT')}
                 className={`px-2.5 py-1.5 rounded-xl font-bold transition border cursor-pointer ${
                   fyFilter === 'CURRENT'
-                    ? 'bg-indigo-600 text-white border-indigo-500'
-                    : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-white'
+                    ? 'bg-indigo-600 text-white hv-keep-white border-indigo-500'
+                    : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-subtle)] hover:bg-[var(--hover-surface)]'
                 }`}
               >
                 {isHindi ? 'वर्तमान FY' : 'Current FY'}
@@ -587,8 +587,8 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                 onClick={() => handleFyChange('PREVIOUS')}
                 className={`px-2.5 py-1.5 rounded-xl font-bold transition border cursor-pointer ${
                   fyFilter === 'PREVIOUS'
-                    ? 'bg-amber-600 text-white border-amber-500'
-                    : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-white'
+                    ? 'bg-amber-600 text-white hv-keep-white border-amber-500'
+                    : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-subtle)] hover:bg-[var(--hover-surface)]'
                 }`}
               >
                 {isHindi ? 'पिछला FY' : 'Previous FY'}
@@ -598,8 +598,8 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                 onClick={() => handleFyChange('ALL')}
                 className={`px-2.5 py-1.5 rounded-xl font-bold transition border cursor-pointer ${
                   fyFilter === 'ALL'
-                    ? 'bg-emerald-600 text-white border-emerald-500'
-                    : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-white'
+                    ? 'bg-emerald-600 text-white hv-keep-white border-emerald-500'
+                    : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-subtle)] hover:bg-[var(--hover-surface)]'
                 }`}
               >
                 {isHindi ? 'सभी वर्ष' : 'All Years'}
@@ -615,9 +615,9 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                   setFyFilter('ALL');
                   setViewMode('VOUCHERS');
                 }}
-                className="bg-slate-900 border border-slate-700 text-slate-200 rounded-xl px-2.5 py-1 font-mono text-xs outline-none focus:border-indigo-500"
+                className="hv-input border border-[var(--border-subtle)] rounded-xl px-2.5 py-1 font-mono text-xs outline-none focus:border-indigo-500"
               />
-              <span className="text-slate-500">to</span>
+              <span className="text-[var(--text-muted)]">to</span>
               <input
                 type="date"
                 value={endDate}
@@ -626,21 +626,21 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                   setFyFilter('ALL');
                   setViewMode('VOUCHERS');
                 }}
-                className="bg-slate-900 border border-slate-700 text-slate-200 rounded-xl px-2.5 py-1 font-mono text-xs outline-none focus:border-indigo-500"
+                className="hv-input border border-[var(--border-subtle)] rounded-xl px-2.5 py-1 font-mono text-xs outline-none focus:border-indigo-500"
               />
 
               <button
                 onClick={handlePrint}
-                className="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl border border-slate-700 transition flex items-center gap-1.5 cursor-pointer"
+                className="px-3 py-1.5 bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] font-bold rounded-xl border border-[var(--border-subtle)] transition flex items-center gap-1.5 cursor-pointer"
                 title="Print Ledger Statement"
               >
-                <Printer className="w-3.5 h-3.5 text-indigo-400" />
+                <Printer className="w-3.5 h-3.5 text-indigo-500" />
                 <span>Print</span>
               </button>
 
               <button
                 onClick={handleExportCSV}
-                className="px-3 py-1.5 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 font-bold rounded-xl transition flex items-center gap-1.5 cursor-pointer"
+                className="px-3 py-1.5 hv-pill-emerald border hover:brightness-95 font-bold rounded-xl transition flex items-center gap-1.5 cursor-pointer"
                 title="Export CSV"
               >
                 <Download className="w-3.5 h-3.5" />
@@ -650,40 +650,40 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
           </div>
 
           {/* Balance Summary Cards */}
-          <div className="bg-slate-950 p-3 px-5 border-b border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs shrink-0 font-mono tabular-nums">
-            <div className="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-              <div className="text-[10px] text-slate-400 uppercase font-sans">
+          <div className="hv-surface p-3 px-5 border-b border-[var(--border-primary)] grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs shrink-0 font-mono tabular-nums">
+            <div className="hv-elevated p-2.5 rounded-xl border border-[var(--border-primary)]">
+              <div className="text-[10px] text-[var(--text-muted)] uppercase font-sans font-semibold">
                 Opening Balance
               </div>
-              <div className="text-sm font-bold text-amber-400 mt-0.5">
+              <div className="text-sm font-bold text-amber-500 mt-0.5">
                 {formatCurrency(Math.abs(openingForPeriod), currency)}{' '}
                 {openingForPeriod >= 0 ? 'Dr' : 'Cr'}
               </div>
             </div>
 
-            <div className="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-              <div className="text-[10px] text-slate-400 uppercase font-sans">
+            <div className="hv-elevated p-2.5 rounded-xl border border-[var(--border-primary)]">
+              <div className="text-[10px] text-[var(--text-muted)] uppercase font-sans font-semibold">
                 Period Total Debit (Dr)
               </div>
-              <div className="text-sm font-bold text-sky-400 mt-0.5">
+              <div className="text-sm font-bold text-sky-500 mt-0.5">
                 {formatCurrency(totalDebit, currency)}
               </div>
             </div>
 
-            <div className="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-              <div className="text-[10px] text-slate-400 uppercase font-sans">
+            <div className="hv-elevated p-2.5 rounded-xl border border-[var(--border-primary)]">
+              <div className="text-[10px] text-[var(--text-muted)] uppercase font-sans font-semibold">
                 Period Total Credit (Cr)
               </div>
-              <div className="text-sm font-bold text-emerald-400 mt-0.5">
+              <div className="text-sm font-bold text-emerald-500 mt-0.5">
                 {formatCurrency(totalCredit, currency)}
               </div>
             </div>
 
-            <div className="bg-slate-900/80 p-2.5 rounded-xl border border-slate-800">
-              <div className="text-[10px] text-slate-400 uppercase font-sans">
+            <div className="hv-elevated p-2.5 rounded-xl border border-[var(--border-primary)]">
+              <div className="text-[10px] text-[var(--text-muted)] uppercase font-sans font-semibold">
                 Closing Balance
               </div>
-              <div className="text-sm font-extrabold text-indigo-300 mt-0.5">
+              <div className="text-sm font-extrabold text-indigo-500 mt-0.5">
                 {formatCurrency(closingBalance, currency)}{' '}
                 {closingType === 'DR' ? 'Dr' : 'Cr'}
               </div>
@@ -693,9 +693,9 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
           {/* Body: Monthly Summary OR Voucher Register */}
           <div className="p-4 overflow-y-auto flex-1">
             {viewMode === 'MONTHLY' ? (
-              <div className="overflow-x-auto border border-slate-800 rounded-xl">
-                <table className="w-full text-left text-xs text-slate-300">
-                  <thead className="bg-slate-950 text-slate-400 uppercase font-semibold text-[11px] sticky top-0">
+              <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
+                <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+                  <thead className="hv-elevated text-[var(--text-muted)] uppercase font-semibold text-[11px] sticky top-0 border-b border-[var(--border-primary)]">
                     <tr>
                       <th className="p-3">
                         Month ({monthlySummary.fyLabel})
@@ -707,8 +707,8 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                       <th className="p-3 w-8"></th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/80 bg-slate-900/50">
-                    <tr className="bg-slate-950/40 text-slate-400 italic">
+                  <tbody className="divide-y divide-[var(--border-primary)] hv-surface">
+                    <tr className="hv-elevated text-[var(--text-muted)] italic">
                       <td className="p-3 font-bold">
                         Opening Balance Brought Forward
                       </td>
@@ -731,7 +731,7 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                             )
                           : '-'}
                       </td>
-                      <td className="p-3 text-right font-mono tabular-nums font-bold text-amber-300">
+                      <td className="p-3 text-right font-mono tabular-nums font-bold text-amber-500">
                         {formatCurrency(
                           Math.abs(monthlySummary.statement.openingForPeriod),
                           currency
@@ -750,33 +750,33 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                           key={m.monthKey}
                           onClick={() => handleOpenMonth(m.startDate, m.endDate, m.label)}
                           className={`cursor-pointer transition group ${
-                            isSelected ? 'bg-indigo-500/15' : 'hover:bg-indigo-500/10'
+                            isSelected ? 'bg-indigo-500/15' : 'hover:bg-[var(--hover-surface)]'
                           }`}
                         >
-                          <td className="p-3 font-bold text-slate-100 group-hover:text-indigo-300">
+                          <td className="p-3 font-bold text-[var(--text-primary)] group-hover:text-indigo-500">
                             {m.label}
                           </td>
-                          <td className="p-3 text-center font-mono tabular-nums text-slate-400">
+                          <td className="p-3 text-center font-mono tabular-nums text-[var(--text-muted)]">
                             {m.txCount > 0 ? m.txCount : '—'}
                           </td>
-                          <td className="p-3 text-right font-mono tabular-nums text-sky-400 font-bold">
+                          <td className="p-3 text-right font-mono tabular-nums text-sky-500 font-bold">
                             {m.debit > 0.005
                               ? formatCurrency(m.debit, currency)
                               : '-'}
                           </td>
-                          <td className="p-3 text-right font-mono tabular-nums text-emerald-400 font-bold">
+                          <td className="p-3 text-right font-mono tabular-nums text-emerald-500 font-bold">
                             {m.credit > 0.005
                               ? formatCurrency(m.credit, currency)
                               : '-'}
                           </td>
-                          <td className="p-3 text-right font-mono tabular-nums font-bold text-white">
+                          <td className="p-3 text-right font-mono tabular-nums font-bold text-[var(--text-primary)]">
                             {m.closingBalance > 0.005
                               ? `${formatCurrency(m.closingBalance, currency)} ${
                                   m.closingType === 'DR' ? 'Dr' : 'Cr'
                                 }`
                               : '₹0.00'}
                           </td>
-                          <td className="p-3 text-right text-slate-500 group-hover:text-indigo-300">
+                          <td className="p-3 text-right text-[var(--text-muted)] group-hover:text-indigo-500">
                             <ChevronRight className="w-4 h-4 inline" />
                           </td>
                         </tr>
@@ -786,9 +786,9 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                 </table>
               </div>
             ) : (
-              <div className="overflow-x-auto border border-slate-800 rounded-xl">
-                <table className="w-full text-left text-xs text-slate-300">
-                  <thead className="bg-slate-950 text-slate-400 uppercase font-semibold text-[11px] sticky top-0">
+              <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
+                <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+                  <thead className="hv-elevated text-[var(--text-muted)] uppercase font-semibold text-[11px] sticky top-0 border-b border-[var(--border-primary)]">
                     <tr>
                       <th className="p-3 w-28">Date</th>
                       <th className="p-3 w-28">Voucher No</th>
@@ -804,9 +804,9 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                       <th className="p-3 w-16 text-right">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/80 bg-slate-900/50 font-sans">
+                  <tbody className="divide-y divide-[var(--border-primary)] hv-surface font-sans">
                     {/* Opening row */}
-                    <tr className="bg-slate-950/40 text-slate-400 font-semibold italic">
+                    <tr className="hv-elevated text-[var(--text-muted)] font-semibold italic">
                       <td className="p-2.5 font-mono">
                         {startDate || 'Opening'}
                       </td>
@@ -823,7 +823,7 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                           ? formatCurrency(Math.abs(openingForPeriod), currency)
                           : '-'}
                       </td>
-                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-amber-300">
+                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-amber-500">
                         {formatCurrency(Math.abs(openingForPeriod), currency)}{' '}
                         {openingForPeriod >= 0 ? 'Dr' : 'Cr'}
                       </td>
@@ -834,7 +834,7 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                       <tr>
                         <td
                           colSpan={8}
-                          className="p-8 text-center text-slate-500"
+                          className="p-8 text-center text-[var(--text-muted)]"
                         >
                           {isHindi
                             ? 'चयनित अवधि में कोई लेनदेन नहीं पाया गया'
@@ -853,38 +853,38 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                             key={row.id}
                             onClick={() => handleRowInspect(row)}
                             className={`cursor-pointer transition group ${
-                              isSelected ? 'bg-indigo-500/15' : 'hover:bg-indigo-500/10'
+                              isSelected ? 'bg-indigo-500/15' : 'hover:bg-[var(--hover-surface)]'
                             }`}
                           >
-                            <td className="p-2.5 font-mono tabular-nums text-slate-300">
+                            <td className="p-2.5 font-mono tabular-nums text-[var(--text-secondary)]">
                               {row.date}
                             </td>
-                            <td className="p-2.5 font-mono font-bold text-indigo-400 group-hover:underline">
+                            <td className="p-2.5 font-mono font-bold text-indigo-500 group-hover:underline">
                               {row.voucherNo}
                             </td>
-                            <td className="p-2.5 text-slate-300">
+                            <td className="p-2.5 text-[var(--text-secondary)]">
                               {row.voucherType}
                             </td>
-                            <td className="p-2.5 text-slate-200">
+                            <td className="p-2.5 text-[var(--text-primary)]">
                               {row.particulars}
                             </td>
-                            <td className="p-2.5 text-right font-mono tabular-nums font-bold text-sky-400">
+                            <td className="p-2.5 text-right font-mono tabular-nums font-bold text-sky-500">
                               {row.debit > 0
                                 ? formatCurrency(row.debit, currency)
                                 : '-'}
                             </td>
-                            <td className="p-2.5 text-right font-mono tabular-nums font-bold text-emerald-400">
+                            <td className="p-2.5 text-right font-mono tabular-nums font-bold text-emerald-500">
                               {row.credit > 0
                                 ? formatCurrency(row.credit, currency)
                                 : '-'}
                             </td>
-                            <td className="p-2.5 text-right font-mono tabular-nums font-bold text-slate-100">
+                            <td className="p-2.5 text-right font-mono tabular-nums font-bold text-[var(--text-primary)]">
                               {formatCurrency(row.runningBalance, currency)}{' '}
                               <span
                                 className={
                                   row.runningType === 'DR'
-                                    ? 'text-amber-400'
-                                    : 'text-emerald-400'
+                                    ? 'text-amber-500'
+                                    : 'text-emerald-500'
                                 }
                               >
                                 {row.runningType === 'DR' ? 'Dr' : 'Cr'}
@@ -899,7 +899,7 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                                       e.stopPropagation();
                                       setSelectedTxRow(row);
                                     }}
-                                    className="p-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
+                                    className="p-1 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] cursor-pointer"
                                     title={isHindi ? 'विवरण देखें' : 'Inspect Breakdown'}
                                   >
                                     <Eye className="w-3.5 h-3.5" />
@@ -907,7 +907,7 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                                 )}
                                 {isEditable && (
                                   <span
-                                    className="p-1 rounded-lg bg-indigo-600/20 text-indigo-300 group-hover:bg-indigo-600 group-hover:text-white transition"
+                                    className="p-1 rounded-lg hv-pill-indigo border group-hover:bg-indigo-600 group-hover:text-white transition"
                                     title={isHindi ? 'संपादित करें' : 'Open Edit Modal'}
                                   >
                                     <Pencil className="w-3.5 h-3.5" />
@@ -926,10 +926,10 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
           </div>
 
           {/* Footer Actions */}
-          <div className="bg-slate-950 p-4 border-t border-slate-800 flex items-center justify-between shrink-0 text-xs">
-            <div className="text-slate-400 flex items-center gap-2 font-mono tabular-nums">
+          <div className="hv-elevated p-4 border-t border-[var(--border-primary)] flex items-center justify-between shrink-0 text-xs">
+            <div className="text-[var(--text-muted)] flex items-center gap-2 font-mono tabular-nums">
               <span>Closing Position:</span>
-              <span className="text-white font-bold bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700">
+              <span className="text-[var(--text-primary)] font-bold bg-[var(--bg-surface)] px-2.5 py-1 rounded-lg border border-[var(--border-subtle)]">
                 {formatCurrency(closingBalance, currency)}{' '}
                 {closingType === 'DR' ? 'Dr' : 'Cr'}
               </span>
@@ -940,14 +940,14 @@ export const LedgerDrilldownModal: React.FC<LedgerDrilldownModalProps> = ({
                 <button
                   type="button"
                   onClick={stepBackOneLevel}
-                  className="px-4 py-2 bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold rounded-xl transition cursor-pointer"
+                  className="px-4 py-2 bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold rounded-xl transition cursor-pointer"
                 >
                   {isHindi ? '← मासिक सारांश (Esc)' : '← Monthly Summary (Esc)'}
                 </button>
               )}
               <button
                 onClick={onClose}
-                className="px-5 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition cursor-pointer"
+                className="px-5 py-2 bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold rounded-xl transition cursor-pointer"
               >
                 {isHindi ? 'बंद करें' : 'Close Statement'}
               </button>

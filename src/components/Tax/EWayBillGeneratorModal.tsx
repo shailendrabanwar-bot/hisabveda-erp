@@ -224,24 +224,24 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-700/80 rounded-2xl w-full max-w-5xl max-h-[94vh] flex flex-col shadow-2xl overflow-hidden text-slate-100">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl w-full max-w-5xl max-h-[94vh] flex flex-col shadow-2xl overflow-hidden text-[var(--text-primary)]">
         
         {/* Top Header */}
-        <div className="p-4 bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-950/40 border-b border-slate-700/80 flex items-center justify-between shrink-0">
+        <div className="p-4 hv-elevated border-b border-[var(--border-primary)] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400 shrink-0">
+            <div className="w-9 h-9 rounded-xl hv-pill-indigo border flex items-center justify-center shrink-0">
               <Truck className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-base font-bold text-white">
+                <h3 className="text-base font-bold text-[var(--text-primary)]">
                   {isHindi ? 'जीएसटी ई-वे बिल JSON जेनरेटर एवं पोर्टल सिमुलेटर' : 'GST e-Way Bill JSON Generator & Portal Tool'}
                 </h3>
-                <span className="text-[10px] bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded border border-emerald-500/40 font-mono">
+                <span className="text-[10px] hv-pill-emerald font-bold px-2 py-0.5 rounded border font-mono">
                   NIC v1.0.0421
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[var(--text-muted)]">
                 {isHindi 
                   ? 'भारत सरकार के ई-वे बिल पोर्टल (ewaybillgst.gov.in) के प्रारूप अनुसार बल्क JSON जनरेशन' 
                   : 'Generate bulk e-Way Bill JSON formatted for National Informatics Centre (NIC) portal bulk upload'}
@@ -254,15 +254,15 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
               href="https://ewaybillgst.gov.in"
               target="_blank"
               rel="noreferrer"
-              className="hidden sm:flex items-center gap-1.5 text-[11px] bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 px-3 py-1.5 rounded-xl transition cursor-pointer"
+              className="hidden sm:flex items-center gap-1.5 text-[11px] hv-surface hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-primary)] px-3 py-1.5 rounded-xl transition cursor-pointer font-semibold"
               title="Open Official NIC e-Way Bill Portal"
             >
-              <ExternalLink className="w-3.5 h-3.5 text-indigo-400" />
+              <ExternalLink className="w-3.5 h-3.5 text-indigo-500" />
               <span>{isHindi ? 'पोर्टल खोलें' : 'NIC Portal'}</span>
             </a>
             <button
               onClick={onClose}
-              className="p-1.5 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-lg transition cursor-pointer"
+              className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] hv-surface hover:bg-[var(--bg-hover)] border border-[var(--border-subtle)] rounded-lg transition cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -270,19 +270,19 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
         </div>
 
         {/* Top Workflow Tabs */}
-        <div className="flex border-b border-slate-700/80 bg-slate-800/60 px-4 pt-2 gap-2 text-xs font-bold overflow-x-auto shrink-0">
+        <div className="flex border-b border-[var(--border-primary)] hv-elevated px-4 pt-2 gap-2 text-xs font-bold overflow-x-auto shrink-0">
           <button
             type="button"
             onClick={() => setActiveTab('selection')}
             className={`pb-2.5 px-3 flex items-center gap-1.5 border-b-2 transition cursor-pointer shrink-0 ${
               activeTab === 'selection'
-                ? 'border-indigo-400 text-indigo-300 bg-indigo-500/10 rounded-t-lg'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-indigo-500 hv-pill-indigo rounded-t-lg'
+                : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
-            <FileText className="w-3.5 h-3.5 text-indigo-400" />
+            <FileText className="w-3.5 h-3.5 text-indigo-500" />
             <span>{isHindi ? '1. इनवॉइस चयन (Part-A)' : '1. Invoices Selection'}</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-indigo-600/40 text-indigo-200 font-mono ml-1">
+            <span className="text-[10px] px-1.5 py-0.2 rounded-full hv-pill-indigo border font-mono ml-1">
               {selectedIds.length}
             </span>
           </button>
@@ -292,11 +292,11 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
             onClick={() => setActiveTab('transport')}
             className={`pb-2.5 px-3 flex items-center gap-1.5 border-b-2 transition cursor-pointer shrink-0 ${
               activeTab === 'transport'
-                ? 'border-amber-400 text-amber-300 bg-amber-500/10 rounded-t-lg'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-amber-500 hv-pill-amber rounded-t-lg'
+                : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
-            <Truck className="w-3.5 h-3.5 text-amber-400" />
+            <Truck className="w-3.5 h-3.5 text-amber-500" />
             <span>{isHindi ? '2. परिवहन विवरण (Part-B)' : '2. Transport Details'}</span>
           </button>
 
@@ -305,11 +305,11 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
             onClick={() => setActiveTab('json')}
             className={`pb-2.5 px-3 flex items-center gap-1.5 border-b-2 transition cursor-pointer shrink-0 ${
               activeTab === 'json'
-                ? 'border-emerald-400 text-emerald-300 bg-emerald-500/10 rounded-t-lg'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-emerald-500 hv-pill-emerald rounded-t-lg'
+                : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
-            <Download className="w-3.5 h-3.5 text-emerald-400" />
+            <Download className="w-3.5 h-3.5 text-emerald-500" />
             <span>{isHindi ? '3. JSON डाउनलोड व सत्यापन' : '3. JSON & Schema'}</span>
             {hasValidationErrors && (
               <span className="w-2 h-2 rounded-full bg-rose-500 ml-1" />
@@ -321,14 +321,14 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
             onClick={() => setActiveTab('simulation')}
             className={`pb-2.5 px-3 flex items-center gap-1.5 border-b-2 transition cursor-pointer shrink-0 ${
               activeTab === 'simulation'
-                ? 'border-sky-400 text-sky-300 bg-sky-500/10 rounded-t-lg'
-                : 'border-transparent text-slate-400 hover:text-slate-200'
+                ? 'border-sky-500 hv-pill-sky rounded-t-lg'
+                : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
             }`}
           >
-            <Sparkles className="w-3.5 h-3.5 text-sky-400" />
+            <Sparkles className="w-3.5 h-3.5 text-sky-500" />
             <span>{isHindi ? '4. पोर्टल सिमुलेशन व ई-वे बिल' : '4. Portal Simulation'}</span>
             {simulatedBills.length > 0 && (
-              <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-sky-600/40 text-sky-200 font-mono ml-1">
+              <span className="text-[10px] px-1.5 py-0.2 rounded-full hv-pill-sky border font-mono ml-1">
                 {simulatedBills.length}
               </span>
             )}
@@ -343,67 +343,67 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
             <div className="space-y-4">
               {/* Summary Metrics */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="p-3 bg-slate-800/80 rounded-xl border border-slate-700">
-                  <div className="text-[10px] uppercase font-bold text-slate-400">{isHindi ? 'कुल आउटवर्ड इनवॉइस' : 'Total Outward Invoices'}</div>
-                  <div className="text-lg font-bold text-white mt-0.5">{availableInvoices.length}</div>
+                <div className="p-3 hv-elevated rounded-xl border border-[var(--border-subtle)]">
+                  <div className="text-[10px] uppercase font-bold text-[var(--text-muted)]">{isHindi ? 'कुल आउटवर्ड इनवॉइस' : 'Total Outward Invoices'}</div>
+                  <div className="text-lg font-bold text-[var(--text-primary)] mt-0.5">{availableInvoices.length}</div>
                 </div>
 
-                <div className="p-3 bg-amber-950/30 rounded-xl border border-amber-500/30">
-                  <div className="text-[10px] uppercase font-bold text-amber-300">{isHindi ? 'ई-वे बिल अनिवार्य (> ₹50k)' : 'Mandatory (> ₹50k)'}</div>
-                  <div className="text-lg font-bold text-amber-400 mt-0.5">{totalMandatoryCount} <span className="text-xs font-normal">invoices</span></div>
+                <div className="p-3 hv-pill-amber rounded-xl border">
+                  <div className="text-[10px] uppercase font-bold">{isHindi ? 'ई-वे बिल अनिवार्य (> ₹50k)' : 'Mandatory (> ₹50k)'}</div>
+                  <div className="text-lg font-bold text-amber-500 mt-0.5">{totalMandatoryCount} <span className="text-xs font-normal">invoices</span></div>
                 </div>
 
-                <div className="p-3 bg-indigo-950/30 rounded-xl border border-indigo-500/30">
-                  <div className="text-[10px] uppercase font-bold text-indigo-300">{isHindi ? 'चयनित इनवॉइस' : 'Selected for e-Way Bill'}</div>
-                  <div className="text-lg font-bold text-indigo-400 mt-0.5">{selectedIds.length} <span className="text-xs font-normal">of {availableInvoices.length}</span></div>
+                <div className="p-3 hv-pill-indigo rounded-xl border">
+                  <div className="text-[10px] uppercase font-bold">{isHindi ? 'चयनित इनवॉइस' : 'Selected for e-Way Bill'}</div>
+                  <div className="text-lg font-bold text-indigo-500 mt-0.5">{selectedIds.length} <span className="text-xs font-normal">of {availableInvoices.length}</span></div>
                 </div>
 
-                <div className="p-3 bg-emerald-950/30 rounded-xl border border-emerald-500/30">
-                  <div className="text-[10px] uppercase font-bold text-emerald-300">{isHindi ? 'चयनित माल मूल्य' : 'Total Consignment Value'}</div>
-                  <div className="text-lg font-bold text-emerald-400 mt-0.5 font-mono">{formatCurrency(totalSelectedValue, currency)}</div>
+                <div className="p-3 hv-pill-emerald rounded-xl border">
+                  <div className="text-[10px] uppercase font-bold">{isHindi ? 'चयनित माल मूल्य' : 'Total Consignment Value'}</div>
+                  <div className="text-lg font-bold text-emerald-500 mt-0.5 font-mono">{formatCurrency(totalSelectedValue, currency)}</div>
                 </div>
               </div>
 
               {/* Table Controls */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-slate-800/60 p-3 rounded-xl border border-slate-700/70">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 hv-elevated p-3 rounded-xl border border-[var(--border-subtle)]">
                 <div className="relative flex-1 max-w-sm">
-                  <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+                  <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[var(--text-muted)]" />
                   <input
                     type="text"
                     value={tableSearch}
                     onChange={(e) => setTableSearch(e.target.value)}
                     placeholder={isHindi ? 'इनवॉइस #, पार्टी या स्थान खोजें...' : 'Search Invoice #, party name, or POS...'}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-lg pl-8 pr-3 py-1.5 text-slate-100 text-xs focus:outline-none focus:border-indigo-500"
+                    className="w-full hv-input border rounded-lg pl-8 pr-3 py-1.5 text-xs focus:outline-none focus:border-indigo-500"
                   />
                 </div>
 
                 <div className="flex items-center gap-2 flex-wrap">
-                  <div className="flex items-center gap-1 bg-slate-900 p-1 rounded-lg border border-slate-700 text-[11px]">
+                  <div className="flex items-center gap-1 hv-surface p-1 rounded-lg border border-[var(--border-primary)] text-[11px]">
                     <button
                       type="button"
                       onClick={() => setTableFilter('ALL')}
-                      className={`px-2 py-0.5 rounded font-semibold cursor-pointer ${tableFilter === 'ALL' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                      className={`px-2 py-0.5 rounded font-semibold cursor-pointer ${tableFilter === 'ALL' ? 'bg-indigo-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                     >
                       {isHindi ? 'सभी' : 'All'}
                     </button>
                     <button
                       type="button"
                       onClick={() => setTableFilter('OVER_50K')}
-                      className={`px-2 py-0.5 rounded font-semibold cursor-pointer ${tableFilter === 'OVER_50K' ? 'bg-amber-600 text-slate-950 font-bold' : 'text-amber-400 hover:text-amber-300'}`}
+                      className={`px-2 py-0.5 rounded font-semibold cursor-pointer ${tableFilter === 'OVER_50K' ? 'bg-amber-500 text-slate-950 font-bold' : 'text-amber-500 hover:text-amber-600'}`}
                     >
                       &gt; ₹50,000 ({totalMandatoryCount})
                     </button>
                     <button
                       type="button"
                       onClick={() => setTableFilter('INTERSTATE')}
-                      className={`px-2 py-0.5 rounded font-semibold cursor-pointer ${tableFilter === 'INTERSTATE' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                      className={`px-2 py-0.5 rounded font-semibold cursor-pointer ${tableFilter === 'INTERSTATE' ? 'bg-indigo-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                     >
                       {isHindi ? 'इंटर-स्टेट (IGST)' : 'Inter-State'}
                     </button>
                     <button
                       type="button"
                       onClick={() => setTableFilter('SELECTED')}
-                      className={`px-2 py-0.5 rounded font-semibold cursor-pointer ${tableFilter === 'SELECTED' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                      className={`px-2 py-0.5 rounded font-semibold cursor-pointer ${tableFilter === 'SELECTED' ? 'bg-indigo-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                     >
                       {isHindi ? 'चयनित' : 'Selected'} ({selectedIds.length})
                     </button>
@@ -412,7 +412,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                   <button
                     type="button"
                     onClick={handleSelectOver50k}
-                    className="text-[11px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 px-2.5 py-1 rounded-lg font-bold transition cursor-pointer"
+                    className="text-[11px] hv-pill-amber border px-2.5 py-1 rounded-lg font-bold transition cursor-pointer hover:opacity-90"
                   >
                     {isHindi ? '⚡ केवल > ₹50k चुनें' : '⚡ Select All > ₹50k'}
                   </button>
@@ -420,10 +420,10 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
               </div>
 
               {/* Invoices Selection Table */}
-              <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow">
+              <div className="hv-surface border border-[var(--border-primary)] rounded-xl overflow-hidden shadow">
                 <div className="overflow-x-auto max-h-72">
-                  <table className="w-full text-left text-xs text-slate-300">
-                    <thead className="bg-slate-800/90 text-slate-400 text-[10px] uppercase font-bold sticky top-0 z-10 border-b border-slate-700">
+                  <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+                    <thead className="hv-elevated text-[var(--text-muted)] text-[10px] uppercase font-bold sticky top-0 z-10 border-b border-[var(--border-primary)]">
                       <tr>
                         <th className="p-3 w-10 text-center">
                           <input
@@ -442,10 +442,10 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                         <th className="p-3 text-center">e-Way Bill Rule</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800">
+                    <tbody className="divide-y divide-[var(--border-subtle)]">
                       {displayedInvoices.length === 0 ? (
                         <tr>
-                          <td colSpan={8} className="p-6 text-center text-slate-500">
+                          <td colSpan={8} className="p-6 text-center text-[var(--text-muted)]">
                             {isHindi ? 'कोई इनवॉइस नहीं मिला।' : 'No matching sales invoices found.'}
                           </td>
                         </tr>
@@ -457,8 +457,8 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                             <tr
                               key={inv.id}
                               onClick={() => toggleInvoiceSelect(inv.id)}
-                              className={`hover:bg-slate-800/60 cursor-pointer transition ${
-                                isSelected ? 'bg-indigo-950/20' : ''
+                              className={`hover:bg-[var(--bg-hover)] cursor-pointer transition ${
+                                isSelected ? 'bg-indigo-500/10' : ''
                               }`}
                             >
                               <td className="p-3 text-center" onClick={(e) => e.stopPropagation()}>
@@ -470,43 +470,43 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                                 />
                               </td>
                               <td className="p-3">
-                                <div className="font-bold text-white font-mono">{inv.invoiceNumber}</div>
-                                <div className="text-[10px] text-slate-400">{inv.date}</div>
+                                <div className="font-bold text-[var(--text-primary)] font-mono">{inv.invoiceNumber}</div>
+                                <div className="text-[10px] text-[var(--text-muted)]">{inv.date}</div>
                               </td>
                               <td className="p-3">
-                                <div className="font-semibold text-slate-200">{inv.partyName}</div>
-                                <div className="text-[10px] text-slate-400 font-mono">
-                                  {inv.partyGstin ? inv.partyGstin : <span className="text-slate-500 italic">Unregistered (URP)</span>}
+                                <div className="font-semibold text-[var(--text-primary)]">{inv.partyName}</div>
+                                <div className="text-[10px] text-[var(--text-muted)] font-mono">
+                                  {inv.partyGstin ? inv.partyGstin : <span className="text-[var(--text-muted)] italic">Unregistered (URP)</span>}
                                 </div>
                               </td>
                               <td className="p-3">
-                                <span className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold ${
-                                  inv.isInterState ? 'bg-purple-950 text-purple-300 border border-purple-800' : 'bg-slate-800 text-slate-300'
+                                <span className={`inline-block px-1.5 py-0.5 rounded text-[10px] font-semibold border ${
+                                  inv.isInterState ? 'hv-pill-purple' : 'hv-pill-slate'
                                 }`}>
                                   {inv.placeOfSupply || inv.partyState || 'Delhi'}
                                 </span>
                               </td>
                               <td className="p-3 text-center">
-                                <span className="bg-slate-800 px-2 py-0.5 rounded text-[11px] font-mono">
+                                <span className="hv-elevated border border-[var(--border-subtle)] text-[var(--text-secondary)] px-2 py-0.5 rounded text-[11px] font-mono">
                                   {inv.items?.length || 1} items
                                 </span>
                               </td>
                               <td className="p-3 text-right font-mono">
-                                <div className="text-slate-300">{formatCurrency(inv.subtotal - inv.totalDiscount, currency)}</div>
-                                <div className="text-[10px] text-slate-400">Tax: {formatCurrency(inv.totalTax, currency)}</div>
+                                <div className="text-[var(--text-primary)]">{formatCurrency(inv.subtotal - inv.totalDiscount, currency)}</div>
+                                <div className="text-[10px] text-[var(--text-muted)]">Tax: {formatCurrency(inv.totalTax, currency)}</div>
                               </td>
                               <td className="p-3 text-right">
-                                <div className="font-extrabold text-amber-300 font-mono text-sm">
+                                <div className="font-extrabold text-amber-500 font-mono text-sm">
                                   {formatCurrency(inv.grandTotal, currency)}
                                 </div>
                               </td>
                               <td className="p-3 text-center">
                                 {isOver50k ? (
-                                  <span className="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] px-2 py-0.5 rounded font-bold">
+                                  <span className="hv-pill-amber border text-[10px] px-2 py-0.5 rounded font-bold">
                                     MANDATORY
                                   </span>
                                 ) : (
-                                  <span className="bg-slate-800 text-slate-400 text-[10px] px-2 py-0.5 rounded">
+                                  <span className="hv-pill-slate border text-[10px] px-2 py-0.5 rounded font-medium">
                                     OPTIONAL
                                   </span>
                                 )}
@@ -522,9 +522,9 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
 
               {/* Action Bar */}
               <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-                <div className="text-slate-400 text-xs">
+                <div className="text-[var(--text-muted)] text-xs">
                   {selectedIds.length === 0 ? (
-                    <span className="text-rose-400 font-semibold">{isHindi ? 'कृपया कम से कम एक इनवॉइस चुनें।' : 'Please select at least 1 invoice to proceed.'}</span>
+                    <span className="text-rose-500 font-semibold">{isHindi ? 'कृपया कम से कम एक इनवॉइस चुनें।' : 'Please select at least 1 invoice to proceed.'}</span>
                   ) : (
                     <span>
                       {isHindi ? `${selectedIds.length} इनवॉइस चयनित (कुल मूल्य: ${formatCurrency(totalSelectedValue, currency)})` : `${selectedIds.length} invoice(s) selected (Total: ${formatCurrency(totalSelectedValue, currency)})`}
@@ -537,7 +537,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                     type="button"
                     disabled={selectedIds.length === 0}
                     onClick={() => setActiveTab('transport')}
-                    className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/20 cursor-pointer"
+                    className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white hv-keep-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/20 cursor-pointer"
                   >
                     <span>{isHindi ? 'परिवहन विवरण भरें (Next: Part-B)' : 'Next: Transport Details'}</span>
                     <ArrowRight className="w-4 h-4" />
@@ -550,17 +550,17 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
           {/* TAB 2: TRANSPORTATION & LOGISTICS DETAILS (PART-B) */}
           {activeTab === 'transport' && (
             <div className="space-y-4">
-              <div className="bg-gradient-to-r from-amber-950/30 via-slate-800 to-indigo-950/30 p-4 rounded-xl border border-amber-500/30 space-y-2">
+              <div className="hv-pill-amber p-4 rounded-xl border space-y-2">
                 <div className="flex items-center justify-between">
-                  <h4 className="text-sm font-bold text-amber-300 flex items-center gap-2">
-                    <Truck className="w-4 h-4 text-amber-400" />
+                  <h4 className="text-sm font-bold flex items-center gap-2">
+                    <Truck className="w-4 h-4 text-amber-500" />
                     <span>{isHindi ? 'भाग-बी: परिवहन एवं लॉजिस्टिक्स विवरण (Part-B Transport Details)' : 'Part-B: Transporter & Vehicle Configuration'}</span>
                   </h4>
-                  <span className="text-[10px] bg-amber-500/20 text-amber-300 font-bold px-2 py-0.5 rounded border border-amber-500/40">
+                  <span className="text-[10px] hv-pill-amber font-bold px-2 py-0.5 rounded border">
                     Rule 138(2) CGST
                   </span>
                 </div>
-                <p className="text-slate-300 text-[11px] leading-relaxed">
+                <p className="text-[var(--text-secondary)] text-[11px] leading-relaxed">
                   {isHindi 
                     ? 'नीचे दिया गया ट्रांसपोर्ट विवरण सभी चयनित ' + selectedIds.length + ' इनवॉइसों पर स्वतः लागू होगा। आप आवश्यकतानुसार वाहन नंबर या ट्रांसपोर्टर बदल सकते हैं।'
                     : 'The transport configuration below will be applied to all ' + selectedIds.length + ' selected consignment(s). Formatted to NIC JSON specifications.'}
@@ -568,17 +568,17 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
               </div>
 
               {/* Form Grid */}
-              <div className="bg-slate-800/60 p-4 rounded-xl border border-slate-700 space-y-4">
+              <div className="hv-elevated p-4 rounded-xl border border-[var(--border-primary)] space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {/* Mode of Transport */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1">
                       {isHindi ? 'परिवहन का माध्यम (Transport Mode) *' : 'Mode of Transport *'}
                     </label>
                     <select
                       value={transportConfig.transMode}
                       onChange={(e) => setTransportConfig(prev => ({ ...prev, transMode: e.target.value as any }))}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 text-xs focus:border-indigo-500 focus:outline-none"
+                      className="w-full hv-input border rounded-xl px-3 py-2 text-xs focus:border-indigo-500 focus:outline-none"
                     >
                       <option value="1">1 - Road (सड़क मार्ग)</option>
                       <option value="2">2 - Rail (रेलवे)</option>
@@ -590,10 +590,10 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                   {/* Vehicle Number */}
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <label className="text-xs font-semibold text-slate-300">
+                      <label className="text-xs font-semibold text-[var(--text-secondary)]">
                         {isHindi ? 'वाहन नंबर (Vehicle Number) *' : 'Vehicle Number (e.g. DL01AB1234) *'}
                       </label>
-                      <span className="text-[10px] text-slate-500 font-mono">No spaces</span>
+                      <span className="text-[10px] text-[var(--text-muted)] font-mono">No spaces</span>
                     </div>
                     <input
                       type="text"
@@ -603,19 +603,19 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                         vehicleNo: e.target.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase() 
                       }))}
                       placeholder="DL01AB1234"
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono uppercase tracking-wider text-xs focus:border-amber-500 focus:outline-none font-bold"
+                      className="w-full hv-input border rounded-xl px-3 py-2 font-mono uppercase tracking-wider text-xs focus:border-amber-500 focus:outline-none font-bold"
                     />
                   </div>
 
                   {/* Vehicle Type */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1">
                       {isHindi ? 'वाहन प्रकार (Vehicle Type) *' : 'Vehicle Type *'}
                     </label>
                     <select
                       value={transportConfig.vehicleType}
                       onChange={(e) => setTransportConfig(prev => ({ ...prev, vehicleType: e.target.value as any }))}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 text-xs focus:border-indigo-500 focus:outline-none"
+                      className="w-full hv-input border rounded-xl px-3 py-2 text-xs focus:border-indigo-500 focus:outline-none"
                     >
                       <option value="R">Regular (सामान्य कार्गो - 200 km/day)</option>
                       <option value="O">Over Dimensional Cargo (ODC - 20 km/day)</option>
@@ -626,7 +626,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {/* Transporter ID */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1">
                       {isHindi ? 'ट्रांसपोर्टर आईडी / GSTIN' : 'Transporter ID / TRANSIN'}
                     </label>
                     <input
@@ -637,13 +637,13 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                         transporterId: e.target.value.toUpperCase() 
                       }))}
                       placeholder="07AAAAA0000A1Z5"
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-xs focus:border-indigo-500 focus:outline-none"
+                      className="w-full hv-input border rounded-xl px-3 py-2 font-mono text-xs focus:border-indigo-500 focus:outline-none"
                     />
                   </div>
 
                   {/* Transporter Name */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1">
                       {isHindi ? 'ट्रांसपोर्टर का नाम' : 'Transporter Name'}
                     </label>
                     <input
@@ -651,17 +651,17 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                       value={transportConfig.transporterName || ''}
                       onChange={(e) => setTransportConfig(prev => ({ ...prev, transporterName: e.target.value }))}
                       placeholder="TCI Freight Logistics / VRL / Delhivery"
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 text-xs focus:border-indigo-500 focus:outline-none"
+                      className="w-full hv-input border rounded-xl px-3 py-2 text-xs focus:border-indigo-500 focus:outline-none"
                     />
                   </div>
 
                   {/* Transit Distance in KM */}
                   <div>
                     <div className="flex justify-between items-center mb-1">
-                      <label className="text-xs font-semibold text-slate-300">
+                      <label className="text-xs font-semibold text-[var(--text-secondary)]">
                         {isHindi ? 'दूरी (Distance in KM) *' : 'Approx Transit Distance (KM) *'}
                       </label>
-                      <span className="text-[10px] text-slate-400">Max 4000 KM</span>
+                      <span className="text-[10px] text-[var(--text-muted)]">Max 4000 KM</span>
                     </div>
                     <input
                       type="number"
@@ -670,14 +670,14 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                       value={transportConfig.distanceKm || ''}
                       onChange={(e) => setTransportConfig(prev => ({ ...prev, distanceKm: parseInt(e.target.value, 10) || 0 }))}
                       placeholder="250"
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 font-mono text-xs focus:border-amber-500 focus:outline-none"
+                      className="w-full hv-input border rounded-xl px-3 py-2 font-mono text-xs focus:border-amber-500 focus:outline-none"
                     />
                   </div>
                 </div>
 
                 {/* Distance Quick Presets */}
-                <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-700/60 flex flex-wrap items-center justify-between gap-2">
-                  <span className="text-[11px] text-slate-400 font-medium">
+                <div className="hv-surface p-2.5 rounded-xl border border-[var(--border-subtle)] flex flex-wrap items-center justify-between gap-2">
+                  <span className="text-[11px] text-[var(--text-muted)] font-medium">
                     {isHindi ? 'क्विक दूरी प्रीसेट्स:' : 'Quick Distance Presets:'}
                   </span>
                   <div className="flex items-center gap-1.5 flex-wrap">
@@ -686,7 +686,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                         key={km}
                         type="button"
                         onClick={() => setTransportConfig(prev => ({ ...prev, distanceKm: km }))}
-                        className="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-mono rounded border border-slate-600 cursor-pointer"
+                        className="px-2 py-0.5 hv-elevated hover:bg-[var(--bg-hover)] text-[var(--text-primary)] text-[10px] font-mono rounded border border-[var(--border-primary)] cursor-pointer"
                       >
                         {km} KM
                       </button>
@@ -697,7 +697,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {/* Transport Doc (LR / RR / Airway Bill No.) */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1">
                       {isHindi ? 'ट्रांसपोर्ट डॉक / LR नंबर' : 'Trans Doc / Lorry Receipt (LR) No.'}
                     </label>
                     <input
@@ -705,32 +705,32 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                       value={transportConfig.transDocNo || ''}
                       onChange={(e) => setTransportConfig(prev => ({ ...prev, transDocNo: e.target.value }))}
                       placeholder="LR-98842"
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 text-xs focus:border-indigo-500 focus:outline-none font-mono"
+                      className="w-full hv-input border rounded-xl px-3 py-2 text-xs focus:border-indigo-500 focus:outline-none font-mono"
                     />
                   </div>
 
                   {/* Trans Doc Date */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1">
                       {isHindi ? 'LR / डॉक्युमेंट दिनांक' : 'LR Document Date'}
                     </label>
                     <input
                       type="date"
                       value={transportConfig.transDocDate || ''}
                       onChange={(e) => setTransportConfig(prev => ({ ...prev, transDocDate: e.target.value }))}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 text-xs focus:border-indigo-500 focus:outline-none"
+                      className="w-full hv-input border rounded-xl px-3 py-2 text-xs focus:border-indigo-500 focus:outline-none"
                     />
                   </div>
 
                   {/* Sub-supply Type */}
                   <div>
-                    <label className="block text-xs font-semibold text-slate-300 mb-1">
+                    <label className="block text-xs font-semibold text-[var(--text-secondary)] mb-1">
                       {isHindi ? 'सप्लाई उप-प्रकार (Sub-Supply Type)' : 'Sub-Supply Type'}
                     </label>
                     <select
                       value={transportConfig.subSupplyType}
                       onChange={(e) => setTransportConfig(prev => ({ ...prev, subSupplyType: e.target.value }))}
-                      className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-slate-100 text-xs focus:border-indigo-500 focus:outline-none"
+                      className="w-full hv-input border rounded-xl px-3 py-2 text-xs focus:border-indigo-500 focus:outline-none"
                     >
                       <option value="1">1 - Supply (नियमित माल बिक्री)</option>
                       <option value="3">3 - Export (निर्यात)</option>
@@ -748,7 +748,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setActiveTab('selection')}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition cursor-pointer"
+                  className="px-4 py-2 hv-elevated hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] border border-[var(--border-primary)] font-semibold text-xs rounded-xl transition cursor-pointer"
                 >
                   {isHindi ? '← पिछला: इनवॉइस चयन' : '← Back: Invoices Selection'}
                 </button>
@@ -756,7 +756,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setActiveTab('json')}
-                  className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/20 cursor-pointer"
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs px-5 py-2.5 rounded-xl transition flex items-center gap-1.5 shadow-lg shadow-indigo-600/20 cursor-pointer"
                 >
                   <span>{isHindi ? 'JSON प्रीव्यू एवं सत्यापन देखें (Next: JSON)' : 'Next: Preview JSON & Validate'}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -771,14 +771,14 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
               {/* Validation Status Card */}
               <div className={`p-4 rounded-xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 ${
                 hasValidationErrors 
-                  ? 'bg-rose-950/40 border-rose-500/40 text-rose-200' 
-                  : 'bg-emerald-950/40 border-emerald-500/40 text-emerald-200'
+                  ? 'hv-pill-rose' 
+                  : 'hv-pill-emerald'
               }`}>
                 <div className="flex items-center gap-3">
                   {hasValidationErrors ? (
-                    <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0" />
+                    <AlertTriangle className="w-5 h-5 text-rose-500 shrink-0" />
                   ) : (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500 shrink-0" />
                   )}
                   <div>
                     <div className="font-bold text-sm">
@@ -786,7 +786,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                         ? (isHindi ? 'NIC स्कीमा में कुछ त्रुटियां हैं' : 'Validation Issues Detected') 
                         : (isHindi ? 'NIC ई-वे बिल स्कीमा 100% सत्यापित!' : 'NIC e-Way Bill JSON Schema 100% Validated!')}
                     </div>
-                    <div className="text-[11px] opacity-80 mt-0.5">
+                    <div className="text-[11px] opacity-85 mt-0.5">
                       {selectedInvoices.length} {isHindi ? 'इनवॉइसों का JSON तैयार है' : 'invoice(s) ready for bulk portal upload'} (NIC Schema v1.0.0421)
                     </div>
                   </div>
@@ -796,16 +796,16 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                   <button
                     type="button"
                     onClick={handleCopyJson}
-                    className="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-3 py-1.5 rounded-xl border border-slate-700 transition flex items-center gap-1.5 text-xs cursor-pointer"
+                    className="hv-surface hover:bg-[var(--bg-hover)] text-[var(--text-primary)] font-bold px-3 py-1.5 rounded-xl border border-[var(--border-primary)] transition flex items-center gap-1.5 text-xs cursor-pointer"
                   >
-                    {copiedJson ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copiedJson ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedJson ? (isHindi ? 'कॉपी हो गया!' : 'Copied!') : (isHindi ? 'JSON कॉपी करें' : 'Copy JSON')}</span>
                   </button>
 
                   <button
                     type="button"
                     onClick={handleDownloadJson}
-                    className="bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-slate-950 font-extrabold px-4 py-1.5 rounded-xl shadow transition flex items-center gap-1.5 text-xs cursor-pointer"
+                    className="bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold px-4 py-1.5 rounded-xl shadow transition flex items-center gap-1.5 text-xs cursor-pointer"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'JSON डाउनलोड करें (.json)' : 'Download JSON File'}</span>
@@ -815,9 +815,9 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
 
               {/* Validation Issues List if any */}
               {validationIssues.length > 0 && (
-                <div className="bg-slate-900 border border-slate-800 rounded-xl p-3 space-y-2">
-                  <div className="text-[11px] font-bold text-slate-300 flex items-center gap-1.5 uppercase">
-                    <Info className="w-3.5 h-3.5 text-amber-400" />
+                <div className="hv-surface border border-[var(--border-primary)] rounded-xl p-3 space-y-2">
+                  <div className="text-[11px] font-bold text-[var(--text-primary)] flex items-center gap-1.5 uppercase">
+                    <Info className="w-3.5 h-3.5 text-amber-500" />
                     <span>{isHindi ? 'स्कीमा सत्यापन चेतावनियाँ एवं फ़ील्ड रिपोर्ट:' : 'Schema Validation & Compliance Checklist:'}</span>
                   </div>
                   <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
@@ -826,11 +826,11 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                         key={idx}
                         className={`p-2 rounded-lg text-[11px] flex items-start gap-2 border ${
                           issue.severity === 'error'
-                            ? 'bg-rose-950/40 border-rose-800/50 text-rose-300'
-                            : 'bg-amber-950/30 border-amber-800/50 text-amber-300'
+                            ? 'hv-pill-rose'
+                            : 'hv-pill-amber'
                         }`}
                       >
-                        <span className="font-mono font-bold uppercase text-[9px] px-1 py-0.2 rounded bg-slate-950">
+                        <span className="font-mono font-bold uppercase text-[9px] px-1.5 py-0.5 rounded hv-surface border border-[var(--border-subtle)] text-[var(--text-primary)]">
                           {issue.severity}
                         </span>
                         <span>{isHindi ? issue.messageHindi : issue.message}</span>
@@ -841,15 +841,15 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
               )}
 
               {/* Formatted JSON Viewer */}
-              <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-hidden shadow-inner">
-                <div className="bg-slate-900 px-4 py-2 border-b border-slate-800 flex items-center justify-between text-[11px]">
-                  <div className="flex items-center gap-2 text-slate-400 font-mono">
-                    <span className="text-emerald-400 font-bold">NIC_eWayBill_Bulk_Upload.json</span>
+              <div className="hv-elevated border border-[var(--border-primary)] rounded-xl overflow-hidden shadow-inner">
+                <div className="hv-surface px-4 py-2 border-b border-[var(--border-primary)] flex items-center justify-between text-[11px]">
+                  <div className="flex items-center gap-2 text-[var(--text-secondary)] font-mono">
+                    <span className="text-emerald-500 font-bold">NIC_eWayBill_Bulk_Upload.json</span>
                     <span>({currentJsonPayload.billLists.length} bills, version {currentJsonPayload.version})</span>
                   </div>
-                  <span className="text-slate-500 font-mono text-[10px]">Formatted JSON</span>
+                  <span className="text-[var(--text-muted)] font-mono text-[10px]">Formatted JSON</span>
                 </div>
-                <pre className="p-4 text-[11px] font-mono text-emerald-300 overflow-x-auto max-h-80 leading-relaxed selection:bg-emerald-800 selection:text-white">
+                <pre className="p-4 text-[11px] font-mono text-[var(--text-primary)] overflow-x-auto max-h-80 leading-relaxed selection:bg-emerald-600 selection:text-white">
                   {JSON.stringify(currentJsonPayload, null, 2)}
                 </pre>
               </div>
@@ -859,7 +859,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                 <button
                   type="button"
                   onClick={() => setActiveTab('transport')}
-                  className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition cursor-pointer"
+                  className="px-4 py-2 hv-elevated hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] border border-[var(--border-primary)] font-semibold text-xs rounded-xl transition cursor-pointer"
                 >
                   {isHindi ? '← पिछला: परिवहन विवरण' : '← Back: Transport Details'}
                 </button>
@@ -868,7 +868,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                   <button
                     type="button"
                     onClick={handleRunSimulation}
-                    className="bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg shadow-sky-600/20 transition flex items-center gap-1.5 cursor-pointer"
+                    className="bg-gradient-to-r from-sky-600 to-indigo-600 hover:from-sky-500 hover:to-indigo-500 text-white hv-keep-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow-lg shadow-sky-600/20 transition flex items-center gap-1.5 cursor-pointer"
                   >
                     <Sparkles className="w-4 h-4 text-amber-300" />
                     <span>{isHindi ? 'पोर्टल सिमुलेशन चलाएँ (Simulate e-Way Bill)' : 'Simulate NIC Portal Response'}</span>
@@ -882,15 +882,15 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
           {activeTab === 'simulation' && (
             <div className="space-y-5">
               {simulatedBills.length === 0 ? (
-                <div className="p-8 text-center bg-slate-900 rounded-2xl border border-slate-800 space-y-3">
-                  <Truck className="w-10 h-10 text-slate-600 mx-auto" />
-                  <p className="text-sm font-semibold text-slate-300">
+                <div className="p-8 text-center hv-elevated rounded-2xl border border-[var(--border-primary)] space-y-3">
+                  <Truck className="w-10 h-10 text-[var(--text-muted)] mx-auto" />
+                  <p className="text-sm font-semibold text-[var(--text-secondary)]">
                     {isHindi ? 'सिमुलेशन अभी नहीं चलाया गया है।' : 'Portal simulation has not been initiated yet.'}
                   </p>
                   <button
                     type="button"
                     onClick={handleRunSimulation}
-                    className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-5 py-2.5 rounded-xl shadow transition"
+                    className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs px-5 py-2.5 rounded-xl shadow transition cursor-pointer"
                   >
                     {isHindi ? 'पोर्टल सिमुलेशन शुरू करें' : 'Run Portal Simulation Now'}
                   </button>
@@ -898,16 +898,16 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
               ) : (
                 <div className="space-y-4">
                   {/* Success Banner */}
-                  <div className="bg-gradient-to-r from-emerald-950/50 via-slate-800 to-indigo-950/50 p-4 rounded-xl border border-emerald-500/40 flex flex-wrap items-center justify-between gap-3">
+                  <div className="hv-pill-emerald p-4 rounded-xl border flex flex-wrap items-center justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+                      <div className="w-9 h-9 rounded-xl hv-surface border border-emerald-500/40 flex items-center justify-center text-emerald-500">
                         <CheckCircle2 className="w-5 h-5" />
                       </div>
                       <div>
-                        <div className="font-bold text-sm text-emerald-200">
+                        <div className="font-bold text-sm">
                           {isHindi ? 'ई-वे बिल सफलतापूर्वक जनरेट हो गए (सिमुलेटेड)!' : 'e-Way Bills Generated Successfully (Simulated)!'}
                         </div>
-                        <div className="text-[11px] text-slate-400">
+                        <div className="text-[11px] opacity-85">
                           {simulatedBills.length} {isHindi ? 'ई-वे बिल नंबर आवंटित किए गए' : 'official e-Way Bill Numbers generated with 24-hr/200km validity'}
                         </div>
                       </div>
@@ -917,7 +917,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                       <button
                         type="button"
                         onClick={handleSaveEwbToInvoices}
-                        className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
+                        className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs px-3.5 py-2 rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
                       >
                         <Check className="w-3.5 h-3.5" />
                         <span>{savedToInvoices ? (isHindi ? 'सेव हो गया!' : 'Saved to Invoices!') : (isHindi ? 'इनवॉइसों में ई-वे बिल नं. जोड़ें' : 'Save e-Way No. to Invoices')}</span>
@@ -928,8 +928,8 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                         onClick={() => setShowEwbPrintConfig(prev => !prev)}
                         className={`font-bold text-xs px-3 py-2 rounded-xl border transition flex items-center gap-1.5 cursor-pointer ${
                           showEwbPrintConfig
-                            ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                            : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border-slate-700'
+                            ? 'hv-pill-amber'
+                            : 'hv-surface hover:bg-[var(--bg-hover)] text-[var(--text-primary)] border-[var(--border-primary)]'
                         }`}
                       >
                         <span>{isHindi ? 'प्रिंट सेटिंग्स' : 'Print Config'}</span>
@@ -954,7 +954,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                             });
                           }
                         }}
-                        className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 cursor-pointer"
+                        className="bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-bold text-xs px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 cursor-pointer"
                       >
                         <Download className="w-3.5 h-3.5" />
                         <span>{isHindi ? 'PDF डाउनलोड' : 'Download PDF'}</span>
@@ -970,16 +970,16 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                             title: 'GST e-Way Bill Slips'
                           })
                         }
-                        className="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs px-3.5 py-2 rounded-xl border border-slate-700 transition flex items-center gap-1.5 cursor-pointer"
+                        className="hv-surface hover:bg-[var(--bg-hover)] text-[var(--text-primary)] font-bold text-xs px-3.5 py-2 rounded-xl border border-[var(--border-primary)] transition flex items-center gap-1.5 cursor-pointer"
                       >
-                        <Printer className="w-3.5 h-3.5 text-amber-400" />
+                        <Printer className="w-3.5 h-3.5 text-amber-500" />
                         <span>{isHindi ? 'प्रिंट स्लिप' : 'Print Slip'}</span>
                       </button>
                     </div>
                   </div>
 
                   {showEwbPrintConfig && (
-                    <div className="rounded-xl overflow-hidden border border-slate-800 no-print">
+                    <div className="rounded-xl overflow-hidden border border-[var(--border-primary)] no-print">
                       <PrintConfigPanel
                         config={ewbPrintConfig}
                         onChange={setEwbPrintConfig}
@@ -989,26 +989,26 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                     </div>
                   )}
 
-                  {/* Official e-Way Bill Slips (NIC Print Style) */}
+                  {/* Official e-Way Bill Slips (Physical White Paper Print Style) */}
                   <div id="printable-eway-slip" className="space-y-4">
                     {simulatedBills.map((sim, index) => (
                       <div 
                         key={sim.ewayBillNo} 
-                        className="bg-slate-900 border border-slate-700 rounded-2xl p-5 space-y-4 shadow-xl"
+                        className="bg-white text-slate-900 border border-slate-300 rounded-2xl p-5 space-y-4 shadow-xl"
                       >
                         {/* Slip Top Header */}
-                        <div className="border-b border-slate-800 pb-3 flex flex-wrap items-center justify-between gap-3">
+                        <div className="border-b border-slate-200 pb-3 flex flex-wrap items-center justify-between gap-3">
                           <div>
-                            <div className="text-[10px] text-indigo-400 font-bold uppercase tracking-widest">
+                            <div className="text-[10px] text-indigo-700 font-bold uppercase tracking-widest">
                               Government of India • GST e-Way Bill System
                             </div>
-                            <h4 className="text-lg font-black text-white font-mono tracking-wider mt-0.5">
-                              e-Way Bill No: <span className="text-amber-400">{sim.ewayBillNo}</span>
+                            <h4 className="text-lg font-black text-slate-900 font-mono tracking-wider mt-0.5">
+                              e-Way Bill No: <span className="text-amber-700">{sim.ewayBillNo}</span>
                             </h4>
                           </div>
 
                           <div className="flex items-center gap-3">
-                            <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] px-2.5 py-1 rounded-full font-bold uppercase">
+                            <span className="bg-emerald-50 text-emerald-700 border border-emerald-300 text-[10px] px-2.5 py-1 rounded-full font-bold uppercase">
                               STATUS: ACTIVE / GENERATED
                             </span>
                           </div>
@@ -1017,73 +1017,73 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                         {/* Part-A & Part-B Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
                           {/* Part-A: Document & Supplier/Recipient */}
-                          <div className="p-3.5 bg-slate-950/70 rounded-xl border border-slate-800 space-y-2">
-                            <div className="font-bold text-indigo-300 border-b border-slate-800 pb-1.5 flex items-center justify-between">
+                          <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <div className="font-bold text-indigo-700 border-b border-slate-200 pb-1.5 flex items-center justify-between">
                               <span>PART-A: DOCUMENT & CONSIGNMENT DETAILS</span>
-                              <span className="text-[10px] text-slate-500 font-mono">Invoice: {sim.docNo}</span>
+                              <span className="text-[10px] text-slate-600 font-mono">Invoice: {sim.docNo}</span>
                             </div>
 
                             <div className="grid grid-cols-2 gap-2 text-[11px]">
                               <div>
-                                <span className="text-slate-500 block">Generated On:</span>
-                                <span className="text-slate-200 font-medium font-mono">{sim.ewayBillDate}</span>
+                                <span className="text-slate-600 block">Generated On:</span>
+                                <span className="text-slate-900 font-semibold font-mono">{sim.ewayBillDate}</span>
                               </div>
                               <div>
-                                <span className="text-slate-500 block">Valid Until:</span>
-                                <span className="text-emerald-400 font-bold font-mono">{sim.validUntil}</span>
+                                <span className="text-slate-600 block">Valid Until:</span>
+                                <span className="text-emerald-700 font-bold font-mono">{sim.validUntil}</span>
                               </div>
                             </div>
 
                             <div className="pt-1 space-y-1 text-[11px]">
                               <div>
-                                <span className="text-slate-500">From (Consignor):</span>{' '}
-                                <span className="text-slate-200 font-bold">{sim.fromTrdName}</span>
-                                <span className="text-slate-400 font-mono block text-[10px]">GSTIN: {sim.fromGstin}</span>
+                                <span className="text-slate-600">From (Consignor):</span>{' '}
+                                <span className="text-slate-900 font-bold">{sim.fromTrdName}</span>
+                                <span className="text-slate-600 font-mono block text-[10px]">GSTIN: {sim.fromGstin}</span>
                               </div>
 
                               <div className="pt-1">
-                                <span className="text-slate-500">To (Consignee):</span>{' '}
-                                <span className="text-slate-200 font-bold">{sim.toTrdName}</span>
-                                <span className="text-slate-400 font-mono block text-[10px]">GSTIN: {sim.toGstin}</span>
+                                <span className="text-slate-600">To (Consignee):</span>{' '}
+                                <span className="text-slate-900 font-bold">{sim.toTrdName}</span>
+                                <span className="text-slate-600 font-mono block text-[10px]">GSTIN: {sim.toGstin}</span>
                               </div>
 
                               <div className="pt-1 flex justify-between items-center font-mono">
-                                <span className="text-slate-500">Total Consignment Value:</span>
-                                <span className="text-amber-300 font-bold text-xs">{formatCurrency(sim.totInvValue, currency)}</span>
+                                <span className="text-slate-600">Total Consignment Value:</span>
+                                <span className="text-amber-700 font-bold text-xs">{formatCurrency(sim.totInvValue, currency)}</span>
                               </div>
                             </div>
                           </div>
 
                           {/* Part-B: Vehicle & Transportation */}
-                          <div className="p-3.5 bg-slate-950/70 rounded-xl border border-slate-800 space-y-2">
-                            <div className="font-bold text-amber-300 border-b border-slate-800 pb-1.5 flex items-center justify-between">
+                          <div className="p-3.5 bg-slate-50 rounded-xl border border-slate-200 space-y-2">
+                            <div className="font-bold text-amber-700 border-b border-slate-200 pb-1.5 flex items-center justify-between">
                               <span>PART-B: VEHICLE & MOVEMENT DETAILS</span>
-                              <span className="text-[10px] text-slate-500 font-mono">Road (1)</span>
+                              <span className="text-[10px] text-slate-600 font-mono">Road (1)</span>
                             </div>
 
                             <div className="grid grid-cols-2 gap-2 text-[11px]">
                               <div>
-                                <span className="text-slate-500 block">Vehicle Number:</span>
-                                <span className="text-amber-400 font-black font-mono text-sm tracking-wider">{sim.vehicleNo}</span>
+                                <span className="text-slate-600 block">Vehicle Number:</span>
+                                <span className="text-amber-700 font-black font-mono text-sm tracking-wider">{sim.vehicleNo}</span>
                               </div>
                               <div>
-                                <span className="text-slate-500 block">Transit Distance:</span>
-                                <span className="text-slate-200 font-bold font-mono">{sim.transDistance}</span>
+                                <span className="text-slate-600 block">Transit Distance:</span>
+                                <span className="text-slate-900 font-bold font-mono">{sim.transDistance}</span>
                               </div>
                             </div>
 
                             {/* Simulated QR Code / Barcode Block */}
-                            <div className="mt-3 p-3 bg-slate-900 rounded-lg border border-slate-800 flex items-center justify-between gap-3">
+                            <div className="mt-3 p-3 bg-white rounded-lg border border-slate-200 flex items-center justify-between gap-3">
                               <div className="space-y-0.5">
-                                <div className="text-[10px] font-bold text-slate-300 uppercase flex items-center gap-1">
-                                  <QrCode className="w-3.5 h-3.5 text-indigo-400" />
+                                <div className="text-[10px] font-bold text-slate-900 uppercase flex items-center gap-1">
+                                  <QrCode className="w-3.5 h-3.5 text-indigo-700" />
                                   <span>Digital QR Code Verification</span>
                                 </div>
-                                <div className="text-[9px] text-slate-500 font-mono">
+                                <div className="text-[9px] text-slate-600 font-mono">
                                   Encrypted with NIC Public Key • Scan via e-Way Bill App
                                 </div>
                               </div>
-                              <div className="w-14 h-14 bg-white p-1 rounded border border-slate-700 flex items-center justify-center shrink-0">
+                              <div className="w-14 h-14 bg-white p-1 rounded border border-slate-300 flex items-center justify-center shrink-0">
                                 <QrCode className="w-full h-full text-slate-950" />
                               </div>
                             </div>
@@ -1091,7 +1091,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                         </div>
 
                         {/* Footer Disclaimer */}
-                        <div className="text-[10px] text-slate-500 pt-1 border-t border-slate-800/80 flex items-center justify-between">
+                        <div className="text-[10px] text-slate-600 pt-1 border-t border-slate-200 flex items-center justify-between">
                           <span>Simulated strictly following Section 68 of CGST Act read with Rule 138.</span>
                           <span className="font-mono">JSON Doc #{index + 1}</span>
                         </div>
@@ -1104,7 +1104,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                     <button
                       type="button"
                       onClick={() => setActiveTab('json')}
-                      className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs rounded-xl transition cursor-pointer"
+                      className="px-4 py-2 hv-elevated hover:bg-[var(--bg-hover)] text-[var(--text-secondary)] border border-[var(--border-primary)] font-semibold text-xs rounded-xl transition cursor-pointer"
                     >
                       {isHindi ? '← पिछला: JSON देखें' : '← Back to JSON'}
                     </button>
@@ -1112,7 +1112,7 @@ export const EWayBillGeneratorModal: React.FC<EWayBillGeneratorModalProps> = ({
                     <button
                       type="button"
                       onClick={handleDownloadJson}
-                      className="bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-extrabold text-xs px-5 py-2.5 rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
+                      className="bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold text-xs px-5 py-2.5 rounded-xl shadow transition flex items-center gap-1.5 cursor-pointer"
                     >
                       <Download className="w-4 h-4" />
                       <span>{isHindi ? 'अंतिम पोर्टल JSON डाउनलोड करें' : 'Download Portal JSON File'}</span>

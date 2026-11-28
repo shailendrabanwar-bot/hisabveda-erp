@@ -54,11 +54,11 @@ export const PrintConfigPanel: React.FC<PrintConfigPanelProps> = ({
   };
 
   return (
-    <div className="bg-slate-950 border-b border-slate-800 px-4 py-3 text-xs text-slate-200 shrink-0 no-print">
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5 pb-2 border-b border-slate-800/80">
+    <div className="hv-canvas border-b px-4 py-3 text-xs text-[var(--text-primary)] shrink-0 no-print">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5 pb-2 border-b border-[var(--border-primary)]">
         <div className="flex items-center gap-2">
-          <Sliders className="w-3.5 h-3.5 text-amber-400" />
-          <span className="font-bold text-slate-100">
+          <Sliders className="w-3.5 h-3.5 text-amber-500" />
+          <span className="font-bold text-[var(--text-primary)]">
             {isHindi ? 'प्रिंट कॉन्फ़िगरेशन (Print Configuration)' : 'Print Configuration & Page Setup'}
           </span>
         </div>
@@ -67,7 +67,7 @@ export const PrintConfigPanel: React.FC<PrintConfigPanelProps> = ({
           <button
             type="button"
             onClick={handleResetDefaults}
-            className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 font-semibold transition cursor-pointer"
+            className="flex items-center gap-1 px-2.5 py-1 rounded-lg hv-elevated hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border font-semibold transition cursor-pointer"
           >
             <RotateCcw className="w-3 h-3" />
             <span>{isHindi ? 'रीसेट' : 'Reset'}</span>
@@ -78,8 +78,8 @@ export const PrintConfigPanel: React.FC<PrintConfigPanelProps> = ({
             onClick={handleSaveAsDefault}
             className={`flex items-center gap-1.5 px-3 py-1 rounded-lg font-bold transition cursor-pointer ${
               savedNotice
-                ? 'bg-emerald-600 text-white'
-                : 'bg-indigo-600 hover:bg-indigo-500 text-white'
+                ? 'bg-emerald-600 text-white hv-keep-white'
+                : 'bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white'
             }`}
           >
             {savedNotice ? <Check className="w-3.5 h-3.5" /> : <Save className="w-3.5 h-3.5" />}
@@ -99,13 +99,13 @@ export const PrintConfigPanel: React.FC<PrintConfigPanelProps> = ({
       {/* Primary Layout Selectors */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2.5 mb-2.5">
         <div>
-          <label className="block text-[11px] font-semibold text-slate-400 mb-1">
+          <label className="block text-[11px] font-semibold text-[var(--text-muted)] mb-1">
             {isHindi ? 'पेपर साइज़ (Paper Size)' : 'Paper Size'}
           </label>
           <select
             value={config.defaultPaperSize}
             onChange={(e) => updateField('defaultPaperSize', e.target.value as AppConfiguration['defaultPaperSize'])}
-            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-slate-100 font-semibold focus:border-indigo-500 outline-none"
+            className="w-full hv-input border rounded-lg px-2 py-1.5 font-semibold focus:border-indigo-500 outline-none"
           >
             <option value="A4">A4 (210 × 297 mm)</option>
             <option value="A5">A5 (148 × 210 mm)</option>
@@ -115,14 +115,14 @@ export const PrintConfigPanel: React.FC<PrintConfigPanelProps> = ({
         </div>
 
         <div>
-          <label className="block text-[11px] font-semibold text-slate-400 mb-1">
+          <label className="block text-[11px] font-semibold text-[var(--text-muted)] mb-1">
             {isHindi ? 'ओरिएंटेशन (Orientation)' : 'Orientation'}
           </label>
           <select
             value={config.printOrientation}
             onChange={(e) => updateField('printOrientation', e.target.value as 'portrait' | 'landscape')}
             disabled={config.defaultPaperSize.startsWith('Thermal')}
-            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-slate-100 font-semibold focus:border-indigo-500 outline-none disabled:opacity-50"
+            className="w-full hv-input border rounded-lg px-2 py-1.5 font-semibold focus:border-indigo-500 outline-none disabled:opacity-50"
           >
             <option value="portrait">{isHindi ? 'पोर्ट्रेट (Portrait)' : 'Portrait'}</option>
             <option value="landscape">{isHindi ? 'लैंडस्केप (Landscape)' : 'Landscape'}</option>
@@ -130,13 +130,13 @@ export const PrintConfigPanel: React.FC<PrintConfigPanelProps> = ({
         </div>
 
         <div>
-          <label className="block text-[11px] font-semibold text-slate-400 mb-1">
+          <label className="block text-[11px] font-semibold text-[var(--text-muted)] mb-1">
             {isHindi ? 'मार्जिन (Page Margin)' : 'Page Margins'}
           </label>
           <select
             value={config.printMargins}
             onChange={(e) => updateField('printMargins', e.target.value as 'compact' | 'standard' | 'wide')}
-            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-slate-100 font-semibold focus:border-indigo-500 outline-none"
+            className="w-full hv-input border rounded-lg px-2 py-1.5 font-semibold focus:border-indigo-500 outline-none"
           >
             <option value="compact">{isHindi ? 'कम (Narrow 6mm)' : 'Compact / Narrow'}</option>
             <option value="standard">{isHindi ? 'सामान्य (Standard 10mm)' : 'Standard'}</option>
@@ -145,13 +145,13 @@ export const PrintConfigPanel: React.FC<PrintConfigPanelProps> = ({
         </div>
 
         <div>
-          <label className="block text-[11px] font-semibold text-slate-400 mb-1">
+          <label className="block text-[11px] font-semibold text-[var(--text-muted)] mb-1">
             {isHindi ? 'फ़ॉन्ट आकार (Font Size)' : 'Font Scale'}
           </label>
           <select
             value={config.printFontScale}
             onChange={(e) => updateField('printFontScale', e.target.value as 'compact' | 'standard' | 'large')}
-            className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-slate-100 font-semibold focus:border-indigo-500 outline-none"
+            className="w-full hv-input border rounded-lg px-2 py-1.5 font-semibold focus:border-indigo-500 outline-none"
           >
             <option value="compact">{isHindi ? 'छोटा (Compact)' : 'Compact (92%)'}</option>
             <option value="standard">{isHindi ? 'मानक (Standard)' : 'Standard (100%)'}</option>
@@ -161,13 +161,13 @@ export const PrintConfigPanel: React.FC<PrintConfigPanelProps> = ({
 
         {(docKind === 'invoice' || docKind === 'purchase' || docKind === 'voucher') && (
           <div>
-            <label className="block text-[11px] font-semibold text-slate-400 mb-1">
+            <label className="block text-[11px] font-semibold text-[var(--text-muted)] mb-1">
               {isHindi ? 'कॉपी लेबल (Copy Label)' : 'Copy Label'}
             </label>
             <select
               value={config.printCopyLabel}
               onChange={(e) => updateField('printCopyLabel', e.target.value as AppConfiguration['printCopyLabel'])}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-slate-100 font-semibold focus:border-indigo-500 outline-none"
+              className="w-full hv-input border rounded-lg px-2 py-1.5 font-semibold focus:border-indigo-500 outline-none"
             >
               <option value="ORIGINAL">ORIGINAL FOR RECIPIENT</option>
               <option value="DUPLICATE">DUPLICATE FOR TRANSPORTER</option>
@@ -180,13 +180,13 @@ export const PrintConfigPanel: React.FC<PrintConfigPanelProps> = ({
 
         {docKind === 'invoice' && (
           <div>
-            <label className="block text-[11px] font-semibold text-slate-400 mb-1">
+            <label className="block text-[11px] font-semibold text-[var(--text-muted)] mb-1">
               {isHindi ? 'इनवॉइस थीम (Layout)' : 'Invoice Print Theme'}
             </label>
             <select
               value={config.invoicePrintTheme || 'GST_STANDARD'}
               onChange={(e) => updateField('invoicePrintTheme', e.target.value as 'GST_STANDARD' | 'MODERN')}
-              className="w-full bg-slate-900 border border-slate-700 rounded-lg px-2 py-1.5 text-slate-100 font-semibold focus:border-indigo-500 outline-none"
+              className="w-full hv-input border rounded-lg px-2 py-1.5 font-semibold focus:border-indigo-500 outline-none"
             >
               <option value="GST_STANDARD">{isHindi ? 'A4 GST स्टैंडर्ड' : 'GST Standard (Classic)'}</option>
               <option value="MODERN">{isHindi ? 'आधुनिक थीम (Modern)' : 'Modern Accent Theme'}</option>
@@ -196,7 +196,7 @@ export const PrintConfigPanel: React.FC<PrintConfigPanelProps> = ({
       </div>
 
       {/* Section Visibility Toggles */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1 text-[11px]">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 pt-1 text-[11px] text-[var(--text-secondary)]">
         <label className="inline-flex items-center gap-1.5 cursor-pointer select-none">
           <input
             type="checkbox"

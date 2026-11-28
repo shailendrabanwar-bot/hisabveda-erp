@@ -584,30 +584,30 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
   return (
     <div className="space-y-6">
       {/* Top Banner & Automated AI Insights Header */}
-      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-indigo-800/40 rounded-2xl p-6 text-white shadow-xl relative overflow-hidden">
-        <div className="absolute -right-10 -bottom-10 w-60 h-60 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-6 text-[var(--text-primary)] shadow-xl relative overflow-hidden">
+        <div className="absolute -right-10 -bottom-10 w-60 h-60 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
         
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
           <div>
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1.5">
-                <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+              <span className="hv-pill-indigo border text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5" />
                 {isHindi ? 'एआई टीडीएस रिटर्न ऑटोमेशन' : 'AI TDS Return Automation Engine'}
               </span>
-              <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 text-xs font-bold px-2.5 py-1 rounded-full">
+              <span className="hv-pill-emerald border text-xs font-bold px-2.5 py-1 rounded-full">
                 {formMapping.isNewCode 
                   ? 'Form 140 / 138 / 144 / 143 (New Tax Code)' 
                   : 'Form 26Q / 24Q / 27Q / 27EQ (Legacy)'}
               </span>
-              <span className="bg-amber-500/20 text-amber-300 border border-amber-400/30 text-xs font-bold px-2.5 py-1 rounded-full">
+              <span className="hv-pill-amber border text-xs font-bold px-2.5 py-1 rounded-full">
                 {formMapping.codeVersionTitle}
               </span>
             </div>
-            <h2 className="text-2xl font-black text-white tracking-tight flex items-center gap-3">
-              <FileCheck2 className="w-7 h-7 text-indigo-400" />
+            <h2 className="text-2xl font-black text-[var(--text-primary)] tracking-tight flex items-center gap-3">
+              <FileCheck2 className="w-7 h-7 text-indigo-500" />
               {isHindi ? 'ऑटोमेटेड टीडीएस रिटर्न फाइलिंग एवं अनुपालन' : 'Automate TDS Return Filing & Compliance'}
             </h2>
-            <p className="text-slate-300 text-sm mt-1 max-w-2xl">
+            <p className="text-[var(--text-secondary)] text-sm mt-1 max-w-2xl">
               {formMapping.isNewCode
                 ? (isHindi 
                     ? 'नये डायरेक्ट टैक्स कोड FY 2026-27 के अनुसार Form 140 (गैर-वेतन), Form 138 (वेतन), Form 144 (अनिवासी), Form 143 (TCS) तथा Form 141 पर ऑटो-ऑडिट व TRACES / JSON e-Filing रिटर्न।'
@@ -622,14 +622,14 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={handleExportTracesFvu}
-              className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-900/30 text-xs flex items-center gap-2 transition"
+              className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-4 py-2.5 rounded-xl shadow-lg text-xs flex items-center gap-2 transition"
             >
               <Download className="w-4 h-4" />
               {isHindi ? `${activeFormTab === '26Q' ? formMapping.nonSalaryForm : formMapping.salaryForm} e-FVU (.txt)` : `Download ${activeFormTab === '26Q' ? formMapping.nonSalaryForm : formMapping.salaryForm} e-FVU (.txt)`}
             </button>
             <button
               onClick={handleExportJsonPayload}
-              className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2.5 rounded-xl shadow-lg shadow-emerald-900/30 text-xs flex items-center gap-2 transition"
+              className="bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-bold px-4 py-2.5 rounded-xl shadow-lg text-xs flex items-center gap-2 transition"
             >
               <FileText className="w-4 h-4" />
               {isHindi ? `${activeFormTab === '26Q' ? formMapping.nonSalaryForm : formMapping.salaryForm} JSON पेलोड` : `${activeFormTab === '26Q' ? formMapping.nonSalaryForm : formMapping.salaryForm} Portal JSON`}
@@ -638,22 +638,22 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
         </div>
 
         {/* Quick Summary Badges */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-6 border-t border-slate-800/80">
-          <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
-            <p className="text-slate-400 text-xs font-medium">{isHindi ? 'कुल कटौती योग्य राशि' : 'Total Gross Payment'}</p>
-            <p className="text-lg font-bold text-white mt-0.5">{formatCurrency(totalGross26Q, currency)}</p>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-6 pt-6 border-t border-[var(--border-primary)]">
+          <div className="hv-elevated border border-[var(--border-subtle)] p-3 rounded-xl">
+            <p className="text-[var(--text-muted)] text-xs font-medium">{isHindi ? 'कुल कटौती योग्य राशि' : 'Total Gross Payment'}</p>
+            <p className="text-lg font-bold text-[var(--text-primary)] mt-0.5">{formatCurrency(totalGross26Q, currency)}</p>
           </div>
-          <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
-            <p className="text-slate-400 text-xs font-medium">{isHindi ? 'काटा गया कुल TDS' : 'Total TDS Deducted'}</p>
-            <p className="text-lg font-bold text-indigo-400 mt-0.5">{formatCurrency(totalTds26Q, currency)}</p>
+          <div className="hv-elevated border border-[var(--border-subtle)] p-3 rounded-xl">
+            <p className="text-[var(--text-muted)] text-xs font-medium">{isHindi ? 'काटा गया कुल TDS' : 'Total TDS Deducted'}</p>
+            <p className="text-lg font-bold text-indigo-500 mt-0.5">{formatCurrency(totalTds26Q, currency)}</p>
           </div>
-          <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
-            <p className="text-slate-400 text-xs font-medium">{isHindi ? 'चालान 281 जमा कुल' : 'Challan 281 Deposited'}</p>
-            <p className="text-lg font-bold text-emerald-400 mt-0.5">{formatCurrency(totalChallanPaid, currency)}</p>
+          <div className="hv-elevated border border-[var(--border-subtle)] p-3 rounded-xl">
+            <p className="text-[var(--text-muted)] text-xs font-medium">{isHindi ? 'चालान 281 जमा कुल' : 'Challan 281 Deposited'}</p>
+            <p className="text-lg font-bold text-emerald-500 mt-0.5">{formatCurrency(totalChallanPaid, currency)}</p>
           </div>
-          <div className="bg-slate-900/80 border border-slate-800 p-3 rounded-xl">
-            <p className="text-slate-400 text-xs font-medium">{isHindi ? 'शेष TDS देयता' : 'Pending TDS Payable'}</p>
-            <p className={`text-lg font-bold mt-0.5 ${tdsLiabilityBalance > 0 ? 'text-amber-400' : 'text-emerald-400'}`}>
+          <div className="hv-elevated border border-[var(--border-subtle)] p-3 rounded-xl">
+            <p className="text-[var(--text-muted)] text-xs font-medium">{isHindi ? 'शेष TDS देयता' : 'Pending TDS Payable'}</p>
+            <p className={`text-lg font-bold mt-0.5 ${tdsLiabilityBalance > 0 ? 'text-amber-500' : 'text-emerald-500'}`}>
               {formatCurrency(tdsLiabilityBalance, currency)}
             </p>
           </div>
@@ -661,9 +661,9 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
       </div>
 
       {deductionSuccessMsg && (
-        <div className="bg-emerald-950/80 border border-emerald-500/50 text-emerald-200 p-4 rounded-xl flex items-center justify-between text-sm animate-fade-in">
+        <div className="hv-pill-emerald border p-4 rounded-xl flex items-center justify-between text-sm animate-fade-in">
           <div className="flex items-center gap-3">
-            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />
+            <CheckCircle2 className="w-5 h-5 shrink-0" />
             <span className="font-semibold">{deductionSuccessMsg}</span>
           </div>
         </div>
@@ -671,9 +671,9 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
 
       {/* Audit Findings Banner (If TDS Threshold Breaches Detected) */}
       {auditAnalysis.breaches.length > 0 && (
-        <div className="bg-amber-950/40 border border-amber-500/30 rounded-2xl p-5 text-slate-200">
+        <div className="hv-pill-amber border rounded-2xl p-5">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
-            <div className="flex items-center gap-2 text-amber-400 font-bold text-sm">
+            <div className="flex items-center gap-2 font-bold text-sm">
               <ShieldAlert className="w-5 h-5" />
               <span>{isHindi ? 'AI ऑडिट अलर्ट: बिना टीडीएस कटौती वाले भुगतानों का पता चला' : 'AI Audit Alert: Vendor Purchases Crossing TDS Thresholds Detected'}</span>
             </div>
@@ -688,17 +688,17 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
           </div>
           <div className="space-y-2">
             {auditAnalysis.breaches.map((b, idx) => (
-              <div key={idx} className="bg-slate-900/80 border border-slate-800 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+              <div key={idx} className="hv-surface border border-[var(--border-primary)] p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
                 <div>
-                  <span className="font-bold text-white">{b.party.name}</span>
-                  <span className="text-slate-400 ml-2">({b.invoicesCount} Invoices)</span>
-                  <p className="text-slate-300 mt-0.5">{b.reason}</p>
+                  <span className="font-bold text-[var(--text-primary)]">{b.party.name}</span>
+                  <span className="text-[var(--text-muted)] ml-2">({b.invoicesCount} Invoices)</span>
+                  <p className="text-[var(--text-secondary)] mt-0.5">{b.reason}</p>
                 </div>
                 <div className="text-right shrink-0">
-                  <span className="bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px] font-bold px-2 py-0.5 rounded">
+                  <span className="hv-pill-amber border text-[11px] font-bold px-2 py-0.5 rounded">
                     {formMapping.isNewCode ? `Sec ${b.applicableSection.newSection}` : `Sec ${b.applicableSection.section}`} ({b.estimatedTdsRate}%)
                   </span>
-                  <p className="font-bold text-amber-400 text-sm mt-0.5">TDS: {formatCurrency(b.suggestedTdsAmount, currency)}</p>
+                  <p className="font-bold text-amber-500 text-sm mt-0.5">TDS: {formatCurrency(b.suggestedTdsAmount, currency)}</p>
                 </div>
               </div>
             ))}
@@ -707,20 +707,20 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
       )}
 
       {/* Main Tabs for Form 140/26Q / 144/27Q / 138/24Q / Threshold Rates */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--border-primary)] pb-4">
           <div className="flex items-center gap-2 overflow-x-auto pb-1">
             <button
               onClick={() => setActiveFormTab('26Q')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
                 activeFormTab === '26Q'
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/30'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-indigo-600 text-white hv-keep-white shadow-lg'
+                  : 'hv-elevated border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--hover-surface)]'
               }`}
             >
-              <FileText className="w-4 h-4 text-emerald-400" />
+              <FileText className={`w-4 h-4 ${activeFormTab === '26Q' ? 'text-white' : 'text-emerald-500'}`} />
               <span>{formMapping.nonSalaryForm}</span>
-              <span className="text-[10px] opacity-75">
+              <span className="text-[10px] opacity-80">
                 ({formMapping.isNewCode ? 'Non-Salary Resident' : 'Vendor TDS'})
               </span>
             </button>
@@ -728,35 +728,35 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
               onClick={() => setActiveFormTab('24Q')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
                 activeFormTab === '24Q'
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/30'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-indigo-600 text-white hv-keep-white shadow-lg'
+                  : 'hv-elevated border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--hover-surface)]'
               }`}
             >
-              <Users className="w-4 h-4 text-indigo-400" />
+              <Users className={`w-4 h-4 ${activeFormTab === '24Q' ? 'text-white' : 'text-indigo-500'}`} />
               <span>{formMapping.salaryForm}</span>
-              <span className="text-[10px] opacity-75">(Salary & Pension)</span>
+              <span className="text-[10px] opacity-80">(Salary & Pension)</span>
             </button>
             <button
               onClick={() => setActiveFormTab('27Q')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
                 activeFormTab === '27Q'
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/30'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-indigo-600 text-white hv-keep-white shadow-lg'
+                  : 'hv-elevated border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--hover-surface)]'
               }`}
             >
-              <Building2 className="w-4 h-4 text-amber-400" />
+              <Building2 className={`w-4 h-4 ${activeFormTab === '27Q' ? 'text-white' : 'text-amber-500'}`} />
               <span>{formMapping.nonResidentForm}</span>
-              <span className="text-[10px] opacity-75">(Non-Resident)</span>
+              <span className="text-[10px] opacity-80">(Non-Resident)</span>
             </button>
             <button
               onClick={() => setActiveFormTab('AUDIT')}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 shrink-0 ${
                 activeFormTab === 'AUDIT'
-                  ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-900/30'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-indigo-600 text-white hv-keep-white shadow-lg'
+                  : 'hv-elevated border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:bg-[var(--hover-surface)]'
               }`}
             >
-              <Calculator className="w-4 h-4 text-cyan-400" />
+              <Calculator className={`w-4 h-4 ${activeFormTab === 'AUDIT' ? 'text-white' : 'text-cyan-500'}`} />
               {isHindi ? 'टीडीएस धाराएँ व मैपिंग' : 'TDS Code Mapping & Rates'}
             </button>
           </div>
@@ -766,7 +766,7 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
             <select
               value={selectedQuarter}
               onChange={(e) => setSelectedQuarter(e.target.value as any)}
-              className="bg-slate-800 border border-slate-700 text-white text-xs rounded-xl px-3 py-2 font-bold focus:outline-none focus:border-indigo-500"
+              className="hv-input border text-xs rounded-xl px-3 py-2 font-bold focus:outline-none focus:border-indigo-500"
             >
               <option value="Q1">Q1 (Apr - Jun)</option>
               <option value="Q2">Q2 (Jul - Sep)</option>
@@ -776,7 +776,7 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
             <select
               value={selectedFy}
               onChange={(e) => setSelectedFy(e.target.value)}
-              className="bg-indigo-950 border border-indigo-600 text-indigo-200 text-xs rounded-xl px-3 py-2 font-black focus:outline-none focus:border-indigo-400"
+              className="hv-input border border-indigo-500/40 text-indigo-500 text-xs rounded-xl px-3 py-2 font-black focus:outline-none focus:border-indigo-500"
             >
               <option value="2026-27">FY 2026-27 (New Tax Code)</option>
               <option value="2025-26">FY 2025-26 (Old Tax Code)</option>
@@ -792,19 +792,19 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <div className="relative w-full sm:w-64">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+                  <Search className="w-4 h-4 text-[var(--text-muted)] absolute left-3 top-2.5" />
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder={isHindi ? 'कटौतीकर्ता का नाम, पैन, धारा खोजें...' : 'Search Deductee Name, PAN, Section...'}
-                    className="w-full bg-slate-950 border border-slate-800 text-white text-xs rounded-xl pl-9 pr-3 py-2 focus:outline-none focus:border-indigo-500"
+                    className="w-full hv-input border text-xs rounded-xl pl-9 pr-3 py-2 focus:outline-none focus:border-indigo-500"
                   />
                 </div>
                 <select
                   value={selectedSection}
                   onChange={(e) => setSelectedSection(e.target.value)}
-                  className="bg-slate-950 border border-slate-800 text-white text-xs rounded-xl px-3 py-2 font-bold focus:outline-none"
+                  className="hv-input border text-xs rounded-xl px-3 py-2 font-bold focus:outline-none focus:border-indigo-500"
                 >
                   <option value="ALL">All Sections (सभी धाराएँ)</option>
                   {TDS_SECTIONS.map((s) => (
@@ -824,29 +824,29 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
                     setNewSec('');
                     setShowChallanModal(true);
                   }}
-                  className="bg-slate-800 hover:bg-slate-700 text-white font-bold px-3 py-2 rounded-xl text-xs flex items-center gap-1.5 transition"
+                  className="hv-elevated hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold px-3 py-2 rounded-xl text-xs flex items-center gap-1.5 transition"
                 >
-                  <Plus className="w-4 h-4 text-indigo-400" />
+                  <Plus className="w-4 h-4 text-indigo-500" />
                   {isHindi ? 'चालान 281 प्रविष्टि जोड़ें' : 'Add Challan 281 Deposit'}
                 </button>
               </div>
             </div>
 
             {/* Deductee Details Table */}
-            <div className="border border-slate-800 rounded-xl overflow-hidden">
-              <div className="bg-slate-950 px-4 py-3 border-b border-slate-800 flex items-center justify-between">
-                <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Users className="w-4 h-4 text-indigo-400" />
+            <div className="border border-[var(--border-primary)] rounded-xl overflow-hidden">
+              <div className="hv-elevated px-4 py-3 border-b border-[var(--border-primary)] flex items-center justify-between">
+                <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+                  <Users className="w-4 h-4 text-indigo-500" />
                   {isHindi ? 'फॉर्म 26Q कटौतीकर्ता सूची (Deductee Records)' : 'Form 26Q Deductee Records Annexure'}
                 </h3>
-                <span className="text-xs text-slate-400 font-medium">
+                <span className="text-xs text-[var(--text-muted)] font-medium">
                   {deducteeRecords26Q.length} Records Found
                 </span>
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs text-slate-300">
-                  <thead className="bg-slate-900/90 text-slate-400 uppercase font-semibold border-b border-slate-800">
+                <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+                  <thead className="hv-elevated text-[var(--text-muted)] uppercase font-semibold border-b border-[var(--border-primary)]">
                     <tr>
                       <th className="px-4 py-3">Code / Name</th>
                       <th className="px-4 py-3">PAN</th>
@@ -854,39 +854,39 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
                       <th className="px-4 py-3">Date</th>
                       <th className="px-4 py-3 text-right">Gross Amount</th>
                       <th className="px-4 py-3 text-center">Rate</th>
-                      <th className="px-4 py-3 text-right text-indigo-400">TDS Deducted</th>
+                      <th className="px-4 py-3 text-right text-indigo-500">TDS Deducted</th>
                       <th className="px-4 py-3 text-right">Net Paid</th>
                       <th className="px-4 py-3 text-center">Challan Ref</th>
-                      <th className="px-4 py-3 text-center text-indigo-400">{isHindi ? 'स्रोत ऑडिट ट्रेस' : 'Source & Audit Trace'}</th>
+                      <th className="px-4 py-3 text-center text-indigo-500">{isHindi ? 'स्रोत ऑडिट ट्रेस' : 'Source & Audit Trace'}</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/80">
+                  <tbody className="divide-y divide-[var(--border-primary)]">
                     {deducteeRecords26Q.map((row) => (
                       <tr 
                         key={row.id} 
                         onClick={() => setSelectedRecordModal(row)}
-                        className="hover:bg-indigo-950/40 transition cursor-pointer group"
+                        className="hover:bg-[var(--hover-surface)] transition cursor-pointer group"
                       >
                         <td className="px-4 py-3">
-                          <p className="font-bold text-white group-hover:text-indigo-300 transition">{row.deducteeName}</p>
-                          <span className="text-[10px] text-slate-500">{row.deducteeCode}</span>
+                          <p className="font-bold text-[var(--text-primary)] group-hover:text-indigo-500 transition">{row.deducteeName}</p>
+                          <span className="text-[10px] text-[var(--text-muted)]">{row.deducteeCode}</span>
                         </td>
                         <td className="px-4 py-3">
-                          <span className="font-mono font-bold text-slate-200">{row.pan}</span>
-                          <span className="ml-1.5 text-[9px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1 py-0.5 rounded">
+                          <span className="font-mono font-bold text-[var(--text-primary)]">{row.pan}</span>
+                          <span className="ml-1.5 text-[9px] hv-pill-emerald border px-1 py-0.5 rounded font-bold">
                             {row.panStatus}
                           </span>
                         </td>
-                        <td className="px-4 py-3 font-bold text-indigo-300">
+                        <td className="px-4 py-3 font-bold text-indigo-500">
                           Sec {row.section}
                         </td>
-                        <td className="px-4 py-3 text-slate-400">{row.paymentDate}</td>
-                        <td className="px-4 py-3 text-right font-medium text-white">{formatCurrency(row.grossAmount, currency)}</td>
-                        <td className="px-4 py-3 text-center font-bold text-amber-400">{row.tdsRate}%</td>
-                        <td className="px-4 py-3 text-right font-bold text-indigo-400">{formatCurrency(row.tdsDeducted, currency)}</td>
-                        <td className="px-4 py-3 text-right font-medium text-slate-300">{formatCurrency(row.netPaid, currency)}</td>
+                        <td className="px-4 py-3 text-[var(--text-muted)]">{row.paymentDate}</td>
+                        <td className="px-4 py-3 text-right font-medium text-[var(--text-primary)]">{formatCurrency(row.grossAmount, currency)}</td>
+                        <td className="px-4 py-3 text-center font-bold text-amber-500">{row.tdsRate}%</td>
+                        <td className="px-4 py-3 text-right font-bold text-indigo-500">{formatCurrency(row.tdsDeducted, currency)}</td>
+                        <td className="px-4 py-3 text-right font-medium text-[var(--text-secondary)]">{formatCurrency(row.netPaid, currency)}</td>
                         <td className="px-4 py-3 text-center">
-                          <span className="bg-slate-800 text-slate-300 font-mono text-[11px] px-2 py-1 rounded">
+                          <span className="hv-pill-slate border font-mono text-[11px] px-2 py-1 rounded">
                             #{row.challanRef}
                           </span>
                         </td>
@@ -896,9 +896,9 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
                               e.stopPropagation();
                               setSelectedRecordModal(row);
                             }}
-                            className="bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/40 font-bold text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1 transition mx-auto"
+                            className="hv-pill-indigo hover:bg-indigo-600 hover:text-white border font-bold text-[11px] px-2.5 py-1 rounded-lg flex items-center gap-1 transition mx-auto"
                           >
-                            <Eye className="w-3.5 h-3.5 text-indigo-400 group-hover:text-white" />
+                            <Eye className="w-3.5 h-3.5" />
                             <span>{isHindi ? 'सोर्स ट्रेस' : 'Source Trace'}</span>
                           </button>
                         </td>
@@ -910,33 +910,33 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
             </div>
 
             {/* Deposited Challan 281 List */}
-            <div className="bg-slate-950 border border-slate-800 rounded-xl p-4">
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-3 flex items-center justify-between">
+            <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-4">
+              <h4 className="text-xs font-bold text-[var(--text-primary)] uppercase tracking-wider mb-3 flex items-center justify-between">
                 <span className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                   Challan 281 Tax Deposit Register (BSR Code & CIN Verified)
                 </span>
-                <span className="text-emerald-400 font-bold">
+                <span className="text-emerald-500 font-bold">
                   Total Deposited: {formatCurrency(totalChallanPaid, currency)}
                 </span>
               </h4>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {challans.map((chl) => (
-                  <div key={chl.id} className="bg-slate-900 border border-slate-800 p-3 rounded-xl flex items-center justify-between text-xs">
+                  <div key={chl.id} className="hv-surface border border-[var(--border-primary)] p-3 rounded-xl flex items-center justify-between text-xs">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-bold text-white">Challan #{chl.challanNo}</span>
-                        <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-1.5 py-0.5 rounded text-[10px]">
+                        <span className="font-bold text-[var(--text-primary)]">Challan #{chl.challanNo}</span>
+                        <span className="hv-pill-indigo border px-1.5 py-0.5 rounded text-[10px]">
                           Sec {chl.section}
                         </span>
                       </div>
-                      <p className="text-slate-400 mt-0.5">BSR: {chl.bsrCode} | Date: {chl.depositDate}</p>
-                      <p className="text-slate-500 font-mono text-[10px] mt-0.5">CIN: {chl.cin}</p>
+                      <p className="text-[var(--text-muted)] mt-0.5">BSR: {chl.bsrCode} | Date: {chl.depositDate}</p>
+                      <p className="text-[var(--text-muted)] font-mono text-[10px] mt-0.5">CIN: {chl.cin}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-bold text-emerald-400">{formatCurrency(chl.totalPaid, currency)}</p>
-                      <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1.5 py-0.5 rounded font-bold">
+                      <p className="text-sm font-bold text-emerald-500">{formatCurrency(chl.totalPaid, currency)}</p>
+                      <span className="text-[10px] hv-pill-emerald border px-1.5 py-0.5 rounded font-bold">
                         VERIFIED
                       </span>
                     </div>
@@ -949,12 +949,12 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
 
         {/* Tab Content 2 & 3: Form 27Q & 24Q placeholders / overview */}
         {(activeFormTab === '27Q' || activeFormTab === '24Q') && (
-          <div className="bg-slate-950 border border-slate-800 rounded-xl p-6 text-center text-slate-300">
-            <Info className="w-8 h-8 text-indigo-400 mx-auto mb-2" />
-            <h4 className="text-base font-bold text-white">
+          <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-6 text-center text-[var(--text-secondary)]">
+            <Info className="w-8 h-8 text-indigo-500 mx-auto mb-2" />
+            <h4 className="text-base font-bold text-[var(--text-primary)]">
               {activeFormTab === '27Q' ? 'Form 27Q - Non-Resident TDS Returns' : 'Form 24Q - Salary TDS Returns'}
             </h4>
-            <p className="text-xs text-slate-400 mt-1 max-w-xl mx-auto">
+            <p className="text-xs text-[var(--text-muted)] mt-1 max-w-xl mx-auto">
               {activeFormTab === '27Q'
                 ? 'Automated 27Q payload generator for interest, royalty, or fees paid to foreign vendors with DTAA tax treaty benefits.'
                 : 'Automated 24Q payload generator for employee salary tax deductions linked with monthly payroll records.'
@@ -964,7 +964,7 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
             <div className="mt-6 flex justify-center gap-3">
               <button
                 onClick={handleExportJsonPayload}
-                className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition"
+                className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-4 py-2 rounded-xl text-xs transition"
               >
                 {isHindi ? 'पेलोड जनरेट करें' : `Generate ${activeFormTab} e-Filing JSON`}
               </button>
@@ -976,85 +976,85 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
         {activeFormTab === 'AUDIT' && (
           <div className="space-y-6">
             {/* New vs. Old TDS Form Mapping Card */}
-            <div className="bg-gradient-to-r from-indigo-950/60 via-slate-950 to-indigo-950/60 border border-indigo-500/30 rounded-2xl p-5 space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
+            <div className="hv-elevated border border-indigo-500/30 rounded-2xl p-5 space-y-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[var(--border-primary)] pb-3">
                 <div>
-                  <h3 className="text-base font-black text-white flex items-center gap-2">
-                    <FileCheck2 className="w-5 h-5 text-indigo-400" />
+                  <h3 className="text-base font-black text-[var(--text-primary)] flex items-center gap-2">
+                    <FileCheck2 className="w-5 h-5 text-indigo-500" />
                     {isHindi ? 'नया vs पुराना TDS फॉर्म मैपिंग (Direct Tax Code 2026-27)' : 'New vs. Old TDS Form Mapping (Direct Tax Code 2026-27)'}
                   </h3>
-                  <p className="text-xs text-slate-300 mt-0.5">
+                  <p className="text-xs text-[var(--text-secondary)] mt-0.5">
                     {isHindi 
                       ? 'वित्तीय वर्ष 2026-27 से लागू नए टीडीएस फॉर्म एवं उनके पुराने समकक्ष।'
                       : 'Comprehensive mapping of statutory return forms effective for FY 2026-27.'}
                   </p>
                 </div>
-                <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs font-bold px-3 py-1 rounded-full">
+                <span className="hv-pill-indigo border text-xs font-bold px-3 py-1 rounded-full">
                   FY 2026-27 Activated
                 </span>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                <div className="bg-slate-900/90 border border-indigo-500/30 p-3.5 rounded-xl space-y-1">
+                <div className="hv-surface border border-indigo-500/25 p-3.5 rounded-xl space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-black text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Form 138</span>
-                    <span className="text-[10px] text-slate-400">Replaces Form 24Q</span>
+                    <span className="text-xs font-black hv-pill-emerald px-2 py-0.5 rounded border">Form 138</span>
+                    <span className="text-[10px] text-[var(--text-muted)]">Replaces Form 24Q</span>
                   </div>
-                  <h4 className="text-xs font-bold text-white pt-1">Salary & Pension TDS Statement</h4>
-                  <p className="text-[11px] text-slate-300">Quarterly statement for TDS deducted on salary and pension payments u/s 392.</p>
+                  <h4 className="text-xs font-bold text-[var(--text-primary)] pt-1">Salary & Pension TDS Statement</h4>
+                  <p className="text-[11px] text-[var(--text-secondary)]">Quarterly statement for TDS deducted on salary and pension payments u/s 392.</p>
                 </div>
 
-                <div className="bg-slate-900/90 border border-indigo-500/30 p-3.5 rounded-xl space-y-1">
+                <div className="hv-surface border border-indigo-500/25 p-3.5 rounded-xl space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-black text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">Form 140</span>
-                    <span className="text-[10px] text-slate-400">Replaces Form 26Q</span>
+                    <span className="text-xs font-black hv-pill-indigo px-2 py-0.5 rounded border">Form 140</span>
+                    <span className="text-[10px] text-[var(--text-muted)]">Replaces Form 26Q</span>
                   </div>
-                  <h4 className="text-xs font-bold text-white pt-1">Non-Salary Resident TDS Statement</h4>
-                  <p className="text-[11px] text-slate-300">Quarterly statement for TDS on contractors, rent, professional fees, commission u/s 393(1).</p>
+                  <h4 className="text-xs font-bold text-[var(--text-primary)] pt-1">Non-Salary Resident TDS Statement</h4>
+                  <p className="text-[11px] text-[var(--text-secondary)]">Quarterly statement for TDS on contractors, rent, professional fees, commission u/s 393(1).</p>
                 </div>
 
-                <div className="bg-slate-900/90 border border-indigo-500/30 p-3.5 rounded-xl space-y-1">
+                <div className="hv-surface border border-indigo-500/25 p-3.5 rounded-xl space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-black text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">Form 144</span>
-                    <span className="text-[10px] text-slate-400">Replaces Form 27Q</span>
+                    <span className="text-xs font-black hv-pill-amber px-2 py-0.5 rounded border">Form 144</span>
+                    <span className="text-[10px] text-[var(--text-muted)]">Replaces Form 27Q</span>
                   </div>
-                  <h4 className="text-xs font-bold text-white pt-1">Non-Resident / Foreign Payments TDS</h4>
-                  <p className="text-[11px] text-slate-300">Statement for TDS on payments made to non-residents and foreign corporate entities.</p>
+                  <h4 className="text-xs font-bold text-[var(--text-primary)] pt-1">Non-Resident / Foreign Payments TDS</h4>
+                  <p className="text-[11px] text-[var(--text-secondary)]">Statement for TDS on payments made to non-residents and foreign corporate entities.</p>
                 </div>
 
-                <div className="bg-slate-900/90 border border-indigo-500/30 p-3.5 rounded-xl space-y-1">
+                <div className="hv-surface border border-indigo-500/25 p-3.5 rounded-xl space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-black text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">Form 143</span>
-                    <span className="text-[10px] text-slate-400">Replaces Form 27EQ</span>
+                    <span className="text-xs font-black hv-pill-cyan px-2 py-0.5 rounded border">Form 143</span>
+                    <span className="text-[10px] text-[var(--text-muted)]">Replaces Form 27EQ</span>
                   </div>
-                  <h4 className="text-xs font-bold text-white pt-1">Tax Collected at Source (TCS)</h4>
-                  <p className="text-[11px] text-slate-300">Quarterly statement for TCS collected on scrap, liquor, overseas remittances, etc.</p>
+                  <h4 className="text-xs font-bold text-[var(--text-primary)] pt-1">Tax Collected at Source (TCS)</h4>
+                  <p className="text-[11px] text-[var(--text-secondary)]">Quarterly statement for TCS collected on scrap, liquor, overseas remittances, etc.</p>
                 </div>
 
-                <div className="bg-slate-900/90 border border-indigo-500/30 p-3.5 rounded-xl space-y-1">
+                <div className="hv-surface border border-indigo-500/25 p-3.5 rounded-xl space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-black text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">Form 141</span>
-                    <span className="text-[10px] text-slate-400">Replaces Forms 26QB / 26QC</span>
+                    <span className="text-xs font-black hv-pill-purple px-2 py-0.5 rounded border">Form 141</span>
+                    <span className="text-[10px] text-[var(--text-muted)]">Replaces Forms 26QB / 26QC</span>
                   </div>
-                  <h4 className="text-xs font-bold text-white pt-1">Transaction-Specific Property/Rent Statement</h4>
-                  <p className="text-[11px] text-slate-300">Challan-cum-statement for high-value property purchase and high-value monthly rent.</p>
+                  <h4 className="text-xs font-bold text-[var(--text-primary)] pt-1">Transaction-Specific Property/Rent Statement</h4>
+                  <p className="text-[11px] text-[var(--text-secondary)]">Challan-cum-statement for high-value property purchase and high-value monthly rent.</p>
                 </div>
 
-                <div className="bg-slate-900/90 border border-amber-500/30 p-3.5 rounded-xl space-y-1">
+                <div className="hv-surface border border-amber-500/30 p-3.5 rounded-xl space-y-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-black text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">Due Dates</span>
-                    <span className="text-[10px] text-slate-400">Quarterly Deadlines</span>
+                    <span className="text-xs font-black hv-pill-amber px-2 py-0.5 rounded border">Due Dates</span>
+                    <span className="text-[10px] text-[var(--text-muted)]">Quarterly Deadlines</span>
                   </div>
-                  <h4 className="text-xs font-bold text-white pt-1">Statutory Filing Calendar</h4>
-                  <p className="text-[11px] text-slate-300">Q1: 31st July | Q2: 31st Oct | Q3: 31st Jan | Q4: 31st May</p>
+                  <h4 className="text-xs font-bold text-[var(--text-primary)] pt-1">Statutory Filing Calendar</h4>
+                  <p className="text-[11px] text-[var(--text-secondary)]">Q1: 31st July | Q2: 31st Oct | Q3: 31st Jan | Q4: 31st May</p>
                 </div>
               </div>
             </div>
 
             {/* Sections & Rates Grid */}
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-800 pb-3">
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Calculator className="w-4 h-4 text-indigo-400" />
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[var(--border-primary)] pb-3">
+              <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <Calculator className="w-4 h-4 text-indigo-500" />
                 {isHindi 
                   ? 'धाराएँ, TRACES नेचर कोड एवं टीडीएस दरें' 
                   : 'Sections, TRACES Nature Codes & Statutory Rates'}
@@ -1063,30 +1063,30 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {TDS_SECTIONS.map((sec) => (
-                <div key={sec.section} className="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
-                  <div className="flex flex-wrap items-center justify-between gap-1.5 border-b border-slate-800 pb-2">
+                <div key={sec.section} className="hv-elevated border border-[var(--border-primary)] p-4 rounded-xl space-y-2">
+                  <div className="flex flex-wrap items-center justify-between gap-1.5 border-b border-[var(--border-primary)] pb-2">
                     <div className="flex items-center gap-1.5 flex-wrap">
-                      <span className="bg-slate-800 text-slate-300 border border-slate-700 text-[10px] font-black px-2 py-0.5 rounded">
+                      <span className="hv-pill-slate border text-[10px] font-black px-2 py-0.5 rounded">
                         Old: {sec.section}
                       </span>
-                      <span className="bg-indigo-600/30 text-indigo-300 border border-indigo-500/40 text-[10px] font-black px-2 py-0.5 rounded">
+                      <span className="hv-pill-indigo border text-[10px] font-black px-2 py-0.5 rounded">
                         New: Sec {sec.newSection}
                       </span>
-                      <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-mono font-black px-2 py-0.5 rounded">
+                      <span className="hv-pill-emerald border text-[10px] font-mono font-black px-2 py-0.5 rounded">
                         Code {sec.natureCode}
                       </span>
                     </div>
-                    <span className="text-xs font-bold text-amber-400">
+                    <span className="text-xs font-bold text-amber-500">
                       {sec.rateIndividual}% / {sec.rateCompany}%
                     </span>
                   </div>
 
-                  <h4 className="text-xs font-bold text-white">{isHindi ? sec.nameHi : sec.nameEn}</h4>
-                  <p className="text-[11px] text-slate-400 leading-relaxed">{sec.description}</p>
+                  <h4 className="text-xs font-bold text-[var(--text-primary)]">{isHindi ? sec.nameHi : sec.nameEn}</h4>
+                  <p className="text-[11px] text-[var(--text-muted)] leading-relaxed">{sec.description}</p>
 
-                  <div className="pt-2 border-t border-slate-900 flex justify-between text-[11px]">
-                    <span className="text-slate-500">Single Limit: <strong className="text-slate-300">₹{sec.singleLimit.toLocaleString('en-IN')}</strong></span>
-                    <span className="text-slate-500">Aggregate: <strong className="text-slate-300">₹{sec.aggregateLimit.toLocaleString('en-IN')}</strong></span>
+                  <div className="pt-2 border-t border-[var(--border-primary)] flex justify-between text-[11px]">
+                    <span className="text-[var(--text-muted)]">Single Limit: <strong className="text-[var(--text-primary)]">₹{sec.singleLimit.toLocaleString('en-IN')}</strong></span>
+                    <span className="text-[var(--text-muted)]">Aggregate: <strong className="text-[var(--text-primary)]">₹{sec.aggregateLimit.toLocaleString('en-IN')}</strong></span>
                   </div>
                 </div>
               ))}
@@ -1098,41 +1098,41 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
       {/* Modal: Add Challan 281 Deposit Record */}
       {showChallanModal && (
         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 text-white space-y-4 shadow-2xl">
-            <h3 className="text-base font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
-              <Plus className="w-5 h-5 text-indigo-400" />
+          <div className="hv-surface border border-[var(--border-primary)] rounded-2xl max-w-md w-full p-6 text-[var(--text-primary)] space-y-4 shadow-2xl">
+            <h3 className="text-base font-bold text-[var(--text-primary)] flex items-center gap-2 border-b border-[var(--border-primary)] pb-3">
+              <Plus className="w-5 h-5 text-indigo-500" />
               {isHindi ? 'चालान 281 जमा विवरण जोड़ें' : 'Record Challan 281 Tax Deposit'}
             </h3>
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="block text-slate-400 mb-1 font-bold">BSR Code (7 Digits)</label>
+                <label className="block text-[var(--text-muted)] mb-1 font-bold">BSR Code (7 Digits)</label>
                 <input
                   type="text"
                   value={newBbsr}
                   onChange={(e) => setNewBbsr(e.target.value)}
                   placeholder="e.g. 0210004"
-                  className="w-full bg-slate-950 border border-slate-800 text-white p-2.5 rounded-xl font-mono focus:outline-none focus:border-indigo-500"
+                  className="w-full hv-input border p-2.5 rounded-xl font-mono focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1 font-bold">Challan Serial No</label>
+                <label className="block text-[var(--text-muted)] mb-1 font-bold">Challan Serial No</label>
                 <input
                   type="text"
                   value={newChallanNo}
                   onChange={(e) => setNewChallanNo(e.target.value)}
                   placeholder="e.g. 05821"
-                  className="w-full bg-slate-950 border border-slate-800 text-white p-2.5 rounded-xl font-mono focus:outline-none focus:border-indigo-500"
+                  className="w-full hv-input border p-2.5 rounded-xl font-mono focus:outline-none focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1 font-bold">TDS Section & Statutory Code</label>
+                <label className="block text-[var(--text-muted)] mb-1 font-bold">TDS Section & Statutory Code</label>
                 <select
                   value={newSec}
                   onChange={(e) => setNewSec(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 text-white p-2.5 rounded-xl font-bold focus:outline-none"
+                  className="w-full hv-input border p-2.5 rounded-xl font-bold focus:outline-none focus:border-indigo-500"
                 >
                   <option value="">{isHindi ? '-- TDS धारा चुनें --' : '-- Select TDS Section --'}</option>
                   {TDS_SECTIONS.map((s) => (
@@ -1144,27 +1144,27 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
               </div>
 
               <div>
-                <label className="block text-slate-400 mb-1 font-bold">Deposited Amount (₹)</label>
+                <label className="block text-[var(--text-muted)] mb-1 font-bold">Deposited Amount (₹)</label>
                 <input
                   type="number"
                   value={newAmount}
                   onChange={(e) => setNewAmount(e.target.value)}
                   placeholder="e.g. 15000"
-                  className="w-full bg-slate-950 border border-slate-800 text-white p-2.5 rounded-xl font-bold focus:outline-none focus:border-indigo-500"
+                  className="w-full hv-input border p-2.5 rounded-xl font-bold focus:outline-none focus:border-indigo-500"
                 />
               </div>
             </div>
 
-            <div className="flex justify-end gap-3 pt-3 border-t border-slate-800">
+            <div className="flex justify-end gap-3 pt-3 border-t border-[var(--border-primary)]">
               <button
                 onClick={() => setShowChallanModal(false)}
-                className="bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold px-4 py-2 rounded-xl text-xs transition"
+                className="hv-elevated hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold px-4 py-2 rounded-xl text-xs transition"
               >
                 Cancel
               </button>
               <button
                 onClick={handleAddChallan}
-                className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-2 rounded-xl text-xs transition"
+                className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-5 py-2 rounded-xl text-xs transition"
               >
                 Save Challan Record
               </button>
@@ -1176,106 +1176,106 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
       {/* Detailed Source Provenance & Audit Trace Modal */}
       {selectedRecordModal && (
         <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
-          <div className="bg-slate-900 border border-indigo-500/40 rounded-2xl max-w-3xl w-full p-6 text-slate-200 shadow-2xl relative space-y-5 my-8">
+          <div className="hv-surface border border-indigo-500/40 rounded-2xl max-w-3xl w-full p-6 text-[var(--text-secondary)] shadow-2xl relative space-y-5 my-8">
             
             {/* Modal Header */}
-            <div className="flex items-start justify-between border-b border-slate-800 pb-4">
+            <div className="flex items-start justify-between border-b border-[var(--border-primary)] pb-4">
               <div className="flex items-center gap-3">
-                <div className="bg-indigo-500/20 p-2.5 rounded-xl border border-indigo-500/30">
-                  <FileText className="w-6 h-6 text-indigo-400" />
+                <div className="hv-pill-indigo p-2.5 rounded-xl border">
+                  <FileText className="w-6 h-6" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="text-lg font-black text-white tracking-tight">
+                    <h3 className="text-lg font-black text-[var(--text-primary)] tracking-tight">
                       {isHindi ? 'टीडीएस कटौती स्रोत एवं ऑडिट ट्रेस' : 'TDS Deduction Provenance & Audit Trace'}
                     </h3>
-                    <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                    <span className="hv-pill-emerald border text-[10px] font-bold px-2 py-0.5 rounded-full">
                       Source Verified
                     </span>
                   </div>
-                  <p className="text-xs text-slate-400 mt-0.5">
+                  <p className="text-xs text-[var(--text-muted)] mt-0.5">
                     {isHindi ? 'यह प्रविष्टि कहाँ से प्राप्त हुई है और इसकी गणना का पूरा स्रोत विवरण' : 'Complete origin trace, source voucher details, and statutory rate math'}
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setSelectedRecordModal(null)}
-                className="bg-slate-800 hover:bg-slate-700 text-slate-300 p-2 rounded-xl transition"
+                className="hv-elevated hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] p-2 rounded-xl transition"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Document Origin Banner */}
-            <div className="bg-gradient-to-r from-indigo-950 via-slate-950 to-indigo-950 border border-indigo-500/30 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div className="hv-elevated border border-indigo-500/30 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
               <div>
-                <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1 w-fit mb-1">
-                  <Receipt className="w-3 h-3 text-indigo-400" />
+                <span className="hv-pill-indigo border text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1 w-fit mb-1">
+                  <Receipt className="w-3 h-3" />
                   {selectedRecordModal.sourceType || 'Purchase Invoice'}
                 </span>
-                <h4 className="text-base font-bold text-white">
+                <h4 className="text-base font-bold text-[var(--text-primary)]">
                   Ref Document #: {selectedRecordModal.sourceNumber || selectedRecordModal.id}
                 </h4>
-                <p className="text-xs text-slate-400 mt-0.5 flex items-center gap-3">
-                  <span>Date: <strong className="text-slate-200">{selectedRecordModal.paymentDate}</strong></span>
-                  <span>Challan Link: <strong className="text-indigo-400">#{selectedRecordModal.challanRef}</strong></span>
+                <p className="text-xs text-[var(--text-muted)] mt-0.5 flex items-center gap-3">
+                  <span>Date: <strong className="text-[var(--text-primary)]">{selectedRecordModal.paymentDate}</strong></span>
+                  <span>Challan Link: <strong className="text-indigo-500">#{selectedRecordModal.challanRef}</strong></span>
                 </p>
               </div>
 
               <div className="text-right sm:text-right shrink-0">
-                <span className="text-xs text-slate-400 font-medium block">Total Bill Subtotal</span>
-                <span className="text-xl font-black text-white">{formatCurrency(selectedRecordModal.grossAmount, currency)}</span>
+                <span className="text-xs text-[var(--text-muted)] font-medium block">Total Bill Subtotal</span>
+                <span className="text-xl font-black text-[var(--text-primary)]">{formatCurrency(selectedRecordModal.grossAmount, currency)}</span>
               </div>
             </div>
 
             {/* Grid 1: Client / Deductee Master Info */}
-            <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3">
-              <h4 className="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-2">
+            <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-4 space-y-3">
+              <h4 className="text-xs font-bold text-indigo-500 uppercase tracking-wider flex items-center gap-2">
                 <Users className="w-4 h-4" />
                 {isHindi ? '1. कटौतीकर्ता (पार्टी) मास्टर विवरण' : '1. Party & Deductee Master Details'}
               </h4>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
-                <div className="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                  <span className="text-slate-400 block text-[11px]">{isHindi ? 'पार्टी का नाम' : 'Party Name'}</span>
-                  <span className="font-bold text-white text-sm">{selectedRecordModal.deducteeName}</span>
+                <div className="hv-surface p-2.5 rounded-lg border border-[var(--border-primary)]">
+                  <span className="text-[var(--text-muted)] block text-[11px]">{isHindi ? 'पार्टी का नाम' : 'Party Name'}</span>
+                  <span className="font-bold text-[var(--text-primary)] text-sm">{selectedRecordModal.deducteeName}</span>
                 </div>
 
-                <div className="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                  <span className="text-slate-400 block text-[11px]">PAN Number</span>
+                <div className="hv-surface p-2.5 rounded-lg border border-[var(--border-primary)]">
+                  <span className="text-[var(--text-muted)] block text-[11px]">PAN Number</span>
                   <div className="flex items-center gap-1.5 mt-0.5">
-                    <span className="font-mono font-bold text-white">{selectedRecordModal.pan}</span>
-                    <span className="text-[9px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-1 py-0.2 rounded font-bold">
+                    <span className="font-mono font-bold text-[var(--text-primary)]">{selectedRecordModal.pan}</span>
+                    <span className="text-[9px] hv-pill-emerald border px-1 py-0.2 rounded font-bold">
                       {selectedRecordModal.panStatus}
                     </span>
                   </div>
                 </div>
 
-                <div className="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                  <span className="text-slate-400 block text-[11px]">GSTIN</span>
-                  <span className="font-mono font-bold text-slate-200">{selectedRecordModal.gstin || 'N/A'}</span>
+                <div className="hv-surface p-2.5 rounded-lg border border-[var(--border-primary)]">
+                  <span className="text-[var(--text-muted)] block text-[11px]">GSTIN</span>
+                  <span className="font-mono font-bold text-[var(--text-primary)]">{selectedRecordModal.gstin || 'N/A'}</span>
                 </div>
 
-                <div className="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                  <span className="text-slate-400 block text-[11px]">{isHindi ? 'कटौतीकर्ता श्रेणी' : 'Deductee Category'}</span>
-                  <span className="font-bold text-indigo-300">{selectedRecordModal.deducteeCode}</span>
+                <div className="hv-surface p-2.5 rounded-lg border border-[var(--border-primary)]">
+                  <span className="text-[var(--text-muted)] block text-[11px]">{isHindi ? 'कटौतीकर्ता श्रेणी' : 'Deductee Category'}</span>
+                  <span className="font-bold text-indigo-500">{selectedRecordModal.deducteeCode}</span>
                 </div>
 
-                <div className="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                  <span className="text-slate-400 block text-[11px]">{isHindi ? 'पता एवं राज्य' : 'Address & State'}</span>
-                  <span className="text-slate-300 font-medium">{selectedRecordModal.partyAddress || 'N/A'}, {selectedRecordModal.partyState || ''}</span>
+                <div className="hv-surface p-2.5 rounded-lg border border-[var(--border-primary)]">
+                  <span className="text-[var(--text-muted)] block text-[11px]">{isHindi ? 'पता एवं राज्य' : 'Address & State'}</span>
+                  <span className="text-[var(--text-secondary)] font-medium">{selectedRecordModal.partyAddress || 'N/A'}, {selectedRecordModal.partyState || ''}</span>
                 </div>
 
-                <div className="bg-slate-900/80 p-2.5 rounded-lg border border-slate-800">
-                  <span className="text-slate-400 block text-[11px]">{isHindi ? 'संपर्क नंबर' : 'Phone'}</span>
-                  <span className="text-slate-300 font-medium">{selectedRecordModal.partyPhone || 'N/A'}</span>
+                <div className="hv-surface p-2.5 rounded-lg border border-[var(--border-primary)]">
+                  <span className="text-[var(--text-muted)] block text-[11px]">{isHindi ? 'संपर्क नंबर' : 'Phone'}</span>
+                  <span className="text-[var(--text-secondary)] font-medium">{selectedRecordModal.partyPhone || 'N/A'}</span>
                 </div>
               </div>
             </div>
 
             {/* Grid 2: Statutory TDS Calculation Breakdown */}
-            <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3">
-              <h4 className="text-xs font-bold text-indigo-400 uppercase tracking-wider flex items-center gap-2">
+            <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-4 space-y-3">
+              <h4 className="text-xs font-bold text-indigo-500 uppercase tracking-wider flex items-center gap-2">
                 <Calculator className="w-4 h-4" />
                 {isHindi ? '2. टीडीएस नियम एवं गणना विवरण' : '2. Statutory TDS Section & Formula Math'}
               </h4>
@@ -1285,36 +1285,36 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
                 return (
                   <div className="space-y-3">
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-                      <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
-                        <span className="text-slate-400 text-[10px] block">Old / New Section</span>
-                        <span className="font-bold text-indigo-300">Sec {sec.section} / {sec.newSection}</span>
+                      <div className="hv-surface p-2.5 rounded-lg border border-[var(--border-primary)]">
+                        <span className="text-[var(--text-muted)] text-[10px] block">Old / New Section</span>
+                        <span className="font-bold text-indigo-500">Sec {sec.section} / {sec.newSection}</span>
                       </div>
-                      <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
-                        <span className="text-slate-400 text-[10px] block">TRACES Nature Code</span>
-                        <span className="font-mono font-bold text-amber-300">Code {sec.natureCode}</span>
+                      <div className="hv-surface p-2.5 rounded-lg border border-[var(--border-primary)]">
+                        <span className="text-[var(--text-muted)] text-[10px] block">TRACES Nature Code</span>
+                        <span className="font-mono font-bold text-amber-500">Code {sec.natureCode}</span>
                       </div>
-                      <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
-                        <span className="text-slate-400 text-[10px] block">Section Limit</span>
-                        <span className="font-bold text-slate-200">₹{sec.singleLimit.toLocaleString('en-IN')} Single</span>
+                      <div className="hv-surface p-2.5 rounded-lg border border-[var(--border-primary)]">
+                        <span className="text-[var(--text-muted)] text-[10px] block">Section Limit</span>
+                        <span className="font-bold text-[var(--text-primary)]">₹{sec.singleLimit.toLocaleString('en-IN')} Single</span>
                       </div>
-                      <div className="bg-slate-900 p-2.5 rounded-lg border border-slate-800">
-                        <span className="text-slate-400 text-[10px] block">Applied Rate</span>
-                        <span className="font-bold text-emerald-400 text-sm">{selectedRecordModal.tdsRate}%</span>
+                      <div className="hv-surface p-2.5 rounded-lg border border-[var(--border-primary)]">
+                        <span className="text-[var(--text-muted)] text-[10px] block">Applied Rate</span>
+                        <span className="font-bold text-emerald-500 text-sm">{selectedRecordModal.tdsRate}%</span>
                       </div>
                     </div>
 
                     {/* Math Step Formula */}
-                    <div className="bg-indigo-950/40 border border-indigo-500/30 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                    <div className="hv-pill-indigo border p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                       <div className="space-y-0.5">
-                        <span className="text-slate-400 font-medium block">{isHindi ? 'टीडीएस गणितीय सूत्र:' : 'TDS Math Calculation Step:'}</span>
-                        <p className="font-mono font-bold text-white text-sm">
+                        <span className="text-[var(--text-muted)] font-medium block">{isHindi ? 'टीडीएस गणितीय सूत्र:' : 'TDS Math Calculation Step:'}</span>
+                        <p className="font-mono font-bold text-[var(--text-primary)] text-sm">
                           {formatCurrency(selectedRecordModal.grossAmount, currency)} × {selectedRecordModal.tdsRate}% = {formatCurrency(selectedRecordModal.tdsDeducted, currency)}
                         </p>
                       </div>
 
-                      <div className="text-right border-t sm:border-t-0 sm:border-l border-indigo-800/60 pt-2 sm:pt-0 sm:pl-4 shrink-0">
-                        <span className="text-slate-400 text-[11px] block">{isHindi ? 'विक्रेता को देय निवल राशि' : 'Net Amount Payable to Vendor'}</span>
-                        <span className="text-emerald-400 font-extrabold text-base">{formatCurrency(selectedRecordModal.netPaid, currency)}</span>
+                      <div className="text-right border-t sm:border-t-0 sm:border-l border-[var(--border-primary)] pt-2 sm:pt-0 sm:pl-4 shrink-0">
+                        <span className="text-[var(--text-muted)] text-[11px] block">{isHindi ? 'विक्रेता को देय निवल राशि' : 'Net Amount Payable to Vendor'}</span>
+                        <span className="text-emerald-500 font-extrabold text-base">{formatCurrency(selectedRecordModal.netPaid, currency)}</span>
                       </div>
                     </div>
                   </div>
@@ -1324,24 +1324,24 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
 
             {/* Line Items Breakdown (If any) */}
             {selectedRecordModal.items && selectedRecordModal.items.length > 0 && (
-              <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-2 text-xs">
-                <h4 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                  <FileText className="w-4 h-4 text-slate-400" />
+              <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-4 space-y-2 text-xs">
+                <h4 className="text-xs font-bold text-[var(--text-primary)] uppercase tracking-wider flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-[var(--text-muted)]" />
                   {isHindi ? '3. बिल मद सूची (Bill Line Items)' : '3. Invoice Line Items Breakdown'}
                 </h4>
-                <div className="divide-y divide-slate-800 border border-slate-800 rounded-lg overflow-hidden">
-                  <div className="bg-slate-900 px-3 py-2 text-slate-400 font-bold grid grid-cols-12 gap-2 text-[11px]">
+                <div className="divide-y divide-[var(--border-primary)] border border-[var(--border-primary)] rounded-lg overflow-hidden">
+                  <div className="hv-surface px-3 py-2 text-[var(--text-muted)] font-bold grid grid-cols-12 gap-2 text-[11px]">
                     <span className="col-span-6">Description</span>
                     <span className="col-span-2 text-center">Qty</span>
                     <span className="col-span-2 text-right">Rate</span>
                     <span className="col-span-2 text-right">Amount</span>
                   </div>
                   {selectedRecordModal.items.map((item: any, i: number) => (
-                    <div key={i} className="px-3 py-2 grid grid-cols-12 gap-2 text-slate-300">
-                      <span className="col-span-6 font-medium text-white">{item.description || item.name || 'Service / Product'}</span>
-                      <span className="col-span-2 text-center text-slate-400">{item.quantity || 1}</span>
-                      <span className="col-span-2 text-right text-slate-400">{formatCurrency(item.rate || item.amount || 0, currency)}</span>
-                      <span className="col-span-2 text-right font-bold text-slate-200">{formatCurrency(item.amount || (item.quantity * item.rate) || 0, currency)}</span>
+                    <div key={i} className="px-3 py-2 grid grid-cols-12 gap-2 text-[var(--text-secondary)]">
+                      <span className="col-span-6 font-medium text-[var(--text-primary)]">{item.description || item.name || 'Service / Product'}</span>
+                      <span className="col-span-2 text-center text-[var(--text-muted)]">{item.quantity || 1}</span>
+                      <span className="col-span-2 text-right text-[var(--text-muted)]">{formatCurrency(item.rate || item.amount || 0, currency)}</span>
+                      <span className="col-span-2 text-right font-bold text-[var(--text-primary)]">{formatCurrency(item.amount || (item.quantity * item.rate) || 0, currency)}</span>
                     </div>
                   ))}
                 </div>
@@ -1349,12 +1349,12 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
             )}
 
             {/* Data Origin & Provenance Explanation Box */}
-            <div className="bg-amber-950/30 border border-amber-500/30 p-3.5 rounded-xl text-xs space-y-1">
-              <div className="flex items-center gap-2 text-amber-400 font-bold">
+            <div className="hv-pill-amber border p-3.5 rounded-xl text-xs space-y-1">
+              <div className="flex items-center gap-2 font-bold">
                 <Info className="w-4 h-4 shrink-0" />
                 <span>{isHindi ? 'डेटा उत्पत्ति स्पष्टीकरण (Data Origin & Traceability)' : 'Data Origin & System Traceability'}</span>
               </div>
-              <p className="text-slate-300 leading-relaxed text-[11px]">
+              <p className="text-[var(--text-secondary)] leading-relaxed text-[11px]">
                 {isHindi
                   ? `यह रिकॉर्ड आपके सिस्टम में दर्ज ${selectedRecordModal.sourceType || 'खरीद बिल'} (#${selectedRecordModal.sourceNumber}) और विक्रेता लेजर (${selectedRecordModal.deducteeName}) से स्वतः सिंक किया गया है। टीडीएस धारा ${selectedRecordModal.section} के तहत लागू दरों के आधार पर यह गणना फॉर्म 26Q / 140 ई-फाइलिंग एनैक्सचर में शामिल की गई है।`
                   : `This record was automatically extracted from your ${selectedRecordModal.sourceType || 'Purchase Invoice'} (#${selectedRecordModal.sourceNumber}) under Vendor Ledger ${selectedRecordModal.deducteeName}. The statutory TDS rate under Section ${selectedRecordModal.section} was applied based on verified PAN status and deductee classification.`
@@ -1363,10 +1363,10 @@ export const TdsAutomation: React.FC<TdsAutomationProps> = ({ data, isHindi, onP
             </div>
 
             {/* Modal Footer */}
-            <div className="flex justify-end pt-2 border-t border-slate-800">
+            <div className="flex justify-end pt-2 border-t border-[var(--border-primary)]">
               <button
                 onClick={() => setSelectedRecordModal(null)}
-                className="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-5 py-2 rounded-xl text-xs transition"
+                className="bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold px-5 py-2 rounded-xl text-xs transition"
               >
                 {isHindi ? 'ठीक है (बंद करें)' : 'Close Audit Trace'}
               </button>

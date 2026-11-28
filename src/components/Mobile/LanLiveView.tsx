@@ -109,26 +109,26 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
   );
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans pb-12">
-      <header className="sticky top-0 z-20 bg-slate-900/95 backdrop-blur-md border-b border-slate-800 px-4 py-3 shadow-lg">
+    <div className="hv-app-shell hv-canvas min-h-screen font-sans pb-12">
+      <header className="sticky top-0 z-20 bg-[var(--bg-header)] backdrop-blur-md border-b border-[var(--border-primary)] px-4 py-3 shadow-sm">
         <div className="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <SnaLogo size="sm" showText={false} />
             <div>
               <div className="flex items-center gap-2 flex-wrap">
-                <h1 className="text-base sm:text-lg font-extrabold text-white tracking-tight">
+                <h1 className="text-base sm:text-lg font-extrabold text-[var(--text-primary)] tracking-tight">
                   {snapshot?.companyName || 'HISAB VEDA Live LAN View'}
                 </h1>
-                <span className="inline-flex items-center gap-1 text-[11px] font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                <span className="inline-flex items-center gap-1 text-[11px] font-bold hv-pill-emerald border px-2 py-0.5 rounded-full">
                   <Wifi className="w-3 h-3" />
                   <span>{isHindi ? 'Wi-Fi लाइव (Read-Only)' : 'Wi-Fi Live View'}</span>
                 </span>
               </div>
-              <p className="text-xs text-slate-400 flex items-center gap-2">
+              <p className="text-xs text-[var(--text-muted)] flex items-center gap-2">
                 {snapshot?.fyLabel && <span>{snapshot.fyLabel}</span>}
                 {lastFetchedAt && (
-                  <span className="inline-flex items-center gap-1 text-slate-300">
-                    <Clock className="w-3 h-3 text-indigo-400" />
+                  <span className="inline-flex items-center gap-1 text-[var(--text-secondary)]">
+                    <Clock className="w-3 h-3 text-indigo-500" />
                     {isHindi ? `अपडेटेड: ${lastFetchedAt}` : `Synced: ${lastFetchedAt}`}
                   </span>
                 )}
@@ -142,8 +142,8 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
               onClick={() => setAutoRefresh((v) => !v)}
               className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition cursor-pointer ${
                 autoRefresh
-                  ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/40'
-                  : 'bg-slate-800 text-slate-300 border-slate-700'
+                  ? 'hv-pill-emerald'
+                  : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] border-[var(--border-subtle)]'
               }`}
             >
               {autoRefresh ? (isHindi ? 'ऑटो-सिंक चालू (5s)' : 'Auto-Sync: ON') : (isHindi ? 'ऑटो-सिंक बंद' : 'Auto-Sync: OFF')}
@@ -154,7 +154,7 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
                 setLoading(true);
                 fetchSnapshot(pairCode);
               }}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white transition cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white transition cursor-pointer"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
               <span>{isHindi ? 'रिफ्रेश' : 'Refresh'}</span>
@@ -167,17 +167,17 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
         {authError && (
           <form
             onSubmit={handleUnlockWithCode}
-            className="bg-slate-900 border border-amber-500/40 rounded-2xl p-5 max-w-md mx-auto space-y-4 shadow-xl"
+            className="bg-[var(--bg-surface)] border border-amber-500/40 rounded-2xl p-5 max-w-md mx-auto space-y-4 shadow-xl"
           >
             <div className="flex items-center gap-3">
-              <div className="p-2.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-400">
+              <div className="p-2.5 rounded-xl hv-pill-amber border">
                 <Lock className="w-5 h-5" />
               </div>
               <div>
-                <h2 className="font-bold text-sm text-white">
+                <h2 className="font-bold text-sm text-[var(--text-primary)]">
                   {isHindi ? 'लोकल LAN पेयरिंग कोड दर्ज करें' : 'Enter Local Wi-Fi Pairing Code'}
                 </h2>
-                <p className="text-xs text-slate-400">{authError}</p>
+                <p className="text-xs text-[var(--text-muted)]">{authError}</p>
               </div>
             </div>
             <div className="flex gap-2">
@@ -187,12 +187,12 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
                 onChange={(e) => setCodeInput(e.target.value.toUpperCase())}
                 placeholder="e.g. A1B2C3"
                 maxLength={12}
-                className="flex-1 bg-slate-950 border border-slate-700 rounded-xl px-3.5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase text-white focus:border-indigo-500 outline-none"
+                className="flex-1 bg-[var(--bg-input)] border border-[var(--border-subtle)] rounded-xl px-3.5 py-2.5 font-mono text-sm font-bold tracking-widest uppercase text-[var(--text-primary)] focus:border-indigo-500 outline-none"
                 required
               />
               <button
                 type="submit"
-                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-extrabold rounded-xl text-xs transition cursor-pointer"
+                className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold rounded-xl text-xs transition cursor-pointer"
               >
                 {isHindi ? 'कनेक्ट करें' : 'Connect'}
               </button>
@@ -201,12 +201,12 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
         )}
 
         {!authError && waitingForHost && (
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center space-y-3 max-w-lg mx-auto">
-            <Wifi className="w-10 h-10 text-indigo-400 mx-auto animate-pulse" />
-            <h2 className="font-bold text-base text-white">
+          <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-8 text-center space-y-3 max-w-lg mx-auto">
+            <Wifi className="w-10 h-10 text-indigo-500 mx-auto animate-pulse" />
+            <h2 className="font-bold text-base text-[var(--text-primary)]">
               {isHindi ? 'मुख्य PC से लाइव डेटा की प्रतीक्षा है...' : 'Connected to LAN! Waiting for Main PC Sync...'}
             </h2>
-            <p className="text-xs text-slate-400 leading-relaxed">
+            <p className="text-xs text-[var(--text-muted)] leading-relaxed">
               {isHindi
                 ? 'मुख्य कंप्यूटर पर HISAB VEDA में लॉगिन करें (या "Mobile & LAN Setup" में "Sync Live Data Now" दबाएँ)। डेटा अपने आप यहाँ दिखाई देगा।'
                 : 'Make sure HISAB VEDA is open on your main billing PC (or click "Sync Live Data Now" inside Mobile & LAN Setup).'}
@@ -217,69 +217,69 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
         {snapshot && (
           <>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5">
-                <span className="text-xs font-semibold text-slate-400">
+              <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-3.5">
+                <span className="text-xs font-semibold text-[var(--text-muted)]">
                   {isHindi ? 'आज की बिक्री' : "Today's Sales"}
                 </span>
-                <p className="text-base sm:text-lg font-mono font-extrabold text-emerald-400 mt-1 tabular-nums">
+                <p className="text-base sm:text-lg font-mono font-extrabold text-emerald-500 mt-1 tabular-nums">
                   {formatCurrency(snapshot.summary.todaySales, currency)}
                 </p>
               </div>
 
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5">
-                <span className="text-xs font-semibold text-slate-400">
+              <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-3.5">
+                <span className="text-xs font-semibold text-[var(--text-muted)]">
                   {isHindi ? 'कुल बिक्री' : 'Total Sales'}
                 </span>
-                <p className="text-base sm:text-lg font-mono font-extrabold text-white mt-1 tabular-nums">
+                <p className="text-base sm:text-lg font-mono font-extrabold text-[var(--text-primary)] mt-1 tabular-nums">
                   {formatCurrency(snapshot.summary.totalSales, currency)}
                 </p>
               </div>
 
-              <div className="bg-slate-900 border border-indigo-500/30 rounded-2xl p-3.5">
-                <span className="text-xs font-semibold text-indigo-300">
+              <div className="bg-[var(--bg-surface)] border border-indigo-500/40 rounded-2xl p-3.5">
+                <span className="text-xs font-semibold text-indigo-500">
                   {isHindi ? 'कैश व बैंक शेष' : 'Cash & Bank'}
                 </span>
-                <p className="text-base sm:text-lg font-mono font-extrabold text-indigo-300 mt-1 tabular-nums">
+                <p className="text-base sm:text-lg font-mono font-extrabold text-indigo-500 mt-1 tabular-nums">
                   {formatCurrency(snapshot.summary.cashAndBankBalance, currency)}
                 </p>
               </div>
 
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5">
-                <span className="text-xs font-semibold text-slate-400">
+              <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-3.5">
+                <span className="text-xs font-semibold text-[var(--text-muted)]">
                   {isHindi ? 'कुल प्राप्य (बकाया)' : 'Receivables'}
                 </span>
-                <p className="text-base sm:text-lg font-mono font-extrabold text-amber-400 mt-1 tabular-nums">
+                <p className="text-base sm:text-lg font-mono font-extrabold text-amber-500 mt-1 tabular-nums">
                   {formatCurrency(snapshot.summary.totalReceivables, currency)}
                 </p>
               </div>
 
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5">
-                <span className="text-xs font-semibold text-slate-400">
+              <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-3.5">
+                <span className="text-xs font-semibold text-[var(--text-muted)]">
                   {isHindi ? 'कुल देय' : 'Payables'}
                 </span>
-                <p className="text-base sm:text-lg font-mono font-extrabold text-rose-400 mt-1 tabular-nums">
+                <p className="text-base sm:text-lg font-mono font-extrabold text-rose-500 mt-1 tabular-nums">
                   {formatCurrency(snapshot.summary.totalPayables, currency)}
                 </p>
               </div>
 
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl p-3.5">
-                <span className="text-xs font-semibold text-slate-400">
+              <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-3.5">
+                <span className="text-xs font-semibold text-[var(--text-muted)]">
                   {isHindi ? 'बकाया बिल' : 'Pending Bills'}
                 </span>
-                <p className="text-base sm:text-lg font-mono font-extrabold text-sky-400 mt-1 tabular-nums">
+                <p className="text-base sm:text-lg font-mono font-extrabold text-sky-500 mt-1 tabular-nums">
                   {snapshot.summary.pendingInvoicesCount} / {snapshot.summary.invoiceCount}
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-2 bg-slate-900 p-2 rounded-2xl border border-slate-800">
+            <div className="flex flex-wrap gap-2 bg-[var(--bg-surface)] p-2 rounded-2xl border border-[var(--border-primary)]">
               <button
                 type="button"
                 onClick={() => setActiveTab('cashbank')}
                 className={`flex-1 min-w-[140px] py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer ${
                   activeTab === 'cashbank'
-                    ? 'bg-indigo-600 text-white shadow'
-                    : 'text-slate-300 hover:bg-slate-800'
+                    ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                    : 'text-[var(--text-secondary)] hover:bg-[var(--hover-surface)]'
                 }`}
               >
                 <Landmark className="w-4 h-4" />
@@ -291,8 +291,8 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
                 onClick={() => setActiveTab('parties')}
                 className={`flex-1 min-w-[140px] py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer ${
                   activeTab === 'parties'
-                    ? 'bg-indigo-600 text-white shadow'
-                    : 'text-slate-300 hover:bg-slate-800'
+                    ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                    : 'text-[var(--text-secondary)] hover:bg-[var(--hover-surface)]'
                 }`}
               >
                 <Users className="w-4 h-4" />
@@ -304,8 +304,8 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
                 onClick={() => setActiveTab('sales')}
                 className={`flex-1 min-w-[140px] py-2 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition cursor-pointer ${
                   activeTab === 'sales'
-                    ? 'bg-indigo-600 text-white shadow'
-                    : 'text-slate-300 hover:bg-slate-800'
+                    ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                    : 'text-[var(--text-secondary)] hover:bg-[var(--hover-surface)]'
                 }`}
               >
                 <Receipt className="w-4 h-4" />
@@ -318,30 +318,30 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
                 {snapshot.cashBankAccounts.map((acc) => (
                   <div
                     key={acc.id}
-                    className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center justify-between gap-3"
+                    className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-4 flex items-center justify-between gap-3"
                   >
                     <div>
                       <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase ${
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded uppercase border ${
                           acc.kind === 'CASH'
-                            ? 'bg-emerald-500/20 text-emerald-300'
-                            : 'bg-sky-500/20 text-sky-300'
+                            ? 'hv-pill-emerald'
+                            : 'hv-pill-sky'
                         }`}
                       >
                         {acc.kind} • {acc.code}
                       </span>
-                      <h3 className="font-bold text-sm text-white mt-1.5">{acc.name}</h3>
+                      <h3 className="font-bold text-sm text-[var(--text-primary)] mt-1.5">{acc.name}</h3>
                     </div>
                     <div className="text-right">
-                      <p className="text-base font-mono font-extrabold text-white tabular-nums">
+                      <p className="text-base font-mono font-extrabold text-[var(--text-primary)] tabular-nums">
                         {formatCurrency(acc.balance, currency)}
                       </p>
-                      <span className="text-[11px] font-mono text-slate-400">{acc.balanceType}</span>
+                      <span className="text-[11px] font-mono text-[var(--text-muted)]">{acc.balanceType}</span>
                     </div>
                   </div>
                 ))}
                 {snapshot.cashBankAccounts.length === 0 && (
-                  <div className="col-span-full text-center py-8 text-xs text-slate-400 bg-slate-900 border border-slate-800 rounded-2xl">
+                  <div className="col-span-full text-center py-8 text-xs text-[var(--text-muted)] bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl">
                     {isHindi ? 'कोई कैश या बैंक खाता उपलब्ध नहीं है।' : 'No Cash or Bank accounts synced yet.'}
                   </div>
                 )}
@@ -351,13 +351,13 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
             {activeTab === 'parties' && (
               <div className="space-y-3">
                 <div className="relative">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                  <Search className="w-4 h-4 text-[var(--text-muted)] absolute left-3.5 top-3" />
                   <input
                     type="text"
                     value={partySearch}
                     onChange={(e) => setPartySearch(e.target.value)}
                     placeholder={isHindi ? 'पार्टी नाम से खोजें...' : 'Search party by name...'}
-                    className="w-full bg-slate-900 border border-slate-800 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white focus:border-indigo-500 outline-none"
+                    className="w-full bg-[var(--bg-input)] border border-[var(--border-primary)] rounded-xl pl-10 pr-4 py-2.5 text-sm text-[var(--text-primary)] focus:border-indigo-500 outline-none"
                   />
                 </div>
 
@@ -377,27 +377,27 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
                     return (
                       <div
                         key={p.id}
-                        className="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center justify-between gap-3"
+                        className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-4 flex items-center justify-between gap-3"
                       >
                         <div className="min-w-0">
                           <div className="flex items-center gap-2">
-                            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded hv-pill-slate border">
                               {p.type}
                             </span>
                             {p.pendingInvoicesCount > 0 && (
-                              <span className="text-[11px] text-amber-300 font-semibold">
+                              <span className="text-[11px] text-amber-500 font-semibold">
                                 {p.pendingInvoicesCount} {isHindi ? 'लंबित बिल' : 'pending'}
                               </span>
                             )}
                           </div>
-                          <h4 className="font-bold text-sm text-white mt-1 truncate">{p.name}</h4>
-                          {p.phone && <p className="text-xs text-slate-400 font-mono">{p.phone}</p>}
+                          <h4 className="font-bold text-sm text-[var(--text-primary)] mt-1 truncate">{p.name}</h4>
+                          {p.phone && <p className="text-xs text-[var(--text-muted)] font-mono">{p.phone}</p>}
                         </div>
 
                         <div className="text-right shrink-0 space-y-1.5">
                           <p
                             className={`text-base font-mono font-extrabold tabular-nums ${
-                              p.balanceType === 'DR' ? 'text-amber-400' : 'text-rose-400'
+                              p.balanceType === 'DR' ? 'text-amber-500' : 'text-rose-500'
                             }`}
                           >
                             {formatCurrency(p.balance, currency)}{' '}
@@ -408,7 +408,7 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
                               href={waHref}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 text-[11px] font-bold bg-emerald-600 hover:bg-emerald-500 text-white px-2.5 py-1 rounded-lg transition"
+                              className="inline-flex items-center gap-1 text-[11px] font-bold bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white px-2.5 py-1 rounded-lg transition"
                             >
                               <MessageCircle className="w-3 h-3" />
                               <span>{isHindi ? 'WhatsApp रिमाइंडर' : 'WhatsApp'}</span>
@@ -419,8 +419,8 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
                     );
                   })}
                   {filteredParties.length === 0 && (
-                    <div className="col-span-full bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center text-xs text-slate-400">
-                      <CheckCircle2 className="w-6 h-6 text-emerald-400 mx-auto mb-2" />
+                    <div className="col-span-full bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-8 text-center text-xs text-[var(--text-muted)]">
+                      <CheckCircle2 className="w-6 h-6 text-emerald-500 mx-auto mb-2" />
                       {isHindi ? 'कोई बकाया पार्टी नहीं मिली।' : 'No matching party outstandings.'}
                     </div>
                   )}
@@ -429,10 +429,10 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
             )}
 
             {activeTab === 'sales' && (
-              <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+              <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl overflow-hidden">
                 <div className="overflow-x-auto">
                   <table className="w-full text-left text-sm tabular-nums">
-                    <thead className="bg-slate-800 text-slate-300 text-xs uppercase">
+                    <thead className="bg-[var(--bg-elevated)] text-[var(--text-muted)] text-xs uppercase">
                       <tr>
                         <th className="p-3">{isHindi ? 'बिल नं.' : 'Invoice #'}</th>
                         <th className="p-3">{isHindi ? 'तिथि' : 'Date'}</th>
@@ -442,26 +442,26 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
                         <th className="p-3 text-center">{isHindi ? 'स्थिति' : 'Status'}</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800">
+                    <tbody className="divide-y divide-[var(--border-primary)]">
                       {snapshot.recentInvoices.map((inv) => (
-                        <tr key={inv.id} className="hover:bg-slate-800/40">
-                          <td className="p-3 font-mono font-bold text-indigo-300">{inv.invoiceNumber}</td>
-                          <td className="p-3 font-mono text-slate-300">{inv.date}</td>
-                          <td className="p-3 font-semibold text-white">{inv.partyName}</td>
-                          <td className="p-3 text-right font-mono font-bold text-white">
+                        <tr key={inv.id} className="hover:bg-[var(--hover-surface)]">
+                          <td className="p-3 font-mono font-bold text-indigo-500">{inv.invoiceNumber}</td>
+                          <td className="p-3 font-mono text-[var(--text-secondary)]">{inv.date}</td>
+                          <td className="p-3 font-semibold text-[var(--text-primary)]">{inv.partyName}</td>
+                          <td className="p-3 text-right font-mono font-bold text-[var(--text-primary)]">
                             {formatCurrency(inv.grandTotal, currency)}
                           </td>
-                          <td className="p-3 text-right font-mono text-emerald-400">
+                          <td className="p-3 text-right font-mono text-emerald-500">
                             {formatCurrency(inv.amountPaid, currency)}
                           </td>
                           <td className="p-3 text-center">
                             <span
-                              className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
+                              className={`text-[11px] font-bold px-2 py-0.5 rounded-full border ${
                                 inv.status === 'PAID'
-                                  ? 'bg-emerald-500/20 text-emerald-300'
+                                  ? 'hv-pill-emerald'
                                   : inv.status === 'PARTIAL'
-                                  ? 'bg-amber-500/20 text-amber-300'
-                                  : 'bg-rose-500/20 text-rose-300'
+                                  ? 'hv-pill-amber'
+                                  : 'hv-pill-rose'
                               }`}
                             >
                               {inv.status}
@@ -471,8 +471,8 @@ export const LanLiveView: React.FC<LanLiveViewProps> = ({ isHindi, initialCode =
                       ))}
                       {snapshot.recentInvoices.length === 0 && (
                         <tr>
-                          <td colSpan={6} className="p-6 text-center text-xs text-slate-400">
-                            <AlertCircle className="w-5 h-5 mx-auto mb-1 text-slate-500" />
+                          <td colSpan={6} className="p-6 text-center text-xs text-[var(--text-muted)]">
+                            <AlertCircle className="w-5 h-5 mx-auto mb-1 text-[var(--text-muted)]" />
                             {isHindi ? 'कोई हालिया बिक्री बिल नहीं है।' : 'No recent sales invoices found.'}
                           </td>
                         </tr>

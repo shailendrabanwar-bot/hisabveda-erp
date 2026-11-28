@@ -282,28 +282,29 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-4xl shadow-2xl my-8 text-slate-100 flex flex-col max-h-[92vh]">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl w-full max-w-4xl shadow-2xl my-8 text-[var(--text-primary)] flex flex-col max-h-[92vh]">
         
         {/* Header */}
-        <div className="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/60 rounded-t-2xl shrink-0">
+        <div className="p-5 border-b border-[var(--border-primary)] flex items-center justify-between hv-elevated rounded-t-2xl shrink-0">
           <div className="flex items-center gap-3">
-            <div className={`p-2.5 rounded-xl ${type === 'DEBIT_NOTE' ? 'bg-rose-500/20 text-rose-400 border border-rose-500/30' : 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'}`}>
+            <div className={`p-2.5 rounded-xl border ${type === 'DEBIT_NOTE' ? 'hv-pill-rose' : 'hv-pill-emerald'}`}>
               <FileText className="w-6 h-6" />
             </div>
             <div>
-              <h3 className="text-lg font-bold">
+              <h3 className="text-lg font-bold text-[var(--text-primary)]">
                 {type === 'DEBIT_NOTE' 
                   ? (isHindi ? 'डेबिट नोट बनाएं (Debit Note - Purchase Return)' : 'Create Debit Note (Purchase Return)')
                   : (isHindi ? 'क्रेडिट नोट बनाएं (Credit Note - Sales Return)' : 'Create Credit Note (Sales Return)')}
               </h3>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-[var(--text-muted)]">
                 {isHindi ? 'जीएसटी अनुपालन एवं स्वचालित राउंड ऑफ लेज़र सहित डेबिट/क्रेडिट नोट दर्ज करें' : 'Record Debit/Credit note with full GST & zero-difference double-entry routing'}
               </p>
             </div>
           </div>
           <button 
+            type="button"
             onClick={onClose}
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition"
+            className="p-2 rounded-xl text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-primary)] transition"
           >
             <X className="w-5 h-5" />
           </button>
@@ -312,20 +313,20 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-6 space-y-5 overflow-y-auto flex-1 text-sm tabular-nums">
           {validationError && (
-            <div className="p-3 bg-rose-500/15 border border-rose-500/50 rounded-xl text-rose-200 text-sm font-bold flex items-center justify-between gap-2">
+            <div className="p-3 hv-pill-rose border rounded-xl text-sm font-bold flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{validationError}</span>
               </div>
-              <button type="button" onClick={() => setValidationError(null)} className="text-rose-300 hover:text-white">
+              <button type="button" onClick={() => setValidationError(null)} className="hover:opacity-75">
                 <X className="w-4 h-4" />
               </button>
             </div>
           )}
           {/* Note Type Switcher & Note No */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-slate-950/40 p-4 rounded-xl border border-slate-800">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 hv-elevated p-4 rounded-xl border border-[var(--border-primary)]">
             <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-1">
+              <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-1">
                 {isHindi ? 'नोट प्रकार (Note Type):' : 'Note Type:'}
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -334,8 +335,8 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
                   onClick={() => handleTypeChange('DEBIT_NOTE')}
                   className={`py-2 px-3 rounded-xl text-sm font-bold transition border ${
                     type === 'DEBIT_NOTE' 
-                      ? 'bg-rose-600 text-white border-rose-500 shadow' 
-                      : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
+                      ? 'bg-rose-600 text-white hv-keep-white border-rose-500 shadow' 
+                      : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-subtle)] hover:bg-[var(--hover-surface)]'
                   }`}
                 >
                   {isHindi ? 'डेबिट नोट' : 'Debit Note'}
@@ -345,8 +346,8 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
                   onClick={() => handleTypeChange('CREDIT_NOTE')}
                   className={`py-2 px-3 rounded-xl text-sm font-bold transition border ${
                     type === 'CREDIT_NOTE' 
-                      ? 'bg-emerald-600 text-white border-emerald-500 shadow' 
-                      : 'bg-slate-800 text-slate-300 border-slate-700 hover:bg-slate-700'
+                      ? 'bg-emerald-600 text-white hv-keep-white border-emerald-500 shadow' 
+                      : 'bg-[var(--bg-surface)] text-[var(--text-secondary)] border-[var(--border-subtle)] hover:bg-[var(--hover-surface)]'
                   }`}
                 >
                   {isHindi ? 'क्रेडिट नोट' : 'Credit Note'}
@@ -355,27 +356,27 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-1">
+              <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-1">
                 {isHindi ? 'नोट संख्या (Note No):' : 'Note Number:'}
               </label>
               <input
                 type="text"
                 value={noteNumber}
                 onChange={(e) => setNoteNumber(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-sm text-white font-mono focus:outline-none focus:border-indigo-500"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-sm font-mono focus:outline-none focus:border-indigo-500"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-1">
+              <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-1">
                 {isHindi ? 'तारीख (Date):' : 'Date:'}
               </label>
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-sm focus:outline-none focus:border-indigo-500"
                 required
               />
             </div>
@@ -384,13 +385,13 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
           {/* Party Details & Original Invoice */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-1">
+              <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-1">
                 {isHindi ? 'पार्टी / ग्राहक / विक्रेता नाम *' : 'Party / Customer / Vendor Name *'}
               </label>
               <select
                 value={partyId}
                 onChange={(e) => handleSelectParty(e.target.value)}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-indigo-500 mb-2"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-sm focus:outline-none focus:border-indigo-500 mb-2"
               >
                 <option value="">{isHindi ? '-- पार्टी मास्टर से चुनें --' : '-- Select from Party Master --'}</option>
                 {data.parties.map((p) => (
@@ -404,7 +405,7 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
                 value={partyName}
                 onChange={(e) => setPartyName(e.target.value)}
                 placeholder={isHindi ? 'या नया पार्टी का नाम दर्ज करें...' : 'Or type party name...'}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-sm focus:outline-none focus:border-indigo-500"
                 required
               />
             </div>
@@ -412,7 +413,7 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
             <div className="space-y-2">
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-sm font-semibold text-slate-300 mb-1">
+                  <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-1">
                     {isHindi ? 'मूल इनवॉइस सं.:' : 'Orig. Invoice No:'}
                   </label>
                   <input
@@ -420,30 +421,30 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
                     value={originalInvoiceNo}
                     onChange={(e) => setOriginalInvoiceNo(e.target.value)}
                     placeholder="INV-2026-001"
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-sm focus:outline-none focus:border-indigo-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-slate-300 mb-1">
+                  <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-1">
                     {isHindi ? 'मूल इनवॉइस तारीख:' : 'Orig. Invoice Date:'}
                   </label>
                   <input
                     type="date"
                     value={originalInvoiceDate}
                     onChange={(e) => setOriginalInvoiceDate(e.target.value)}
-                    className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-sm focus:outline-none focus:border-indigo-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-semibold text-slate-300 mb-1">
+                <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-1">
                   {isHindi ? 'कारण (Reason):' : 'Reason:'}
                 </label>
                 <select
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-sm focus:outline-none focus:border-indigo-500"
                 >
                   <option value="">{isHindi ? '-- कारण चुनें --' : '-- Select Reason --'}</option>
                   {reasonsList.map((r, i) => (
@@ -457,22 +458,22 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
           {/* Items Table */}
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <h4 className="text-sm font-bold text-slate-300 uppercase tracking-wider">
+              <h4 className="text-sm font-bold text-[var(--text-secondary)] uppercase tracking-wider">
                 {isHindi ? 'आइटम एवं विवरण (Items & Amounts)' : 'Items & Taxable Amounts'}
               </h4>
               <button
                 type="button"
                 onClick={handleAddItem}
-                className="flex items-center gap-1 text-sm text-indigo-400 hover:text-indigo-300 font-bold"
+                className="flex items-center gap-1 text-sm text-indigo-500 hover:opacity-80 font-bold"
               >
                 <Plus className="w-4 h-4" />
                 <span>{isHindi ? '+ नया आइटम जोड़ें' : '+ Add Item Line'}</span>
               </button>
             </div>
 
-            <div className="overflow-auto max-h-[34vh] border border-slate-800 rounded-xl">
+            <div className="overflow-auto max-h-[34vh] border border-[var(--border-primary)] rounded-xl">
               <table className="w-full text-left text-sm tabular-nums">
-                <thead className="sticky top-0 z-10 bg-slate-950 text-slate-300 font-bold text-xs uppercase border-b border-slate-800">
+                <thead className="sticky top-0 z-10 bg-[var(--bg-elevated)] text-[var(--text-secondary)] font-bold text-xs uppercase border-b border-[var(--border-primary)]">
                   <tr>
                     <th className="p-2.5 min-w-[180px]">{isHindi ? 'आइटम नाम / विवरण' : 'Item Name / Description'}</th>
                     <th className="p-2.5 w-24">HSN/SAC</th>
@@ -484,14 +485,14 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
                     <th className="p-2.5 w-10 text-center"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/60">
+                <tbody className="divide-y divide-[var(--border-primary)] hv-surface">
                   {items.map((item, idx) => (
-                    <tr key={item.id} className="hover:bg-slate-800/40">
+                    <tr key={item.id} className="hover:bg-[var(--hover-surface)]">
                       <td className="p-2">
                         <select
                           value={item.itemId}
                           onChange={(e) => handleItemChange(idx, 'itemId', e.target.value)}
-                          className="w-full bg-slate-800 border border-slate-700 rounded-lg p-1.5 text-sm text-white mb-1"
+                          className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-1.5 text-sm mb-1"
                         >
                           <option value="">{isHindi ? '-- मास्टर चुनें --' : '-- Select Item --'}</option>
                           {data.items.map((it) => (
@@ -503,7 +504,7 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
                           value={item.itemName}
                           onChange={(e) => handleItemChange(idx, 'itemName', e.target.value)}
                           placeholder={isHindi ? 'विवरण लिखें...' : 'Item description...'}
-                          className="w-full bg-slate-800 border border-slate-700 rounded-lg p-1.5 text-sm text-white"
+                          className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-1.5 text-sm"
                           required
                         />
                       </td>
@@ -512,7 +513,7 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
                           type="text"
                           value={item.hsnSacCode}
                           onChange={(e) => handleItemChange(idx, 'hsnSacCode', e.target.value)}
-                          className="w-full bg-slate-800 border border-slate-700 rounded-lg p-1.5 text-sm text-white font-mono"
+                          className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-1.5 text-sm font-mono"
                         />
                       </td>
                       <td className="p-2">
@@ -522,7 +523,7 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
                           step="0.01"
                           value={item.quantity}
                           onChange={(e) => handleItemChange(idx, 'quantity', e.target.value)}
-                          className="w-full bg-slate-800 border border-slate-700 rounded-lg p-1.5 text-sm text-white"
+                          className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-1.5 text-sm"
                           required
                         />
                       </td>
@@ -534,7 +535,7 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
                           value={item.rate || ''}
                           placeholder="0"
                           onChange={(e) => handleItemChange(idx, 'rate', e.target.value)}
-                          className="w-full bg-slate-800 border border-slate-700 rounded-lg p-1.5 text-sm text-white font-mono"
+                          className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-1.5 text-sm font-mono"
                           required
                         />
                       </td>
@@ -547,14 +548,14 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
                           value={item.discountPercent || ''}
                           placeholder="0"
                           onChange={(e) => handleItemChange(idx, 'discountPercent', e.target.value)}
-                          className="w-full bg-slate-800 border border-slate-700 rounded-lg p-1.5 text-sm text-white font-mono"
+                          className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-1.5 text-sm font-mono"
                         />
                       </td>
                       <td className="p-2">
                         <select
                           value={item.taxRate}
                           onChange={(e) => handleItemChange(idx, 'taxRate', Number(e.target.value))}
-                          className="w-full bg-slate-800 border border-slate-700 rounded-lg p-1.5 text-sm text-white"
+                          className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-1.5 text-sm"
                         >
                           <option value={0}>0%</option>
                           <option value={5}>5%</option>
@@ -563,14 +564,14 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
                           <option value={28}>28%</option>
                         </select>
                       </td>
-                      <td className="p-2 font-mono text-sm font-bold text-slate-200 text-right">
+                      <td className="p-2 font-mono text-sm font-bold text-[var(--text-primary)] text-right">
                         {formatCurrency(item.totalAmount, data.company.currency)}
                       </td>
                       <td className="p-2 text-center">
                         <button
                           type="button"
                           onClick={() => handleRemoveItem(idx)}
-                          className="text-slate-500 hover:text-rose-400 p-1"
+                          className="text-[var(--text-muted)] hover:text-rose-500 p-1"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
@@ -585,7 +586,7 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
           {/* Remarks & Totals */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-start pt-2">
             <div>
-              <label className="block text-sm font-semibold text-slate-300 mb-1">
+              <label className="block text-sm font-semibold text-[var(--text-secondary)] mb-1">
                 {isHindi ? 'टिप्पणी / नारेशन (Remarks):' : 'Remarks / Narration:'}
               </label>
               <textarea
@@ -593,59 +594,59 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
                 onChange={(e) => setRemarks(e.target.value)}
                 placeholder={isHindi ? 'नोट का कारण या कोई विशेष टिपणी दर्ज करें...' : 'Enter reason or notes for this note...'}
                 rows={3}
-                className="w-full bg-slate-800 border border-slate-700 rounded-xl p-2.5 text-sm text-white focus:outline-none focus:border-indigo-500"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-sm focus:outline-none focus:border-indigo-500"
               />
             </div>
 
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-sm tabular-nums">
-              <div className="flex justify-between text-slate-400">
+            <div className="hv-elevated p-4 rounded-xl border border-[var(--border-primary)] space-y-2 text-sm tabular-nums">
+              <div className="flex justify-between text-[var(--text-muted)]">
                 <span>{isHindi ? 'सकल योग (Subtotal):' : 'Subtotal:'}</span>
                 <span className="font-mono">{formatCurrency(subtotal, data.company.currency)}</span>
               </div>
               {totalDiscount > 0 && (
-                <div className="flex justify-between text-emerald-400">
+                <div className="flex justify-between text-emerald-500">
                   <span>{isHindi ? 'छूट (Discount):' : 'Discount:'}</span>
                   <span className="font-mono">-{formatCurrency(totalDiscount, data.company.currency)}</span>
                 </div>
               )}
-              <div className="flex justify-between text-slate-300 font-semibold">
+              <div className="flex justify-between text-[var(--text-secondary)] font-semibold">
                 <span>{isHindi ? 'टैक्सेबल वैल्यू:' : 'Taxable Value:'}</span>
                 <span className="font-mono">{formatCurrency(netTaxable, data.company.currency)}</span>
               </div>
               {isInterState ? (
-                <div className="flex justify-between text-amber-300">
+                <div className="flex justify-between text-amber-500">
                   <span>IGST (Inter-state):</span>
                   <span className="font-mono">{formatCurrency(igstAmount, data.company.currency)}</span>
                 </div>
               ) : (
                 <>
-                  <div className="flex justify-between text-slate-400">
+                  <div className="flex justify-between text-[var(--text-muted)]">
                     <span>CGST (Intra-state):</span>
                     <span className="font-mono">{formatCurrency(cgstAmount, data.company.currency)}</span>
                   </div>
-                  <div className="flex justify-between text-slate-400">
+                  <div className="flex justify-between text-[var(--text-muted)]">
                     <span>SGST (Intra-state):</span>
                     <span className="font-mono">{formatCurrency(sgstAmount, data.company.currency)}</span>
                   </div>
                 </>
               )}
-              <div className="flex justify-between items-center text-slate-400 pt-1">
+              <div className="flex justify-between items-center text-[var(--text-muted)] pt-1">
                 <label className="flex items-center gap-2 cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={autoRoundOff}
                     onChange={(e) => setAutoRoundOff(e.target.checked)}
-                    className="rounded border-slate-600 bg-slate-800 text-indigo-500"
+                    className="rounded border-[var(--border-subtle)] accent-indigo-500"
                   />
                   <span>{isHindi ? 'राउंड ऑफ (Round Off A/c):' : 'Auto Round Off (Round Off A/c):'}</span>
                 </label>
-                <span className="font-mono text-indigo-300">
+                <span className="font-mono text-indigo-500">
                   {roundOff >= 0 ? '+' : ''}{roundOff.toFixed(2)}
                 </span>
               </div>
-              <div className="border-t border-slate-800 pt-2 flex justify-between font-bold text-slate-100 text-base">
+              <div className="border-t border-[var(--border-primary)] pt-2 flex justify-between font-bold text-[var(--text-primary)] text-base">
                 <span>{isHindi ? 'कुल राशि (Grand Total):' : 'Grand Total:'}</span>
-                <span className={`font-mono ${type === 'DEBIT_NOTE' ? 'text-rose-400' : 'text-emerald-400'}`}>
+                <span className={`font-mono ${type === 'DEBIT_NOTE' ? 'text-rose-500' : 'text-emerald-500'}`}>
                   {formatCurrency(grandTotal, data.company.currency)}
                 </span>
               </div>
@@ -653,17 +654,17 @@ export const DebitCreditNoteModal: React.FC<DebitCreditNoteModalProps> = ({
           </div>
 
           {/* Buttons */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-[var(--border-primary)]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2.5 rounded-xl border border-slate-700 text-slate-300 hover:bg-slate-800 text-sm font-semibold"
+              className="px-4 py-2.5 rounded-xl bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] text-sm font-semibold transition"
             >
               {isHindi ? 'रद्द करें' : 'Cancel'}
             </button>
             <button
               type="submit"
-              className={`px-5 py-2.5 rounded-xl font-bold text-sm text-white shadow-lg flex items-center gap-1.5 ${
+              className={`px-5 py-2.5 rounded-xl font-bold text-sm text-white hv-keep-white shadow-lg flex items-center gap-1.5 transition ${
                 type === 'DEBIT_NOTE' ? 'bg-rose-600 hover:bg-rose-500' : 'bg-emerald-600 hover:bg-emerald-500'
               }`}
             >

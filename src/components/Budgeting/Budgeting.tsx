@@ -186,22 +186,22 @@ export const Budgeting: React.FC<BudgetingProps> = ({
   };
 
   return (
-    <div className="p-4 md:p-6 space-y-6 max-w-7xl mx-auto text-slate-100">
+    <div className="p-4 md:p-6 space-y-6 max-w-7xl mx-auto text-[var(--text-primary)]">
       {/* Top Banner & Action Controls */}
-      <div className="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+      <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-5 shadow-md flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="w-10 h-10 rounded-xl bg-indigo-600/30 border border-indigo-500/40 flex items-center justify-center text-indigo-400 font-bold">
+            <div className="w-10 h-10 rounded-xl hv-pill-indigo border flex items-center justify-center font-bold">
               <PiggyBank className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+              <h2 className="text-xl font-bold tracking-tight text-[var(--text-primary)] flex items-center gap-2 flex-wrap">
                 <span>{isHindi ? 'मासिक बजट एवं खर्च सीमा प्रणाली' : 'Monthly Budgeting & Expense Tracker'}</span>
-                <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs px-2.5 py-0.5 rounded-full font-medium">
+                <span className="hv-pill-indigo border text-xs px-2.5 py-0.5 rounded-full font-semibold">
                   ERP Module
                 </span>
               </h2>
-              <p className="text-xs text-slate-300 mt-0.5">
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">
                 {isHindi
                   ? 'खाता श्रेणियों के लिए मासिक खर्च सीमा निर्धारित करें और वास्तविक खर्च की निगरानी करें।'
                   : 'Set monthly expense limits for account categories and track real-time utilization.'}
@@ -213,21 +213,21 @@ export const Budgeting: React.FC<BudgetingProps> = ({
         {/* Right Controls: Month Selector & Add Budget Button */}
         <div className="flex items-center gap-3 flex-wrap w-full lg:w-auto justify-between lg:justify-end">
           {/* Month Navigator */}
-          <div className="flex items-center bg-slate-800 border border-slate-700/80 rounded-xl p-1 shadow-inner">
+          <div className="flex items-center bg-[var(--bg-elevated)] border border-[var(--border-subtle)] rounded-xl p-1 shadow-inner">
             <button
               onClick={handlePrevMonth}
-              className="p-1.5 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white transition"
+              className="p-1.5 hover:bg-[var(--hover-surface)] rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition cursor-pointer"
               title={isHindi ? 'पिछला महीना' : 'Previous Month'}
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <div className="flex items-center gap-1.5 px-3 py-1 font-mono text-xs font-bold text-slate-100">
-              <Calendar className="w-3.5 h-3.5 text-indigo-400" />
+            <div className="flex items-center gap-1.5 px-3 py-1 font-mono text-xs font-bold text-[var(--text-primary)]">
+              <Calendar className="w-3.5 h-3.5 text-indigo-500" />
               <span>{formatMonthDisplay(selectedMonth)}</span>
             </div>
             <button
               onClick={handleNextMonth}
-              className="p-1.5 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white transition"
+              className="p-1.5 hover:bg-[var(--hover-surface)] rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition cursor-pointer"
               title={isHindi ? 'अगला महीना' : 'Next Month'}
             >
               <ChevronRight className="w-4 h-4" />
@@ -237,7 +237,7 @@ export const Budgeting: React.FC<BudgetingProps> = ({
           {perms.canCreateEditVouchers && (
             <button
               onClick={() => handleOpenAddModal()}
-              className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 transition transform active:scale-95"
+              className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs px-4 py-2.5 rounded-xl shadow-lg shadow-indigo-600/30 transition transform active:scale-95 cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>{isHindi ? '+ नया बजट जोड़ें' : '+ Set Budget Limit'}</span>
@@ -249,60 +249,58 @@ export const Budgeting: React.FC<BudgetingProps> = ({
       {/* Overview Stat Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Card 1: Total Budgeted Limit */}
-        <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg relative overflow-hidden">
+        <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] p-4 rounded-2xl shadow-md relative overflow-hidden">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400">
+            <span className="text-xs font-semibold text-[var(--text-muted)]">
               {isHindi ? 'कुल निर्धारित बजट' : 'Total Budgeted Limit'}
             </span>
-            <div className="w-8 h-8 rounded-lg bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400">
+            <div className="w-8 h-8 rounded-lg hv-pill-indigo border flex items-center justify-center">
               <PiggyBank className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-xl font-mono font-bold text-slate-100 mt-2">
+          <p className="text-xl font-mono font-bold text-[var(--text-primary)] mt-2 tabular-nums">
             {formatCurrency(totalBudgetLimit, currency)}
           </p>
-          <p className="text-[11px] text-slate-400 mt-1">
+          <p className="text-[11px] text-[var(--text-muted)] mt-1">
             {isHindi ? `${budgets.length} खर्च खातों पर लागू` : `Across ${budgets.length} expense categories`}
           </p>
         </div>
 
         {/* Card 2: Actual Expenses Spent */}
-        <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg relative overflow-hidden">
+        <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] p-4 rounded-2xl shadow-md relative overflow-hidden">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400">
+            <span className="text-xs font-semibold text-[var(--text-muted)]">
               {isHindi ? 'वास्तविक खर्च (Actual Spent)' : 'Actual Expenses Spent'}
             </span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+            <div className="w-8 h-8 rounded-lg hv-pill-emerald border flex items-center justify-center">
               <DollarSign className="w-4 h-4" />
             </div>
           </div>
-          <p className="text-xl font-mono font-bold text-emerald-400 mt-2">
+          <p className="text-xl font-mono font-bold text-emerald-500 mt-2 tabular-nums">
             {formatCurrency(totalActualSpent, currency)}
           </p>
-          <p className="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
+          <p className="text-[11px] text-[var(--text-muted)] mt-1 flex items-center gap-1">
             <span>{isHindi ? 'माह के लिए दर्ज वाउचर से' : 'Voucher entries in'}</span>
-            <span className="font-mono text-slate-300 font-semibold">{selectedMonth}</span>
+            <span className="font-mono text-[var(--text-secondary)] font-semibold">{selectedMonth}</span>
           </p>
         </div>
 
         {/* Card 3: Remaining Balance */}
-        <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg relative overflow-hidden">
+        <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] p-4 rounded-2xl shadow-md relative overflow-hidden">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400">
+            <span className="text-xs font-semibold text-[var(--text-muted)]">
               {totalRemaining >= 0 ? (isHindi ? 'शेष बजट राशि' : 'Remaining Unspent') : (isHindi ? 'अतिरिक्त खर्च (Overspent)' : 'Over Budget Amount')}
             </span>
             <div className={`w-8 h-8 rounded-lg flex items-center justify-center border ${
-              totalRemaining >= 0 
-                ? 'bg-blue-500/10 border-blue-500/30 text-blue-400' 
-                : 'bg-rose-500/10 border-rose-500/30 text-rose-400'
+              totalRemaining >= 0 ? 'hv-pill-blue' : 'hv-pill-rose'
             }`}>
               {totalRemaining >= 0 ? <TrendingDown className="w-4 h-4" /> : <TrendingUp className="w-4 h-4" />}
             </div>
           </div>
-          <p className={`text-xl font-mono font-bold mt-2 ${totalRemaining >= 0 ? 'text-blue-400' : 'text-rose-400'}`}>
+          <p className={`text-xl font-mono font-bold mt-2 tabular-nums ${totalRemaining >= 0 ? 'text-blue-500' : 'text-rose-500'}`}>
             {formatCurrency(Math.abs(totalRemaining), currency)}
           </p>
-          <p className="text-[11px] text-slate-400 mt-1">
+          <p className="text-[11px] text-[var(--text-muted)] mt-1">
             {totalRemaining >= 0 
               ? (isHindi ? 'सुरक्षित सीमा के अंदर' : 'Within target limit allowance')
               : (isHindi ? '🚨 निर्धारित बजट पार कर गया!' : '🚨 Total budget threshold exceeded!')}
@@ -310,28 +308,28 @@ export const Budgeting: React.FC<BudgetingProps> = ({
         </div>
 
         {/* Card 4: Overall Progress Utilization */}
-        <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl shadow-lg relative overflow-hidden">
+        <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] p-4 rounded-2xl shadow-md relative overflow-hidden">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-slate-400">
+            <span className="text-xs font-semibold text-[var(--text-muted)]">
               {isHindi ? 'बजट उपयोग दर' : 'Budget Utilization Rate'}
             </span>
-            <div className="w-8 h-8 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400">
+            <div className="w-8 h-8 rounded-lg hv-pill-amber border flex items-center justify-center">
               <BarChart2 className="w-4 h-4" />
             </div>
           </div>
           <div className="flex items-baseline gap-2 mt-2">
-            <p className="text-xl font-mono font-bold text-slate-100">
+            <p className="text-xl font-mono font-bold text-[var(--text-primary)] tabular-nums">
               {overallPercent.toFixed(1)}%
             </p>
             {overBudgetCount > 0 && (
-              <span className="text-[10px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
+              <span className="text-[10px] font-bold hv-pill-rose border px-2 py-0.5 rounded-full flex items-center gap-1">
                 <AlertTriangle className="w-3 h-3" />
                 {overBudgetCount} Over
               </span>
             )}
           </div>
           {/* Progress Bar Track */}
-          <div className="w-full bg-slate-800 h-2 rounded-full mt-2 overflow-hidden border border-slate-700/50">
+          <div className="w-full hv-progress-track h-2 rounded-full mt-2 overflow-hidden border border-[var(--border-subtle)]">
             <div 
               className={`h-full transition-all duration-500 ${
                 overallPercent > 100 
@@ -349,18 +347,18 @@ export const Budgeting: React.FC<BudgetingProps> = ({
       {/* Visual Analytics Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Bar Chart: Budget vs Actual */}
-        <div className="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+        <div className="lg:col-span-2 bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-5 shadow-md space-y-4">
+          <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
             <div>
-              <h3 className="font-bold text-sm text-slate-100 flex items-center gap-2">
-                <BarChart2 className="w-4 h-4 text-indigo-400" />
+              <h3 className="font-bold text-sm text-[var(--text-primary)] flex items-center gap-2">
+                <BarChart2 className="w-4 h-4 text-indigo-500" />
                 <span>{isHindi ? 'बजट सीमा बनाम वास्तविक खर्च तुलना' : 'Budget Limit vs. Actual Spent Comparison'}</span>
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-[var(--text-muted)]">
                 {isHindi ? 'प्रत्येक खर्च खाते के लिए दृश्य प्रगति' : 'Visual comparison per budgeted account category'}
               </p>
             </div>
-            <span className="text-xs font-mono text-indigo-300 bg-indigo-500/10 border border-indigo-500/30 px-2.5 py-1 rounded-lg">
+            <span className="text-xs font-mono hv-pill-indigo border px-2.5 py-1 rounded-lg font-bold">
               {selectedMonth}
             </span>
           </div>
@@ -368,18 +366,18 @@ export const Budgeting: React.FC<BudgetingProps> = ({
           <div className="h-64 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={chartData} margin={{ top: 10, right: 10, left: 0, bottom: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#334155" opacity={0.5} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--chart-grid)" opacity={0.65} />
                 <XAxis 
                   dataKey="name" 
-                  stroke="#94a3b8" 
+                  stroke="var(--chart-axis)" 
                   fontSize={11} 
                   tickLine={false} 
                   angle={-15} 
                   textAnchor="end"
                 />
-                <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} />
+                <YAxis stroke="var(--chart-axis)" fontSize={11} tickLine={false} />
                 <Tooltip 
-                  contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px', color: '#f8fafc' }}
+                  contentStyle={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)', borderRadius: '12px', color: 'var(--text-primary)' }}
                   formatter={(value: any) => [formatCurrency(Number(value), currency), '']}
                 />
                 <Legend wrapperStyle={{ fontSize: '11px', paddingTop: '10px' }} />
@@ -404,13 +402,13 @@ export const Budgeting: React.FC<BudgetingProps> = ({
         </div>
 
         {/* Expense Distribution Pie Chart */}
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-4 flex flex-col">
-          <div className="border-b border-slate-800 pb-3">
-            <h3 className="font-bold text-sm text-slate-100 flex items-center gap-2">
-              <PieChart className="w-4 h-4 text-emerald-400" />
+        <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-5 shadow-md space-y-4 flex flex-col">
+          <div className="border-b border-[var(--border-primary)] pb-3">
+            <h3 className="font-bold text-sm text-[var(--text-primary)] flex items-center gap-2">
+              <PieChart className="w-4 h-4 text-emerald-500" />
               <span>{isHindi ? 'खर्च वितरण (Spending Share)' : 'Expense Distribution Share'}</span>
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[var(--text-muted)]">
               {isHindi ? 'कुल खर्च का श्रेणी-वार वितरण' : 'Breakdown of actual monthly spending'}
             </p>
           </div>
@@ -433,14 +431,14 @@ export const Budgeting: React.FC<BudgetingProps> = ({
                     ))}
                   </Pie>
                   <Tooltip 
-                    contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '12px', color: '#f8fafc' }}
+                    contentStyle={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-subtle)', borderRadius: '12px', color: 'var(--text-primary)' }}
                     formatter={(value: any) => [formatCurrency(Number(value), currency), 'Spent']}
                   />
                 </PieChart>
               </ResponsiveContainer>
             ) : (
-              <div className="text-center py-8 text-slate-500 text-xs">
-                <Info className="w-6 h-6 mx-auto mb-2 opacity-50" />
+              <div className="text-center py-8 text-[var(--text-muted)] text-xs">
+                <Info className="w-6 h-6 mx-auto mb-2 text-[var(--text-muted)]" />
                 <p>{isHindi ? 'इस माह के लिए कोई खर्च दर्ज नहीं है।' : 'No actual expenses recorded for this month.'}</p>
               </div>
             )}
@@ -449,23 +447,23 @@ export const Budgeting: React.FC<BudgetingProps> = ({
       </div>
 
       {/* Filter & Search Bar */}
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-4 shadow-md flex flex-col md:flex-row items-center justify-between gap-4">
         {/* Search Input */}
         <div className="relative w-full md:w-80">
-          <Search className="w-4 h-4 absolute left-3 top-2.5 text-slate-400" />
+          <Search className="w-4 h-4 absolute left-3 top-2.5 text-[var(--text-muted)]" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={isHindi ? 'बजट खाता या टिप्पणी खोजें...' : 'Search budget accounts or notes...'}
-            className="w-full bg-slate-800 text-slate-100 placeholder-slate-400 text-xs rounded-xl pl-9 pr-3 py-2 border border-slate-700/80 focus:outline-none focus:border-indigo-500"
+            className="w-full bg-[var(--bg-input)] text-[var(--text-primary)] text-xs rounded-xl pl-9 pr-3 py-2 border border-[var(--border-subtle)] focus:outline-none focus:border-indigo-500"
           />
         </div>
 
         {/* Status Filter Buttons */}
         <div className="flex items-center gap-1.5 w-full md:w-auto overflow-x-auto">
-          <Filter className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-          <span className="text-xs text-slate-400 font-medium shrink-0 mr-1">{isHindi ? 'स्थिति:' : 'Status:'}</span>
+          <Filter className="w-3.5 h-3.5 text-[var(--text-muted)] shrink-0" />
+          <span className="text-xs text-[var(--text-muted)] font-medium shrink-0 mr-1">{isHindi ? 'स्थिति:' : 'Status:'}</span>
           {[
             { id: 'ALL', label: isHindi ? 'सभी' : 'All' },
             { id: 'OVER_BUDGET', label: isHindi ? '🔴 ओवर बजट' : '🔴 Over Budget' },
@@ -475,10 +473,10 @@ export const Budgeting: React.FC<BudgetingProps> = ({
             <button
               key={st.id}
               onClick={() => setStatusFilter(st.id as any)}
-              className={`text-xs px-3 py-1.5 rounded-lg font-semibold transition shrink-0 ${
+              className={`text-xs px-3 py-1.5 rounded-lg font-semibold transition shrink-0 cursor-pointer ${
                 statusFilter === st.id
-                  ? 'bg-indigo-600 text-white shadow'
-                  : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                  ? 'bg-indigo-600 text-white hv-keep-white shadow'
+                  : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] border border-[var(--border-subtle)] hover:bg-[var(--hover-surface)]'
               }`}
             >
               {st.label}
@@ -490,10 +488,10 @@ export const Budgeting: React.FC<BudgetingProps> = ({
       {/* Budget Categories Grid Display */}
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="font-bold text-base text-slate-100 flex items-center gap-2">
-            <PiggyBank className="w-5 h-5 text-indigo-400" />
+          <h3 className="font-bold text-base text-[var(--text-primary)] flex items-center gap-2">
+            <PiggyBank className="w-5 h-5 text-indigo-500" />
             <span>{isHindi ? 'निर्धारित बजट सीमा सूची' : 'Budgeted Expense Categories'}</span>
-            <span className="text-xs font-normal text-slate-400 font-mono">({filteredBudgets.length})</span>
+            <span className="text-xs font-normal text-[var(--text-muted)] font-mono">({filteredBudgets.length})</span>
           </h3>
         </div>
 
@@ -506,22 +504,22 @@ export const Budgeting: React.FC<BudgetingProps> = ({
               return (
                 <div
                   key={item.id}
-                  className={`bg-slate-900 border rounded-2xl p-5 shadow-xl transition hover:border-slate-700 space-y-4 flex flex-col justify-between ${
+                  className={`bg-[var(--bg-surface)] border rounded-2xl p-5 shadow-md transition space-y-4 flex flex-col justify-between ${
                     isOver 
-                      ? 'border-rose-500/50 bg-rose-950/10' 
+                      ? 'border-rose-500/60' 
                       : isNear 
-                      ? 'border-amber-500/40 bg-amber-950/10' 
-                      : 'border-slate-800'
+                      ? 'border-amber-500/50' 
+                      : 'border-[var(--border-primary)]'
                   }`}
                 >
                   {/* Card Header */}
                   <div>
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-slate-800 text-indigo-300 border border-slate-700">
+                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md hv-pill-indigo border">
                           {item.category}
                         </span>
-                        <h4 className="font-bold text-sm text-white mt-1.5 leading-snug">
+                        <h4 className="font-bold text-sm text-[var(--text-primary)] mt-1.5 leading-snug">
                           {item.accountName}
                         </h4>
                       </div>
@@ -529,14 +527,14 @@ export const Budgeting: React.FC<BudgetingProps> = ({
                       {/* Status Badge */}
                       <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border shrink-0 flex items-center gap-1 ${
                         isOver
-                          ? 'bg-rose-500/20 text-rose-300 border-rose-500/40 animate-pulse'
+                          ? 'hv-pill-rose animate-pulse'
                           : isNear
-                          ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                          : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40'
+                          ? 'hv-pill-amber'
+                          : 'hv-pill-emerald'
                       }`}>
-                        {isOver && <AlertTriangle className="w-3 h-3 text-rose-400" />}
-                        {isNear && <Info className="w-3 h-3 text-amber-400" />}
-                        {!isOver && !isNear && <CheckCircle2 className="w-3 h-3 text-emerald-400" />}
+                        {isOver && <AlertTriangle className="w-3 h-3" />}
+                        {isNear && <Info className="w-3 h-3" />}
+                        {!isOver && !isNear && <CheckCircle2 className="w-3 h-3" />}
                         <span>
                           {isOver 
                             ? (isHindi ? 'ओवर बजट' : 'OVER BUDGET') 
@@ -548,33 +546,33 @@ export const Budgeting: React.FC<BudgetingProps> = ({
                     </div>
 
                     {item.notes && (
-                      <p className="text-[11px] text-slate-400 italic mt-1.5 line-clamp-2">
+                      <p className="text-[11px] text-[var(--text-muted)] italic mt-1.5 line-clamp-2">
                         "{item.notes}"
                       </p>
                     )}
                   </div>
 
                   {/* Amounts & Numbers */}
-                  <div className="bg-slate-800/50 border border-slate-700/60 p-3 rounded-xl space-y-2">
+                  <div className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] p-3 rounded-xl space-y-2">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-400">{isHindi ? 'वास्तविक खर्च:' : 'Actual Spent:'}</span>
-                      <span className={`font-mono font-bold ${isOver ? 'text-rose-400' : 'text-slate-100'}`}>
+                      <span className="text-[var(--text-muted)]">{isHindi ? 'वास्तविक खर्च:' : 'Actual Spent:'}</span>
+                      <span className={`font-mono font-bold tabular-nums ${isOver ? 'text-rose-500' : 'text-[var(--text-primary)]'}`}>
                         {formatCurrency(item.actualSpent, currency)}
                       </span>
                     </div>
 
                     <div className="flex items-center justify-between text-xs">
-                      <span className="text-slate-400">{isHindi ? 'मासिक बजट सीमा:' : 'Monthly Limit:'}</span>
-                      <span className="font-mono font-semibold text-slate-300">
+                      <span className="text-[var(--text-muted)]">{isHindi ? 'मासिक बजट सीमा:' : 'Monthly Limit:'}</span>
+                      <span className="font-mono font-semibold text-[var(--text-secondary)] tabular-nums">
                         {formatCurrency(item.monthlyLimit, currency)}
                       </span>
                     </div>
 
-                    <div className="border-t border-slate-700/50 pt-1.5 flex items-center justify-between text-xs">
-                      <span className="text-slate-400">
+                    <div className="border-t border-[var(--border-primary)] pt-1.5 flex items-center justify-between text-xs">
+                      <span className="text-[var(--text-muted)]">
                         {item.remaining >= 0 ? (isHindi ? 'बजट अंतर (Variance):' : 'Variance (Remaining):') : (isHindi ? 'अतिरिक्त खर्च (Overrun):' : 'Overrun Variance:')}
                       </span>
-                      <span className={`font-mono font-bold ${item.remaining >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                      <span className={`font-mono font-bold tabular-nums ${item.remaining >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
                         {item.remaining < 0 ? '+' : '-'}{formatCurrency(Math.abs(item.remaining), currency)} ({item.variancePercent >= 0 ? '+' : ''}{item.variancePercent.toFixed(1)}%)
                       </span>
                     </div>
@@ -583,15 +581,15 @@ export const Budgeting: React.FC<BudgetingProps> = ({
                   {/* Progress Bar Visualization */}
                   <div className="space-y-1">
                     <div className="flex items-center justify-between text-[11px]">
-                      <span className="text-slate-400 font-medium">{isHindi ? 'उपयोग:' : 'Utilization:'}</span>
-                      <span className={`font-mono font-bold ${
-                        isOver ? 'text-rose-400' : isNear ? 'text-amber-400' : 'text-emerald-400'
+                      <span className="text-[var(--text-muted)] font-medium">{isHindi ? 'उपयोग:' : 'Utilization:'}</span>
+                      <span className={`font-mono font-bold tabular-nums ${
+                        isOver ? 'text-rose-500' : isNear ? 'text-amber-500' : 'text-emerald-500'
                       }`}>
                         {item.percentUsed.toFixed(1)}%
                       </span>
                     </div>
 
-                    <div className="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden border border-slate-700/50 p-0.5">
+                    <div className="w-full hv-progress-track h-2.5 rounded-full overflow-hidden border border-[var(--border-subtle)] p-0.5">
                       <div
                         className={`h-full rounded-full transition-all duration-500 ${
                           isOver
@@ -605,7 +603,7 @@ export const Budgeting: React.FC<BudgetingProps> = ({
                     </div>
 
                     {isOver && (
-                      <p className="text-[10px] text-rose-400 font-semibold mt-1 flex items-center gap-1">
+                      <p className="text-[10px] text-rose-500 font-semibold mt-1 flex items-center gap-1">
                         <AlertTriangle className="w-3 h-3 shrink-0" />
                         {isHindi
                           ? `सावधानी: इस खाते पर बजट सीमा ${formatCurrency(Math.abs(item.remaining), currency)} से अधिक हो गई है!`
@@ -615,12 +613,12 @@ export const Budgeting: React.FC<BudgetingProps> = ({
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex items-center justify-between border-t border-slate-800 pt-3 gap-2">
+                  <div className="flex items-center justify-between border-t border-[var(--border-primary)] pt-3 gap-2">
                     <div className="flex items-center gap-1">
                       {perms.canCreateEditVouchers && (
                         <button
                           onClick={() => handleOpenEditModal(item)}
-                          className="p-1.5 hover:bg-slate-800 text-slate-300 hover:text-indigo-300 rounded-lg transition"
+                          className="p-1.5 hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] hover:text-indigo-500 rounded-lg transition cursor-pointer"
                           title={isHindi ? 'बजट संपादित करें' : 'Edit Budget Limit'}
                         >
                           <Edit3 className="w-4 h-4" />
@@ -629,7 +627,7 @@ export const Budgeting: React.FC<BudgetingProps> = ({
                       {perms.canDeleteRecords && (
                         <button
                           onClick={() => setConfirmDeleteBudget({ id: item.id, name: item.accountName })}
-                          className="p-1.5 hover:bg-slate-800 text-slate-400 hover:text-rose-400 rounded-lg transition cursor-pointer"
+                          className="p-1.5 hover:bg-[var(--hover-surface)] text-[var(--text-muted)] hover:text-rose-500 rounded-lg transition cursor-pointer"
                           title={isHindi ? 'बजट हटाएँ' : 'Delete Budget'}
                         >
                           <Trash2 className="w-4 h-4" />
@@ -640,7 +638,7 @@ export const Budgeting: React.FC<BudgetingProps> = ({
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => onNavigateTab('ledger', item.accountId)}
-                        className="text-[11px] text-indigo-300 hover:text-white font-semibold flex items-center gap-1 hover:underline"
+                        className="text-[11px] text-indigo-500 font-semibold flex items-center gap-1 hover:underline cursor-pointer"
                       >
                         <span>{isHindi ? 'लेज़र' : 'Ledger'}</span>
                         <ArrowUpRight className="w-3 h-3" />
@@ -649,7 +647,7 @@ export const Budgeting: React.FC<BudgetingProps> = ({
                       {perms.canCreateEditVouchers && (
                         <button
                           onClick={() => onOpenQuickModal('payment')}
-                          className="text-[11px] bg-slate-800 hover:bg-indigo-600 text-slate-200 hover:text-white px-2.5 py-1 rounded-lg border border-slate-700 font-semibold transition"
+                          className="text-[11px] bg-[var(--bg-elevated)] hover:bg-indigo-600 text-[var(--text-primary)] hover:text-white px-2.5 py-1 rounded-lg border border-[var(--border-subtle)] font-semibold transition cursor-pointer"
                         >
                           {isHindi ? '+ खर्च दर्ज करें' : '+ Record Expense'}
                         </button>
@@ -661,12 +659,12 @@ export const Budgeting: React.FC<BudgetingProps> = ({
             })}
           </div>
         ) : (
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 text-center space-y-3">
-            <PiggyBank className="w-10 h-10 text-slate-600 mx-auto" />
-            <h4 className="font-bold text-slate-300 text-sm">
+          <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-8 text-center space-y-3">
+            <PiggyBank className="w-10 h-10 text-[var(--text-muted)] mx-auto" />
+            <h4 className="font-bold text-[var(--text-primary)] text-sm">
               {isHindi ? 'कोई बजट सीमा नहीं मिली' : 'No Budget Limits Found'}
             </h4>
-            <p className="text-xs text-slate-400 max-w-md mx-auto">
+            <p className="text-xs text-[var(--text-muted)] max-w-md mx-auto">
               {isHindi
                 ? 'अपने व्यवसाय के खर्चों पर नियंत्रण रखने के लिए खर्च खातों के लिए मासिक सीमा निर्धारित करें।'
                 : 'Set monthly budget limits for your expense accounts to stay in control of business costs.'}
@@ -674,7 +672,7 @@ export const Budgeting: React.FC<BudgetingProps> = ({
             {perms.canCreateEditVouchers && (
               <button
                 onClick={() => handleOpenAddModal()}
-                className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-4 py-2 rounded-xl shadow-lg shadow-indigo-600/30 transition"
+                className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold text-xs px-4 py-2 rounded-xl shadow-lg shadow-indigo-600/30 transition cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
                 <span>{isHindi ? 'बजट सीमा बनाएँ' : 'Create Budget Limit'}</span>
@@ -686,18 +684,18 @@ export const Budgeting: React.FC<BudgetingProps> = ({
 
       {/* Unbudgeted Expense Accounts Quick Section */}
       {unbudgetedExpenseAccounts.length > 0 && (
-        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-5 space-y-3">
-          <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+        <div className="bg-[var(--bg-surface)] border border-[var(--border-primary)] rounded-2xl p-5 space-y-3">
+          <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-2">
             <div>
-              <h4 className="font-bold text-xs text-slate-200 flex items-center gap-2">
-                <CreditCard className="w-4 h-4 text-amber-400" />
+              <h4 className="font-bold text-xs text-[var(--text-primary)] flex items-center gap-2">
+                <CreditCard className="w-4 h-4 text-amber-500" />
                 <span>{isHindi ? 'बिना बजट वाले खर्च खाते' : 'Expense Accounts Without Budget Limits'}</span>
               </h4>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[var(--text-muted)]">
                 {isHindi ? 'नीचे दिए गए खातों के लिए त्वरित 1-क्लिक में बजट सीमा जोड़ें:' : 'Set budget limits for these accounts with 1-click:'}
               </p>
             </div>
-            <span className="text-[11px] font-mono text-slate-400">
+            <span className="text-[11px] font-mono text-[var(--text-muted)]">
               {unbudgetedExpenseAccounts.length} {isHindi ? 'खाते' : 'accounts'}
             </span>
           </div>
@@ -708,19 +706,19 @@ export const Budgeting: React.FC<BudgetingProps> = ({
               return (
                 <div
                   key={acc.id}
-                  className="bg-slate-800/40 border border-slate-700/60 p-3 rounded-xl flex items-center justify-between text-xs hover:border-indigo-500/50 transition"
+                  className="bg-[var(--bg-elevated)] border border-[var(--border-subtle)] p-3 rounded-xl flex items-center justify-between text-xs hover:border-indigo-500 transition"
                 >
                   <div>
-                    <span className="text-[10px] text-slate-400 font-mono block">{acc.code}</span>
-                    <span className="font-bold text-slate-200 block truncate">{acc.name}</span>
-                    <span className="text-[10px] text-indigo-300 font-mono">
+                    <span className="text-[10px] text-[var(--text-muted)] font-mono block">{acc.code}</span>
+                    <span className="font-bold text-[var(--text-primary)] block truncate">{acc.name}</span>
+                    <span className="text-[10px] text-indigo-500 font-mono tabular-nums">
                       Spent: {formatCurrency(spent, currency)}
                     </span>
                   </div>
                   {perms.canCreateEditVouchers && (
                     <button
                       onClick={() => handleOpenAddModal(acc.id)}
-                      className="flex items-center gap-1 bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/40 text-[10px] font-bold px-2.5 py-1.5 rounded-lg transition shrink-0"
+                      className="flex items-center gap-1 hv-pill-indigo border hover:bg-indigo-600 hover:text-white text-[10px] font-bold px-2.5 py-1.5 rounded-lg transition shrink-0 cursor-pointer"
                     >
                       <Plus className="w-3 h-3" />
                       <span>{isHindi ? 'बजट तय करें' : 'Set Budget'}</span>
@@ -749,20 +747,20 @@ export const Budgeting: React.FC<BudgetingProps> = ({
 
       {/* Inline Delete Budget Confirmation Modal */}
       {confirmDeleteBudget && (
-        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-slate-900 border border-rose-500/40 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
+        <div className="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-[var(--bg-surface)] border border-rose-500/50 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-400 shrink-0">
+              <div className="w-10 h-10 rounded-xl hv-pill-rose border flex items-center justify-center shrink-0">
                 <Trash2 className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-base text-white">
+                <h3 className="font-bold text-base text-[var(--text-primary)]">
                   {isHindi ? 'बजट सीमा हटाने की पुष्टि' : 'Delete Budget Limit?'}
                 </h3>
-                <p className="text-xs text-slate-400">{confirmDeleteBudget.name}</p>
+                <p className="text-xs text-[var(--text-muted)]">{confirmDeleteBudget.name}</p>
               </div>
             </div>
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
               {isHindi
                 ? `क्या आप वाकई "${confirmDeleteBudget.name}" की मासिक बजट सीमा हटाना चाहते हैं?`
                 : `Are you sure you want to remove the monthly budget limit for "${confirmDeleteBudget.name}"?`}
@@ -771,7 +769,7 @@ export const Budgeting: React.FC<BudgetingProps> = ({
               <button
                 type="button"
                 onClick={() => setConfirmDeleteBudget(null)}
-                className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl text-xs transition cursor-pointer"
+                className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-semibold rounded-xl text-xs transition cursor-pointer"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>
@@ -781,7 +779,7 @@ export const Budgeting: React.FC<BudgetingProps> = ({
                   onDeleteBudget(confirmDeleteBudget.id);
                   setConfirmDeleteBudget(null);
                 }}
-                className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl text-xs transition shadow-lg shadow-rose-600/30 cursor-pointer"
+                className="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-bold rounded-xl text-xs transition shadow-lg shadow-rose-600/30 cursor-pointer"
               >
                 {isHindi ? 'हाँ, डिलीट करें' : 'Yes, Delete'}
               </button>

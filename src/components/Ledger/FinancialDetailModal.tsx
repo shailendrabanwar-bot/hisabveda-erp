@@ -689,14 +689,14 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
         isEditModalOpen ? 'hidden' : 'fixed'
       } inset-0 z-[95] bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-3 sm:p-5 overflow-y-auto animate-fadeIn`}
     >
-      <div className="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-5xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden my-auto">
+      <div className="hv-surface border border-[var(--border-subtle)] rounded-2xl w-full max-w-5xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden my-auto">
         {/* Header */}
-        <div className="bg-slate-950 px-5 py-3.5 border-b border-slate-800 flex items-center justify-between gap-3 shrink-0">
+        <div className="hv-elevated px-5 py-3.5 border-b border-[var(--border-primary)] flex items-center justify-between gap-3 shrink-0">
           <div className="flex items-center gap-3 min-w-0">
             <button
               type="button"
               onClick={popStep}
-              className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition cursor-pointer shrink-0"
+              className="p-2 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] border border-[var(--border-subtle)] transition cursor-pointer shrink-0"
               title={
                 drillStack.length > 1
                   ? isHindi
@@ -709,7 +709,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
             >
               <ArrowLeft className="w-4 h-4" />
             </button>
-            <div className="p-2.5 rounded-xl bg-indigo-500/15 border border-indigo-500/30 text-indigo-300 shrink-0">
+            <div className="p-2.5 rounded-xl hv-pill-indigo border shrink-0">
               {effectiveTxStep ? (
                 <Receipt className="w-5 h-5" />
               ) : currentStep.kind === 'MONTHLY_SUMMARY' ||
@@ -722,10 +722,10 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
               )}
             </div>
             <div className="min-w-0">
-              <h3 className="font-extrabold text-sm sm:text-base text-white truncate">
+              <h3 className="font-extrabold text-sm sm:text-base text-[var(--text-primary)] truncate">
                 {activeTitle}
               </h3>
-              <p className="text-[11px] text-slate-400 truncate mt-0.5">
+              <p className="text-[11px] text-[var(--text-muted)] truncate mt-0.5">
                 {currentStep.kind === 'ROOT' && 'subtitle' in payload && payload.subtitle
                   ? payload.subtitle
                   : currentStep.kind === 'SUB_GROUP_LEDGERS'
@@ -752,7 +752,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
               <button
                 type="button"
                 onClick={handleEditCurrentTx}
-                className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-extrabold flex items-center gap-1.5 shadow cursor-pointer"
+                className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white text-xs font-extrabold flex items-center gap-1.5 shadow cursor-pointer"
               >
                 <Pencil className="w-3.5 h-3.5" />
                 <span>
@@ -774,7 +774,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
               <button
                 type="button"
                 onClick={handleExportCsv}
-                className="px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                className="px-3 py-1.5 rounded-xl hv-pill-emerald border hover:brightness-95 text-xs font-bold flex items-center gap-1.5 cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>CSV</span>
@@ -783,7 +783,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 rounded-xl transition cursor-pointer"
+              className="p-2 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] rounded-xl transition cursor-pointer"
               title="Close Modal"
             >
               <X className="w-5 h-5" />
@@ -792,11 +792,11 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
         </div>
 
         {/* Always-Visible Clickable Breadcrumb Trail */}
-        <div className="px-5 py-2 bg-slate-900 border-b border-slate-800 flex items-center flex-wrap gap-1.5 text-[11px] shrink-0">
+        <div className="px-5 py-2 hv-surface border-b border-[var(--border-primary)] flex items-center flex-wrap gap-1.5 text-[11px] shrink-0">
           <button
             type="button"
             onClick={onClose}
-            className="text-slate-400 hover:text-white cursor-pointer underline-offset-2 hover:underline font-medium"
+            className="text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer underline-offset-2 hover:underline font-medium"
           >
             {reportTitle || (isHindi ? 'वित्तीय रिपोर्ट' : 'Financial Report')}
           </button>
@@ -814,15 +814,15 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                 : step.title;
             return (
               <React.Fragment key={idx}>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-600 shrink-0" />
+                <ChevronRight className="w-3.5 h-3.5 text-[var(--text-muted)] shrink-0" />
                 <button
                   type="button"
                   disabled={isLast}
                   onClick={() => jumpToCrumb(idx)}
                   className={`truncate max-w-[220px] ${
                     isLast
-                      ? 'text-indigo-300 font-bold cursor-default'
-                      : 'text-slate-300 hover:text-white cursor-pointer underline-offset-2 hover:underline'
+                      ? 'text-indigo-500 font-bold cursor-default'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] cursor-pointer underline-offset-2 hover:underline'
                   }`}
                 >
                   {label}
@@ -830,16 +830,16 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
               </React.Fragment>
             );
           })}
-          <span className="ml-auto text-[10px] text-slate-500 font-mono hidden sm:inline">
+          <span className="ml-auto text-[10px] text-[var(--text-muted)] font-mono hidden sm:inline">
             ↑↓ Move • Enter: Drill Down • Esc: Step Back ({drillStack.length > 1 ? `Level ${drillStack.length} → ${drillStack.length - 1}` : 'Close'})
           </span>
         </div>
 
         {/* Search & Summary Strip */}
         {!effectiveTxStep && (
-          <div className="px-5 py-3 bg-slate-950/60 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
+          <div className="px-5 py-3 hv-elevated border-b border-[var(--border-primary)] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
             <div className="relative flex-1 max-w-md">
-              <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-3.5 h-3.5 text-[var(--text-muted)] absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={search}
@@ -864,7 +864,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                     ? 'लेज़र का नाम, कोड या ग्रुप खोजें...'
                     : 'Search ledger name, code or group...'
                 }
-                className="w-full pl-9 pr-3 py-1.5 bg-slate-900 border border-slate-700 rounded-xl text-xs text-slate-100 placeholder:text-slate-500 outline-none focus:border-indigo-500"
+                className="w-full pl-9 pr-3 py-1.5 hv-input border border-[var(--border-subtle)] rounded-xl text-xs outline-none focus:border-indigo-500"
               />
             </div>
 
@@ -872,7 +872,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
               {currentStep.kind === 'ROOT' &&
                 payload.kind === 'GROUP_LEDGERS' &&
                 subGroupRows.length > 1 && (
-                  <div className="flex items-center bg-slate-900 p-0.5 rounded-xl border border-slate-700">
+                  <div className="flex items-center bg-[var(--bg-input)] p-0.5 rounded-xl border border-[var(--border-subtle)]">
                     <button
                       type="button"
                       onClick={() => {
@@ -881,8 +881,8 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                       }}
                       className={`px-2.5 py-1 rounded-lg font-bold transition cursor-pointer ${
                         groupViewMode === 'SUBGROUPS' && !search.trim()
-                          ? 'bg-indigo-600 text-white'
-                          : 'text-slate-400 hover:text-white'
+                          ? 'bg-indigo-600 text-white hv-keep-white'
+                          : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                       }`}
                     >
                       {isHindi
@@ -897,8 +897,8 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                       }}
                       className={`px-2.5 py-1 rounded-lg font-bold transition cursor-pointer ${
                         groupViewMode === 'LEDGERS' || Boolean(search.trim())
-                          ? 'bg-indigo-600 text-white'
-                          : 'text-slate-400 hover:text-white'
+                          ? 'bg-indigo-600 text-white hv-keep-white'
+                          : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                       }`}
                     >
                       {isHindi
@@ -910,21 +910,21 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
               {currentStep.kind === 'ROOT' &&
                 payload.kind === 'GROUP_LEDGERS' &&
                 payload.formulaHint && (
-                  <div className="px-3 py-1.5 rounded-xl bg-indigo-950/60 border border-indigo-500/30 text-indigo-200 font-mono text-[11px]">
+                  <div className="px-3 py-1.5 rounded-xl hv-pill-indigo border font-mono text-[11px]">
                     {payload.formulaHint}
                   </div>
                 )}
               {(currentStep.kind === 'ROOT' ||
                 currentStep.kind === 'SUB_GROUP_LEDGERS') &&
                 payload.kind === 'GROUP_LEDGERS' && (
-                  <div className="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 font-mono tabular-nums">
-                    <span className="text-slate-400 mr-2">
+                  <div className="px-3 py-1.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] font-mono tabular-nums">
+                    <span className="text-[var(--text-muted)] mr-2">
                       {currentStep.kind === 'SUB_GROUP_LEDGERS'
                         ? currentStep.subGroupName
                         : payload.metricLabel || 'Total'}
                       :
                     </span>
-                    <span className="font-extrabold text-white">
+                    <span className="font-extrabold text-[var(--text-primary)]">
                       {formatCurrency(Math.abs(groupSummary.netSigned), currency)}
                     </span>
                   </div>
@@ -943,13 +943,13 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                         monthLabel: `${monthlySummary.fyLabel} All Vouchers`,
                       })
                     }
-                    className="px-3 py-1.5 rounded-xl bg-indigo-600/20 hover:bg-indigo-600/30 border border-indigo-500/40 text-indigo-200 font-bold cursor-pointer"
+                    className="px-3 py-1.5 rounded-xl hv-pill-indigo border hover:brightness-95 font-bold cursor-pointer"
                   >
                     {isHindi ? 'पूरे वर्ष के वाउचर देखें' : 'All Vouchers (FY)'}
                   </button>
-                  <div className="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 font-mono tabular-nums">
-                    <span className="text-slate-400 mr-2">Closing:</span>
-                    <span className="font-extrabold text-white">
+                  <div className="px-3 py-1.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] font-mono tabular-nums">
+                    <span className="text-[var(--text-muted)] mr-2">Closing:</span>
+                    <span className="font-extrabold text-[var(--text-primary)]">
                       {formatCurrency(monthlySummary.closingBalance, currency)}{' '}
                       {monthlySummary.closingType === 'DR' ? 'Dr' : 'Cr'}
                     </span>
@@ -957,24 +957,24 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                 </>
               )}
               {currentStep.kind === 'MONTH_VOUCHERS' && (
-                <div className="px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 font-mono tabular-nums">
-                  <span className="text-slate-400 mr-2">Entries:</span>
-                  <span className="font-extrabold text-white">
+                <div className="px-3 py-1.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] font-mono tabular-nums">
+                  <span className="text-[var(--text-muted)] mr-2">Entries:</span>
+                  <span className="font-extrabold text-[var(--text-primary)]">
                     {activeMonthVoucherRows.length}
                   </span>
                 </div>
               )}
               {currentStep.kind === 'ROOT' &&
                 payload.kind === 'STOCK_VALUATION' && (
-                  <div className="px-3 py-1.5 rounded-xl bg-amber-950/40 border border-amber-500/30 font-mono tabular-nums">
-                    <span className="text-slate-300 mr-2">
+                  <div className="px-3 py-1.5 rounded-xl hv-pill-amber border font-mono tabular-nums">
+                    <span className="mr-2">
                       {stockRows.length} {isHindi ? 'आइटम' : 'Items'} •{' '}
                       {stockTotalQty.toLocaleString('en-IN', {
                         maximumFractionDigits: 3,
                       })}{' '}
                       Qty:
                     </span>
-                    <span className="font-extrabold text-amber-300">
+                    <span className="font-extrabold">
                       {formatCurrency(stockTotalVal, currency)}
                     </span>
                   </div>
@@ -988,23 +988,23 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
           {/* LAYER 1A: SUB-GROUPS BREAKDOWN */}
           {showSubGroupSummary && (
             <>
-              <div className="text-[11px] text-slate-400 flex items-center justify-between gap-2">
+              <div className="text-[11px] text-[var(--text-muted)] flex items-center justify-between gap-2">
                 <span className="flex items-center gap-1.5">
-                  <Info className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                  <Info className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
                   <span>
                     {isHindi
                       ? 'किसी भी सब-ग्रुप पर क्लिक करके उसके सभी लेज़र, अप्रैल–मार्च सारांश और वाउचर देखें।'
                       : 'Click any sub-group below to view its ledgers, or switch to All Ledgers.'}
                   </span>
                 </span>
-                <span className="hidden sm:inline text-[10px] font-mono text-slate-500">
+                <span className="hidden sm:inline text-[10px] font-mono text-[var(--text-muted)]">
                   ↑↓ Select • Enter: Open Sub-Group
                 </span>
               </div>
 
-              <div className="overflow-x-auto border border-slate-800 rounded-xl">
-                <table className="w-full text-left text-xs text-slate-300">
-                  <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-bold sticky top-0">
+              <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
+                <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+                  <thead className="hv-elevated text-[var(--text-muted)] uppercase text-[10px] font-bold sticky top-0 border-b border-[var(--border-primary)]">
                     <tr>
                       <th className="p-3">Sub-Group Name</th>
                       <th className="p-3 text-center">Ledgers</th>
@@ -1016,7 +1016,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                       <th className="p-3 w-8"></th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/70 bg-slate-900/50">
+                  <tbody className="divide-y divide-[var(--border-primary)] hv-surface">
                     {subGroupRows.map((sg, idx) => {
                       const openAmt = Math.max(sg.openingDr, sg.openingCr);
                       const openType = sg.openingDr >= sg.openingCr ? 'Dr' : 'Cr';
@@ -1033,46 +1033,46 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                             })
                           }
                           className={`cursor-pointer transition group ${
-                            isSelected ? 'bg-indigo-500/15' : 'hover:bg-indigo-500/10'
+                            isSelected ? 'bg-indigo-500/15' : 'hover:bg-[var(--hover-surface)]'
                           }`}
                         >
-                          <td className="p-3 font-bold text-slate-100 group-hover:text-indigo-300">
+                          <td className="p-3 font-bold text-[var(--text-primary)] group-hover:text-indigo-500">
                             {sg.subGroupName}
                           </td>
-                          <td className="p-3 text-center font-mono text-slate-400">
-                            <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-indigo-300 font-bold">
+                          <td className="p-3 text-center font-mono text-[var(--text-muted)]">
+                            <span className="px-2 py-0.5 rounded hv-pill-indigo border font-bold">
                               {sg.ledgerCount}
                             </span>
                           </td>
-                          <td className="p-3 text-right font-mono tabular-nums text-slate-400">
+                          <td className="p-3 text-right font-mono tabular-nums text-[var(--text-muted)]">
                             {openAmt > 0.005
                               ? `${formatCurrency(openAmt, currency)} ${openType}`
                               : '-'}
                           </td>
-                          <td className="p-3 text-right font-mono tabular-nums text-sky-400">
+                          <td className="p-3 text-right font-mono tabular-nums text-sky-500">
                             {sg.periodDr > 0.005
                               ? formatCurrency(sg.periodDr, currency)
                               : '-'}
                           </td>
-                          <td className="p-3 text-right font-mono tabular-nums text-emerald-400">
+                          <td className="p-3 text-right font-mono tabular-nums text-emerald-500">
                             {sg.periodCr > 0.005
                               ? formatCurrency(sg.periodCr, currency)
                               : '-'}
                           </td>
-                          <td className="p-3 text-right font-mono tabular-nums font-semibold text-slate-200">
+                          <td className="p-3 text-right font-mono tabular-nums font-semibold text-[var(--text-secondary)]">
                             {closeAmt > 0.005
                               ? `${formatCurrency(closeAmt, currency)} ${closeType}`
                               : '-'}
                           </td>
                           <td
                             className={`p-3 text-right font-mono tabular-nums font-bold ${
-                              sg.signedAmount < 0 ? 'text-rose-400' : 'text-white'
+                              sg.signedAmount < 0 ? 'text-rose-500' : 'text-[var(--text-primary)]'
                             }`}
                           >
                             {sg.signedAmount < 0 ? '-' : ''}
                             {formatCurrency(Math.abs(sg.signedAmount), currency)}
                           </td>
-                          <td className="p-3 text-right text-slate-500 group-hover:text-indigo-300">
+                          <td className="p-3 text-right text-[var(--text-muted)] group-hover:text-indigo-500">
                             <ChevronRight className="w-4 h-4 inline" />
                           </td>
                         </tr>
@@ -1089,23 +1089,23 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
             (currentStep.kind === 'ROOT' && !showSubGroupSummary)) &&
             payload.kind === 'GROUP_LEDGERS' && (
             <>
-              <div className="text-[11px] text-slate-400 flex items-center justify-between gap-2">
+              <div className="text-[11px] text-[var(--text-muted)] flex items-center justify-between gap-2">
                 <span className="flex items-center gap-1.5">
-                  <Info className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+                  <Info className="w-3.5 h-3.5 text-indigo-500 shrink-0" />
                   <span>
                     {isHindi
                       ? 'किसी भी लेज़र पर क्लिक करके उसका अप्रैल–मार्च मासिक सारांश (Level 2) और वाउचर (Level 3) देखें।'
                       : 'Click any ledger row below to open its April–March Monthly Summary (Level 2) and Voucher Register (Level 3).'}
                   </span>
                 </span>
-                <span className="hidden sm:inline text-[10px] font-mono text-slate-500">
+                <span className="hidden sm:inline text-[10px] font-mono text-[var(--text-muted)]">
                   ↑↓ Select • Enter: Open Month Summary
                 </span>
               </div>
 
-              <div className="overflow-x-auto border border-slate-800 rounded-xl">
-                <table className="w-full text-left text-xs text-slate-300">
-                  <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-bold sticky top-0">
+              <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
+                <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+                  <thead className="hv-elevated text-[var(--text-muted)] uppercase text-[10px] font-bold sticky top-0 border-b border-[var(--border-primary)]">
                     <tr>
                       <th className="p-3">Ledger / Group</th>
                       <th className="p-3 text-right">Opening Dr/Cr</th>
@@ -1116,12 +1116,12 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                       <th className="p-3 w-8"></th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-800/70 bg-slate-900/50">
+                  <tbody className="divide-y divide-[var(--border-primary)] bg-[var(--bg-surface)]">
                     {filteredGroupAccounts.length === 0 ? (
                       <tr>
                         <td
                           colSpan={7}
-                          className="p-8 text-center text-slate-500"
+                          className="p-8 text-center text-[var(--text-muted)]"
                         >
                           {isHindi
                             ? 'इस श्रेणी में कोई सक्रिय लेज़र नहीं मिला।'
@@ -1150,36 +1150,36 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                             className={`cursor-pointer transition group ${
                               isSelected
                                 ? 'bg-indigo-500/15'
-                                : 'hover:bg-indigo-500/10'
+                                : 'hover:bg-[var(--hover-surface)]'
                             }`}
                           >
                             <td className="p-3">
-                              <div className="font-bold text-slate-100 group-hover:text-indigo-300 flex items-center gap-2">
+                              <div className="font-bold text-[var(--text-primary)] group-hover:text-indigo-500 flex items-center gap-2">
                                 <span>{row.account.name}</span>
-                                <span className="text-[10px] font-mono text-slate-500">
+                                <span className="text-[10px] font-mono text-[var(--text-muted)]">
                                   ({row.account.code})
                                 </span>
                               </div>
-                              <div className="text-[10px] text-slate-500">
+                              <div className="text-[10px] text-[var(--text-muted)]">
                                 {row.account.mainGroup || row.account.subCategory}
                               </div>
                             </td>
-                            <td className="p-3 text-right font-mono tabular-nums text-slate-400">
+                            <td className="p-3 text-right font-mono tabular-nums text-[var(--text-muted)]">
                               {openAmt > 0.005
                                 ? `${formatCurrency(openAmt, currency)} ${openType}`
                                 : '-'}
                             </td>
-                            <td className="p-3 text-right font-mono tabular-nums text-sky-400">
+                            <td className="p-3 text-right font-mono tabular-nums text-sky-500 font-semibold">
                               {row.periodDr > 0.005
                                 ? formatCurrency(row.periodDr, currency)
                                 : '-'}
                             </td>
-                            <td className="p-3 text-right font-mono tabular-nums text-emerald-400">
+                            <td className="p-3 text-right font-mono tabular-nums text-emerald-500 font-semibold">
                               {row.periodCr > 0.005
                                 ? formatCurrency(row.periodCr, currency)
                                 : '-'}
                             </td>
-                            <td className="p-3 text-right font-mono tabular-nums font-semibold text-slate-200">
+                            <td className="p-3 text-right font-mono tabular-nums font-semibold text-[var(--text-secondary)]">
                               {closeAmt > 0.005
                                 ? `${formatCurrency(closeAmt, currency)} ${closeType}`
                                 : '-'}
@@ -1187,8 +1187,8 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                             <td
                               className={`p-3 text-right font-mono tabular-nums font-bold ${
                                 row.signedAmount < 0
-                                  ? 'text-rose-400'
-                                  : 'text-white'
+                                  ? 'text-rose-500'
+                                  : 'text-[var(--text-primary)]'
                               }`}
                             >
                               {row.signedAmount < 0 ? '-' : ''}
@@ -1197,7 +1197,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                                 currency
                               )}
                             </td>
-                            <td className="p-3 text-right text-slate-500 group-hover:text-indigo-300">
+                            <td className="p-3 text-right text-[var(--text-muted)] group-hover:text-indigo-500">
                               <ChevronRight className="w-4 h-4 inline" />
                             </td>
                           </tr>
@@ -1206,12 +1206,12 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                     )}
                   </tbody>
                   {filteredGroupAccounts.length > 0 && (
-                    <tfoot className="bg-slate-950 font-bold text-xs border-t-2 border-slate-700">
+                    <tfoot className="hv-elevated font-bold text-xs border-t-2 border-[var(--border-subtle)]">
                       <tr>
-                        <td className="p-3 text-slate-300">
+                        <td className="p-3 text-[var(--text-secondary)]">
                           TOTAL ({filteredGroupAccounts.length} Ledgers)
                         </td>
-                        <td className="p-3 text-right font-mono tabular-nums text-slate-400">
+                        <td className="p-3 text-right font-mono tabular-nums text-[var(--text-muted)]">
                           {groupSummary.openDr > 0
                             ? `${formatCurrency(groupSummary.openDr, currency)} Dr`
                             : ''}
@@ -1226,13 +1226,13 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                             ? '-'
                             : ''}
                         </td>
-                        <td className="p-3 text-right font-mono tabular-nums text-sky-300">
+                        <td className="p-3 text-right font-mono tabular-nums text-sky-500">
                           {formatCurrency(groupSummary.periodDr, currency)}
                         </td>
-                        <td className="p-3 text-right font-mono tabular-nums text-emerald-300">
+                        <td className="p-3 text-right font-mono tabular-nums text-emerald-500">
                           {formatCurrency(groupSummary.periodCr, currency)}
                         </td>
-                        <td className="p-3 text-right font-mono tabular-nums text-slate-200">
+                        <td className="p-3 text-right font-mono tabular-nums text-[var(--text-secondary)]">
                           {groupSummary.closeDr > 0
                             ? `${formatCurrency(groupSummary.closeDr, currency)} Dr`
                             : ''}
@@ -1244,7 +1244,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                             ? `${formatCurrency(groupSummary.closeCr, currency)} Cr`
                             : ''}
                         </td>
-                        <td className="p-3 text-right font-mono tabular-nums text-white">
+                        <td className="p-3 text-right font-mono tabular-nums text-[var(--text-primary)]">
                           {groupSummary.netSigned < 0 ? '-' : ''}
                           {formatCurrency(
                             Math.abs(groupSummary.netSigned),
@@ -1267,17 +1267,17 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                 {payload.stockType === 'OPENING' &&
                   payload.accInventoryOpening !== undefined &&
                   Math.abs(payload.accInventoryOpening - stockTotalVal) > 1 && (
-                    <div className="bg-sky-950/40 border border-sky-500/30 rounded-xl p-3 text-xs text-sky-200 flex items-start gap-2">
-                      <Info className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+                    <div className="hv-pill-sky border rounded-xl p-3 text-xs flex items-start gap-2">
+                      <Info className="w-4 h-4 shrink-0 mt-0.5" />
                       <div>
                         <p className="font-bold">
                           {isHindi
                             ? 'Stock-in-Hand खाता प्रारंभिक शेष (Ledger Opening)'
                             : 'Accounting Ledger Opening Stock Reconciliation'}
                         </p>
-                        <p className="text-[11px] text-slate-300 mt-0.5">
+                        <p className="text-[11px] text-[var(--text-secondary)] mt-0.5">
                           Stock-in-Hand Ledger Opening Balance:{' '}
-                          <strong className="font-mono tabular-nums text-white">
+                          <strong className="font-mono tabular-nums text-[var(--text-primary)]">
                             {formatCurrency(
                               payload.accInventoryOpening,
                               currency
@@ -1298,9 +1298,9 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                     </div>
                   )}
 
-                <div className="overflow-x-auto border border-slate-800 rounded-xl">
-                  <table className="w-full text-left text-xs text-slate-300">
-                    <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-bold sticky top-0">
+                <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
+                  <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+                    <thead className="hv-elevated text-[var(--text-muted)] uppercase text-[10px] font-bold sticky top-0 border-b border-[var(--border-primary)]">
                       <tr>
                         <th className="p-3">Item / Code</th>
                         <th className="p-3">Category</th>
@@ -1317,12 +1317,12 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/70 bg-slate-900/50">
+                    <tbody className="divide-y divide-[var(--border-primary)] bg-[var(--bg-surface)]">
                       {stockRows.length === 0 ? (
                         <tr>
                           <td
                             colSpan={7}
-                            className="p-8 text-center text-slate-500"
+                            className="p-8 text-center text-[var(--text-muted)]"
                           >
                             {isHindi
                               ? 'कोई स्टॉक आइटम नहीं मिला।'
@@ -1333,34 +1333,34 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                         stockRows.map((r) => (
                           <tr
                             key={r.item.id}
-                            className="hover:bg-slate-800/50 transition"
+                            className="hover:bg-[var(--hover-surface)] transition"
                           >
                             <td className="p-3">
-                              <div className="font-bold text-slate-100">
+                              <div className="font-bold text-[var(--text-primary)]">
                                 {r.item.name}
                               </div>
-                              <div className="text-[10px] font-mono text-slate-500">
+                              <div className="text-[10px] font-mono text-[var(--text-muted)]">
                                 {r.item.code}
                               </div>
                             </td>
-                            <td className="p-3 text-slate-400">
+                            <td className="p-3 text-[var(--text-muted)]">
                               {r.item.category || '-'}
                             </td>
-                            <td className="p-3 font-mono text-indigo-300">
+                            <td className="p-3 font-mono text-indigo-500 font-semibold">
                               {r.item.hsnSacCode || '-'}
                             </td>
-                            <td className="p-3 text-right font-mono tabular-nums font-bold text-emerald-300">
+                            <td className="p-3 text-right font-mono tabular-nums font-bold text-emerald-500">
                               {r.qty.toLocaleString('en-IN', {
                                 maximumFractionDigits: 3,
                               })}
                             </td>
-                            <td className="p-3 text-slate-400">
+                            <td className="p-3 text-[var(--text-muted)]">
                               {r.item.unit}
                             </td>
                             <td className="p-3 text-right font-mono tabular-nums">
                               {formatCurrency(r.rate, currency)}
                             </td>
-                            <td className="p-3 text-right font-mono tabular-nums font-extrabold text-amber-300">
+                            <td className="p-3 text-right font-mono tabular-nums font-extrabold text-amber-500">
                               {formatCurrency(r.value, currency)}
                             </td>
                           </tr>
@@ -1368,19 +1368,19 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                       )}
                     </tbody>
                     {stockRows.length > 0 && (
-                      <tfoot className="bg-slate-950 font-bold text-xs border-t-2 border-slate-700">
+                      <tfoot className="hv-elevated font-bold text-xs border-t-2 border-[var(--border-subtle)]">
                         <tr>
-                          <td colSpan={3} className="p-3 text-slate-300">
+                          <td colSpan={3} className="p-3 text-[var(--text-secondary)]">
                             TOTAL ({stockRows.length} Stock Items)
                           </td>
-                          <td className="p-3 text-right font-mono tabular-nums text-emerald-300">
+                          <td className="p-3 text-right font-mono tabular-nums text-emerald-500">
                             {stockTotalQty.toLocaleString('en-IN', {
                               maximumFractionDigits: 3,
                             })}
                           </td>
                           <td></td>
                           <td></td>
-                          <td className="p-3 text-right font-mono tabular-nums text-amber-300 text-sm">
+                          <td className="p-3 text-right font-mono tabular-nums text-amber-500 text-sm">
                             {formatCurrency(stockTotalVal, currency)}
                           </td>
                         </tr>
@@ -1393,9 +1393,9 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
 
           {/* LAYER 2: MONTHLY SUMMARY (APRIL - MARCH) */}
           {currentStep.kind === 'MONTHLY_SUMMARY' && monthlySummary && (
-            <div className="overflow-x-auto border border-slate-800 rounded-xl">
-              <table className="w-full text-left text-xs text-slate-300">
-                <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-bold sticky top-0">
+            <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
+              <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+                <thead className="hv-elevated text-[var(--text-muted)] uppercase text-[10px] font-bold sticky top-0 border-b border-[var(--border-primary)]">
                   <tr>
                     <th className="p-3">Month ({monthlySummary.fyLabel})</th>
                     <th className="p-3 text-center">Vouchers</th>
@@ -1405,8 +1405,8 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                     <th className="p-3 w-8"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/70 bg-slate-900/50">
-                  <tr className="bg-slate-950/60 text-slate-400 italic">
+                <tbody className="divide-y divide-[var(--border-primary)] bg-[var(--bg-surface)]">
+                  <tr className="hv-elevated text-[var(--text-muted)] italic">
                     <td className="p-3 font-bold">Opening Balance (B/F)</td>
                     <td className="p-3 text-center">-</td>
                     <td className="p-3 text-right font-mono tabular-nums">
@@ -1425,7 +1425,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                           )
                         : '-'}
                     </td>
-                    <td className="p-3 text-right font-mono tabular-nums font-bold text-amber-300">
+                    <td className="p-3 text-right font-mono tabular-nums font-bold text-amber-500">
                       {formatCurrency(
                         Math.abs(monthlySummary.statement.openingForPeriod),
                         currency
@@ -1455,52 +1455,52 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                         className={`cursor-pointer transition group ${
                           isSelected
                             ? 'bg-indigo-500/15'
-                            : 'hover:bg-indigo-500/10'
+                            : 'hover:bg-[var(--hover-surface)]'
                         }`}
                       >
-                        <td className="p-3 font-bold text-slate-100 group-hover:text-indigo-300">
+                        <td className="p-3 font-bold text-[var(--text-primary)] group-hover:text-indigo-500">
                           {m.label}
                         </td>
-                        <td className="p-3 text-center font-mono tabular-nums text-slate-400">
+                        <td className="p-3 text-center font-mono tabular-nums text-[var(--text-muted)]">
                           {m.txCount > 0 ? m.txCount : '—'}
                         </td>
-                        <td className="p-3 text-right font-mono tabular-nums text-sky-400 font-semibold">
+                        <td className="p-3 text-right font-mono tabular-nums text-sky-500 font-semibold">
                           {m.debit > 0.005
                             ? formatCurrency(m.debit, currency)
                             : '-'}
                         </td>
-                        <td className="p-3 text-right font-mono tabular-nums text-emerald-400 font-semibold">
+                        <td className="p-3 text-right font-mono tabular-nums text-emerald-500 font-semibold">
                           {m.credit > 0.005
                             ? formatCurrency(m.credit, currency)
                             : '-'}
                         </td>
-                        <td className="p-3 text-right font-mono tabular-nums font-bold text-white">
+                        <td className="p-3 text-right font-mono tabular-nums font-bold text-[var(--text-primary)]">
                           {m.closingBalance > 0.005
                             ? `${formatCurrency(m.closingBalance, currency)} ${
                                 m.closingType === 'DR' ? 'Dr' : 'Cr'
                               }`
                             : '₹0.00'}
                         </td>
-                        <td className="p-3 text-right text-slate-500 group-hover:text-indigo-300">
+                        <td className="p-3 text-right text-[var(--text-muted)] group-hover:text-indigo-500">
                           <ChevronRight className="w-4 h-4 inline" />
                         </td>
                       </tr>
                     );
                   })}
                 </tbody>
-                <tfoot className="bg-slate-950 font-bold text-xs border-t-2 border-slate-700">
+                <tfoot className="hv-elevated font-bold text-xs border-t-2 border-[var(--border-subtle)]">
                   <tr>
-                    <td className="p-3 text-slate-300">GRAND TOTAL ({monthlySummary.fyLabel})</td>
-                    <td className="p-3 text-center font-mono tabular-nums text-slate-400">
+                    <td className="p-3 text-[var(--text-secondary)]">GRAND TOTAL ({monthlySummary.fyLabel})</td>
+                    <td className="p-3 text-center font-mono tabular-nums text-[var(--text-muted)]">
                       {monthlySummary.statement.rows.length}
                     </td>
-                    <td className="p-3 text-right font-mono tabular-nums text-sky-300">
+                    <td className="p-3 text-right font-mono tabular-nums text-sky-500">
                       {formatCurrency(monthlySummary.totalDebit, currency)}
                     </td>
-                    <td className="p-3 text-right font-mono tabular-nums text-emerald-300">
+                    <td className="p-3 text-right font-mono tabular-nums text-emerald-500">
                       {formatCurrency(monthlySummary.totalCredit, currency)}
                     </td>
-                    <td className="p-3 text-right font-mono tabular-nums text-white">
+                    <td className="p-3 text-right font-mono tabular-nums text-[var(--text-primary)]">
                       {formatCurrency(monthlySummary.closingBalance, currency)}{' '}
                       {monthlySummary.closingType === 'DR' ? 'Dr' : 'Cr'}
                     </td>
@@ -1513,9 +1513,9 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
 
           {/* LAYER 3: MONTH VOUCHER REGISTER */}
           {currentStep.kind === 'MONTH_VOUCHERS' && (
-            <div className="overflow-x-auto border border-slate-800 rounded-xl">
-              <table className="w-full text-left text-xs text-slate-300">
-                <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-bold sticky top-0">
+            <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
+              <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+                <thead className="hv-elevated text-[var(--text-muted)] uppercase text-[10px] font-bold sticky top-0 border-b border-[var(--border-primary)]">
                   <tr>
                     <th className="p-3 w-28">Date</th>
                     <th className="p-3 min-w-[200px]">Particulars</th>
@@ -1527,12 +1527,12 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                     <th className="p-3 w-20 text-right">Action</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/70 bg-slate-900/50">
+                <tbody className="divide-y divide-[var(--border-primary)] bg-[var(--bg-surface)]">
                   {activeMonthVoucherRows.length === 0 ? (
                     <tr>
                       <td
                         colSpan={8}
-                        className="p-8 text-center text-slate-500"
+                        className="p-8 text-center text-[var(--text-muted)]"
                       >
                         {isHindi
                           ? 'इस माह में कोई वाउचर प्रविष्टि नहीं मिली।'
@@ -1553,38 +1553,38 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                           className={`cursor-pointer transition group ${
                             isSelected
                               ? 'bg-indigo-500/15'
-                              : 'hover:bg-indigo-500/10'
+                              : 'hover:bg-[var(--hover-surface)]'
                           }`}
                         >
-                          <td className="p-3 font-mono tabular-nums text-slate-300 whitespace-nowrap">
+                          <td className="p-3 font-mono tabular-nums text-[var(--text-secondary)] whitespace-nowrap">
                             {row.date}
                           </td>
-                          <td className="p-3 text-slate-100 font-medium">
+                          <td className="p-3 text-[var(--text-primary)] font-medium">
                             {row.particulars}
                           </td>
-                          <td className="p-3 text-slate-300 whitespace-nowrap">
+                          <td className="p-3 text-[var(--text-secondary)] whitespace-nowrap">
                             {row.voucherType}
                           </td>
-                          <td className="p-3 font-mono font-bold text-indigo-300 whitespace-nowrap group-hover:underline">
+                          <td className="p-3 font-mono font-bold text-indigo-500 whitespace-nowrap group-hover:underline">
                             {row.voucherNo}
                           </td>
-                          <td className="p-3 text-right font-mono tabular-nums font-bold text-sky-400 whitespace-nowrap">
+                          <td className="p-3 text-right font-mono tabular-nums font-bold text-sky-500 whitespace-nowrap">
                             {row.debit > 0
                               ? formatCurrency(row.debit, currency)
                               : '-'}
                           </td>
-                          <td className="p-3 text-right font-mono tabular-nums font-bold text-emerald-400 whitespace-nowrap">
+                          <td className="p-3 text-right font-mono tabular-nums font-bold text-emerald-500 whitespace-nowrap">
                             {row.credit > 0
                               ? formatCurrency(row.credit, currency)
                               : '-'}
                           </td>
-                          <td className="p-3 text-right font-mono tabular-nums font-bold text-white whitespace-nowrap">
+                          <td className="p-3 text-right font-mono tabular-nums font-bold text-[var(--text-primary)] whitespace-nowrap">
                             {formatCurrency(row.runningBalance, currency)}{' '}
                             <span
                               className={
                                 row.runningType === 'DR'
-                                  ? 'text-amber-300'
-                                  : 'text-emerald-300'
+                                  ? 'text-amber-500'
+                                  : 'text-emerald-500'
                               }
                             >
                               {row.runningType === 'DR' ? 'Dr' : 'Cr'}
@@ -1605,7 +1605,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                                       record: info.record,
                                     });
                                   }}
-                                  className="p-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 cursor-pointer"
+                                  className="p-1 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] cursor-pointer"
                                   title={isHindi ? 'विवरण देखें' : 'Inspect Breakdown'}
                                 >
                                   <Eye className="w-3.5 h-3.5" />
@@ -1613,7 +1613,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
                               )}
                               {isEditable && (
                                 <span
-                                  className="p-1 rounded-lg bg-indigo-600/20 text-indigo-300 group-hover:bg-indigo-600 group-hover:text-white transition"
+                                  className="p-1 rounded-lg hv-pill-indigo border group-hover:bg-indigo-600 group-hover:text-white transition"
                                   title={isHindi ? 'संपादित करें' : 'Open Edit Modal'}
                                 >
                                   <Pencil className="w-3.5 h-3.5" />
@@ -1643,8 +1643,8 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
         </div>
 
         {/* Footer */}
-        <div className="bg-slate-950 px-5 py-3 border-t border-slate-800 flex items-center justify-between text-xs shrink-0">
-          <span className="text-slate-500">
+        <div className="hv-elevated px-5 py-3 border-t border-[var(--border-primary)] flex items-center justify-between text-xs shrink-0">
+          <span className="text-[var(--text-muted)]">
             {isHindi
               ? 'बहु-स्तरीय ड्रिलडाउन जांच दृश्य (Esc: वापस जाएँ)'
               : 'Multi-Level Audit Drilldown (Esc: Step Back)'}
@@ -1654,7 +1654,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
               <button
                 type="button"
                 onClick={popStep}
-                className="px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold cursor-pointer"
+                className="px-4 py-2 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] font-bold cursor-pointer"
               >
                 {isHindi ? '← वापस (Back)' : '← Back'}
               </button>
@@ -1662,7 +1662,7 @@ export const FinancialDetailModal: React.FC<FinancialDetailModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold cursor-pointer"
+              className="px-4 py-2 rounded-xl bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-bold cursor-pointer"
             >
               {isHindi ? 'बंद करें' : 'Close'}
             </button>
@@ -1697,61 +1697,61 @@ const TransactionBreakdown: React.FC<TransactionBreakdownProps> = ({
     return (
       <div className="space-y-4">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-          <div className="bg-slate-950 border border-slate-800 rounded-xl p-3">
-            <div className="text-[10px] text-slate-400 uppercase">Voucher No</div>
-            <div className="font-mono font-bold text-white mt-0.5">
+          <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3">
+            <div className="text-[10px] text-[var(--text-muted)] uppercase">Voucher No</div>
+            <div className="font-mono font-bold text-[var(--text-primary)] mt-0.5">
               {vch.voucherNumber}
             </div>
           </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-xl p-3">
-            <div className="text-[10px] text-slate-400 uppercase">
+          <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3">
+            <div className="text-[10px] text-[var(--text-muted)] uppercase">
               Type / Date
             </div>
-            <div className="font-bold text-indigo-300 mt-0.5">
+            <div className="font-bold text-indigo-500 mt-0.5">
               {vch.type} • {vch.date}
             </div>
           </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-xl p-3">
-            <div className="text-[10px] text-slate-400 uppercase">Party</div>
+          <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3">
+            <div className="text-[10px] text-[var(--text-muted)] uppercase">Party</div>
             {vch.partyName ? (
               <button
                 type="button"
                 onClick={() =>
                   onInspectAccountOrParty(vch.partyId, vch.partyName, 'PARTY')
                 }
-                className="font-bold text-sky-300 hover:underline flex items-center gap-1 mt-0.5 cursor-pointer text-left"
+                className="font-bold text-sky-500 hover:underline flex items-center gap-1 mt-0.5 cursor-pointer text-left"
               >
                 <span>{vch.partyName}</span>
                 <ArrowUpRight className="w-3 h-3" />
               </button>
             ) : (
-              <div className="text-slate-500 mt-0.5">-</div>
+              <div className="text-[var(--text-muted)] mt-0.5">-</div>
             )}
           </div>
-          <div className="bg-slate-950 border border-slate-800 rounded-xl p-3">
-            <div className="text-[10px] text-slate-400 uppercase">
+          <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3">
+            <div className="text-[10px] text-[var(--text-muted)] uppercase">
               Total Amount
             </div>
-            <div className="font-mono tabular-nums font-extrabold text-emerald-300 mt-0.5">
+            <div className="font-mono tabular-nums font-extrabold text-emerald-500 mt-0.5">
               {formatCurrency(vch.totalAmount, currency)}
             </div>
           </div>
         </div>
 
         {(vch.instrumentNumber || vch.bankersDate) && (
-          <div className="bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 flex flex-wrap gap-6 text-xs">
+          <div className="hv-elevated border border-[var(--border-primary)] rounded-xl px-4 py-2.5 flex flex-wrap gap-6 text-xs">
             {vch.instrumentNumber && (
               <div>
-                <span className="text-slate-400 mr-1.5">Instrument / UTR:</span>
-                <span className="font-mono font-bold text-slate-100">
+                <span className="text-[var(--text-muted)] mr-1.5">Instrument / UTR:</span>
+                <span className="font-mono font-bold text-[var(--text-primary)]">
                   {vch.instrumentNumber}
                 </span>
               </div>
             )}
             {vch.bankersDate && (
               <div>
-                <span className="text-slate-400 mr-1.5">Bank Clearance Date:</span>
-                <span className="font-mono font-bold text-emerald-300">
+                <span className="text-[var(--text-muted)] mr-1.5">Bank Clearance Date:</span>
+                <span className="font-mono font-bold text-emerald-500">
                   {vch.bankersDate}
                 </span>
               </div>
@@ -1759,9 +1759,9 @@ const TransactionBreakdown: React.FC<TransactionBreakdownProps> = ({
           </div>
         )}
 
-        <div className="overflow-x-auto border border-slate-800 rounded-xl">
-          <table className="w-full text-left text-xs text-slate-300">
-            <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-bold">
+        <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
+          <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+            <thead className="hv-elevated text-[var(--text-muted)] uppercase text-[10px] font-bold border-b border-[var(--border-primary)]">
               <tr>
                 <th className="p-3">Ledger / Account</th>
                 <th className="p-3">Narration</th>
@@ -1769,7 +1769,7 @@ const TransactionBreakdown: React.FC<TransactionBreakdownProps> = ({
                 <th className="p-3 text-right">Credit ({currency})</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800 bg-slate-900/50">
+            <tbody className="divide-y divide-[var(--border-primary)] bg-[var(--bg-surface)]">
               {vch.entries.map((e, i) => (
                 <tr
                   key={e.id || i}
@@ -1780,22 +1780,22 @@ const TransactionBreakdown: React.FC<TransactionBreakdownProps> = ({
                       'ACCOUNT'
                     )
                   }
-                  className="hover:bg-indigo-500/10 cursor-pointer transition"
+                  className="hover:bg-[var(--hover-surface)] cursor-pointer transition"
                 >
-                  <td className="p-3 font-bold text-slate-100 flex items-center gap-1.5">
+                  <td className="p-3 font-bold text-[var(--text-primary)] flex items-center gap-1.5">
                     <span>{e.accountName}</span>
                     {e.accountCode && (
-                      <span className="text-[10px] font-mono text-slate-500">
+                      <span className="text-[10px] font-mono text-[var(--text-muted)]">
                         ({e.accountCode})
                       </span>
                     )}
-                    <ArrowUpRight className="w-3 h-3 text-indigo-400" />
+                    <ArrowUpRight className="w-3 h-3 text-indigo-500" />
                   </td>
-                  <td className="p-3 text-slate-400">{e.narration || '-'}</td>
-                  <td className="p-3 text-right font-mono tabular-nums text-sky-400 font-bold">
+                  <td className="p-3 text-[var(--text-muted)]">{e.narration || '-'}</td>
+                  <td className="p-3 text-right font-mono tabular-nums text-sky-500 font-bold">
                     {e.debit > 0 ? formatCurrency(e.debit, currency) : '-'}
                   </td>
-                  <td className="p-3 text-right font-mono tabular-nums text-emerald-400 font-bold">
+                  <td className="p-3 text-right font-mono tabular-nums text-emerald-500 font-bold">
                     {e.credit > 0 ? formatCurrency(e.credit, currency) : '-'}
                   </td>
                 </tr>
@@ -1805,8 +1805,8 @@ const TransactionBreakdown: React.FC<TransactionBreakdownProps> = ({
         </div>
 
         {vch.narration && (
-          <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-300">
-            <span className="text-slate-500 font-bold uppercase text-[10px] mr-2">
+          <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3 text-xs text-[var(--text-secondary)]">
+            <span className="text-[var(--text-muted)] font-bold uppercase text-[10px] mr-2">
               Narration:
             </span>
             {vch.narration}
@@ -1825,55 +1825,55 @@ const TransactionBreakdown: React.FC<TransactionBreakdownProps> = ({
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
-        <div className="bg-slate-950 border border-slate-800 rounded-xl p-3">
-          <div className="text-[10px] text-slate-400 uppercase flex items-center gap-1">
+        <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3">
+          <div className="text-[10px] text-[var(--text-muted)] uppercase flex items-center gap-1">
             <FileText className="w-3 h-3" /> Document No
           </div>
-          <div className="font-mono font-bold text-white mt-0.5">{docNo}</div>
+          <div className="font-mono font-bold text-[var(--text-primary)] mt-0.5">{docNo}</div>
           {doc.supplierInvoiceNo && doc.supplierInvoiceNo !== docNo && (
-            <div className="text-[10px] text-slate-400 mt-0.5">
+            <div className="text-[10px] text-[var(--text-muted)] mt-0.5">
               Supp Inv: {doc.supplierInvoiceNo}
             </div>
           )}
         </div>
-        <div className="bg-slate-950 border border-slate-800 rounded-xl p-3">
-          <div className="text-[10px] text-slate-400 uppercase">Date</div>
-          <div className="font-mono tabular-nums font-bold text-slate-200 mt-0.5">
+        <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3">
+          <div className="text-[10px] text-[var(--text-muted)] uppercase">Date</div>
+          <div className="font-mono tabular-nums font-bold text-[var(--text-secondary)] mt-0.5">
             {doc.date}
           </div>
         </div>
-        <div className="bg-slate-950 border border-slate-800 rounded-xl p-3">
-          <div className="text-[10px] text-slate-400 uppercase">Party</div>
+        <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3">
+          <div className="text-[10px] text-[var(--text-muted)] uppercase">Party</div>
           <button
             type="button"
             onClick={() =>
               onInspectAccountOrParty(doc.partyId, doc.partyName, 'PARTY')
             }
-            className="font-bold text-sky-300 hover:underline flex items-center gap-1 mt-0.5 cursor-pointer text-left"
+            className="font-bold text-sky-500 hover:underline flex items-center gap-1 mt-0.5 cursor-pointer text-left"
           >
             <span>{doc.partyName}</span>
             <ArrowUpRight className="w-3 h-3 shrink-0" />
           </button>
           {doc.partyGstin && (
-            <div className="text-[10px] font-mono text-amber-300 mt-0.5">
+            <div className="text-[10px] font-mono text-amber-500 mt-0.5">
               {doc.partyGstin}
             </div>
           )}
         </div>
-        <div className="bg-slate-950 border border-slate-800 rounded-xl p-3">
-          <div className="text-[10px] text-slate-400 uppercase">
+        <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3">
+          <div className="text-[10px] text-[var(--text-muted)] uppercase">
             Grand Total
           </div>
-          <div className="font-mono tabular-nums font-extrabold text-emerald-300 mt-0.5 text-sm">
+          <div className="font-mono tabular-nums font-extrabold text-emerald-500 mt-0.5 text-sm">
             {formatCurrency(doc.grandTotal || 0, currency)}
           </div>
         </div>
       </div>
 
       {/* Line Items */}
-      <div className="overflow-x-auto border border-slate-800 rounded-xl">
-        <table className="w-full text-left text-xs text-slate-300">
-          <thead className="bg-slate-950 text-slate-400 uppercase text-[10px] font-bold">
+      <div className="overflow-x-auto border border-[var(--border-primary)] rounded-xl">
+        <table className="w-full text-left text-xs text-[var(--text-secondary)]">
+          <thead className="hv-elevated text-[var(--text-muted)] uppercase text-[10px] font-bold border-b border-[var(--border-primary)]">
             <tr>
               <th className="p-3">#</th>
               <th className="p-3">Item / Particular</th>
@@ -1885,10 +1885,10 @@ const TransactionBreakdown: React.FC<TransactionBreakdownProps> = ({
               <th className="p-3 text-right">Amount ({currency})</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800 bg-slate-900/50">
+          <tbody className="divide-y divide-[var(--border-primary)] bg-[var(--bg-surface)]">
             {items.length === 0 ? (
               <tr>
-                <td colSpan={8} className="p-4 text-center text-slate-500">
+                <td colSpan={8} className="p-4 text-center text-[var(--text-muted)]">
                   {isHindi
                     ? 'कोई आइटम विवरण नहीं।'
                     : 'No line items recorded.'}
@@ -1896,12 +1896,12 @@ const TransactionBreakdown: React.FC<TransactionBreakdownProps> = ({
               </tr>
             ) : (
               items.map((it, idx) => (
-                <tr key={it.id || idx} className="hover:bg-slate-800/40">
-                  <td className="p-3 text-slate-500 font-mono">{idx + 1}</td>
-                  <td className="p-3 font-semibold text-slate-100">
+                <tr key={it.id || idx} className="hover:bg-[var(--hover-surface)]">
+                  <td className="p-3 text-[var(--text-muted)] font-mono">{idx + 1}</td>
+                  <td className="p-3 font-semibold text-[var(--text-primary)]">
                     {it.itemName}
                   </td>
-                  <td className="p-3 font-mono text-indigo-300">
+                  <td className="p-3 font-mono text-indigo-500 font-semibold">
                     {it.hsnSacCode || '-'}
                   </td>
                   <td className="p-3 text-right font-mono tabular-nums">
@@ -1910,13 +1910,13 @@ const TransactionBreakdown: React.FC<TransactionBreakdownProps> = ({
                   <td className="p-3 text-right font-mono tabular-nums">
                     {formatCurrency(it.rate || 0, currency)}
                   </td>
-                  <td className="p-3 text-right font-mono tabular-nums text-slate-400">
+                  <td className="p-3 text-right font-mono tabular-nums text-[var(--text-muted)]">
                     {it.discountPercent ? `${it.discountPercent}%` : '-'}
                   </td>
-                  <td className="p-3 text-right font-mono tabular-nums text-amber-300">
+                  <td className="p-3 text-right font-mono tabular-nums text-amber-500">
                     {formatCurrency(it.taxAmount || 0, currency)}
                   </td>
-                  <td className="p-3 text-right font-mono tabular-nums font-bold text-white">
+                  <td className="p-3 text-right font-mono tabular-nums font-bold text-[var(--text-primary)]">
                     {formatCurrency(it.totalAmount || 0, currency)}
                   </td>
                 </tr>
@@ -1928,8 +1928,8 @@ const TransactionBreakdown: React.FC<TransactionBreakdownProps> = ({
 
       {/* Extra Ledgers */}
       {extraLedgers.length > 0 && (
-        <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 space-y-2">
-          <div className="text-[11px] font-bold uppercase text-indigo-300">
+        <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3 space-y-2">
+          <div className="text-[11px] font-bold uppercase text-indigo-500">
             {isHindi
               ? 'अतिरिक्त लेज़र प्रविष्टियाँ (Additional Ledgers)'
               : 'Additional Invoice Ledgers (Freight, Duties, Charges)'}
@@ -1946,13 +1946,13 @@ const TransactionBreakdown: React.FC<TransactionBreakdownProps> = ({
                     'ACCOUNT'
                   )
                 }
-                className="flex items-center justify-between bg-slate-900 hover:bg-indigo-500/10 border border-slate-800 rounded-lg px-3 py-2 cursor-pointer text-left transition"
+                className="flex items-center justify-between bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-primary)] rounded-lg px-3 py-2 cursor-pointer text-left transition"
               >
-                <span className="font-semibold text-slate-200 flex items-center gap-1">
+                <span className="font-semibold text-[var(--text-secondary)] flex items-center gap-1">
                   <span>{el.accountName || el.accountId}</span>
-                  <ArrowUpRight className="w-3 h-3 text-indigo-400" />
+                  <ArrowUpRight className="w-3 h-3 text-indigo-500" />
                 </span>
-                <span className="font-mono tabular-nums font-bold text-amber-300">
+                <span className="font-mono tabular-nums font-bold text-amber-500">
                   {el.debit > 0
                     ? `${formatCurrency(el.debit, currency)} Dr`
                     : `${formatCurrency(el.credit, currency)} Cr`}
@@ -1964,28 +1964,28 @@ const TransactionBreakdown: React.FC<TransactionBreakdownProps> = ({
       )}
 
       {/* Summary Breakup */}
-      <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs font-mono tabular-nums">
+      <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-4 grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs font-mono tabular-nums">
         <div>
-          <span className="text-[10px] text-slate-400 block font-sans">
+          <span className="text-[10px] text-[var(--text-muted)] block font-sans">
             Taxable Subtotal
           </span>
-          <strong className="text-slate-100">
+          <strong className="text-[var(--text-primary)]">
             {formatCurrency(doc.subtotal || 0, currency)}
           </strong>
         </div>
         <div>
-          <span className="text-[10px] text-slate-400 block font-sans">
+          <span className="text-[10px] text-[var(--text-muted)] block font-sans">
             Discount
           </span>
-          <strong className="text-emerald-400">
+          <strong className="text-emerald-500">
             -{formatCurrency(doc.totalDiscount || 0, currency)}
           </strong>
         </div>
         <div>
-          <span className="text-[10px] text-slate-400 block font-sans">
+          <span className="text-[10px] text-[var(--text-muted)] block font-sans">
             CGST / SGST / IGST
           </span>
-          <strong className="text-amber-300">
+          <strong className="text-amber-500">
             {formatCurrency(
               (doc.cgstAmount || 0) +
                 (doc.sgstAmount || 0) +
@@ -1995,26 +1995,26 @@ const TransactionBreakdown: React.FC<TransactionBreakdownProps> = ({
           </strong>
         </div>
         <div>
-          <span className="text-[10px] text-slate-400 block font-sans">
+          <span className="text-[10px] text-[var(--text-muted)] block font-sans">
             Round Off
           </span>
-          <strong className="text-slate-300">
+          <strong className="text-[var(--text-secondary)]">
             {formatCurrency(doc.roundOff || 0, currency)}
           </strong>
         </div>
         <div>
-          <span className="text-[10px] text-slate-400 block font-sans">
+          <span className="text-[10px] text-[var(--text-muted)] block font-sans">
             Grand Total
           </span>
-          <strong className="text-emerald-300 text-sm">
+          <strong className="text-emerald-500 text-sm">
             {formatCurrency(doc.grandTotal || 0, currency)}
           </strong>
         </div>
       </div>
 
       {(doc.notes || doc.remarks) && (
-        <div className="bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-300">
-          <span className="text-slate-500 font-bold uppercase text-[10px] mr-2">
+        <div className="hv-elevated border border-[var(--border-primary)] rounded-xl p-3 text-xs text-[var(--text-secondary)]">
+          <span className="text-[var(--text-muted)] font-bold uppercase text-[10px] mr-2">
             Notes:
           </span>
           {doc.notes || doc.remarks}

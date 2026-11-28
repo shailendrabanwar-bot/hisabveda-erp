@@ -8,23 +8,66 @@ const nacl = require('tweetnacl');
 const { autoUpdater } = require('electron-updater');
 
 autoUpdater.logger = console;
-autoUpdater.autoDownload = true;
+autoUpdater.autoDownload = false;
+autoUpdater.autoInstallOnAppQuit = true;
+
+function formatReleaseNotesText(rawNotes) {
+  if (!rawNotes) return '';
+  let combined = '';
+  if (typeof rawNotes === 'string') {
+    combined = rawNotes;
+  } else if (Array.isArray(rawNotes)) {
+    combined = rawNotes
+      .map((entry) => {
+        const ver = entry && entry.version ? `v${String(entry.version).replace(/^v/i, '')}: ` : '';
+        const note = entry && entry.note ? String(entry.note) : '';
+        return `${ver}${note}`;
+      })
+      .filter(Boolean)
+      .join('\n');
+  }
+  return combined
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/(p|div|li|h[1-6])>/gi, '\n')
+    .replace(/<li[^>]*>/gi, '• ')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+}
 
 autoUpdater.on('update-available', (info) => {
   if (mainWindow && mainWindow.webContents) {
-    mainWindow.webContents.send('hv:update-available', info);
+    mainWindow.webContents.send('hv:update-available', {
+      version: info?.version || '',
+      releaseDate: info?.releaseDate || null,
+      releaseNotes: formatReleaseNotesText(info?.releaseNotes),
+    });
   }
 });
 
 autoUpdater.on('download-progress', (progressObj) => {
   if (mainWindow && mainWindow.webContents) {
-    mainWindow.webContents.send('hv:update-progress', progressObj);
+    mainWindow.webContents.send('hv:update-progress', {
+      percent: progressObj?.percent || 0,
+      transferred: progressObj?.transferred || 0,
+      total: progressObj?.total || 0,
+      bytesPerSecond: progressObj?.bytesPerSecond || 0,
+    });
   }
 });
 
 autoUpdater.on('update-downloaded', (info) => {
   if (mainWindow && mainWindow.webContents) {
-    mainWindow.webContents.send('hv:update-downloaded', info);
+    mainWindow.webContents.send('hv:update-downloaded', {
+      version: info?.version || '',
+      releaseDate: info?.releaseDate || null,
+      releaseNotes: formatReleaseNotesText(info?.releaseNotes),
+    });
   }
 });
 
@@ -1047,10 +1090,22 @@ function registerIpcHandlers() {
         updateAvailable,
         currentVersion,
         version: latestVersion,
-        releaseNotes: typeof res?.updateInfo?.releaseNotes === 'string' ? res.updateInfo.releaseNotes : undefined,
+        releaseNotes: formatReleaseNotesText(res?.updateInfo?.releaseNotes),
       };
     } catch (err) {
       return { currentVersion, error: err?.message || 'Failed to check for updates' };
+    }
+  });
+
+  ipcMain.handle('hv:download-update', async () => {
+    if (!app.isPackaged) {
+      return { started: false, error: 'Download is only available in packaged desktop builds.' };
+    }
+    try {
+      await autoUpdater.downloadUpdate();
+      return { started: true };
+    } catch (err) {
+      return { started: false, error: err?.message || 'Failed to download update' };
     }
   });
 

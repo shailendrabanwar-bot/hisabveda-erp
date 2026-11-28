@@ -545,33 +545,33 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
     <div className="p-3 sm:p-4 md:p-6 space-y-6 max-w-7xl mx-auto w-full">
       
       {/* Top Header & Actions Bar */}
-      <div className="bg-slate-900 border border-slate-800 p-4 md:p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
+      <div className="hv-surface border border-[var(--border-primary)] p-4 md:p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xl">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 shrink-0">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-600 to-indigo-600 flex items-center justify-center text-white hv-keep-white shadow-lg shadow-emerald-500/20 shrink-0">
             <Landmark className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-xl font-extrabold text-white flex flex-wrap items-center gap-2">
+            <h1 className="text-xl font-extrabold text-[var(--text-primary)] flex flex-wrap items-center gap-2">
               <span>{isHindi ? 'बैंक समाधान विवरण (Bank Reconciliation - BRS)' : 'Bank Reconciliation Statement (BRS)'}</span>
               {balances.isFullyReconciled ? (
-                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1">
+                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full hv-pill-emerald border flex items-center gap-1">
                   <CheckCircle2 className="w-3.5 h-3.5" />
                   {isHindi ? '100% समाधान पूर्ण' : '100% Reconciled'}
                 </span>
               ) : (
-                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1">
+                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full hv-pill-amber border flex items-center gap-1">
                   <Clock className="w-3.5 h-3.5" />
                   {statementLines.filter(l => !(l.reconciled || l.isReconciled)).length} {isHindi ? 'लंबित प्रविष्टियां' : 'Pending'}
                 </span>
               )}
             </h1>
-            <p className="text-xs text-slate-400 mt-1 flex flex-wrap items-center gap-2">
+            <p className="text-xs text-[var(--text-muted)] mt-1 flex flex-wrap items-center gap-2">
               <span>
                 {isHindi 
                   ? 'लेजर खाता, पासबुक/स्टेटमेंट और बैंक वाउचर्स का ऑटो-मिलान एवं अंतर विश्लेषण।' 
                   : 'Compare bank statement with company ledgers, auto-match entries, and eliminate book-bank variance.'}
               </span>
-              <span className="text-[11px] font-mono bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 px-2 py-0.5 rounded-lg font-bold">
+              <span className="text-[11px] font-mono hv-pill-indigo border px-2 py-0.5 rounded-lg font-bold">
                 {fyRange.label} ({fyRange.displayRange})
               </span>
             </p>
@@ -587,7 +587,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                 setSelectedBankId(e.target.value);
                 setBrsAlert(null);
               }}
-              className="bg-slate-800 border border-slate-700 text-white text-xs font-bold rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none min-w-[200px] flex-1 sm:flex-initial"
+              className="hv-input border border-[var(--border-subtle)] text-xs font-bold rounded-xl px-3 py-2.5 focus:ring-2 focus:ring-emerald-500 focus:outline-none min-w-[200px] flex-1 sm:flex-initial"
             >
               {bankAccounts.map(b => (
                 <option key={b.id} value={b.id}>
@@ -596,7 +596,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
               ))}
             </select>
           ) : (
-            <span className="bg-rose-950/60 border border-rose-500/40 text-rose-300 text-xs font-bold px-3 py-2 rounded-xl">
+            <span className="hv-pill-rose border text-xs font-bold px-3 py-2 rounded-xl">
               {isHindi ? '⚠️ कोई बैंक लेजर नहीं बना है' : '⚠️ No Bank Ledger Found'}
             </span>
           )}
@@ -606,9 +606,9 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
               <button
                 onClick={handleRunAutoMatch}
                 disabled={!selectedBank || statementLines.filter(l => !(l.reconciled || l.isReconciled)).length === 0}
-                className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-bold px-3.5 py-2.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow-lg shadow-indigo-600/20 shrink-0"
+                className="bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white hv-keep-white font-bold px-3.5 py-2.5 rounded-xl text-xs flex items-center gap-1.5 transition shadow-lg shadow-indigo-600/20 shrink-0"
               >
-                <Sparkles className="w-4 h-4 text-amber-300" />
+                <Sparkles className="w-4 h-4" />
                 <span>{isHindi ? 'ऑटो-मैच (1-Click)' : 'Auto Match'}</span>
               </button>
 
@@ -625,7 +625,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                   setBrsAlert(null);
                   setShowImportModal(true);
                 }}
-                className="bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 transition shadow-lg shadow-emerald-600/30 shrink-0"
+                className="bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold px-4 py-2.5 rounded-xl text-xs flex items-center gap-2 transition shadow-lg shadow-emerald-600/30 shrink-0"
               >
                 <Upload className="w-4 h-4" />
                 <span>{isHindi ? '+ स्टेटमेंट इम्पोर्ट' : '+ Import Statement'}</span>
@@ -637,16 +637,16 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
 
       {/* Bank Ledger Missing / Validation Guard Banner */}
       {(bankAccounts.length === 0 || brsAlert) && (
-        <div className="bg-rose-950/40 border border-rose-500/40 p-4 md:p-5 rounded-2xl space-y-3 shadow-lg">
+        <div className="hv-pill-rose border p-4 md:p-5 rounded-2xl space-y-3 shadow-lg">
           <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+            <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
             <div className="space-y-1">
-              <h3 className="text-sm font-bold text-rose-200">
+              <h3 className="text-sm font-bold">
                 {isHindi
                   ? 'कंपनी का बैंक खाता लेजर सत्यापन आवश्यक है (Bank Ledger Guard)'
                   : 'Company Bank Account Ledger Verification Required'}
               </h3>
-              <p className="text-xs text-rose-200/80">
+              <p className="text-xs opacity-90">
                 {brsAlert || (isHindi
                   ? 'बैंक स्टेटमेंट किसी भी अनजान व्यक्ति का अपलोड न हो, इसके लिए कंपनी के Chart of Accounts में वास्तविक बैंक खाता लेजर (और खाता संख्या) होना अनिवार्य है।'
                   : 'To prevent third-party statements from being imported, your Chart of Accounts must have a configured Company Bank Account Ledger with account number.')}
@@ -661,14 +661,14 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                 value={quickBankName}
                 onChange={(e) => setQuickBankName(e.target.value)}
                 placeholder={isHindi ? 'बैंक का नाम (उदा. HDFC Bank)' : 'Bank Name (e.g. HDFC Bank)'}
-                className="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-emerald-500"
+                className="hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-emerald-500"
               />
               <input
                 type="text"
                 value={quickBankAccNo}
                 onChange={(e) => setQuickBankAccNo(e.target.value)}
                 placeholder={isHindi ? 'कंपनी बैंक खाता संख्या (A/c No.)' : 'Company Bank A/c Number'}
-                className="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-emerald-500"
+                className="hv-input border border-[var(--border-subtle)] rounded-xl px-3 py-2 text-xs font-mono focus:outline-none focus:border-emerald-500"
               />
               <button
                 type="button"
@@ -680,7 +680,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                   onCreateBankLedgerQuick(quickBankName.trim(), quickBankAccNo.trim());
                   setBrsAlert(null);
                 }}
-                className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition"
+                className="bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-bold px-4 py-2 rounded-xl text-xs transition"
               >
                 {isHindi ? '+ कंपनी बैंक लेजर बनाएं' : '+ Create Company Bank Ledger'}
               </button>
@@ -693,50 +693,50 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
         {/* 1. Bank Balance As Per Company Books */}
-        <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl relative overflow-hidden flex flex-col justify-between h-full">
+        <div className="hv-surface border border-[var(--border-primary)] p-4 rounded-2xl relative overflow-hidden flex flex-col justify-between h-full">
           <div>
-            <div className="flex items-center justify-between text-slate-400 text-xs font-bold mb-2">
+            <div className="flex items-center justify-between text-[var(--text-muted)] text-xs font-bold mb-2">
               <span>{isHindi ? 'लेजर शेष (Books Balance)' : 'Balance as per Books'}</span>
-              <Landmark className="w-4 h-4 text-indigo-400" />
+              <Landmark className="w-4 h-4 text-indigo-500" />
             </div>
-            <div className="text-xl font-extrabold text-white font-mono">
+            <div className="text-xl font-extrabold text-[var(--text-primary)] font-mono">
               {formatCurrency(balances.bookBalance, data.company.currency)}
             </div>
           </div>
-          <p className="text-[11px] text-slate-500 mt-2 font-medium">
+          <p className="text-[11px] text-[var(--text-muted)] mt-2 font-medium">
             {selectedBank?.name || 'Bank Account'}
           </p>
         </div>
 
         {/* 2. Bank Balance As Per Statement / Passbook */}
-        <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl relative overflow-hidden flex flex-col justify-between h-full">
+        <div className="hv-surface border border-[var(--border-primary)] p-4 rounded-2xl relative overflow-hidden flex flex-col justify-between h-full">
           <div>
-            <div className="flex items-center justify-between text-slate-400 text-xs font-bold mb-2">
+            <div className="flex items-center justify-between text-[var(--text-muted)] text-xs font-bold mb-2">
               <span>{isHindi ? 'बैंक स्टेटमेंट शेष (Passbook)' : 'Balance as per Statement'}</span>
-              <FileCheck2 className="w-4 h-4 text-emerald-400" />
+              <FileCheck2 className="w-4 h-4 text-emerald-500" />
             </div>
-            <div className="text-xl font-extrabold text-emerald-300 font-mono">
+            <div className="text-xl font-extrabold text-emerald-500 font-mono">
               {formatCurrency(balances.statementClosingBalance, data.company.currency)}
             </div>
           </div>
-          <p className="text-[11px] text-slate-500 mt-2 font-medium">
+          <p className="text-[11px] text-[var(--text-muted)] mt-2 font-medium">
             {statementLines.length} {isHindi ? 'स्टेटमेंट प्रविष्टियां' : 'Statement Entries'}
           </p>
         </div>
 
         {/* 3. Uncleared Deposits & Withdrawals */}
-        <div className="bg-slate-900/90 border border-slate-800 p-4 rounded-2xl relative overflow-hidden flex flex-col justify-between h-full">
+        <div className="hv-surface border border-[var(--border-primary)] p-4 rounded-2xl relative overflow-hidden flex flex-col justify-between h-full">
           <div>
-            <div className="flex items-center justify-between text-slate-400 text-xs font-bold mb-2">
+            <div className="flex items-center justify-between text-[var(--text-muted)] text-xs font-bold mb-2">
               <span>{isHindi ? 'अलक्षित / अन-रिकन्साइल्ड अंतर' : 'Uncleared Movements'}</span>
-              <Clock className="w-4 h-4 text-amber-400" />
+              <Clock className="w-4 h-4 text-amber-500" />
             </div>
             <div className="flex flex-wrap items-center gap-3 text-xs font-mono font-bold">
-              <span className="text-emerald-400">+{formatCurrency(balances.unreconciledCredits, data.company.currency)}</span>
-              <span className="text-rose-400">-{formatCurrency(balances.unreconciledDebits, data.company.currency)}</span>
+              <span className="text-emerald-500">+{formatCurrency(balances.unreconciledCredits, data.company.currency)}</span>
+              <span className="text-rose-500">-{formatCurrency(balances.unreconciledDebits, data.company.currency)}</span>
             </div>
           </div>
-          <p className="text-[11px] text-amber-400/80 mt-2 font-semibold">
+          <p className="text-[11px] text-amber-500 mt-2 font-semibold">
             {statementLines.filter(l => !(l.reconciled || l.isReconciled)).length} {isHindi ? 'स्टेटमेंट लाइनें मिलान बाकी' : 'unmatched statement lines'}
           </p>
         </div>
@@ -744,21 +744,21 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
         {/* 4. Variance / Difference Meter */}
         <div className={`p-4 rounded-2xl relative overflow-hidden border flex flex-col justify-between h-full ${
           balances.difference < 0.05 
-            ? 'bg-emerald-950/30 border-emerald-500/40' 
-            : 'bg-rose-950/30 border-rose-500/40'
+            ? 'hv-pill-emerald' 
+            : 'hv-pill-rose'
         }`}>
           <div>
             <div className="flex items-center justify-between text-xs font-bold mb-2">
-              <span className={balances.difference < 0.05 ? 'text-emerald-300' : 'text-rose-300'}>
+              <span>
                 {isHindi ? 'समाधान अंतर (Difference)' : 'Reconciliation Difference'}
               </span>
-              <ShieldCheck className={`w-4 h-4 ${balances.difference < 0.05 ? 'text-emerald-400' : 'text-rose-400'}`} />
+              <ShieldCheck className="w-4 h-4" />
             </div>
-            <div className={`text-xl font-extrabold font-mono ${balances.difference < 0.05 ? 'text-emerald-300' : 'text-rose-300'}`}>
+            <div className="text-xl font-extrabold font-mono">
               {formatCurrency(balances.difference, data.company.currency)}
             </div>
           </div>
-          <p className="text-[11px] font-semibold mt-2 text-slate-400">
+          <p className="text-[11px] font-semibold mt-2 opacity-90">
             {balances.difference < 0.05 
               ? (isHindi ? '✅ शून्य अंतर - पूर्णतः संतुलित' : '✅ Zero variance - Fully balanced') 
               : (isHindi ? '⚠️ अंतर समाधान आवश्यक है' : '⚠️ Action needed to reconcile')}
@@ -768,10 +768,10 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
       </div>
 
       {/* PERIOD GRANULARITY BAR: All | Daily | Weekly | Monthly | Quarterly */}
-      <div className="bg-slate-900/95 border border-slate-800 rounded-2xl p-3.5 md:p-4 space-y-3 shadow-lg">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-3.5 md:p-4 space-y-3 shadow-lg">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-xs font-bold text-slate-200">
-            <Calendar className="w-4 h-4 text-amber-400 shrink-0" />
+          <div className="flex items-center gap-2 text-xs font-bold text-[var(--text-primary)]">
+            <Calendar className="w-4 h-4 text-amber-500 shrink-0" />
             <span>{isHindi ? 'बैंक अवधि विश्लेषण (Period Filter & Grouping):' : 'Bank Period Breakdown (Daily / Weekly / Monthly / Quarterly):'}</span>
           </div>
 
@@ -794,7 +794,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                 className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition cursor-pointer ${
                   periodGranularity === opt.id
                     ? 'bg-amber-500 text-slate-950 border-amber-400 shadow'
-                    : 'bg-slate-950 text-slate-300 border-slate-800 hover:bg-slate-800'
+                    : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] border-[var(--border-subtle)] hover:bg-[var(--hover-surface)]'
                 }`}
               >
                 {isHindi ? opt.hi : opt.en}
@@ -804,13 +804,13 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
         </div>
 
         {periodGranularity !== 'ALL' && (
-          <div className="pt-2.5 border-t border-slate-800/80 space-y-3">
+          <div className="pt-2.5 border-t border-[var(--border-primary)] space-y-3">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex flex-wrap items-center gap-2">
                 <select
                   value={selectedPeriodKey}
                   onChange={(e) => setSelectedPeriodKey(e.target.value)}
-                  className="bg-slate-950 border border-slate-700 text-xs font-bold text-slate-100 rounded-xl px-3 py-2 focus:outline-none focus:ring-1 focus:ring-amber-400 min-w-[210px]"
+                  className="hv-input border border-[var(--border-subtle)] text-xs font-bold rounded-xl px-3 py-2 focus:outline-none focus:ring-1 focus:ring-amber-400 min-w-[210px]"
                 >
                   <option value="">
                     {isHindi
@@ -828,7 +828,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                   <button
                     type="button"
                     onClick={() => setSelectedPeriodKey('')}
-                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold hover:bg-amber-500/30 transition cursor-pointer"
+                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl hv-pill-amber border text-xs font-bold transition cursor-pointer"
                   >
                     <span>{activePeriodBucket.label}</span>
                     <X className="w-3.5 h-3.5" />
@@ -841,7 +841,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                   <button
                     type="button"
                     onClick={handleExportBankPeriodCsv}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 text-xs font-bold transition cursor-pointer"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl hv-pill-emerald border text-xs font-bold transition cursor-pointer"
                   >
                     <Download className="w-3.5 h-3.5" />
                     <span>{isHindi ? 'CSV एक्सपोर्ट' : 'Export CSV'}</span>
@@ -850,7 +850,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                 <button
                   type="button"
                   onClick={() => setShowPeriodBreakdown(prev => !prev)}
-                  className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold transition cursor-pointer"
+                  className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] text-xs font-bold transition cursor-pointer"
                 >
                   <span>
                     {showPeriodBreakdown
@@ -864,26 +864,26 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
 
             {showPeriodBreakdown && (
               periodicBuckets.length === 0 ? (
-                <div className="p-4 text-center text-xs text-slate-400 bg-slate-950 rounded-xl border border-slate-800">
+                <div className="p-4 text-center text-xs text-[var(--text-muted)] hv-elevated rounded-xl border border-[var(--border-primary)]">
                   {isHindi
                     ? 'इस बैंक खाते के लिए कोई स्टेटमेंट या वाउचर प्रविष्टि उपलब्ध नहीं है।'
                     : 'No statement lines or bank book vouchers found for this bank account.'}
                 </div>
               ) : (
-                <div className="border border-slate-800 rounded-xl overflow-x-auto bg-slate-950/70 max-h-64 overflow-y-auto">
+                <div className="border border-[var(--border-primary)] rounded-xl overflow-x-auto hv-surface max-h-64 overflow-y-auto">
                   <table className="w-full text-left text-xs min-w-[760px]">
-                    <thead className="bg-slate-800/90 text-slate-300 uppercase text-[10px] font-bold sticky top-0 z-10">
+                    <thead className="bg-[var(--bg-elevated)] text-[var(--text-secondary)] uppercase text-[10px] font-bold sticky top-0 z-10 border-b border-[var(--border-primary)]">
                       <tr>
                         <th className="p-2.5">{isHindi ? 'अवधि (Period)' : 'Period'}</th>
-                        <th className="p-2.5 text-right text-emerald-300">{isHindi ? 'बैंक जमा (Cr)' : 'Stmt Deposits (Cr)'}</th>
-                        <th className="p-2.5 text-right text-rose-300">{isHindi ? 'बैंक निकासी (Dr)' : 'Stmt Withdrawals (Dr)'}</th>
+                        <th className="p-2.5 text-right text-emerald-500">{isHindi ? 'बैंक जमा (Cr)' : 'Stmt Deposits (Cr)'}</th>
+                        <th className="p-2.5 text-right text-rose-500">{isHindi ? 'बैंक निकासी (Dr)' : 'Stmt Withdrawals (Dr)'}</th>
                         <th className="p-2.5 text-right">{isHindi ? 'नेट स्टेटमेंट' : 'Net Stmt Flow'}</th>
-                        <th className="p-2.5 text-right text-indigo-300">{isHindi ? 'बुक्स प्राप्ति' : 'Books Receipts'}</th>
-                        <th className="p-2.5 text-right text-amber-300">{isHindi ? 'बुक्स भुगतान' : 'Books Payments'}</th>
+                        <th className="p-2.5 text-right text-indigo-500">{isHindi ? 'बुक्स प्राप्ति' : 'Books Receipts'}</th>
+                        <th className="p-2.5 text-right text-amber-500">{isHindi ? 'बुक्स भुगतान' : 'Books Payments'}</th>
                         <th className="p-2.5 text-center">{isHindi ? 'मिलान स्थिति' : 'Match Status'}</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-800/80">
+                    <tbody className="divide-y divide-[var(--border-primary)] hv-surface">
                       {periodicBuckets.map(bucket => {
                         const isSelected = selectedPeriodKey === bucket.key;
                         return (
@@ -891,37 +891,37 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                             key={bucket.key}
                             onClick={() => setSelectedPeriodKey(isSelected ? '' : bucket.key)}
                             className={`cursor-pointer transition ${
-                              isSelected ? 'bg-amber-500/15 hover:bg-amber-500/20' : 'hover:bg-slate-800/60'
+                              isSelected ? 'hv-pill-amber' : 'hover:bg-[var(--hover-surface)]'
                             }`}
                           >
                             <td className="p-2.5">
-                              <div className="font-bold text-slate-100 flex items-center gap-1.5">
+                              <div className="font-bold text-[var(--text-primary)] flex items-center gap-1.5">
                                 <span>{bucket.label}</span>
-                                {isSelected && <Check className="w-3.5 h-3.5 text-amber-400" />}
+                                {isSelected && <Check className="w-3.5 h-3.5 text-amber-500" />}
                               </div>
-                              <div className="text-[10px] text-slate-500 font-mono">
+                              <div className="text-[10px] text-[var(--text-muted)] font-mono">
                                 {bucket.fromDate === bucket.toDate ? bucket.fromDate : `${bucket.fromDate} → ${bucket.toDate}`}
                               </div>
                             </td>
-                            <td className="p-2.5 text-right font-mono font-bold text-emerald-300">
+                            <td className="p-2.5 text-right font-mono font-bold text-emerald-500">
                               +{formatCurrency(bucket.stmtCredit, data.company.currency)}
                             </td>
-                            <td className="p-2.5 text-right font-mono font-bold text-rose-300">
+                            <td className="p-2.5 text-right font-mono font-bold text-rose-500">
                               -{formatCurrency(bucket.stmtDebit, data.company.currency)}
                             </td>
-                            <td className={`p-2.5 text-right font-mono font-extrabold ${bucket.stmtNetFlow >= 0 ? 'text-emerald-300' : 'text-rose-300'}`}>
+                            <td className={`p-2.5 text-right font-mono font-extrabold ${bucket.stmtNetFlow >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
                               {formatCurrency(bucket.stmtNetFlow, data.company.currency)}
                             </td>
-                            <td className="p-2.5 text-right font-mono text-indigo-300">
+                            <td className="p-2.5 text-right font-mono text-indigo-500">
                               {formatCurrency(bucket.bookReceipts, data.company.currency)}
                             </td>
-                            <td className="p-2.5 text-right font-mono text-amber-300">
+                            <td className="p-2.5 text-right font-mono text-amber-500">
                               {formatCurrency(bucket.bookPayments, data.company.currency)}
                             </td>
                             <td className="p-2.5 text-center font-mono text-[11px]">
-                              <span className="text-emerald-400 font-bold">{bucket.stmtReconciledCount}</span>
-                              <span className="text-slate-500"> / </span>
-                              <span className="text-amber-400 font-bold">{bucket.stmtPendingCount} pending</span>
+                              <span className="text-emerald-500 font-bold">{bucket.stmtReconciledCount}</span>
+                              <span className="text-[var(--text-muted)]"> / </span>
+                              <span className="text-amber-500 font-bold">{bucket.stmtPendingCount} pending</span>
                             </td>
                           </tr>
                         );
@@ -936,19 +936,19 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
       </div>
 
       {/* Main Tab Navigation */}
-      <div className="flex border-b border-slate-800 gap-2 overflow-x-auto no-scrollbar whitespace-nowrap pb-1">
+      <div className="flex border-b border-[var(--border-primary)] gap-2 overflow-x-auto no-scrollbar whitespace-nowrap pb-1">
         <button
           onClick={() => setActiveTab('RECONCILE')}
           className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold border-b-2 transition ${
             activeTab === 'RECONCILE' 
-              ? 'border-emerald-500 text-emerald-400 bg-emerald-500/10 rounded-t-xl' 
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-emerald-500 text-emerald-500 hv-pill-emerald rounded-t-xl' 
+              : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
           <Layers className="w-4 h-4" />
           <span>{isHindi ? '1. समाधान मिलान वर्कस्पेस (Reconciliation Match)' : '1. Reconciliation Match Workspace'}</span>
           {periodScopedStatementLines.filter(l => !(l.reconciled || l.isReconciled)).length > 0 && (
-            <span className="bg-amber-500/20 text-amber-300 text-[10px] px-1.5 py-0.5 rounded-full font-bold">
+            <span className="hv-pill-amber border text-[10px] px-1.5 py-0.5 rounded-full font-bold">
               {periodScopedStatementLines.filter(l => !(l.reconciled || l.isReconciled)).length}
             </span>
           )}
@@ -958,8 +958,8 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
           onClick={() => setActiveTab('STATEMENT')}
           className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold border-b-2 transition ${
             activeTab === 'STATEMENT' 
-              ? 'border-emerald-500 text-emerald-400 bg-emerald-500/10 rounded-t-xl' 
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-emerald-500 text-emerald-500 hv-pill-emerald rounded-t-xl' 
+              : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
           <FileText className="w-4 h-4" />
@@ -970,8 +970,8 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
           onClick={() => setActiveTab('BOOKS')}
           className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold border-b-2 transition ${
             activeTab === 'BOOKS' 
-              ? 'border-emerald-500 text-emerald-400 bg-emerald-500/10 rounded-t-xl' 
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-emerald-500 text-emerald-500 hv-pill-emerald rounded-t-xl' 
+              : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
           <Landmark className="w-4 h-4" />
@@ -982,8 +982,8 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
           onClick={() => setActiveTab('REPORT')}
           className={`flex items-center gap-2 px-4 py-2.5 text-xs font-bold border-b-2 transition ${
             activeTab === 'REPORT' 
-              ? 'border-emerald-500 text-emerald-400 bg-emerald-500/10 rounded-t-xl' 
-              : 'border-transparent text-slate-400 hover:text-slate-200'
+              ? 'border-emerald-500 text-emerald-500 hv-pill-emerald rounded-t-xl' 
+              : 'border-transparent text-[var(--text-muted)] hover:text-[var(--text-primary)]'
           }`}
         >
           <Printer className="w-4 h-4" />
@@ -996,35 +996,35 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
         <div className="space-y-4">
           
           {/* Filter Bar */}
-          <div className="bg-slate-900/90 border border-slate-800 p-3 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-3">
+          <div className="hv-surface border border-[var(--border-primary)] p-3 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-3">
             <div className="flex items-center gap-2 w-full sm:w-auto">
               <div className="relative flex-1 sm:w-64">
-                <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-2.5" />
+                <Search className="w-3.5 h-3.5 text-[var(--text-muted)] absolute left-3 top-2.5" />
                 <input
                   type="text"
                   value={searchFilter}
                   onChange={(e) => setSearchFilter(e.target.value)}
                   placeholder={isHindi ? 'विवरण, राशि या संदर्भ से खोजें...' : 'Search statement entries...'}
-                  className="bg-slate-800 border border-slate-700 text-white text-xs rounded-lg pl-8 pr-3 py-1.5 w-full focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  className="hv-input border border-[var(--border-subtle)] text-xs rounded-lg pl-8 pr-3 py-1.5 w-full focus:outline-none focus:ring-1 focus:ring-emerald-500"
                 />
               </div>
 
-              <div className="flex rounded-lg bg-slate-800 p-0.5 border border-slate-700 text-[11px] font-bold">
+              <div className="flex rounded-lg hv-elevated p-0.5 border border-[var(--border-subtle)] text-[11px] font-bold">
                 <button
                   onClick={() => setStatusFilter('UNRECONCILED')}
-                  className={`px-2.5 py-1 rounded ${statusFilter === 'UNRECONCILED' ? 'bg-amber-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                  className={`px-2.5 py-1 rounded transition ${statusFilter === 'UNRECONCILED' ? 'bg-amber-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                 >
                   {isHindi ? 'लंबित मिलान (Pending)' : 'Unreconciled'}
                 </button>
                 <button
                   onClick={() => setStatusFilter('RECONCILED')}
-                  className={`px-2.5 py-1 rounded ${statusFilter === 'RECONCILED' ? 'bg-emerald-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                  className={`px-2.5 py-1 rounded transition ${statusFilter === 'RECONCILED' ? 'bg-emerald-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                 >
                   {isHindi ? 'समाधान पूर्ण (Matched)' : 'Reconciled'}
                 </button>
                 <button
                   onClick={() => setStatusFilter('ALL')}
-                  className={`px-2.5 py-1 rounded ${statusFilter === 'ALL' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-white'}`}
+                  className={`px-2.5 py-1 rounded transition ${statusFilter === 'ALL' ? 'bg-indigo-600 text-white hv-keep-white' : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'}`}
                 >
                   {isHindi ? 'सभी' : 'All'}
                 </button>
@@ -1034,7 +1034,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
             {onClearAllBankStatements && perms.canDeleteRecords && statementLines.length > 0 && (
               <button
                 onClick={onClearAllBankStatements}
-                className="text-slate-400 hover:text-rose-400 text-xs font-semibold flex items-center gap-1 px-2 py-1 rounded hover:bg-slate-800 transition"
+                className="text-[var(--text-muted)] hover:text-rose-500 text-xs font-semibold flex items-center gap-1 px-2 py-1 rounded hover:bg-[var(--hover-surface)] transition"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span>{isHindi ? 'सभी स्टेटमेंट साफ़ करें' : 'Clear All Statement Entries'}</span>
@@ -1044,14 +1044,14 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
 
           {/* Statement Lines Match Table */}
           {visibleStatementLines.length === 0 ? (
-            <div className="bg-slate-900/60 border border-slate-800 rounded-2xl p-12 text-center space-y-3">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto">
+            <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-12 text-center space-y-3">
+              <div className="w-14 h-14 rounded-2xl hv-pill-emerald border flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-7 h-7" />
               </div>
-              <h4 className="text-base font-bold text-white">
+              <h4 className="text-base font-bold text-[var(--text-primary)]">
                 {isHindi ? 'कोई लंबित बैंक प्रविष्टि नहीं है!' : 'No Pending Bank Statement Lines!'}
               </h4>
-              <p className="text-xs text-slate-400 max-w-md mx-auto">
+              <p className="text-xs text-[var(--text-muted)] max-w-md mx-auto">
                 {isHindi 
                   ? 'सभी प्रविष्टियाँ समाधान हो चुकी हैं या कोई नया बैंक स्टेटमेंट अपलोड नहीं किया गया है।' 
                   : 'All transactions are reconciled, or no statement has been uploaded yet.'}
@@ -1059,16 +1059,16 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
               {perms.canReconcileBank && (
                 <button
                   onClick={() => setShowImportModal(true)}
-                  className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl transition"
+                  className="bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white text-xs font-bold px-4 py-2 rounded-xl transition"
                 >
                   {isHindi ? '+ नया बैंक स्टेटमेंट अपलोड करें' : '+ Upload Bank Statement'}
                 </button>
               )}
             </div>
           ) : (
-            <div className="border border-slate-800 rounded-2xl overflow-x-auto bg-slate-900/80 shadow-xl">
+            <div className="border border-[var(--border-primary)] rounded-2xl overflow-x-auto hv-surface shadow-xl">
               <table className="w-full text-left text-xs min-w-[880px]">
-                <thead className="bg-slate-800/90 text-slate-300 uppercase text-[10px] font-bold border-b border-slate-700">
+                <thead className="bg-[var(--bg-elevated)] text-[var(--text-secondary)] uppercase text-[10px] font-bold border-b border-[var(--border-primary)]">
                   <tr>
                     <th className="p-3 w-28 whitespace-nowrap">{isHindi ? 'दिनांक' : 'Date'}</th>
                     <th className="p-3 min-w-[200px]">{isHindi ? 'बैंक स्टेटमेंट विवरण' : 'Bank Statement Particulars'}</th>
@@ -1079,7 +1079,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                     <th className="p-3 w-44 text-center whitespace-nowrap">{isHindi ? 'कार्यवाही' : 'Actions'}</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+                <tbody className="divide-y divide-[var(--border-primary)] hv-surface">
                   {visibleStatementLines.map((line) => {
                     const isReconciled = !!(line.reconciled || line.isReconciled);
                     const matchedVoucher = isReconciled && line.matchedVoucherId 
@@ -1091,14 +1091,14 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                     const topSuggestion = suggestions.length > 0 ? suggestions[0] : null;
 
                     return (
-                      <tr key={line.id} className="hover:bg-slate-800/40 transition">
-                        <td className="p-3 font-mono text-slate-300 whitespace-nowrap">{line.date}</td>
+                      <tr key={line.id} className="hover:bg-[var(--hover-surface)] transition">
+                        <td className="p-3 font-mono text-[var(--text-secondary)] whitespace-nowrap">{line.date}</td>
                         
                         <td className="p-3 min-w-[200px]">
-                          <div className="font-semibold text-slate-200">{line.description}</div>
+                          <div className="font-semibold text-[var(--text-primary)]">{line.description}</div>
                           {topSuggestion && (
-                            <div className="mt-1 text-[11px] text-amber-300 flex items-center gap-1">
-                              <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
+                            <div className="mt-1 text-[11px] text-amber-500 flex items-center gap-1">
+                              <Sparkles className="w-3 h-3 shrink-0" />
                               <span>
                                 {isHindi ? 'सुझाया गया मिलान:' : 'Suggested Match:'} <strong>{topSuggestion.voucher.voucherNumber}</strong> ({topSuggestion.voucher.partyName || topSuggestion.voucher.type}) - {topSuggestion.score}%
                               </span>
@@ -1106,39 +1106,39 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                           )}
                         </td>
 
-                        <td className="p-3 font-mono text-slate-400 text-[11px] whitespace-nowrap">
+                        <td className="p-3 font-mono text-[var(--text-muted)] text-[11px] whitespace-nowrap">
                           {line.referenceNo || '-'}
                         </td>
 
                         <td className="p-3 text-center whitespace-nowrap">
-                          <span className={`px-2 py-0.5 rounded text-[10px] font-extrabold ${
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-extrabold border ${
                             line.type === 'CREDIT' 
-                              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
-                              : 'bg-rose-500/20 text-rose-400 border border-rose-500/30'
+                              ? 'hv-pill-emerald' 
+                              : 'hv-pill-rose'
                           }`}>
                             {line.type === 'CREDIT' ? 'CR (Deposit)' : 'DR (Withdrawal)'}
                           </span>
                         </td>
 
                         <td className={`p-3 text-right font-mono font-bold whitespace-nowrap ${
-                          line.type === 'CREDIT' ? 'text-emerald-300' : 'text-rose-300'
+                          line.type === 'CREDIT' ? 'text-emerald-500' : 'text-rose-500'
                         }`}>
                           {formatCurrency(line.amount, data.company.currency)}
                         </td>
 
                         <td className="p-3 whitespace-nowrap">
                           {isReconciled ? (
-                            <div className="flex items-center gap-1.5 text-emerald-400 font-bold text-xs">
+                            <div className="flex items-center gap-1.5 text-emerald-500 font-bold text-xs">
                               <CheckCircle2 className="w-4 h-4 shrink-0" />
                               <span>{isHindi ? 'समाधान पूर्ण' : 'Reconciled'}</span>
                               {matchedVoucher && (
-                                <span className="text-[10px] text-slate-400 font-mono">
+                                <span className="text-[10px] text-[var(--text-muted)] font-mono">
                                   ({matchedVoucher.voucherNumber})
                                 </span>
                               )}
                             </div>
                           ) : (
-                            <div className="flex items-center gap-1 text-amber-400 font-semibold text-xs">
+                            <div className="flex items-center gap-1 text-amber-500 font-semibold text-xs">
                               <Clock className="w-3.5 h-3.5 shrink-0" />
                               <span>{isHindi ? 'लंबित' : 'Pending Match'}</span>
                             </div>
@@ -1154,7 +1154,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                                   <button
                                     type="button"
                                     onClick={() => setMatchingStatementLine(line)}
-                                    className="bg-indigo-600/30 hover:bg-indigo-600/60 border border-indigo-500/40 text-indigo-200 px-2.5 py-1 rounded-lg text-xs font-bold transition"
+                                    className="hv-pill-indigo border px-2.5 py-1 rounded-lg text-xs font-bold transition"
                                     title={isHindi ? 'वाउचर से मिलान करें' : 'Match with Voucher'}
                                   >
                                     {isHindi ? 'मिलान करें' : 'Match'}
@@ -1166,7 +1166,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                                       setQuickVoucherLine(line);
                                       setQuickVoucherType(line.type === 'DEBIT' ? 'PAYMENT' : 'RECEIPT');
                                     }}
-                                    className="bg-emerald-600/30 hover:bg-emerald-600/60 border border-emerald-500/40 text-emerald-200 px-2.5 py-1 rounded-lg text-xs font-bold transition"
+                                    className="hv-pill-emerald border px-2.5 py-1 rounded-lg text-xs font-bold transition"
                                     title={isHindi ? 'सीधे वाउचर बनाएं' : 'Create Missing Voucher'}
                                   >
                                     {isHindi ? '+ वाउचर' : '+ Voucher'}
@@ -1176,13 +1176,13 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                                 <button
                                   type="button"
                                   onClick={() => onReconcileMatch(line.id, 'VOUCHER', '')}
-                                  className="text-slate-400 hover:text-rose-400 px-2 py-1 rounded text-xs font-semibold transition"
+                                  className="text-[var(--text-muted)] hover:text-rose-500 px-2 py-1 rounded text-xs font-semibold transition"
                                 >
                                   {isHindi ? 'अन-मैच' : 'Unmatch'}
                                 </button>
                               )
                             ) : (
-                              <span className="text-[10px] text-slate-500 font-semibold">
+                              <span className="text-[10px] text-[var(--text-muted)] font-semibold">
                                 {isHindi ? 'रीड-ओनली' : 'View Only'}
                               </span>
                             )}
@@ -1191,7 +1191,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                               <button
                                 type="button"
                                 onClick={() => onDeleteStatementLine(line.id)}
-                                className="text-slate-500 hover:text-rose-400 p-1 transition"
+                                className="text-[var(--text-muted)] hover:text-rose-500 p-1 transition"
                                 title="Delete statement line"
                               >
                                 <Trash2 className="w-3.5 h-3.5" />
@@ -1212,47 +1212,47 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
 
       {/* TAB 2: STATEMENT REGISTER */}
       {activeTab === 'STATEMENT' && (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <FileText className="w-4 h-4 text-emerald-400" />
+            <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+              <FileText className="w-4 h-4 text-emerald-500" />
               <span>{isHindi ? 'बैंक स्टेटमेंट सम्पूर्ण लेजर' : 'Bank Statement Full Ledger'}</span>
             </h3>
             {perms.canReconcileBank && (
               <button
                 onClick={() => setShowImportModal(true)}
-                className="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-xl transition"
+                className="bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white text-xs font-bold px-3 py-1.5 rounded-xl transition"
               >
                 {isHindi ? '+ नया स्टेटमेंट जोड़ें' : '+ Import More'}
               </button>
             )}
           </div>
 
-          <div className="border border-slate-800 rounded-xl overflow-x-auto">
+          <div className="border border-[var(--border-primary)] rounded-xl overflow-x-auto">
             <table className="w-full text-left text-xs min-w-[780px]">
-              <thead className="bg-slate-800 text-slate-300 uppercase text-[10px] font-bold">
+              <thead className="bg-[var(--bg-elevated)] text-[var(--text-secondary)] uppercase text-[10px] font-bold border-b border-[var(--border-primary)]">
                 <tr>
                   <th className="p-3 w-28 whitespace-nowrap">{isHindi ? 'दिनांक' : 'Date'}</th>
                   <th className="p-3 min-w-[200px]">{isHindi ? 'विवरण' : 'Particulars'}</th>
                   <th className="p-3 w-32 whitespace-nowrap">{isHindi ? 'Ref / UTR' : 'Ref No'}</th>
-                  <th className="p-3 w-28 text-right whitespace-nowrap text-rose-300">{isHindi ? 'डेबिट / Withdrawal' : 'Debit (Dr)'}</th>
-                  <th className="p-3 w-28 text-right whitespace-nowrap text-emerald-300">{isHindi ? 'क्रेडिट / Deposit' : 'Credit (Cr)'}</th>
+                  <th className="p-3 w-28 text-right whitespace-nowrap text-rose-500">{isHindi ? 'डेबिट / Withdrawal' : 'Debit (Dr)'}</th>
+                  <th className="p-3 w-28 text-right whitespace-nowrap text-emerald-500">{isHindi ? 'क्रेडिट / Deposit' : 'Credit (Cr)'}</th>
                   <th className="p-3 w-32 text-right whitespace-nowrap">{isHindi ? 'रनिंग बैलेंस' : 'Running Balance'}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800">
+              <tbody className="divide-y divide-[var(--border-primary)] hv-surface">
                 {periodScopedStatementLines.map(l => (
-                  <tr key={l.id} className="hover:bg-slate-800/40">
-                    <td className="p-3 font-mono text-slate-300 whitespace-nowrap">{l.date}</td>
-                    <td className="p-3 text-slate-200 min-w-[200px]">{l.description}</td>
-                    <td className="p-3 font-mono text-slate-400 text-[11px] whitespace-nowrap">{l.referenceNo || '-'}</td>
-                    <td className="p-3 text-right font-mono text-rose-300 whitespace-nowrap">
+                  <tr key={l.id} className="hover:bg-[var(--hover-surface)]">
+                    <td className="p-3 font-mono text-[var(--text-secondary)] whitespace-nowrap">{l.date}</td>
+                    <td className="p-3 text-[var(--text-primary)] min-w-[200px]">{l.description}</td>
+                    <td className="p-3 font-mono text-[var(--text-muted)] text-[11px] whitespace-nowrap">{l.referenceNo || '-'}</td>
+                    <td className="p-3 text-right font-mono text-rose-500 whitespace-nowrap">
                       {l.type === 'DEBIT' ? formatCurrency(l.amount, data.company.currency) : '-'}
                     </td>
-                    <td className="p-3 text-right font-mono text-emerald-300 whitespace-nowrap">
+                    <td className="p-3 text-right font-mono text-emerald-500 whitespace-nowrap">
                       {l.type === 'CREDIT' ? formatCurrency(l.amount, data.company.currency) : '-'}
                     </td>
-                    <td className="p-3 text-right font-mono text-slate-300 font-bold whitespace-nowrap">
+                    <td className="p-3 text-right font-mono text-[var(--text-primary)] font-bold whitespace-nowrap">
                       {l.runningBalance !== undefined ? formatCurrency(l.runningBalance, data.company.currency) : '-'}
                     </td>
                   </tr>
@@ -1265,20 +1265,20 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
 
       {/* TAB 3: BOOKS BANK VOUCHERS */}
       {activeTab === 'BOOKS' && (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 md:p-6 space-y-4">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4 md:p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <Landmark className="w-4 h-4 text-indigo-400" />
+            <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+              <Landmark className="w-4 h-4 text-indigo-500" />
               <span>{isHindi ? 'कंपनी बैंक वही खाते (Bank Book Vouchers)' : 'Company Bank Book Vouchers'}</span>
             </h3>
-            <span className="text-xs text-slate-400 font-medium">
+            <span className="text-xs text-[var(--text-muted)] font-medium">
               {selectedBank?.name} ({periodScopedBankVouchers.length} {isHindi ? 'वाउचर्स' : 'vouchers'})
             </span>
           </div>
 
-          <div className="border border-slate-800 rounded-xl overflow-x-auto">
+          <div className="border border-[var(--border-primary)] rounded-xl overflow-x-auto">
             <table className="w-full text-left text-xs min-w-[920px]">
-              <thead className="bg-slate-800 text-slate-300 uppercase text-[10px] font-bold">
+              <thead className="bg-[var(--bg-elevated)] text-[var(--text-secondary)] uppercase text-[10px] font-bold border-b border-[var(--border-primary)]">
                 <tr>
                   <th className="p-3 w-28 whitespace-nowrap">{isHindi ? 'दिनांक' : 'Date'}</th>
                   <th className="p-3 w-32 whitespace-nowrap">{isHindi ? 'वाउचर नं.' : 'Voucher No'}</th>
@@ -1290,43 +1290,43 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                   <th className="p-3 w-32 text-center whitespace-nowrap">{isHindi ? 'स्थिति' : 'Status'}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800">
+              <tbody className="divide-y divide-[var(--border-primary)] hv-surface">
                 {periodScopedBankVouchers.map(v => {
                   const clearanceDate = v.bankersDate || v.reconciledDate || '';
                   const instrumentRef = v.instrumentNumber || v.bankReferenceNo || v.referenceNo || '';
                   const isCleared = Boolean(v.isReconciled || clearanceDate);
                   return (
-                    <tr key={v.id} className="hover:bg-slate-800/40">
-                      <td className="p-3 font-mono tabular-nums text-slate-300 whitespace-nowrap">{v.date}</td>
-                      <td className="p-3 font-mono font-bold text-indigo-300 whitespace-nowrap">{v.voucherNumber}</td>
-                      <td className="p-3 font-bold text-slate-300 text-center whitespace-nowrap">{v.type}</td>
+                    <tr key={v.id} className="hover:bg-[var(--hover-surface)]">
+                      <td className="p-3 font-mono tabular-nums text-[var(--text-secondary)] whitespace-nowrap">{v.date}</td>
+                      <td className="p-3 font-mono font-bold text-indigo-500 whitespace-nowrap">{v.voucherNumber}</td>
+                      <td className="p-3 font-bold text-[var(--text-secondary)] text-center whitespace-nowrap">{v.type}</td>
                       <td className="p-3 min-w-[200px]">
-                        <div className="text-slate-200 font-semibold">{v.partyName || v.narration}</div>
-                        {v.partyName && <div className="text-[11px] text-slate-400">{v.narration}</div>}
+                        <div className="text-[var(--text-primary)] font-semibold">{v.partyName || v.narration}</div>
+                        {v.partyName && <div className="text-[11px] text-[var(--text-muted)]">{v.narration}</div>}
                       </td>
-                      <td className="p-3 font-mono text-[11px] text-slate-300 whitespace-nowrap">
-                        {instrumentRef || <span className="text-slate-500">—</span>}
+                      <td className="p-3 font-mono text-[11px] text-[var(--text-secondary)] whitespace-nowrap">
+                        {instrumentRef || <span className="text-[var(--text-muted)]">—</span>}
                       </td>
                       <td className="p-3 font-mono tabular-nums text-[11px] whitespace-nowrap">
                         {clearanceDate ? (
-                          <span className="text-emerald-300 font-semibold">{clearanceDate}</span>
+                          <span className="text-emerald-500 font-semibold">{clearanceDate}</span>
                         ) : (
-                          <span className="text-amber-400/90 font-semibold">
+                          <span className="text-amber-500 font-semibold">
                             {isHindi ? 'बैंक में लंबित' : 'Uncleared'}
                           </span>
                         )}
                       </td>
-                      <td className="p-3 text-right font-mono tabular-nums font-bold text-white whitespace-nowrap">
+                      <td className="p-3 text-right font-mono tabular-nums font-bold text-[var(--text-primary)] whitespace-nowrap">
                         {formatCurrency(v.totalAmount, data.company.currency)}
                       </td>
                       <td className="p-3 text-center whitespace-nowrap">
                         {isCleared ? (
-                          <span className="text-emerald-400 font-bold text-xs flex items-center justify-center gap-1">
+                          <span className="text-emerald-500 font-bold text-xs flex items-center justify-center gap-1">
                             <CheckCircle2 className="w-3.5 h-3.5" />
                             <span>{isHindi ? 'क्लियर / मिलान पूर्ण' : 'Cleared'}</span>
                           </span>
                         ) : (
-                          <span className="text-amber-400 font-semibold text-xs">
+                          <span className="text-amber-500 font-semibold text-xs">
                             {isHindi ? 'लंबित (Uncleared)' : 'Uncleared'}
                           </span>
                         )}
@@ -1343,13 +1343,13 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
       {/* TAB 4: OFFICIAL BRS AUDIT REPORT (Printable) */}
       {activeTab === 'REPORT' && (
         <div className="space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-900 border border-slate-800 p-4 rounded-2xl no-print shadow-lg">
+          <div className="flex flex-wrap items-center justify-between gap-3 hv-surface border border-[var(--border-primary)] p-4 rounded-2xl no-print shadow-lg">
             <div>
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Printer className="w-4 h-4 text-emerald-400" />
+              <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <Printer className="w-4 h-4 text-emerald-500" />
                 <span>{isHindi ? 'आधिकारिक BRS ऑडिट रिपोर्ट पूर्वावलोकन' : 'Official BRS Audit Report Preview'}</span>
               </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-[var(--text-muted)] mt-0.5">
                 {isHindi ? 'लेजर और बैंक स्टेटमेंट का प्रमाणित समाधान विवरण' : 'Certified reconciliation statement for management & tax auditors'}
               </p>
             </div>
@@ -1360,8 +1360,8 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                   onClick={() => setShowBrsPrintConfig(prev => !prev)}
                   className={`flex items-center gap-1.5 text-xs font-bold px-3 py-2 rounded-xl border transition cursor-pointer ${
                     showBrsPrintConfig
-                      ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                      : 'bg-slate-800 hover:bg-slate-700 border-slate-700 text-slate-200'
+                      ? 'hv-pill-amber'
+                      : 'bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)]'
                   }`}
                 >
                   <Sliders className="w-3.5 h-3.5" />
@@ -1390,7 +1390,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                     }
                   }}
                   disabled={isDownloadingBrsPdf}
-                  className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold px-3.5 py-2 rounded-xl shadow-md transition cursor-pointer disabled:opacity-60"
+                  className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white text-xs font-extrabold px-3.5 py-2 rounded-xl shadow-md transition cursor-pointer disabled:opacity-60"
                 >
                   {isDownloadingBrsPdf ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
                   <span>{isDownloadingBrsPdf ? (isHindi ? 'PDF बन रहा है...' : 'Saving PDF...') : (isHindi ? 'PDF डाउनलोड' : 'Download PDF')}</span>
@@ -1411,9 +1411,9 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
                   }}
-                  className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-bold px-3 py-2 rounded-xl transition cursor-pointer"
+                  className="flex items-center gap-1.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] text-xs font-bold px-3 py-2 rounded-xl transition cursor-pointer"
                 >
-                  <FileText className="w-3.5 h-3.5 text-sky-400" />
+                  <FileText className="w-3.5 h-3.5 text-sky-500" />
                   <span>HTML</span>
                 </button>
 
@@ -1427,7 +1427,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                       title: `BRS Report - ${data.company.name}`
                     })
                   }
-                  className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-extrabold px-4 py-2 rounded-xl shadow-md transition cursor-pointer"
+                  className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white text-xs font-extrabold px-4 py-2 rounded-xl shadow-md transition cursor-pointer"
                 >
                   <Printer className="w-4 h-4" />
                   <span>{isHindi ? 'प्रिंट करें' : 'Print'}</span>
@@ -1437,7 +1437,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
           </div>
 
           {showBrsPrintConfig && (
-            <div className="rounded-2xl overflow-hidden border border-slate-800 no-print">
+            <div className="rounded-2xl overflow-hidden border border-[var(--border-primary)] no-print">
               <PrintConfigPanel
                 config={brsPrintConfig}
                 onChange={setBrsPrintConfig}
@@ -1605,33 +1605,37 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
       {/* MODAL 2: MANUAL MATCH MODAL */}
       {matchingStatementLine && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-slate-900 border border-slate-700 w-full max-w-2xl rounded-2xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+          <div className="hv-surface border border-[var(--border-subtle)] w-full max-w-2xl rounded-2xl p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto text-[var(--text-primary)]">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
+              <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                 <span>{isHindi ? 'स्टेटमेंट प्रविष्टि का वाउचर से मिलान' : 'Match Statement Entry with Book Voucher'}</span>
               </h3>
-              <button onClick={() => setMatchingStatementLine(null)} className="text-slate-400 hover:text-white">
+              <button
+                type="button"
+                onClick={() => setMatchingStatementLine(null)}
+                className="p-1.5 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-primary)] transition"
+              >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {/* Target Statement Line Info */}
-            <div className="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700/80 space-y-1">
-              <div className="flex justify-between text-xs font-bold text-white">
+            <div className="hv-elevated p-3.5 rounded-xl border border-[var(--border-subtle)] space-y-1">
+              <div className="flex justify-between text-xs font-bold text-[var(--text-primary)]">
                 <span>{matchingStatementLine.description}</span>
-                <span className={matchingStatementLine.type === 'CREDIT' ? 'text-emerald-300' : 'text-rose-300'}>
+                <span className={matchingStatementLine.type === 'CREDIT' ? 'text-emerald-500' : 'text-rose-500'}>
                   {formatCurrency(matchingStatementLine.amount, data.company.currency)} ({matchingStatementLine.type})
                 </span>
               </div>
-              <div className="text-[11px] text-slate-400 font-mono">
+              <div className="text-[11px] text-[var(--text-muted)] font-mono">
                 Date: {matchingStatementLine.date} | Ref: {matchingStatementLine.referenceNo || 'N/A'}
               </div>
             </div>
 
             {/* Matching Suggestions List */}
             <div className="space-y-2">
-              <h4 className="text-xs font-bold text-slate-300">
+              <h4 className="text-xs font-bold text-[var(--text-secondary)]">
                 {isHindi ? 'उपलब्ध वाउचर्स (Available Book Vouchers):' : 'Select Matching Voucher from Books:'}
               </h4>
 
@@ -1649,25 +1653,25 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
                         }}
                         className={`p-3 rounded-xl border transition cursor-pointer flex items-center justify-between ${
                           isExactAmt 
-                            ? 'bg-emerald-950/20 border-emerald-500/50 hover:bg-emerald-950/40' 
-                            : 'bg-slate-800/50 border-slate-700 hover:bg-slate-800'
+                            ? 'hv-pill-emerald' 
+                            : 'hv-elevated border-[var(--border-subtle)] hover:bg-[var(--hover-surface)]'
                         }`}
                       >
                         <div>
-                          <div className="text-xs font-bold text-white flex items-center gap-2">
+                          <div className="text-xs font-bold text-[var(--text-primary)] flex items-center gap-2">
                             <span>{v.voucherNumber} ({v.type})</span>
                             {isExactAmt && (
-                              <span className="bg-emerald-500/20 text-emerald-300 text-[10px] px-1.5 py-0.2 rounded font-bold">
+                              <span className="hv-pill-emerald border text-[10px] px-1.5 py-0.2 rounded font-bold">
                                 {isHindi ? 'सटीक राशि' : 'Exact Amount'}
                               </span>
                             )}
                           </div>
-                          <div className="text-[11px] text-slate-400 font-mono">
+                          <div className="text-[11px] text-[var(--text-muted)] font-mono">
                             {v.date} | {v.partyName || v.narration}
                           </div>
                         </div>
 
-                        <div className="text-right font-mono font-bold text-white text-xs">
+                        <div className="text-right font-mono font-bold text-[var(--text-primary)] text-xs">
                           {formatCurrency(v.totalAmount, data.company.currency)}
                         </div>
                       </div>
@@ -1680,7 +1684,7 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
               <button
                 type="button"
                 onClick={() => setMatchingStatementLine(null)}
-                className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-xl text-xs font-bold transition"
+                className="bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] px-4 py-2 rounded-xl text-xs font-bold transition"
               >
                 {isHindi ? 'बंद करें' : 'Close'}
               </button>
@@ -1692,22 +1696,26 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
       {/* MODAL 3: QUICK CREATE MISSING VOUCHER */}
       {quickVoucherLine && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4">
-          <div className="bg-slate-900 border border-slate-700 w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Plus className="w-4 h-4 text-emerald-400" />
+          <div className="hv-surface border border-[var(--border-subtle)] w-full max-w-md rounded-2xl p-6 shadow-2xl space-y-4 text-[var(--text-primary)]">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-3">
+              <h3 className="text-sm font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <Plus className="w-4 h-4 text-emerald-500" />
                 <span>{isHindi ? 'स्टेटमेंट लाइन से सीधे वाउचर बनाएं' : 'Create Missing Voucher'}</span>
               </h3>
-              <button onClick={() => setQuickVoucherLine(null)} className="text-slate-400 hover:text-white">
+              <button
+                type="button"
+                onClick={() => setQuickVoucherLine(null)}
+                className="p-1.5 rounded-lg text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] border border-[var(--border-primary)] transition"
+              >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700 text-xs space-y-1">
-              <div className="text-slate-200 font-bold">{quickVoucherLine.description}</div>
-              <div className="text-slate-400 font-mono flex justify-between">
+            <div className="hv-elevated p-3 rounded-xl border border-[var(--border-subtle)] text-xs space-y-1">
+              <div className="text-[var(--text-primary)] font-bold">{quickVoucherLine.description}</div>
+              <div className="text-[var(--text-muted)] font-mono flex justify-between">
                 <span>Date: {quickVoucherLine.date}</span>
-                <span className={quickVoucherLine.type === 'CREDIT' ? 'text-emerald-300 font-bold' : 'text-rose-300 font-bold'}>
+                <span className={quickVoucherLine.type === 'CREDIT' ? 'text-emerald-500 font-bold' : 'text-rose-500 font-bold'}>
                   {formatCurrency(quickVoucherLine.amount, data.company.currency)} ({quickVoucherLine.type})
                 </span>
               </div>
@@ -1715,13 +1723,13 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="text-slate-300 font-semibold mb-1 block">
+                <label className="text-[var(--text-secondary)] font-semibold mb-1 block">
                   {isHindi ? 'विपरीत खाता (Counter Ledger Account):' : 'Counter Ledger Account:'}
                 </label>
                 <select
                   value={quickTargetAccountId}
                   onChange={(e) => setQuickTargetAccountId(e.target.value)}
-                  className="w-full bg-slate-800 border border-slate-700 text-white rounded-lg p-2.5 focus:ring-1 focus:ring-emerald-500 focus:outline-none"
+                  className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2.5 focus:ring-1 focus:ring-emerald-500 focus:outline-none"
                 >
                   <option value="">-- {isHindi ? 'खाता चुनें' : 'Select Account'} --</option>
                   {data.accounts.filter(acc => !acc.isGroup && acc.id !== selectedBank?.id).map(acc => (
@@ -1737,14 +1745,14 @@ export const BankReconciliation: React.FC<BankReconciliationProps> = ({
               <button
                 type="button"
                 onClick={() => setQuickVoucherLine(null)}
-                className="bg-slate-800 hover:bg-slate-700 text-slate-300 px-4 py-2 rounded-xl text-xs font-bold transition"
+                className="bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] px-4 py-2 rounded-xl text-xs font-bold transition"
               >
                 {isHindi ? 'रद्द करें' : 'Cancel'}
               </button>
               <button
                 type="button"
                 onClick={handleExecuteCreateQuickVoucher}
-                className="bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2 rounded-xl text-xs font-extrabold transition shadow-lg shadow-emerald-600/30"
+                className="bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white px-5 py-2 rounded-xl text-xs font-extrabold transition shadow-lg shadow-emerald-600/30"
               >
                 {isHindi ? 'वाउचर बनाएं व समाधान करें' : 'Post & Reconcile'}
               </button>

@@ -191,27 +191,31 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-      <div className="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-3xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden text-slate-200">
-        <div className="p-4 bg-slate-800 border-b border-slate-700 flex items-center justify-between shrink-0">
+      <div className="hv-surface border border-[var(--border-primary)] rounded-2xl w-full max-w-3xl max-h-[92vh] flex flex-col shadow-2xl overflow-hidden text-[var(--text-primary)]">
+        <div className="p-4 hv-elevated border-b border-[var(--border-subtle)] flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
-            <ArrowRightLeft className="w-5 h-5 text-indigo-400" />
-            <h3 className="text-base font-bold text-white">
+            <ArrowRightLeft className="w-5 h-5 text-indigo-500" />
+            <h3 className="text-base font-bold text-[var(--text-primary)]">
               {editingVoucher
                 ? (isHindi ? `जर्नल वाउचर संपादित करें (${editingVoucher.voucherNumber})` : `Edit Journal Voucher (${editingVoucher.voucherNumber})`)
                 : (isHindi ? 'नया जर्नल वाउचर प्रविष्टि (Journal Entry - F7)' : 'New Double-Entry Journal Voucher (F7)')}
             </h3>
           </div>
-          <button onClick={onClose} className="p-1.5 text-slate-400 hover:text-white bg-slate-800 rounded-lg">
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-primary)] rounded-lg transition"
+          >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-5 overflow-y-auto space-y-4 text-sm">
           {/* Accounting Golden Rule Notice */}
-          <div className="p-3 bg-indigo-500/10 border border-indigo-500/30 rounded-xl text-indigo-200 flex items-start gap-2.5">
-            <ShieldAlert className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
+          <div className="p-3 hv-pill-indigo border rounded-xl flex items-start gap-2.5">
+            <ShieldAlert className="w-4 h-4 shrink-0 mt-0.5" />
             <div className="leading-relaxed">
-              <span className="font-bold text-indigo-300">
+              <span className="font-bold">
                 {isHindi ? 'लेखांकन नियम (Journal Voucher Rule): ' : 'Accounting Rule (Non-Cash Adjustments Only): '}
               </span>
               {isHindi
@@ -221,8 +225,8 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
           </div>
 
           {cashOrBankSelectedLines.length > 0 && (
-            <div className="p-3 bg-amber-500/15 border border-amber-500/50 rounded-xl text-amber-200 font-bold flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+            <div className="p-3 hv-pill-amber border rounded-xl font-bold flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
               <span>
                 {isHindi
                   ? 'चेतावनी: इस पुराने जर्नल वाउचर में कैश/बैंक खाता जुड़ा है। सेव करने से पहले कृपया इसे गैर-नकद/गैर-बैंक लेजर में बदलें या Payment/Receipt/Contra वाउचर बनाएं।'
@@ -232,24 +236,24 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
           )}
 
           {validationError && (
-            <div className="p-3 bg-rose-500/15 border border-rose-500/50 rounded-xl text-rose-200 font-bold flex items-center justify-between gap-2">
+            <div className="p-3 hv-pill-rose border rounded-xl font-bold flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />
+                <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{validationError}</span>
               </div>
-              <button type="button" onClick={() => setValidationError(null)} className="text-rose-300 hover:text-white">
+              <button type="button" onClick={() => setValidationError(null)} className="hover:opacity-75">
                 <X className="w-4 h-4" />
               </button>
             </div>
           )}
 
           {budgetOverrunAlerts.length > 0 && (
-            <div className="p-3 bg-amber-500/15 border border-amber-500/40 rounded-xl text-amber-200 space-y-1 text-xs">
+            <div className="p-3 hv-pill-amber border rounded-xl space-y-1 text-xs">
               {budgetOverrunAlerts.map((alert) => (
                 <div key={alert.accountId} className="flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5" />
                   <div className="leading-relaxed">
-                    <span className="font-bold text-amber-300">
+                    <span className="font-bold">
                       {isHindi
                         ? `बजट सीमा चेतावनी (${alert.accountName}): `
                         : `Budget Overrun Alert (${alert.accountName}): `}
@@ -263,33 +267,33 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 bg-slate-800/60 p-3 rounded-xl border border-slate-700">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 hv-elevated p-3 rounded-xl border border-[var(--border-subtle)]">
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                 {isHindi ? 'वाउचर नंबर' : 'Voucher Number'}
               </label>
               <input
                 type="text"
                 value={voucherNumber}
                 onChange={(e) => setVoucherNumber(e.target.value)}
-                className="w-full bg-slate-900 text-slate-100 border border-slate-700 rounded-lg p-2 font-mono"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 font-mono"
                 required
               />
             </div>
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                 {isHindi ? 'तिथि' : 'Date'}
               </label>
               <input
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="w-full bg-slate-900 text-slate-100 border border-slate-700 rounded-lg p-2"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2"
                 required
               />
             </div>
             <div>
-              <label className="block text-slate-300 font-semibold mb-1">
+              <label className="block text-[var(--text-secondary)] font-semibold mb-1">
                 {isHindi ? 'संदर्भ सं. (Ref No)' : 'Reference / Memo No'}
               </label>
               <input
@@ -297,7 +301,7 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
                 value={referenceNo}
                 onChange={(e) => setReferenceNo(e.target.value)}
                 placeholder="REF-1001"
-                className="w-full bg-slate-900 text-slate-100 border border-slate-700 rounded-lg p-2 font-mono"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 font-mono"
               />
             </div>
           </div>
@@ -305,7 +309,7 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
           {/* Lines Table */}
           <div className="space-y-2">
             <div className="flex justify-between items-center flex-wrap gap-2">
-              <span className="font-bold text-slate-200">
+              <span className="font-bold text-[var(--text-primary)]">
                 {isHindi ? 'डेबिट/क्रेडिट खाते (Cash/Bank रहित)' : 'Journal Debit / Credit Entries (Non-Cash/Non-Bank Ledgers)'}
               </span>
               <div className="flex items-center gap-2">
@@ -313,7 +317,7 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
                   <button
                     type="button"
                     onClick={() => setQuickLedgerLineId(lines[0]?.id || 'l_1')}
-                    className="flex items-center gap-1 bg-indigo-500/15 hover:bg-indigo-500/25 text-indigo-300 border border-indigo-500/40 px-2.5 py-1 rounded-lg text-xs font-bold transition"
+                    className="flex items-center gap-1 hv-pill-indigo border px-2.5 py-1 rounded-lg text-xs font-bold transition"
                   >
                     <PlusCircle className="w-3.5 h-3.5" />
                     <span>{isHindi ? '+ नया लेजर बनाएँ' : '+ New Ledger'}</span>
@@ -322,7 +326,7 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
                 <button
                   type="button"
                   onClick={handleAddLine}
-                  className="flex items-center gap-1 text-indigo-400 hover:text-indigo-300 text-xs font-semibold"
+                  className="flex items-center gap-1 text-indigo-500 hover:opacity-80 text-xs font-semibold"
                 >
                   <Plus className="w-3.5 h-3.5" />
                   <span>+ Add Entry Line</span>
@@ -330,9 +334,9 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
               </div>
             </div>
 
-            <div className="border border-slate-700 rounded-xl overflow-x-auto max-h-[38vh] overflow-y-auto">
+            <div className="border border-[var(--border-subtle)] rounded-xl overflow-x-auto max-h-[38vh] overflow-y-auto">
               <table className="w-full text-left text-sm tabular-nums">
-                <thead className="sticky top-0 z-10 bg-slate-800 text-slate-300 font-bold text-xs uppercase border-b border-slate-700">
+                <thead className="sticky top-0 z-10 bg-[var(--bg-elevated)] text-[var(--text-secondary)] font-bold text-xs uppercase border-b border-[var(--border-subtle)]">
                   <tr>
                     <th className="p-2.5">Particulars / Account Name</th>
                     <th className="p-2.5 w-36 text-right">Debit (नामे) ({currency})</th>
@@ -340,19 +344,19 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
                     <th className="p-2.5 w-10 text-center"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800 bg-slate-900">
+                <tbody className="divide-y divide-[var(--border-primary)] hv-surface">
                   {lines.map((line) => {
                     const currentAcc = data.accounts.find(a => a.id === line.accountId);
                     const isIllegalLine = isCashOrBankLedger(currentAcc);
                     return (
-                      <tr key={line.id} className={isIllegalLine ? 'bg-rose-950/30' : ''}>
+                      <tr key={line.id} className={isIllegalLine ? 'hv-pill-rose' : 'hover:bg-[var(--hover-surface)]'}>
                         <td className="p-2">
                           <div className="flex items-center gap-1.5">
                             <select
                               value={line.accountId}
                               onChange={(e) => handleAccountSelect(line.id, e.target.value)}
-                              className={`w-full bg-slate-900 border rounded-lg p-2 text-xs text-slate-100 ${
-                                isIllegalLine ? 'border-rose-500 text-rose-300' : 'border-slate-700'
+                              className={`w-full hv-input border rounded-lg p-2 text-xs ${
+                                isIllegalLine ? 'border-rose-500 text-rose-500' : 'border-[var(--border-subtle)]'
                               }`}
                             >
                               <option value="">{isHindi ? '-- लेजर खाता चुनें --' : '-- Select Ledger Account --'}</option>
@@ -367,7 +371,7 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
                                 </option>
                               ))}
                               {onAddAccount && (
-                                <option value="__CREATE_NEW__" className="text-indigo-300 font-bold">
+                                <option value="__CREATE_NEW__" className="text-indigo-500 font-bold">
                                   {isHindi ? '➕ + नया लेजर खाता बनाएँ...' : '➕ + Create New Ledger Account...'}
                                 </option>
                               )}
@@ -377,7 +381,7 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
                                 type="button"
                                 onClick={() => setQuickLedgerLineId(line.id)}
                                 title={isHindi ? 'इस पंक्ति के लिए नया लेजर बनाएँ' : 'Create new ledger for this row'}
-                                className="p-2 bg-slate-800 hover:bg-indigo-600/30 text-indigo-300 border border-slate-700 hover:border-indigo-500/50 rounded-lg shrink-0 transition"
+                                className="p-2 hv-pill-indigo border rounded-lg shrink-0 transition"
                               >
                                 <PlusCircle className="w-3.5 h-3.5" />
                               </button>
@@ -392,7 +396,7 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
                             value={line.debit || ''}
                             placeholder="0.00"
                             onChange={(e) => handleValueChange(line.id, 'debit', Number(e.target.value))}
-                            className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-right font-mono text-emerald-400"
+                            className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 text-right font-mono text-emerald-500"
                           />
                         </td>
                         <td className="p-2">
@@ -403,14 +407,14 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
                             value={line.credit || ''}
                             placeholder="0.00"
                             onChange={(e) => handleValueChange(line.id, 'credit', Number(e.target.value))}
-                            className="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-right font-mono text-indigo-400"
+                            className="w-full hv-input border border-[var(--border-subtle)] rounded-lg p-2 text-right font-mono text-indigo-500"
                           />
                         </td>
                         <td className="p-2 text-center">
                           <button
                             type="button"
                             onClick={() => handleRemoveLine(line.id)}
-                            className="text-slate-500 hover:text-rose-400"
+                            className="text-[var(--text-muted)] hover:text-rose-500 disabled:opacity-40"
                             disabled={lines.length <= 2}
                           >
                             <Trash2 className="w-4 h-4" />
@@ -426,10 +430,10 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
 
           {/* Validation Balance Banner */}
           <div className={`p-3 rounded-xl border flex flex-wrap items-center justify-between gap-2 text-sm font-semibold ${
-            isBalanced ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' : 'bg-rose-500/10 border-rose-500/30 text-rose-300'
+            isBalanced ? 'hv-pill-emerald' : 'hv-pill-rose'
           }`}>
             <div className="flex items-center gap-2">
-              {isBalanced ? <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> : <AlertCircle className="w-4 h-4 text-rose-400 shrink-0" />}
+              {isBalanced ? <CheckCircle2 className="w-4 h-4 shrink-0" /> : <AlertCircle className="w-4 h-4 shrink-0" />}
               <span>
                 {willAutoRoundOff
                   ? (isHindi
@@ -448,7 +452,7 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
 
           {/* Narration */}
           <div>
-            <label className="block text-slate-300 font-semibold mb-1">
+            <label className="block text-[var(--text-secondary)] font-semibold mb-1">
               {isHindi ? 'नारेशन / विवरण (Narration)' : 'Voucher Narration / Memo'}
             </label>
             <input
@@ -456,22 +460,22 @@ export const JournalVoucherModal: React.FC<JournalVoucherModalProps> = ({
               value={narration}
               onChange={(e) => setNarration(e.target.value)}
               placeholder="Being adjustment entry passed for..."
-              className="w-full bg-slate-900 text-slate-100 border border-slate-700 rounded-xl p-2.5"
+              className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5"
             />
           </div>
 
-          <div className="flex justify-end gap-2 pt-2 border-t border-slate-800">
+          <div className="flex justify-end gap-2 pt-2 border-t border-[var(--border-primary)]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl"
+              className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-semibold rounded-xl transition"
             >
               {isHindi ? 'रद्द करें' : 'Cancel'}
             </button>
             <button
               type="submit"
               disabled={!isBalanced}
-              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition"
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white hv-keep-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 transition"
             >
               {isHindi ? 'जर्नल वाउचर सेव करें' : 'Post Journal Voucher'}
             </button>

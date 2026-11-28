@@ -559,16 +559,16 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
   return (
     <div className="md:h-full md:min-h-0 flex flex-col p-3 md:p-5 gap-3 w-full md:overflow-hidden">
       {/* Top Banner Header */}
-      <div className="shrink-0 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 bg-slate-900 p-4 rounded-2xl border border-slate-800 shadow-lg">
+      <div className="shrink-0 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 hv-surface p-4 rounded-2xl border border-[var(--border-primary)] shadow-lg">
         <div>
-          <h2 className="text-lg md:text-xl font-bold text-slate-100 flex items-center gap-2 flex-wrap">
-            <PieChart className="w-5 h-5 text-indigo-400 shrink-0" />
+          <h2 className="text-lg md:text-xl font-bold text-[var(--text-primary)] flex items-center gap-2 flex-wrap">
+            <PieChart className="w-5 h-5 text-indigo-500 shrink-0" />
             <span>{isHindi ? 'व्यापारिक, लाभ-हानि खाता, बैलेंस शीट व ट्रायल बैलेंस' : 'Trading, P&L, Balance Sheet & Trial Balance ERP'}</span>
-            <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/40 text-xs px-2.5 py-0.5 rounded-full font-bold font-mono">
+            <span className="hv-pill-indigo border text-xs px-2.5 py-0.5 rounded-full font-bold font-mono">
               {statementPeriodLabel}
             </span>
           </h2>
-          <p className="text-sm text-slate-400 mt-0.5">
+          <p className="text-sm text-[var(--text-muted)] mt-0.5">
             {isHindi 
               ? 'ट्रेडिंग अकाउंट, पीएंडएल खाता, ट्रायल बैलेंस तथा बैलेंस शीट — चयनित सक्रिय वित्तीय वर्ष, FY-to-FY तुलना या कस्टम तारीख अवधि के अनुसार'
               : 'Indian Accounting Standards Compliant Trading, P&L, Balance Sheet & Trial Balance (Active FY, Custom FY-to-FY Range, or Date Range)'}
@@ -578,18 +578,18 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
         <div className="flex items-center gap-2 w-full md:w-auto justify-end flex-wrap">
           
           {/* Condensed vs Detailed View Toggle */}
-          <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs shadow-inner">
+          <div className="flex items-center hv-elevated p-1 rounded-xl border border-[var(--border-subtle)] text-xs">
             <button
               type="button"
               onClick={() => setViewMode('condensed')}
               className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition cursor-pointer ${
                 viewMode === 'condensed' 
-                  ? 'bg-indigo-600 text-white shadow' 
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-indigo-600 text-white hv-keep-white shadow' 
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
               title={isHindi ? 'संक्षिप्त दृश्य (मुख्य समूह सारांश)' : 'Condensed View (Summary by Group Heads)'}
             >
-              <Layers className="w-3.5 h-3.5 text-amber-300" />
+              <Layers className="w-3.5 h-3.5 text-amber-400" />
               <span>{isHindi ? 'संक्षिप्त (Condensed)' : 'Condensed'}</span>
             </button>
             <button
@@ -597,15 +597,15 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
               onClick={() => setViewMode('detailed')}
               className={`px-3 py-1.5 rounded-lg font-bold flex items-center gap-1.5 transition cursor-pointer ${
                 viewMode === 'detailed' 
-                  ? 'bg-indigo-600 text-white shadow' 
-                  : 'text-slate-400 hover:text-slate-200'
+                  ? 'bg-indigo-600 text-white hv-keep-white shadow' 
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
               }`}
               title={isHindi ? 'विस्तृत दृश्य (सभी सब-लेजर खातों के साथ)' : 'Detailed View (All sub-ledger accounts)'}
             >
               <ListTree className="w-3.5 h-3.5 text-emerald-400" />
               <span>{isHindi ? 'विस्तृत (Detailed - सभी लेजर)' : 'Detailed (All Ledgers)'}</span>
             </button>
-            <span className="hidden xl:inline text-[10px] text-slate-500 font-mono px-2">
+            <span className="hidden xl:inline text-[10px] text-[var(--text-muted)] font-mono px-2">
               Alt+F1
             </span>
           </div>
@@ -614,10 +614,10 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
             <>
               <button
                 onClick={() => setShowPrintModal(true)}
-                className="flex items-center justify-center gap-1.5 bg-gradient-to-r from-indigo-600 via-indigo-500 to-emerald-600 hover:from-indigo-500 hover:to-emerald-500 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl shadow-lg transition transform active:scale-95 cursor-pointer"
+                className="flex items-center justify-center gap-1.5 bg-gradient-to-r from-indigo-600 via-indigo-500 to-emerald-600 hover:from-indigo-500 hover:to-emerald-500 text-white hv-keep-white font-extrabold text-xs px-4 py-2.5 rounded-xl shadow-lg transition transform active:scale-95 cursor-pointer"
                 title={isHindi ? 'A4 साइज़ में वास्तविक प्रिंट पूर्वावलोकन देखें व PDF फाइल डाउनलोड करें' : 'Open authentic A4 paper preview and download real A4 PDF'}
               >
-                <Printer className="w-4 h-4 text-emerald-200" />
+                <Printer className="w-4 h-4" />
                 <span>{isHindi ? '📄 A4 प्रिंट पूर्वावलोकन व PDF' : '📄 A4 Preview & PDF Download'}</span>
               </button>
 
@@ -629,10 +629,10 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                     showClosing: tbShowClosing
                   })
                 }
-                className="flex items-center justify-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs px-3.5 py-2.5 rounded-xl border border-slate-700 shadow transition cursor-pointer"
+                className="flex items-center justify-center gap-1.5 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-primary)] font-bold text-xs px-3.5 py-2.5 rounded-xl border border-[var(--border-subtle)] shadow transition cursor-pointer"
                 title={isHindi ? 'सिस्टम ब्राउज़र प्रिंट डायलॉग' : 'Quick browser print'}
               >
-                <FileSpreadsheet className="w-4 h-4 text-slate-400" />
+                <FileSpreadsheet className="w-4 h-4 text-[var(--text-muted)]" />
                 <span>{isHindi ? 'ब्राउज़र प्रिंट' : 'Browser Print'}</span>
               </button>
             </>
@@ -641,10 +641,10 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
       </div>
 
       {/* Multi-Year Report Period Scope Selector (Active FY vs Custom FY-to-FY vs Date Range) */}
-      <div className="shrink-0 bg-slate-900 border border-slate-800 p-3 rounded-2xl flex flex-col gap-2.5 shadow-md text-xs">
+      <div className="shrink-0 hv-surface border border-[var(--border-primary)] p-3 rounded-2xl flex flex-col gap-2.5 shadow-md text-xs">
         <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5">
-          <div className="flex items-center gap-2 font-bold text-slate-200">
-            <Calendar className="w-4 h-4 text-emerald-400 shrink-0" />
+          <div className="flex items-center gap-2 font-bold text-[var(--text-secondary)]">
+            <Calendar className="w-4 h-4 text-emerald-500 shrink-0" />
             <span>{isHindi ? 'रिपोर्ट अवधि चुनें (Period Scope - F2):' : 'Statement Period Scope (F2):'}</span>
           </div>
 
@@ -654,8 +654,8 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
               onClick={() => setPeriodScope('ACTIVE_FY')}
               className={`px-3 py-1.5 rounded-xl font-bold border transition cursor-pointer ${
                 periodScope === 'ACTIVE_FY'
-                  ? 'bg-indigo-600 text-white border-indigo-400 shadow'
-                  : 'bg-slate-950 text-slate-300 border-slate-700 hover:bg-slate-800'
+                  ? 'bg-indigo-600 text-white hv-keep-white border-indigo-400 shadow'
+                  : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] border-[var(--border-subtle)] hover:bg-[var(--hover-surface)]'
               }`}
             >
               {isHindi
@@ -668,8 +668,8 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
               onClick={() => setPeriodScope('FY_RANGE')}
               className={`px-3 py-1.5 rounded-xl font-bold border transition flex items-center gap-1.5 cursor-pointer ${
                 periodScope === 'FY_RANGE'
-                  ? 'bg-emerald-600 text-white border-emerald-400 shadow'
-                  : 'bg-slate-950 text-emerald-300 border-emerald-500/30 hover:bg-slate-800'
+                  ? 'bg-emerald-600 text-white hv-keep-white border-emerald-400 shadow'
+                  : 'hv-pill-emerald hover:brightness-95'
               }`}
             >
               <Globe2 className="w-3.5 h-3.5" />
@@ -682,7 +682,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
               className={`px-3 py-1.5 rounded-xl font-bold border transition cursor-pointer ${
                 periodScope === 'CUSTOM_RANGE'
                   ? 'bg-amber-500 text-slate-950 border-amber-400 shadow'
-                  : 'bg-slate-950 text-amber-300 border-slate-700 hover:bg-slate-800'
+                  : 'hv-pill-amber hover:brightness-95'
               }`}
             >
               {isHindi ? 'कस्टम तारीख (Custom Dates)' : 'Custom Date Range'}
@@ -690,29 +690,29 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
 
             {periodScope === 'FY_RANGE' && (
               <div className="flex flex-wrap items-center gap-2 ml-0 sm:ml-2">
-                <div className="flex items-center gap-1.5 bg-slate-950 px-2.5 py-1 rounded-xl border border-emerald-500/40">
-                  <span className="text-[11px] text-emerald-300 font-bold">{isHindi ? 'किस FY से:' : 'From FY:'}</span>
+                <div className="flex items-center gap-1.5 hv-input px-2.5 py-1 rounded-xl border border-emerald-500/40">
+                  <span className="text-[11px] text-emerald-500 font-bold">{isHindi ? 'किस FY से:' : 'From FY:'}</span>
                   <select
                     value={fromFyStart}
                     onChange={(e) => setFromFyStart(e.target.value)}
-                    className="bg-transparent text-slate-100 font-mono text-xs font-bold outline-none cursor-pointer"
+                    className="bg-transparent text-[var(--text-primary)] font-mono text-xs font-bold outline-none cursor-pointer"
                   >
                     {availableFysAsc.map((fy) => (
-                      <option key={fy.fyStart} value={fy.fyStart} className="bg-slate-900">
+                      <option key={fy.fyStart} value={fy.fyStart}>
                         {fy.label} ({fy.count})
                       </option>
                     ))}
                   </select>
                 </div>
-                <div className="flex items-center gap-1.5 bg-slate-950 px-2.5 py-1 rounded-xl border border-emerald-500/40">
-                  <span className="text-[11px] text-emerald-300 font-bold">{isHindi ? 'किस FY तक:' : 'To FY:'}</span>
+                <div className="flex items-center gap-1.5 hv-input px-2.5 py-1 rounded-xl border border-emerald-500/40">
+                  <span className="text-[11px] text-emerald-500 font-bold">{isHindi ? 'किस FY तक:' : 'To FY:'}</span>
                   <select
                     value={toFyStart}
                     onChange={(e) => setToFyStart(e.target.value)}
-                    className="bg-transparent text-slate-100 font-mono text-xs font-bold outline-none cursor-pointer"
+                    className="bg-transparent text-[var(--text-primary)] font-mono text-xs font-bold outline-none cursor-pointer"
                   >
                     {availableFysAsc.map((fy) => (
-                      <option key={fy.fyStart} value={fy.fyStart} className="bg-slate-900">
+                      <option key={fy.fyStart} value={fy.fyStart}>
                         {fy.label} ({fy.count})
                       </option>
                     ))}
@@ -723,22 +723,22 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
 
             {periodScope === 'CUSTOM_RANGE' && (
               <div className="flex flex-wrap items-center gap-2 ml-0 sm:ml-2">
-                <div className="flex items-center gap-1.5 bg-slate-950 px-2.5 py-1 rounded-xl border border-slate-700">
-                  <span className="text-[11px] text-slate-400 font-bold">{isHindi ? 'से:' : 'From:'}</span>
+                <div className="flex items-center gap-1.5 hv-input px-2.5 py-1 rounded-xl border border-[var(--border-subtle)]">
+                  <span className="text-[11px] text-[var(--text-muted)] font-bold">{isHindi ? 'से:' : 'From:'}</span>
                   <input
                     type="date"
                     value={customFrom}
                     onChange={(e) => setCustomFrom(e.target.value)}
-                    className="bg-transparent text-slate-100 font-mono text-xs outline-none cursor-pointer"
+                    className="bg-transparent text-[var(--text-primary)] font-mono text-xs outline-none cursor-pointer"
                   />
                 </div>
-                <div className="flex items-center gap-1.5 bg-slate-950 px-2.5 py-1 rounded-xl border border-slate-700">
-                  <span className="text-[11px] text-slate-400 font-bold">{isHindi ? 'तक:' : 'To:'}</span>
+                <div className="flex items-center gap-1.5 hv-input px-2.5 py-1 rounded-xl border border-[var(--border-subtle)]">
+                  <span className="text-[11px] text-[var(--text-muted)] font-bold">{isHindi ? 'तक:' : 'To:'}</span>
                   <input
                     type="date"
                     value={customTo}
                     onChange={(e) => setCustomTo(e.target.value)}
-                    className="bg-transparent text-slate-100 font-mono text-xs outline-none cursor-pointer"
+                    className="bg-transparent text-[var(--text-primary)] font-mono text-xs outline-none cursor-pointer"
                   />
                 </div>
               </div>
@@ -747,9 +747,9 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
         </div>
 
         {/* Report Details Granularity Selector: Summary | Daily | Monthly | Quarterly | Yearly */}
-        <div className="pt-2.5 border-t border-slate-800/80 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5">
-          <div className="flex items-center gap-2 font-bold text-slate-300">
-            <Clock className="w-4 h-4 text-amber-400 shrink-0" />
+        <div className="pt-2.5 border-t border-[var(--border-primary)] flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-2.5">
+          <div className="flex items-center gap-2 font-bold text-[var(--text-secondary)]">
+            <Clock className="w-4 h-4 text-amber-500 shrink-0" />
             <span>{isHindi ? 'रिपोर्ट विवरण अंतराल (Periodicity Details):' : 'Report Details Granularity:'}</span>
           </div>
 
@@ -771,7 +771,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                 className={`px-3 py-1.5 rounded-xl font-bold border transition cursor-pointer ${
                   granularity === opt.id
                     ? 'bg-amber-500 text-slate-950 border-amber-400 shadow'
-                    : 'bg-slate-950 text-slate-300 border-slate-800 hover:bg-slate-800'
+                    : 'bg-[var(--bg-elevated)] text-[var(--text-secondary)] border-[var(--border-subtle)] hover:bg-[var(--hover-surface)]'
                 }`}
               >
                 {isHindi ? opt.hi : opt.en}
@@ -785,15 +785,15 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
       <div
         className={`shrink-0 rounded-xl px-4 py-2 border flex flex-wrap items-center justify-between gap-3 text-sm ${
           zeroDiffAudit.isZeroDifference && zeroDiffAudit.suspenseBalance < 0.001
-            ? 'bg-emerald-950/30 border-emerald-500/30 text-emerald-200'
-            : 'bg-amber-950/30 border-amber-500/30 text-amber-200'
+            ? 'hv-pill-emerald'
+            : 'hv-pill-amber'
         }`}
       >
         <div className="flex items-center gap-2 font-bold">
           {zeroDiffAudit.isZeroDifference ? (
-            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <CheckCircle2 className="w-4 h-4 shrink-0" />
           ) : (
-            <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+            <AlertCircle className="w-4 h-4 shrink-0" />
           )}
           <span>
             {zeroDiffAudit.isZeroDifference
@@ -809,23 +809,23 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
         <div className="flex flex-wrap items-center gap-4 font-mono tabular-nums text-xs">
           <span>
             TB Diff:{' '}
-            <strong className={Math.abs(zeroDiffAudit.trialBalanceDiff) < 0.001 ? 'text-emerald-300' : 'text-rose-300'}>
+            <strong className={Math.abs(zeroDiffAudit.trialBalanceDiff) < 0.001 ? 'text-emerald-500' : 'text-rose-500'}>
               {formatCurrency(Math.abs(zeroDiffAudit.trialBalanceDiff), currency)}
             </strong>
           </span>
           <span>
             BS Diff:{' '}
-            <strong className={Math.abs(zeroDiffAudit.balanceSheetDiff) < 0.001 ? 'text-emerald-300' : 'text-rose-300'}>
+            <strong className={Math.abs(zeroDiffAudit.balanceSheetDiff) < 0.001 ? 'text-emerald-500' : 'text-rose-500'}>
               {formatCurrency(Math.abs(zeroDiffAudit.balanceSheetDiff), currency)}
             </strong>
           </span>
           {Math.abs(zeroDiffAudit.openingDiff) >= 0.001 && (
-            <span className="text-amber-300">
+            <span className="text-amber-500">
               Opening Diff: <strong>{formatCurrency(Math.abs(zeroDiffAudit.openingDiff), currency)}</strong>
             </span>
           )}
           {zeroDiffAudit.suspenseBalance >= 0.001 && (
-            <span className="text-amber-300">
+            <span className="text-amber-500">
               Suspense A/c: <strong>{formatCurrency(zeroDiffAudit.suspenseBalance, currency)}</strong>
             </span>
           )}
@@ -833,50 +833,50 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
       </div>
 
       {/* Navigation Tabs - Mobile Responsive Scroll */}
-      <div className="shrink-0 flex items-center gap-1.5 bg-slate-900 p-1.5 rounded-xl border border-slate-800 overflow-x-auto text-nowrap">
+      <div className="shrink-0 flex items-center gap-1.5 hv-surface p-1.5 rounded-xl border border-[var(--border-primary)] overflow-x-auto text-nowrap">
         <button
           type="button"
           onClick={() => setActiveReport('TRADING_PL')}
           className={`px-3 md:px-4 py-2 text-xs font-bold rounded-lg transition shrink-0 cursor-pointer flex items-center gap-1.5 ${
-            activeReport === 'TRADING_PL' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-300 hover:bg-slate-800'
+            activeReport === 'TRADING_PL' ? 'bg-indigo-600 text-white hv-keep-white shadow-md' : 'text-[var(--text-secondary)] hover:bg-[var(--hover-surface)]'
           }`}
         >
           <span>{isHindi ? 'व्यापारिक व लाभ-हानि खाता (Trading & P&L)' : 'Trading & Profit Loss A/c'}</span>
-          <span className="text-[10px] font-mono opacity-60 hidden xl:inline">Alt+1</span>
+          <span className="text-[10px] font-mono opacity-70 hidden xl:inline">Alt+1</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveReport('BS')}
           className={`px-3 md:px-4 py-2 text-xs font-bold rounded-lg transition shrink-0 cursor-pointer flex items-center gap-1.5 ${
-            activeReport === 'BS' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-300 hover:bg-slate-800'
+            activeReport === 'BS' ? 'bg-indigo-600 text-white hv-keep-white shadow-md' : 'text-[var(--text-secondary)] hover:bg-[var(--hover-surface)]'
           }`}
         >
           <span>{isHindi ? 'बैलेंस शीट (Balance Sheet)' : 'Balance Sheet'}</span>
-          <span className="text-[10px] font-mono opacity-60 hidden xl:inline">Alt+2</span>
+          <span className="text-[10px] font-mono opacity-70 hidden xl:inline">Alt+2</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveReport('TB')}
           className={`px-3 md:px-4 py-2 text-xs font-bold rounded-lg transition shrink-0 cursor-pointer flex items-center gap-1.5 ${
-            activeReport === 'TB' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-300 hover:bg-slate-800'
+            activeReport === 'TB' ? 'bg-indigo-600 text-white hv-keep-white shadow-md' : 'text-[var(--text-secondary)] hover:bg-[var(--hover-surface)]'
           }`}
         >
           <span>{isHindi ? 'ट्रायल बैलेंस (Trial Balance)' : 'Standard Trial Balance'}</span>
-          <span className="text-[10px] font-mono opacity-60 hidden xl:inline">Alt+3</span>
+          <span className="text-[10px] font-mono opacity-70 hidden xl:inline">Alt+3</span>
         </button>
 
         <button
           type="button"
           onClick={() => setActiveReport('SCH34')}
           className={`px-3 md:px-4 py-2 text-xs font-bold rounded-lg transition flex items-center gap-1.5 shrink-0 cursor-pointer ${
-            activeReport === 'SCH34' ? 'bg-gradient-to-r from-amber-500 to-indigo-600 text-white shadow-md' : 'text-amber-400 hover:bg-slate-800'
+            activeReport === 'SCH34' ? 'bg-gradient-to-r from-amber-500 to-indigo-600 text-white hv-keep-white shadow-md' : 'text-amber-500 hover:bg-[var(--hover-surface)]'
           }`}
         >
           <Building2 className="w-3.5 h-3.5" />
           <span>{isHindi ? 'Schedule III/IV (ITR/Companies Act)' : 'Schedule III/IV Disclosures'}</span>
-          <span className="text-[10px] font-mono opacity-60 hidden xl:inline">Alt+4</span>
+          <span className="text-[10px] font-mono opacity-70 hidden xl:inline">Alt+4</span>
         </button>
       </div>
 
@@ -885,11 +885,11 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
 
       {/* PERIODIC BREAKDOWN SCHEDULE (Daily / Monthly / Quarterly / Yearly) */}
       {granularity !== 'SUMMARY' && (
-        <div className="bg-slate-900 border border-amber-500/30 rounded-2xl p-4 md:p-5 shadow-xl space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div className="hv-surface border border-amber-500/40 rounded-2xl p-4 md:p-5 shadow-xl space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--border-primary)] pb-3">
             <div>
-              <h3 className="text-sm font-black text-amber-300 flex items-center gap-2 flex-wrap">
-                <Clock className="w-4 h-4 text-amber-400 shrink-0" />
+              <h3 className="text-sm font-black text-amber-500 flex items-center gap-2 flex-wrap">
+                <Clock className="w-4 h-4 text-amber-500 shrink-0" />
                 <span>
                   {granularity === 'DAILY'
                     ? (isHindi ? 'दैनिक (Daily) वित्तीय विश्लेषण एवं वाउचर विवरण' : 'Daily Chronological Financial Breakdown')
@@ -899,11 +899,11 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                         ? (isHindi ? 'तिमाही (Quarterly Q1–Q4) वित्तीय विश्लेषण' : 'Quarterly Financial Breakdown (Q1–Q4)')
                         : (isHindi ? 'वार्षिक (Yearly FY-Wise) वित्तीय तुलना' : 'Yearly Financial Breakdown (FY-Wise)')}
                 </span>
-                <span className="bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[11px] font-mono px-2 py-0.5 rounded-full">
+                <span className="hv-pill-amber border text-[11px] font-mono px-2 py-0.5 rounded-full">
                   {periodicRows.length} {isHindi ? 'अवधियाँ' : 'Periods'}
                 </span>
               </h3>
-              <p className="text-[11px] text-slate-400 mt-0.5">
+              <p className="text-[11px] text-[var(--text-muted)] mt-0.5">
                 {isHindi
                   ? 'किसी भी पंक्ति पर क्लिक करके उस दिन/माह/तिमाही/वर्ष के सभी बिल व वाउचर देखें'
                   : 'Click any period row to drill down into exact invoices, purchases, vouchers & notes'}
@@ -915,7 +915,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                 type="button"
                 onClick={handleExportPeriodicCsv}
                 disabled={periodicRows.length === 0}
-                className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-slate-950 font-extrabold text-xs px-3.5 py-2 rounded-xl shadow transition cursor-pointer self-start sm:self-auto"
+                className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white hv-keep-white font-extrabold text-xs px-3.5 py-2 rounded-xl shadow transition cursor-pointer self-start sm:self-auto"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>{isHindi ? 'CSV एक्सपोर्ट करें' : `Export ${granularity} CSV`}</span>
@@ -924,15 +924,15 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
           </div>
 
           {periodicRows.length === 0 ? (
-            <div className="p-6 text-center text-xs text-slate-400 bg-slate-950 rounded-xl border border-slate-800">
+            <div className="p-6 text-center text-xs text-[var(--text-muted)] hv-elevated rounded-xl border border-[var(--border-primary)]">
               {isHindi
                 ? 'चयनित अवधि में कोई लेनदेन नहीं मिला।'
                 : 'No transactions found in the selected period scope.'}
             </div>
           ) : (
             <div className="overflow-auto max-h-[52vh]">
-              <table className="w-full text-left text-sm text-slate-200 min-w-[760px]">
-                <thead className="sticky top-0 z-10 bg-slate-800 text-slate-300 font-bold text-xs uppercase border-b border-slate-700">
+              <table className="w-full text-left text-sm text-[var(--text-secondary)] min-w-[760px]">
+                <thead className="sticky top-0 z-10 hv-elevated text-[var(--text-secondary)] font-bold text-xs uppercase border-b border-[var(--border-subtle)]">
                   <tr>
                     <th className="p-2.5 w-8"></th>
                     <th className="p-2.5">{isHindi ? 'अवधि (Period)' : 'Period'}</th>
@@ -964,52 +964,52 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                     )}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800/80">
+                <tbody className="divide-y divide-[var(--border-primary)]">
                   {periodicRows.map((row) => {
                     const isOpen = expandedPeriodKey === row.key;
                     return (
                       <React.Fragment key={row.key}>
                         <tr
                           onClick={() => setExpandedPeriodKey(isOpen ? null : row.key)}
-                          className={`hover:bg-slate-800/60 transition cursor-pointer ${isOpen ? 'bg-indigo-950/30' : ''}`}
+                          className={`hover:bg-[var(--hover-surface)] transition cursor-pointer ${isOpen ? 'bg-indigo-500/10' : ''}`}
                         >
-                          <td className="p-2.5 text-slate-400">
-                            {isOpen ? <ChevronDown className="w-4 h-4 text-amber-400" /> : <ChevronRight className="w-4 h-4" />}
+                          <td className="p-2.5 text-[var(--text-muted)]">
+                            {isOpen ? <ChevronDown className="w-4 h-4 text-amber-500" /> : <ChevronRight className="w-4 h-4" />}
                           </td>
                           <td className="p-2.5">
-                            <div className="font-bold text-slate-100">{row.label}</div>
-                            <div className="text-[10px] text-slate-400 font-mono">{row.subLabel}</div>
+                            <div className="font-bold text-[var(--text-primary)]">{row.label}</div>
+                            <div className="text-[10px] text-[var(--text-muted)] font-mono">{row.subLabel}</div>
                           </td>
                           <td className="p-2.5 text-center">
-                            <span className="bg-slate-800 text-indigo-300 font-mono font-bold px-2 py-0.5 rounded border border-slate-700">
+                            <span className="hv-pill-indigo font-mono font-bold px-2 py-0.5 rounded border">
                               {row.txCount}
                             </span>
                           </td>
                           {activeReport === 'BS' ? (
                             <>
-                              <td className="p-2.5 text-right font-mono text-slate-200">{formatCurrency(row.fixedAssets, currency)}</td>
-                              <td className="p-2.5 text-right font-mono text-slate-200">{formatCurrency(row.currentAssets, currency)}</td>
-                              <td className="p-2.5 text-right font-mono font-bold text-emerald-400">{formatCurrency(row.totalAssets, currency)}</td>
-                              <td className="p-2.5 text-right font-mono text-rose-300">{formatCurrency(row.totalLiabilities, currency)}</td>
-                              <td className="p-2.5 text-right font-mono font-bold text-indigo-300">{formatCurrency(row.totalEquityWithProfit, currency)}</td>
+                              <td className="p-2.5 text-right font-mono text-[var(--text-secondary)]">{formatCurrency(row.fixedAssets, currency)}</td>
+                              <td className="p-2.5 text-right font-mono text-[var(--text-secondary)]">{formatCurrency(row.currentAssets, currency)}</td>
+                              <td className="p-2.5 text-right font-mono font-bold text-emerald-500">{formatCurrency(row.totalAssets, currency)}</td>
+                              <td className="p-2.5 text-right font-mono text-rose-500">{formatCurrency(row.totalLiabilities, currency)}</td>
+                              <td className="p-2.5 text-right font-mono font-bold text-indigo-500">{formatCurrency(row.totalEquityWithProfit, currency)}</td>
                             </>
                           ) : activeReport === 'TB' || activeReport === 'SCH34' ? (
                             <>
-                              <td className="p-2.5 text-right font-mono font-bold text-emerald-400">{formatCurrency(row.periodDebit, currency)}</td>
-                              <td className="p-2.5 text-right font-mono font-bold text-indigo-400">{formatCurrency(row.periodCredit, currency)}</td>
-                              <td className="p-2.5 text-right font-mono text-slate-200">{formatCurrency(row.salesRevenue, currency)}</td>
-                              <td className="p-2.5 text-right font-mono text-amber-300">{formatCurrency(row.outputGst, currency)}</td>
-                              <td className="p-2.5 text-right font-mono text-sky-300">{formatCurrency(row.inputGst, currency)}</td>
+                              <td className="p-2.5 text-right font-mono font-bold text-emerald-500">{formatCurrency(row.periodDebit, currency)}</td>
+                              <td className="p-2.5 text-right font-mono font-bold text-indigo-500">{formatCurrency(row.periodCredit, currency)}</td>
+                              <td className="p-2.5 text-right font-mono text-[var(--text-secondary)]">{formatCurrency(row.salesRevenue, currency)}</td>
+                              <td className="p-2.5 text-right font-mono text-amber-500">{formatCurrency(row.outputGst, currency)}</td>
+                              <td className="p-2.5 text-right font-mono text-sky-500">{formatCurrency(row.inputGst, currency)}</td>
                             </>
                           ) : (
                             <>
-                              <td className="p-2.5 text-right font-mono font-semibold text-emerald-300">{formatCurrency(row.salesRevenue, currency)}</td>
-                              <td className="p-2.5 text-right font-mono text-amber-300">{formatCurrency(row.directExpenses, currency)}</td>
-                              <td className={`p-2.5 text-right font-mono font-bold ${row.grossProfit >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                              <td className="p-2.5 text-right font-mono font-semibold text-emerald-500">{formatCurrency(row.salesRevenue, currency)}</td>
+                              <td className="p-2.5 text-right font-mono text-amber-500">{formatCurrency(row.directExpenses, currency)}</td>
+                              <td className={`p-2.5 text-right font-mono font-bold ${row.grossProfit >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
                                 {formatCurrency(row.grossProfit, currency)}
                               </td>
-                              <td className="p-2.5 text-right font-mono text-rose-300">{formatCurrency(row.indirectExpenses, currency)}</td>
-                              <td className={`p-2.5 text-right font-mono font-extrabold ${row.netProfit >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                              <td className="p-2.5 text-right font-mono text-rose-500">{formatCurrency(row.indirectExpenses, currency)}</td>
+                              <td className={`p-2.5 text-right font-mono font-extrabold ${row.netProfit >= 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
                                 {formatCurrency(row.netProfit, currency)}
                               </td>
                             </>
@@ -1017,19 +1017,19 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                         </tr>
 
                         {isOpen && (
-                          <tr className="bg-slate-950/90">
-                            <td colSpan={8} className="p-3 border-t border-slate-800">
-                              <div className="text-[11px] font-bold text-indigo-300 mb-2 flex items-center justify-between">
+                          <tr className="hv-elevated">
+                            <td colSpan={8} className="p-3 border-t border-[var(--border-primary)]">
+                              <div className="text-[11px] font-bold text-indigo-500 mb-2 flex items-center justify-between">
                                 <span>
                                   {row.label} — {row.items.length} {isHindi ? 'लेनदेन विवरण' : 'Transactions'}
                                 </span>
-                                <span className="font-mono text-slate-400">
+                                <span className="font-mono text-[var(--text-muted)]">
                                   Sales: {row.invoiceCount} • Purchase: {row.purchaseCount} • Vouchers: {row.voucherCount} • Notes: {row.noteCount}
                                 </span>
                               </div>
-                                <div className="max-h-60 overflow-y-auto rounded-xl border border-slate-800">
+                                <div className="max-h-60 overflow-y-auto rounded-xl border border-[var(--border-primary)] bg-[var(--bg-surface)]">
                                 <table className="w-full text-sm text-left tabular-nums">
-                                  <thead className="bg-slate-900 text-slate-300 font-bold text-xs uppercase sticky top-0 z-10 border-b border-slate-800">
+                                  <thead className="hv-elevated text-[var(--text-secondary)] font-bold text-xs uppercase sticky top-0 z-10 border-b border-[var(--border-primary)]">
                                     <tr>
                                       <th className="p-2">Date</th>
                                       <th className="p-2">Ref No</th>
@@ -1040,7 +1040,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                                       <th className="p-2 text-right">Amount</th>
                                     </tr>
                                   </thead>
-                                  <tbody className="divide-y divide-slate-800/70">
+                                  <tbody className="divide-y divide-[var(--border-primary)]">
                                     {row.items.map(item => {
                                       const handleInspectPeriodicItem = () => {
                                         if (item.kind === 'SALES') {
@@ -1063,17 +1063,17 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                                           onClick={handleInspectPeriodicItem}
                                           className="hover:bg-indigo-500/10 cursor-pointer transition group"
                                         >
-                                          <td className="p-2 font-mono text-slate-400">{item.date}</td>
-                                          <td className="p-2 font-mono font-bold text-indigo-300 group-hover:underline">{item.refNo}</td>
+                                          <td className="p-2 font-mono text-[var(--text-muted)]">{item.date}</td>
+                                          <td className="p-2 font-mono font-bold text-indigo-500 group-hover:underline">{item.refNo}</td>
                                           <td className="p-2">
-                                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-200 border border-slate-700">
+                                            <span className="px-1.5 py-0.5 rounded text-[10px] font-bold hv-pill-slate border">
                                               {item.subType}
                                             </span>
                                           </td>
-                                          <td className="p-2 text-slate-200">{item.partyOrParticulars}</td>
-                                          <td className="p-2 text-right font-mono text-slate-300">{formatCurrency(item.taxableValue, currency)}</td>
-                                          <td className="p-2 text-right font-mono text-amber-300">{formatCurrency(item.gstAmount, currency)}</td>
-                                          <td className="p-2 text-right font-mono font-bold text-white">{formatCurrency(item.amount, currency)}</td>
+                                          <td className="p-2 text-[var(--text-secondary)]">{item.partyOrParticulars}</td>
+                                          <td className="p-2 text-right font-mono text-[var(--text-secondary)]">{formatCurrency(item.taxableValue, currency)}</td>
+                                          <td className="p-2 text-right font-mono text-amber-500">{formatCurrency(item.gstAmount, currency)}</td>
+                                          <td className="p-2 text-right font-mono font-bold text-[var(--text-primary)]">{formatCurrency(item.amount, currency)}</td>
                                         </tr>
                                       );
                                     })}
@@ -1088,7 +1088,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                   })}
                 </tbody>
                 {activeReport !== 'BS' && (
-                  <tfoot className="bg-slate-950 font-bold text-white border-t-2 border-slate-700">
+                  <tfoot className="hv-elevated font-bold text-[var(--text-primary)] border-t-2 border-[var(--border-subtle)]">
                     <tr>
                       <td colSpan={2} className="p-2.5 text-right uppercase">
                         {isHindi ? 'कुल अवधि योग:' : 'Period Breakdown Total:'}
@@ -1098,37 +1098,37 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       </td>
                       {activeReport === 'TB' || activeReport === 'SCH34' ? (
                         <>
-                          <td className="p-2.5 text-right font-mono text-emerald-400">
+                          <td className="p-2.5 text-right font-mono text-emerald-500">
                             {formatCurrency(periodicRows.reduce((s, r) => s + r.periodDebit, 0), currency)}
                           </td>
-                          <td className="p-2.5 text-right font-mono text-indigo-400">
+                          <td className="p-2.5 text-right font-mono text-indigo-500">
                             {formatCurrency(periodicRows.reduce((s, r) => s + r.periodCredit, 0), currency)}
                           </td>
                           <td className="p-2.5 text-right font-mono">
                             {formatCurrency(periodicRows.reduce((s, r) => s + r.salesRevenue, 0), currency)}
                           </td>
-                          <td className="p-2.5 text-right font-mono text-amber-300">
+                          <td className="p-2.5 text-right font-mono text-amber-500">
                             {formatCurrency(periodicRows.reduce((s, r) => s + r.outputGst, 0), currency)}
                           </td>
-                          <td className="p-2.5 text-right font-mono text-sky-300">
+                          <td className="p-2.5 text-right font-mono text-sky-500">
                             {formatCurrency(periodicRows.reduce((s, r) => s + r.inputGst, 0), currency)}
                           </td>
                         </>
                       ) : (
                         <>
-                          <td className="p-2.5 text-right font-mono text-emerald-300">
+                          <td className="p-2.5 text-right font-mono text-emerald-500">
                             {formatCurrency(periodicRows.reduce((s, r) => s + r.salesRevenue, 0), currency)}
                           </td>
-                          <td className="p-2.5 text-right font-mono text-amber-300">
+                          <td className="p-2.5 text-right font-mono text-amber-500">
                             {formatCurrency(periodicRows.reduce((s, r) => s + r.directExpenses, 0), currency)}
                           </td>
-                          <td className="p-2.5 text-right font-mono text-emerald-400">
+                          <td className="p-2.5 text-right font-mono text-emerald-500">
                             {formatCurrency(periodicRows.reduce((s, r) => s + r.grossProfit, 0), currency)}
                           </td>
-                          <td className="p-2.5 text-right font-mono text-rose-300">
+                          <td className="p-2.5 text-right font-mono text-rose-500">
                             {formatCurrency(periodicRows.reduce((s, r) => s + r.indirectExpenses, 0), currency)}
                           </td>
-                          <td className="p-2.5 text-right font-mono text-emerald-400">
+                          <td className="p-2.5 text-right font-mono text-emerald-500">
                             {formatCurrency(periodicRows.reduce((s, r) => s + r.netProfit, 0), currency)}
                           </td>
                         </>
@@ -1144,29 +1144,29 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
 
       {/* REPORT 1: TRADING & PROFIT & LOSS ACCOUNT */}
       {activeReport === 'TRADING_PL' && (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 md:p-6 shadow-xl space-y-6">
-          <div className="text-center border-b border-slate-800 pb-4">
-            <h2 className="text-base md:text-lg font-black text-white">{data.company.name}</h2>
-            <h3 className="text-xs md:text-sm font-bold text-indigo-400 uppercase tracking-wider mt-1">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4 md:p-6 shadow-xl space-y-6">
+          <div className="text-center border-b border-[var(--border-primary)] pb-4">
+            <h2 className="text-base md:text-lg font-black text-[var(--text-primary)]">{data.company.name}</h2>
+            <h3 className="text-xs md:text-sm font-bold text-indigo-500 uppercase tracking-wider mt-1">
               Trading and Profit & Loss Account (व्यापारिक तथा लाभ व हानि खाता)
             </h3>
-            <p className="text-[11px] md:text-xs text-slate-400">{statementPeriodLabel}</p>
+            <p className="text-[11px] md:text-xs text-[var(--text-muted)]">{statementPeriodLabel}</p>
           </div>
 
           {/* SECTION A: TRADING ACCOUNT */}
-          <div className="space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-              <h4 className="text-xs font-black text-amber-400 uppercase tracking-wider flex items-center gap-2">
-                <Boxes className="w-4 h-4 text-amber-400" />
+          <div className="space-y-3 hv-elevated p-4 rounded-xl border border-[var(--border-primary)]">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-2">
+              <h4 className="text-xs font-black text-amber-500 uppercase tracking-wider flex items-center gap-2">
+                <Boxes className="w-4 h-4 text-amber-500" />
                 <span>1. Trading Account Section (व्यापारिक विवरण)</span>
               </h4>
-              <span className="text-[10px] text-slate-400 font-mono">Gross Income & Cost of Goods</span>
+              <span className="text-[10px] text-[var(--text-muted)] font-mono">Gross Income & Cost of Goods</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm tabular-nums">
               {/* Trading Debit Side */}
-              <div className="space-y-2 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
-                <div className="font-bold text-slate-200 border-b border-slate-800 pb-1 flex justify-between">
+              <div className="space-y-2 bg-[var(--bg-surface)] p-3 rounded-lg border border-[var(--border-primary)]">
+                <div className="font-bold text-[var(--text-primary)] border-b border-[var(--border-primary)] pb-1 flex justify-between">
                   <span>Dr. Particulars (डेबिट व्यय एवं प्रारम्भिक स्टॉक)</span>
                   <span>Amount ({currency})</span>
                 </div>
@@ -1178,11 +1178,11 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                     subtitle: statementPeriodLabel,
                     accInventoryOpening: openingStock
                   })}
-                  className="flex justify-between items-center py-1.5 border-b border-slate-800/60 text-slate-300 hover:bg-indigo-500/10 hover:text-indigo-200 px-1.5 rounded cursor-pointer transition group"
+                  className="flex justify-between items-center py-1.5 border-b border-[var(--border-primary)] text-[var(--text-secondary)] hover:bg-indigo-500/10 hover:text-indigo-500 px-1.5 rounded cursor-pointer transition group"
                 >
                   <span className="flex items-center gap-1">
                     <span>To Opening Stock (प्रारम्भिक स्टॉक)</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-indigo-400" />
+                    <ChevronRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-indigo-500" />
                   </span>
                   <span className="font-mono font-semibold">{formatCurrency(openingStock, currency)}</span>
                 </div>
@@ -1193,11 +1193,11 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       directExpenseAccounts,
                       { metricLabel: isHindi ? 'कुल प्रत्यक्ष व्यय व खरीद' : 'Total Direct Expenses', metricValue: totalDirectExpenses }
                     )}
-                    className="flex justify-between items-center py-1.5 border-b border-slate-800/60 text-amber-300 font-semibold bg-slate-900/40 hover:bg-amber-500/15 px-2 rounded cursor-pointer transition group"
+                    className="flex justify-between items-center py-1.5 border-b border-[var(--border-primary)] text-amber-500 font-semibold hv-elevated hover:bg-amber-500/15 px-2 rounded cursor-pointer transition group"
                   >
                     <span className="flex items-center gap-1">
                       <span>To Direct Expenses & Purchases (कुल प्रत्यक्ष व्यय व खरीद)</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-amber-400/70 group-hover:translate-x-0.5 transition-transform" />
+                      <ChevronRight className="w-3.5 h-3.5 opacity-75 group-hover:translate-x-0.5 transition-transform" />
                     </span>
                     <span className="font-mono font-bold">{formatCurrency(totalDirectExpenses, currency)}</span>
                   </div>
@@ -1208,26 +1208,26 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       <div
                         key={acc.id}
                         onClick={() => openAccountStatement(acc)}
-                        className="flex justify-between items-center py-1 border-b border-slate-800/60 text-slate-300 pl-2 pr-1 hover:bg-indigo-500/10 hover:text-indigo-200 rounded cursor-pointer transition group"
+                        className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] text-[var(--text-secondary)] pl-2 pr-1 hover:bg-indigo-500/10 hover:text-indigo-500 rounded cursor-pointer transition group"
                       >
                         <span className="flex items-center gap-1">
                           <span>To [{acc.code}] {acc.name}</span>
-                          <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-indigo-400" />
+                          <ChevronRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-indigo-500" />
                         </span>
                         <span className="font-mono font-semibold">{formatCurrency(amt, currency)}</span>
                       </div>
                     );
                   })
                 )}
-                <div className="flex justify-between font-bold text-amber-300 pt-2 border-t border-slate-700 bg-slate-800/40 p-1.5 rounded">
+                <div className="flex justify-between font-bold text-amber-500 pt-2 border-t border-[var(--border-subtle)] hv-elevated p-1.5 rounded">
                   <span>Total Direct Costs:</span>
                   <span className="font-mono">{formatCurrency(totalTradingDebit, currency)}</span>
                 </div>
               </div>
 
               {/* Trading Credit Side */}
-              <div className="space-y-2 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
-                <div className="font-bold text-slate-200 border-b border-slate-800 pb-1 flex justify-between">
+              <div className="space-y-2 bg-[var(--bg-surface)] p-3 rounded-lg border border-[var(--border-primary)]">
+                <div className="font-bold text-[var(--text-primary)] border-b border-[var(--border-primary)] pb-1 flex justify-between">
                   <span>Cr. Particulars (क्रेडिट बिक्री एवं अंतिम स्टॉक)</span>
                   <span>Amount ({currency})</span>
                 </div>
@@ -1238,11 +1238,11 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       salesAccounts,
                       { metricLabel: isHindi ? 'कुल बिक्री एवं प्रत्यक्ष आय' : 'Total Sales Revenue', metricValue: totalSalesRevenue }
                     )}
-                    className="flex justify-between items-center py-1.5 border-b border-slate-800/60 text-emerald-300 font-semibold bg-slate-900/40 hover:bg-emerald-500/15 px-2 rounded cursor-pointer transition group"
+                    className="flex justify-between items-center py-1.5 border-b border-[var(--border-primary)] text-emerald-500 font-semibold hv-elevated hover:bg-emerald-500/15 px-2 rounded cursor-pointer transition group"
                   >
                     <span className="flex items-center gap-1">
                       <span>By Sales & Direct Revenues (कुल बिक्री एवं प्रत्यक्ष आय)</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-emerald-400/70 group-hover:translate-x-0.5 transition-transform" />
+                      <ChevronRight className="w-3.5 h-3.5 opacity-75 group-hover:translate-x-0.5 transition-transform" />
                     </span>
                     <span className="font-mono font-bold">{formatCurrency(totalSalesRevenue, currency)}</span>
                   </div>
@@ -1253,19 +1253,19 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       <div
                         key={acc.id}
                         onClick={() => openAccountStatement(acc)}
-                        className="flex justify-between items-center py-1 border-b border-slate-800/60 text-slate-300 pl-2 pr-1 hover:bg-emerald-500/10 hover:text-emerald-200 rounded cursor-pointer transition group"
+                        className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] text-[var(--text-secondary)] pl-2 pr-1 hover:bg-emerald-500/10 hover:text-emerald-500 rounded cursor-pointer transition group"
                       >
                         <span className="flex items-center gap-1">
                           <span>By [{acc.code}] {acc.name}</span>
-                          <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-emerald-400" />
+                          <ChevronRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-emerald-500" />
                         </span>
                         <span className="font-mono font-semibold">{formatCurrency(amt, currency)}</span>
                       </div>
                     );
                   })
                 )}
-                <div className="border-b border-slate-800/60 rounded">
-                  <div className="flex justify-between items-center py-1.5 text-emerald-400 font-semibold hover:bg-emerald-500/10 px-1.5 rounded transition group">
+                <div className="border-b border-[var(--border-primary)] rounded">
+                  <div className="flex justify-between items-center py-1.5 text-emerald-500 font-semibold hover:bg-emerald-500/10 px-1.5 rounded transition group">
                     <button
                       type="button"
                       onClick={() => setDetailModalPayload({
@@ -1277,7 +1277,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       className="flex items-center gap-1 text-left cursor-pointer"
                     >
                       <span>By Closing Stock (अंतिम स्टॉक)</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-emerald-400/70 group-hover:translate-x-0.5 transition-transform" />
+                      <ChevronRight className="w-3.5 h-3.5 opacity-75 group-hover:translate-x-0.5 transition-transform" />
                     </button>
                     <div className="flex items-center gap-2">
                       {onUpdateCompany && (
@@ -1287,7 +1287,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                             setClosingStockDraft(String(closingStock));
                             setEditingClosingStock(prev => !prev);
                           }}
-                          className="text-[11px] font-bold px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-500/30 cursor-pointer"
+                          className="text-[11px] font-bold px-2 py-0.5 rounded hv-pill-amber border cursor-pointer"
                           title={isHindi ? 'मैनुअल क्लोजिंग स्टॉक ओवरराइड' : 'Toggle Auto / Manual Closing Stock'}
                         >
                           {isManualClosingStock ? (isHindi ? 'मैनुअल (बदलें)' : 'Manual (Edit)') : (isHindi ? 'ऑटो (बदलें)' : 'Auto (Override)')}
@@ -1297,8 +1297,8 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                     </div>
                   </div>
                   {editingClosingStock && onUpdateCompany && (
-                    <div className="flex flex-wrap items-center justify-between gap-2 px-2 pb-2 pt-1 bg-slate-950/80 border-t border-slate-800/80 text-xs">
-                      <span className="text-slate-400">
+                    <div className="flex flex-wrap items-center justify-between gap-2 px-2 pb-2 pt-1 hv-elevated border-t border-[var(--border-primary)] text-xs">
+                      <span className="text-[var(--text-muted)]">
                         {isHindi ? `ऑटो स्टॉक: ${formatCurrency(autoComputedClosingStock, currency)}` : `Auto Stock Value: ${formatCurrency(autoComputedClosingStock, currency)}`}
                       </span>
                       <div className="flex items-center gap-1.5">
@@ -1308,7 +1308,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                           value={closingStockDraft}
                           onChange={(e) => setClosingStockDraft(e.target.value)}
                           placeholder="0.00"
-                          className="w-32 bg-slate-900 border border-amber-500/50 rounded px-2 py-1 text-right font-mono text-white focus:outline-none focus:border-amber-400"
+                          className="w-32 hv-input border border-amber-500/50 rounded px-2 py-1 text-right font-mono focus:outline-none focus:border-amber-400"
                         />
                         <button
                           type="button"
@@ -1319,7 +1319,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                               setEditingClosingStock(false);
                             }
                           }}
-                          className="px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold cursor-pointer"
+                          className="px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-bold cursor-pointer"
                         >
                           {isHindi ? 'सहेजें' : 'Apply'}
                         </button>
@@ -1329,7 +1329,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                             applyClosingStockSetting('AUTO');
                             setEditingClosingStock(false);
                           }}
-                          className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold cursor-pointer"
+                          className="px-2.5 py-1 rounded bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-semibold cursor-pointer"
                         >
                           {isHindi ? 'ऑटो रीसेट' : 'Use Auto'}
                         </button>
@@ -1337,7 +1337,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                     </div>
                   )}
                 </div>
-                <div className="flex justify-between font-bold text-emerald-300 pt-2 border-t border-slate-700 bg-slate-800/40 p-1.5 rounded">
+                <div className="flex justify-between font-bold text-emerald-500 pt-2 border-t border-[var(--border-subtle)] hv-elevated p-1.5 rounded">
                   <span>Total Trading Credits:</span>
                   <span className="font-mono">{formatCurrency(totalTradingCredit, currency)}</span>
                 </div>
@@ -1356,7 +1356,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                 }
               )}
               className={`p-3.5 rounded-xl border flex flex-col sm:flex-row items-center justify-between gap-2 text-xs font-bold cursor-pointer hover:brightness-110 transition ${
-                grossProfit >= 0 ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-300' : 'bg-rose-950/40 border-rose-500/40 text-rose-300'
+                grossProfit >= 0 ? 'hv-pill-emerald' : 'hv-pill-rose'
               }`}
             >
               <div className="flex items-center gap-2">
@@ -1373,19 +1373,19 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
           </div>
 
           {/* SECTION B: PROFIT & LOSS ACCOUNT */}
-          <div className="space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-              <h4 className="text-xs font-black text-indigo-400 uppercase tracking-wider flex items-center gap-2">
-                <Scale className="w-4 h-4 text-indigo-400" />
+          <div className="space-y-3 hv-elevated p-4 rounded-xl border border-[var(--border-primary)]">
+            <div className="flex items-center justify-between border-b border-[var(--border-primary)] pb-2">
+              <h4 className="text-xs font-black text-indigo-500 uppercase tracking-wider flex items-center gap-2">
+                <Scale className="w-4 h-4 text-indigo-500" />
                 <span>2. Profit & Loss Section (अप्रत्यक्ष आय एवं संचालन व्यय)</span>
               </h4>
-              <span className="text-[10px] text-slate-400 font-mono">Net Earning Calculation</span>
+              <span className="text-[10px] text-[var(--text-muted)] font-mono">Net Earning Calculation</span>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm tabular-nums">
               {/* P&L Expenses Side */}
-              <div className="space-y-2 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
-                <div className="font-bold text-rose-300 border-b border-slate-800 pb-1 flex justify-between">
+              <div className="space-y-2 bg-[var(--bg-surface)] p-3 rounded-lg border border-[var(--border-primary)]">
+                <div className="font-bold text-rose-500 border-b border-[var(--border-primary)] pb-1 flex justify-between">
                   <span>Dr. Indirect Expenses (अप्रत्यक्ष व्यय)</span>
                   <span>Amount ({currency})</span>
                 </div>
@@ -1396,7 +1396,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       [...salesAccounts, ...directExpenseAccounts],
                       { metricLabel: 'Gross Loss', metricValue: Math.abs(grossProfit) }
                     )}
-                    className="flex justify-between items-center py-1 border-b border-slate-800/60 text-rose-400 font-bold hover:bg-rose-500/10 px-1.5 rounded cursor-pointer transition group"
+                    className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] text-rose-500 font-bold hover:bg-rose-500/10 px-1.5 rounded cursor-pointer transition group"
                   >
                     <span className="flex items-center gap-1">
                       <span>To Gross Loss b/d</span>
@@ -1412,11 +1412,11 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       indirectExpenseAccounts,
                       { metricLabel: isHindi ? 'कुल अप्रत्यक्ष व्यय' : 'Total Indirect Expenses', metricValue: totalIndirectExpenses }
                     )}
-                    className="flex justify-between items-center py-1.5 border-b border-slate-800/60 text-rose-300 font-semibold bg-slate-900/40 hover:bg-rose-500/15 px-2 rounded cursor-pointer transition group"
+                    className="flex justify-between items-center py-1.5 border-b border-[var(--border-primary)] text-rose-500 font-semibold hv-elevated hover:bg-rose-500/15 px-2 rounded cursor-pointer transition group"
                   >
                     <span className="flex items-center gap-1">
                       <span>To Indirect Operating Expenses (कुल अप्रत्यक्ष संचालन व्यय)</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-rose-400/70 group-hover:translate-x-0.5 transition-transform" />
+                      <ChevronRight className="w-3.5 h-3.5 opacity-75 group-hover:translate-x-0.5 transition-transform" />
                     </span>
                     <span className="font-mono font-bold">{formatCurrency(totalIndirectExpenses, currency)}</span>
                   </div>
@@ -1427,26 +1427,26 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       <div
                         key={acc.id}
                         onClick={() => openAccountStatement(acc)}
-                        className="flex justify-between items-center py-1 border-b border-slate-800/60 text-slate-300 pl-2 pr-1 hover:bg-rose-500/10 hover:text-rose-200 rounded cursor-pointer transition group"
+                        className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] text-[var(--text-secondary)] pl-2 pr-1 hover:bg-rose-500/10 hover:text-rose-500 rounded cursor-pointer transition group"
                       >
                         <span className="flex items-center gap-1">
                           <span>To [{acc.code}] {acc.name}</span>
-                          <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-rose-400" />
+                          <ChevronRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-rose-500" />
                         </span>
                         <span className="font-mono font-semibold">{formatCurrency(amt, currency)}</span>
                       </div>
                     );
                   })
                 )}
-                <div className="flex justify-between font-bold text-rose-400 pt-2 border-t border-slate-700 bg-slate-800/40 p-1.5 rounded">
+                <div className="flex justify-between font-bold text-rose-500 pt-2 border-t border-[var(--border-subtle)] hv-elevated p-1.5 rounded">
                   <span>Total P&L Debits:</span>
                   <span className="font-mono">{formatCurrency(totalPlDebits, currency)}</span>
                 </div>
               </div>
 
               {/* P&L Incomes Side */}
-              <div className="space-y-2 bg-slate-900/60 p-3 rounded-lg border border-slate-800">
-                <div className="font-bold text-emerald-300 border-b border-slate-800 pb-1 flex justify-between">
+              <div className="space-y-2 bg-[var(--bg-surface)] p-3 rounded-lg border border-[var(--border-primary)]">
+                <div className="font-bold text-emerald-500 border-b border-[var(--border-primary)] pb-1 flex justify-between">
                   <span>Cr. Incomes & Gains (अप्रत्यक्ष आय)</span>
                   <span>Amount ({currency})</span>
                 </div>
@@ -1457,7 +1457,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       [...salesAccounts, ...directExpenseAccounts],
                       { metricLabel: 'Gross Profit', metricValue: grossProfit }
                     )}
-                    className="flex justify-between items-center py-1 border-b border-slate-800/60 text-emerald-400 font-bold hover:bg-emerald-500/10 px-1.5 rounded cursor-pointer transition group"
+                    className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] text-emerald-500 font-bold hover:bg-emerald-500/10 px-1.5 rounded cursor-pointer transition group"
                   >
                     <span className="flex items-center gap-1">
                       <span>By Gross Profit b/d</span>
@@ -1473,11 +1473,11 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       indirectRevenueAccounts,
                       { metricLabel: isHindi ? 'कुल अप्रत्यक्ष आय' : 'Total Indirect Income', metricValue: totalIndirectIncome }
                     )}
-                    className="flex justify-between items-center py-1.5 border-b border-slate-800/60 text-emerald-300 font-semibold bg-slate-900/40 hover:bg-emerald-500/15 px-2 rounded cursor-pointer transition group"
+                    className="flex justify-between items-center py-1.5 border-b border-[var(--border-primary)] text-emerald-500 font-semibold hv-elevated hover:bg-emerald-500/15 px-2 rounded cursor-pointer transition group"
                   >
                     <span className="flex items-center gap-1">
                       <span>By Indirect Incomes & Other Gains (कुल अप्रत्यक्ष आय व लाभ)</span>
-                      <ChevronRight className="w-3.5 h-3.5 text-emerald-400/70 group-hover:translate-x-0.5 transition-transform" />
+                      <ChevronRight className="w-3.5 h-3.5 opacity-75 group-hover:translate-x-0.5 transition-transform" />
                     </span>
                     <span className="font-mono font-bold">{formatCurrency(totalIndirectIncome, currency)}</span>
                   </div>
@@ -1488,18 +1488,18 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       <div
                         key={acc.id}
                         onClick={() => openAccountStatement(acc)}
-                        className="flex justify-between items-center py-1 border-b border-slate-800/60 text-slate-300 pl-2 pr-1 hover:bg-emerald-500/10 hover:text-emerald-200 rounded cursor-pointer transition group"
+                        className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] text-[var(--text-secondary)] pl-2 pr-1 hover:bg-emerald-500/10 hover:text-emerald-500 rounded cursor-pointer transition group"
                       >
                         <span className="flex items-center gap-1">
                           <span>By [{acc.code}] {acc.name}</span>
-                          <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-emerald-400" />
+                          <ChevronRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-emerald-500" />
                         </span>
                         <span className="font-mono font-semibold">{formatCurrency(amt, currency)}</span>
                       </div>
                     );
                   })
                 )}
-                <div className="flex justify-between font-bold text-emerald-300 pt-2 border-t border-slate-700 bg-slate-800/40 p-1.5 rounded">
+                <div className="flex justify-between font-bold text-emerald-500 pt-2 border-t border-[var(--border-subtle)] hv-elevated p-1.5 rounded">
                   <span>Total P&L Credits:</span>
                   <span className="font-mono">{formatCurrency(totalPlCredits, currency)}</span>
                 </div>
@@ -1518,20 +1518,20 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                 }
               )}
               className={`p-4 rounded-xl border flex flex-col sm:flex-row items-center justify-between gap-3 cursor-pointer hover:brightness-110 transition ${
-                netProfit >= 0 ? 'bg-emerald-950/50 border-emerald-500/50 text-white' : 'bg-rose-950/50 border-rose-500/50 text-white'
+                netProfit >= 0 ? 'hv-pill-emerald' : 'hv-pill-rose'
               }`}
             >
               <div>
                 <h4 className="text-sm font-bold flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                  <CheckCircle2 className="w-5 h-5" />
                   <span>{isHindi ? 'शुद्ध लाभ / हानि (Net Profit / Loss c/f to Capital):' : 'Net Profit / Loss (Transferred to Capital):'}</span>
                   <ChevronRight className="w-4 h-4 opacity-70" />
                 </h4>
-                <p className="text-[11px] text-slate-300 mt-0.5">
+                <p className="text-[11px] opacity-85 mt-0.5">
                   {isHindi ? 'संचालन तथा प्रत्यक्ष/अप्रत्यक्ष व्यय पश्चात अंतिम वित्तीय परिणाम (क्लिक करके विस्तृत विवरण देखें)' : 'Final net earnings added to Owner Capital in Balance Sheet (Click for complete ledger breakdown)'}
                 </p>
               </div>
-              <div className={`text-2xl font-black font-mono ${netProfit >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+              <div className="text-2xl font-black font-mono">
                 {formatCurrency(netProfit, currency)}
               </div>
             </div>
@@ -1541,19 +1541,19 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
 
       {/* REPORT 2: BALANCE SHEET */}
       {activeReport === 'BS' && (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 md:p-6 shadow-xl space-y-6">
-          <div className="text-center border-b border-slate-800 pb-4">
-            <h2 className="text-base md:text-lg font-black text-white">{data.company.name}</h2>
-            <h3 className="text-xs md:text-sm font-bold text-indigo-400 uppercase tracking-wider mt-1">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4 md:p-6 shadow-xl space-y-6">
+          <div className="text-center border-b border-[var(--border-primary)] pb-4">
+            <h2 className="text-base md:text-lg font-black text-[var(--text-primary)]">{data.company.name}</h2>
+            <h3 className="text-xs md:text-sm font-bold text-indigo-500 uppercase tracking-wider mt-1">
               Balance Sheet Statement (तुलन पत्र / संपत्ति एवं दायित्व)
             </h3>
-            <p className="text-[11px] md:text-xs text-slate-400">Financial Year Statement - HisabVeda Double Entry Balanced Verification</p>
+            <p className="text-[11px] md:text-xs text-[var(--text-muted)]">Financial Year Statement - HisabVeda Double Entry Balanced Verification</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Liabilities & Capital Side */}
-            <div className="space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
-              <h4 className="text-xs font-bold text-rose-400 uppercase tracking-wider border-b border-slate-800 pb-2 flex justify-between">
+            <div className="space-y-3 hv-elevated p-4 rounded-xl border border-[var(--border-primary)]">
+              <h4 className="text-xs font-bold text-rose-500 uppercase tracking-wider border-b border-[var(--border-primary)] pb-2 flex justify-between">
                 <span>Capital & Liabilities (दायित्व एवं पूंजी)</span>
                 <span>Amount ({currency})</span>
               </h4>
@@ -1566,13 +1566,13 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                         equityAccounts,
                         { metricLabel: 'Total Capital & Equity', metricValue: totalCapitalEquity }
                       )}
-                      className="flex justify-between items-center py-1.5 border-b border-slate-800/60 text-amber-300 font-bold bg-slate-900/50 hover:bg-amber-500/15 px-2 rounded cursor-pointer transition group"
+                      className="flex justify-between items-center py-1.5 border-b border-[var(--border-primary)] text-amber-500 font-bold bg-[var(--bg-surface)] hover:bg-amber-500/15 px-2 rounded cursor-pointer transition group"
                     >
                       <span className="flex items-center gap-1">
                         <span>1. Capital & Equity Accounts (कुल शेयर/पार्टनर पूंजी)</span>
                         <ChevronRight className="w-3.5 h-3.5 opacity-70" />
                       </span>
-                      <span className="font-mono text-white">{formatCurrency(totalCapitalEquity, currency)}</span>
+                      <span className="font-mono text-[var(--text-primary)]">{formatCurrency(totalCapitalEquity, currency)}</span>
                     </div>
                     <div
                       onClick={() => openGroupDrilldown(
@@ -1580,7 +1580,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                         [...salesAccounts, ...indirectRevenueAccounts, ...directExpenseAccounts, ...indirectExpenseAccounts],
                         { metricLabel: netProfit >= 0 ? 'Net Profit' : 'Net Loss', metricValue: netProfit }
                       )}
-                      className="flex justify-between items-center py-1.5 border-b border-slate-800/60 text-emerald-400 font-bold bg-emerald-950/20 hover:bg-emerald-500/15 px-2 rounded cursor-pointer transition group"
+                      className="flex justify-between items-center py-1.5 border hv-pill-emerald font-bold hover:brightness-110 px-2 rounded cursor-pointer transition group"
                     >
                       <span className="flex items-center gap-1">
                         <span>(+) Current Period Net Profit (P&L से शुद्ध लाभ)</span>
@@ -1595,7 +1595,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                           nonCurrentLiabAccounts,
                           { metricLabel: 'Non-Current Liabilities', metricValue: nonCurrentLiabTotal }
                         )}
-                        className="flex justify-between items-center py-1.5 border-b border-slate-800/60 text-rose-300 font-semibold bg-slate-900/50 hover:bg-rose-500/15 px-2 rounded cursor-pointer transition group"
+                        className="flex justify-between items-center py-1.5 border-b border-[var(--border-primary)] text-rose-500 font-semibold bg-[var(--bg-surface)] hover:bg-rose-500/15 px-2 rounded cursor-pointer transition group"
                       >
                         <span className="flex items-center gap-1">
                           <span>2. Non-Current / Long-Term Liabilities (दीर्घकालिक ऋण)</span>
@@ -1610,7 +1610,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                         currentLiabAccounts,
                         { metricLabel: 'Current Liabilities', metricValue: currentLiabTotal }
                       )}
-                      className="flex justify-between items-center py-1.5 border-b border-slate-800/60 text-rose-300 font-semibold bg-slate-900/50 hover:bg-rose-500/15 px-2 rounded cursor-pointer transition group"
+                      className="flex justify-between items-center py-1.5 border-b border-[var(--border-primary)] text-rose-500 font-semibold bg-[var(--bg-surface)] hover:bg-rose-500/15 px-2 rounded cursor-pointer transition group"
                     >
                       <span className="flex items-center gap-1">
                         <span>3. Current Liabilities & Trade Payables (लेनदार व चालू देनदारियां)</span>
@@ -1621,20 +1621,20 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                   </>
                 ) : (
                   <>
-                    <div className="font-bold text-amber-400 text-[11px] uppercase pt-1">1. Capital & Equity Accounts</div>
+                    <div className="font-bold text-amber-500 text-[11px] uppercase pt-1">1. Capital & Equity Accounts</div>
                     {equityAccounts.map((acc) => {
                       const bal = getSignedLedgerAmount(balancesMap.get(acc.id), effCatOf(acc));
                       return (
                         <div
                           key={acc.id}
                           onClick={() => openAccountStatement(acc)}
-                          className="flex justify-between items-center py-1 border-b border-slate-800/60 pl-2 pr-1 hover:bg-indigo-500/10 rounded cursor-pointer transition group"
+                          className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] pl-2 pr-1 hover:bg-indigo-500/10 rounded cursor-pointer transition group"
                         >
-                          <span className="text-slate-300 flex items-center gap-1">
+                          <span className="text-[var(--text-secondary)] flex items-center gap-1">
                             <span>[{acc.code}] {acc.name}</span>
-                            <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-indigo-400" />
+                            <ChevronRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-indigo-500" />
                           </span>
-                          <span className="font-mono font-semibold text-slate-100">{formatCurrency(bal, currency)}</span>
+                          <span className="font-mono font-semibold text-[var(--text-primary)]">{formatCurrency(bal, currency)}</span>
                         </div>
                       );
                     })}
@@ -1644,7 +1644,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                         [...salesAccounts, ...indirectRevenueAccounts, ...directExpenseAccounts, ...indirectExpenseAccounts],
                         { metricLabel: netProfit >= 0 ? 'Net Profit' : 'Net Loss', metricValue: netProfit }
                       )}
-                      className="flex justify-between items-center py-1 border-b border-slate-800/60 text-emerald-400 font-bold bg-emerald-950/20 hover:bg-emerald-500/15 px-2 rounded cursor-pointer transition"
+                      className="flex justify-between items-center py-1 border hv-pill-emerald font-bold hover:brightness-110 px-2 rounded cursor-pointer transition"
                     >
                       <span className="flex items-center gap-1">
                         <span>(+) Current Period Net Profit (P&L से शुद्ध लाभ)</span>
@@ -1653,20 +1653,20 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       <span className="font-mono">{formatCurrency(netProfit, currency)}</span>
                     </div>
 
-                    <div className="font-bold text-amber-400 text-[11px] uppercase pt-2">2. Liabilities & Payables</div>
+                    <div className="font-bold text-amber-500 text-[11px] uppercase pt-2">2. Liabilities & Payables</div>
                     {liabilityAccounts.map((acc) => {
                       const bal = getSignedLedgerAmount(balancesMap.get(acc.id), effCatOf(acc));
                       return (
                         <div
                           key={acc.id}
                           onClick={() => openAccountStatement(acc)}
-                          className="flex justify-between items-center py-1 border-b border-slate-800/60 pl-2 pr-1 hover:bg-rose-500/10 rounded cursor-pointer transition group"
+                          className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] pl-2 pr-1 hover:bg-rose-500/10 rounded cursor-pointer transition group"
                         >
-                          <span className="text-slate-300 flex items-center gap-1">
+                          <span className="text-[var(--text-secondary)] flex items-center gap-1">
                             <span>[{acc.code}] {acc.name}</span>
-                            <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-rose-400" />
+                            <ChevronRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-rose-500" />
                           </span>
-                          <span className="font-mono font-semibold text-slate-100">{formatCurrency(bal, currency)}</span>
+                          <span className="font-mono font-semibold text-[var(--text-primary)]">{formatCurrency(bal, currency)}</span>
                         </div>
                       );
                     })}
@@ -1674,15 +1674,15 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                 )}
 
               </div>
-              <div className="flex justify-between text-xs font-extrabold text-slate-100 pt-3 border-t-2 border-slate-700 bg-slate-800/60 p-2.5 rounded-lg">
+              <div className="flex justify-between text-xs font-extrabold text-[var(--text-primary)] pt-3 border-t-2 border-[var(--border-subtle)] bg-[var(--bg-surface)] p-2.5 rounded-lg">
                 <span>Total Capital & Liabilities:</span>
-                <span className="font-mono text-sm text-indigo-300">{formatCurrency(totalLiabilitiesAndEquity, currency)}</span>
+                <span className="font-mono text-sm text-indigo-500">{formatCurrency(totalLiabilitiesAndEquity, currency)}</span>
               </div>
             </div>
 
             {/* Assets Side */}
-            <div className="space-y-3 bg-slate-950 p-4 rounded-xl border border-slate-800">
-              <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider border-b border-slate-800 pb-2 flex justify-between">
+            <div className="space-y-3 hv-elevated p-4 rounded-xl border border-[var(--border-primary)]">
+              <h4 className="text-xs font-bold text-emerald-500 uppercase tracking-wider border-b border-[var(--border-primary)] pb-2 flex justify-between">
                 <span>Assets & Properties (परिसंपत्तियां)</span>
                 <span>Amount ({currency})</span>
               </h4>
@@ -1695,13 +1695,13 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                         fixedAssetAccounts,
                         { metricLabel: 'Fixed Assets', metricValue: fixedAssetsTotal }
                       )}
-                      className="flex justify-between items-center py-1.5 border-b border-slate-800/60 text-emerald-400 font-bold bg-slate-900/50 hover:bg-emerald-500/15 px-2 rounded cursor-pointer transition group"
+                      className="flex justify-between items-center py-1.5 border-b border-[var(--border-primary)] text-emerald-500 font-bold bg-[var(--bg-surface)] hover:bg-emerald-500/15 px-2 rounded cursor-pointer transition group"
                     >
                       <span className="flex items-center gap-1">
                         <span>1. Non-Current / Fixed Assets (कुल अचल संपत्तियां)</span>
                         <ChevronRight className="w-3.5 h-3.5 opacity-70" />
                       </span>
-                      <span className="font-mono text-white">{formatCurrency(fixedAssetsTotal, currency)}</span>
+                      <span className="font-mono text-[var(--text-primary)]">{formatCurrency(fixedAssetsTotal, currency)}</span>
                     </div>
                     <div
                       onClick={() => setDetailModalPayload({
@@ -1710,7 +1710,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                         title: isHindi ? 'अंतिम स्टॉक मूल्यांकन विवरण (Closing Stock Breakdown)' : 'Closing Stock Valuation Breakdown',
                         subtitle: statementPeriodLabel
                       })}
-                      className="flex justify-between items-center py-1.5 border-b border-slate-800/60 text-emerald-300 font-bold bg-emerald-950/20 hover:bg-emerald-500/15 px-2 rounded cursor-pointer transition group"
+                      className="flex justify-between items-center py-1.5 border hv-pill-emerald font-bold hover:brightness-110 px-2 rounded cursor-pointer transition group"
                     >
                       <span className="flex items-center gap-1">
                         <span>2. Closing Stock Valuation (अंतिम स्टॉक मूल्यांकन)</span>
@@ -1724,36 +1724,36 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                         otherAssetAccounts,
                         { metricLabel: 'Current Assets (Excl. Stock)', metricValue: currentAssetsTotal }
                       )}
-                      className="flex justify-between items-center py-1.5 border-b border-slate-800/60 text-emerald-400 font-semibold bg-slate-900/50 hover:bg-emerald-500/15 px-2 rounded cursor-pointer transition group"
+                      className="flex justify-between items-center py-1.5 border-b border-[var(--border-primary)] text-emerald-500 font-semibold bg-[var(--bg-surface)] hover:bg-emerald-500/15 px-2 rounded cursor-pointer transition group"
                     >
                       <span className="flex items-center gap-1">
                         <span>3. Current Assets, Bank, Cash & Receivables (चालू संपत्तियां व देनदार)</span>
                         <ChevronRight className="w-3.5 h-3.5 opacity-70" />
                       </span>
-                      <span className="font-mono text-white">{formatCurrency(currentAssetsTotal, currency)}</span>
+                      <span className="font-mono text-[var(--text-primary)]">{formatCurrency(currentAssetsTotal, currency)}</span>
                     </div>
                   </>
                 ) : (
                   <>
-                    <div className="font-bold text-emerald-400 text-[11px] uppercase pt-1">1. Non-Current / Fixed Assets</div>
+                    <div className="font-bold text-emerald-500 text-[11px] uppercase pt-1">1. Non-Current / Fixed Assets</div>
                     {fixedAssetAccounts.map((acc) => {
                       const bal = getSignedLedgerAmount(balancesMap.get(acc.id), effCatOf(acc));
                       return (
                         <div
                           key={acc.id}
                           onClick={() => openAccountStatement(acc)}
-                          className="flex justify-between items-center py-1 border-b border-slate-800/60 pl-2 pr-1 hover:bg-emerald-500/10 rounded cursor-pointer transition group"
+                          className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] pl-2 pr-1 hover:bg-emerald-500/10 rounded cursor-pointer transition group"
                         >
-                          <span className="text-slate-300 flex items-center gap-1">
+                          <span className="text-[var(--text-secondary)] flex items-center gap-1">
                             <span>[{acc.code}] {acc.name}</span>
-                            <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-emerald-400" />
+                            <ChevronRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-emerald-500" />
                           </span>
-                          <span className="font-mono font-semibold text-slate-100">{formatCurrency(bal, currency)}</span>
+                          <span className="font-mono font-semibold text-[var(--text-primary)]">{formatCurrency(bal, currency)}</span>
                         </div>
                       );
                     })}
 
-                    <div className="font-bold text-emerald-400 text-[11px] uppercase pt-2">2. Current Assets, Inventory & Cash</div>
+                    <div className="font-bold text-emerald-500 text-[11px] uppercase pt-2">2. Current Assets, Inventory & Cash</div>
                     <div
                       onClick={() => setDetailModalPayload({
                         kind: 'STOCK_VALUATION',
@@ -1761,7 +1761,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                         title: isHindi ? 'अंतिम स्टॉक मूल्यांकन विवरण (Closing Stock Breakdown)' : 'Closing Stock Valuation Breakdown',
                         subtitle: statementPeriodLabel
                       })}
-                      className="flex justify-between items-center py-1 border-b border-slate-800/60 text-emerald-300 font-bold bg-emerald-950/20 hover:bg-emerald-500/15 px-2 rounded cursor-pointer transition"
+                      className="flex justify-between items-center py-1 border hv-pill-emerald font-bold hover:brightness-110 px-2 rounded cursor-pointer transition"
                     >
                       <span className="flex items-center gap-1">
                         <span>Closing Stock Valuation (अंतिम स्टॉक)</span>
@@ -1775,13 +1775,13 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                         <div
                           key={acc.id}
                           onClick={() => openAccountStatement(acc)}
-                          className="flex justify-between items-center py-1 border-b border-slate-800/60 pl-2 pr-1 hover:bg-emerald-500/10 rounded cursor-pointer transition group"
+                          className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] pl-2 pr-1 hover:bg-emerald-500/10 rounded cursor-pointer transition group"
                         >
-                          <span className="text-slate-300 flex items-center gap-1">
+                          <span className="text-[var(--text-secondary)] flex items-center gap-1">
                             <span>[{acc.code}] {acc.name}</span>
-                            <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-emerald-400" />
+                            <ChevronRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-emerald-500" />
                           </span>
-                          <span className="font-mono font-semibold text-slate-100">{formatCurrency(bal, currency)}</span>
+                          <span className="font-mono font-semibold text-[var(--text-primary)]">{formatCurrency(bal, currency)}</span>
                         </div>
                       );
                     })}
@@ -1789,9 +1789,9 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                 )}
 
               </div>
-              <div className="flex justify-between text-xs font-extrabold text-slate-100 pt-3 border-t-2 border-slate-700 bg-slate-800/60 p-2.5 rounded-lg">
+              <div className="flex justify-between text-xs font-extrabold text-[var(--text-primary)] pt-3 border-t-2 border-[var(--border-subtle)] bg-[var(--bg-surface)] p-2.5 rounded-lg">
                 <span>Total Assets:</span>
-                <span className="font-mono text-sm text-emerald-400">{formatCurrency(totalAssetsCalculated, currency)}</span>
+                <span className="font-mono text-sm text-emerald-500">{formatCurrency(totalAssetsCalculated, currency)}</span>
               </div>
             </div>
           </div>
@@ -1800,15 +1800,15 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
           <div
             className={`p-3.5 rounded-xl flex items-center justify-between text-sm font-bold border ${
               Math.abs(bsDifference) < 0.001
-                ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-300'
-                : 'bg-amber-950/40 border-amber-500/40 text-amber-300'
+                ? 'hv-pill-emerald'
+                : 'hv-pill-amber'
             }`}
           >
             <div className="flex items-center gap-2">
               {Math.abs(bsDifference) < 0.001 ? (
-                <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
+                <ShieldCheck className="w-5 h-5 shrink-0" />
               ) : (
-                <AlertCircle className="w-5 h-5 text-amber-400 shrink-0" />
+                <AlertCircle className="w-5 h-5 shrink-0" />
               )}
               <span>
                 {Math.abs(bsDifference) < 0.001
@@ -1818,7 +1818,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       : `Balance Sheet Difference Detected: ${formatCurrency(Math.abs(bsDifference), currency)} (Review Opening Stock / Ledgers)`)}
               </span>
             </div>
-            <span className="font-mono tabular-nums text-base text-white">{formatCurrency(totalAssetsCalculated, currency)}</span>
+            <span className="font-mono tabular-nums text-base font-black">{formatCurrency(totalAssetsCalculated, currency)}</span>
           </div>
         </div>
       )}
@@ -1827,13 +1827,13 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
       {activeReport === 'TB' && (() => {
         const showClosingCol = tbShowClosing || (!tbShowOpening && !tbShowTransactions);
         return (
-        <div className="flex-1 min-h-0 flex flex-col bg-slate-900 border border-slate-800 rounded-2xl p-4 md:p-5 shadow-xl gap-3.5 md:overflow-hidden">
-          <div className="shrink-0 text-center border-b border-slate-800 pb-3">
-            <h2 className="text-base md:text-lg font-black text-white">{data.company.name}</h2>
-            <h3 className="text-xs md:text-sm font-bold text-indigo-400 uppercase tracking-wider mt-0.5">
+        <div className="flex-1 min-h-0 flex flex-col hv-surface border border-[var(--border-primary)] rounded-2xl p-4 md:p-5 shadow-xl gap-3.5 md:overflow-hidden">
+          <div className="shrink-0 text-center border-b border-[var(--border-primary)] pb-3">
+            <h2 className="text-base md:text-lg font-black text-[var(--text-primary)]">{data.company.name}</h2>
+            <h3 className="text-xs md:text-sm font-bold text-indigo-500 uppercase tracking-wider mt-0.5">
               Standard Trial Balance Statement (तलपट / ट्रायल बैलेंस)
             </h3>
-            <p className="text-xs text-slate-400">
+            <p className="text-xs text-[var(--text-muted)]">
               {viewMode === 'condensed' 
                 ? (isHindi ? 'संक्षिप्त समूह-वाइज़ तलपट दृश्य' : 'Condensed Group-Wise Summary View') 
                 : (isHindi ? 'विस्तृत सभी उप-लेजर खाता दृश्य' : 'Detailed All Sub-Ledger Account View')}
@@ -1842,14 +1842,14 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
           </div>
 
           {/* Trial Balance View Settings Bar (F12 Display Options) */}
-          <div className="shrink-0 bg-slate-950 border border-slate-800 rounded-xl p-2.5 px-3 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-2.5 text-xs">
-            <div className="flex items-center gap-2 font-bold text-indigo-300 shrink-0">
-              <SlidersHorizontal className="w-4 h-4 text-indigo-400" />
+          <div className="shrink-0 hv-elevated border border-[var(--border-primary)] rounded-xl p-2.5 px-3 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-2.5 text-xs">
+            <div className="flex items-center gap-2 font-bold text-indigo-500 shrink-0">
+              <SlidersHorizontal className="w-4 h-4 text-indigo-500" />
               <span>{isHindi ? 'ट्रायल बैलेंस दृश्य सेटिंग्स (View Settings):' : 'Trial Balance View Settings:'}</span>
             </div>
 
             <div className="flex flex-wrap items-center gap-2.5">
-              <label className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 cursor-pointer hover:border-indigo-500/40 select-none">
+              <label className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-primary)] text-[var(--text-primary)] cursor-pointer hover:border-indigo-500/40 select-none">
                 <input
                   type="checkbox"
                   checked={tbShowOpening}
@@ -1860,7 +1860,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                 <span>{isHindi ? 'प्रारंभिक शेष (Opening Balance)' : 'Show Opening Balance'}</span>
               </label>
 
-              <label className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 cursor-pointer hover:border-indigo-500/40 select-none">
+              <label className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-primary)] text-[var(--text-primary)] cursor-pointer hover:border-indigo-500/40 select-none">
                 <input
                   type="checkbox"
                   checked={tbShowTransactions}
@@ -1871,7 +1871,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                 <span>{isHindi ? 'लेनदेन विवरण (Transaction Details)' : 'Show Transactions (Dr/Cr)'}</span>
               </label>
 
-              <label className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-slate-200 cursor-pointer hover:border-indigo-500/40 select-none">
+              <label className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-primary)] text-[var(--text-primary)] cursor-pointer hover:border-indigo-500/40 select-none">
                 <input
                   type="checkbox"
                   checked={showClosingCol}
@@ -1887,8 +1887,8 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                 onClick={() => setTbYearWise(prev => !prev)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-bold border transition cursor-pointer ${
                   tbYearWise
-                    ? 'bg-emerald-600 text-white border-emerald-400 shadow'
-                    : 'bg-slate-900 text-emerald-300 border-emerald-500/30 hover:bg-slate-800'
+                    ? 'bg-emerald-600 text-white hv-keep-white border-emerald-500 shadow'
+                    : 'hv-pill-emerald hover:opacity-90'
                 }`}
               >
                 <Calendar className="w-3.5 h-3.5" />
@@ -1898,23 +1898,23 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
           </div>
 
           {tbYearWise ? (
-            <div className="flex-1 min-h-0 overflow-auto rounded-xl border border-slate-800">
-              <table className="w-full text-left text-sm text-slate-200 min-w-[780px] tabular-nums">
-                <thead className="sticky top-0 z-10 bg-slate-800 text-slate-200 font-bold text-xs uppercase tracking-wider border-b border-slate-700">
+            <div className="flex-1 min-h-0 overflow-auto rounded-xl border border-[var(--border-primary)]">
+              <table className="w-full text-left text-sm text-[var(--text-primary)] min-w-[780px] tabular-nums">
+                <thead className="sticky top-0 z-10 bg-[var(--bg-elevated)] text-[var(--text-secondary)] font-bold text-xs uppercase tracking-wider border-b border-[var(--border-subtle)]">
                   <tr>
                     <th className="p-3">{viewMode === 'condensed' ? '#' : 'Code'}</th>
                     <th className="p-3">{viewMode === 'condensed' ? 'Account Group' : 'Account Particulars'}</th>
                     <th className="p-3">Category</th>
                     {yearWiseColumns.map(col => (
-                      <th key={col.fyStart} className="p-3 text-right border-l border-slate-700/70">
+                      <th key={col.fyStart} className="p-3 text-right border-l border-[var(--border-primary)]">
                         <div>{col.shortLabel}</div>
-                        <div className="text-[9px] text-slate-400 font-normal">({col.txCount} tx)</div>
+                        <div className="text-[9px] text-[var(--text-muted)] font-normal">({col.txCount} tx)</div>
                       </th>
                     ))}
-                    <th className="p-3 text-right border-l border-slate-700 text-emerald-300">Cumulative</th>
+                    <th className="p-3 text-right border-l border-[var(--border-subtle)] text-emerald-500">Cumulative</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+                <tbody className="divide-y divide-[var(--border-primary)]">
                   {viewMode === 'condensed' ? (
                     condensedTbGroups.map((g, idx) => {
                       const cumSigned = g.dr - g.cr;
@@ -1938,13 +1938,13 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                             groupMatchedAccounts,
                             { metricLabel: 'Net Group Balance', metricValue: Math.abs(cumSigned) }
                           )}
-                          className="hover:bg-indigo-500/10 cursor-pointer transition group"
+                          className="hover:bg-[var(--hover-surface)] cursor-pointer transition group"
                         >
-                          <td className="p-3 font-mono font-bold text-slate-400">{idx + 1}</td>
-                          <td className="p-3 font-bold text-slate-100 group-hover:text-indigo-300">
-                            {g.groupName} <span className="text-[10px] text-slate-500 font-normal">({g.count})</span>
+                          <td className="p-3 font-mono font-bold text-[var(--text-muted)]">{idx + 1}</td>
+                          <td className="p-3 font-bold text-[var(--text-primary)] group-hover:text-indigo-500">
+                            {g.groupName} <span className="text-[10px] text-[var(--text-muted)] font-normal">({g.count})</span>
                           </td>
-                          <td className="p-3 text-slate-400">{g.category}</td>
+                          <td className="p-3 text-[var(--text-muted)]">{g.category}</td>
                           {yearWiseColumns.map(col => {
                             let grpSigned = 0;
                             for (const entry of tbAccountEntries) {
@@ -1963,9 +1963,9 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                               }
                             }
                             return (
-                              <td key={col.fyStart} className="p-3 text-right font-mono border-l border-slate-800/70">
+                              <td key={col.fyStart} className="p-3 text-right font-mono border-l border-[var(--border-primary)]">
                                 {Math.abs(grpSigned) > 0.001 ? (
-                                  <span className={grpSigned >= 0 ? 'text-emerald-400 font-semibold' : 'text-indigo-300 font-semibold'}>
+                                  <span className={grpSigned >= 0 ? 'text-emerald-500 font-semibold' : 'text-indigo-500 font-semibold'}>
                                     {formatCurrency(Math.abs(grpSigned), currency)}{' '}
                                     <span className="text-[10px]">{grpSigned >= 0 ? 'Dr' : 'Cr'}</span>
                                   </span>
@@ -1973,8 +1973,8 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                               </td>
                             );
                           })}
-                          <td className="p-3 text-right font-mono font-bold border-l border-slate-800">
-                            <span className={cumSigned >= 0 ? 'text-emerald-400' : 'text-indigo-400'}>
+                          <td className="p-3 text-right font-mono font-bold border-l border-[var(--border-primary)]">
+                            <span className={cumSigned >= 0 ? 'text-emerald-500' : 'text-indigo-500'}>
                               {formatCurrency(Math.abs(cumSigned), currency)} {cumSigned >= 0 ? 'Dr' : 'Cr'}
                             </span>
                           </td>
@@ -1988,27 +1988,27 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                         <tr
                           key={account.id}
                           onClick={() => openAccountStatement(account)}
-                          className="hover:bg-indigo-500/10 cursor-pointer transition group"
+                          className="hover:bg-[var(--hover-surface)] cursor-pointer transition group"
                         >
-                          <td className="p-3 font-mono font-bold text-indigo-300">{account.code}</td>
-                          <td className="p-3 font-semibold text-slate-100 group-hover:text-indigo-300">{account.name}</td>
-                          <td className="p-3 text-slate-400">{account.category}</td>
+                          <td className="p-3 font-mono font-bold text-indigo-500">{account.code}</td>
+                          <td className="p-3 font-semibold text-[var(--text-primary)] group-hover:text-indigo-500">{account.name}</td>
+                          <td className="p-3 text-[var(--text-muted)]">{account.category}</td>
                           {yearWiseColumns.map(col => {
                             const b = col.balancesMap.get(account.id);
                             const amt = b?.netBalance || 0;
                             const isDr = (b?.balanceType || 'DR') === 'DR';
                             return (
-                              <td key={col.fyStart} className="p-3 text-right font-mono border-l border-slate-800/70">
+                              <td key={col.fyStart} className="p-3 text-right font-mono border-l border-[var(--border-primary)]">
                                 {amt > 0.001 ? (
-                                  <span className={isDr ? 'text-emerald-400 font-semibold' : 'text-indigo-300 font-semibold'}>
+                                  <span className={isDr ? 'text-emerald-500 font-semibold' : 'text-indigo-500 font-semibold'}>
                                     {formatCurrency(amt, currency)} <span className="text-[10px]">{isDr ? 'Dr' : 'Cr'}</span>
                                   </span>
                                 ) : '-'}
                               </td>
                             );
                           })}
-                          <td className="p-3 text-right font-mono font-bold border-l border-slate-800">
-                            <span className={cumSigned >= 0 ? 'text-emerald-400' : 'text-indigo-400'}>
+                          <td className="p-3 text-right font-mono font-bold border-l border-[var(--border-primary)]">
+                            <span className={cumSigned >= 0 ? 'text-emerald-500' : 'text-indigo-500'}>
                               {formatCurrency(Math.abs(cumSigned), currency)} {cumSigned >= 0 ? 'Dr' : 'Cr'}
                             </span>
                           </td>
@@ -2017,7 +2017,7 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                     })
                   )}
                 </tbody>
-                <tfoot className="sticky bottom-0 z-10 bg-slate-800 font-bold text-xs text-white border-t-2 border-slate-700">
+                <tfoot className="sticky bottom-0 z-10 bg-[var(--bg-elevated)] font-bold text-xs text-[var(--text-primary)] border-t-2 border-[var(--border-subtle)]">
                   <tr>
                     <td colSpan={3} className="p-3 text-right uppercase">Year-Wise Dr / Cr Totals:</td>
                     {yearWiseColumns.map(col => {
@@ -2030,49 +2030,49 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                         }
                       });
                       return (
-                        <td key={col.fyStart} className="p-3 text-right font-mono text-xs border-l border-slate-700">
-                          <div className="text-emerald-400">Dr {formatCurrency(drSum, currency)}</div>
-                          <div className="text-indigo-300">Cr {formatCurrency(crSum, currency)}</div>
+                        <td key={col.fyStart} className="p-3 text-right font-mono text-xs border-l border-[var(--border-subtle)]">
+                          <div className="text-emerald-500">Dr {formatCurrency(drSum, currency)}</div>
+                          <div className="text-indigo-500">Cr {formatCurrency(crSum, currency)}</div>
                         </td>
                       );
                     })}
-                    <td className="p-3 text-right font-mono text-xs border-l border-slate-700">
-                      <div className="text-emerald-400">Dr {formatCurrency(totalTbDebit, currency)}</div>
-                      <div className="text-indigo-300">Cr {formatCurrency(totalTbCredit, currency)}</div>
+                    <td className="p-3 text-right font-mono text-xs border-l border-[var(--border-subtle)]">
+                      <div className="text-emerald-500">Dr {formatCurrency(totalTbDebit, currency)}</div>
+                      <div className="text-indigo-500">Cr {formatCurrency(totalTbCredit, currency)}</div>
                     </td>
                   </tr>
                 </tfoot>
               </table>
             </div>
           ) : (
-            <div className="flex-1 min-h-0 overflow-auto rounded-xl border border-slate-800">
-              <table className="w-full text-left text-sm text-slate-200 min-w-[680px] tabular-nums">
-                <thead className="sticky top-0 z-10 bg-slate-800 text-slate-300 font-bold text-xs uppercase tracking-wider border-b border-slate-700">
+            <div className="flex-1 min-h-0 overflow-auto rounded-xl border border-[var(--border-primary)]">
+              <table className="w-full text-left text-sm text-[var(--text-primary)] min-w-[680px] tabular-nums">
+                <thead className="sticky top-0 z-10 bg-[var(--bg-elevated)] text-[var(--text-secondary)] font-bold text-xs uppercase tracking-wider border-b border-[var(--border-subtle)]">
                   <tr>
                     <th className="p-3">{viewMode === 'condensed' ? '#' : 'Code'}</th>
                     <th className="p-3">{viewMode === 'condensed' ? 'Account Group / Head' : 'Account Particulars'}</th>
                     <th className="p-3">Category</th>
                     {tbShowOpening && (
                       <>
-                        <th className="p-3 text-right border-l border-slate-700/70">Opening DR ({currency})</th>
+                        <th className="p-3 text-right border-l border-[var(--border-primary)]">Opening DR ({currency})</th>
                         <th className="p-3 text-right">Opening CR ({currency})</th>
                       </>
                     )}
                     {tbShowTransactions && (
                       <>
-                        <th className="p-3 text-right border-l border-slate-700/70">Txns Debit ({currency})</th>
+                        <th className="p-3 text-right border-l border-[var(--border-primary)]">Txns Debit ({currency})</th>
                         <th className="p-3 text-right">Txns Credit ({currency})</th>
                       </>
                     )}
                     {showClosingCol && (
                       <>
-                        <th className="p-3 text-right border-l border-slate-700/70">Closing DR ({currency})</th>
+                        <th className="p-3 text-right border-l border-[var(--border-primary)]">Closing DR ({currency})</th>
                         <th className="p-3 text-right">Closing CR ({currency})</th>
                       </>
                     )}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-800">
+                <tbody className="divide-y divide-[var(--border-primary)]">
                   {viewMode === 'condensed' ? (
                     condensedTbGroups.map((g, idx) => {
                       const groupMatchedAccounts = tbAccountEntries
@@ -2095,41 +2095,41 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                             groupMatchedAccounts,
                             { metricLabel: 'Net Closing Balance', metricValue: Math.abs(g.dr - g.cr) }
                           )}
-                          className="hover:bg-indigo-500/10 cursor-pointer transition group"
+                          className="hover:bg-[var(--hover-surface)] cursor-pointer transition group"
                         >
-                          <td className="p-3 font-mono font-bold text-slate-400">{idx + 1}</td>
-                          <td className="p-3 font-bold text-slate-100 flex items-center gap-2 group-hover:text-indigo-300">
+                          <td className="p-3 font-mono font-bold text-[var(--text-muted)]">{idx + 1}</td>
+                          <td className="p-3 font-bold text-[var(--text-primary)] flex items-center gap-2 group-hover:text-indigo-500">
                             <span>{g.groupName}</span>
-                            <span className="text-[10px] text-slate-500 font-normal">({g.count} accounts)</span>
-                            <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-indigo-400" />
+                            <span className="text-[10px] text-[var(--text-muted)] font-normal">({g.count} accounts)</span>
+                            <ChevronRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-indigo-500" />
                           </td>
-                          <td className="p-3 text-slate-400">{g.category}</td>
+                          <td className="p-3 text-[var(--text-muted)]">{g.category}</td>
                           {tbShowOpening && (
                             <>
-                              <td className="p-3 text-right font-mono text-slate-300 border-l border-slate-800/70">
+                              <td className="p-3 text-right font-mono text-[var(--text-secondary)] border-l border-[var(--border-primary)]">
                                 {g.openingDr > 0.001 ? formatCurrency(g.openingDr, currency) : '-'}
                               </td>
-                              <td className="p-3 text-right font-mono text-slate-300">
+                              <td className="p-3 text-right font-mono text-[var(--text-secondary)]">
                                 {g.openingCr > 0.001 ? formatCurrency(g.openingCr, currency) : '-'}
                               </td>
                             </>
                           )}
                           {tbShowTransactions && (
                             <>
-                              <td className="p-3 text-right font-mono text-amber-300 border-l border-slate-800/70">
+                              <td className="p-3 text-right font-mono text-amber-500 border-l border-[var(--border-primary)]">
                                 {g.txDebit > 0.001 ? formatCurrency(g.txDebit, currency) : '-'}
                               </td>
-                              <td className="p-3 text-right font-mono text-sky-300">
+                              <td className="p-3 text-right font-mono text-sky-500">
                                 {g.txCredit > 0.001 ? formatCurrency(g.txCredit, currency) : '-'}
                               </td>
                             </>
                           )}
                           {showClosingCol && (
                             <>
-                              <td className="p-3 text-right font-mono text-emerald-400 font-bold border-l border-slate-800/70">
+                              <td className="p-3 text-right font-mono text-emerald-500 font-bold border-l border-[var(--border-primary)]">
                                 {g.dr > 0.001 ? formatCurrency(g.dr, currency) : '-'}
                               </td>
-                              <td className="p-3 text-right font-mono text-indigo-400 font-bold">
+                              <td className="p-3 text-right font-mono text-indigo-500 font-bold">
                                 {g.cr > 0.001 ? formatCurrency(g.cr, currency) : '-'}
                               </td>
                             </>
@@ -2142,40 +2142,40 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                       <tr
                         key={account.id}
                         onClick={() => openAccountStatement(account)}
-                        className="hover:bg-indigo-500/10 cursor-pointer transition group"
+                        className="hover:bg-[var(--hover-surface)] cursor-pointer transition group"
                       >
-                        <td className="p-3 font-mono font-bold text-indigo-300">{account.code}</td>
-                        <td className="p-3 font-semibold text-slate-100 group-hover:text-indigo-300 flex items-center gap-1.5">
+                        <td className="p-3 font-mono font-bold text-indigo-500">{account.code}</td>
+                        <td className="p-3 font-semibold text-[var(--text-primary)] group-hover:text-indigo-500 flex items-center gap-1.5">
                           <span>{account.name}</span>
-                          <ChevronRight className="w-3.5 h-3.5 text-slate-500 group-hover:text-indigo-400" />
+                          <ChevronRight className="w-3.5 h-3.5 text-[var(--text-muted)] group-hover:text-indigo-500" />
                         </td>
-                        <td className="p-3 text-slate-400">{account.category} ({account.subCategory})</td>
+                        <td className="p-3 text-[var(--text-muted)]">{account.category} ({account.subCategory})</td>
                         {tbShowOpening && (
                           <>
-                            <td className="p-3 text-right font-mono text-slate-300 border-l border-slate-800/70">
+                            <td className="p-3 text-right font-mono text-[var(--text-secondary)] border-l border-[var(--border-primary)]">
                               {openingDr > 0.001 ? formatCurrency(openingDr, currency) : '-'}
                             </td>
-                            <td className="p-3 text-right font-mono text-slate-300">
+                            <td className="p-3 text-right font-mono text-[var(--text-secondary)]">
                               {openingCr > 0.001 ? formatCurrency(openingCr, currency) : '-'}
                             </td>
                           </>
                         )}
                         {tbShowTransactions && (
                           <>
-                            <td className="p-3 text-right font-mono text-amber-300 border-l border-slate-800/70">
+                            <td className="p-3 text-right font-mono text-amber-500 border-l border-[var(--border-primary)]">
                               {txDebit > 0.001 ? formatCurrency(txDebit, currency) : '-'}
                             </td>
-                            <td className="p-3 text-right font-mono text-sky-300">
+                            <td className="p-3 text-right font-mono text-sky-500">
                               {txCredit > 0.001 ? formatCurrency(txCredit, currency) : '-'}
                             </td>
                           </>
                         )}
                         {showClosingCol && (
                           <>
-                            <td className="p-3 text-right font-mono text-emerald-400 font-bold border-l border-slate-800/70">
+                            <td className="p-3 text-right font-mono text-emerald-500 font-bold border-l border-[var(--border-primary)]">
                               {closingDr > 0.001 ? formatCurrency(closingDr, currency) : '-'}
                             </td>
-                            <td className="p-3 text-right font-mono text-indigo-400 font-bold">
+                            <td className="p-3 text-right font-mono text-indigo-500 font-bold">
                               {closingCr > 0.001 ? formatCurrency(closingCr, currency) : '-'}
                             </td>
                           </>
@@ -2184,35 +2184,35 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                     ))
                   )}
                 </tbody>
-                <tfoot className="sticky bottom-0 z-10 bg-slate-800 font-bold text-xs text-white border-t-2 border-slate-700">
+                <tfoot className="sticky bottom-0 z-10 bg-[var(--bg-elevated)] font-bold text-xs text-[var(--text-primary)] border-t-2 border-[var(--border-subtle)]">
                   <tr>
                     <td colSpan={3} className="p-3 text-right uppercase">Total Trial Balance:</td>
                     {tbShowOpening && (
                       <>
-                        <td className="p-3 text-right font-mono text-slate-200 border-l border-slate-700">
+                        <td className="p-3 text-right font-mono text-[var(--text-primary)] border-l border-[var(--border-subtle)]">
                           {formatCurrency(tbColumnTotals.openingDr, currency)}
                         </td>
-                        <td className="p-3 text-right font-mono text-slate-200">
+                        <td className="p-3 text-right font-mono text-[var(--text-primary)]">
                           {formatCurrency(tbColumnTotals.openingCr, currency)}
                         </td>
                       </>
                     )}
                     {tbShowTransactions && (
                       <>
-                        <td className="p-3 text-right font-mono text-amber-300 border-l border-slate-700">
+                        <td className="p-3 text-right font-mono text-amber-500 border-l border-[var(--border-subtle)]">
                           {formatCurrency(tbColumnTotals.txDebit, currency)}
                         </td>
-                        <td className="p-3 text-right font-mono text-sky-300">
+                        <td className="p-3 text-right font-mono text-sky-500">
                           {formatCurrency(tbColumnTotals.txCredit, currency)}
                         </td>
                       </>
                     )}
                     {showClosingCol && (
                       <>
-                        <td className="p-3 text-right font-mono text-emerald-400 text-sm font-extrabold border-l border-slate-700">
+                        <td className="p-3 text-right font-mono text-emerald-500 text-sm font-extrabold border-l border-[var(--border-subtle)]">
                           {formatCurrency(totalTbDebit, currency)}
                         </td>
-                        <td className="p-3 text-right font-mono text-indigo-400 text-sm font-extrabold">
+                        <td className="p-3 text-right font-mono text-indigo-500 text-sm font-extrabold">
                           {formatCurrency(totalTbCredit, currency)}
                         </td>
                       </>
@@ -2223,8 +2223,8 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
             </div>
           )}
 
-          <div className="shrink-0 bg-slate-950 p-3 rounded-xl border border-slate-800 flex items-center justify-between text-sm">
-            <div className={`flex items-center gap-2 font-bold ${Math.abs(totalTbDebit - totalTbCredit) < 0.001 ? 'text-emerald-400' : 'text-amber-300'}`}>
+          <div className="shrink-0 hv-elevated p-3 rounded-xl border border-[var(--border-primary)] flex items-center justify-between text-sm">
+            <div className={`flex items-center gap-2 font-bold ${Math.abs(totalTbDebit - totalTbCredit) < 0.001 ? 'text-emerald-500' : 'text-amber-500'}`}>
               <CheckCircle2 className="w-4 h-4" />
               <span>
                 {Math.abs(totalTbDebit - totalTbCredit) < 0.001
@@ -2232,8 +2232,8 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                   : (isHindi ? 'ट्रायल बैलेंस में अंतर मिला (Opening Balance जाँचें)' : 'Trial Balance Difference Detected (Review Opening Balances)')}
               </span>
             </div>
-            <div className="font-mono tabular-nums text-slate-300">
-              Difference: <strong className={Math.abs(totalTbDebit - totalTbCredit) < 0.001 ? 'text-emerald-400' : 'text-amber-300'}>
+            <div className="font-mono tabular-nums text-[var(--text-secondary)]">
+              Difference: <strong className={Math.abs(totalTbDebit - totalTbCredit) < 0.001 ? 'text-emerald-500' : 'text-amber-500'}>
                 {formatCurrency(Math.abs(totalTbDebit - totalTbCredit), currency)}
               </strong>
             </div>
@@ -2244,15 +2244,15 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
 
       {/* REPORT 4: SCHEDULE III / SCHEDULE IV DISCLOSURES */}
       {activeReport === 'SCH34' && (
-        <div className="bg-slate-900 border border-slate-800 rounded-2xl p-4 md:p-6 shadow-xl space-y-6">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+        <div className="hv-surface border border-[var(--border-primary)] rounded-2xl p-4 md:p-6 shadow-xl space-y-6">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-[var(--border-primary)] pb-4">
             <div>
-              <h2 className="text-base md:text-lg font-black text-white">{data.company.name}</h2>
-              <h3 className="text-xs md:text-sm font-bold text-amber-400 uppercase tracking-wider mt-0.5 flex items-center gap-2">
-                <Building2 className="w-4 h-4 text-amber-400" />
+              <h2 className="text-base md:text-lg font-black text-[var(--text-primary)]">{data.company.name}</h2>
+              <h3 className="text-xs md:text-sm font-bold text-amber-500 uppercase tracking-wider mt-0.5 flex items-center gap-2">
+                <Building2 className="w-4 h-4 text-amber-500" />
                 <span>Schedule III / Schedule IV Disclosures (Income Tax Return & Companies Act)</span>
               </h3>
-              <p className="text-xs text-slate-400">ITR Disclosures & Statutory Financial Statement Classification</p>
+              <p className="text-xs text-[var(--text-muted)]">ITR Disclosures & Statutory Financial Statement Classification</p>
             </div>
 
             {perms.canExportData && (
@@ -2284,9 +2284,9 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                   link.click();
                   link.remove();
                 }}
-                className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-extrabold text-xs px-4 py-2.5 rounded-xl shadow transition"
+                className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white font-extrabold text-xs px-4 py-2.5 rounded-xl shadow transition"
               >
-                <FileSpreadsheet className="w-4 h-4 text-slate-950" />
+                <FileSpreadsheet className="w-4 h-4 text-white hv-keep-white" />
                 <span>Export Schedule III/IV CSV</span>
               </button>
             )}
@@ -2294,14 +2294,14 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
 
           <div className="space-y-6 text-sm tabular-nums">
             {/* PART 1: EQUITY AND LIABILITIES */}
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
-              <h4 className="text-xs font-extrabold text-indigo-300 uppercase tracking-wider flex items-center justify-between border-b border-slate-800 pb-2">
+            <div className="hv-elevated p-4 rounded-xl border border-[var(--border-primary)] space-y-3">
+              <h4 className="text-xs font-extrabold text-indigo-500 uppercase tracking-wider flex items-center justify-between border-b border-[var(--border-primary)] pb-2">
                 <span>I. EQUITY AND LIABILITIES (समता एवं दायित्व)</span>
-                <span className="text-[10px] text-slate-400 font-normal">Companies Act Schedule III Heading</span>
+                <span className="text-[10px] text-[var(--text-muted)] font-normal">Companies Act Schedule III Heading</span>
               </h4>
 
               <div className="space-y-2">
-                <div className="font-bold text-amber-400 text-[11px] uppercase pt-1">1. Shareholders' Funds & Capital Accounts</div>
+                <div className="font-bold text-amber-500 text-[11px] uppercase pt-1">1. Shareholders' Funds & Capital Accounts</div>
                 {equityAccounts.map(acc => {
                   const bal = balancesMap.get(acc.id);
                   const amt = getSignedLedgerAmount(bal, acc.category);
@@ -2309,20 +2309,20 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                     <div
                       key={acc.id}
                       onClick={() => openAccountStatement(acc)}
-                      className="flex justify-between items-center py-1 border-b border-slate-900 px-2 text-slate-300 hover:bg-indigo-500/10 rounded cursor-pointer transition group"
+                      className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] px-2 text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] rounded cursor-pointer transition group"
                     >
                       <span className="flex items-center gap-1">
                         <span>[{acc.code}] {acc.name} ({acc.subCategory})</span>
-                        <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-indigo-400" />
+                        <ChevronRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-indigo-500" />
                       </span>
-                      <span className="font-mono text-indigo-300 font-bold">
+                      <span className="font-mono text-indigo-500 font-bold">
                         {formatCurrency(Math.abs(amt), currency)} {bal?.balanceType || 'CR'}
                       </span>
                     </div>
                   );
                 })}
 
-                <div className="font-bold text-amber-400 text-[11px] uppercase pt-2">2. Liabilities & Trade Payables</div>
+                <div className="font-bold text-amber-500 text-[11px] uppercase pt-2">2. Liabilities & Trade Payables</div>
                 {liabilityAccounts.map(acc => {
                   const bal = balancesMap.get(acc.id);
                   const amt = getSignedLedgerAmount(bal, acc.category);
@@ -2330,13 +2330,13 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                     <div
                       key={acc.id}
                       onClick={() => openAccountStatement(acc)}
-                      className="flex justify-between items-center py-1 border-b border-slate-900 px-2 text-slate-300 hover:bg-rose-500/10 rounded cursor-pointer transition group"
+                      className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] px-2 text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] rounded cursor-pointer transition group"
                     >
                       <span className="flex items-center gap-1">
                         <span>[{acc.code}] {acc.name} ({acc.subCategory})</span>
-                        <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-rose-400" />
+                        <ChevronRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-rose-500" />
                       </span>
-                      <span className="font-mono text-rose-300 font-bold">
+                      <span className="font-mono text-rose-500 font-bold">
                         {formatCurrency(Math.abs(amt), currency)} {bal?.balanceType || 'CR'}
                       </span>
                     </div>
@@ -2346,14 +2346,14 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
             </div>
 
             {/* PART 2: ASSETS */}
-            <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
-              <h4 className="text-xs font-extrabold text-emerald-300 uppercase tracking-wider flex items-center justify-between border-b border-slate-800 pb-2">
+            <div className="hv-elevated p-4 rounded-xl border border-[var(--border-primary)] space-y-3">
+              <h4 className="text-xs font-extrabold text-emerald-500 uppercase tracking-wider flex items-center justify-between border-b border-[var(--border-primary)] pb-2">
                 <span>II. ASSETS (परिसंपत्तियां)</span>
-                <span className="text-[10px] text-slate-400 font-normal">Schedule III Current & Non-Current Assets</span>
+                <span className="text-[10px] text-[var(--text-muted)] font-normal">Schedule III Current & Non-Current Assets</span>
               </h4>
 
               <div className="space-y-2">
-                <div className="font-bold text-emerald-400 text-[11px] uppercase pt-1">1. Non-Current Assets & Fixed Assets</div>
+                <div className="font-bold text-emerald-500 text-[11px] uppercase pt-1">1. Non-Current Assets & Fixed Assets</div>
                 {fixedAssetAccounts.map(acc => {
                   const bal = balancesMap.get(acc.id);
                   const amt = getSignedLedgerAmount(bal, acc.category);
@@ -2361,20 +2361,20 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                     <div
                       key={acc.id}
                       onClick={() => openAccountStatement(acc)}
-                      className="flex justify-between items-center py-1 border-b border-slate-900 px-2 text-slate-300 hover:bg-emerald-500/10 rounded cursor-pointer transition group"
+                      className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] px-2 text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] rounded cursor-pointer transition group"
                     >
                       <span className="flex items-center gap-1">
                         <span>[{acc.code}] {acc.name} ({acc.subCategory || acc.category})</span>
-                        <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-emerald-400" />
+                        <ChevronRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-emerald-500" />
                       </span>
-                      <span className="font-mono text-emerald-300 font-bold">
+                      <span className="font-mono text-emerald-500 font-bold">
                         {formatCurrency(Math.abs(amt), currency)} {bal?.balanceType || 'DR'}
                       </span>
                     </div>
                   );
                 })}
 
-                <div className="font-bold text-emerald-400 text-[11px] uppercase pt-2">2. Current Assets (Inventories, Receivables, Cash & Bank)</div>
+                <div className="font-bold text-emerald-500 text-[11px] uppercase pt-2">2. Current Assets (Inventories, Receivables, Cash & Bank)</div>
                 <div
                   onClick={() => setDetailModalPayload({
                     kind: 'STOCK_VALUATION',
@@ -2382,11 +2382,11 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                     title: isHindi ? 'अंतिम स्टॉक मूल्यांकन विवरण (Closing Stock Breakdown)' : 'Closing Stock Valuation Breakdown',
                     subtitle: statementPeriodLabel
                   })}
-                  className="flex justify-between items-center py-1 border-b border-slate-900 px-2 text-emerald-300 font-bold hover:bg-emerald-500/10 rounded cursor-pointer transition group"
+                  className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] px-2 text-emerald-500 font-bold hover:bg-[var(--hover-surface)] rounded cursor-pointer transition group"
                 >
                   <span className="flex items-center gap-1">
                     <span>Closing Inventories / Stock-in-Hand (अंतिम स्टॉक)</span>
-                    <ChevronRight className="w-3.5 h-3.5 text-emerald-400/70" />
+                    <ChevronRight className="w-3.5 h-3.5 text-emerald-500/70" />
                   </span>
                   <span className="font-mono">{formatCurrency(closingStock, currency)} DR</span>
                 </div>
@@ -2397,13 +2397,13 @@ export const FinancialStatements: React.FC<FinancialStatementsProps> = ({
                     <div
                       key={acc.id}
                       onClick={() => openAccountStatement(acc)}
-                      className="flex justify-between items-center py-1 border-b border-slate-900 px-2 text-slate-300 hover:bg-emerald-500/10 rounded cursor-pointer transition group"
+                      className="flex justify-between items-center py-1 border-b border-[var(--border-primary)] px-2 text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] rounded cursor-pointer transition group"
                     >
                       <span className="flex items-center gap-1">
                         <span>[{acc.code}] {acc.name} ({acc.subCategory || acc.category})</span>
-                        <ChevronRight className="w-3 h-3 text-slate-500 group-hover:text-emerald-400" />
+                        <ChevronRight className="w-3 h-3 text-[var(--text-muted)] group-hover:text-emerald-500" />
                       </span>
-                      <span className="font-mono text-emerald-300 font-bold">
+                      <span className="font-mono text-emerald-500 font-bold">
                         {formatCurrency(Math.abs(amt), currency)} {bal?.balanceType || 'DR'}
                       </span>
                     </div>

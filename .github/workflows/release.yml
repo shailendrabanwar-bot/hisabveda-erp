@@ -1,0 +1,49 @@
+name: Build & Publish Windows Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  release-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout Private Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build React & Electron Windows Installer
+        shell: pwsh
+        env:
+          VITE_ELECTRON_BUILD: 'true'
+        run: |
+          npx vite build
+          node scripts/obfuscate-build.mjs
+          npx electron-builder --win --publish never
+
+      - name: Publish Binaries & Auto-Update Metadata to Public Releases Repo
+        uses: softprops/action-gh-release@v2
+        with:
+          repository: shailendrabanwar-bot/hisabveda-erp-releases
+          token: ${{ secrets.RELEASE_TOKEN }}
+          tag_name: ${{ github.ref_name }}
+          name: HisabVeda ERP ${{ github.ref_name }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+          files: |
+            dist-electron/*.exe
+            dist-electron/*.exe.blockmap
+            dist-electron/latest.yml

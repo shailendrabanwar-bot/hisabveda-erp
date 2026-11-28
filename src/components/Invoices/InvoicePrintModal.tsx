@@ -189,20 +189,20 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
-      <div className={`print-preview-dialog bg-slate-900 border border-slate-800 rounded-2xl w-full ${dialogMaxWidthClass} max-h-[92vh] flex flex-col shadow-2xl overflow-hidden`}>
+      <div className={`print-preview-dialog hv-surface border rounded-2xl w-full ${dialogMaxWidthClass} max-h-[92vh] flex flex-col shadow-2xl overflow-hidden`}>
         {/* Modal Top Control Bar */}
-        <div className="p-4 bg-slate-800/90 border-b border-slate-700 flex flex-wrap items-center justify-between gap-2 shrink-0 no-print">
+        <div className="p-4 hv-elevated border-b flex flex-wrap items-center justify-between gap-2 shrink-0 no-print">
           <div className="flex items-center gap-2">
-            <h3 className="text-sm font-bold text-slate-100">
+            <h3 className="text-sm font-bold text-[var(--text-primary)]">
               {isHindi ? 'इनवॉइस प्रिंट पूर्वावलोकन' : 'Official Tax Invoice Preview'}
             </h3>
-            <span className="text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full font-semibold border border-indigo-500/30">
+            <span className="text-xs hv-pill-indigo border px-2 py-0.5 rounded-full font-semibold">
               {invoice.invoiceNumber}
             </span>
           </div>
 
           <div className="flex items-center gap-2 flex-wrap">
-            <label className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-700/80 border border-slate-600 text-slate-200 text-xs font-semibold px-3 py-2 rounded-xl cursor-pointer transition select-none">
+            <label className="flex items-center gap-1.5 hv-surface hover:bg-[var(--hover-surface)] border text-[var(--text-primary)] text-xs font-semibold px-3 py-2 rounded-xl cursor-pointer transition select-none">
               <input
                 type="checkbox"
                 checked={showAdvanceDetails}
@@ -217,21 +217,21 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
               onClick={() => setShowConfigPanel((prev) => !prev)}
               className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl border transition cursor-pointer ${
                 showConfigPanel
-                  ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
-                  : 'bg-slate-900 hover:bg-slate-700 text-slate-200 border-slate-600'
+                  ? 'hv-pill-amber'
+                  : 'hv-surface hover:bg-[var(--hover-surface)] text-[var(--text-primary)]'
               }`}
             >
               <Sliders className="w-3.5 h-3.5" />
               <span>{isHindi ? 'प्रिंट सेटिंग्स' : 'Print Config'}</span>
             </button>
 
-            <div className="flex items-center bg-slate-900 border border-emerald-600/40 rounded-xl overflow-hidden">
+            <div className="flex items-center hv-input border border-emerald-600/40 rounded-xl overflow-hidden">
               <input
                 type="tel"
                 value={whatsappPhone}
                 onChange={(e) => setWhatsappPhone(e.target.value)}
                 placeholder={isHindi ? 'ग्राहक WhatsApp नं.' : 'Customer Phone'}
-                className="w-32 bg-transparent text-slate-100 text-xs px-2.5 py-2 outline-none font-mono placeholder:font-sans placeholder:text-slate-500"
+                className="w-32 bg-transparent text-[var(--text-primary)] text-xs px-2.5 py-2 outline-none font-mono placeholder:font-sans placeholder:text-[var(--text-muted)]"
               />
               <a
                 href={buildWhatsAppInvoiceShareUrl({
@@ -243,7 +243,7 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
                 })}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1.5 bg-green-600 hover:bg-green-500 text-white text-xs font-bold px-3 py-2 shadow-md transition cursor-pointer"
+                className="flex items-center gap-1.5 bg-green-600 hover:bg-green-500 text-white hv-keep-white text-xs font-bold px-3 py-2 shadow-md transition cursor-pointer"
                 title={isHindi ? 'WhatsApp पर बिल व UPI लिंक भेजें' : 'Send Bill & UPI Details on WhatsApp'}
               >
                 <MessageCircle className="w-4 h-4" />
@@ -254,7 +254,7 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
             <button
               type="button"
               onClick={handleShareEmail}
-              className="flex items-center gap-1.5 bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold px-3 py-2 rounded-xl shadow-md transition cursor-pointer"
+              className="flex items-center gap-1.5 bg-sky-600 hover:bg-sky-500 text-white hv-keep-white text-xs font-semibold px-3 py-2 rounded-xl shadow-md transition cursor-pointer"
             >
               <Mail className="w-4 h-4" />
               <span>{isHindi ? 'ईमेल' : 'Email'}</span>
@@ -264,7 +264,7 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
               type="button"
               onClick={handleDownloadPdf}
               disabled={isDownloadingPdf}
-              className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-3.5 py-2 rounded-xl shadow-md transition cursor-pointer disabled:opacity-60"
+              className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white text-xs font-semibold px-3.5 py-2 rounded-xl shadow-md transition cursor-pointer disabled:opacity-60"
             >
               {isDownloadingPdf ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
               <span>{isDownloadingPdf ? (isHindi ? 'PDF बन रहा है...' : 'Saving PDF...') : (isHindi ? 'PDF डाउनलोड' : 'Download PDF')}</span>
@@ -273,7 +273,7 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
             <button
               type="button"
               onClick={handlePrint}
-              className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-4 py-2 rounded-xl shadow-md transition cursor-pointer"
+              className="flex items-center gap-1.5 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white text-xs font-semibold px-4 py-2 rounded-xl shadow-md transition cursor-pointer"
             >
               <Printer className="w-4 h-4" />
               <span>{isHindi ? 'प्रिंट करें' : 'Print'}</span>
@@ -282,7 +282,7 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="p-2 text-slate-400 hover:text-white bg-slate-800 rounded-xl hover:bg-slate-700 transition cursor-pointer"
+              className="p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hv-surface rounded-xl hover:bg-[var(--hover-surface)] transition cursor-pointer border"
             >
               <X className="w-5 h-5" />
             </button>
@@ -290,9 +290,9 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
         </div>
 
         {/* 1-Click 4-Format Print Switcher */}
-        <div className="px-4 py-2 bg-slate-900/95 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs shrink-0 no-print">
+        <div className="px-4 py-2 hv-surface border-b flex flex-wrap items-center justify-between gap-2 text-xs shrink-0 no-print">
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mr-1">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)] mr-1">
               {isHindi ? 'प्रिंट लेआउट:' : 'Print Format:'}
             </span>
             <button
@@ -306,8 +306,8 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
               }
               className={`px-2.5 py-1 rounded-lg font-bold border transition cursor-pointer ${
                 printConfig.defaultPaperSize === 'A4' && (printConfig.invoicePrintTheme || 'GST_STANDARD') === 'GST_STANDARD'
-                  ? 'bg-indigo-600 text-white border-indigo-500'
-                  : 'bg-slate-800 text-slate-300 border-slate-700 hover:text-white'
+                  ? 'bg-indigo-600 text-white hv-keep-white border-indigo-500'
+                  : 'hv-elevated text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             >
               {isHindi ? 'A4 GST स्टैंडर्ड' : 'A4 GST Standard'}
@@ -323,8 +323,8 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
               }
               className={`px-2.5 py-1 rounded-lg font-bold border transition cursor-pointer ${
                 printConfig.defaultPaperSize === 'A4' && printConfig.invoicePrintTheme === 'MODERN'
-                  ? 'bg-indigo-600 text-white border-indigo-500'
-                  : 'bg-slate-800 text-slate-300 border-slate-700 hover:text-white'
+                  ? 'bg-indigo-600 text-white hv-keep-white border-indigo-500'
+                  : 'hv-elevated text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             >
               {isHindi ? 'A4 आधुनिक थीम' : 'A4 Modern Theme'}
@@ -339,8 +339,8 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
               }
               className={`px-2.5 py-1 rounded-lg font-bold border transition cursor-pointer ${
                 printConfig.defaultPaperSize === 'A5'
-                  ? 'bg-indigo-600 text-white border-indigo-500'
-                  : 'bg-slate-800 text-slate-300 border-slate-700 hover:text-white'
+                  ? 'bg-indigo-600 text-white hv-keep-white border-indigo-500'
+                  : 'hv-elevated text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             >
               {isHindi ? 'A5 हाफ-पेज' : 'A5 Half-Page'}
@@ -355,8 +355,8 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
               }
               className={`px-2.5 py-1 rounded-lg font-bold border transition cursor-pointer ${
                 isThermal
-                  ? 'bg-cyan-600 text-slate-950 border-cyan-500 font-extrabold'
-                  : 'bg-slate-800 text-slate-300 border-slate-700 hover:text-white'
+                  ? 'bg-cyan-600 text-white hv-keep-white border-cyan-500 font-extrabold'
+                  : 'hv-elevated text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             >
               {isHindi ? 'थर्मल POS रसीद' : 'Thermal POS (80/58mm)'}
@@ -364,14 +364,14 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
           </div>
 
           {isThermal && (
-            <div className="inline-flex items-center bg-slate-950 border border-slate-700 rounded-lg p-0.5 text-[11px] font-bold">
+            <div className="inline-flex items-center hv-canvas border rounded-lg p-0.5 text-[11px] font-bold">
               <button
                 type="button"
                 onClick={() => setPrintConfig(prev => ({ ...prev, defaultPaperSize: 'Thermal-3inch' }))}
                 className={`px-2 py-0.5 rounded cursor-pointer ${
                   printConfig.defaultPaperSize === 'Thermal-3inch'
-                    ? 'bg-cyan-500 text-slate-950'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-cyan-600 text-white hv-keep-white'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 80mm (3&quot;)
@@ -381,8 +381,8 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
                 onClick={() => setPrintConfig(prev => ({ ...prev, defaultPaperSize: 'Thermal-58mm' }))}
                 className={`px-2 py-0.5 rounded cursor-pointer ${
                   printConfig.defaultPaperSize === 'Thermal-58mm'
-                    ? 'bg-cyan-500 text-slate-950'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-cyan-600 text-white hv-keep-white'
+                    : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 58mm (2&quot;)
@@ -404,14 +404,14 @@ export const InvoicePrintModal: React.FC<InvoicePrintModalProps> = ({
 
         {/* PDF Toast Feedback */}
         {pdfNotice && (
-          <div className="bg-emerald-600 text-white px-4 py-2 text-xs font-bold flex items-center gap-2 shrink-0 no-print">
+          <div className="bg-emerald-600 text-white hv-keep-white px-4 py-2 text-xs font-bold flex items-center gap-2 shrink-0 no-print">
             <CheckCircle2 className="w-4 h-4" />
             <span>{pdfNotice}</span>
           </div>
         )}
 
         {/* Scrollable Sheet Preview Area */}
-        <div className="overflow-y-auto flex-1 bg-slate-950/60 py-3">
+        <div className="overflow-y-auto flex-1 bg-[var(--bg-canvas)] py-3">
           <div
             className={`bg-white text-slate-900 font-sans print:p-0 print:m-0 print:shadow-none print:bg-white ${
               isThermal ? 'p-3' : isA5 ? 'p-4 sm:p-5' : getPaperPaddingClass(printConfig.printMargins)

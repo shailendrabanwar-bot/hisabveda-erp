@@ -211,25 +211,25 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
   const activeFields = ENTITY_FIELD_DEFS[entityType];
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-5">
+    <div className="hv-surface border rounded-2xl p-5 space-y-5">
       {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-[var(--border-primary)] pb-4">
         <div className="flex items-start gap-3">
-          <div className="w-11 h-11 rounded-xl bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shrink-0">
+          <div className="w-11 h-11 rounded-xl hv-pill-indigo border flex items-center justify-center shrink-0">
             <Globe2 className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="font-extrabold text-base text-white flex flex-wrap items-center gap-2">
+            <h3 className="font-extrabold text-base text-[var(--text-primary)] flex flex-wrap items-center gap-2">
               <span>
                 {isHindi
                   ? 'अन्य अकाउंटिंग सॉफ़्टवेयर व Excel/CSV डेटा इम्पोर्टर'
                   : 'Universal Multi-Software & Excel/CSV Importer'}
               </span>
-              <span className="bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 text-[10px] font-bold px-2 py-0.5 rounded">
+              <span className="hv-pill-indigo border text-[10px] font-bold px-2 py-0.5 rounded">
                 Vyapar • Busy • Marg • Zoho • QuickBooks
               </span>
             </h3>
-            <p className="text-xs text-slate-400 mt-1">
+            <p className="text-xs text-[var(--text-muted)] mt-1">
               {isHindi
                 ? 'Vyapar, Busy, Marg ERP, Zoho Books, QuickBooks या किसी भी Excel (.xlsx) / CSV / JSON से पार्टी, आइटम, लेज़र, सेल्स बिल, परचेज बिल और वाउचर 1-क्लिक में इम्पोर्ट करें।'
                 : 'Migrate Parties, Items, Accounts, Sales Invoices, Purchase Bills & Vouchers exported from Vyapar, Busy, Marg ERP, Zoho Books, QuickBooks, or any custom Excel/CSV/JSON.'}
@@ -240,7 +240,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
         <button
           type="button"
           onClick={() => downloadExternalSampleTemplateXlsx(entityType)}
-          className="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-emerald-400 text-xs font-bold px-3.5 py-2.5 rounded-xl transition cursor-pointer shrink-0 self-start lg:self-center"
+          className="flex items-center gap-1.5 hv-pill-emerald border hover:opacity-90 text-xs font-bold px-3.5 py-2.5 rounded-xl transition cursor-pointer shrink-0 self-start lg:self-center"
         >
           <Download className="w-4 h-4" />
           <span>
@@ -253,18 +253,18 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
 
       {/* Undo / Remove External Imported Records */}
       {(lastBatchTotal > 0 || existingExtCounts.total > 0 || Boolean(preImportSnapshot && onRestorePreImportSnapshot)) && (
-        <div className="bg-rose-950/25 border border-rose-500/30 rounded-2xl p-4 space-y-3">
+        <div className="hv-pill-rose border rounded-2xl p-4 space-y-3">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
             <div className="space-y-1">
-              <p className="text-xs font-extrabold text-rose-200 flex items-center gap-2">
-                <RotateCcw className="w-4 h-4 text-rose-400" />
+              <p className="text-xs font-extrabold flex items-center gap-2">
+                <RotateCcw className="w-4 h-4" />
                 <span>
                   {isHindi
                     ? 'गलत Excel / अन्य सॉफ़्टवेयर इम्पोर्ट हटाएँ या स्नैपशॉट रीस्टोर करें'
                     : 'Undo External Import or Restore Pre-Import Snapshot'}
                 </span>
               </p>
-              <p className="text-[11px] text-slate-300">
+              <p className="text-[11px] text-[var(--text-secondary)]">
                 {existingExtCounts.total > 0
                   ? (isHindi
                       ? `अन्य सॉफ़्टवेयर/Excel से आए कुल ${existingExtCounts.total} रिकॉर्ड इस कंपनी में मौजूद हैं।`
@@ -284,7 +284,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
                     setConfirmUndoLast(false);
                     setConfirmRestoreSnapshot(true);
                   }}
-                  className="flex items-center gap-1.5 bg-indigo-500/20 hover:bg-indigo-500/35 border border-indigo-400/50 text-indigo-200 text-xs font-bold px-3.5 py-2 rounded-xl transition cursor-pointer"
+                  className="flex items-center gap-1.5 hv-pill-indigo border hover:opacity-90 text-xs font-bold px-3.5 py-2 rounded-xl transition cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>
@@ -301,7 +301,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
                     setConfirmRestoreSnapshot(false);
                     setConfirmUndoLast(true);
                   }}
-                  className="flex items-center gap-1.5 bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 text-xs font-bold px-3.5 py-2 rounded-xl transition cursor-pointer"
+                  className="flex items-center gap-1.5 hv-pill-amber border hover:opacity-90 text-xs font-bold px-3.5 py-2 rounded-xl transition cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                   <span>
@@ -318,7 +318,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
                     setConfirmRestoreSnapshot(false);
                     setConfirmRemoveAll(true);
                   }}
-                  className="flex items-center gap-1.5 bg-rose-600 hover:bg-rose-500 text-white text-xs font-extrabold px-3.5 py-2 rounded-xl shadow transition cursor-pointer"
+                  className="flex items-center gap-1.5 bg-rose-600 hover:bg-rose-500 text-white hv-keep-white text-xs font-extrabold px-3.5 py-2 rounded-xl shadow transition cursor-pointer"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                   <span>
@@ -330,8 +330,8 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
           </div>
 
           {confirmRestoreSnapshot && onRestorePreImportSnapshot && preImportSnapshot && (
-            <div className="bg-indigo-950/60 border border-indigo-500/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-              <span className="text-indigo-200">
+            <div className="hv-pill-indigo border rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+              <span>
                 {isHindi
                   ? `इम्पोर्ट से पहले की स्थिति (${preImportSnapshot.label} • ${new Date(preImportSnapshot.createdAt).toLocaleString()}) पर वापस लौटें?`
                   : `Restore exact workspace state from before import (${preImportSnapshot.label} • ${new Date(preImportSnapshot.createdAt).toLocaleString()})?`}
@@ -340,7 +340,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
                 <button
                   type="button"
                   onClick={() => setConfirmRestoreSnapshot(false)}
-                  className="px-3 py-1.5 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] hv-surface text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] cursor-pointer"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
@@ -350,7 +350,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
                     setConfirmRestoreSnapshot(false);
                     onRestorePreImportSnapshot();
                   }}
-                  className="px-3.5 py-1.5 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-white font-extrabold cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-extrabold cursor-pointer"
                 >
                   {isHindi ? 'हाँ, स्नैपशॉट रीस्टोर करें' : 'Yes, Restore Snapshot'}
                 </button>
@@ -359,8 +359,8 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
           )}
 
           {confirmUndoLast && onUndoLastExternalImport && lastExternalImportBatch && (
-            <div className="bg-amber-950/60 border border-amber-500/40 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-              <span className="text-amber-200">
+            <div className="hv-pill-amber border rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+              <span>
                 {isHindi
                   ? `फ़ाइल "${lastExternalImportBatch.fileName}" से आए ${lastBatchTotal} रिकॉर्ड हटाएँ?`
                   : `Remove all ${lastBatchTotal} records imported from "${lastExternalImportBatch.fileName}"?`}
@@ -369,7 +369,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
                 <button
                   type="button"
                   onClick={() => setConfirmUndoLast(false)}
-                  className="px-3 py-1.5 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] hv-surface text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] cursor-pointer"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
@@ -388,8 +388,8 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
           )}
 
           {confirmRemoveAll && onRemoveAllExternalData && (
-            <div className="bg-rose-950/70 border border-rose-500/50 rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
-              <span className="text-rose-200">
+            <div className="hv-pill-rose border rounded-xl p-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+              <span>
                 {isHindi
                   ? `क्या आप Excel/अन्य सॉफ़्टवेयर से इम्पोर्ट किए गए सभी ${existingExtCounts.total} रिकॉर्ड हटाना चाहते हैं?`
                   : `Delete all ${existingExtCounts.total} records imported from external software/Excel?`}
@@ -398,7 +398,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
                 <button
                   type="button"
                   onClick={() => setConfirmRemoveAll(false)}
-                  className="px-3 py-1.5 rounded-lg border border-slate-700 text-slate-300 hover:bg-slate-800 cursor-pointer"
+                  className="px-3 py-1.5 rounded-lg border border-[var(--border-subtle)] hv-surface text-[var(--text-secondary)] hover:bg-[var(--hover-surface)] cursor-pointer"
                 >
                   {isHindi ? 'रद्द करें' : 'Cancel'}
                 </button>
@@ -408,7 +408,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
                     setConfirmRemoveAll(false);
                     onRemoveAllExternalData();
                   }}
-                  className="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-extrabold cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-extrabold cursor-pointer"
                 >
                   {isHindi ? 'हाँ, सभी हटाएँ' : 'Yes, Remove All'}
                 </button>
@@ -420,15 +420,15 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
 
       {/* Success Banner */}
       {successMsg && (
-        <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-xl p-4 flex items-start justify-between gap-3 text-emerald-300 text-xs font-semibold">
+        <div className="hv-pill-emerald border rounded-xl p-4 flex items-start justify-between gap-3 text-xs font-semibold">
           <div className="flex items-start gap-2.5">
-            <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+            <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
             <span>{successMsg}</span>
           </div>
           <button
             type="button"
             onClick={() => setSuccessMsg(null)}
-            className="p-1 hover:bg-emerald-500/20 rounded-lg text-emerald-300 cursor-pointer"
+            className="p-1 hover:opacity-80 rounded-lg cursor-pointer"
           >
             <X className="w-4 h-4" />
           </button>
@@ -437,8 +437,8 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
 
       {/* Step 1 & Step 2: Source Software + Data Entity Selection */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        <div className="lg:col-span-5 bg-slate-950/70 border border-slate-800 rounded-2xl p-4 space-y-3">
-          <label className="block text-xs font-extrabold text-indigo-300 uppercase tracking-wide">
+        <div className="lg:col-span-5 hv-elevated border border-[var(--border-primary)] rounded-2xl p-4 space-y-3">
+          <label className="block text-xs font-extrabold text-indigo-400 uppercase tracking-wide">
             {isHindi ? '1. स्रोत सॉफ़्टवेयर चुनें (Source Software)' : '1. Select Source Software'}
           </label>
           <div className="grid grid-cols-2 gap-2">
@@ -449,23 +449,23 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
                 onClick={() => setSoftware(preset.id)}
                 className={`text-left p-2.5 rounded-xl border text-xs transition cursor-pointer ${
                   software === preset.id
-                    ? 'bg-indigo-600/25 border-indigo-400 text-white font-bold shadow'
-                    : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
+                    ? 'hv-pill-indigo border font-bold shadow'
+                    : 'hv-surface border-[var(--border-primary)] text-[var(--text-secondary)] hover:border-[var(--border-subtle)]'
                 }`}
               >
                 <div className="truncate">{preset.name}</div>
               </button>
             ))}
           </div>
-          <p className="text-[11px] text-slate-400 leading-relaxed">
+          <p className="text-[11px] text-[var(--text-muted)] leading-relaxed">
             {isHindi
               ? SOFTWARE_PRESETS.find((s) => s.id === software)?.taglineHi
               : SOFTWARE_PRESETS.find((s) => s.id === software)?.taglineEn}
           </p>
         </div>
 
-        <div className="lg:col-span-7 bg-slate-950/70 border border-slate-800 rounded-2xl p-4 space-y-3">
-          <label className="block text-xs font-extrabold text-emerald-300 uppercase tracking-wide">
+        <div className="lg:col-span-7 hv-elevated border border-[var(--border-primary)] rounded-2xl p-4 space-y-3">
+          <label className="block text-xs font-extrabold text-emerald-400 uppercase tracking-wide">
             {isHindi ? '2. क्या इम्पोर्ट करना है? (Select Data Type)' : '2. Select What Data You Are Importing'}
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -479,18 +479,18 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
                   onClick={() => handleEntityTypeChange(opt.id)}
                   className={`flex items-center gap-2 p-2.5 rounded-xl border text-left text-xs transition cursor-pointer ${
                     active
-                      ? 'bg-emerald-500/20 border-emerald-400 text-emerald-200 font-bold'
-                      : 'bg-slate-900 border-slate-800 text-slate-300 hover:border-slate-700'
+                      ? 'hv-pill-emerald border font-bold'
+                      : 'hv-surface border-[var(--border-primary)] text-[var(--text-secondary)] hover:border-[var(--border-subtle)]'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 shrink-0 ${active ? 'text-emerald-400' : 'text-slate-400'}`} />
+                  <Icon className={`w-4 h-4 shrink-0 ${active ? '' : 'text-[var(--text-muted)]'}`} />
                   <span className="leading-tight">{isHindi ? opt.labelHi : opt.labelEn}</span>
                 </button>
               );
             })}
           </div>
 
-          <label className="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 cursor-pointer text-[11px] text-slate-300 font-semibold">
+          <label className="flex items-center gap-2 hv-surface border border-[var(--border-primary)] rounded-xl px-3 py-2 cursor-pointer text-[11px] text-[var(--text-secondary)] font-semibold">
             <input
               type="checkbox"
               checked={skipDuplicates}
@@ -507,7 +507,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
       </div>
 
       {/* Step 3: File Dropzone */}
-      <div className="border-2 border-dashed border-slate-700 hover:border-indigo-500/70 bg-slate-950/60 rounded-2xl p-6 text-center transition">
+      <div className="border-2 border-dashed border-[var(--border-subtle)] hover:border-indigo-500/70 hv-elevated rounded-2xl p-6 text-center transition">
         <input
           ref={fileInputRef}
           type="file"
@@ -520,12 +520,12 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
           htmlFor="universal-software-upload-input"
           className="cursor-pointer flex flex-col items-center justify-center space-y-2"
         >
-          <div className="w-12 h-12 rounded-2xl bg-indigo-500/15 border border-indigo-500/30 text-indigo-400 flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl hv-pill-indigo border flex items-center justify-center">
             <UploadCloud className="w-6 h-6" />
           </div>
-          <p className="text-xs font-bold text-slate-100">
+          <p className="text-xs font-bold text-[var(--text-primary)]">
             {workbook ? (
-              <span className="text-indigo-300 inline-flex items-center gap-1.5">
+              <span className="text-indigo-400 inline-flex items-center gap-1.5">
                 <FileSpreadsheet className="w-4 h-4" />
                 {workbook.fileName}
               </span>
@@ -535,7 +535,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
               'Click to upload Excel (.xlsx, .xls), CSV (.csv), or JSON (.json) export file'
             )}
           </p>
-          <p className="text-[11px] text-slate-500">
+          <p className="text-[11px] text-[var(--text-muted)]">
             {isHindi
               ? 'Vyapar / Busy / Marg / Zoho Books से एक्सपोर्ट की गई रिपोर्ट सीधे अपलोड करें — शीर्षक पंक्ति स्वतः पहचानी जाएगी'
               : 'Supports multi-sheet Excel workbooks & exports with banner headers automatically'}
@@ -545,15 +545,15 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
         {workbook && (
           <div className="mt-3 flex flex-wrap items-center justify-center gap-2">
             {workbook.sheetNames.length > 1 && (
-              <div className="flex items-center gap-1.5 bg-slate-900 border border-slate-700 rounded-lg px-2.5 py-1 text-[11px]">
-                <span className="text-slate-400">{isHindi ? 'शीट चुनें:' : 'Sheet:'}</span>
+              <div className="flex items-center gap-1.5 hv-surface border border-[var(--border-subtle)] rounded-lg px-2.5 py-1 text-[11px]">
+                <span className="text-[var(--text-muted)]">{isHindi ? 'शीट चुनें:' : 'Sheet:'}</span>
                 <select
                   value={selectedSheet}
                   onChange={(e) => handleSheetChange(e.target.value)}
-                  className="bg-transparent text-amber-300 font-bold outline-none"
+                  className="bg-transparent text-amber-400 font-bold outline-none"
                 >
                   {workbook.sheetNames.map((s) => (
-                    <option key={s} value={s} className="bg-slate-900">
+                    <option key={s} value={s}>
                       {s}
                     </option>
                   ))}
@@ -563,7 +563,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
 
             <label
               htmlFor="universal-software-upload-input"
-              className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-[11px] font-bold cursor-pointer transition"
+              className="px-3 py-1.5 rounded-lg hv-surface hover:bg-[var(--hover-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] text-[11px] font-bold cursor-pointer transition"
             >
               {isHindi ? 'दूसरी फ़ाइल चुनें' : 'Change File'}
             </label>
@@ -571,7 +571,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
             <button
               type="button"
               onClick={handleClearFile}
-              className="px-3 py-1.5 rounded-lg bg-rose-600/20 hover:bg-rose-600/35 border border-rose-500/40 text-rose-300 text-[11px] font-bold flex items-center gap-1 cursor-pointer transition"
+              className="px-3 py-1.5 rounded-lg hv-pill-rose border text-[11px] font-bold flex items-center gap-1 cursor-pointer transition hover:opacity-90"
             >
               <Trash2 className="w-3.5 h-3.5" />
               <span>{isHindi ? 'गलत फ़ाइल हटाएँ' : 'Remove Wrong File'}</span>
@@ -582,18 +582,18 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
 
       {/* Parse Error */}
       {parseError && (
-        <div className="bg-rose-500/10 border border-rose-500/30 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-rose-300 text-xs">
+        <div className="hv-pill-rose border rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
           <div className="flex items-start gap-2.5">
-            <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+            <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
             <div>
               <p className="font-bold">{isHindi ? 'फ़ाइल पढ़ने में त्रुटि' : 'File Read Error'}</p>
-              <p className="text-rose-200/80 mt-0.5">{parseError}</p>
+              <p className="mt-0.5">{parseError}</p>
             </div>
           </div>
           <button
             type="button"
             onClick={handleClearFile}
-            className="px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold cursor-pointer shrink-0"
+            className="px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-500 text-white hv-keep-white font-bold cursor-pointer shrink-0"
           >
             {isHindi ? 'हटाएँ' : 'Remove File'}
           </button>
@@ -602,12 +602,12 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
 
       {/* Column Mapping + Preview + Import */}
       {activeSheetData && previewResult && (
-        <div className="space-y-4 pt-2 border-t border-slate-800">
+        <div className="space-y-4 pt-2 border-t border-[var(--border-primary)]">
           {/* Interactive Column Mapping */}
-          <div className="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3">
+          <div className="hv-elevated border border-[var(--border-primary)] rounded-2xl p-4 space-y-3">
             <div className="flex items-center justify-between">
-              <h4 className="text-xs font-extrabold text-amber-300 flex items-center gap-2">
-                <SlidersHorizontal className="w-4 h-4 text-amber-400" />
+              <h4 className="text-xs font-extrabold text-amber-400 flex items-center gap-2">
+                <SlidersHorizontal className="w-4 h-4" />
                 <span>
                   {isHindi
                     ? `कॉलम मैपिंग जाँचें (${activeSheetData.rows.length} पंक्तियाँ मिलीं)`
@@ -617,7 +617,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
               <button
                 type="button"
                 onClick={() => setShowColumnMapper((v) => !v)}
-                className="text-[11px] text-indigo-300 hover:underline font-bold cursor-pointer"
+                className="text-[11px] text-indigo-400 hover:underline font-bold cursor-pointer"
               >
                 {showColumnMapper
                   ? isHindi ? 'कॉलम मैपिंग छुपाएँ' : 'Hide Mapper'
@@ -628,15 +628,15 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
             {showColumnMapper && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 pt-1">
                 {activeFields.map((field) => (
-                  <div key={field.key} className="bg-slate-900 border border-slate-800 rounded-xl p-2 text-[11px] space-y-1">
-                    <label className="block font-semibold text-slate-300 truncate">
+                  <div key={field.key} className="hv-surface border border-[var(--border-primary)] rounded-xl p-2 text-[11px] space-y-1">
+                    <label className="block font-semibold text-[var(--text-secondary)] truncate">
                       {isHindi ? field.labelHi : field.labelEn}
                       {field.required && <span className="text-rose-400 ml-1">*</span>}
                     </label>
                     <select
                       value={mapping[field.key] || ''}
                       onChange={(e) => setMapping((prev) => ({ ...prev, [field.key]: e.target.value }))}
-                      className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1 text-slate-100 font-mono text-[11px]"
+                      className="w-full hv-input border rounded-lg px-2 py-1 font-mono text-[11px]"
                     >
                       <option value="">{isHindi ? '-- अनदेखा करें / ऑटो --' : '-- Ignore / Auto --'}</option>
                       {activeSheetData.headers.map((hdr) => (
@@ -653,8 +653,8 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
 
           {/* FY / Date Notice */}
           {previewResult.minDate && (
-            <div className="bg-amber-500/10 border border-amber-500/30 rounded-xl px-4 py-2 text-xs text-amber-200 flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-amber-400 shrink-0" />
+            <div className="hv-pill-amber border rounded-xl px-4 py-2 text-xs flex items-center gap-2">
+              <Calendar className="w-4 h-4 shrink-0" />
               <span>
                 {isHindi
                   ? `इस फ़ाइल में ${previewResult.minDate} से ${previewResult.maxDate} तक के ट्रांज़ैक्शन हैं।`
@@ -665,7 +665,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
 
           {/* Warnings */}
           {previewResult.warnings.length > 0 && (
-            <div className="bg-slate-950 border border-amber-500/30 rounded-xl p-3 text-[11px] text-amber-300 space-y-1 max-h-24 overflow-y-auto">
+            <div className="hv-pill-amber border rounded-xl p-3 text-[11px] space-y-1 max-h-24 overflow-y-auto">
               {previewResult.warnings.slice(0, 10).map((w, i) => (
                 <div key={i}>• {w}</div>
               ))}
@@ -673,19 +673,19 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
           )}
 
           {/* Action Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 bg-slate-950 border border-slate-800 rounded-xl p-3.5">
+          <div className="flex flex-wrap items-center justify-between gap-3 hv-elevated border border-[var(--border-primary)] rounded-xl p-3.5">
             <div className="flex flex-wrap items-center gap-3 text-xs">
-              <span className="text-emerald-300 font-extrabold tabular-nums">
+              <span className="text-emerald-400 font-extrabold tabular-nums">
                 {totalPrepared} {isHindi ? 'इम्पोर्ट के लिए तैयार' : 'ready to import'}
               </span>
               {previewResult.skippedDuplicates > 0 && (
-                <span className="text-slate-400 text-[11px] tabular-nums">
+                <span className="text-[var(--text-muted)] text-[11px] tabular-nums">
                   ({previewResult.skippedDuplicates} {isHindi ? 'डुप्लीकेट स्किप' : 'duplicates skipped'})
                 </span>
               )}
               {(entityType === 'SALES' || entityType === 'PURCHASES' || entityType === 'VOUCHERS') &&
                 (previewResult.parties.length > 0 || previewResult.items.length > 0 || previewResult.accounts.length > 0) && (
-                  <span className="text-[11px] text-indigo-300">
+                  <span className="text-[11px] text-indigo-400">
                     +{previewResult.parties.length} Party, +{previewResult.items.length} Item, +{previewResult.accounts.length} Ledger
                   </span>
                 )}
@@ -695,7 +695,7 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
               <button
                 type="button"
                 onClick={handleClearFile}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-rose-600/20 hover:bg-rose-600/35 border border-rose-500/40 text-rose-300 text-xs font-bold cursor-pointer"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl hv-pill-rose border text-xs font-bold cursor-pointer hover:opacity-90"
               >
                 <Trash2 className="w-3.5 h-3.5" />
                 <span>{isHindi ? 'फ़ाइल हटाएँ' : 'Cancel / Remove'}</span>
@@ -706,8 +706,8 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
                 onClick={handleConfirmImport}
                 className={`flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-extrabold transition shadow-lg ${
                   totalPrepared > 0 || itemUpdatesCount > 0
-                    ? 'bg-emerald-500 hover:bg-emerald-400 text-slate-950 cursor-pointer active:scale-95'
-                    : 'bg-slate-800 text-slate-500 cursor-not-allowed'
+                    ? 'bg-emerald-600 hover:bg-emerald-500 text-white hv-keep-white cursor-pointer active:scale-95'
+                    : 'hv-elevated text-[var(--text-muted)] border border-[var(--border-primary)] cursor-not-allowed'
                 }`}
               >
                 <CheckCircle2 className="w-4 h-4" />
@@ -721,10 +721,10 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
           </div>
 
           {/* Preview Table */}
-          <div className="bg-slate-950 border border-slate-800 rounded-xl overflow-x-auto max-h-64">
+          <div className="hv-elevated border border-[var(--border-primary)] rounded-xl overflow-x-auto max-h-64">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="bg-slate-900 border-b border-slate-800 text-slate-400 font-bold text-[11px] uppercase">
+                <tr className="hv-surface border-b border-[var(--border-primary)] text-[var(--text-muted)] font-bold text-[11px] uppercase">
                   <th className="p-2.5">#</th>
                   <th className="p-2.5">Type</th>
                   <th className="p-2.5">Primary Name / No.</th>
@@ -732,76 +732,76 @@ export const UniversalSoftwareImporter: React.FC<UniversalSoftwareImporterProps>
                   <th className="p-2.5 text-right">Amount / Price</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-800/60 text-[11px]">
+              <tbody className="divide-y divide-[var(--border-primary)] text-[11px]">
                 {entityType === 'PARTIES' &&
                   previewResult.parties.slice(0, 50).map((p, i) => (
-                    <tr key={p.id} className="hover:bg-slate-900/60">
-                      <td className="p-2.5 text-slate-500 tabular-nums">{i + 1}</td>
-                      <td className="p-2.5"><span className="px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-300 font-bold">{p.type}</span></td>
-                      <td className="p-2.5 font-semibold text-white">{p.name}</td>
-                      <td className="p-2.5 font-mono text-indigo-300">{p.gstin || p.phone || '-'}</td>
-                      <td className="p-2.5 text-right font-mono tabular-nums">₹{p.openingBalance.toLocaleString('en-IN')} {p.balanceType}</td>
+                    <tr key={p.id} className="hover:bg-[var(--hover-surface)]">
+                      <td className="p-2.5 text-[var(--text-muted)] tabular-nums">{i + 1}</td>
+                      <td className="p-2.5"><span className="px-1.5 py-0.5 rounded border hv-pill-emerald font-bold">{p.type}</span></td>
+                      <td className="p-2.5 font-semibold text-[var(--text-primary)]">{p.name}</td>
+                      <td className="p-2.5 font-mono text-indigo-400">{p.gstin || p.phone || '-'}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums text-[var(--text-primary)]">₹{p.openingBalance.toLocaleString('en-IN')} {p.balanceType}</td>
                     </tr>
                   ))}
                 {entityType === 'ITEMS' &&
                   previewResult.items.slice(0, 50).map((it, i) => {
                     const stockVal = Math.round((Number(it.currentStock) || 0) * (Number(it.purchasePrice) || 0) * 100) / 100;
                     return (
-                      <tr key={it.id} className="hover:bg-slate-900/60">
-                        <td className="p-2.5 text-slate-500 tabular-nums">{i + 1}</td>
-                        <td className="p-2.5"><span className="px-1.5 py-0.5 rounded bg-purple-500/15 text-purple-300 font-bold">ITEM</span></td>
-                        <td className="p-2.5 font-semibold text-white">{it.name}</td>
-                        <td className="p-2.5 font-mono text-slate-300">
+                      <tr key={it.id} className="hover:bg-[var(--hover-surface)]">
+                        <td className="p-2.5 text-[var(--text-muted)] tabular-nums">{i + 1}</td>
+                        <td className="p-2.5"><span className="px-1.5 py-0.5 rounded border hv-pill-purple font-bold">ITEM</span></td>
+                        <td className="p-2.5 font-semibold text-[var(--text-primary)]">{it.name}</td>
+                        <td className="p-2.5 font-mono text-[var(--text-secondary)]">
                           HSN {it.hsnSacCode} • {it.taxRate}% GST • Qty: {it.currentStock} • Value: ₹{stockVal.toLocaleString('en-IN')}
                         </td>
-                        <td className="p-2.5 text-right font-mono tabular-nums">₹{it.salesPrice.toLocaleString('en-IN')}</td>
+                        <td className="p-2.5 text-right font-mono tabular-nums text-[var(--text-primary)]">₹{it.salesPrice.toLocaleString('en-IN')}</td>
                       </tr>
                     );
                   })}
                 {entityType === 'ACCOUNTS' &&
                   previewResult.accounts.slice(0, 50).map((a, i) => (
-                    <tr key={a.id} className="hover:bg-slate-900/60">
-                      <td className="p-2.5 text-slate-500 tabular-nums">{i + 1}</td>
-                      <td className="p-2.5"><span className="px-1.5 py-0.5 rounded bg-indigo-500/15 text-indigo-300 font-bold">{a.category}</span></td>
-                      <td className="p-2.5 font-semibold text-white">{a.name}</td>
-                      <td className="p-2.5 text-slate-400">{a.mainGroup || a.subCategory}</td>
-                      <td className="p-2.5 text-right font-mono tabular-nums">₹{a.openingBalance.toLocaleString('en-IN')} {a.balanceType}</td>
+                    <tr key={a.id} className="hover:bg-[var(--hover-surface)]">
+                      <td className="p-2.5 text-[var(--text-muted)] tabular-nums">{i + 1}</td>
+                      <td className="p-2.5"><span className="px-1.5 py-0.5 rounded border hv-pill-indigo font-bold">{a.category}</span></td>
+                      <td className="p-2.5 font-semibold text-[var(--text-primary)]">{a.name}</td>
+                      <td className="p-2.5 text-[var(--text-muted)]">{a.mainGroup || a.subCategory}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums text-[var(--text-primary)]">₹{a.openingBalance.toLocaleString('en-IN')} {a.balanceType}</td>
                     </tr>
                   ))}
                 {entityType === 'SALES' &&
                   previewResult.invoices.slice(0, 50).map((inv, i) => (
-                    <tr key={inv.id} className="hover:bg-slate-900/60">
-                      <td className="p-2.5 text-slate-500 tabular-nums">{i + 1}</td>
-                      <td className="p-2.5"><span className="px-1.5 py-0.5 rounded bg-sky-500/15 text-sky-300 font-bold">SALES</span></td>
-                      <td className="p-2.5 font-semibold text-white">{inv.invoiceNumber} — {inv.partyName}</td>
-                      <td className="p-2.5 font-mono tabular-nums text-slate-300">
+                    <tr key={inv.id} className="hover:bg-[var(--hover-surface)]">
+                      <td className="p-2.5 text-[var(--text-muted)] tabular-nums">{i + 1}</td>
+                      <td className="p-2.5"><span className="px-1.5 py-0.5 rounded border hv-pill-sky font-bold">SALES</span></td>
+                      <td className="p-2.5 font-semibold text-[var(--text-primary)]">{inv.invoiceNumber} — {inv.partyName}</td>
+                      <td className="p-2.5 font-mono tabular-nums text-[var(--text-secondary)]">
                         {inv.date} • Tax ₹{inv.totalTax.toLocaleString('en-IN')}
                         {inv.totalDiscount > 0 ? ` • Disc -₹${inv.totalDiscount.toLocaleString('en-IN')}` : ''}
                       </td>
-                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-white">₹{inv.grandTotal.toLocaleString('en-IN')}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-[var(--text-primary)]">₹{inv.grandTotal.toLocaleString('en-IN')}</td>
                     </tr>
                   ))}
                 {entityType === 'PURCHASES' &&
                   previewResult.purchaseInvoices.slice(0, 50).map((p, i) => (
-                    <tr key={p.id} className="hover:bg-slate-900/60">
-                      <td className="p-2.5 text-slate-500 tabular-nums">{i + 1}</td>
-                      <td className="p-2.5"><span className="px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-300 font-bold">PURCHASE</span></td>
-                      <td className="p-2.5 font-semibold text-white">{p.supplierInvoiceNo} — {p.partyName}</td>
-                      <td className="p-2.5 font-mono tabular-nums text-slate-300">
+                    <tr key={p.id} className="hover:bg-[var(--hover-surface)]">
+                      <td className="p-2.5 text-[var(--text-muted)] tabular-nums">{i + 1}</td>
+                      <td className="p-2.5"><span className="px-1.5 py-0.5 rounded border hv-pill-amber font-bold">PURCHASE</span></td>
+                      <td className="p-2.5 font-semibold text-[var(--text-primary)]">{p.supplierInvoiceNo} — {p.partyName}</td>
+                      <td className="p-2.5 font-mono tabular-nums text-[var(--text-secondary)]">
                         {p.date} • Tax ₹{p.totalTax.toLocaleString('en-IN')}
                         {p.totalDiscount && p.totalDiscount > 0 ? ` • Disc -₹${p.totalDiscount.toLocaleString('en-IN')}` : ''}
                       </td>
-                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-white">₹{p.grandTotal.toLocaleString('en-IN')}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-[var(--text-primary)]">₹{p.grandTotal.toLocaleString('en-IN')}</td>
                     </tr>
                   ))}
                 {entityType === 'VOUCHERS' &&
                   previewResult.vouchers.slice(0, 50).map((v, i) => (
-                    <tr key={v.id} className="hover:bg-slate-900/60">
-                      <td className="p-2.5 text-slate-500 tabular-nums">{i + 1}</td>
-                      <td className="p-2.5"><span className="px-1.5 py-0.5 rounded bg-teal-500/15 text-teal-300 font-bold">{v.type}</span></td>
-                      <td className="p-2.5 font-semibold text-white">{v.voucherNumber}</td>
-                      <td className="p-2.5 text-slate-300 truncate max-w-xs">{v.date} • {v.entries.map((e) => e.accountName).join(' ↔ ')}</td>
-                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-white">₹{v.totalAmount.toLocaleString('en-IN')}</td>
+                    <tr key={v.id} className="hover:bg-[var(--hover-surface)]">
+                      <td className="p-2.5 text-[var(--text-muted)] tabular-nums">{i + 1}</td>
+                      <td className="p-2.5"><span className="px-1.5 py-0.5 rounded border hv-pill-cyan font-bold">{v.type}</span></td>
+                      <td className="p-2.5 font-semibold text-[var(--text-primary)]">{v.voucherNumber}</td>
+                      <td className="p-2.5 text-[var(--text-secondary)] truncate max-w-xs">{v.date} • {v.entries.map((e) => e.accountName).join(' ↔ ')}</td>
+                      <td className="p-2.5 text-right font-mono tabular-nums font-bold text-[var(--text-primary)]">₹{v.totalAmount.toLocaleString('en-IN')}</td>
                     </tr>
                   ))}
               </tbody>

@@ -349,19 +349,19 @@ export const QuickCreateLedgerModal: React.FC<QuickCreateLedgerModalProps> = ({
         if (e.target === e.currentTarget) onClose();
       }}
     >
-      <div className="bg-slate-900 border border-indigo-500/40 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden text-slate-200">
-        <div className="p-4 bg-gradient-to-r from-indigo-950 via-slate-900 to-slate-900 border-b border-slate-800 flex items-center justify-between">
+      <div className="hv-surface border border-indigo-500/40 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden text-[var(--text-primary)]">
+        <div className="p-4 hv-elevated border-b border-[var(--border-primary)] flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 bg-indigo-500/20 border border-indigo-500/30 rounded-xl text-indigo-400">
+            <div className="p-2 hv-pill-indigo border rounded-xl">
               {isCashOrBankOnly ? <Landmark className="w-5 h-5" /> : <BookOpen className="w-5 h-5" />}
             </div>
             <div>
-              <h4 className="text-sm sm:text-base font-extrabold text-white">
+              <h4 className="text-sm sm:text-base font-extrabold text-[var(--text-primary)]">
                 {isCashOrBankOnly
                   ? (isHindi ? 'नया बैंक / कैश लेजर जोड़ें' : 'Quick Create Bank / Cash Ledger')
                   : (isHindi ? 'तुरंत नया लेजर खाता बनाएँ' : 'Quick Create Accounting Ledger')}
               </h4>
-              <p className="text-[11px] text-slate-400">
+              <p className="text-[11px] text-[var(--text-muted)]">
                 {isHindi
                   ? 'Chart of Accounts में जाए बिना यहीं नया लेजर बनाएँ — सेव होते ही वाउचर में चुन लिया जाएगा'
                   : 'Create ledger right here without leaving your voucher — auto-selected on save'}
@@ -371,7 +371,7 @@ export const QuickCreateLedgerModal: React.FC<QuickCreateLedgerModalProps> = ({
           <button
             type="button"
             onClick={onClose}
-            className="p-1.5 text-slate-400 hover:text-white bg-slate-800 rounded-lg"
+            className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text-primary)] bg-[var(--bg-surface)] hover:bg-[var(--hover-surface)] border border-[var(--border-primary)] rounded-lg transition"
           >
             <X className="w-4 h-4" />
           </button>
@@ -379,15 +379,15 @@ export const QuickCreateLedgerModal: React.FC<QuickCreateLedgerModalProps> = ({
 
         <form onSubmit={handleCreateSubmit} className="p-5 space-y-4 text-xs">
           {errorMsg && (
-            <div className="p-3 bg-rose-500/15 border border-rose-500/50 rounded-xl text-rose-200 font-semibold flex items-start gap-2">
-              <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
+            <div className="p-3 hv-pill-rose border rounded-xl font-semibold flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
               <span>{errorMsg}</span>
             </div>
           )}
 
           {isCashOrBankOnly ? (
             <div className="space-y-3">
-              <label className="block text-slate-300 font-bold">
+              <label className="block text-[var(--text-secondary)] font-bold">
                 {isHindi ? 'खाते का प्रकार चुनें (Cash / Bank Type) *' : 'Select Cash / Bank Ledger Type *'}
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -400,8 +400,8 @@ export const QuickCreateLedgerModal: React.FC<QuickCreateLedgerModalProps> = ({
                   }}
                   className={`p-2.5 rounded-xl border font-bold text-center transition flex flex-col items-center gap-1 ${
                     cashBankType === 'BANK'
-                      ? 'bg-indigo-600/20 border-indigo-400 text-indigo-200'
-                      : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                      ? 'hv-pill-indigo'
+                      : 'hv-elevated border-[var(--border-primary)] text-[var(--text-muted)] hover:border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   <Landmark className="w-4 h-4" />
@@ -416,8 +416,8 @@ export const QuickCreateLedgerModal: React.FC<QuickCreateLedgerModalProps> = ({
                   }}
                   className={`p-2.5 rounded-xl border font-bold text-center transition flex flex-col items-center gap-1 ${
                     cashBankType === 'PETTY_CASH'
-                      ? 'bg-emerald-600/20 border-emerald-400 text-emerald-200'
-                      : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                      ? 'hv-pill-emerald'
+                      : 'hv-elevated border-[var(--border-primary)] text-[var(--text-muted)] hover:border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   <Wallet className="w-4 h-4" />
@@ -432,8 +432,8 @@ export const QuickCreateLedgerModal: React.FC<QuickCreateLedgerModalProps> = ({
                   }}
                   className={`p-2.5 rounded-xl border font-bold text-center transition flex flex-col items-center gap-1 ${
                     cashBankType === 'BANK_OD'
-                      ? 'bg-amber-600/20 border-amber-400 text-amber-200'
-                      : 'bg-slate-950 border-slate-800 text-slate-400 hover:border-slate-700'
+                      ? 'hv-pill-amber'
+                      : 'hv-elevated border-[var(--border-primary)] text-[var(--text-muted)] hover:border-[var(--border-subtle)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   <PlusCircle className="w-4 h-4" />
@@ -443,13 +443,13 @@ export const QuickCreateLedgerModal: React.FC<QuickCreateLedgerModalProps> = ({
             </div>
           ) : (
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'लेखांकन ग्रुप (Accounting Group / Nature) *' : 'Accounting Group / Under *'}
               </label>
               <select
                 value={selectedPresetKey}
                 onChange={(e) => handlePresetChange(e.target.value)}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-indigo-300 font-semibold"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-indigo-500 font-semibold"
               >
                 {availablePresets.map(p => (
                   <option key={p.key} value={p.key}>
@@ -461,7 +461,7 @@ export const QuickCreateLedgerModal: React.FC<QuickCreateLedgerModalProps> = ({
           )}
 
           <div>
-            <label className="block text-slate-300 font-bold mb-1">
+            <label className="block text-[var(--text-secondary)] font-bold mb-1">
               {isHindi ? 'लेजर का नाम (Ledger Name) *' : 'Ledger Account Name *'}
             </label>
             <input
@@ -478,14 +478,14 @@ export const QuickCreateLedgerModal: React.FC<QuickCreateLedgerModalProps> = ({
                       ? 'e.g. Rental Income / Commission Received'
                       : 'e.g. Godown Security Exp / Website Hosting Charges')
               }
-              className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-semibold"
+              className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-semibold"
               required
             />
           </div>
 
           {isCashOrBankOnly && cashBankType !== 'PETTY_CASH' && (
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'बैंक खाता संख्या (Bank Account No - Optional)' : 'Bank Account Number (Optional)'}
               </label>
               <input
@@ -493,14 +493,14 @@ export const QuickCreateLedgerModal: React.FC<QuickCreateLedgerModalProps> = ({
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
                 placeholder="e.g. 50200012345678"
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-indigo-300 font-mono"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 text-indigo-500 font-mono"
               />
             </div>
           )}
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'प्रारंभिक शेष (Opening Bal.)' : 'Opening Balance'}
               </label>
               <input
@@ -510,17 +510,17 @@ export const QuickCreateLedgerModal: React.FC<QuickCreateLedgerModalProps> = ({
                 value={openingBalance || ''}
                 placeholder="0.00"
                 onChange={(e) => setOpeningBalance(Number(e.target.value) || 0)}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-mono"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono"
               />
             </div>
             <div>
-              <label className="block text-slate-300 font-bold mb-1">
+              <label className="block text-[var(--text-secondary)] font-bold mb-1">
                 {isHindi ? 'प्रकार (Dr / Cr)' : 'Balance Type (Dr / Cr)'}
               </label>
               <select
                 value={balanceType}
                 onChange={(e) => setBalanceType(e.target.value as 'DR' | 'CR')}
-                className="w-full bg-slate-950 border border-slate-700 rounded-xl p-2.5 text-white font-mono font-bold"
+                className="w-full hv-input border border-[var(--border-subtle)] rounded-xl p-2.5 font-mono font-bold"
               >
                 <option value="DR">DR (Debit / नामे)</option>
                 <option value="CR">CR (Credit / जमा)</option>
@@ -528,17 +528,17 @@ export const QuickCreateLedgerModal: React.FC<QuickCreateLedgerModalProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-[var(--border-primary)]">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-xl"
+              className="px-4 py-2 bg-[var(--bg-elevated)] hover:bg-[var(--hover-surface)] text-[var(--text-secondary)] border border-[var(--border-subtle)] font-semibold rounded-xl transition"
             >
               {isHindi ? 'रद्द करें' : 'Cancel'}
             </button>
             <button
               type="submit"
-              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 flex items-center gap-1.5"
+              className="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 text-white hv-keep-white font-bold rounded-xl shadow-lg shadow-indigo-600/30 flex items-center gap-1.5 transition"
             >
               <CheckCircle2 className="w-4 h-4" />
               <span>{isHindi ? 'लेजर बनाएँ व चुनें' : 'Create & Select Ledger'}</span>
